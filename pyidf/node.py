@@ -1,11 +1,12 @@
 from collections import OrderedDict
+import logging
+import re
 
 class Branch(object):
     """ Corresponds to IDD object `Branch`
         List components on the branch in simulation and connection order
         Note: this should NOT include splitters or mixers which define
         endpoints of branches
-    
     """
     internal_name = "Branch"
     field_count = 58
@@ -73,15 +74,16 @@ class Branch(object):
         self._data["Component 11 Inlet Node Name"] = None
         self._data["Component 11 Outlet Node Name"] = None
         self._data["Component 11 Branch Control Type"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -489,6 +491,7 @@ class Branch(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -515,7 +518,7 @@ class Branch(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -555,12 +558,17 @@ class Branch(object):
                 if value_lower == "autosize":
                     self._data["Maximum Flow Rate"] = "Autosize"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autosize" '
+                                 'for field `maximum_flow_rate`'.format(value))
+                    self._data["Maximum Flow Rate"] = "Autosize"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autosize"'
                                  'for field `maximum_flow_rate`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -598,7 +606,7 @@ class Branch(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `pressure_drop_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -633,7 +641,7 @@ class Branch(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `component_1_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -668,7 +676,7 @@ class Branch(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `component_1_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -703,7 +711,7 @@ class Branch(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `component_1_inlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -738,7 +746,7 @@ class Branch(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `component_1_outlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -774,7 +782,7 @@ class Branch(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `component_1_branch_control_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -809,7 +817,7 @@ class Branch(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `component_2_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -844,7 +852,7 @@ class Branch(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `component_2_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -879,7 +887,7 @@ class Branch(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `component_2_inlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -914,7 +922,7 @@ class Branch(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `component_2_outlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -950,7 +958,7 @@ class Branch(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `component_2_branch_control_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -985,7 +993,7 @@ class Branch(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `component_3_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1020,7 +1028,7 @@ class Branch(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `component_3_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1055,7 +1063,7 @@ class Branch(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `component_3_inlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1090,7 +1098,7 @@ class Branch(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `component_3_outlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1126,7 +1134,7 @@ class Branch(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `component_3_branch_control_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1161,7 +1169,7 @@ class Branch(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `component_4_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1196,7 +1204,7 @@ class Branch(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `component_4_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1231,7 +1239,7 @@ class Branch(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `component_4_inlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1266,7 +1274,7 @@ class Branch(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `component_4_outlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1302,7 +1310,7 @@ class Branch(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `component_4_branch_control_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1337,7 +1345,7 @@ class Branch(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `component_5_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1372,7 +1380,7 @@ class Branch(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `component_5_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1407,7 +1415,7 @@ class Branch(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `component_5_inlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1442,7 +1450,7 @@ class Branch(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `component_5_outlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1478,7 +1486,7 @@ class Branch(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `component_5_branch_control_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1513,7 +1521,7 @@ class Branch(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `component_6_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1548,7 +1556,7 @@ class Branch(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `component_6_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1583,7 +1591,7 @@ class Branch(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `component_6_inlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1618,7 +1626,7 @@ class Branch(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `component_6_outlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1654,7 +1662,7 @@ class Branch(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `component_6_branch_control_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1689,7 +1697,7 @@ class Branch(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `component_7_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1724,7 +1732,7 @@ class Branch(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `component_7_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1759,7 +1767,7 @@ class Branch(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `component_7_inlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1794,7 +1802,7 @@ class Branch(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `component_7_outlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1830,7 +1838,7 @@ class Branch(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `component_7_branch_control_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1865,7 +1873,7 @@ class Branch(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `component_8_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1900,7 +1908,7 @@ class Branch(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `component_8_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1935,7 +1943,7 @@ class Branch(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `component_8_inlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1970,7 +1978,7 @@ class Branch(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `component_8_outlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2006,7 +2014,7 @@ class Branch(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `component_8_branch_control_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2041,7 +2049,7 @@ class Branch(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `component_9_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2076,7 +2084,7 @@ class Branch(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `component_9_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2111,7 +2119,7 @@ class Branch(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `component_9_inlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2146,7 +2154,7 @@ class Branch(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `component_9_outlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2182,7 +2190,7 @@ class Branch(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `component_9_branch_control_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2217,7 +2225,7 @@ class Branch(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `component_10_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2252,7 +2260,7 @@ class Branch(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `component_10_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2287,7 +2295,7 @@ class Branch(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `component_10_inlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2322,7 +2330,7 @@ class Branch(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `component_10_outlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2358,7 +2366,7 @@ class Branch(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `component_10_branch_control_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2393,7 +2401,7 @@ class Branch(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `component_11_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2428,7 +2436,7 @@ class Branch(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `component_11_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2463,7 +2471,7 @@ class Branch(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `component_11_inlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2498,7 +2506,7 @@ class Branch(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `component_11_outlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2534,7 +2542,7 @@ class Branch(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `component_11_branch_control_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2582,7 +2590,6 @@ class ConnectorList(object):
     """ Corresponds to IDD object `ConnectorList`
         only two connectors allowed per loop
         if two entered, one must be Connector:Splitter and one must be Connector:Mixer
-    
     """
     internal_name = "ConnectorList"
     field_count = 5
@@ -2597,15 +2604,16 @@ class ConnectorList(object):
         self._data["Connector 1 Name"] = None
         self._data["Connector 2 Object Type"] = None
         self._data["Connector 2 Name"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -2642,6 +2650,7 @@ class ConnectorList(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -2668,7 +2677,7 @@ class ConnectorList(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2706,7 +2715,7 @@ class ConnectorList(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `connector_1_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2720,16 +2729,26 @@ class ConnectorList(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `connector_1_object_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `connector_1_object_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Connector 1 Object Type"] = value
 
@@ -2758,7 +2777,7 @@ class ConnectorList(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `connector_1_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2796,7 +2815,7 @@ class ConnectorList(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `connector_2_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2810,16 +2829,26 @@ class ConnectorList(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `connector_2_object_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `connector_2_object_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Connector 2 Object Type"] = value
 
@@ -2848,7 +2877,7 @@ class ConnectorList(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `connector_2_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2899,7 +2928,6 @@ class OutdoorAirNode(object):
         specified.  This object may be used more than once.
         The same node name may not appear in both an OutdoorAir:Node object and
         an OutdoorAir:NodeList object.
-    
     """
     internal_name = "OutdoorAir:Node"
     field_count = 2
@@ -2911,15 +2939,16 @@ class OutdoorAirNode(object):
         self._data = OrderedDict()
         self._data["Name"] = None
         self._data["Height Above Ground"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -2935,6 +2964,7 @@ class OutdoorAirNode(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -2961,7 +2991,7 @@ class OutdoorAirNode(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2999,7 +3029,7 @@ class OutdoorAirNode(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `height_above_ground`'.format(value))
         self._data["Height Above Ground"] = value
 
@@ -3040,7 +3070,6 @@ class OutdoorAirNode(object):
 class PipeAdiabatic(object):
     """ Corresponds to IDD object `Pipe:Adiabatic`
         Passes Inlet Node state variables to Outlet Node state variables
-    
     """
     internal_name = "Pipe:Adiabatic"
     field_count = 3
@@ -3053,15 +3082,16 @@ class PipeAdiabatic(object):
         self._data["Name"] = None
         self._data["Inlet Node Name"] = None
         self._data["Outlet Node Name"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -3084,6 +3114,7 @@ class PipeAdiabatic(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -3110,7 +3141,7 @@ class PipeAdiabatic(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3145,7 +3176,7 @@ class PipeAdiabatic(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `inlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3180,7 +3211,7 @@ class PipeAdiabatic(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `outlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3227,7 +3258,6 @@ class PipeAdiabatic(object):
 class PipeAdiabaticSteam(object):
     """ Corresponds to IDD object `Pipe:Adiabatic:Steam`
         Passes Inlet Node state variables to Outlet Node state variables
-    
     """
     internal_name = "Pipe:Adiabatic:Steam"
     field_count = 3
@@ -3240,15 +3270,16 @@ class PipeAdiabaticSteam(object):
         self._data["Name"] = None
         self._data["Inlet Node Name"] = None
         self._data["Outlet Node Name"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -3271,6 +3302,7 @@ class PipeAdiabaticSteam(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -3297,7 +3329,7 @@ class PipeAdiabaticSteam(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3332,7 +3364,7 @@ class PipeAdiabaticSteam(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `inlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3367,7 +3399,7 @@ class PipeAdiabaticSteam(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `outlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3414,7 +3446,6 @@ class PipeAdiabaticSteam(object):
 class PipeIndoor(object):
     """ Corresponds to IDD object `Pipe:Indoor`
         Pipe model with transport delay and heat transfer to the environment.
-    
     """
     internal_name = "Pipe:Indoor"
     field_count = 10
@@ -3434,15 +3465,16 @@ class PipeIndoor(object):
         self._data["Ambient Air Velocity Schedule Name"] = None
         self._data["Pipe Inside Diameter"] = None
         self._data["Pipe Length"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -3514,6 +3546,7 @@ class PipeIndoor(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -3540,7 +3573,7 @@ class PipeIndoor(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3575,7 +3608,7 @@ class PipeIndoor(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `construction_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3610,7 +3643,7 @@ class PipeIndoor(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `fluid_inlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3645,7 +3678,7 @@ class PipeIndoor(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `fluid_outlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3684,7 +3717,7 @@ class PipeIndoor(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `environment_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3698,16 +3731,26 @@ class PipeIndoor(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `environment_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `environment_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Environment Type"] = value
 
@@ -3736,7 +3779,7 @@ class PipeIndoor(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `ambient_temperature_zone_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3771,7 +3814,7 @@ class PipeIndoor(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `ambient_temperature_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3806,7 +3849,7 @@ class PipeIndoor(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `ambient_air_velocity_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3844,7 +3887,7 @@ class PipeIndoor(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `pipe_inside_diameter`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -3878,7 +3921,7 @@ class PipeIndoor(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `pipe_length`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -3922,7 +3965,6 @@ class PipeIndoor(object):
 class PipeOutdoor(object):
     """ Corresponds to IDD object `Pipe:Outdoor`
         Pipe model with transport delay and heat transfer to the environment.
-    
     """
     internal_name = "Pipe:Outdoor"
     field_count = 7
@@ -3939,15 +3981,16 @@ class PipeOutdoor(object):
         self._data["Ambient Temperature Outdoor Air Node Name"] = None
         self._data["Pipe Inside Diameter"] = None
         self._data["Pipe Length"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -3998,6 +4041,7 @@ class PipeOutdoor(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -4024,7 +4068,7 @@ class PipeOutdoor(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4059,7 +4103,7 @@ class PipeOutdoor(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `construction_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4094,7 +4138,7 @@ class PipeOutdoor(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `fluid_inlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4129,7 +4173,7 @@ class PipeOutdoor(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `fluid_outlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4164,7 +4208,7 @@ class PipeOutdoor(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `ambient_temperature_outdoor_air_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4202,7 +4246,7 @@ class PipeOutdoor(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `pipe_inside_diameter`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -4236,7 +4280,7 @@ class PipeOutdoor(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `pipe_length`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -4282,7 +4326,6 @@ class PipeUnderground(object):
         Buried Pipe model: For pipes buried at a depth less
         than one meter, this is an alternative object to:
         HeatExchanger:Surface
-    
     """
     internal_name = "Pipe:Underground"
     field_count = 11
@@ -4303,15 +4346,16 @@ class PipeUnderground(object):
         self._data["Average Soil Surface Temperature"] = None
         self._data["Amplitude of Soil Surface Temperature"] = None
         self._data["Phase Constant of Soil Surface Temperature"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -4390,6 +4434,7 @@ class PipeUnderground(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -4416,7 +4461,7 @@ class PipeUnderground(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4451,7 +4496,7 @@ class PipeUnderground(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `construction_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4486,7 +4531,7 @@ class PipeUnderground(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `fluid_inlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4521,7 +4566,7 @@ class PipeUnderground(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `fluid_outlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4559,7 +4604,7 @@ class PipeUnderground(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `sun_exposure`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4573,16 +4618,26 @@ class PipeUnderground(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `sun_exposure`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `sun_exposure`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Sun Exposure"] = value
 
@@ -4615,7 +4670,7 @@ class PipeUnderground(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `pipe_inside_diameter`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -4649,7 +4704,7 @@ class PipeUnderground(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `pipe_length`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -4681,7 +4736,7 @@ class PipeUnderground(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `soil_material_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4719,7 +4774,7 @@ class PipeUnderground(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `average_soil_surface_temperature`'.format(value))
         self._data["Average Soil Surface Temperature"] = value
 
@@ -4752,7 +4807,7 @@ class PipeUnderground(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `amplitude_of_soil_surface_temperature`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -4788,7 +4843,7 @@ class PipeUnderground(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `phase_constant_of_soil_surface_temperature`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -4832,7 +4887,6 @@ class PipeUnderground(object):
 class PipingSystemUndergroundDomain(object):
     """ Corresponds to IDD object `PipingSystem:Underground:Domain`
         The ground domain object for underground piping system simulation.
-    
     """
     internal_name = "PipingSystem:Underground:Domain"
     field_count = 37
@@ -4879,15 +4933,16 @@ class PipingSystemUndergroundDomain(object):
         self._data["Pipe Circuit 4"] = None
         self._data["Pipe Circuit 5"] = None
         self._data["Pipe Circuit 6"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -5148,6 +5203,7 @@ class PipingSystemUndergroundDomain(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -5174,7 +5230,7 @@ class PipingSystemUndergroundDomain(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -5212,7 +5268,7 @@ class PipingSystemUndergroundDomain(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `xmax`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -5247,7 +5303,7 @@ class PipingSystemUndergroundDomain(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `ymax`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -5282,7 +5338,7 @@ class PipingSystemUndergroundDomain(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `zmax`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -5317,8 +5373,15 @@ class PipingSystemUndergroundDomain(object):
             try:
                 value = int(value)
             except ValueError:
-                raise ValueError('value {} need to be of type int '
-                                 'for field `xdirection_mesh_density_parameter`'.format(value))
+                if not self.strict:
+                    try:
+                        conv_value = int(float(value))
+                        logging.warn('Cast float {} to int {}, precision may be lost '
+                                     'for field `xdirection_mesh_density_parameter`'.format(value, conv_value))
+                        value = conv_value
+                    except ValueError:
+                        raise ValueError('value {} need to be of type int '
+                                         'for field `xdirection_mesh_density_parameter`'.format(value))
             if value <= 0:
                 raise ValueError('value need to be greater 0 '
                                  'for field `xdirection_mesh_density_parameter`')
@@ -5352,7 +5415,7 @@ class PipingSystemUndergroundDomain(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `xdirection_mesh_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -5366,16 +5429,26 @@ class PipingSystemUndergroundDomain(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `xdirection_mesh_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `xdirection_mesh_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["X-Direction Mesh Type"] = value
 
@@ -5409,7 +5482,7 @@ class PipingSystemUndergroundDomain(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `xdirection_geometric_coefficient`'.format(value))
             if value < 1.0:
                 raise ValueError('value need to be greater or equal 1.0 '
@@ -5447,8 +5520,15 @@ class PipingSystemUndergroundDomain(object):
             try:
                 value = int(value)
             except ValueError:
-                raise ValueError('value {} need to be of type int '
-                                 'for field `ydirection_mesh_density_parameter`'.format(value))
+                if not self.strict:
+                    try:
+                        conv_value = int(float(value))
+                        logging.warn('Cast float {} to int {}, precision may be lost '
+                                     'for field `ydirection_mesh_density_parameter`'.format(value, conv_value))
+                        value = conv_value
+                    except ValueError:
+                        raise ValueError('value {} need to be of type int '
+                                         'for field `ydirection_mesh_density_parameter`'.format(value))
             if value <= 0:
                 raise ValueError('value need to be greater 0 '
                                  'for field `ydirection_mesh_density_parameter`')
@@ -5482,7 +5562,7 @@ class PipingSystemUndergroundDomain(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `ydirection_mesh_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -5496,16 +5576,26 @@ class PipingSystemUndergroundDomain(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `ydirection_mesh_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `ydirection_mesh_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Y-Direction Mesh Type"] = value
 
@@ -5539,7 +5629,7 @@ class PipingSystemUndergroundDomain(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `ydirection_geometric_coefficient`'.format(value))
             if value < 1.0:
                 raise ValueError('value need to be greater or equal 1.0 '
@@ -5577,8 +5667,15 @@ class PipingSystemUndergroundDomain(object):
             try:
                 value = int(value)
             except ValueError:
-                raise ValueError('value {} need to be of type int '
-                                 'for field `zdirection_mesh_density_parameter`'.format(value))
+                if not self.strict:
+                    try:
+                        conv_value = int(float(value))
+                        logging.warn('Cast float {} to int {}, precision may be lost '
+                                     'for field `zdirection_mesh_density_parameter`'.format(value, conv_value))
+                        value = conv_value
+                    except ValueError:
+                        raise ValueError('value {} need to be of type int '
+                                         'for field `zdirection_mesh_density_parameter`'.format(value))
             if value <= 0:
                 raise ValueError('value need to be greater 0 '
                                  'for field `zdirection_mesh_density_parameter`')
@@ -5612,7 +5709,7 @@ class PipingSystemUndergroundDomain(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `zdirection_mesh_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -5626,16 +5723,26 @@ class PipingSystemUndergroundDomain(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `zdirection_mesh_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `zdirection_mesh_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Z-Direction Mesh Type"] = value
 
@@ -5669,7 +5776,7 @@ class PipingSystemUndergroundDomain(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `zdirection_geometric_coefficient`'.format(value))
             if value < 1.0:
                 raise ValueError('value need to be greater or equal 1.0 '
@@ -5706,7 +5813,7 @@ class PipingSystemUndergroundDomain(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `soil_thermal_conductivity`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -5740,7 +5847,7 @@ class PipingSystemUndergroundDomain(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `soil_density`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -5776,7 +5883,7 @@ class PipingSystemUndergroundDomain(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `soil_specific_heat`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -5812,7 +5919,7 @@ class PipingSystemUndergroundDomain(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `soil_moisture_content_volume_fraction`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -5851,7 +5958,7 @@ class PipingSystemUndergroundDomain(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `soil_moisture_content_volume_fraction_at_saturation`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -5887,7 +5994,7 @@ class PipingSystemUndergroundDomain(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `kusudaachenbach_average_surface_temperature`'.format(value))
         self._data["Kusuda-Achenbach Average Surface Temperature"] = value
 
@@ -5917,7 +6024,7 @@ class PipingSystemUndergroundDomain(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `kusudaachenbach_average_amplitude_of_surface_temperature`'.format(value))
         self._data["Kusuda-Achenbach Average Amplitude of Surface Temperature"] = value
 
@@ -5947,7 +6054,7 @@ class PipingSystemUndergroundDomain(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `kusudaachenbach_phase_shift_of_minimum_surface_temperature`'.format(value))
         self._data["Kusuda-Achenbach Phase Shift of Minimum Surface Temperature"] = value
 
@@ -5982,7 +6089,7 @@ class PipingSystemUndergroundDomain(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `this_domain_includes_basement_surface_interaction`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -5996,16 +6103,26 @@ class PipingSystemUndergroundDomain(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `this_domain_includes_basement_surface_interaction`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `this_domain_includes_basement_surface_interaction`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["This Domain Includes Basement Surface Interaction"] = value
 
@@ -6036,7 +6153,7 @@ class PipingSystemUndergroundDomain(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `width_of_basement_floor_in_ground_domain`'.format(value))
         self._data["Width of Basement Floor in Ground Domain"] = value
 
@@ -6067,7 +6184,7 @@ class PipingSystemUndergroundDomain(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `depth_of_basement_wall_in_ground_domain`'.format(value))
         self._data["Depth of Basement Wall In Ground Domain"] = value
 
@@ -6100,7 +6217,7 @@ class PipingSystemUndergroundDomain(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `shift_pipe_x_coordinates_by_basement_width`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -6114,16 +6231,26 @@ class PipingSystemUndergroundDomain(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `shift_pipe_x_coordinates_by_basement_width`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `shift_pipe_x_coordinates_by_basement_width`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Shift Pipe X Coordinates By Basement Width"] = value
 
@@ -6153,7 +6280,7 @@ class PipingSystemUndergroundDomain(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name_of_basement_wall_boundary_condition_model`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -6189,7 +6316,7 @@ class PipingSystemUndergroundDomain(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name_of_basement_floor_boundary_condition_model`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -6228,7 +6355,7 @@ class PipingSystemUndergroundDomain(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `convergence_criterion_for_the_outer_cartesian_domain_iteration_loop`'.format(value))
             if value < 1e-06:
                 raise ValueError('value need to be greater or equal 1e-06 '
@@ -6266,8 +6393,15 @@ class PipingSystemUndergroundDomain(object):
             try:
                 value = int(value)
             except ValueError:
-                raise ValueError('value {} need to be of type int '
-                                 'for field `maximum_iterations_in_the_outer_cartesian_domain_iteration_loop`'.format(value))
+                if not self.strict:
+                    try:
+                        conv_value = int(float(value))
+                        logging.warn('Cast float {} to int {}, precision may be lost '
+                                     'for field `maximum_iterations_in_the_outer_cartesian_domain_iteration_loop`'.format(value, conv_value))
+                        value = conv_value
+                    except ValueError:
+                        raise ValueError('value {} need to be of type int '
+                                         'for field `maximum_iterations_in_the_outer_cartesian_domain_iteration_loop`'.format(value))
             if value < 3:
                 raise ValueError('value need to be greater or equal 3 '
                                  'for field `maximum_iterations_in_the_outer_cartesian_domain_iteration_loop`')
@@ -6310,7 +6444,7 @@ class PipingSystemUndergroundDomain(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `evapotranspiration_ground_cover_parameter`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -6346,8 +6480,15 @@ class PipingSystemUndergroundDomain(object):
             try:
                 value = int(value)
             except ValueError:
-                raise ValueError('value {} need to be of type int '
-                                 'for field `number_of_pipe_circuits_entered_for_this_domain`'.format(value))
+                if not self.strict:
+                    try:
+                        conv_value = int(float(value))
+                        logging.warn('Cast float {} to int {}, precision may be lost '
+                                     'for field `number_of_pipe_circuits_entered_for_this_domain`'.format(value, conv_value))
+                        value = conv_value
+                    except ValueError:
+                        raise ValueError('value {} need to be of type int '
+                                         'for field `number_of_pipe_circuits_entered_for_this_domain`'.format(value))
             if value < 1:
                 raise ValueError('value need to be greater or equal 1 '
                                  'for field `number_of_pipe_circuits_entered_for_this_domain`')
@@ -6379,7 +6520,7 @@ class PipingSystemUndergroundDomain(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `pipe_circuit_1`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -6416,7 +6557,7 @@ class PipingSystemUndergroundDomain(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `pipe_circuit_2`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -6453,7 +6594,7 @@ class PipingSystemUndergroundDomain(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `pipe_circuit_3`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -6490,7 +6631,7 @@ class PipingSystemUndergroundDomain(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `pipe_circuit_4`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -6527,7 +6668,7 @@ class PipingSystemUndergroundDomain(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `pipe_circuit_5`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -6564,7 +6705,7 @@ class PipingSystemUndergroundDomain(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `pipe_circuit_6`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -6613,7 +6754,6 @@ class PipingSystemUndergroundPipeCircuit(object):
         The pipe circuit object in an underground piping system.
         This object is simulated within an underground piping domain object
         and connected on a branch on a plant loop.
-    
     """
     internal_name = "PipingSystem:Underground:PipeCircuit"
     field_count = 20
@@ -6643,15 +6783,16 @@ class PipingSystemUndergroundPipeCircuit(object):
         self._data["Pipe Segment 4"] = None
         self._data["Pipe Segment 5"] = None
         self._data["Pipe Segment 6"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -6793,6 +6934,7 @@ class PipingSystemUndergroundPipeCircuit(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -6819,7 +6961,7 @@ class PipingSystemUndergroundPipeCircuit(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -6856,7 +6998,7 @@ class PipingSystemUndergroundPipeCircuit(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `pipe_thermal_conductivity`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -6890,7 +7032,7 @@ class PipingSystemUndergroundPipeCircuit(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `pipe_density`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -6924,7 +7066,7 @@ class PipingSystemUndergroundPipeCircuit(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `pipe_specific_heat`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -6958,7 +7100,7 @@ class PipingSystemUndergroundPipeCircuit(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `pipe_inner_diameter`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -6992,7 +7134,7 @@ class PipingSystemUndergroundPipeCircuit(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `pipe_outer_diameter`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -7026,7 +7168,7 @@ class PipingSystemUndergroundPipeCircuit(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `design_flow_rate`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -7058,7 +7200,7 @@ class PipingSystemUndergroundPipeCircuit(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `circuit_inlet_node`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -7093,7 +7235,7 @@ class PipingSystemUndergroundPipeCircuit(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `circuit_outlet_node`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -7132,7 +7274,7 @@ class PipingSystemUndergroundPipeCircuit(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `convergence_criterion_for_the_inner_radial_iteration_loop`'.format(value))
             if value < 1e-06:
                 raise ValueError('value need to be greater or equal 1e-06 '
@@ -7170,8 +7312,15 @@ class PipingSystemUndergroundPipeCircuit(object):
             try:
                 value = int(value)
             except ValueError:
-                raise ValueError('value {} need to be of type int '
-                                 'for field `maximum_iterations_in_the_inner_radial_iteration_loop`'.format(value))
+                if not self.strict:
+                    try:
+                        conv_value = int(float(value))
+                        logging.warn('Cast float {} to int {}, precision may be lost '
+                                     'for field `maximum_iterations_in_the_inner_radial_iteration_loop`'.format(value, conv_value))
+                        value = conv_value
+                    except ValueError:
+                        raise ValueError('value {} need to be of type int '
+                                         'for field `maximum_iterations_in_the_inner_radial_iteration_loop`'.format(value))
             if value < 3:
                 raise ValueError('value need to be greater or equal 3 '
                                  'for field `maximum_iterations_in_the_inner_radial_iteration_loop`')
@@ -7208,8 +7357,15 @@ class PipingSystemUndergroundPipeCircuit(object):
             try:
                 value = int(value)
             except ValueError:
-                raise ValueError('value {} need to be of type int '
-                                 'for field `number_of_soil_nodes_in_the_inner_radial_near_pipe_mesh_region`'.format(value))
+                if not self.strict:
+                    try:
+                        conv_value = int(float(value))
+                        logging.warn('Cast float {} to int {}, precision may be lost '
+                                     'for field `number_of_soil_nodes_in_the_inner_radial_near_pipe_mesh_region`'.format(value, conv_value))
+                        value = conv_value
+                    except ValueError:
+                        raise ValueError('value {} need to be of type int '
+                                         'for field `number_of_soil_nodes_in_the_inner_radial_near_pipe_mesh_region`'.format(value))
             if value < 1:
                 raise ValueError('value need to be greater or equal 1 '
                                  'for field `number_of_soil_nodes_in_the_inner_radial_near_pipe_mesh_region`')
@@ -7246,7 +7402,7 @@ class PipingSystemUndergroundPipeCircuit(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `radial_thickness_of_inner_radial_near_pipe_mesh_region`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -7279,8 +7435,15 @@ class PipingSystemUndergroundPipeCircuit(object):
             try:
                 value = int(value)
             except ValueError:
-                raise ValueError('value {} need to be of type int '
-                                 'for field `number_of_pipe_segments_entered_for_this_pipe_circuit`'.format(value))
+                if not self.strict:
+                    try:
+                        conv_value = int(float(value))
+                        logging.warn('Cast float {} to int {}, precision may be lost '
+                                     'for field `number_of_pipe_segments_entered_for_this_pipe_circuit`'.format(value, conv_value))
+                        value = conv_value
+                    except ValueError:
+                        raise ValueError('value {} need to be of type int '
+                                         'for field `number_of_pipe_segments_entered_for_this_pipe_circuit`'.format(value))
             if value < 1:
                 raise ValueError('value need to be greater or equal 1 '
                                  'for field `number_of_pipe_segments_entered_for_this_pipe_circuit`')
@@ -7312,7 +7475,7 @@ class PipingSystemUndergroundPipeCircuit(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `pipe_segment_1`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -7349,7 +7512,7 @@ class PipingSystemUndergroundPipeCircuit(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `pipe_segment_2`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -7386,7 +7549,7 @@ class PipingSystemUndergroundPipeCircuit(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `pipe_segment_3`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -7423,7 +7586,7 @@ class PipingSystemUndergroundPipeCircuit(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `pipe_segment_4`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -7460,7 +7623,7 @@ class PipingSystemUndergroundPipeCircuit(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `pipe_segment_5`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -7497,7 +7660,7 @@ class PipingSystemUndergroundPipeCircuit(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `pipe_segment_6`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -7546,7 +7709,6 @@ class PipingSystemUndergroundPipeSegment(object):
         The pipe segment to be used in an underground piping system
         This object represents a single pipe leg positioned axially
         in the local z-direction, at a given x, y location in the domain
-    
     """
     internal_name = "PipingSystem:Underground:PipeSegment"
     field_count = 4
@@ -7560,15 +7722,16 @@ class PipingSystemUndergroundPipeSegment(object):
         self._data["X Position"] = None
         self._data["Y Position"] = None
         self._data["Flow Direction"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -7598,6 +7761,7 @@ class PipingSystemUndergroundPipeSegment(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -7624,7 +7788,7 @@ class PipingSystemUndergroundPipeSegment(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -7665,7 +7829,7 @@ class PipingSystemUndergroundPipeSegment(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `x_position`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -7702,7 +7866,7 @@ class PipingSystemUndergroundPipeSegment(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `y_position`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -7740,7 +7904,7 @@ class PipingSystemUndergroundPipeSegment(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `flow_direction`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -7754,16 +7918,26 @@ class PipingSystemUndergroundPipeSegment(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `flow_direction`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `flow_direction`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Flow Direction"] = value
 
@@ -7804,7 +7978,6 @@ class PipingSystemUndergroundPipeSegment(object):
 class Duct(object):
     """ Corresponds to IDD object `Duct`
         Passes inlet node state variables to outlet node state variables
-    
     """
     internal_name = "Duct"
     field_count = 3
@@ -7817,15 +7990,16 @@ class Duct(object):
         self._data["Name"] = None
         self._data["Inlet Node Name"] = None
         self._data["Outlet Node Name"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -7848,6 +8022,7 @@ class Duct(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -7874,7 +8049,7 @@ class Duct(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -7909,7 +8084,7 @@ class Duct(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `inlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -7944,7 +8119,7 @@ class Duct(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `outlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '

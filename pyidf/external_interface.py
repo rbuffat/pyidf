@@ -1,4 +1,6 @@
 from collections import OrderedDict
+import logging
+import re
 
 class ExternalInterface(object):
     """ Corresponds to IDD object `ExternalInterface`
@@ -8,7 +10,6 @@ class ExternalInterface(object):
         If this object is not present, then the values of these objects will be fixed at the
         value declared in the "initial value" field of the corresponding object, and a
         warning will be written to the EnergyPlus error file.
-    
     """
     internal_name = "ExternalInterface"
     field_count = 1
@@ -19,15 +20,16 @@ class ExternalInterface(object):
         """
         self._data = OrderedDict()
         self._data["Name of External Interface"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name_of_external_interface = None
@@ -36,6 +38,7 @@ class ExternalInterface(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name_of_external_interface(self):
@@ -68,7 +71,7 @@ class ExternalInterface(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name_of_external_interface`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -83,16 +86,26 @@ class ExternalInterface(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `name_of_external_interface`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `name_of_external_interface`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Name of External Interface"] = value
 
@@ -134,7 +147,6 @@ class ExternalInterfaceSchedule(object):
     """ Corresponds to IDD object `ExternalInterface:Schedule`
         A ExternalInterface:Schedule contains only one value,
         which is used during the warm-up period and the system sizing.
-    
     """
     internal_name = "ExternalInterface:Schedule"
     field_count = 3
@@ -147,15 +159,16 @@ class ExternalInterfaceSchedule(object):
         self._data["Name"] = None
         self._data["Schedule Type Limits Name"] = None
         self._data["Initial Value"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -178,6 +191,7 @@ class ExternalInterfaceSchedule(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -204,7 +218,7 @@ class ExternalInterfaceSchedule(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -239,7 +253,7 @@ class ExternalInterfaceSchedule(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `schedule_type_limits_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -275,7 +289,7 @@ class ExternalInterfaceSchedule(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `initial_value`'.format(value))
         self._data["Initial Value"] = value
 
@@ -320,7 +334,6 @@ class ExternalInterfaceVariable(object):
         external interface. During the warm-up period and the system sizing, its value
         is set to the value specified by the field "initial value." This object can be used
         to move data into Erl subroutines.
-    
     """
     internal_name = "ExternalInterface:Variable"
     field_count = 2
@@ -332,15 +345,16 @@ class ExternalInterfaceVariable(object):
         self._data = OrderedDict()
         self._data["Name"] = None
         self._data["Initial Value"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -356,6 +370,7 @@ class ExternalInterfaceVariable(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -384,7 +399,7 @@ class ExternalInterfaceVariable(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -420,7 +435,7 @@ class ExternalInterfaceVariable(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `initial_value`'.format(value))
         self._data["Initial Value"] = value
 
@@ -461,7 +476,6 @@ class ExternalInterfaceVariable(object):
 class ExternalInterfaceActuator(object):
     """ Corresponds to IDD object `ExternalInterface:Actuator`
         Hardware portion of EMS used to set up actuators in the model
-    
     """
     internal_name = "ExternalInterface:Actuator"
     field_count = 5
@@ -476,15 +490,16 @@ class ExternalInterfaceActuator(object):
         self._data["Actuated Component Type"] = None
         self._data["Actuated Component Control Type"] = None
         self._data["Optional Initial Value"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -521,6 +536,7 @@ class ExternalInterfaceActuator(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -549,7 +565,7 @@ class ExternalInterfaceActuator(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -584,7 +600,7 @@ class ExternalInterfaceActuator(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `actuated_component_unique_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -619,7 +635,7 @@ class ExternalInterfaceActuator(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `actuated_component_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -654,7 +670,7 @@ class ExternalInterfaceActuator(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `actuated_component_control_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -692,7 +708,7 @@ class ExternalInterfaceActuator(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `optional_initial_value`'.format(value))
         self._data["Optional Initial Value"] = value
 
@@ -733,7 +749,6 @@ class ExternalInterfaceActuator(object):
 class ExternalInterfaceFunctionalMockupUnitImport(object):
     """ Corresponds to IDD object `ExternalInterface:FunctionalMockupUnitImport`
         This object declares an FMU
-    
     """
     internal_name = "ExternalInterface:FunctionalMockupUnitImport"
     field_count = 3
@@ -746,15 +761,16 @@ class ExternalInterfaceFunctionalMockupUnitImport(object):
         self._data["FMU File Name"] = None
         self._data["FMU Timeout"] = None
         self._data["FMU LoggingOn"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.fmu_file_name = None
@@ -777,6 +793,7 @@ class ExternalInterfaceFunctionalMockupUnitImport(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def fmu_file_name(self):
@@ -803,7 +820,7 @@ class ExternalInterfaceFunctionalMockupUnitImport(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `fmu_file_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -841,7 +858,7 @@ class ExternalInterfaceFunctionalMockupUnitImport(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fmu_timeout`'.format(value))
         self._data["FMU Timeout"] = value
 
@@ -871,8 +888,15 @@ class ExternalInterfaceFunctionalMockupUnitImport(object):
             try:
                 value = int(value)
             except ValueError:
-                raise ValueError('value {} need to be of type int '
-                                 'for field `fmu_loggingon`'.format(value))
+                if not self.strict:
+                    try:
+                        conv_value = int(float(value))
+                        logging.warn('Cast float {} to int {}, precision may be lost '
+                                     'for field `fmu_loggingon`'.format(value, conv_value))
+                        value = conv_value
+                    except ValueError:
+                        raise ValueError('value {} need to be of type int '
+                                         'for field `fmu_loggingon`'.format(value))
         self._data["FMU LoggingOn"] = value
 
     def check(self):
@@ -912,7 +936,6 @@ class ExternalInterfaceFunctionalMockupUnitImport(object):
 class ExternalInterfaceFunctionalMockupUnitImportFromVariable(object):
     """ Corresponds to IDD object `ExternalInterface:FunctionalMockupUnitImport:From:Variable`
         This object declares an FMU input variable
-    
     """
     internal_name = "ExternalInterface:FunctionalMockupUnitImport:From:Variable"
     field_count = 5
@@ -927,15 +950,16 @@ class ExternalInterfaceFunctionalMockupUnitImportFromVariable(object):
         self._data["FMU File Name"] = None
         self._data["FMU Instance Name"] = None
         self._data["FMU Variable Name"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.outputvariable_index_key_name = None
@@ -972,6 +996,7 @@ class ExternalInterfaceFunctionalMockupUnitImportFromVariable(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def outputvariable_index_key_name(self):
@@ -998,7 +1023,7 @@ class ExternalInterfaceFunctionalMockupUnitImportFromVariable(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `outputvariable_index_key_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1033,7 +1058,7 @@ class ExternalInterfaceFunctionalMockupUnitImportFromVariable(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `outputvariable_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1068,7 +1093,7 @@ class ExternalInterfaceFunctionalMockupUnitImportFromVariable(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `fmu_file_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1103,7 +1128,7 @@ class ExternalInterfaceFunctionalMockupUnitImportFromVariable(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `fmu_instance_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1138,7 +1163,7 @@ class ExternalInterfaceFunctionalMockupUnitImportFromVariable(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `fmu_variable_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1186,7 +1211,6 @@ class ExternalInterfaceFunctionalMockupUnitImportToSchedule(object):
     """ Corresponds to IDD object `ExternalInterface:FunctionalMockupUnitImport:To:Schedule`
         This objects contains only one value, which is used during the first
         call of EnergyPlus
-    
     """
     internal_name = "ExternalInterface:FunctionalMockupUnitImport:To:Schedule"
     field_count = 6
@@ -1202,15 +1226,16 @@ class ExternalInterfaceFunctionalMockupUnitImportToSchedule(object):
         self._data["FMU Instance Name"] = None
         self._data["FMU Variable Name"] = None
         self._data["Initial Value"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -1254,6 +1279,7 @@ class ExternalInterfaceFunctionalMockupUnitImportToSchedule(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -1280,7 +1306,7 @@ class ExternalInterfaceFunctionalMockupUnitImportToSchedule(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1315,7 +1341,7 @@ class ExternalInterfaceFunctionalMockupUnitImportToSchedule(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `schedule_type_limits_names`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1350,7 +1376,7 @@ class ExternalInterfaceFunctionalMockupUnitImportToSchedule(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `fmu_file_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1385,7 +1411,7 @@ class ExternalInterfaceFunctionalMockupUnitImportToSchedule(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `fmu_instance_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1420,7 +1446,7 @@ class ExternalInterfaceFunctionalMockupUnitImportToSchedule(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `fmu_variable_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1456,7 +1482,7 @@ class ExternalInterfaceFunctionalMockupUnitImportToSchedule(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `initial_value`'.format(value))
         self._data["Initial Value"] = value
 
@@ -1498,7 +1524,6 @@ class ExternalInterfaceFunctionalMockupUnitImportToActuator(object):
     """ Corresponds to IDD object `ExternalInterface:FunctionalMockupUnitImport:To:Actuator`
         Hardware portion of EMS used to set up actuators in the model
         that are dynamically updated from the FMU.
-    
     """
     internal_name = "ExternalInterface:FunctionalMockupUnitImport:To:Actuator"
     field_count = 8
@@ -1516,15 +1541,16 @@ class ExternalInterfaceFunctionalMockupUnitImportToActuator(object):
         self._data["FMU Instance Name"] = None
         self._data["FMU Variable Name"] = None
         self._data["Initial Value"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -1582,6 +1608,7 @@ class ExternalInterfaceFunctionalMockupUnitImportToActuator(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -1610,7 +1637,7 @@ class ExternalInterfaceFunctionalMockupUnitImportToActuator(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1645,7 +1672,7 @@ class ExternalInterfaceFunctionalMockupUnitImportToActuator(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `actuated_component_unique_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1680,7 +1707,7 @@ class ExternalInterfaceFunctionalMockupUnitImportToActuator(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `actuated_component_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1715,7 +1742,7 @@ class ExternalInterfaceFunctionalMockupUnitImportToActuator(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `actuated_component_control_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1750,7 +1777,7 @@ class ExternalInterfaceFunctionalMockupUnitImportToActuator(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `fmu_file_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1785,7 +1812,7 @@ class ExternalInterfaceFunctionalMockupUnitImportToActuator(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `fmu_instance_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1820,7 +1847,7 @@ class ExternalInterfaceFunctionalMockupUnitImportToActuator(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `fmu_variable_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1856,7 +1883,7 @@ class ExternalInterfaceFunctionalMockupUnitImportToActuator(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `initial_value`'.format(value))
         self._data["Initial Value"] = value
 
@@ -1898,7 +1925,6 @@ class ExternalInterfaceFunctionalMockupUnitImportToVariable(object):
     """ Corresponds to IDD object `ExternalInterface:FunctionalMockupUnitImport:To:Variable`
         Declares Erl variable as having global scope
         No spaces allowed in names used for Erl variables
-    
     """
     internal_name = "ExternalInterface:FunctionalMockupUnitImport:To:Variable"
     field_count = 5
@@ -1913,15 +1939,16 @@ class ExternalInterfaceFunctionalMockupUnitImportToVariable(object):
         self._data["FMU Instance Name"] = None
         self._data["FMU Variable Name"] = None
         self._data["Initial Value"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -1958,6 +1985,7 @@ class ExternalInterfaceFunctionalMockupUnitImportToVariable(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -1986,7 +2014,7 @@ class ExternalInterfaceFunctionalMockupUnitImportToVariable(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2021,7 +2049,7 @@ class ExternalInterfaceFunctionalMockupUnitImportToVariable(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `fmu_file_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2056,7 +2084,7 @@ class ExternalInterfaceFunctionalMockupUnitImportToVariable(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `fmu_instance_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2091,7 +2119,7 @@ class ExternalInterfaceFunctionalMockupUnitImportToVariable(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `fmu_variable_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2127,7 +2155,7 @@ class ExternalInterfaceFunctionalMockupUnitImportToVariable(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `initial_value`'.format(value))
         self._data["Initial Value"] = value
 
@@ -2168,7 +2196,6 @@ class ExternalInterfaceFunctionalMockupUnitImportToVariable(object):
 class ExternalInterfaceFunctionalMockupUnitExportFromVariable(object):
     """ Corresponds to IDD object `ExternalInterface:FunctionalMockupUnitExport:From:Variable`
         This object declares an FMU input variable
-    
     """
     internal_name = "ExternalInterface:FunctionalMockupUnitExport:From:Variable"
     field_count = 3
@@ -2181,15 +2208,16 @@ class ExternalInterfaceFunctionalMockupUnitExportFromVariable(object):
         self._data["Output:Variable Index Key Name"] = None
         self._data["Output:Variable Name"] = None
         self._data["FMU Variable Name"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.outputvariable_index_key_name = None
@@ -2212,6 +2240,7 @@ class ExternalInterfaceFunctionalMockupUnitExportFromVariable(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def outputvariable_index_key_name(self):
@@ -2238,7 +2267,7 @@ class ExternalInterfaceFunctionalMockupUnitExportFromVariable(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `outputvariable_index_key_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2273,7 +2302,7 @@ class ExternalInterfaceFunctionalMockupUnitExportFromVariable(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `outputvariable_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2308,7 +2337,7 @@ class ExternalInterfaceFunctionalMockupUnitExportFromVariable(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `fmu_variable_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2356,7 +2385,6 @@ class ExternalInterfaceFunctionalMockupUnitExportToSchedule(object):
     """ Corresponds to IDD object `ExternalInterface:FunctionalMockupUnitExport:To:Schedule`
         This objects contains only one value, which is used during the first
         call of EnergyPlus
-    
     """
     internal_name = "ExternalInterface:FunctionalMockupUnitExport:To:Schedule"
     field_count = 4
@@ -2370,15 +2398,16 @@ class ExternalInterfaceFunctionalMockupUnitExportToSchedule(object):
         self._data["Schedule Type Limits Names"] = None
         self._data["FMU Variable Name"] = None
         self._data["Initial Value"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.schedule_name = None
@@ -2408,6 +2437,7 @@ class ExternalInterfaceFunctionalMockupUnitExportToSchedule(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def schedule_name(self):
@@ -2434,7 +2464,7 @@ class ExternalInterfaceFunctionalMockupUnitExportToSchedule(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2469,7 +2499,7 @@ class ExternalInterfaceFunctionalMockupUnitExportToSchedule(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `schedule_type_limits_names`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2504,7 +2534,7 @@ class ExternalInterfaceFunctionalMockupUnitExportToSchedule(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `fmu_variable_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2540,7 +2570,7 @@ class ExternalInterfaceFunctionalMockupUnitExportToSchedule(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `initial_value`'.format(value))
         self._data["Initial Value"] = value
 
@@ -2582,7 +2612,6 @@ class ExternalInterfaceFunctionalMockupUnitExportToActuator(object):
     """ Corresponds to IDD object `ExternalInterface:FunctionalMockupUnitExport:To:Actuator`
         Hardware portion of EMS used to set up actuators in the model
         that are dynamically updated from the FMU.
-    
     """
     internal_name = "ExternalInterface:FunctionalMockupUnitExport:To:Actuator"
     field_count = 6
@@ -2598,15 +2627,16 @@ class ExternalInterfaceFunctionalMockupUnitExportToActuator(object):
         self._data["Actuated Component Control Type"] = None
         self._data["FMU Variable Name"] = None
         self._data["Initial Value"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -2650,6 +2680,7 @@ class ExternalInterfaceFunctionalMockupUnitExportToActuator(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -2678,7 +2709,7 @@ class ExternalInterfaceFunctionalMockupUnitExportToActuator(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2713,7 +2744,7 @@ class ExternalInterfaceFunctionalMockupUnitExportToActuator(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `actuated_component_unique_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2748,7 +2779,7 @@ class ExternalInterfaceFunctionalMockupUnitExportToActuator(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `actuated_component_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2783,7 +2814,7 @@ class ExternalInterfaceFunctionalMockupUnitExportToActuator(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `actuated_component_control_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2818,7 +2849,7 @@ class ExternalInterfaceFunctionalMockupUnitExportToActuator(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `fmu_variable_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2854,7 +2885,7 @@ class ExternalInterfaceFunctionalMockupUnitExportToActuator(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `initial_value`'.format(value))
         self._data["Initial Value"] = value
 
@@ -2896,7 +2927,6 @@ class ExternalInterfaceFunctionalMockupUnitExportToVariable(object):
     """ Corresponds to IDD object `ExternalInterface:FunctionalMockupUnitExport:To:Variable`
         Declares Erl variable as having global scope
         No spaces allowed in names used for Erl variables
-    
     """
     internal_name = "ExternalInterface:FunctionalMockupUnitExport:To:Variable"
     field_count = 3
@@ -2909,15 +2939,16 @@ class ExternalInterfaceFunctionalMockupUnitExportToVariable(object):
         self._data["Name"] = None
         self._data["FMU Variable Name"] = None
         self._data["Initial Value"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -2940,6 +2971,7 @@ class ExternalInterfaceFunctionalMockupUnitExportToVariable(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -2968,7 +3000,7 @@ class ExternalInterfaceFunctionalMockupUnitExportToVariable(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3003,7 +3035,7 @@ class ExternalInterfaceFunctionalMockupUnitExportToVariable(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `fmu_variable_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3039,7 +3071,7 @@ class ExternalInterfaceFunctionalMockupUnitExportToVariable(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `initial_value`'.format(value))
         self._data["Initial Value"] = value
 

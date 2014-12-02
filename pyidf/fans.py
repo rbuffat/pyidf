@@ -1,11 +1,12 @@
 from collections import OrderedDict
+import logging
+import re
 
 class FanConstantVolume(object):
     """ Corresponds to IDD object `Fan:ConstantVolume`
         Constant volume fan that is intended to operate continuously based on a time schedule.
         This fan will not cycle on and off based on cooling/heating load or other control
         signals.
-    
     """
     internal_name = "Fan:ConstantVolume"
     field_count = 10
@@ -25,15 +26,16 @@ class FanConstantVolume(object):
         self._data["Air Inlet Node Name"] = None
         self._data["Air Outlet Node Name"] = None
         self._data["End-Use Subcategory"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -105,6 +107,7 @@ class FanConstantVolume(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -131,7 +134,7 @@ class FanConstantVolume(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -168,7 +171,7 @@ class FanConstantVolume(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `availability_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -206,7 +209,7 @@ class FanConstantVolume(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fan_total_efficiency`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -243,7 +246,7 @@ class FanConstantVolume(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `pressure_rise`'.format(value))
         self._data["Pressure Rise"] = value
 
@@ -276,12 +279,17 @@ class FanConstantVolume(object):
                 if value_lower == "autosize":
                     self._data["Maximum Flow Rate"] = "Autosize"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autosize" '
+                                 'for field `maximum_flow_rate`'.format(value))
+                    self._data["Maximum Flow Rate"] = "Autosize"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autosize"'
                                  'for field `maximum_flow_rate`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -316,7 +324,7 @@ class FanConstantVolume(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `motor_efficiency`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -355,7 +363,7 @@ class FanConstantVolume(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `motor_in_airstream_fraction`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -390,7 +398,7 @@ class FanConstantVolume(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `air_inlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -425,7 +433,7 @@ class FanConstantVolume(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `air_outlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -461,7 +469,7 @@ class FanConstantVolume(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `enduse_subcategory`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -509,7 +517,6 @@ class FanVariableVolume(object):
     """ Corresponds to IDD object `Fan:VariableVolume`
         Variable air volume fan where the electric power input varies according to a
         performance curve as a function of flow fraction.
-    
     """
     internal_name = "Fan:VariableVolume"
     field_count = 18
@@ -537,15 +544,16 @@ class FanVariableVolume(object):
         self._data["Air Inlet Node Name"] = None
         self._data["Air Outlet Node Name"] = None
         self._data["End-Use Subcategory"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -673,6 +681,7 @@ class FanVariableVolume(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -699,7 +708,7 @@ class FanVariableVolume(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -736,7 +745,7 @@ class FanVariableVolume(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `availability_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -774,7 +783,7 @@ class FanVariableVolume(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fan_total_efficiency`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -811,7 +820,7 @@ class FanVariableVolume(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `pressure_rise`'.format(value))
         self._data["Pressure Rise"] = value
 
@@ -844,12 +853,17 @@ class FanVariableVolume(object):
                 if value_lower == "autosize":
                     self._data["Maximum Flow Rate"] = "Autosize"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autosize" '
+                                 'for field `maximum_flow_rate`'.format(value))
+                    self._data["Maximum Flow Rate"] = "Autosize"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autosize"'
                                  'for field `maximum_flow_rate`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -885,7 +899,7 @@ class FanVariableVolume(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `fan_power_minimum_flow_rate_input_method`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -899,16 +913,26 @@ class FanVariableVolume(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `fan_power_minimum_flow_rate_input_method`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `fan_power_minimum_flow_rate_input_method`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Fan Power Minimum Flow Rate Input Method"] = value
 
@@ -940,7 +964,7 @@ class FanVariableVolume(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fan_power_minimum_flow_fraction`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -977,7 +1001,7 @@ class FanVariableVolume(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fan_power_minimum_air_flow_rate`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -1012,7 +1036,7 @@ class FanVariableVolume(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `motor_efficiency`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -1051,7 +1075,7 @@ class FanVariableVolume(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `motor_in_airstream_fraction`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -1089,7 +1113,7 @@ class FanVariableVolume(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fan_power_coefficient_1`'.format(value))
         self._data["Fan Power Coefficient 1"] = value
 
@@ -1118,7 +1142,7 @@ class FanVariableVolume(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fan_power_coefficient_2`'.format(value))
         self._data["Fan Power Coefficient 2"] = value
 
@@ -1147,7 +1171,7 @@ class FanVariableVolume(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fan_power_coefficient_3`'.format(value))
         self._data["Fan Power Coefficient 3"] = value
 
@@ -1176,7 +1200,7 @@ class FanVariableVolume(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fan_power_coefficient_4`'.format(value))
         self._data["Fan Power Coefficient 4"] = value
 
@@ -1205,7 +1229,7 @@ class FanVariableVolume(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fan_power_coefficient_5`'.format(value))
         self._data["Fan Power Coefficient 5"] = value
 
@@ -1234,7 +1258,7 @@ class FanVariableVolume(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `air_inlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1269,7 +1293,7 @@ class FanVariableVolume(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `air_outlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1305,7 +1329,7 @@ class FanVariableVolume(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `enduse_subcategory`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1354,7 +1378,6 @@ class FanOnOff(object):
         Constant volume fan that is intended to cycle on and off based on cooling/heating load
         or other control signals. This fan can also operate continuously like
         Fan:ConstantVolume.
-    
     """
     internal_name = "Fan:OnOff"
     field_count = 12
@@ -1376,15 +1399,16 @@ class FanOnOff(object):
         self._data["Fan Power Ratio Function of Speed Ratio Curve Name"] = None
         self._data["Fan Efficiency Ratio Function of Speed Ratio Curve Name"] = None
         self._data["End-Use Subcategory"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -1470,6 +1494,7 @@ class FanOnOff(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -1496,7 +1521,7 @@ class FanOnOff(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1533,7 +1558,7 @@ class FanOnOff(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `availability_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1571,7 +1596,7 @@ class FanOnOff(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fan_total_efficiency`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -1608,7 +1633,7 @@ class FanOnOff(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `pressure_rise`'.format(value))
         self._data["Pressure Rise"] = value
 
@@ -1641,12 +1666,17 @@ class FanOnOff(object):
                 if value_lower == "autosize":
                     self._data["Maximum Flow Rate"] = "Autosize"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autosize" '
+                                 'for field `maximum_flow_rate`'.format(value))
+                    self._data["Maximum Flow Rate"] = "Autosize"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autosize"'
                                  'for field `maximum_flow_rate`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -1681,7 +1711,7 @@ class FanOnOff(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `motor_efficiency`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -1720,7 +1750,7 @@ class FanOnOff(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `motor_in_airstream_fraction`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -1755,7 +1785,7 @@ class FanOnOff(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `air_inlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1790,7 +1820,7 @@ class FanOnOff(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `air_outlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1826,7 +1856,7 @@ class FanOnOff(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `fan_power_ratio_function_of_speed_ratio_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1862,7 +1892,7 @@ class FanOnOff(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `fan_efficiency_ratio_function_of_speed_ratio_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1898,7 +1928,7 @@ class FanOnOff(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `enduse_subcategory`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1945,7 +1975,6 @@ class FanOnOff(object):
 class FanZoneExhaust(object):
     """ Corresponds to IDD object `Fan:ZoneExhaust`
         Models a fan that exhausts air from a zone.
-    
     """
     internal_name = "Fan:ZoneExhaust"
     field_count = 12
@@ -1967,15 +1996,16 @@ class FanZoneExhaust(object):
         self._data["System Availability Manager Coupling Mode"] = None
         self._data["Minimum Zone Temperature Limit Schedule Name"] = None
         self._data["Balanced Exhaust Fraction Schedule Name"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -2061,6 +2091,7 @@ class FanZoneExhaust(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -2087,7 +2118,7 @@ class FanZoneExhaust(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2124,7 +2155,7 @@ class FanZoneExhaust(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `availability_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2162,7 +2193,7 @@ class FanZoneExhaust(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fan_total_efficiency`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -2199,7 +2230,7 @@ class FanZoneExhaust(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `pressure_rise`'.format(value))
         self._data["Pressure Rise"] = value
 
@@ -2230,7 +2261,7 @@ class FanZoneExhaust(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `maximum_flow_rate`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -2262,7 +2293,7 @@ class FanZoneExhaust(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `air_inlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2297,7 +2328,7 @@ class FanZoneExhaust(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `air_outlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2333,7 +2364,7 @@ class FanZoneExhaust(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `enduse_subcategory`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2369,7 +2400,7 @@ class FanZoneExhaust(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `flow_fraction_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2409,7 +2440,7 @@ class FanZoneExhaust(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `system_availability_manager_coupling_mode`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2423,16 +2454,26 @@ class FanZoneExhaust(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `system_availability_manager_coupling_mode`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `system_availability_manager_coupling_mode`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["System Availability Manager Coupling Mode"] = value
 
@@ -2462,7 +2503,7 @@ class FanZoneExhaust(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `minimum_zone_temperature_limit_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2499,7 +2540,7 @@ class FanZoneExhaust(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `balanced_exhaust_fraction_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2551,7 +2592,6 @@ class FanPerformanceNightVentilation(object):
         Fan:ComponentModel. If the fan model senses that a fixed flow rate has been set, it
         will use these alternate performance parameters. It is assumed that the fan will
         run at a fixed speed in the alternate mode.
-    
     """
     internal_name = "FanPerformance:NightVentilation"
     field_count = 6
@@ -2567,15 +2607,16 @@ class FanPerformanceNightVentilation(object):
         self._data["Maximum Flow Rate"] = None
         self._data["Motor Efficiency"] = None
         self._data["Motor in Airstream Fraction"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.fan_name = None
@@ -2619,6 +2660,7 @@ class FanPerformanceNightVentilation(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def fan_name(self):
@@ -2645,7 +2687,7 @@ class FanPerformanceNightVentilation(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `fan_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2682,7 +2724,7 @@ class FanPerformanceNightVentilation(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fan_total_efficiency`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -2719,7 +2761,7 @@ class FanPerformanceNightVentilation(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `pressure_rise`'.format(value))
         self._data["Pressure Rise"] = value
 
@@ -2752,12 +2794,17 @@ class FanPerformanceNightVentilation(object):
                 if value_lower == "autosize":
                     self._data["Maximum Flow Rate"] = "Autosize"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autosize" '
+                                 'for field `maximum_flow_rate`'.format(value))
+                    self._data["Maximum Flow Rate"] = "Autosize"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autosize"'
                                  'for field `maximum_flow_rate`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -2791,7 +2838,7 @@ class FanPerformanceNightVentilation(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `motor_efficiency`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -2831,7 +2878,7 @@ class FanPerformanceNightVentilation(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `motor_in_airstream_fraction`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -2880,7 +2927,6 @@ class FanComponentModel(object):
         A detailed fan type for constant-air-volume (CAV) and variable-air-volume (VAV)
         systems. It includes inputs that describe the air-distribution system as well as the
         fan, drive belt (if used), motor, and variable-frequency-drive (if used).
-    
     """
     internal_name = "Fan:ComponentModel"
     field_count = 37
@@ -2927,15 +2973,16 @@ class FanComponentModel(object):
         self._data["Normalized Motor Efficiency Curve Name"] = None
         self._data["VFD Efficiency Curve Name"] = None
         self._data["End-Use Subcategory"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -3196,6 +3243,7 @@ class FanComponentModel(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -3222,7 +3270,7 @@ class FanComponentModel(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3257,7 +3305,7 @@ class FanComponentModel(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `air_inlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3292,7 +3340,7 @@ class FanComponentModel(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `air_outlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3329,7 +3377,7 @@ class FanComponentModel(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `availability_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3368,12 +3416,17 @@ class FanComponentModel(object):
                 if value_lower == "autosize":
                     self._data["Maximum Flow Rate"] = "Autosize"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autosize" '
+                                 'for field `maximum_flow_rate`'.format(value))
+                    self._data["Maximum Flow Rate"] = "Autosize"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autosize"'
                                  'for field `maximum_flow_rate`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -3409,12 +3462,17 @@ class FanComponentModel(object):
                 if value_lower == "autosize":
                     self._data["Minimum Flow Rate"] = "Autosize"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autosize" '
+                                 'for field `minimum_flow_rate`'.format(value))
+                    self._data["Minimum Flow Rate"] = "Autosize"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autosize"'
                                  'for field `minimum_flow_rate`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -3449,7 +3507,7 @@ class FanComponentModel(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fan_sizing_factor`'.format(value))
             if value < 1.0:
                 raise ValueError('value need to be greater or equal 1.0 '
@@ -3484,7 +3542,7 @@ class FanComponentModel(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fan_wheel_diameter`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -3519,7 +3577,7 @@ class FanComponentModel(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fan_outlet_area`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -3555,7 +3613,7 @@ class FanComponentModel(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `maximum_fan_static_efficiency`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -3592,7 +3650,7 @@ class FanComponentModel(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `euler_number_at_maximum_fan_static_efficiency`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -3628,7 +3686,7 @@ class FanComponentModel(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `maximum_dimensionless_fan_airflow`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -3665,12 +3723,17 @@ class FanComponentModel(object):
                 if value_lower == "autosize":
                     self._data["Motor Fan Pulley Ratio"] = "Autosize"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autosize" '
+                                 'for field `motor_fan_pulley_ratio`'.format(value))
+                    self._data["Motor Fan Pulley Ratio"] = "Autosize"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autosize"'
                                  'for field `motor_fan_pulley_ratio`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -3707,12 +3770,17 @@ class FanComponentModel(object):
                 if value_lower == "autosize":
                     self._data["Belt Maximum Torque"] = "Autosize"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autosize" '
+                                 'for field `belt_maximum_torque`'.format(value))
+                    self._data["Belt Maximum Torque"] = "Autosize"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autosize"'
                                  'for field `belt_maximum_torque`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -3747,7 +3815,7 @@ class FanComponentModel(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `belt_sizing_factor`'.format(value))
             if value < 1.0:
                 raise ValueError('value need to be greater or equal 1.0 '
@@ -3783,7 +3851,7 @@ class FanComponentModel(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `belt_fractional_torque_transition`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -3821,7 +3889,7 @@ class FanComponentModel(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `motor_maximum_speed`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -3858,12 +3926,17 @@ class FanComponentModel(object):
                 if value_lower == "autosize":
                     self._data["Maximum Motor Output Power"] = "Autosize"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autosize" '
+                                 'for field `maximum_motor_output_power`'.format(value))
+                    self._data["Maximum Motor Output Power"] = "Autosize"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autosize"'
                                  'for field `maximum_motor_output_power`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -3898,7 +3971,7 @@ class FanComponentModel(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `motor_sizing_factor`'.format(value))
             if value < 1.0:
                 raise ValueError('value need to be greater or equal 1.0 '
@@ -3935,7 +4008,7 @@ class FanComponentModel(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `motor_in_airstream_fraction`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -3976,7 +4049,7 @@ class FanComponentModel(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `vfd_efficiency_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3990,16 +4063,26 @@ class FanComponentModel(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `vfd_efficiency_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `vfd_efficiency_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["VFD Efficiency Type"] = value
 
@@ -4033,12 +4116,17 @@ class FanComponentModel(object):
                 if value_lower == "autosize":
                     self._data["Maximum VFD Output Power"] = "Autosize"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autosize" '
+                                 'for field `maximum_vfd_output_power`'.format(value))
+                    self._data["Maximum VFD Output Power"] = "Autosize"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autosize"'
                                  'for field `maximum_vfd_output_power`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -4073,7 +4161,7 @@ class FanComponentModel(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vfd_sizing_factor`'.format(value))
             if value < 1.0:
                 raise ValueError('value need to be greater or equal 1.0 '
@@ -4108,7 +4196,7 @@ class FanComponentModel(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `fan_pressure_rise_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4147,7 +4235,7 @@ class FanComponentModel(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `duct_static_pressure_reset_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4185,7 +4273,7 @@ class FanComponentModel(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `normalized_fan_static_efficiency_curve_namenonstall_region`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4223,7 +4311,7 @@ class FanComponentModel(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `normalized_fan_static_efficiency_curve_namestall_region`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4261,7 +4349,7 @@ class FanComponentModel(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `normalized_dimensionless_airflow_curve_namenonstall_region`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4299,7 +4387,7 @@ class FanComponentModel(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `normalized_dimensionless_airflow_curve_namestall_region`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4339,7 +4427,7 @@ class FanComponentModel(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `maximum_belt_efficiency_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4378,7 +4466,7 @@ class FanComponentModel(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `normalized_belt_efficiency_curve_name_region_1`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4417,7 +4505,7 @@ class FanComponentModel(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `normalized_belt_efficiency_curve_name_region_2`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4456,7 +4544,7 @@ class FanComponentModel(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `normalized_belt_efficiency_curve_name_region_3`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4494,7 +4582,7 @@ class FanComponentModel(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `maximum_motor_efficiency_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4532,7 +4620,7 @@ class FanComponentModel(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `normalized_motor_efficiency_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4571,7 +4659,7 @@ class FanComponentModel(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `vfd_efficiency_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4607,7 +4695,7 @@ class FanComponentModel(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `enduse_subcategory`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '

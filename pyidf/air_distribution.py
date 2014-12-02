@@ -1,9 +1,10 @@
 from collections import OrderedDict
+import logging
+import re
 
 class AirLoopHvac(object):
     """ Corresponds to IDD object `AirLoopHVAC`
         Defines a central forced air system.
-    
     """
     internal_name = "AirLoopHVAC"
     field_count = 10
@@ -23,15 +24,16 @@ class AirLoopHvac(object):
         self._data["Demand Side Outlet Node Name"] = None
         self._data["Demand Side Inlet Node Names"] = None
         self._data["Supply Side Outlet Node Names"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -103,6 +105,7 @@ class AirLoopHvac(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -129,7 +132,7 @@ class AirLoopHvac(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -165,7 +168,7 @@ class AirLoopHvac(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `controller_list_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -201,7 +204,7 @@ class AirLoopHvac(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `availability_manager_list_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -240,12 +243,17 @@ class AirLoopHvac(object):
                 if value_lower == "autosize":
                     self._data["Design Supply Air Flow Rate"] = "Autosize"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autosize" '
+                                 'for field `design_supply_air_flow_rate`'.format(value))
+                    self._data["Design Supply Air Flow Rate"] = "Autosize"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autosize"'
                                  'for field `design_supply_air_flow_rate`'.format(value))
         self._data["Design Supply Air Flow Rate"] = value
 
@@ -275,7 +283,7 @@ class AirLoopHvac(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `branch_list_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -311,7 +319,7 @@ class AirLoopHvac(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `connector_list_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -347,7 +355,7 @@ class AirLoopHvac(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `supply_side_inlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -383,7 +391,7 @@ class AirLoopHvac(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `demand_side_outlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -419,7 +427,7 @@ class AirLoopHvac(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `demand_side_inlet_node_names`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -455,7 +463,7 @@ class AirLoopHvac(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `supply_side_outlet_node_names`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -502,7 +510,6 @@ class AirLoopHvac(object):
 class AirLoopHvacOutdoorAirSystemEquipmentList(object):
     """ Corresponds to IDD object `AirLoopHVAC:OutdoorAirSystem:EquipmentList`
         List equipment in simulation order
-    
     """
     internal_name = "AirLoopHVAC:OutdoorAirSystem:EquipmentList"
     field_count = 19
@@ -531,15 +538,16 @@ class AirLoopHvacOutdoorAirSystemEquipmentList(object):
         self._data["Component 8 Name"] = None
         self._data["Component 9 Object Type"] = None
         self._data["Component 9 Name"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -674,6 +682,7 @@ class AirLoopHvacOutdoorAirSystemEquipmentList(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -700,7 +709,7 @@ class AirLoopHvacOutdoorAirSystemEquipmentList(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -735,7 +744,7 @@ class AirLoopHvacOutdoorAirSystemEquipmentList(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `component_1_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -770,7 +779,7 @@ class AirLoopHvacOutdoorAirSystemEquipmentList(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `component_1_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -805,7 +814,7 @@ class AirLoopHvacOutdoorAirSystemEquipmentList(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `component_2_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -840,7 +849,7 @@ class AirLoopHvacOutdoorAirSystemEquipmentList(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `component_2_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -875,7 +884,7 @@ class AirLoopHvacOutdoorAirSystemEquipmentList(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `component_3_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -910,7 +919,7 @@ class AirLoopHvacOutdoorAirSystemEquipmentList(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `component_3_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -945,7 +954,7 @@ class AirLoopHvacOutdoorAirSystemEquipmentList(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `component_4_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -980,7 +989,7 @@ class AirLoopHvacOutdoorAirSystemEquipmentList(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `component_4_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1015,7 +1024,7 @@ class AirLoopHvacOutdoorAirSystemEquipmentList(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `component_5_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1050,7 +1059,7 @@ class AirLoopHvacOutdoorAirSystemEquipmentList(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `component_5_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1085,7 +1094,7 @@ class AirLoopHvacOutdoorAirSystemEquipmentList(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `component_6_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1120,7 +1129,7 @@ class AirLoopHvacOutdoorAirSystemEquipmentList(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `component_6_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1155,7 +1164,7 @@ class AirLoopHvacOutdoorAirSystemEquipmentList(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `component_7_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1190,7 +1199,7 @@ class AirLoopHvacOutdoorAirSystemEquipmentList(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `component_7_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1225,7 +1234,7 @@ class AirLoopHvacOutdoorAirSystemEquipmentList(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `component_8_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1260,7 +1269,7 @@ class AirLoopHvacOutdoorAirSystemEquipmentList(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `component_8_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1295,7 +1304,7 @@ class AirLoopHvacOutdoorAirSystemEquipmentList(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `component_9_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1330,7 +1339,7 @@ class AirLoopHvacOutdoorAirSystemEquipmentList(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `component_9_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1380,7 +1389,6 @@ class AirLoopHvacOutdoorAirSystem(object):
         optional outdoor air conditioning equipment such as heat recovery, preheat, and precool
         coils. From the perspective of the primary air loop the outdoor air system is treated
         as a single component.
-    
     """
     internal_name = "AirLoopHVAC:OutdoorAirSystem"
     field_count = 4
@@ -1394,15 +1402,16 @@ class AirLoopHvacOutdoorAirSystem(object):
         self._data["Controller List Name"] = None
         self._data["Outdoor Air Equipment List Name"] = None
         self._data["Availability Manager List Name"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -1432,6 +1441,7 @@ class AirLoopHvacOutdoorAirSystem(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -1458,7 +1468,7 @@ class AirLoopHvacOutdoorAirSystem(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1494,7 +1504,7 @@ class AirLoopHvacOutdoorAirSystem(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `controller_list_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1530,7 +1540,7 @@ class AirLoopHvacOutdoorAirSystem(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `outdoor_air_equipment_list_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1566,7 +1576,7 @@ class AirLoopHvacOutdoorAirSystem(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `availability_manager_list_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1614,7 +1624,6 @@ class OutdoorAirMixer(object):
     """ Corresponds to IDD object `OutdoorAir:Mixer`
         Outdoor air mixer. Node names cannot be duplicated within a single OutdoorAir:Mixer
         object or across all outdoor air mixers.
-    
     """
     internal_name = "OutdoorAir:Mixer"
     field_count = 5
@@ -1629,15 +1638,16 @@ class OutdoorAirMixer(object):
         self._data["Outdoor Air Stream Node Name"] = None
         self._data["Relief Air Stream Node Name"] = None
         self._data["Return Air Stream Node Name"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -1674,6 +1684,7 @@ class OutdoorAirMixer(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -1700,7 +1711,7 @@ class OutdoorAirMixer(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1736,7 +1747,7 @@ class OutdoorAirMixer(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `mixed_air_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1772,7 +1783,7 @@ class OutdoorAirMixer(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `outdoor_air_stream_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1808,7 +1819,7 @@ class OutdoorAirMixer(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `relief_air_stream_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1844,7 +1855,7 @@ class OutdoorAirMixer(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `return_air_stream_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1892,7 +1903,6 @@ class AirLoopHvacSupplyPath(object):
     """ Corresponds to IDD object `AirLoopHVAC:SupplyPath`
         A supply path can only contain AirLoopHVAC:ZoneSplitter and AirLoopHVAC:SupplyPlenum objects
         which may be in series or parallel.
-    
     """
     internal_name = "AirLoopHVAC:SupplyPath"
     field_count = 52
@@ -1954,15 +1964,16 @@ class AirLoopHvacSupplyPath(object):
         self._data["Component 24 Name"] = None
         self._data["Component 25 Object Type"] = None
         self._data["Component 25 Name"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -2328,6 +2339,7 @@ class AirLoopHvacSupplyPath(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -2354,7 +2366,7 @@ class AirLoopHvacSupplyPath(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2389,7 +2401,7 @@ class AirLoopHvacSupplyPath(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `supply_air_path_inlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2428,7 +2440,7 @@ class AirLoopHvacSupplyPath(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `component_1_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2442,16 +2454,26 @@ class AirLoopHvacSupplyPath(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `component_1_object_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `component_1_object_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Component 1 Object Type"] = value
 
@@ -2480,7 +2502,7 @@ class AirLoopHvacSupplyPath(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `component_1_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2518,7 +2540,7 @@ class AirLoopHvacSupplyPath(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `component_2_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2532,16 +2554,26 @@ class AirLoopHvacSupplyPath(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `component_2_object_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `component_2_object_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Component 2 Object Type"] = value
 
@@ -2570,7 +2602,7 @@ class AirLoopHvacSupplyPath(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `component_2_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2608,7 +2640,7 @@ class AirLoopHvacSupplyPath(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `component_3_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2622,16 +2654,26 @@ class AirLoopHvacSupplyPath(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `component_3_object_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `component_3_object_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Component 3 Object Type"] = value
 
@@ -2660,7 +2702,7 @@ class AirLoopHvacSupplyPath(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `component_3_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2698,7 +2740,7 @@ class AirLoopHvacSupplyPath(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `component_4_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2712,16 +2754,26 @@ class AirLoopHvacSupplyPath(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `component_4_object_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `component_4_object_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Component 4 Object Type"] = value
 
@@ -2750,7 +2802,7 @@ class AirLoopHvacSupplyPath(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `component_4_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2788,7 +2840,7 @@ class AirLoopHvacSupplyPath(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `component_5_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2802,16 +2854,26 @@ class AirLoopHvacSupplyPath(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `component_5_object_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `component_5_object_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Component 5 Object Type"] = value
 
@@ -2840,7 +2902,7 @@ class AirLoopHvacSupplyPath(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `component_5_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2878,7 +2940,7 @@ class AirLoopHvacSupplyPath(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `component_6_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2892,16 +2954,26 @@ class AirLoopHvacSupplyPath(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `component_6_object_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `component_6_object_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Component 6 Object Type"] = value
 
@@ -2930,7 +3002,7 @@ class AirLoopHvacSupplyPath(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `component_6_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2968,7 +3040,7 @@ class AirLoopHvacSupplyPath(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `component_7_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2982,16 +3054,26 @@ class AirLoopHvacSupplyPath(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `component_7_object_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `component_7_object_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Component 7 Object Type"] = value
 
@@ -3020,7 +3102,7 @@ class AirLoopHvacSupplyPath(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `component_7_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3058,7 +3140,7 @@ class AirLoopHvacSupplyPath(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `component_8_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3072,16 +3154,26 @@ class AirLoopHvacSupplyPath(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `component_8_object_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `component_8_object_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Component 8 Object Type"] = value
 
@@ -3110,7 +3202,7 @@ class AirLoopHvacSupplyPath(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `component_8_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3148,7 +3240,7 @@ class AirLoopHvacSupplyPath(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `component_9_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3162,16 +3254,26 @@ class AirLoopHvacSupplyPath(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `component_9_object_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `component_9_object_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Component 9 Object Type"] = value
 
@@ -3200,7 +3302,7 @@ class AirLoopHvacSupplyPath(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `component_9_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3238,7 +3340,7 @@ class AirLoopHvacSupplyPath(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `component_10_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3252,16 +3354,26 @@ class AirLoopHvacSupplyPath(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `component_10_object_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `component_10_object_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Component 10 Object Type"] = value
 
@@ -3290,7 +3402,7 @@ class AirLoopHvacSupplyPath(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `component_10_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3328,7 +3440,7 @@ class AirLoopHvacSupplyPath(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `component_11_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3342,16 +3454,26 @@ class AirLoopHvacSupplyPath(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `component_11_object_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `component_11_object_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Component 11 Object Type"] = value
 
@@ -3380,7 +3502,7 @@ class AirLoopHvacSupplyPath(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `component_11_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3418,7 +3540,7 @@ class AirLoopHvacSupplyPath(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `component_12_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3432,16 +3554,26 @@ class AirLoopHvacSupplyPath(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `component_12_object_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `component_12_object_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Component 12 Object Type"] = value
 
@@ -3470,7 +3602,7 @@ class AirLoopHvacSupplyPath(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `component_12_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3508,7 +3640,7 @@ class AirLoopHvacSupplyPath(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `component_13_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3522,16 +3654,26 @@ class AirLoopHvacSupplyPath(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `component_13_object_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `component_13_object_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Component 13 Object Type"] = value
 
@@ -3560,7 +3702,7 @@ class AirLoopHvacSupplyPath(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `component_13_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3598,7 +3740,7 @@ class AirLoopHvacSupplyPath(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `component_14_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3612,16 +3754,26 @@ class AirLoopHvacSupplyPath(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `component_14_object_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `component_14_object_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Component 14 Object Type"] = value
 
@@ -3650,7 +3802,7 @@ class AirLoopHvacSupplyPath(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `component_14_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3688,7 +3840,7 @@ class AirLoopHvacSupplyPath(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `component_15_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3702,16 +3854,26 @@ class AirLoopHvacSupplyPath(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `component_15_object_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `component_15_object_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Component 15 Object Type"] = value
 
@@ -3740,7 +3902,7 @@ class AirLoopHvacSupplyPath(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `component_15_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3778,7 +3940,7 @@ class AirLoopHvacSupplyPath(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `component_16_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3792,16 +3954,26 @@ class AirLoopHvacSupplyPath(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `component_16_object_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `component_16_object_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Component 16 Object Type"] = value
 
@@ -3830,7 +4002,7 @@ class AirLoopHvacSupplyPath(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `component_16_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3868,7 +4040,7 @@ class AirLoopHvacSupplyPath(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `component_17_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3882,16 +4054,26 @@ class AirLoopHvacSupplyPath(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `component_17_object_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `component_17_object_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Component 17 Object Type"] = value
 
@@ -3920,7 +4102,7 @@ class AirLoopHvacSupplyPath(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `component_17_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3958,7 +4140,7 @@ class AirLoopHvacSupplyPath(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `component_18_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3972,16 +4154,26 @@ class AirLoopHvacSupplyPath(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `component_18_object_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `component_18_object_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Component 18 Object Type"] = value
 
@@ -4010,7 +4202,7 @@ class AirLoopHvacSupplyPath(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `component_18_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4048,7 +4240,7 @@ class AirLoopHvacSupplyPath(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `component_19_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4062,16 +4254,26 @@ class AirLoopHvacSupplyPath(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `component_19_object_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `component_19_object_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Component 19 Object Type"] = value
 
@@ -4100,7 +4302,7 @@ class AirLoopHvacSupplyPath(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `component_19_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4138,7 +4340,7 @@ class AirLoopHvacSupplyPath(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `component_20_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4152,16 +4354,26 @@ class AirLoopHvacSupplyPath(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `component_20_object_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `component_20_object_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Component 20 Object Type"] = value
 
@@ -4190,7 +4402,7 @@ class AirLoopHvacSupplyPath(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `component_20_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4228,7 +4440,7 @@ class AirLoopHvacSupplyPath(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `component_21_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4242,16 +4454,26 @@ class AirLoopHvacSupplyPath(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `component_21_object_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `component_21_object_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Component 21 Object Type"] = value
 
@@ -4280,7 +4502,7 @@ class AirLoopHvacSupplyPath(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `component_21_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4318,7 +4540,7 @@ class AirLoopHvacSupplyPath(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `component_22_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4332,16 +4554,26 @@ class AirLoopHvacSupplyPath(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `component_22_object_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `component_22_object_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Component 22 Object Type"] = value
 
@@ -4370,7 +4602,7 @@ class AirLoopHvacSupplyPath(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `component_22_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4408,7 +4640,7 @@ class AirLoopHvacSupplyPath(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `component_23_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4422,16 +4654,26 @@ class AirLoopHvacSupplyPath(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `component_23_object_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `component_23_object_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Component 23 Object Type"] = value
 
@@ -4460,7 +4702,7 @@ class AirLoopHvacSupplyPath(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `component_23_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4498,7 +4740,7 @@ class AirLoopHvacSupplyPath(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `component_24_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4512,16 +4754,26 @@ class AirLoopHvacSupplyPath(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `component_24_object_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `component_24_object_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Component 24 Object Type"] = value
 
@@ -4550,7 +4802,7 @@ class AirLoopHvacSupplyPath(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `component_24_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4588,7 +4840,7 @@ class AirLoopHvacSupplyPath(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `component_25_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4602,16 +4854,26 @@ class AirLoopHvacSupplyPath(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `component_25_object_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `component_25_object_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Component 25 Object Type"] = value
 
@@ -4640,7 +4902,7 @@ class AirLoopHvacSupplyPath(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `component_25_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4688,7 +4950,6 @@ class AirLoopHvacReturnPath(object):
     """ Corresponds to IDD object `AirLoopHVAC:ReturnPath`
         A return air path can only contain one AirLoopHVAC:ZoneMixer
         and one or more AirLoopHVAC:ReturnPlenum objects.
-    
     """
     internal_name = "AirLoopHVAC:ReturnPath"
     field_count = 52
@@ -4750,15 +5011,16 @@ class AirLoopHvacReturnPath(object):
         self._data["Component 24 Name"] = None
         self._data["Component 25 Object Type"] = None
         self._data["Component 25 Name"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -5124,6 +5386,7 @@ class AirLoopHvacReturnPath(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -5150,7 +5413,7 @@ class AirLoopHvacReturnPath(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -5185,7 +5448,7 @@ class AirLoopHvacReturnPath(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `return_air_path_outlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -5223,7 +5486,7 @@ class AirLoopHvacReturnPath(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `component_1_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -5237,16 +5500,26 @@ class AirLoopHvacReturnPath(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `component_1_object_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `component_1_object_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Component 1 Object Type"] = value
 
@@ -5275,7 +5548,7 @@ class AirLoopHvacReturnPath(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `component_1_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -5313,7 +5586,7 @@ class AirLoopHvacReturnPath(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `component_2_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -5327,16 +5600,26 @@ class AirLoopHvacReturnPath(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `component_2_object_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `component_2_object_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Component 2 Object Type"] = value
 
@@ -5365,7 +5648,7 @@ class AirLoopHvacReturnPath(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `component_2_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -5403,7 +5686,7 @@ class AirLoopHvacReturnPath(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `component_3_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -5417,16 +5700,26 @@ class AirLoopHvacReturnPath(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `component_3_object_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `component_3_object_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Component 3 Object Type"] = value
 
@@ -5455,7 +5748,7 @@ class AirLoopHvacReturnPath(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `component_3_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -5493,7 +5786,7 @@ class AirLoopHvacReturnPath(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `component_4_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -5507,16 +5800,26 @@ class AirLoopHvacReturnPath(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `component_4_object_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `component_4_object_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Component 4 Object Type"] = value
 
@@ -5545,7 +5848,7 @@ class AirLoopHvacReturnPath(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `component_4_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -5583,7 +5886,7 @@ class AirLoopHvacReturnPath(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `component_5_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -5597,16 +5900,26 @@ class AirLoopHvacReturnPath(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `component_5_object_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `component_5_object_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Component 5 Object Type"] = value
 
@@ -5635,7 +5948,7 @@ class AirLoopHvacReturnPath(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `component_5_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -5673,7 +5986,7 @@ class AirLoopHvacReturnPath(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `component_6_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -5687,16 +6000,26 @@ class AirLoopHvacReturnPath(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `component_6_object_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `component_6_object_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Component 6 Object Type"] = value
 
@@ -5725,7 +6048,7 @@ class AirLoopHvacReturnPath(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `component_6_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -5763,7 +6086,7 @@ class AirLoopHvacReturnPath(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `component_7_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -5777,16 +6100,26 @@ class AirLoopHvacReturnPath(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `component_7_object_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `component_7_object_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Component 7 Object Type"] = value
 
@@ -5815,7 +6148,7 @@ class AirLoopHvacReturnPath(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `component_7_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -5853,7 +6186,7 @@ class AirLoopHvacReturnPath(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `component_8_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -5867,16 +6200,26 @@ class AirLoopHvacReturnPath(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `component_8_object_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `component_8_object_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Component 8 Object Type"] = value
 
@@ -5905,7 +6248,7 @@ class AirLoopHvacReturnPath(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `component_8_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -5943,7 +6286,7 @@ class AirLoopHvacReturnPath(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `component_9_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -5957,16 +6300,26 @@ class AirLoopHvacReturnPath(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `component_9_object_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `component_9_object_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Component 9 Object Type"] = value
 
@@ -5995,7 +6348,7 @@ class AirLoopHvacReturnPath(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `component_9_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -6033,7 +6386,7 @@ class AirLoopHvacReturnPath(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `component_10_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -6047,16 +6400,26 @@ class AirLoopHvacReturnPath(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `component_10_object_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `component_10_object_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Component 10 Object Type"] = value
 
@@ -6085,7 +6448,7 @@ class AirLoopHvacReturnPath(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `component_10_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -6123,7 +6486,7 @@ class AirLoopHvacReturnPath(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `component_11_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -6137,16 +6500,26 @@ class AirLoopHvacReturnPath(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `component_11_object_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `component_11_object_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Component 11 Object Type"] = value
 
@@ -6175,7 +6548,7 @@ class AirLoopHvacReturnPath(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `component_11_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -6213,7 +6586,7 @@ class AirLoopHvacReturnPath(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `component_12_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -6227,16 +6600,26 @@ class AirLoopHvacReturnPath(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `component_12_object_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `component_12_object_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Component 12 Object Type"] = value
 
@@ -6265,7 +6648,7 @@ class AirLoopHvacReturnPath(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `component_12_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -6303,7 +6686,7 @@ class AirLoopHvacReturnPath(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `component_13_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -6317,16 +6700,26 @@ class AirLoopHvacReturnPath(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `component_13_object_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `component_13_object_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Component 13 Object Type"] = value
 
@@ -6355,7 +6748,7 @@ class AirLoopHvacReturnPath(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `component_13_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -6393,7 +6786,7 @@ class AirLoopHvacReturnPath(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `component_14_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -6407,16 +6800,26 @@ class AirLoopHvacReturnPath(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `component_14_object_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `component_14_object_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Component 14 Object Type"] = value
 
@@ -6445,7 +6848,7 @@ class AirLoopHvacReturnPath(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `component_14_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -6483,7 +6886,7 @@ class AirLoopHvacReturnPath(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `component_15_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -6497,16 +6900,26 @@ class AirLoopHvacReturnPath(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `component_15_object_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `component_15_object_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Component 15 Object Type"] = value
 
@@ -6535,7 +6948,7 @@ class AirLoopHvacReturnPath(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `component_15_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -6573,7 +6986,7 @@ class AirLoopHvacReturnPath(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `component_16_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -6587,16 +7000,26 @@ class AirLoopHvacReturnPath(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `component_16_object_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `component_16_object_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Component 16 Object Type"] = value
 
@@ -6625,7 +7048,7 @@ class AirLoopHvacReturnPath(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `component_16_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -6663,7 +7086,7 @@ class AirLoopHvacReturnPath(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `component_17_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -6677,16 +7100,26 @@ class AirLoopHvacReturnPath(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `component_17_object_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `component_17_object_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Component 17 Object Type"] = value
 
@@ -6715,7 +7148,7 @@ class AirLoopHvacReturnPath(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `component_17_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -6753,7 +7186,7 @@ class AirLoopHvacReturnPath(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `component_18_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -6767,16 +7200,26 @@ class AirLoopHvacReturnPath(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `component_18_object_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `component_18_object_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Component 18 Object Type"] = value
 
@@ -6805,7 +7248,7 @@ class AirLoopHvacReturnPath(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `component_18_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -6843,7 +7286,7 @@ class AirLoopHvacReturnPath(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `component_19_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -6857,16 +7300,26 @@ class AirLoopHvacReturnPath(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `component_19_object_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `component_19_object_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Component 19 Object Type"] = value
 
@@ -6895,7 +7348,7 @@ class AirLoopHvacReturnPath(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `component_19_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -6933,7 +7386,7 @@ class AirLoopHvacReturnPath(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `component_20_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -6947,16 +7400,26 @@ class AirLoopHvacReturnPath(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `component_20_object_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `component_20_object_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Component 20 Object Type"] = value
 
@@ -6985,7 +7448,7 @@ class AirLoopHvacReturnPath(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `component_20_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -7023,7 +7486,7 @@ class AirLoopHvacReturnPath(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `component_21_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -7037,16 +7500,26 @@ class AirLoopHvacReturnPath(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `component_21_object_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `component_21_object_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Component 21 Object Type"] = value
 
@@ -7075,7 +7548,7 @@ class AirLoopHvacReturnPath(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `component_21_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -7113,7 +7586,7 @@ class AirLoopHvacReturnPath(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `component_22_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -7127,16 +7600,26 @@ class AirLoopHvacReturnPath(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `component_22_object_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `component_22_object_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Component 22 Object Type"] = value
 
@@ -7165,7 +7648,7 @@ class AirLoopHvacReturnPath(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `component_22_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -7203,7 +7686,7 @@ class AirLoopHvacReturnPath(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `component_23_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -7217,16 +7700,26 @@ class AirLoopHvacReturnPath(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `component_23_object_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `component_23_object_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Component 23 Object Type"] = value
 
@@ -7255,7 +7748,7 @@ class AirLoopHvacReturnPath(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `component_23_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -7293,7 +7786,7 @@ class AirLoopHvacReturnPath(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `component_24_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -7307,16 +7800,26 @@ class AirLoopHvacReturnPath(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `component_24_object_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `component_24_object_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Component 24 Object Type"] = value
 
@@ -7345,7 +7848,7 @@ class AirLoopHvacReturnPath(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `component_24_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -7383,7 +7886,7 @@ class AirLoopHvacReturnPath(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `component_25_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -7397,16 +7900,26 @@ class AirLoopHvacReturnPath(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `component_25_object_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `component_25_object_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Component 25 Object Type"] = value
 
@@ -7435,7 +7948,7 @@ class AirLoopHvacReturnPath(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `component_25_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '

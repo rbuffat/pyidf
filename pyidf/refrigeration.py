@@ -1,4 +1,6 @@
 from collections import OrderedDict
+import logging
+import re
 
 class RefrigerationCase(object):
     """ Corresponds to IDD object `Refrigeration:Case`
@@ -8,7 +10,6 @@ class RefrigerationCase(object):
         anti-sweat heaters and accounts for the sensible and latent heat exchange with the
         surrounding environment (termed "case credits") which impacts the temperature
         and humidity in the zone where the case is located.
-    
     """
     internal_name = "Refrigeration:Case"
     field_count = 35
@@ -53,15 +54,16 @@ class RefrigerationCase(object):
         self._data["Case Credit Fraction Schedule Name"] = None
         self._data["Design Evaporator Temperature or Brine Inlet Temperature"] = None
         self._data["Average Refrigerant Charge Inventory"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -308,6 +310,7 @@ class RefrigerationCase(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -334,7 +337,7 @@ class RefrigerationCase(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -371,7 +374,7 @@ class RefrigerationCase(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `availability_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -407,7 +410,7 @@ class RefrigerationCase(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `zone_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -445,7 +448,7 @@ class RefrigerationCase(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `rated_ambient_temperature`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -481,7 +484,7 @@ class RefrigerationCase(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `rated_ambient_relative_humidity`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -519,7 +522,7 @@ class RefrigerationCase(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `rated_total_cooling_capacity_per_unit_length`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -554,7 +557,7 @@ class RefrigerationCase(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `rated_latent_heat_ratio`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -592,7 +595,7 @@ class RefrigerationCase(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `rated_runtime_fraction`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -630,7 +633,7 @@ class RefrigerationCase(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `case_length`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -665,7 +668,7 @@ class RefrigerationCase(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `case_operating_temperature`'.format(value))
             if value >= 20.0:
                 raise ValueError('value need to be smaller 20.0 '
@@ -702,7 +705,7 @@ class RefrigerationCase(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `latent_case_credit_curve_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -717,16 +720,26 @@ class RefrigerationCase(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `latent_case_credit_curve_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `latent_case_credit_curve_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Latent Case Credit Curve Type"] = value
 
@@ -756,7 +769,7 @@ class RefrigerationCase(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `latent_case_credit_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -794,7 +807,7 @@ class RefrigerationCase(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `standard_case_fan_power_per_unit_length`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -829,7 +842,7 @@ class RefrigerationCase(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `operating_case_fan_power_per_unit_length`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -863,7 +876,7 @@ class RefrigerationCase(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `standard_case_lighting_power_per_unit_length`'.format(value))
         self._data["Standard Case Lighting Power per Unit Length"] = value
 
@@ -894,7 +907,7 @@ class RefrigerationCase(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `installed_case_lighting_power_per_unit_length`'.format(value))
         self._data["Installed Case Lighting Power per Unit Length"] = value
 
@@ -923,7 +936,7 @@ class RefrigerationCase(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `case_lighting_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -961,7 +974,7 @@ class RefrigerationCase(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_lighting_energy_to_case`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -999,7 +1012,7 @@ class RefrigerationCase(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `case_antisweat_heater_power_per_unit_length`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -1036,7 +1049,7 @@ class RefrigerationCase(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `minimum_antisweat_heater_power_per_unit_length`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -1075,7 +1088,7 @@ class RefrigerationCase(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `antisweat_heater_control_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1092,16 +1105,26 @@ class RefrigerationCase(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `antisweat_heater_control_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `antisweat_heater_control_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Anti-Sweat Heater Control Type"] = value
 
@@ -1134,7 +1157,7 @@ class RefrigerationCase(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `humidity_at_zero_antisweat_heater_energy`'.format(value))
         self._data["Humidity at Zero Anti-Sweat Heater Energy"] = value
 
@@ -1168,7 +1191,7 @@ class RefrigerationCase(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `case_height`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -1203,7 +1226,7 @@ class RefrigerationCase(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_antisweat_heater_energy_to_case`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -1242,7 +1265,7 @@ class RefrigerationCase(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `case_defrost_power_per_unit_length`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -1284,7 +1307,7 @@ class RefrigerationCase(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `case_defrost_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1304,16 +1327,26 @@ class RefrigerationCase(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `case_defrost_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `case_defrost_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Case Defrost Type"] = value
 
@@ -1343,7 +1376,7 @@ class RefrigerationCase(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `case_defrost_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1384,7 +1417,7 @@ class RefrigerationCase(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `case_defrost_dripdown_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1427,7 +1460,7 @@ class RefrigerationCase(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `defrost_energy_correction_curve_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1443,16 +1476,26 @@ class RefrigerationCase(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `defrost_energy_correction_curve_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `defrost_energy_correction_curve_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Defrost Energy Correction Curve Type"] = value
 
@@ -1484,7 +1527,7 @@ class RefrigerationCase(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `defrost_energy_correction_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1522,7 +1565,7 @@ class RefrigerationCase(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `under_case_hvac_return_air_fraction`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -1559,7 +1602,7 @@ class RefrigerationCase(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `refrigerated_case_restocking_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1596,7 +1639,7 @@ class RefrigerationCase(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `case_credit_fraction_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1638,7 +1681,7 @@ class RefrigerationCase(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `design_evaporator_temperature_or_brine_inlet_temperature`'.format(value))
             if value < -70.0:
                 raise ValueError('value need to be greater or equal -70.0 '
@@ -1675,7 +1718,7 @@ class RefrigerationCase(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `average_refrigerant_charge_inventory`'.format(value))
         self._data["Average Refrigerant Charge Inventory"] = value
 
@@ -1721,7 +1764,6 @@ class RefrigerationCompressorRack(object):
         eitheroutdoors or to a zone. Compressor rack waste heat can also be reclaimed for
         use by an optional air- or water-heating coil (Coil:Heating:Desuperheater and
         Coil:WaterHeating:Desuperheater).
-    
     """
     internal_name = "Refrigeration:CompressorRack"
     field_count = 26
@@ -1757,15 +1799,16 @@ class RefrigerationCompressorRack(object):
         self._data["End-Use Subcategory"] = None
         self._data["Refrigeration Case Name or WalkIn Name or CaseAndWalkInList Name"] = None
         self._data["Heat Rejection Zone Name"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -1949,6 +1992,7 @@ class RefrigerationCompressorRack(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -1975,7 +2019,7 @@ class RefrigerationCompressorRack(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2014,7 +2058,7 @@ class RefrigerationCompressorRack(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `heat_rejection_location`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2028,16 +2072,26 @@ class RefrigerationCompressorRack(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `heat_rejection_location`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `heat_rejection_location`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Heat Rejection Location"] = value
 
@@ -2071,7 +2125,7 @@ class RefrigerationCompressorRack(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `design_compressor_rack_cop`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -2106,7 +2160,7 @@ class RefrigerationCompressorRack(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `compressor_rack_cop_function_of_temperature_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2145,7 +2199,7 @@ class RefrigerationCompressorRack(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `design_condenser_fan_power`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -2178,7 +2232,7 @@ class RefrigerationCompressorRack(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `condenser_fan_power_function_of_temperature_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2219,7 +2273,7 @@ class RefrigerationCompressorRack(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `condenser_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2234,16 +2288,26 @@ class RefrigerationCompressorRack(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `condenser_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `condenser_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Condenser Type"] = value
 
@@ -2272,7 +2336,7 @@ class RefrigerationCompressorRack(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `watercooled_condenser_inlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2307,7 +2371,7 @@ class RefrigerationCompressorRack(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `watercooled_condenser_outlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2347,7 +2411,7 @@ class RefrigerationCompressorRack(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `watercooled_loop_flow_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2361,16 +2425,26 @@ class RefrigerationCompressorRack(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `watercooled_loop_flow_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `watercooled_loop_flow_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Water-Cooled Loop Flow Type"] = value
 
@@ -2400,7 +2474,7 @@ class RefrigerationCompressorRack(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `watercooled_condenser_outlet_temperature_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2438,7 +2512,7 @@ class RefrigerationCompressorRack(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `watercooled_condenser_design_flow_rate`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -2472,7 +2546,7 @@ class RefrigerationCompressorRack(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `watercooled_condenser_maximum_flow_rate`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -2508,7 +2582,7 @@ class RefrigerationCompressorRack(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `watercooled_condenser_maximum_water_outlet_temperature`'.format(value))
             if value < 10.0:
                 raise ValueError('value need to be greater or equal 10.0 '
@@ -2547,7 +2621,7 @@ class RefrigerationCompressorRack(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `watercooled_condenser_minimum_water_inlet_temperature`'.format(value))
             if value < 10.0:
                 raise ValueError('value need to be greater or equal 10.0 '
@@ -2587,7 +2661,7 @@ class RefrigerationCompressorRack(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `evaporative_condenser_availability_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2627,7 +2701,7 @@ class RefrigerationCompressorRack(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `evaporative_condenser_effectiveness`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -2669,12 +2743,17 @@ class RefrigerationCompressorRack(object):
                 if value_lower == "autocalculate":
                     self._data["Evaporative Condenser Air Flow Rate"] = "Autocalculate"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autocalculate" '
+                                 'for field `evaporative_condenser_air_flow_rate`'.format(value))
+                    self._data["Evaporative Condenser Air Flow Rate"] = "Autocalculate"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autocalculate"'
                                  'for field `evaporative_condenser_air_flow_rate`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -2714,7 +2793,7 @@ class RefrigerationCompressorRack(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `basin_heater_capacity`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -2750,7 +2829,7 @@ class RefrigerationCompressorRack(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `basin_heater_setpoint_temperature`'.format(value))
             if value < 2.0:
                 raise ValueError('value need to be greater or equal 2.0 '
@@ -2789,12 +2868,17 @@ class RefrigerationCompressorRack(object):
                 if value_lower == "autocalculate":
                     self._data["Design Evaporative Condenser Water Pump Power"] = "Autocalculate"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autocalculate" '
+                                 'for field `design_evaporative_condenser_water_pump_power`'.format(value))
+                    self._data["Design Evaporative Condenser Water Pump Power"] = "Autocalculate"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autocalculate"'
                                  'for field `design_evaporative_condenser_water_pump_power`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -2828,7 +2912,7 @@ class RefrigerationCompressorRack(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `evaporative_water_supply_tank_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2868,7 +2952,7 @@ class RefrigerationCompressorRack(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `condenser_air_inlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2904,7 +2988,7 @@ class RefrigerationCompressorRack(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `enduse_subcategory`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2941,7 +3025,7 @@ class RefrigerationCompressorRack(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `refrigeration_case_name_or_walkin_name_or_caseandwalkinlist_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2979,7 +3063,7 @@ class RefrigerationCompressorRack(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `heat_rejection_zone_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3031,7 +3115,6 @@ class RefrigerationCaseAndWalkInList(object):
         give a list the same name as one of list items. This list may contain a combination
         of case and walk-in names OR a list of air chiller names.  Air chillers
         may not be included in any list that also includes cases or walk-ins.
-    
     """
     internal_name = "Refrigeration:CaseAndWalkInList"
     field_count = 41
@@ -3082,15 +3165,16 @@ class RefrigerationCaseAndWalkInList(object):
         self._data["Case or WalkIn 38 Name"] = None
         self._data["Case or WalkIn 39 Name"] = None
         self._data["Case or WalkIn 40 Name"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -3379,6 +3463,7 @@ class RefrigerationCaseAndWalkInList(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -3405,7 +3490,7 @@ class RefrigerationCaseAndWalkInList(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3441,7 +3526,7 @@ class RefrigerationCaseAndWalkInList(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `case_or_walkin_1_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3477,7 +3562,7 @@ class RefrigerationCaseAndWalkInList(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `case_or_walkin_2_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3513,7 +3598,7 @@ class RefrigerationCaseAndWalkInList(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `case_or_walkin_3_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3549,7 +3634,7 @@ class RefrigerationCaseAndWalkInList(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `case_or_walkin_4_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3585,7 +3670,7 @@ class RefrigerationCaseAndWalkInList(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `case_or_walkin_5_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3621,7 +3706,7 @@ class RefrigerationCaseAndWalkInList(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `case_or_walkin_6_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3657,7 +3742,7 @@ class RefrigerationCaseAndWalkInList(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `case_or_walkin_7_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3693,7 +3778,7 @@ class RefrigerationCaseAndWalkInList(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `case_or_walkin_8_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3729,7 +3814,7 @@ class RefrigerationCaseAndWalkInList(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `case_or_walkin_9_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3765,7 +3850,7 @@ class RefrigerationCaseAndWalkInList(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `case_or_walkin_10_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3801,7 +3886,7 @@ class RefrigerationCaseAndWalkInList(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `case_or_walkin_11_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3837,7 +3922,7 @@ class RefrigerationCaseAndWalkInList(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `case_or_walkin_12_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3873,7 +3958,7 @@ class RefrigerationCaseAndWalkInList(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `case_or_walkin_13_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3909,7 +3994,7 @@ class RefrigerationCaseAndWalkInList(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `case_or_walkin_14_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3945,7 +4030,7 @@ class RefrigerationCaseAndWalkInList(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `case_or_walkin_15_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3981,7 +4066,7 @@ class RefrigerationCaseAndWalkInList(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `case_or_walkin_16_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4017,7 +4102,7 @@ class RefrigerationCaseAndWalkInList(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `case_or_walkin_17_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4053,7 +4138,7 @@ class RefrigerationCaseAndWalkInList(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `case_or_walkin_18_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4089,7 +4174,7 @@ class RefrigerationCaseAndWalkInList(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `case_or_walkin_19_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4125,7 +4210,7 @@ class RefrigerationCaseAndWalkInList(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `case_or_walkin_20_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4161,7 +4246,7 @@ class RefrigerationCaseAndWalkInList(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `case_or_walkin_21_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4197,7 +4282,7 @@ class RefrigerationCaseAndWalkInList(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `case_or_walkin_22_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4233,7 +4318,7 @@ class RefrigerationCaseAndWalkInList(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `case_or_walkin_23_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4269,7 +4354,7 @@ class RefrigerationCaseAndWalkInList(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `case_or_walkin_24_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4305,7 +4390,7 @@ class RefrigerationCaseAndWalkInList(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `case_or_walkin_25_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4341,7 +4426,7 @@ class RefrigerationCaseAndWalkInList(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `case_or_walkin_26_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4377,7 +4462,7 @@ class RefrigerationCaseAndWalkInList(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `case_or_walkin_27_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4413,7 +4498,7 @@ class RefrigerationCaseAndWalkInList(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `case_or_walkin_28_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4449,7 +4534,7 @@ class RefrigerationCaseAndWalkInList(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `case_or_walkin_29_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4485,7 +4570,7 @@ class RefrigerationCaseAndWalkInList(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `case_or_walkin_30_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4521,7 +4606,7 @@ class RefrigerationCaseAndWalkInList(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `case_or_walkin_31_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4557,7 +4642,7 @@ class RefrigerationCaseAndWalkInList(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `case_or_walkin_32_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4593,7 +4678,7 @@ class RefrigerationCaseAndWalkInList(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `case_or_walkin_33_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4629,7 +4714,7 @@ class RefrigerationCaseAndWalkInList(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `case_or_walkin_34_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4665,7 +4750,7 @@ class RefrigerationCaseAndWalkInList(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `case_or_walkin_35_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4701,7 +4786,7 @@ class RefrigerationCaseAndWalkInList(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `case_or_walkin_36_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4737,7 +4822,7 @@ class RefrigerationCaseAndWalkInList(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `case_or_walkin_37_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4773,7 +4858,7 @@ class RefrigerationCaseAndWalkInList(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `case_or_walkin_38_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4809,7 +4894,7 @@ class RefrigerationCaseAndWalkInList(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `case_or_walkin_39_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4845,7 +4930,7 @@ class RefrigerationCaseAndWalkInList(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `case_or_walkin_40_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4892,7 +4977,6 @@ class RefrigerationCaseAndWalkInList(object):
 class RefrigerationCondenserAirCooled(object):
     """ Corresponds to IDD object `Refrigeration:Condenser:AirCooled`
         Air cooled condenser for a refrigeration system (Refrigeration:System).
-    
     """
     internal_name = "Refrigeration:Condenser:AirCooled"
     field_count = 11
@@ -4913,15 +4997,16 @@ class RefrigerationCondenserAirCooled(object):
         self._data["Condenser Refrigerant Operating Charge Inventory"] = None
         self._data["Condensate Receiver Refrigerant Inventory"] = None
         self._data["Condensate Piping Refrigerant Inventory"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -5000,6 +5085,7 @@ class RefrigerationCondenserAirCooled(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -5026,7 +5112,7 @@ class RefrigerationCondenserAirCooled(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -5066,7 +5152,7 @@ class RefrigerationCondenserAirCooled(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `rated_effective_total_heat_rejection_rate_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -5105,7 +5191,7 @@ class RefrigerationCondenserAirCooled(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `rated_subcooling_temperature_difference`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -5143,7 +5229,7 @@ class RefrigerationCondenserAirCooled(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `condenser_fan_speed_control_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -5159,16 +5245,26 @@ class RefrigerationCondenserAirCooled(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `condenser_fan_speed_control_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `condenser_fan_speed_control_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Condenser Fan Speed Control Type"] = value
 
@@ -5201,7 +5297,7 @@ class RefrigerationCondenserAirCooled(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `rated_fan_power`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -5237,7 +5333,7 @@ class RefrigerationCondenserAirCooled(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `minimum_fan_air_flow_ratio`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -5274,7 +5370,7 @@ class RefrigerationCondenserAirCooled(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `air_inlet_node_name_or_zone_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -5310,7 +5406,7 @@ class RefrigerationCondenserAirCooled(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `enduse_subcategory`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -5348,7 +5444,7 @@ class RefrigerationCondenserAirCooled(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `condenser_refrigerant_operating_charge_inventory`'.format(value))
         self._data["Condenser Refrigerant Operating Charge Inventory"] = value
 
@@ -5380,7 +5476,7 @@ class RefrigerationCondenserAirCooled(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `condensate_receiver_refrigerant_inventory`'.format(value))
         self._data["Condensate Receiver Refrigerant Inventory"] = value
 
@@ -5412,7 +5508,7 @@ class RefrigerationCondenserAirCooled(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `condensate_piping_refrigerant_inventory`'.format(value))
         self._data["Condensate Piping Refrigerant Inventory"] = value
 
@@ -5453,7 +5549,6 @@ class RefrigerationCondenserAirCooled(object):
 class RefrigerationCondenserEvaporativeCooled(object):
     """ Corresponds to IDD object `Refrigeration:Condenser:EvaporativeCooled`
         Evaporative-cooled condenser for a refrigeration system (Refrigeration:System).
-    
     """
     internal_name = "Refrigeration:Condenser:EvaporativeCooled"
     field_count = 23
@@ -5486,15 +5581,16 @@ class RefrigerationCondenserEvaporativeCooled(object):
         self._data["Condenser Refrigerant Operating Charge Inventory"] = None
         self._data["Condensate Receiver Refrigerant Inventory"] = None
         self._data["Condensate Piping Refrigerant Inventory"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -5657,6 +5753,7 @@ class RefrigerationCondenserEvaporativeCooled(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -5683,7 +5780,7 @@ class RefrigerationCondenserEvaporativeCooled(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -5722,7 +5819,7 @@ class RefrigerationCondenserEvaporativeCooled(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `rated_effective_total_heat_rejection_rate`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -5758,7 +5855,7 @@ class RefrigerationCondenserEvaporativeCooled(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `rated_subcooling_temperature_difference`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -5796,7 +5893,7 @@ class RefrigerationCondenserEvaporativeCooled(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `fan_speed_control_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -5812,16 +5909,26 @@ class RefrigerationCondenserEvaporativeCooled(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `fan_speed_control_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `fan_speed_control_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Fan Speed Control Type"] = value
 
@@ -5853,7 +5960,7 @@ class RefrigerationCondenserEvaporativeCooled(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `rated_fan_power`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -5889,7 +5996,7 @@ class RefrigerationCondenserEvaporativeCooled(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `minimum_fan_air_flow_ratio`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -5926,7 +6033,7 @@ class RefrigerationCondenserEvaporativeCooled(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `approach_temperature_constant_term`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -5966,7 +6073,7 @@ class RefrigerationCondenserEvaporativeCooled(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `approach_temperature_coefficient_2`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -6006,7 +6113,7 @@ class RefrigerationCondenserEvaporativeCooled(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `approach_temperature_coefficient_3`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -6046,7 +6153,7 @@ class RefrigerationCondenserEvaporativeCooled(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `approach_temperature_coefficient_4`'.format(value))
             if value < -20.0:
                 raise ValueError('value need to be greater or equal -20.0 '
@@ -6084,7 +6191,7 @@ class RefrigerationCondenserEvaporativeCooled(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `minimum_capacity_factor`'.format(value))
         self._data["Minimum Capacity Factor"] = value
 
@@ -6116,7 +6223,7 @@ class RefrigerationCondenserEvaporativeCooled(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `maximum_capacity_factor`'.format(value))
         self._data["Maximum Capacity Factor"] = value
 
@@ -6149,7 +6256,7 @@ class RefrigerationCondenserEvaporativeCooled(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `air_inlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -6189,12 +6296,17 @@ class RefrigerationCondenserEvaporativeCooled(object):
                 if value_lower == "autocalculate":
                     self._data["Rated Air Flow Rate"] = "Autocalculate"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autocalculate" '
+                                 'for field `rated_air_flow_rate`'.format(value))
+                    self._data["Rated Air Flow Rate"] = "Autocalculate"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autocalculate"'
                                  'for field `rated_air_flow_rate`'.format(value))
         self._data["Rated Air Flow Rate"] = value
 
@@ -6231,7 +6343,7 @@ class RefrigerationCondenserEvaporativeCooled(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `basin_heater_capacity`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -6267,7 +6379,7 @@ class RefrigerationCondenserEvaporativeCooled(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `basin_heater_setpoint_temperature`'.format(value))
             if value < 2.0:
                 raise ValueError('value need to be greater or equal 2.0 '
@@ -6304,12 +6416,17 @@ class RefrigerationCondenserEvaporativeCooled(object):
                 if value_lower == "autocalculate":
                     self._data["Rated Water Pump Power"] = "Autocalculate"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autocalculate" '
+                                 'for field `rated_water_pump_power`'.format(value))
+                    self._data["Rated Water Pump Power"] = "Autocalculate"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autocalculate"'
                                  'for field `rated_water_pump_power`'.format(value))
         self._data["Rated Water Pump Power"] = value
 
@@ -6339,7 +6456,7 @@ class RefrigerationCondenserEvaporativeCooled(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `evaporative_water_supply_tank_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -6378,7 +6495,7 @@ class RefrigerationCondenserEvaporativeCooled(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `evaporative_condenser_availability_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -6414,7 +6531,7 @@ class RefrigerationCondenserEvaporativeCooled(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `enduse_subcategory`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -6452,7 +6569,7 @@ class RefrigerationCondenserEvaporativeCooled(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `condenser_refrigerant_operating_charge_inventory`'.format(value))
         self._data["Condenser Refrigerant Operating Charge Inventory"] = value
 
@@ -6484,7 +6601,7 @@ class RefrigerationCondenserEvaporativeCooled(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `condensate_receiver_refrigerant_inventory`'.format(value))
         self._data["Condensate Receiver Refrigerant Inventory"] = value
 
@@ -6516,7 +6633,7 @@ class RefrigerationCondenserEvaporativeCooled(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `condensate_piping_refrigerant_inventory`'.format(value))
         self._data["Condensate Piping Refrigerant Inventory"] = value
 
@@ -6557,7 +6674,6 @@ class RefrigerationCondenserEvaporativeCooled(object):
 class RefrigerationCondenserWaterCooled(object):
     """ Corresponds to IDD object `Refrigeration:Condenser:WaterCooled`
         Water cooled condenser for a refrigeration system (Refrigeration:System).
-    
     """
     internal_name = "Refrigeration:Condenser:WaterCooled"
     field_count = 17
@@ -6584,15 +6700,16 @@ class RefrigerationCondenserWaterCooled(object):
         self._data["Condenser Refrigerant Operating Charge Inventory"] = None
         self._data["Condensate Receiver Refrigerant Inventory"] = None
         self._data["Condensate Piping Refrigerant Inventory"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -6713,6 +6830,7 @@ class RefrigerationCondenserWaterCooled(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -6739,7 +6857,7 @@ class RefrigerationCondenserWaterCooled(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -6779,7 +6897,7 @@ class RefrigerationCondenserWaterCooled(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `rated_effective_total_heat_rejection_rate`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -6814,7 +6932,7 @@ class RefrigerationCondenserWaterCooled(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `rated_condensing_temperature`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -6850,7 +6968,7 @@ class RefrigerationCondenserWaterCooled(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `rated_subcooling_temperature_difference`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -6885,7 +7003,7 @@ class RefrigerationCondenserWaterCooled(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `rated_water_inlet_temperature`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -6917,7 +7035,7 @@ class RefrigerationCondenserWaterCooled(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `water_inlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -6952,7 +7070,7 @@ class RefrigerationCondenserWaterCooled(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `water_outlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -6991,7 +7109,7 @@ class RefrigerationCondenserWaterCooled(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `watercooled_loop_flow_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -7005,16 +7123,26 @@ class RefrigerationCondenserWaterCooled(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `watercooled_loop_flow_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `watercooled_loop_flow_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Water-Cooled Loop Flow Type"] = value
 
@@ -7044,7 +7172,7 @@ class RefrigerationCondenserWaterCooled(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `water_outlet_temperature_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -7083,7 +7211,7 @@ class RefrigerationCondenserWaterCooled(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `water_design_flow_rate`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -7117,7 +7245,7 @@ class RefrigerationCondenserWaterCooled(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `water_maximum_flow_rate`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -7153,7 +7281,7 @@ class RefrigerationCondenserWaterCooled(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `water_maximum_water_outlet_temperature`'.format(value))
             if value < 10.0:
                 raise ValueError('value need to be greater or equal 10.0 '
@@ -7193,7 +7321,7 @@ class RefrigerationCondenserWaterCooled(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `water_minimum_water_inlet_temperature`'.format(value))
             if value < 10.0:
                 raise ValueError('value need to be greater or equal 10.0 '
@@ -7229,7 +7357,7 @@ class RefrigerationCondenserWaterCooled(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `enduse_subcategory`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -7266,7 +7394,7 @@ class RefrigerationCondenserWaterCooled(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `condenser_refrigerant_operating_charge_inventory`'.format(value))
         self._data["Condenser Refrigerant Operating Charge Inventory"] = value
 
@@ -7297,7 +7425,7 @@ class RefrigerationCondenserWaterCooled(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `condensate_receiver_refrigerant_inventory`'.format(value))
         self._data["Condensate Receiver Refrigerant Inventory"] = value
 
@@ -7328,7 +7456,7 @@ class RefrigerationCondenserWaterCooled(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `condensate_piping_refrigerant_inventory`'.format(value))
         self._data["Condensate Piping Refrigerant Inventory"] = value
 
@@ -7373,7 +7501,6 @@ class RefrigerationCondenserCascade(object):
         higher-temperature, refrigeration system. That is, the cascade condenser acts as a
         heat rejection object for one system, but acts as a refrigeration load for another
         system.
-    
     """
     internal_name = "Refrigeration:Condenser:Cascade"
     field_count = 8
@@ -7391,15 +7518,16 @@ class RefrigerationCondenserCascade(object):
         self._data["Condenser Refrigerant Operating Charge Inventory"] = None
         self._data["Condensate Receiver Refrigerant Inventory"] = None
         self._data["Condensate Piping Refrigerant Inventory"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -7457,6 +7585,7 @@ class RefrigerationCondenserCascade(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -7483,7 +7612,7 @@ class RefrigerationCondenserCascade(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -7520,7 +7649,7 @@ class RefrigerationCondenserCascade(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `rated_condensing_temperature`'.format(value))
         self._data["Rated Condensing Temperature"] = value
 
@@ -7553,7 +7682,7 @@ class RefrigerationCondenserCascade(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `rated_approach_temperature_difference`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -7588,7 +7717,7 @@ class RefrigerationCondenserCascade(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `rated_effective_total_heat_rejection_rate`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -7627,7 +7756,7 @@ class RefrigerationCondenserCascade(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `condensing_temperature_control_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -7641,16 +7770,26 @@ class RefrigerationCondenserCascade(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `condensing_temperature_control_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `condensing_temperature_control_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Condensing Temperature Control Type"] = value
 
@@ -7681,7 +7820,7 @@ class RefrigerationCondenserCascade(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `condenser_refrigerant_operating_charge_inventory`'.format(value))
         self._data["Condenser Refrigerant Operating Charge Inventory"] = value
 
@@ -7712,7 +7851,7 @@ class RefrigerationCondenserCascade(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `condensate_receiver_refrigerant_inventory`'.format(value))
         self._data["Condensate Receiver Refrigerant Inventory"] = value
 
@@ -7743,7 +7882,7 @@ class RefrigerationCondenserCascade(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `condensate_piping_refrigerant_inventory`'.format(value))
         self._data["Condensate Piping Refrigerant Inventory"] = value
 
@@ -7785,7 +7924,6 @@ class RefrigerationGasCoolerAirCooled(object):
     """ Corresponds to IDD object `Refrigeration:GasCooler:AirCooled`
         The transcritical refrigeration system requires a single gas cooler to reject the
         system heat.
-    
     """
     internal_name = "Refrigeration:GasCooler:AirCooled"
     field_count = 14
@@ -7809,15 +7947,16 @@ class RefrigerationGasCoolerAirCooled(object):
         self._data["Gas Cooler Refrigerant Operating Charge Inventory"] = None
         self._data["Gas Cooler Receiver Refrigerant Inventory"] = None
         self._data["Gas Cooler Outlet Piping Refrigerant Inventory"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -7917,6 +8056,7 @@ class RefrigerationGasCoolerAirCooled(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -7943,7 +8083,7 @@ class RefrigerationGasCoolerAirCooled(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -7982,7 +8122,7 @@ class RefrigerationGasCoolerAirCooled(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `rated_total_heat_rejection_rate_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -8023,7 +8163,7 @@ class RefrigerationGasCoolerAirCooled(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `gas_cooler_fan_speed_control_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -8039,16 +8179,26 @@ class RefrigerationGasCoolerAirCooled(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `gas_cooler_fan_speed_control_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `gas_cooler_fan_speed_control_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Gas Cooler Fan Speed Control Type"] = value
 
@@ -8081,7 +8231,7 @@ class RefrigerationGasCoolerAirCooled(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `rated_fan_power`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -8117,7 +8267,7 @@ class RefrigerationGasCoolerAirCooled(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `minimum_fan_air_flow_ratio`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -8152,7 +8302,7 @@ class RefrigerationGasCoolerAirCooled(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `transition_temperature`'.format(value))
         self._data["Transition Temperature"] = value
 
@@ -8185,7 +8335,7 @@ class RefrigerationGasCoolerAirCooled(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `transcritical_approach_temperature`'.format(value))
         self._data["Transcritical Approach Temperature"] = value
 
@@ -8218,7 +8368,7 @@ class RefrigerationGasCoolerAirCooled(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `subcritical_temperature_difference`'.format(value))
         self._data["Subcritical Temperature Difference"] = value
 
@@ -8250,7 +8400,7 @@ class RefrigerationGasCoolerAirCooled(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `minimum_condensing_temperature`'.format(value))
         self._data["Minimum Condensing Temperature"] = value
 
@@ -8283,7 +8433,7 @@ class RefrigerationGasCoolerAirCooled(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `air_inlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -8319,7 +8469,7 @@ class RefrigerationGasCoolerAirCooled(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `enduse_subcategory`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -8357,7 +8507,7 @@ class RefrigerationGasCoolerAirCooled(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `gas_cooler_refrigerant_operating_charge_inventory`'.format(value))
         self._data["Gas Cooler Refrigerant Operating Charge Inventory"] = value
 
@@ -8389,7 +8539,7 @@ class RefrigerationGasCoolerAirCooled(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `gas_cooler_receiver_refrigerant_inventory`'.format(value))
         self._data["Gas Cooler Receiver Refrigerant Inventory"] = value
 
@@ -8421,7 +8571,7 @@ class RefrigerationGasCoolerAirCooled(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `gas_cooler_outlet_piping_refrigerant_inventory`'.format(value))
         self._data["Gas Cooler Outlet Piping Refrigerant Inventory"] = value
 
@@ -8466,7 +8616,6 @@ class RefrigerationTransferLoadList(object):
         by a single primary system, use this list to group them together for reference by the
         primary system (see the field "Refrigeration Transfer Load or TransferLoad List Name"
         in the Refrigeration:System object).
-    
     """
     internal_name = "Refrigeration:TransferLoadList"
     field_count = 10
@@ -8486,15 +8635,16 @@ class RefrigerationTransferLoadList(object):
         self._data["Cascade Condenser Name or Secondary System 7 Name"] = None
         self._data["Cascade Condenser Name or Secondary System 8 Name"] = None
         self._data["Cascade Condenser Name or Secondary System 9 Name"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -8566,6 +8716,7 @@ class RefrigerationTransferLoadList(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -8592,7 +8743,7 @@ class RefrigerationTransferLoadList(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -8629,7 +8780,7 @@ class RefrigerationTransferLoadList(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `cascade_condenser_name_or_secondary_system_1_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -8666,7 +8817,7 @@ class RefrigerationTransferLoadList(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `cascade_condenser_name_or_secondary_system_2_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -8703,7 +8854,7 @@ class RefrigerationTransferLoadList(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `cascade_condenser_name_or_secondary_system_3_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -8740,7 +8891,7 @@ class RefrigerationTransferLoadList(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `cascade_condenser_name_or_secondary_system_4_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -8777,7 +8928,7 @@ class RefrigerationTransferLoadList(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `cascade_condenser_name_or_secondary_system_5_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -8814,7 +8965,7 @@ class RefrigerationTransferLoadList(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `cascade_condenser_name_or_secondary_system_6_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -8851,7 +9002,7 @@ class RefrigerationTransferLoadList(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `cascade_condenser_name_or_secondary_system_7_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -8888,7 +9039,7 @@ class RefrigerationTransferLoadList(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `cascade_condenser_name_or_secondary_system_8_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -8925,7 +9076,7 @@ class RefrigerationTransferLoadList(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `cascade_condenser_name_or_secondary_system_9_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -8976,7 +9127,6 @@ class RefrigerationSubcooler(object):
         after it leaves the condenser and before it reaches the thermal expansion valve.
         A mechanical subcooler is used to transfer cooling capacity from one refrigeration
         system to another.
-    
     """
     internal_name = "Refrigeration:Subcooler"
     field_count = 7
@@ -8993,15 +9143,16 @@ class RefrigerationSubcooler(object):
         self._data["Design Vapor Inlet Temperature"] = None
         self._data["Capacity-Providing System"] = None
         self._data["Outlet Control Temperature"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -9052,6 +9203,7 @@ class RefrigerationSubcooler(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -9078,7 +9230,7 @@ class RefrigerationSubcooler(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -9118,7 +9270,7 @@ class RefrigerationSubcooler(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `subcooler_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -9132,16 +9284,26 @@ class RefrigerationSubcooler(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `subcooler_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `subcooler_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Subcooler Type"] = value
 
@@ -9173,7 +9335,7 @@ class RefrigerationSubcooler(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `liquid_suction_design_subcooling_temperature_difference`'.format(value))
         self._data["Liquid Suction Design Subcooling Temperature Difference"] = value
 
@@ -9205,7 +9367,7 @@ class RefrigerationSubcooler(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `design_liquid_inlet_temperature`'.format(value))
         self._data["Design Liquid Inlet Temperature"] = value
 
@@ -9239,7 +9401,7 @@ class RefrigerationSubcooler(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `design_vapor_inlet_temperature`'.format(value))
         self._data["Design Vapor Inlet Temperature"] = value
 
@@ -9270,7 +9432,7 @@ class RefrigerationSubcooler(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `capacityproviding_system`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -9308,7 +9470,7 @@ class RefrigerationSubcooler(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `outlet_control_temperature`'.format(value))
         self._data["Outlet Control Temperature"] = value
 
@@ -9350,7 +9512,6 @@ class RefrigerationCompressor(object):
     """ Corresponds to IDD object `Refrigeration:Compressor`
         Refrigeration system compressor. Data is available for many compressors
         in the RefrigerationCompressor.idf dataset
-    
     """
     internal_name = "Refrigeration:Compressor"
     field_count = 11
@@ -9371,15 +9532,16 @@ class RefrigerationCompressor(object):
         self._data["Mode of Operation"] = None
         self._data["Transcritical Compressor Power Curve Name"] = None
         self._data["Transcritical Compressor Capacity Curve Name"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -9458,6 +9620,7 @@ class RefrigerationCompressor(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -9484,7 +9647,7 @@ class RefrigerationCompressor(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -9529,7 +9692,7 @@ class RefrigerationCompressor(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `refrigeration_compressor_power_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -9574,7 +9737,7 @@ class RefrigerationCompressor(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `refrigeration_compressor_capacity_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -9613,7 +9776,7 @@ class RefrigerationCompressor(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `rated_superheat`'.format(value))
         self._data["Rated Superheat"] = value
 
@@ -9646,7 +9809,7 @@ class RefrigerationCompressor(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `rated_return_gas_temperature`'.format(value))
         self._data["Rated Return Gas Temperature"] = value
 
@@ -9679,7 +9842,7 @@ class RefrigerationCompressor(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `rated_liquid_temperature`'.format(value))
         self._data["Rated Liquid Temperature"] = value
 
@@ -9712,7 +9875,7 @@ class RefrigerationCompressor(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `rated_subcooling`'.format(value))
         self._data["Rated Subcooling"] = value
 
@@ -9742,7 +9905,7 @@ class RefrigerationCompressor(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `enduse_subcategory`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -9781,7 +9944,7 @@ class RefrigerationCompressor(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `mode_of_operation`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -9795,16 +9958,26 @@ class RefrigerationCompressor(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `mode_of_operation`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `mode_of_operation`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Mode of Operation"] = value
 
@@ -9833,7 +10006,7 @@ class RefrigerationCompressor(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `transcritical_compressor_power_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -9868,7 +10041,7 @@ class RefrigerationCompressor(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `transcritical_compressor_capacity_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -9920,7 +10093,6 @@ class RefrigerationCompressorList(object):
         order in which the compressors are dispatched to meet the system load.
         IMPORTANT: List compressor names in the order in which the compressors will be loaded
         Data is available for many compressors in the RefrigerationCompressor.idf dataset
-    
     """
     internal_name = "Refrigeration:CompressorList"
     field_count = 41
@@ -9971,15 +10143,16 @@ class RefrigerationCompressorList(object):
         self._data["Refrigeration Compressor 38 Name"] = None
         self._data["Refrigeration Compressor 39 Name"] = None
         self._data["Refrigeration Compressor 40 Name"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -10268,6 +10441,7 @@ class RefrigerationCompressorList(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -10294,7 +10468,7 @@ class RefrigerationCompressorList(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -10330,7 +10504,7 @@ class RefrigerationCompressorList(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `refrigeration_compressor_1_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -10366,7 +10540,7 @@ class RefrigerationCompressorList(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `refrigeration_compressor_2_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -10402,7 +10576,7 @@ class RefrigerationCompressorList(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `refrigeration_compressor_3_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -10438,7 +10612,7 @@ class RefrigerationCompressorList(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `refrigeration_compressor_4_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -10474,7 +10648,7 @@ class RefrigerationCompressorList(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `refrigeration_compressor_5_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -10510,7 +10684,7 @@ class RefrigerationCompressorList(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `refrigeration_compressor_6_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -10546,7 +10720,7 @@ class RefrigerationCompressorList(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `refrigeration_compressor_7_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -10582,7 +10756,7 @@ class RefrigerationCompressorList(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `refrigeration_compressor_8_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -10618,7 +10792,7 @@ class RefrigerationCompressorList(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `refrigeration_compressor_9_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -10654,7 +10828,7 @@ class RefrigerationCompressorList(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `refrigeration_compressor_10_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -10690,7 +10864,7 @@ class RefrigerationCompressorList(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `refrigeration_compressor_11_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -10726,7 +10900,7 @@ class RefrigerationCompressorList(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `refrigeration_compressor_12_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -10762,7 +10936,7 @@ class RefrigerationCompressorList(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `refrigeration_compressor_13_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -10798,7 +10972,7 @@ class RefrigerationCompressorList(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `refrigeration_compressor_14_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -10834,7 +11008,7 @@ class RefrigerationCompressorList(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `refrigeration_compressor_15_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -10870,7 +11044,7 @@ class RefrigerationCompressorList(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `refrigeration_compressor_16_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -10906,7 +11080,7 @@ class RefrigerationCompressorList(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `refrigeration_compressor_17_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -10942,7 +11116,7 @@ class RefrigerationCompressorList(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `refrigeration_compressor_18_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -10978,7 +11152,7 @@ class RefrigerationCompressorList(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `refrigeration_compressor_19_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -11014,7 +11188,7 @@ class RefrigerationCompressorList(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `refrigeration_compressor_20_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -11050,7 +11224,7 @@ class RefrigerationCompressorList(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `refrigeration_compressor_21_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -11086,7 +11260,7 @@ class RefrigerationCompressorList(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `refrigeration_compressor_22_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -11122,7 +11296,7 @@ class RefrigerationCompressorList(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `refrigeration_compressor_23_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -11158,7 +11332,7 @@ class RefrigerationCompressorList(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `refrigeration_compressor_24_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -11194,7 +11368,7 @@ class RefrigerationCompressorList(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `refrigeration_compressor_25_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -11230,7 +11404,7 @@ class RefrigerationCompressorList(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `refrigeration_compressor_26_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -11266,7 +11440,7 @@ class RefrigerationCompressorList(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `refrigeration_compressor_27_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -11302,7 +11476,7 @@ class RefrigerationCompressorList(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `refrigeration_compressor_28_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -11338,7 +11512,7 @@ class RefrigerationCompressorList(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `refrigeration_compressor_29_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -11374,7 +11548,7 @@ class RefrigerationCompressorList(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `refrigeration_compressor_30_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -11410,7 +11584,7 @@ class RefrigerationCompressorList(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `refrigeration_compressor_31_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -11446,7 +11620,7 @@ class RefrigerationCompressorList(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `refrigeration_compressor_32_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -11482,7 +11656,7 @@ class RefrigerationCompressorList(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `refrigeration_compressor_33_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -11518,7 +11692,7 @@ class RefrigerationCompressorList(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `refrigeration_compressor_34_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -11554,7 +11728,7 @@ class RefrigerationCompressorList(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `refrigeration_compressor_35_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -11590,7 +11764,7 @@ class RefrigerationCompressorList(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `refrigeration_compressor_36_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -11626,7 +11800,7 @@ class RefrigerationCompressorList(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `refrigeration_compressor_37_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -11662,7 +11836,7 @@ class RefrigerationCompressorList(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `refrigeration_compressor_38_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -11698,7 +11872,7 @@ class RefrigerationCompressorList(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `refrigeration_compressor_39_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -11734,7 +11908,7 @@ class RefrigerationCompressorList(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `refrigeration_compressor_40_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -11783,7 +11957,6 @@ class RefrigerationSystem(object):
         Simulates the performance of a supermarket refrigeration system when used along with
         other objects to define the refrigeration load(s), the compressor(s), and the
         condenser.
-    
     """
     internal_name = "Refrigeration:System"
     field_count = 17
@@ -11810,15 +11983,16 @@ class RefrigerationSystem(object):
         self._data["Intercooler Type"] = None
         self._data["Shell-and-Coil Intercooler Effectiveness"] = None
         self._data["High-Stage Compressor or CompressorList Name"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -11939,6 +12113,7 @@ class RefrigerationSystem(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -11965,7 +12140,7 @@ class RefrigerationSystem(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -12005,7 +12180,7 @@ class RefrigerationSystem(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `refrigerated_case_or_walkin_or_caseandwalkinlist_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -12046,7 +12221,7 @@ class RefrigerationSystem(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `refrigeration_transfer_load_or_transferload_list_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -12081,7 +12256,7 @@ class RefrigerationSystem(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `refrigeration_condenser_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -12116,7 +12291,7 @@ class RefrigerationSystem(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `compressor_or_compressorlist_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -12154,7 +12329,7 @@ class RefrigerationSystem(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `minimum_condensing_temperature`'.format(value))
         self._data["Minimum Condensing Temperature"] = value
 
@@ -12188,7 +12363,7 @@ class RefrigerationSystem(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `refrigeration_system_working_fluid_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -12227,7 +12402,7 @@ class RefrigerationSystem(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `suction_temperature_control_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -12241,16 +12416,26 @@ class RefrigerationSystem(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `suction_temperature_control_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `suction_temperature_control_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Suction Temperature Control Type"] = value
 
@@ -12282,7 +12467,7 @@ class RefrigerationSystem(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `mechanical_subcooler_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -12319,7 +12504,7 @@ class RefrigerationSystem(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `liquid_suction_heat_exchanger_subcooler_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -12357,7 +12542,7 @@ class RefrigerationSystem(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `sum_ua_suction_piping`'.format(value))
         self._data["Sum UA Suction Piping"] = value
 
@@ -12389,7 +12574,7 @@ class RefrigerationSystem(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `suction_piping_zone_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -12425,7 +12610,7 @@ class RefrigerationSystem(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `enduse_subcategory`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -12464,7 +12649,7 @@ class RefrigerationSystem(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `number_of_compressor_stages`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -12478,16 +12663,26 @@ class RefrigerationSystem(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `number_of_compressor_stages`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `number_of_compressor_stages`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Number of Compressor Stages"] = value
 
@@ -12521,7 +12716,7 @@ class RefrigerationSystem(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `intercooler_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -12536,16 +12731,26 @@ class RefrigerationSystem(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `intercooler_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `intercooler_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Intercooler Type"] = value
 
@@ -12575,7 +12780,7 @@ class RefrigerationSystem(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `shellandcoil_intercooler_effectiveness`'.format(value))
         self._data["Shell-and-Coil Intercooler Effectiveness"] = value
 
@@ -12604,7 +12809,7 @@ class RefrigerationSystem(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `highstage_compressor_or_compressorlist_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -12654,7 +12859,6 @@ class RefrigerationTranscriticalSystem(object):
         supermarkets.  The object allows for modeling either a single stage system with
         medium-temperature loads or a two stage system with both medium- and low-temperature
         loads.
-    
     """
     internal_name = "Refrigeration:TranscriticalSystem"
     field_count = 15
@@ -12679,15 +12883,16 @@ class RefrigerationTranscriticalSystem(object):
         self._data["Sum UA Suction Piping for Low Temperature Loads"] = None
         self._data["Low Temperature Suction Piping Zone Name"] = None
         self._data["End-Use Subcategory"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -12794,6 +12999,7 @@ class RefrigerationTranscriticalSystem(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -12820,7 +13026,7 @@ class RefrigerationTranscriticalSystem(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -12858,7 +13064,7 @@ class RefrigerationTranscriticalSystem(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `system_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -12872,16 +13078,26 @@ class RefrigerationTranscriticalSystem(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `system_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `system_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["System Type"] = value
 
@@ -12915,7 +13131,7 @@ class RefrigerationTranscriticalSystem(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `medium_temperature_refrigerated_case_or_walkin_or_caseandwalkinlist_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -12955,7 +13171,7 @@ class RefrigerationTranscriticalSystem(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `low_temperature_refrigerated_case_or_walkin_or_caseandwalkinlist_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -12990,7 +13206,7 @@ class RefrigerationTranscriticalSystem(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `refrigeration_gas_cooler_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -13025,7 +13241,7 @@ class RefrigerationTranscriticalSystem(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `high_pressure_compressor_or_compressorlist_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -13060,7 +13276,7 @@ class RefrigerationTranscriticalSystem(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `low_pressure_compressor_or_compressorlist_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -13097,7 +13313,7 @@ class RefrigerationTranscriticalSystem(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `receiver_pressure`'.format(value))
         self._data["Receiver Pressure"] = value
 
@@ -13127,7 +13343,7 @@ class RefrigerationTranscriticalSystem(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `subcooler_effectiveness`'.format(value))
         self._data["Subcooler Effectiveness"] = value
 
@@ -13161,7 +13377,7 @@ class RefrigerationTranscriticalSystem(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `refrigeration_system_working_fluid_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -13199,7 +13415,7 @@ class RefrigerationTranscriticalSystem(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `sum_ua_suction_piping_for_medium_temperature_loads`'.format(value))
         self._data["Sum UA Suction Piping for Medium Temperature Loads"] = value
 
@@ -13231,7 +13447,7 @@ class RefrigerationTranscriticalSystem(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `medium_temperature_suction_piping_zone_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -13269,7 +13485,7 @@ class RefrigerationTranscriticalSystem(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `sum_ua_suction_piping_for_low_temperature_loads`'.format(value))
         self._data["Sum UA Suction Piping for Low Temperature Loads"] = value
 
@@ -13301,7 +13517,7 @@ class RefrigerationTranscriticalSystem(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `low_temperature_suction_piping_zone_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -13337,7 +13553,7 @@ class RefrigerationTranscriticalSystem(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `enduse_subcategory`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -13388,7 +13604,6 @@ class RefrigerationSecondarySystem(object):
         loads served by the secondary loop is absorbed by a primary refrigeration system
         (Refrigeration:System). The SecondarySystem object simulates a heat exchanger that
         is an evaporator, or refrigeration load, on the primary refrigeration system.
-    
     """
     internal_name = "Refrigeration:SecondarySystem"
     field_count = 23
@@ -13421,15 +13636,16 @@ class RefrigerationSecondarySystem(object):
         self._data["Receiver/Separator Zone Name"] = None
         self._data["Evaporator Refrigerant Inventory"] = None
         self._data["End-Use Subcategory"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -13592,6 +13808,7 @@ class RefrigerationSecondarySystem(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -13618,7 +13835,7 @@ class RefrigerationSecondarySystem(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -13656,7 +13873,7 @@ class RefrigerationSecondarySystem(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `refrigerated_case_or_walkin_or_caseandwalkinlist_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -13704,7 +13921,7 @@ class RefrigerationSecondarySystem(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `circulating_fluid_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -13718,16 +13935,26 @@ class RefrigerationSecondarySystem(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `circulating_fluid_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `circulating_fluid_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Circulating Fluid Type"] = value
 
@@ -13757,7 +13984,7 @@ class RefrigerationSecondarySystem(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `circulating_fluid_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -13798,7 +14025,7 @@ class RefrigerationSecondarySystem(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `evaporator_capacity`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -13836,7 +14063,7 @@ class RefrigerationSecondarySystem(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `evaporator_flow_rate_for_secondary_fluid`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -13873,7 +14100,7 @@ class RefrigerationSecondarySystem(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `evaporator_evaporating_temperature`'.format(value))
         self._data["Evaporator Evaporating Temperature"] = value
 
@@ -13908,7 +14135,7 @@ class RefrigerationSecondarySystem(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `evaporator_approach_temperature_difference`'.format(value))
         self._data["Evaporator Approach Temperature Difference"] = value
 
@@ -13942,7 +14169,7 @@ class RefrigerationSecondarySystem(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `evaporator_range_temperature_difference`'.format(value))
         self._data["Evaporator Range Temperature Difference"] = value
 
@@ -13972,8 +14199,15 @@ class RefrigerationSecondarySystem(object):
             try:
                 value = int(value)
             except ValueError:
-                raise ValueError('value {} need to be of type int '
-                                 'for field `number_of_pumps_in_loop`'.format(value))
+                if not self.strict:
+                    try:
+                        conv_value = int(float(value))
+                        logging.warn('Cast float {} to int {}, precision may be lost '
+                                     'for field `number_of_pumps_in_loop`'.format(value, conv_value))
+                        value = conv_value
+                    except ValueError:
+                        raise ValueError('value {} need to be of type int '
+                                         'for field `number_of_pumps_in_loop`'.format(value))
         self._data["Number of Pumps in Loop"] = value
 
     @property
@@ -14007,7 +14241,7 @@ class RefrigerationSecondarySystem(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `total_pump_flow_rate`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -14042,7 +14276,7 @@ class RefrigerationSecondarySystem(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `total_pump_power`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -14077,7 +14311,7 @@ class RefrigerationSecondarySystem(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `total_pump_head`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -14114,7 +14348,7 @@ class RefrigerationSecondarySystem(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `phasechange_circulating_rate`'.format(value))
             if value < 1.0:
                 raise ValueError('value need to be greater or equal 1.0 '
@@ -14150,7 +14384,7 @@ class RefrigerationSecondarySystem(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `pump_drive_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -14164,16 +14398,26 @@ class RefrigerationSecondarySystem(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `pump_drive_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `pump_drive_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Pump Drive Type"] = value
 
@@ -14204,7 +14448,7 @@ class RefrigerationSecondarySystem(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `variable_speed_pump_cubic_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -14246,7 +14490,7 @@ class RefrigerationSecondarySystem(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `pump_motor_heat_to_fluid`'.format(value))
             if value < 0.5:
                 raise ValueError('value need to be greater or equal 0.5 '
@@ -14284,7 +14528,7 @@ class RefrigerationSecondarySystem(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `sum_ua_distribution_piping`'.format(value))
         self._data["Sum UA Distribution Piping"] = value
 
@@ -14316,7 +14560,7 @@ class RefrigerationSecondarySystem(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `distribution_piping_zone_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -14354,7 +14598,7 @@ class RefrigerationSecondarySystem(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `sum_ua_receiver_or_separator_shell`'.format(value))
         self._data["Sum UA Receiver/Separator Shell"] = value
 
@@ -14386,7 +14630,7 @@ class RefrigerationSecondarySystem(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `receiver_or_separator_zone_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -14414,6 +14658,7 @@ class RefrigerationSecondarySystem(object):
 
         Args:
             value (float): value for IDD Field `Evaporator Refrigerant Inventory`
+                Units: kg
                 Default value: 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -14425,7 +14670,7 @@ class RefrigerationSecondarySystem(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `evaporator_refrigerant_inventory`'.format(value))
         self._data["Evaporator Refrigerant Inventory"] = value
 
@@ -14455,7 +14700,7 @@ class RefrigerationSecondarySystem(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `enduse_subcategory`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -14506,7 +14751,6 @@ class RefrigerationWalkIn(object):
         The walk-in cooler model uses information at rated conditions along with input
         descriptions for heat transfer surfaces facing multiple zones to determine
         performance.
-    
     """
     internal_name = "Refrigeration:WalkIn"
     field_count = 57
@@ -14573,15 +14817,16 @@ class RefrigerationWalkIn(object):
         self._data["Stocking Door U Value Facing Zone 3"] = None
         self._data["Stocking Door Opening Schedule Name Facing Zone 3"] = None
         self._data["Stocking Door Opening Protection Type Facing Zone 3"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -14982,6 +15227,7 @@ class RefrigerationWalkIn(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -15008,7 +15254,7 @@ class RefrigerationWalkIn(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -15045,7 +15291,7 @@ class RefrigerationWalkIn(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `availability_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -15081,7 +15327,7 @@ class RefrigerationWalkIn(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `rated_coil_cooling_capacity`'.format(value))
         self._data["Rated Coil Cooling Capacity"] = value
 
@@ -15112,7 +15358,7 @@ class RefrigerationWalkIn(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `operating_temperature`'.format(value))
             if value >= 20.0:
                 raise ValueError('value need to be smaller 20.0 '
@@ -15151,7 +15397,7 @@ class RefrigerationWalkIn(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `rated_cooling_source_temperature`'.format(value))
             if value < -70.0:
                 raise ValueError('value need to be greater or equal -70.0 '
@@ -15189,7 +15435,7 @@ class RefrigerationWalkIn(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `rated_total_heating_power`'.format(value))
         self._data["Rated Total Heating Power"] = value
 
@@ -15223,7 +15469,7 @@ class RefrigerationWalkIn(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `heating_power_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -15261,7 +15507,7 @@ class RefrigerationWalkIn(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `rated_cooling_coil_fan_power`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -15296,7 +15542,7 @@ class RefrigerationWalkIn(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `rated_circulation_fan_power`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -15330,7 +15576,7 @@ class RefrigerationWalkIn(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `rated_total_lighting_power`'.format(value))
         self._data["Rated Total Lighting Power"] = value
 
@@ -15361,7 +15607,7 @@ class RefrigerationWalkIn(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `lighting_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -15404,7 +15650,7 @@ class RefrigerationWalkIn(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `defrost_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -15420,16 +15666,26 @@ class RefrigerationWalkIn(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `defrost_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `defrost_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Defrost Type"] = value
 
@@ -15462,7 +15718,7 @@ class RefrigerationWalkIn(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `defrost_control_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -15476,16 +15732,26 @@ class RefrigerationWalkIn(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `defrost_control_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `defrost_control_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Defrost Control Type"] = value
 
@@ -15515,7 +15781,7 @@ class RefrigerationWalkIn(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `defrost_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -15556,7 +15822,7 @@ class RefrigerationWalkIn(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `defrost_dripdown_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -15594,7 +15860,7 @@ class RefrigerationWalkIn(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `defrost_power`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -15632,7 +15898,7 @@ class RefrigerationWalkIn(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_termination_defrost_fraction_to_ice`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -15669,7 +15935,7 @@ class RefrigerationWalkIn(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `restocking_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -15695,6 +15961,7 @@ class RefrigerationWalkIn(object):
 
         Args:
             value (float): value for IDD Field `Average Refrigerant Charge Inventory`
+                Units: kg
                 Default value: 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -15706,7 +15973,7 @@ class RefrigerationWalkIn(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `average_refrigerant_charge_inventory`'.format(value))
         self._data["Average Refrigerant Charge Inventory"] = value
 
@@ -15738,7 +16005,7 @@ class RefrigerationWalkIn(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `insulated_floor_surface_area`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -15778,7 +16045,7 @@ class RefrigerationWalkIn(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `insulated_floor_uvalue`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -15813,7 +16080,7 @@ class RefrigerationWalkIn(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `zone_1_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -15851,7 +16118,7 @@ class RefrigerationWalkIn(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `total_insulated_surface_area_facing_zone_1`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -15891,7 +16158,7 @@ class RefrigerationWalkIn(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `insulated_surface_uvalue_facing_zone_1`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -15925,7 +16192,7 @@ class RefrigerationWalkIn(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `area_of_glass_reach_in_doors_facing_zone_1`'.format(value))
         self._data["Area of Glass Reach In Doors Facing Zone 1"] = value
 
@@ -15956,7 +16223,7 @@ class RefrigerationWalkIn(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `height_of_glass_reach_in_doors_facing_zone_1`'.format(value))
         self._data["Height of Glass Reach In Doors Facing Zone 1"] = value
 
@@ -15990,7 +16257,7 @@ class RefrigerationWalkIn(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `glass_reach_in_door_u_value_facing_zone_1`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -16027,7 +16294,7 @@ class RefrigerationWalkIn(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `glass_reach_in_door_opening_schedule_name_facing_zone_1`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -16064,7 +16331,7 @@ class RefrigerationWalkIn(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `area_of_stocking_doors_facing_zone_1`'.format(value))
         self._data["Area of Stocking Doors Facing Zone 1"] = value
 
@@ -16095,7 +16362,7 @@ class RefrigerationWalkIn(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `height_of_stocking_doors_facing_zone_1`'.format(value))
         self._data["Height of Stocking Doors Facing Zone 1"] = value
 
@@ -16132,7 +16399,7 @@ class RefrigerationWalkIn(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `stocking_door_u_value_facing_zone_1`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -16169,7 +16436,7 @@ class RefrigerationWalkIn(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `stocking_door_opening_schedule_name_facing_zone_1`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -16210,7 +16477,7 @@ class RefrigerationWalkIn(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `stocking_door_opening_protection_type_facing_zone_1`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -16225,16 +16492,26 @@ class RefrigerationWalkIn(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `stocking_door_opening_protection_type_facing_zone_1`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `stocking_door_opening_protection_type_facing_zone_1`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Stocking Door Opening Protection Type Facing Zone 1"] = value
 
@@ -16265,7 +16542,7 @@ class RefrigerationWalkIn(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `zone_2_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -16304,7 +16581,7 @@ class RefrigerationWalkIn(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `total_insulated_surface_area_facing_zone_2`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -16344,7 +16621,7 @@ class RefrigerationWalkIn(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `insulated_surface_uvalue_facing_zone_2`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -16378,7 +16655,7 @@ class RefrigerationWalkIn(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `area_of_glass_reach_in_doors_facing_zone_2`'.format(value))
         self._data["Area of Glass Reach In Doors Facing Zone 2"] = value
 
@@ -16409,7 +16686,7 @@ class RefrigerationWalkIn(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `height_of_glass_reach_in_doors_facing_zone_2`'.format(value))
         self._data["Height of Glass Reach In Doors Facing Zone 2"] = value
 
@@ -16443,7 +16720,7 @@ class RefrigerationWalkIn(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `glass_reach_in_door_u_value_facing_zone_2`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -16480,7 +16757,7 @@ class RefrigerationWalkIn(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `glass_reach_in_door_opening_schedule_name_facing_zone_2`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -16517,7 +16794,7 @@ class RefrigerationWalkIn(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `area_of_stocking_doors_facing_zone_2`'.format(value))
         self._data["Area of Stocking Doors Facing Zone 2"] = value
 
@@ -16548,7 +16825,7 @@ class RefrigerationWalkIn(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `height_of_stocking_doors_facing_zone_2`'.format(value))
         self._data["Height of Stocking Doors Facing Zone 2"] = value
 
@@ -16585,7 +16862,7 @@ class RefrigerationWalkIn(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `stocking_door_u_value_facing_zone_2`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -16622,7 +16899,7 @@ class RefrigerationWalkIn(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `stocking_door_opening_schedule_name_facing_zone_2`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -16666,7 +16943,7 @@ class RefrigerationWalkIn(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `stocking_door_opening_protection_type_facing_zone_2`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -16681,16 +16958,26 @@ class RefrigerationWalkIn(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `stocking_door_opening_protection_type_facing_zone_2`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `stocking_door_opening_protection_type_facing_zone_2`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Stocking Door Opening Protection Type Facing Zone 2"] = value
 
@@ -16721,7 +17008,7 @@ class RefrigerationWalkIn(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `zone_3_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -16760,7 +17047,7 @@ class RefrigerationWalkIn(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `total_insulated_surface_area_facing_zone_3`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -16800,7 +17087,7 @@ class RefrigerationWalkIn(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `insulated_surface_uvalue_facing_zone_3`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -16834,7 +17121,7 @@ class RefrigerationWalkIn(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `area_of_glass_reach_in_doors_facing_zone_3`'.format(value))
         self._data["Area of Glass Reach In Doors Facing Zone 3"] = value
 
@@ -16865,7 +17152,7 @@ class RefrigerationWalkIn(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `height_of_glass_reach_in_doors_facing_zone_3`'.format(value))
         self._data["Height of Glass Reach In Doors Facing Zone 3"] = value
 
@@ -16899,7 +17186,7 @@ class RefrigerationWalkIn(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `glass_reach_in_door_u_value_facing_zone_3`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -16936,7 +17223,7 @@ class RefrigerationWalkIn(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `glass_reach_in_door_opening_schedule_name_facing_zone_3`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -16973,7 +17260,7 @@ class RefrigerationWalkIn(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `area_of_stocking_doors_facing_zone_3`'.format(value))
         self._data["Area of Stocking Doors Facing Zone 3"] = value
 
@@ -17004,7 +17291,7 @@ class RefrigerationWalkIn(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `height_of_stocking_doors_facing_zone_3`'.format(value))
         self._data["Height of Stocking Doors Facing Zone 3"] = value
 
@@ -17041,7 +17328,7 @@ class RefrigerationWalkIn(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `stocking_door_u_value_facing_zone_3`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -17078,7 +17365,7 @@ class RefrigerationWalkIn(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `stocking_door_opening_schedule_name_facing_zone_3`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -17119,7 +17406,7 @@ class RefrigerationWalkIn(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `stocking_door_opening_protection_type_facing_zone_3`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -17134,16 +17421,26 @@ class RefrigerationWalkIn(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `stocking_door_opening_protection_type_facing_zone_3`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `stocking_door_opening_protection_type_facing_zone_3`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Stocking Door Opening Protection Type Facing Zone 3"] = value
 
@@ -17189,7 +17486,6 @@ class RefrigerationAirChiller(object):
         fans and heaters is modeled based on inputs for nominal power, schedules, and control
         type. The air chiller model accounts for the sensible and latent heat exchange
         with the surrounding environment.
-    
     """
     internal_name = "Refrigeration:AirChiller"
     field_count = 28
@@ -17227,15 +17523,16 @@ class RefrigerationAirChiller(object):
         self._data["Temperature Termination Defrost Fraction to Ice"] = None
         self._data["Vertical Location"] = None
         self._data["Average Refrigerant Charge Inventory"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -17433,6 +17730,7 @@ class RefrigerationAirChiller(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -17459,7 +17757,7 @@ class RefrigerationAirChiller(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -17496,7 +17794,7 @@ class RefrigerationAirChiller(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `availability_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -17549,7 +17847,7 @@ class RefrigerationAirChiller(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `capacity_rating_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -17574,16 +17872,26 @@ class RefrigerationAirChiller(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `capacity_rating_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `capacity_rating_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Capacity Rating Type"] = value
 
@@ -17619,7 +17927,7 @@ class RefrigerationAirChiller(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `rated_unit_load_factor`'.format(value))
         self._data["Rated Unit Load Factor"] = value
 
@@ -17655,7 +17963,7 @@ class RefrigerationAirChiller(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `rated_capacity`'.format(value))
         self._data["Rated Capacity"] = value
 
@@ -17689,7 +17997,7 @@ class RefrigerationAirChiller(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `rated_relative_humidity`'.format(value))
             if value > 100.0:
                 raise ValueError('value need to be smaller 100.0 '
@@ -17728,7 +18036,7 @@ class RefrigerationAirChiller(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `rated_cooling_source_temperature`'.format(value))
             if value < -70.0:
                 raise ValueError('value need to be greater or equal -70.0 '
@@ -17768,7 +18076,7 @@ class RefrigerationAirChiller(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `rated_temperature_difference_dt1`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -17809,7 +18117,7 @@ class RefrigerationAirChiller(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `maximum_temperature_difference_between_inlet_air_and_evaporating_temperature`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -17847,7 +18155,7 @@ class RefrigerationAirChiller(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `coil_material_correction_factor`'.format(value))
         self._data["Coil Material Correction Factor"] = value
 
@@ -17879,7 +18187,7 @@ class RefrigerationAirChiller(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `refrigerant_correction_factor`'.format(value))
         self._data["Refrigerant Correction Factor"] = value
 
@@ -17915,7 +18223,7 @@ class RefrigerationAirChiller(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `capacity_correction_curve_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -17931,16 +18239,26 @@ class RefrigerationAirChiller(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `capacity_correction_curve_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `capacity_correction_curve_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Capacity Correction Curve Type"] = value
 
@@ -17972,7 +18290,7 @@ class RefrigerationAirChiller(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `capacity_correction_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -18011,7 +18329,7 @@ class RefrigerationAirChiller(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `shr60_correction_factor`'.format(value))
             if value > 1.67:
                 raise ValueError('value need to be smaller 1.67 '
@@ -18046,7 +18364,7 @@ class RefrigerationAirChiller(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `rated_total_heating_power`'.format(value))
         self._data["Rated Total Heating Power"] = value
 
@@ -18078,7 +18396,7 @@ class RefrigerationAirChiller(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `heating_power_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -18119,7 +18437,7 @@ class RefrigerationAirChiller(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `fan_speed_control_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -18135,16 +18453,26 @@ class RefrigerationAirChiller(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `fan_speed_control_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `fan_speed_control_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Fan Speed Control Type"] = value
 
@@ -18176,7 +18504,7 @@ class RefrigerationAirChiller(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `rated_fan_power`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -18209,7 +18537,7 @@ class RefrigerationAirChiller(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `rated_air_flow`'.format(value))
         self._data["Rated Air Flow"] = value
 
@@ -18242,7 +18570,7 @@ class RefrigerationAirChiller(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `minimum_fan_air_flow_ratio`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -18282,7 +18610,7 @@ class RefrigerationAirChiller(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `defrost_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -18298,16 +18626,26 @@ class RefrigerationAirChiller(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `defrost_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `defrost_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Defrost Type"] = value
 
@@ -18340,7 +18678,7 @@ class RefrigerationAirChiller(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `defrost_control_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -18354,16 +18692,26 @@ class RefrigerationAirChiller(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `defrost_control_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `defrost_control_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Defrost Control Type"] = value
 
@@ -18393,7 +18741,7 @@ class RefrigerationAirChiller(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `defrost_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -18434,7 +18782,7 @@ class RefrigerationAirChiller(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `defrost_dripdown_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -18472,7 +18820,7 @@ class RefrigerationAirChiller(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `defrost_power`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -18510,7 +18858,7 @@ class RefrigerationAirChiller(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_termination_defrost_fraction_to_ice`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -18550,7 +18898,7 @@ class RefrigerationAirChiller(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `vertical_location`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -18565,16 +18913,26 @@ class RefrigerationAirChiller(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `vertical_location`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `vertical_location`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Vertical Location"] = value
 
@@ -18594,6 +18952,7 @@ class RefrigerationAirChiller(object):
 
         Args:
             value (float): value for IDD Field `Average Refrigerant Charge Inventory`
+                Units: kg
                 Default value: 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -18605,7 +18964,7 @@ class RefrigerationAirChiller(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `average_refrigerant_charge_inventory`'.format(value))
         self._data["Average Refrigerant Charge Inventory"] = value
 

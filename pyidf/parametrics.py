@@ -1,4 +1,6 @@
 from collections import OrderedDict
+import logging
+import re
 
 class ParametricSetValueForRun(object):
     """ Corresponds to IDD object `Parametric:SetValueForRun`
@@ -8,7 +10,6 @@ class ParametricSetValueForRun(object):
         The core parametric object is Parametric:SetValueForRun which defines the name
         of a parameters and sets the parameter to different values depending on which
         run is being simulated.
-    
     """
     internal_name = "Parametric:SetValueForRun"
     field_count = 101
@@ -119,15 +120,16 @@ class ParametricSetValueForRun(object):
         self._data["Value for Run 98"] = None
         self._data["Value for Run 99"] = None
         self._data["Value for Run 100"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -836,6 +838,7 @@ class ParametricSetValueForRun(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -865,7 +868,7 @@ class ParametricSetValueForRun(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -900,7 +903,7 @@ class ParametricSetValueForRun(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `value_for_run_1`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -935,7 +938,7 @@ class ParametricSetValueForRun(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `value_for_run_2`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -970,7 +973,7 @@ class ParametricSetValueForRun(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `value_for_run_3`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1005,7 +1008,7 @@ class ParametricSetValueForRun(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `value_for_run_4`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1040,7 +1043,7 @@ class ParametricSetValueForRun(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `value_for_run_5`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1075,7 +1078,7 @@ class ParametricSetValueForRun(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `value_for_run_6`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1110,7 +1113,7 @@ class ParametricSetValueForRun(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `value_for_run_7`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1145,7 +1148,7 @@ class ParametricSetValueForRun(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `value_for_run_8`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1180,7 +1183,7 @@ class ParametricSetValueForRun(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `value_for_run_9`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1215,7 +1218,7 @@ class ParametricSetValueForRun(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `value_for_run_10`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1250,7 +1253,7 @@ class ParametricSetValueForRun(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `value_for_run_11`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1285,7 +1288,7 @@ class ParametricSetValueForRun(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `value_for_run_12`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1320,7 +1323,7 @@ class ParametricSetValueForRun(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `value_for_run_13`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1355,7 +1358,7 @@ class ParametricSetValueForRun(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `value_for_run_14`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1390,7 +1393,7 @@ class ParametricSetValueForRun(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `value_for_run_15`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1425,7 +1428,7 @@ class ParametricSetValueForRun(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `value_for_run_16`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1460,7 +1463,7 @@ class ParametricSetValueForRun(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `value_for_run_17`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1495,7 +1498,7 @@ class ParametricSetValueForRun(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `value_for_run_18`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1530,7 +1533,7 @@ class ParametricSetValueForRun(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `value_for_run_19`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1565,7 +1568,7 @@ class ParametricSetValueForRun(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `value_for_run_20`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1600,7 +1603,7 @@ class ParametricSetValueForRun(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `value_for_run_21`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1635,7 +1638,7 @@ class ParametricSetValueForRun(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `value_for_run_22`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1670,7 +1673,7 @@ class ParametricSetValueForRun(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `value_for_run_23`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1705,7 +1708,7 @@ class ParametricSetValueForRun(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `value_for_run_24`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1740,7 +1743,7 @@ class ParametricSetValueForRun(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `value_for_run_25`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1775,7 +1778,7 @@ class ParametricSetValueForRun(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `value_for_run_26`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1810,7 +1813,7 @@ class ParametricSetValueForRun(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `value_for_run_27`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1845,7 +1848,7 @@ class ParametricSetValueForRun(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `value_for_run_28`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1880,7 +1883,7 @@ class ParametricSetValueForRun(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `value_for_run_29`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1915,7 +1918,7 @@ class ParametricSetValueForRun(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `value_for_run_30`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1950,7 +1953,7 @@ class ParametricSetValueForRun(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `value_for_run_31`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1985,7 +1988,7 @@ class ParametricSetValueForRun(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `value_for_run_32`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2020,7 +2023,7 @@ class ParametricSetValueForRun(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `value_for_run_33`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2055,7 +2058,7 @@ class ParametricSetValueForRun(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `value_for_run_34`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2090,7 +2093,7 @@ class ParametricSetValueForRun(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `value_for_run_35`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2125,7 +2128,7 @@ class ParametricSetValueForRun(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `value_for_run_36`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2160,7 +2163,7 @@ class ParametricSetValueForRun(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `value_for_run_37`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2195,7 +2198,7 @@ class ParametricSetValueForRun(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `value_for_run_38`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2230,7 +2233,7 @@ class ParametricSetValueForRun(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `value_for_run_39`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2265,7 +2268,7 @@ class ParametricSetValueForRun(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `value_for_run_40`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2300,7 +2303,7 @@ class ParametricSetValueForRun(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `value_for_run_41`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2335,7 +2338,7 @@ class ParametricSetValueForRun(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `value_for_run_42`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2370,7 +2373,7 @@ class ParametricSetValueForRun(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `value_for_run_43`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2405,7 +2408,7 @@ class ParametricSetValueForRun(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `value_for_run_44`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2440,7 +2443,7 @@ class ParametricSetValueForRun(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `value_for_run_45`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2475,7 +2478,7 @@ class ParametricSetValueForRun(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `value_for_run_46`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2510,7 +2513,7 @@ class ParametricSetValueForRun(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `value_for_run_47`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2545,7 +2548,7 @@ class ParametricSetValueForRun(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `value_for_run_48`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2580,7 +2583,7 @@ class ParametricSetValueForRun(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `value_for_run_49`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2615,7 +2618,7 @@ class ParametricSetValueForRun(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `value_for_run_50`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2650,7 +2653,7 @@ class ParametricSetValueForRun(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `value_for_run_51`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2685,7 +2688,7 @@ class ParametricSetValueForRun(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `value_for_run_52`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2720,7 +2723,7 @@ class ParametricSetValueForRun(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `value_for_run_53`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2755,7 +2758,7 @@ class ParametricSetValueForRun(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `value_for_run_54`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2790,7 +2793,7 @@ class ParametricSetValueForRun(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `value_for_run_55`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2825,7 +2828,7 @@ class ParametricSetValueForRun(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `value_for_run_56`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2860,7 +2863,7 @@ class ParametricSetValueForRun(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `value_for_run_57`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2895,7 +2898,7 @@ class ParametricSetValueForRun(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `value_for_run_58`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2930,7 +2933,7 @@ class ParametricSetValueForRun(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `value_for_run_59`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2965,7 +2968,7 @@ class ParametricSetValueForRun(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `value_for_run_60`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3000,7 +3003,7 @@ class ParametricSetValueForRun(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `value_for_run_61`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3035,7 +3038,7 @@ class ParametricSetValueForRun(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `value_for_run_62`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3070,7 +3073,7 @@ class ParametricSetValueForRun(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `value_for_run_63`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3105,7 +3108,7 @@ class ParametricSetValueForRun(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `value_for_run_64`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3140,7 +3143,7 @@ class ParametricSetValueForRun(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `value_for_run_65`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3175,7 +3178,7 @@ class ParametricSetValueForRun(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `value_for_run_66`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3210,7 +3213,7 @@ class ParametricSetValueForRun(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `value_for_run_67`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3245,7 +3248,7 @@ class ParametricSetValueForRun(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `value_for_run_68`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3280,7 +3283,7 @@ class ParametricSetValueForRun(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `value_for_run_69`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3315,7 +3318,7 @@ class ParametricSetValueForRun(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `value_for_run_70`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3350,7 +3353,7 @@ class ParametricSetValueForRun(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `value_for_run_71`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3385,7 +3388,7 @@ class ParametricSetValueForRun(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `value_for_run_72`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3420,7 +3423,7 @@ class ParametricSetValueForRun(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `value_for_run_73`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3455,7 +3458,7 @@ class ParametricSetValueForRun(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `value_for_run_74`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3490,7 +3493,7 @@ class ParametricSetValueForRun(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `value_for_run_75`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3525,7 +3528,7 @@ class ParametricSetValueForRun(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `value_for_run_76`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3560,7 +3563,7 @@ class ParametricSetValueForRun(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `value_for_run_77`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3595,7 +3598,7 @@ class ParametricSetValueForRun(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `value_for_run_78`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3630,7 +3633,7 @@ class ParametricSetValueForRun(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `value_for_run_79`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3665,7 +3668,7 @@ class ParametricSetValueForRun(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `value_for_run_80`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3700,7 +3703,7 @@ class ParametricSetValueForRun(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `value_for_run_81`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3735,7 +3738,7 @@ class ParametricSetValueForRun(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `value_for_run_82`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3770,7 +3773,7 @@ class ParametricSetValueForRun(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `value_for_run_83`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3805,7 +3808,7 @@ class ParametricSetValueForRun(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `value_for_run_84`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3840,7 +3843,7 @@ class ParametricSetValueForRun(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `value_for_run_85`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3875,7 +3878,7 @@ class ParametricSetValueForRun(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `value_for_run_86`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3910,7 +3913,7 @@ class ParametricSetValueForRun(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `value_for_run_87`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3945,7 +3948,7 @@ class ParametricSetValueForRun(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `value_for_run_88`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3980,7 +3983,7 @@ class ParametricSetValueForRun(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `value_for_run_89`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4015,7 +4018,7 @@ class ParametricSetValueForRun(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `value_for_run_90`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4050,7 +4053,7 @@ class ParametricSetValueForRun(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `value_for_run_91`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4085,7 +4088,7 @@ class ParametricSetValueForRun(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `value_for_run_92`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4120,7 +4123,7 @@ class ParametricSetValueForRun(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `value_for_run_93`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4155,7 +4158,7 @@ class ParametricSetValueForRun(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `value_for_run_94`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4190,7 +4193,7 @@ class ParametricSetValueForRun(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `value_for_run_95`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4225,7 +4228,7 @@ class ParametricSetValueForRun(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `value_for_run_96`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4260,7 +4263,7 @@ class ParametricSetValueForRun(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `value_for_run_97`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4295,7 +4298,7 @@ class ParametricSetValueForRun(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `value_for_run_98`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4330,7 +4333,7 @@ class ParametricSetValueForRun(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `value_for_run_99`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4365,7 +4368,7 @@ class ParametricSetValueForRun(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `value_for_run_100`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4415,7 +4418,6 @@ class ParametricLogic(object):
         not for others. For example, you might want an overhang on a window in some
         parametric runs and not others. A single Parametric:Logic object is allowed per file.
         Consult the Input Output Reference for available commands and syntax.
-    
     """
     internal_name = "Parametric:Logic"
     field_count = 101
@@ -4526,15 +4528,16 @@ class ParametricLogic(object):
         self._data["Parametric Logic Line 98"] = None
         self._data["Parametric Logic Line 99"] = None
         self._data["Parametric Logic Line 100"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -5243,6 +5246,7 @@ class ParametricLogic(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -5269,7 +5273,7 @@ class ParametricLogic(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -5304,7 +5308,7 @@ class ParametricLogic(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `parametric_logic_line_1`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -5339,7 +5343,7 @@ class ParametricLogic(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `parametric_logic_line_2`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -5374,7 +5378,7 @@ class ParametricLogic(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `parametric_logic_line_3`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -5409,7 +5413,7 @@ class ParametricLogic(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `parametric_logic_line_4`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -5444,7 +5448,7 @@ class ParametricLogic(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `parametric_logic_line_5`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -5479,7 +5483,7 @@ class ParametricLogic(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `parametric_logic_line_6`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -5514,7 +5518,7 @@ class ParametricLogic(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `parametric_logic_line_7`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -5549,7 +5553,7 @@ class ParametricLogic(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `parametric_logic_line_8`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -5584,7 +5588,7 @@ class ParametricLogic(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `parametric_logic_line_9`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -5619,7 +5623,7 @@ class ParametricLogic(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `parametric_logic_line_10`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -5654,7 +5658,7 @@ class ParametricLogic(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `parametric_logic_line_11`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -5689,7 +5693,7 @@ class ParametricLogic(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `parametric_logic_line_12`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -5724,7 +5728,7 @@ class ParametricLogic(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `parametric_logic_line_13`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -5759,7 +5763,7 @@ class ParametricLogic(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `parametric_logic_line_14`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -5794,7 +5798,7 @@ class ParametricLogic(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `parametric_logic_line_15`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -5829,7 +5833,7 @@ class ParametricLogic(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `parametric_logic_line_16`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -5864,7 +5868,7 @@ class ParametricLogic(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `parametric_logic_line_17`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -5899,7 +5903,7 @@ class ParametricLogic(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `parametric_logic_line_18`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -5934,7 +5938,7 @@ class ParametricLogic(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `parametric_logic_line_19`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -5969,7 +5973,7 @@ class ParametricLogic(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `parametric_logic_line_20`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -6004,7 +6008,7 @@ class ParametricLogic(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `parametric_logic_line_21`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -6039,7 +6043,7 @@ class ParametricLogic(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `parametric_logic_line_22`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -6074,7 +6078,7 @@ class ParametricLogic(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `parametric_logic_line_23`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -6109,7 +6113,7 @@ class ParametricLogic(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `parametric_logic_line_24`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -6144,7 +6148,7 @@ class ParametricLogic(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `parametric_logic_line_25`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -6179,7 +6183,7 @@ class ParametricLogic(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `parametric_logic_line_26`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -6214,7 +6218,7 @@ class ParametricLogic(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `parametric_logic_line_27`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -6249,7 +6253,7 @@ class ParametricLogic(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `parametric_logic_line_28`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -6284,7 +6288,7 @@ class ParametricLogic(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `parametric_logic_line_29`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -6319,7 +6323,7 @@ class ParametricLogic(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `parametric_logic_line_30`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -6354,7 +6358,7 @@ class ParametricLogic(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `parametric_logic_line_31`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -6389,7 +6393,7 @@ class ParametricLogic(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `parametric_logic_line_32`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -6424,7 +6428,7 @@ class ParametricLogic(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `parametric_logic_line_33`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -6459,7 +6463,7 @@ class ParametricLogic(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `parametric_logic_line_34`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -6494,7 +6498,7 @@ class ParametricLogic(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `parametric_logic_line_35`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -6529,7 +6533,7 @@ class ParametricLogic(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `parametric_logic_line_36`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -6564,7 +6568,7 @@ class ParametricLogic(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `parametric_logic_line_37`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -6599,7 +6603,7 @@ class ParametricLogic(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `parametric_logic_line_38`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -6634,7 +6638,7 @@ class ParametricLogic(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `parametric_logic_line_39`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -6669,7 +6673,7 @@ class ParametricLogic(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `parametric_logic_line_40`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -6704,7 +6708,7 @@ class ParametricLogic(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `parametric_logic_line_41`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -6739,7 +6743,7 @@ class ParametricLogic(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `parametric_logic_line_42`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -6774,7 +6778,7 @@ class ParametricLogic(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `parametric_logic_line_43`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -6809,7 +6813,7 @@ class ParametricLogic(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `parametric_logic_line_44`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -6844,7 +6848,7 @@ class ParametricLogic(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `parametric_logic_line_45`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -6879,7 +6883,7 @@ class ParametricLogic(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `parametric_logic_line_46`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -6914,7 +6918,7 @@ class ParametricLogic(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `parametric_logic_line_47`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -6949,7 +6953,7 @@ class ParametricLogic(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `parametric_logic_line_48`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -6984,7 +6988,7 @@ class ParametricLogic(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `parametric_logic_line_49`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -7019,7 +7023,7 @@ class ParametricLogic(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `parametric_logic_line_50`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -7054,7 +7058,7 @@ class ParametricLogic(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `parametric_logic_line_51`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -7089,7 +7093,7 @@ class ParametricLogic(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `parametric_logic_line_52`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -7124,7 +7128,7 @@ class ParametricLogic(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `parametric_logic_line_53`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -7159,7 +7163,7 @@ class ParametricLogic(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `parametric_logic_line_54`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -7194,7 +7198,7 @@ class ParametricLogic(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `parametric_logic_line_55`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -7229,7 +7233,7 @@ class ParametricLogic(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `parametric_logic_line_56`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -7264,7 +7268,7 @@ class ParametricLogic(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `parametric_logic_line_57`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -7299,7 +7303,7 @@ class ParametricLogic(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `parametric_logic_line_58`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -7334,7 +7338,7 @@ class ParametricLogic(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `parametric_logic_line_59`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -7369,7 +7373,7 @@ class ParametricLogic(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `parametric_logic_line_60`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -7404,7 +7408,7 @@ class ParametricLogic(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `parametric_logic_line_61`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -7439,7 +7443,7 @@ class ParametricLogic(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `parametric_logic_line_62`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -7474,7 +7478,7 @@ class ParametricLogic(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `parametric_logic_line_63`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -7509,7 +7513,7 @@ class ParametricLogic(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `parametric_logic_line_64`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -7544,7 +7548,7 @@ class ParametricLogic(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `parametric_logic_line_65`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -7579,7 +7583,7 @@ class ParametricLogic(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `parametric_logic_line_66`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -7614,7 +7618,7 @@ class ParametricLogic(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `parametric_logic_line_67`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -7649,7 +7653,7 @@ class ParametricLogic(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `parametric_logic_line_68`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -7684,7 +7688,7 @@ class ParametricLogic(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `parametric_logic_line_69`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -7719,7 +7723,7 @@ class ParametricLogic(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `parametric_logic_line_70`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -7754,7 +7758,7 @@ class ParametricLogic(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `parametric_logic_line_71`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -7789,7 +7793,7 @@ class ParametricLogic(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `parametric_logic_line_72`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -7824,7 +7828,7 @@ class ParametricLogic(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `parametric_logic_line_73`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -7859,7 +7863,7 @@ class ParametricLogic(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `parametric_logic_line_74`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -7894,7 +7898,7 @@ class ParametricLogic(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `parametric_logic_line_75`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -7929,7 +7933,7 @@ class ParametricLogic(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `parametric_logic_line_76`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -7964,7 +7968,7 @@ class ParametricLogic(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `parametric_logic_line_77`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -7999,7 +8003,7 @@ class ParametricLogic(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `parametric_logic_line_78`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -8034,7 +8038,7 @@ class ParametricLogic(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `parametric_logic_line_79`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -8069,7 +8073,7 @@ class ParametricLogic(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `parametric_logic_line_80`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -8104,7 +8108,7 @@ class ParametricLogic(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `parametric_logic_line_81`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -8139,7 +8143,7 @@ class ParametricLogic(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `parametric_logic_line_82`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -8174,7 +8178,7 @@ class ParametricLogic(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `parametric_logic_line_83`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -8209,7 +8213,7 @@ class ParametricLogic(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `parametric_logic_line_84`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -8244,7 +8248,7 @@ class ParametricLogic(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `parametric_logic_line_85`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -8279,7 +8283,7 @@ class ParametricLogic(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `parametric_logic_line_86`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -8314,7 +8318,7 @@ class ParametricLogic(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `parametric_logic_line_87`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -8349,7 +8353,7 @@ class ParametricLogic(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `parametric_logic_line_88`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -8384,7 +8388,7 @@ class ParametricLogic(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `parametric_logic_line_89`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -8419,7 +8423,7 @@ class ParametricLogic(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `parametric_logic_line_90`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -8454,7 +8458,7 @@ class ParametricLogic(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `parametric_logic_line_91`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -8489,7 +8493,7 @@ class ParametricLogic(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `parametric_logic_line_92`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -8524,7 +8528,7 @@ class ParametricLogic(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `parametric_logic_line_93`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -8559,7 +8563,7 @@ class ParametricLogic(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `parametric_logic_line_94`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -8594,7 +8598,7 @@ class ParametricLogic(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `parametric_logic_line_95`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -8629,7 +8633,7 @@ class ParametricLogic(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `parametric_logic_line_96`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -8664,7 +8668,7 @@ class ParametricLogic(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `parametric_logic_line_97`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -8699,7 +8703,7 @@ class ParametricLogic(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `parametric_logic_line_98`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -8734,7 +8738,7 @@ class ParametricLogic(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `parametric_logic_line_99`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -8769,7 +8773,7 @@ class ParametricLogic(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `parametric_logic_line_100`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -8817,7 +8821,6 @@ class ParametricRunControl(object):
     """ Corresponds to IDD object `Parametric:RunControl`
         Controls which parametric runs are simulated. This object is optional. If it is not
         included, then all parametric runs are performed.
-    
     """
     internal_name = "Parametric:RunControl"
     field_count = 101
@@ -8928,15 +8931,16 @@ class ParametricRunControl(object):
         self._data["Perform Run 98"] = None
         self._data["Perform Run 99"] = None
         self._data["Perform Run 100"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -9645,6 +9649,7 @@ class ParametricRunControl(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -9671,7 +9676,7 @@ class ParametricRunControl(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -9710,7 +9715,7 @@ class ParametricRunControl(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `perform_run_1`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -9724,16 +9729,26 @@ class ParametricRunControl(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `perform_run_1`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `perform_run_1`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Perform Run 1"] = value
 
@@ -9765,7 +9780,7 @@ class ParametricRunControl(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `perform_run_2`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -9779,16 +9794,26 @@ class ParametricRunControl(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `perform_run_2`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `perform_run_2`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Perform Run 2"] = value
 
@@ -9820,7 +9845,7 @@ class ParametricRunControl(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `perform_run_3`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -9834,16 +9859,26 @@ class ParametricRunControl(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `perform_run_3`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `perform_run_3`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Perform Run 3"] = value
 
@@ -9875,7 +9910,7 @@ class ParametricRunControl(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `perform_run_4`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -9889,16 +9924,26 @@ class ParametricRunControl(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `perform_run_4`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `perform_run_4`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Perform Run 4"] = value
 
@@ -9930,7 +9975,7 @@ class ParametricRunControl(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `perform_run_5`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -9944,16 +9989,26 @@ class ParametricRunControl(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `perform_run_5`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `perform_run_5`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Perform Run 5"] = value
 
@@ -9985,7 +10040,7 @@ class ParametricRunControl(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `perform_run_6`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -9999,16 +10054,26 @@ class ParametricRunControl(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `perform_run_6`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `perform_run_6`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Perform Run 6"] = value
 
@@ -10040,7 +10105,7 @@ class ParametricRunControl(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `perform_run_7`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -10054,16 +10119,26 @@ class ParametricRunControl(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `perform_run_7`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `perform_run_7`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Perform Run 7"] = value
 
@@ -10095,7 +10170,7 @@ class ParametricRunControl(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `perform_run_8`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -10109,16 +10184,26 @@ class ParametricRunControl(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `perform_run_8`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `perform_run_8`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Perform Run 8"] = value
 
@@ -10150,7 +10235,7 @@ class ParametricRunControl(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `perform_run_9`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -10164,16 +10249,26 @@ class ParametricRunControl(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `perform_run_9`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `perform_run_9`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Perform Run 9"] = value
 
@@ -10205,7 +10300,7 @@ class ParametricRunControl(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `perform_run_10`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -10219,16 +10314,26 @@ class ParametricRunControl(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `perform_run_10`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `perform_run_10`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Perform Run 10"] = value
 
@@ -10260,7 +10365,7 @@ class ParametricRunControl(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `perform_run_11`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -10274,16 +10379,26 @@ class ParametricRunControl(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `perform_run_11`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `perform_run_11`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Perform Run 11"] = value
 
@@ -10315,7 +10430,7 @@ class ParametricRunControl(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `perform_run_12`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -10329,16 +10444,26 @@ class ParametricRunControl(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `perform_run_12`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `perform_run_12`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Perform Run 12"] = value
 
@@ -10370,7 +10495,7 @@ class ParametricRunControl(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `perform_run_13`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -10384,16 +10509,26 @@ class ParametricRunControl(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `perform_run_13`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `perform_run_13`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Perform Run 13"] = value
 
@@ -10425,7 +10560,7 @@ class ParametricRunControl(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `perform_run_14`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -10439,16 +10574,26 @@ class ParametricRunControl(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `perform_run_14`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `perform_run_14`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Perform Run 14"] = value
 
@@ -10480,7 +10625,7 @@ class ParametricRunControl(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `perform_run_15`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -10494,16 +10639,26 @@ class ParametricRunControl(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `perform_run_15`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `perform_run_15`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Perform Run 15"] = value
 
@@ -10535,7 +10690,7 @@ class ParametricRunControl(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `perform_run_16`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -10549,16 +10704,26 @@ class ParametricRunControl(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `perform_run_16`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `perform_run_16`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Perform Run 16"] = value
 
@@ -10590,7 +10755,7 @@ class ParametricRunControl(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `perform_run_17`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -10604,16 +10769,26 @@ class ParametricRunControl(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `perform_run_17`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `perform_run_17`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Perform Run 17"] = value
 
@@ -10645,7 +10820,7 @@ class ParametricRunControl(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `perform_run_18`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -10659,16 +10834,26 @@ class ParametricRunControl(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `perform_run_18`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `perform_run_18`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Perform Run 18"] = value
 
@@ -10700,7 +10885,7 @@ class ParametricRunControl(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `perform_run_19`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -10714,16 +10899,26 @@ class ParametricRunControl(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `perform_run_19`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `perform_run_19`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Perform Run 19"] = value
 
@@ -10755,7 +10950,7 @@ class ParametricRunControl(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `perform_run_20`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -10769,16 +10964,26 @@ class ParametricRunControl(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `perform_run_20`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `perform_run_20`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Perform Run 20"] = value
 
@@ -10810,7 +11015,7 @@ class ParametricRunControl(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `perform_run_21`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -10824,16 +11029,26 @@ class ParametricRunControl(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `perform_run_21`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `perform_run_21`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Perform Run 21"] = value
 
@@ -10865,7 +11080,7 @@ class ParametricRunControl(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `perform_run_22`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -10879,16 +11094,26 @@ class ParametricRunControl(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `perform_run_22`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `perform_run_22`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Perform Run 22"] = value
 
@@ -10920,7 +11145,7 @@ class ParametricRunControl(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `perform_run_23`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -10934,16 +11159,26 @@ class ParametricRunControl(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `perform_run_23`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `perform_run_23`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Perform Run 23"] = value
 
@@ -10975,7 +11210,7 @@ class ParametricRunControl(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `perform_run_24`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -10989,16 +11224,26 @@ class ParametricRunControl(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `perform_run_24`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `perform_run_24`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Perform Run 24"] = value
 
@@ -11030,7 +11275,7 @@ class ParametricRunControl(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `perform_run_25`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -11044,16 +11289,26 @@ class ParametricRunControl(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `perform_run_25`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `perform_run_25`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Perform Run 25"] = value
 
@@ -11085,7 +11340,7 @@ class ParametricRunControl(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `perform_run_26`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -11099,16 +11354,26 @@ class ParametricRunControl(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `perform_run_26`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `perform_run_26`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Perform Run 26"] = value
 
@@ -11140,7 +11405,7 @@ class ParametricRunControl(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `perform_run_27`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -11154,16 +11419,26 @@ class ParametricRunControl(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `perform_run_27`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `perform_run_27`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Perform Run 27"] = value
 
@@ -11195,7 +11470,7 @@ class ParametricRunControl(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `perform_run_28`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -11209,16 +11484,26 @@ class ParametricRunControl(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `perform_run_28`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `perform_run_28`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Perform Run 28"] = value
 
@@ -11250,7 +11535,7 @@ class ParametricRunControl(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `perform_run_29`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -11264,16 +11549,26 @@ class ParametricRunControl(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `perform_run_29`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `perform_run_29`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Perform Run 29"] = value
 
@@ -11305,7 +11600,7 @@ class ParametricRunControl(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `perform_run_30`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -11319,16 +11614,26 @@ class ParametricRunControl(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `perform_run_30`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `perform_run_30`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Perform Run 30"] = value
 
@@ -11360,7 +11665,7 @@ class ParametricRunControl(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `perform_run_31`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -11374,16 +11679,26 @@ class ParametricRunControl(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `perform_run_31`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `perform_run_31`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Perform Run 31"] = value
 
@@ -11415,7 +11730,7 @@ class ParametricRunControl(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `perform_run_32`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -11429,16 +11744,26 @@ class ParametricRunControl(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `perform_run_32`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `perform_run_32`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Perform Run 32"] = value
 
@@ -11470,7 +11795,7 @@ class ParametricRunControl(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `perform_run_33`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -11484,16 +11809,26 @@ class ParametricRunControl(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `perform_run_33`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `perform_run_33`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Perform Run 33"] = value
 
@@ -11525,7 +11860,7 @@ class ParametricRunControl(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `perform_run_34`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -11539,16 +11874,26 @@ class ParametricRunControl(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `perform_run_34`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `perform_run_34`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Perform Run 34"] = value
 
@@ -11580,7 +11925,7 @@ class ParametricRunControl(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `perform_run_35`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -11594,16 +11939,26 @@ class ParametricRunControl(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `perform_run_35`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `perform_run_35`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Perform Run 35"] = value
 
@@ -11635,7 +11990,7 @@ class ParametricRunControl(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `perform_run_36`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -11649,16 +12004,26 @@ class ParametricRunControl(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `perform_run_36`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `perform_run_36`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Perform Run 36"] = value
 
@@ -11690,7 +12055,7 @@ class ParametricRunControl(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `perform_run_37`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -11704,16 +12069,26 @@ class ParametricRunControl(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `perform_run_37`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `perform_run_37`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Perform Run 37"] = value
 
@@ -11745,7 +12120,7 @@ class ParametricRunControl(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `perform_run_38`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -11759,16 +12134,26 @@ class ParametricRunControl(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `perform_run_38`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `perform_run_38`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Perform Run 38"] = value
 
@@ -11800,7 +12185,7 @@ class ParametricRunControl(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `perform_run_39`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -11814,16 +12199,26 @@ class ParametricRunControl(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `perform_run_39`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `perform_run_39`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Perform Run 39"] = value
 
@@ -11855,7 +12250,7 @@ class ParametricRunControl(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `perform_run_40`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -11869,16 +12264,26 @@ class ParametricRunControl(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `perform_run_40`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `perform_run_40`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Perform Run 40"] = value
 
@@ -11910,7 +12315,7 @@ class ParametricRunControl(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `perform_run_41`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -11924,16 +12329,26 @@ class ParametricRunControl(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `perform_run_41`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `perform_run_41`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Perform Run 41"] = value
 
@@ -11965,7 +12380,7 @@ class ParametricRunControl(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `perform_run_42`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -11979,16 +12394,26 @@ class ParametricRunControl(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `perform_run_42`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `perform_run_42`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Perform Run 42"] = value
 
@@ -12020,7 +12445,7 @@ class ParametricRunControl(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `perform_run_43`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -12034,16 +12459,26 @@ class ParametricRunControl(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `perform_run_43`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `perform_run_43`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Perform Run 43"] = value
 
@@ -12075,7 +12510,7 @@ class ParametricRunControl(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `perform_run_44`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -12089,16 +12524,26 @@ class ParametricRunControl(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `perform_run_44`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `perform_run_44`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Perform Run 44"] = value
 
@@ -12130,7 +12575,7 @@ class ParametricRunControl(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `perform_run_45`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -12144,16 +12589,26 @@ class ParametricRunControl(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `perform_run_45`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `perform_run_45`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Perform Run 45"] = value
 
@@ -12185,7 +12640,7 @@ class ParametricRunControl(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `perform_run_46`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -12199,16 +12654,26 @@ class ParametricRunControl(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `perform_run_46`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `perform_run_46`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Perform Run 46"] = value
 
@@ -12240,7 +12705,7 @@ class ParametricRunControl(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `perform_run_47`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -12254,16 +12719,26 @@ class ParametricRunControl(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `perform_run_47`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `perform_run_47`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Perform Run 47"] = value
 
@@ -12295,7 +12770,7 @@ class ParametricRunControl(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `perform_run_48`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -12309,16 +12784,26 @@ class ParametricRunControl(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `perform_run_48`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `perform_run_48`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Perform Run 48"] = value
 
@@ -12350,7 +12835,7 @@ class ParametricRunControl(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `perform_run_49`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -12364,16 +12849,26 @@ class ParametricRunControl(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `perform_run_49`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `perform_run_49`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Perform Run 49"] = value
 
@@ -12405,7 +12900,7 @@ class ParametricRunControl(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `perform_run_50`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -12419,16 +12914,26 @@ class ParametricRunControl(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `perform_run_50`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `perform_run_50`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Perform Run 50"] = value
 
@@ -12460,7 +12965,7 @@ class ParametricRunControl(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `perform_run_51`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -12474,16 +12979,26 @@ class ParametricRunControl(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `perform_run_51`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `perform_run_51`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Perform Run 51"] = value
 
@@ -12515,7 +13030,7 @@ class ParametricRunControl(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `perform_run_52`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -12529,16 +13044,26 @@ class ParametricRunControl(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `perform_run_52`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `perform_run_52`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Perform Run 52"] = value
 
@@ -12570,7 +13095,7 @@ class ParametricRunControl(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `perform_run_53`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -12584,16 +13109,26 @@ class ParametricRunControl(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `perform_run_53`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `perform_run_53`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Perform Run 53"] = value
 
@@ -12625,7 +13160,7 @@ class ParametricRunControl(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `perform_run_54`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -12639,16 +13174,26 @@ class ParametricRunControl(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `perform_run_54`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `perform_run_54`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Perform Run 54"] = value
 
@@ -12680,7 +13225,7 @@ class ParametricRunControl(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `perform_run_55`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -12694,16 +13239,26 @@ class ParametricRunControl(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `perform_run_55`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `perform_run_55`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Perform Run 55"] = value
 
@@ -12735,7 +13290,7 @@ class ParametricRunControl(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `perform_run_56`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -12749,16 +13304,26 @@ class ParametricRunControl(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `perform_run_56`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `perform_run_56`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Perform Run 56"] = value
 
@@ -12790,7 +13355,7 @@ class ParametricRunControl(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `perform_run_57`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -12804,16 +13369,26 @@ class ParametricRunControl(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `perform_run_57`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `perform_run_57`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Perform Run 57"] = value
 
@@ -12845,7 +13420,7 @@ class ParametricRunControl(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `perform_run_58`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -12859,16 +13434,26 @@ class ParametricRunControl(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `perform_run_58`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `perform_run_58`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Perform Run 58"] = value
 
@@ -12900,7 +13485,7 @@ class ParametricRunControl(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `perform_run_59`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -12914,16 +13499,26 @@ class ParametricRunControl(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `perform_run_59`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `perform_run_59`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Perform Run 59"] = value
 
@@ -12955,7 +13550,7 @@ class ParametricRunControl(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `perform_run_60`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -12969,16 +13564,26 @@ class ParametricRunControl(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `perform_run_60`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `perform_run_60`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Perform Run 60"] = value
 
@@ -13010,7 +13615,7 @@ class ParametricRunControl(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `perform_run_61`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -13024,16 +13629,26 @@ class ParametricRunControl(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `perform_run_61`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `perform_run_61`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Perform Run 61"] = value
 
@@ -13065,7 +13680,7 @@ class ParametricRunControl(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `perform_run_62`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -13079,16 +13694,26 @@ class ParametricRunControl(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `perform_run_62`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `perform_run_62`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Perform Run 62"] = value
 
@@ -13120,7 +13745,7 @@ class ParametricRunControl(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `perform_run_63`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -13134,16 +13759,26 @@ class ParametricRunControl(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `perform_run_63`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `perform_run_63`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Perform Run 63"] = value
 
@@ -13175,7 +13810,7 @@ class ParametricRunControl(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `perform_run_64`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -13189,16 +13824,26 @@ class ParametricRunControl(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `perform_run_64`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `perform_run_64`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Perform Run 64"] = value
 
@@ -13230,7 +13875,7 @@ class ParametricRunControl(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `perform_run_65`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -13244,16 +13889,26 @@ class ParametricRunControl(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `perform_run_65`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `perform_run_65`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Perform Run 65"] = value
 
@@ -13285,7 +13940,7 @@ class ParametricRunControl(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `perform_run_66`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -13299,16 +13954,26 @@ class ParametricRunControl(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `perform_run_66`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `perform_run_66`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Perform Run 66"] = value
 
@@ -13340,7 +14005,7 @@ class ParametricRunControl(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `perform_run_67`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -13354,16 +14019,26 @@ class ParametricRunControl(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `perform_run_67`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `perform_run_67`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Perform Run 67"] = value
 
@@ -13395,7 +14070,7 @@ class ParametricRunControl(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `perform_run_68`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -13409,16 +14084,26 @@ class ParametricRunControl(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `perform_run_68`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `perform_run_68`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Perform Run 68"] = value
 
@@ -13450,7 +14135,7 @@ class ParametricRunControl(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `perform_run_69`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -13464,16 +14149,26 @@ class ParametricRunControl(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `perform_run_69`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `perform_run_69`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Perform Run 69"] = value
 
@@ -13505,7 +14200,7 @@ class ParametricRunControl(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `perform_run_70`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -13519,16 +14214,26 @@ class ParametricRunControl(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `perform_run_70`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `perform_run_70`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Perform Run 70"] = value
 
@@ -13560,7 +14265,7 @@ class ParametricRunControl(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `perform_run_71`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -13574,16 +14279,26 @@ class ParametricRunControl(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `perform_run_71`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `perform_run_71`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Perform Run 71"] = value
 
@@ -13615,7 +14330,7 @@ class ParametricRunControl(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `perform_run_72`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -13629,16 +14344,26 @@ class ParametricRunControl(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `perform_run_72`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `perform_run_72`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Perform Run 72"] = value
 
@@ -13670,7 +14395,7 @@ class ParametricRunControl(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `perform_run_73`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -13684,16 +14409,26 @@ class ParametricRunControl(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `perform_run_73`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `perform_run_73`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Perform Run 73"] = value
 
@@ -13725,7 +14460,7 @@ class ParametricRunControl(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `perform_run_74`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -13739,16 +14474,26 @@ class ParametricRunControl(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `perform_run_74`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `perform_run_74`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Perform Run 74"] = value
 
@@ -13780,7 +14525,7 @@ class ParametricRunControl(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `perform_run_75`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -13794,16 +14539,26 @@ class ParametricRunControl(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `perform_run_75`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `perform_run_75`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Perform Run 75"] = value
 
@@ -13835,7 +14590,7 @@ class ParametricRunControl(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `perform_run_76`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -13849,16 +14604,26 @@ class ParametricRunControl(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `perform_run_76`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `perform_run_76`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Perform Run 76"] = value
 
@@ -13890,7 +14655,7 @@ class ParametricRunControl(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `perform_run_77`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -13904,16 +14669,26 @@ class ParametricRunControl(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `perform_run_77`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `perform_run_77`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Perform Run 77"] = value
 
@@ -13945,7 +14720,7 @@ class ParametricRunControl(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `perform_run_78`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -13959,16 +14734,26 @@ class ParametricRunControl(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `perform_run_78`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `perform_run_78`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Perform Run 78"] = value
 
@@ -14000,7 +14785,7 @@ class ParametricRunControl(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `perform_run_79`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -14014,16 +14799,26 @@ class ParametricRunControl(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `perform_run_79`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `perform_run_79`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Perform Run 79"] = value
 
@@ -14055,7 +14850,7 @@ class ParametricRunControl(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `perform_run_80`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -14069,16 +14864,26 @@ class ParametricRunControl(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `perform_run_80`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `perform_run_80`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Perform Run 80"] = value
 
@@ -14110,7 +14915,7 @@ class ParametricRunControl(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `perform_run_81`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -14124,16 +14929,26 @@ class ParametricRunControl(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `perform_run_81`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `perform_run_81`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Perform Run 81"] = value
 
@@ -14165,7 +14980,7 @@ class ParametricRunControl(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `perform_run_82`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -14179,16 +14994,26 @@ class ParametricRunControl(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `perform_run_82`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `perform_run_82`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Perform Run 82"] = value
 
@@ -14220,7 +15045,7 @@ class ParametricRunControl(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `perform_run_83`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -14234,16 +15059,26 @@ class ParametricRunControl(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `perform_run_83`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `perform_run_83`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Perform Run 83"] = value
 
@@ -14275,7 +15110,7 @@ class ParametricRunControl(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `perform_run_84`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -14289,16 +15124,26 @@ class ParametricRunControl(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `perform_run_84`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `perform_run_84`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Perform Run 84"] = value
 
@@ -14330,7 +15175,7 @@ class ParametricRunControl(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `perform_run_85`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -14344,16 +15189,26 @@ class ParametricRunControl(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `perform_run_85`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `perform_run_85`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Perform Run 85"] = value
 
@@ -14385,7 +15240,7 @@ class ParametricRunControl(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `perform_run_86`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -14399,16 +15254,26 @@ class ParametricRunControl(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `perform_run_86`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `perform_run_86`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Perform Run 86"] = value
 
@@ -14440,7 +15305,7 @@ class ParametricRunControl(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `perform_run_87`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -14454,16 +15319,26 @@ class ParametricRunControl(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `perform_run_87`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `perform_run_87`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Perform Run 87"] = value
 
@@ -14495,7 +15370,7 @@ class ParametricRunControl(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `perform_run_88`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -14509,16 +15384,26 @@ class ParametricRunControl(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `perform_run_88`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `perform_run_88`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Perform Run 88"] = value
 
@@ -14550,7 +15435,7 @@ class ParametricRunControl(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `perform_run_89`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -14564,16 +15449,26 @@ class ParametricRunControl(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `perform_run_89`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `perform_run_89`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Perform Run 89"] = value
 
@@ -14605,7 +15500,7 @@ class ParametricRunControl(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `perform_run_90`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -14619,16 +15514,26 @@ class ParametricRunControl(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `perform_run_90`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `perform_run_90`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Perform Run 90"] = value
 
@@ -14660,7 +15565,7 @@ class ParametricRunControl(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `perform_run_91`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -14674,16 +15579,26 @@ class ParametricRunControl(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `perform_run_91`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `perform_run_91`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Perform Run 91"] = value
 
@@ -14715,7 +15630,7 @@ class ParametricRunControl(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `perform_run_92`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -14729,16 +15644,26 @@ class ParametricRunControl(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `perform_run_92`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `perform_run_92`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Perform Run 92"] = value
 
@@ -14770,7 +15695,7 @@ class ParametricRunControl(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `perform_run_93`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -14784,16 +15709,26 @@ class ParametricRunControl(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `perform_run_93`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `perform_run_93`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Perform Run 93"] = value
 
@@ -14825,7 +15760,7 @@ class ParametricRunControl(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `perform_run_94`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -14839,16 +15774,26 @@ class ParametricRunControl(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `perform_run_94`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `perform_run_94`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Perform Run 94"] = value
 
@@ -14880,7 +15825,7 @@ class ParametricRunControl(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `perform_run_95`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -14894,16 +15839,26 @@ class ParametricRunControl(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `perform_run_95`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `perform_run_95`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Perform Run 95"] = value
 
@@ -14935,7 +15890,7 @@ class ParametricRunControl(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `perform_run_96`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -14949,16 +15904,26 @@ class ParametricRunControl(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `perform_run_96`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `perform_run_96`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Perform Run 96"] = value
 
@@ -14990,7 +15955,7 @@ class ParametricRunControl(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `perform_run_97`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -15004,16 +15969,26 @@ class ParametricRunControl(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `perform_run_97`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `perform_run_97`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Perform Run 97"] = value
 
@@ -15045,7 +16020,7 @@ class ParametricRunControl(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `perform_run_98`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -15059,16 +16034,26 @@ class ParametricRunControl(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `perform_run_98`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `perform_run_98`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Perform Run 98"] = value
 
@@ -15100,7 +16085,7 @@ class ParametricRunControl(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `perform_run_99`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -15114,16 +16099,26 @@ class ParametricRunControl(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `perform_run_99`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `perform_run_99`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Perform Run 99"] = value
 
@@ -15155,7 +16150,7 @@ class ParametricRunControl(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `perform_run_100`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -15169,16 +16164,26 @@ class ParametricRunControl(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `perform_run_100`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `perform_run_100`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Perform Run 100"] = value
 
@@ -15220,7 +16225,6 @@ class ParametricFileNameSuffix(object):
     """ Corresponds to IDD object `Parametric:FileNameSuffix`
         Defines the suffixes to be appended to the idf and output file names for each
         parametric run. If this object is omitted, the suffix will default to the run number.
-    
     """
     internal_name = "Parametric:FileNameSuffix"
     field_count = 101
@@ -15331,15 +16335,16 @@ class ParametricFileNameSuffix(object):
         self._data["Suffix for File Name in Run 98"] = None
         self._data["Suffix for File Name in Run 99"] = None
         self._data["Suffix for File Name in Run 100"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -16048,6 +17053,7 @@ class ParametricFileNameSuffix(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -16074,7 +17080,7 @@ class ParametricFileNameSuffix(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -16109,7 +17115,7 @@ class ParametricFileNameSuffix(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `suffix_for_file_name_in_run_1`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -16144,7 +17150,7 @@ class ParametricFileNameSuffix(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `suffix_for_file_name_in_run_2`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -16179,7 +17185,7 @@ class ParametricFileNameSuffix(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `suffix_for_file_name_in_run_3`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -16214,7 +17220,7 @@ class ParametricFileNameSuffix(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `suffix_for_file_name_in_run_4`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -16249,7 +17255,7 @@ class ParametricFileNameSuffix(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `suffix_for_file_name_in_run_5`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -16284,7 +17290,7 @@ class ParametricFileNameSuffix(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `suffix_for_file_name_in_run_6`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -16319,7 +17325,7 @@ class ParametricFileNameSuffix(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `suffix_for_file_name_in_run_7`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -16354,7 +17360,7 @@ class ParametricFileNameSuffix(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `suffix_for_file_name_in_run_8`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -16389,7 +17395,7 @@ class ParametricFileNameSuffix(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `suffix_for_file_name_in_run_9`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -16424,7 +17430,7 @@ class ParametricFileNameSuffix(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `suffix_for_file_name_in_run_10`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -16459,7 +17465,7 @@ class ParametricFileNameSuffix(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `suffix_for_file_name_in_run_11`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -16494,7 +17500,7 @@ class ParametricFileNameSuffix(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `suffix_for_file_name_in_run_12`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -16529,7 +17535,7 @@ class ParametricFileNameSuffix(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `suffix_for_file_name_in_run_13`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -16564,7 +17570,7 @@ class ParametricFileNameSuffix(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `suffix_for_file_name_in_run_14`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -16599,7 +17605,7 @@ class ParametricFileNameSuffix(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `suffix_for_file_name_in_run_15`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -16634,7 +17640,7 @@ class ParametricFileNameSuffix(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `suffix_for_file_name_in_run_16`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -16669,7 +17675,7 @@ class ParametricFileNameSuffix(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `suffix_for_file_name_in_run_17`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -16704,7 +17710,7 @@ class ParametricFileNameSuffix(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `suffix_for_file_name_in_run_18`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -16739,7 +17745,7 @@ class ParametricFileNameSuffix(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `suffix_for_file_name_in_run_19`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -16774,7 +17780,7 @@ class ParametricFileNameSuffix(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `suffix_for_file_name_in_run_20`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -16809,7 +17815,7 @@ class ParametricFileNameSuffix(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `suffix_for_file_name_in_run_21`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -16844,7 +17850,7 @@ class ParametricFileNameSuffix(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `suffix_for_file_name_in_run_22`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -16879,7 +17885,7 @@ class ParametricFileNameSuffix(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `suffix_for_file_name_in_run_23`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -16914,7 +17920,7 @@ class ParametricFileNameSuffix(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `suffix_for_file_name_in_run_24`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -16949,7 +17955,7 @@ class ParametricFileNameSuffix(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `suffix_for_file_name_in_run_25`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -16984,7 +17990,7 @@ class ParametricFileNameSuffix(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `suffix_for_file_name_in_run_26`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -17019,7 +18025,7 @@ class ParametricFileNameSuffix(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `suffix_for_file_name_in_run_27`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -17054,7 +18060,7 @@ class ParametricFileNameSuffix(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `suffix_for_file_name_in_run_28`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -17089,7 +18095,7 @@ class ParametricFileNameSuffix(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `suffix_for_file_name_in_run_29`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -17124,7 +18130,7 @@ class ParametricFileNameSuffix(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `suffix_for_file_name_in_run_30`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -17159,7 +18165,7 @@ class ParametricFileNameSuffix(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `suffix_for_file_name_in_run_31`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -17194,7 +18200,7 @@ class ParametricFileNameSuffix(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `suffix_for_file_name_in_run_32`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -17229,7 +18235,7 @@ class ParametricFileNameSuffix(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `suffix_for_file_name_in_run_33`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -17264,7 +18270,7 @@ class ParametricFileNameSuffix(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `suffix_for_file_name_in_run_34`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -17299,7 +18305,7 @@ class ParametricFileNameSuffix(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `suffix_for_file_name_in_run_35`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -17334,7 +18340,7 @@ class ParametricFileNameSuffix(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `suffix_for_file_name_in_run_36`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -17369,7 +18375,7 @@ class ParametricFileNameSuffix(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `suffix_for_file_name_in_run_37`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -17404,7 +18410,7 @@ class ParametricFileNameSuffix(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `suffix_for_file_name_in_run_38`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -17439,7 +18445,7 @@ class ParametricFileNameSuffix(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `suffix_for_file_name_in_run_39`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -17474,7 +18480,7 @@ class ParametricFileNameSuffix(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `suffix_for_file_name_in_run_40`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -17509,7 +18515,7 @@ class ParametricFileNameSuffix(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `suffix_for_file_name_in_run_41`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -17544,7 +18550,7 @@ class ParametricFileNameSuffix(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `suffix_for_file_name_in_run_42`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -17579,7 +18585,7 @@ class ParametricFileNameSuffix(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `suffix_for_file_name_in_run_43`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -17614,7 +18620,7 @@ class ParametricFileNameSuffix(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `suffix_for_file_name_in_run_44`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -17649,7 +18655,7 @@ class ParametricFileNameSuffix(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `suffix_for_file_name_in_run_45`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -17684,7 +18690,7 @@ class ParametricFileNameSuffix(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `suffix_for_file_name_in_run_46`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -17719,7 +18725,7 @@ class ParametricFileNameSuffix(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `suffix_for_file_name_in_run_47`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -17754,7 +18760,7 @@ class ParametricFileNameSuffix(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `suffix_for_file_name_in_run_48`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -17789,7 +18795,7 @@ class ParametricFileNameSuffix(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `suffix_for_file_name_in_run_49`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -17824,7 +18830,7 @@ class ParametricFileNameSuffix(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `suffix_for_file_name_in_run_50`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -17859,7 +18865,7 @@ class ParametricFileNameSuffix(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `suffix_for_file_name_in_run_51`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -17894,7 +18900,7 @@ class ParametricFileNameSuffix(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `suffix_for_file_name_in_run_52`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -17929,7 +18935,7 @@ class ParametricFileNameSuffix(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `suffix_for_file_name_in_run_53`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -17964,7 +18970,7 @@ class ParametricFileNameSuffix(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `suffix_for_file_name_in_run_54`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -17999,7 +19005,7 @@ class ParametricFileNameSuffix(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `suffix_for_file_name_in_run_55`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -18034,7 +19040,7 @@ class ParametricFileNameSuffix(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `suffix_for_file_name_in_run_56`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -18069,7 +19075,7 @@ class ParametricFileNameSuffix(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `suffix_for_file_name_in_run_57`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -18104,7 +19110,7 @@ class ParametricFileNameSuffix(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `suffix_for_file_name_in_run_58`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -18139,7 +19145,7 @@ class ParametricFileNameSuffix(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `suffix_for_file_name_in_run_59`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -18174,7 +19180,7 @@ class ParametricFileNameSuffix(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `suffix_for_file_name_in_run_60`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -18209,7 +19215,7 @@ class ParametricFileNameSuffix(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `suffix_for_file_name_in_run_61`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -18244,7 +19250,7 @@ class ParametricFileNameSuffix(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `suffix_for_file_name_in_run_62`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -18279,7 +19285,7 @@ class ParametricFileNameSuffix(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `suffix_for_file_name_in_run_63`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -18314,7 +19320,7 @@ class ParametricFileNameSuffix(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `suffix_for_file_name_in_run_64`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -18349,7 +19355,7 @@ class ParametricFileNameSuffix(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `suffix_for_file_name_in_run_65`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -18384,7 +19390,7 @@ class ParametricFileNameSuffix(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `suffix_for_file_name_in_run_66`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -18419,7 +19425,7 @@ class ParametricFileNameSuffix(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `suffix_for_file_name_in_run_67`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -18454,7 +19460,7 @@ class ParametricFileNameSuffix(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `suffix_for_file_name_in_run_68`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -18489,7 +19495,7 @@ class ParametricFileNameSuffix(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `suffix_for_file_name_in_run_69`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -18524,7 +19530,7 @@ class ParametricFileNameSuffix(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `suffix_for_file_name_in_run_70`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -18559,7 +19565,7 @@ class ParametricFileNameSuffix(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `suffix_for_file_name_in_run_71`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -18594,7 +19600,7 @@ class ParametricFileNameSuffix(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `suffix_for_file_name_in_run_72`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -18629,7 +19635,7 @@ class ParametricFileNameSuffix(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `suffix_for_file_name_in_run_73`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -18664,7 +19670,7 @@ class ParametricFileNameSuffix(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `suffix_for_file_name_in_run_74`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -18699,7 +19705,7 @@ class ParametricFileNameSuffix(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `suffix_for_file_name_in_run_75`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -18734,7 +19740,7 @@ class ParametricFileNameSuffix(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `suffix_for_file_name_in_run_76`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -18769,7 +19775,7 @@ class ParametricFileNameSuffix(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `suffix_for_file_name_in_run_77`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -18804,7 +19810,7 @@ class ParametricFileNameSuffix(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `suffix_for_file_name_in_run_78`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -18839,7 +19845,7 @@ class ParametricFileNameSuffix(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `suffix_for_file_name_in_run_79`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -18874,7 +19880,7 @@ class ParametricFileNameSuffix(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `suffix_for_file_name_in_run_80`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -18909,7 +19915,7 @@ class ParametricFileNameSuffix(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `suffix_for_file_name_in_run_81`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -18944,7 +19950,7 @@ class ParametricFileNameSuffix(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `suffix_for_file_name_in_run_82`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -18979,7 +19985,7 @@ class ParametricFileNameSuffix(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `suffix_for_file_name_in_run_83`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -19014,7 +20020,7 @@ class ParametricFileNameSuffix(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `suffix_for_file_name_in_run_84`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -19049,7 +20055,7 @@ class ParametricFileNameSuffix(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `suffix_for_file_name_in_run_85`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -19084,7 +20090,7 @@ class ParametricFileNameSuffix(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `suffix_for_file_name_in_run_86`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -19119,7 +20125,7 @@ class ParametricFileNameSuffix(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `suffix_for_file_name_in_run_87`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -19154,7 +20160,7 @@ class ParametricFileNameSuffix(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `suffix_for_file_name_in_run_88`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -19189,7 +20195,7 @@ class ParametricFileNameSuffix(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `suffix_for_file_name_in_run_89`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -19224,7 +20230,7 @@ class ParametricFileNameSuffix(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `suffix_for_file_name_in_run_90`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -19259,7 +20265,7 @@ class ParametricFileNameSuffix(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `suffix_for_file_name_in_run_91`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -19294,7 +20300,7 @@ class ParametricFileNameSuffix(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `suffix_for_file_name_in_run_92`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -19329,7 +20335,7 @@ class ParametricFileNameSuffix(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `suffix_for_file_name_in_run_93`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -19364,7 +20370,7 @@ class ParametricFileNameSuffix(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `suffix_for_file_name_in_run_94`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -19399,7 +20405,7 @@ class ParametricFileNameSuffix(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `suffix_for_file_name_in_run_95`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -19434,7 +20440,7 @@ class ParametricFileNameSuffix(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `suffix_for_file_name_in_run_96`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -19469,7 +20475,7 @@ class ParametricFileNameSuffix(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `suffix_for_file_name_in_run_97`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -19504,7 +20510,7 @@ class ParametricFileNameSuffix(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `suffix_for_file_name_in_run_98`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -19539,7 +20545,7 @@ class ParametricFileNameSuffix(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `suffix_for_file_name_in_run_99`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -19574,7 +20580,7 @@ class ParametricFileNameSuffix(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `suffix_for_file_name_in_run_100`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '

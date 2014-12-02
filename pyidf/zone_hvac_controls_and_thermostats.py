@@ -1,9 +1,10 @@
 from collections import OrderedDict
+import logging
+import re
 
 class ZoneControlHumidistat(object):
     """ Corresponds to IDD object `ZoneControl:Humidistat`
         Specifies zone relative humidity setpoint schedules for humidifying and dehumidifying.
-    
     """
     internal_name = "ZoneControl:Humidistat"
     field_count = 4
@@ -17,15 +18,16 @@ class ZoneControlHumidistat(object):
         self._data["Zone Name"] = None
         self._data["Humidifying Relative Humidity Setpoint Schedule Name"] = None
         self._data["Dehumidifying Relative Humidity Setpoint Schedule Name"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -55,6 +57,7 @@ class ZoneControlHumidistat(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -81,7 +84,7 @@ class ZoneControlHumidistat(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -116,7 +119,7 @@ class ZoneControlHumidistat(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `zone_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -152,7 +155,7 @@ class ZoneControlHumidistat(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `humidifying_relative_humidity_setpoint_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -188,7 +191,7 @@ class ZoneControlHumidistat(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `dehumidifying_relative_humidity_setpoint_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -237,7 +240,6 @@ class ZoneControlThermostat(object):
         Define the Thermostat settings for a zone or list of zones.
         If you use a ZoneList in the Zone or ZoneList name field then this definition applies
         to all the zones in the ZoneList.
-    
     """
     internal_name = "ZoneControl:Thermostat"
     field_count = 11
@@ -258,15 +260,16 @@ class ZoneControlThermostat(object):
         self._data["Control 3 Name"] = None
         self._data["Control 4 Object Type"] = None
         self._data["Control 4 Name"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -345,6 +348,7 @@ class ZoneControlThermostat(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -371,7 +375,7 @@ class ZoneControlThermostat(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -406,7 +410,7 @@ class ZoneControlThermostat(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `zone_or_zonelist_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -444,7 +448,7 @@ class ZoneControlThermostat(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `control_type_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -484,7 +488,7 @@ class ZoneControlThermostat(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `control_1_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -500,16 +504,26 @@ class ZoneControlThermostat(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `control_1_object_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `control_1_object_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Control 1 Object Type"] = value
 
@@ -540,7 +554,7 @@ class ZoneControlThermostat(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `control_1_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -580,7 +594,7 @@ class ZoneControlThermostat(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `control_2_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -596,16 +610,26 @@ class ZoneControlThermostat(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `control_2_object_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `control_2_object_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Control 2 Object Type"] = value
 
@@ -636,7 +660,7 @@ class ZoneControlThermostat(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `control_2_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -676,7 +700,7 @@ class ZoneControlThermostat(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `control_3_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -692,16 +716,26 @@ class ZoneControlThermostat(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `control_3_object_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `control_3_object_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Control 3 Object Type"] = value
 
@@ -732,7 +766,7 @@ class ZoneControlThermostat(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `control_3_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -772,7 +806,7 @@ class ZoneControlThermostat(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `control_4_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -788,16 +822,26 @@ class ZoneControlThermostat(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `control_4_object_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `control_4_object_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Control 4 Object Type"] = value
 
@@ -828,7 +872,7 @@ class ZoneControlThermostat(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `control_4_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -877,7 +921,6 @@ class ZoneControlThermostatOperativeTemperature(object):
         This object can be used with the ZoneList option on a thermostat or with one
         of the zones on that list (but you won't be able to use the object list to
         pick only one of those zones.  Thermostat names are <Zone Name> <global Thermostat name> internally.
-    
     """
     internal_name = "ZoneControl:Thermostat:OperativeTemperature"
     field_count = 4
@@ -891,15 +934,16 @@ class ZoneControlThermostatOperativeTemperature(object):
         self._data["Radiative Fraction Input Mode"] = None
         self._data["Fixed Radiative Fraction"] = None
         self._data["Radiative Fraction Schedule Name"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.thermostat_name = None
@@ -929,6 +973,7 @@ class ZoneControlThermostatOperativeTemperature(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def thermostat_name(self):
@@ -958,7 +1003,7 @@ class ZoneControlThermostatOperativeTemperature(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `thermostat_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -996,7 +1041,7 @@ class ZoneControlThermostatOperativeTemperature(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `radiative_fraction_input_mode`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1010,16 +1055,26 @@ class ZoneControlThermostatOperativeTemperature(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `radiative_fraction_input_mode`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `radiative_fraction_input_mode`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Radiative Fraction Input Mode"] = value
 
@@ -1050,7 +1105,7 @@ class ZoneControlThermostatOperativeTemperature(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fixed_radiative_fraction`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -1086,7 +1141,7 @@ class ZoneControlThermostatOperativeTemperature(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `radiative_fraction_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1134,7 +1189,6 @@ class ZoneControlThermostatThermalComfort(object):
     """ Corresponds to IDD object `ZoneControl:Thermostat:ThermalComfort`
         If you use a ZoneList in the Zone or ZoneList name field then this definition applies
         to all the zones in the ZoneList.
-    
     """
     internal_name = "ZoneControl:Thermostat:ThermalComfort"
     field_count = 15
@@ -1159,15 +1213,16 @@ class ZoneControlThermostatThermalComfort(object):
         self._data["Thermal Comfort Control 3 Name"] = None
         self._data["Thermal Comfort Control 4 Object Type"] = None
         self._data["Thermal Comfort Control 4 Name"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -1274,6 +1329,7 @@ class ZoneControlThermostatThermalComfort(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -1300,7 +1356,7 @@ class ZoneControlThermostatThermalComfort(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1335,7 +1391,7 @@ class ZoneControlThermostatThermalComfort(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `zone_or_zonelist_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1377,7 +1433,7 @@ class ZoneControlThermostatThermalComfort(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `averaging_method`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1392,16 +1448,26 @@ class ZoneControlThermostatThermalComfort(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `averaging_method`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `averaging_method`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Averaging Method"] = value
 
@@ -1431,7 +1497,7 @@ class ZoneControlThermostatThermalComfort(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `specific_people_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1470,7 +1536,7 @@ class ZoneControlThermostatThermalComfort(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `minimum_drybulb_temperature_setpoint`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -1509,7 +1575,7 @@ class ZoneControlThermostatThermalComfort(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `maximum_drybulb_temperature_setpoint`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -1550,7 +1616,7 @@ class ZoneControlThermostatThermalComfort(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `thermal_comfort_control_type_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1590,7 +1656,7 @@ class ZoneControlThermostatThermalComfort(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `thermal_comfort_control_1_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1606,16 +1672,26 @@ class ZoneControlThermostatThermalComfort(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `thermal_comfort_control_1_object_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `thermal_comfort_control_1_object_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Thermal Comfort Control 1 Object Type"] = value
 
@@ -1646,7 +1722,7 @@ class ZoneControlThermostatThermalComfort(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `thermal_comfort_control_1_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1686,7 +1762,7 @@ class ZoneControlThermostatThermalComfort(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `thermal_comfort_control_2_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1702,16 +1778,26 @@ class ZoneControlThermostatThermalComfort(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `thermal_comfort_control_2_object_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `thermal_comfort_control_2_object_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Thermal Comfort Control 2 Object Type"] = value
 
@@ -1742,7 +1828,7 @@ class ZoneControlThermostatThermalComfort(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `thermal_comfort_control_2_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1782,7 +1868,7 @@ class ZoneControlThermostatThermalComfort(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `thermal_comfort_control_3_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1798,16 +1884,26 @@ class ZoneControlThermostatThermalComfort(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `thermal_comfort_control_3_object_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `thermal_comfort_control_3_object_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Thermal Comfort Control 3 Object Type"] = value
 
@@ -1838,7 +1934,7 @@ class ZoneControlThermostatThermalComfort(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `thermal_comfort_control_3_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1878,7 +1974,7 @@ class ZoneControlThermostatThermalComfort(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `thermal_comfort_control_4_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1894,16 +1990,26 @@ class ZoneControlThermostatThermalComfort(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `thermal_comfort_control_4_object_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `thermal_comfort_control_4_object_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Thermal Comfort Control 4 Object Type"] = value
 
@@ -1934,7 +2040,7 @@ class ZoneControlThermostatThermalComfort(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `thermal_comfort_control_4_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1982,7 +2088,6 @@ class ZoneControlThermostatTemperatureAndHumidity(object):
     """ Corresponds to IDD object `ZoneControl:Thermostat:TemperatureAndHumidity`
         This object modifies a ZoneControl:Thermostat object to effect temperature control based on
         zone air humidity conditions.
-    
     """
     internal_name = "ZoneControl:Thermostat:TemperatureAndHumidity"
     field_count = 7
@@ -1999,15 +2104,16 @@ class ZoneControlThermostatTemperatureAndHumidity(object):
         self._data["Overcool Constant Range"] = None
         self._data["Overcool Range Schedule Name"] = None
         self._data["Overcool Control Ratio"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.thermostat_name = None
@@ -2058,6 +2164,7 @@ class ZoneControlThermostatTemperatureAndHumidity(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def thermostat_name(self):
@@ -2092,7 +2199,7 @@ class ZoneControlThermostatTemperatureAndHumidity(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `thermostat_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2128,7 +2235,7 @@ class ZoneControlThermostatTemperatureAndHumidity(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `dehumidifying_relative_humidity_setpoint_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2167,7 +2274,7 @@ class ZoneControlThermostatTemperatureAndHumidity(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `dehumidification_control_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2181,16 +2288,26 @@ class ZoneControlThermostatTemperatureAndHumidity(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `dehumidification_control_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `dehumidification_control_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Dehumidification Control Type"] = value
 
@@ -2223,7 +2340,7 @@ class ZoneControlThermostatTemperatureAndHumidity(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `overcool_range_input_method`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2237,16 +2354,26 @@ class ZoneControlThermostatTemperatureAndHumidity(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `overcool_range_input_method`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `overcool_range_input_method`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Overcool Range Input Method"] = value
 
@@ -2283,7 +2410,7 @@ class ZoneControlThermostatTemperatureAndHumidity(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `overcool_constant_range`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -2321,7 +2448,7 @@ class ZoneControlThermostatTemperatureAndHumidity(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `overcool_range_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2363,7 +2490,7 @@ class ZoneControlThermostatTemperatureAndHumidity(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `overcool_control_ratio`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -2408,7 +2535,6 @@ class ThermostatSetpointSingleHeating(object):
     """ Corresponds to IDD object `ThermostatSetpoint:SingleHeating`
         Used for a heating only thermostat. The setpoint can be scheduled and varied throughout
         the simulation but only heating is allowed with this control type.
-    
     """
     internal_name = "ThermostatSetpoint:SingleHeating"
     field_count = 2
@@ -2420,15 +2546,16 @@ class ThermostatSetpointSingleHeating(object):
         self._data = OrderedDict()
         self._data["Name"] = None
         self._data["Setpoint Temperature Schedule Name"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -2444,6 +2571,7 @@ class ThermostatSetpointSingleHeating(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -2470,7 +2598,7 @@ class ThermostatSetpointSingleHeating(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2505,7 +2633,7 @@ class ThermostatSetpointSingleHeating(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `setpoint_temperature_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2553,7 +2681,6 @@ class ThermostatSetpointSingleCooling(object):
     """ Corresponds to IDD object `ThermostatSetpoint:SingleCooling`
         Used for a cooling only thermostat. The setpoint can be scheduled and varied throughout
         the simulation but only cooling is allowed.
-    
     """
     internal_name = "ThermostatSetpoint:SingleCooling"
     field_count = 2
@@ -2565,15 +2692,16 @@ class ThermostatSetpointSingleCooling(object):
         self._data = OrderedDict()
         self._data["Name"] = None
         self._data["Setpoint Temperature Schedule Name"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -2589,6 +2717,7 @@ class ThermostatSetpointSingleCooling(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -2615,7 +2744,7 @@ class ThermostatSetpointSingleCooling(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2650,7 +2779,7 @@ class ThermostatSetpointSingleCooling(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `setpoint_temperature_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2698,7 +2827,6 @@ class ThermostatSetpointSingleHeatingOrCooling(object):
     """ Corresponds to IDD object `ThermostatSetpoint:SingleHeatingOrCooling`
         Used for a heating and cooling thermostat with a single setpoint. The setpoint can be
         scheduled and varied throughout the simulation for both heating and cooling.
-    
     """
     internal_name = "ThermostatSetpoint:SingleHeatingOrCooling"
     field_count = 2
@@ -2710,15 +2838,16 @@ class ThermostatSetpointSingleHeatingOrCooling(object):
         self._data = OrderedDict()
         self._data["Name"] = None
         self._data["Setpoint Temperature Schedule Name"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -2734,6 +2863,7 @@ class ThermostatSetpointSingleHeatingOrCooling(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -2760,7 +2890,7 @@ class ThermostatSetpointSingleHeatingOrCooling(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2795,7 +2925,7 @@ class ThermostatSetpointSingleHeatingOrCooling(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `setpoint_temperature_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2843,7 +2973,6 @@ class ThermostatSetpointDualSetpoint(object):
     """ Corresponds to IDD object `ThermostatSetpoint:DualSetpoint`
         Used for a heating and cooling thermostat with dual setpoints. The setpoints can be
         scheduled and varied throughout the simulation for both heating and cooling.
-    
     """
     internal_name = "ThermostatSetpoint:DualSetpoint"
     field_count = 3
@@ -2856,15 +2985,16 @@ class ThermostatSetpointDualSetpoint(object):
         self._data["Name"] = None
         self._data["Heating Setpoint Temperature Schedule Name"] = None
         self._data["Cooling Setpoint Temperature Schedule Name"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -2887,6 +3017,7 @@ class ThermostatSetpointDualSetpoint(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -2913,7 +3044,7 @@ class ThermostatSetpointDualSetpoint(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2948,7 +3079,7 @@ class ThermostatSetpointDualSetpoint(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `heating_setpoint_temperature_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2983,7 +3114,7 @@ class ThermostatSetpointDualSetpoint(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `cooling_setpoint_temperature_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3031,7 +3162,6 @@ class ThermostatSetpointThermalComfortFangerSingleHeating(object):
     """ Corresponds to IDD object `ThermostatSetpoint:ThermalComfort:Fanger:SingleHeating`
         Used for heating only thermal comfort control. The PMV setpoint can be scheduled and
         varied throughout the simulation but only heating is allowed with this control type.
-    
     """
     internal_name = "ThermostatSetpoint:ThermalComfort:Fanger:SingleHeating"
     field_count = 2
@@ -3043,15 +3173,16 @@ class ThermostatSetpointThermalComfortFangerSingleHeating(object):
         self._data = OrderedDict()
         self._data["Name"] = None
         self._data["Fanger Thermal Comfort Schedule Name"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -3067,6 +3198,7 @@ class ThermostatSetpointThermalComfortFangerSingleHeating(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -3093,7 +3225,7 @@ class ThermostatSetpointThermalComfortFangerSingleHeating(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3129,7 +3261,7 @@ class ThermostatSetpointThermalComfortFangerSingleHeating(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `fanger_thermal_comfort_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3177,7 +3309,6 @@ class ThermostatSetpointThermalComfortFangerSingleCooling(object):
     """ Corresponds to IDD object `ThermostatSetpoint:ThermalComfort:Fanger:SingleCooling`
         Used for cooling only thermal comfort control. The PMV setpoint can be scheduled and
         varied throughout the simulation but only cooling is allowed with this control type.
-    
     """
     internal_name = "ThermostatSetpoint:ThermalComfort:Fanger:SingleCooling"
     field_count = 2
@@ -3189,15 +3320,16 @@ class ThermostatSetpointThermalComfortFangerSingleCooling(object):
         self._data = OrderedDict()
         self._data["Name"] = None
         self._data["Fanger Thermal Comfort Schedule Name"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -3213,6 +3345,7 @@ class ThermostatSetpointThermalComfortFangerSingleCooling(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -3239,7 +3372,7 @@ class ThermostatSetpointThermalComfortFangerSingleCooling(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3275,7 +3408,7 @@ class ThermostatSetpointThermalComfortFangerSingleCooling(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `fanger_thermal_comfort_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3324,7 +3457,6 @@ class ThermostatSetpointThermalComfortFangerSingleHeatingOrCooling(object):
         Used for heating and cooling thermal comfort control with a single setpoint. The PMV
         setpoint can be scheduled and varied throughout the simulation for both heating and
         cooling.
-    
     """
     internal_name = "ThermostatSetpoint:ThermalComfort:Fanger:SingleHeatingOrCooling"
     field_count = 2
@@ -3336,15 +3468,16 @@ class ThermostatSetpointThermalComfortFangerSingleHeatingOrCooling(object):
         self._data = OrderedDict()
         self._data["Name"] = None
         self._data["Fanger Thermal Comfort Schedule Name"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -3360,6 +3493,7 @@ class ThermostatSetpointThermalComfortFangerSingleHeatingOrCooling(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -3386,7 +3520,7 @@ class ThermostatSetpointThermalComfortFangerSingleHeatingOrCooling(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3422,7 +3556,7 @@ class ThermostatSetpointThermalComfortFangerSingleHeatingOrCooling(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `fanger_thermal_comfort_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3471,7 +3605,6 @@ class ThermostatSetpointThermalComfortFangerDualSetpoint(object):
         Used for heating and cooling thermal comfort control with dual setpoints. The PMV
         setpoints can be scheduled and varied throughout the simulation for both heating and
         cooling.
-    
     """
     internal_name = "ThermostatSetpoint:ThermalComfort:Fanger:DualSetpoint"
     field_count = 3
@@ -3484,15 +3617,16 @@ class ThermostatSetpointThermalComfortFangerDualSetpoint(object):
         self._data["Name"] = None
         self._data["Fanger Thermal Comfort Heating Schedule Name"] = None
         self._data["Fanger Thermal Comfort Cooling Schedule Name"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -3515,6 +3649,7 @@ class ThermostatSetpointThermalComfortFangerDualSetpoint(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -3541,7 +3676,7 @@ class ThermostatSetpointThermalComfortFangerDualSetpoint(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3577,7 +3712,7 @@ class ThermostatSetpointThermalComfortFangerDualSetpoint(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `fanger_thermal_comfort_heating_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3613,7 +3748,7 @@ class ThermostatSetpointThermalComfortFangerDualSetpoint(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `fanger_thermal_comfort_cooling_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3662,7 +3797,6 @@ class ZoneControlThermostatStagedDualSetpoint(object):
         Define the Thermostat StagedDualSetpoint settings for a zone or list of zones.
         If you use a ZoneList in the Zone or ZoneList name field then this definition applies
         to all the zones in the ZoneList.
-    
     """
     internal_name = "ZoneControl:Thermostat:StagedDualSetpoint"
     field_count = 16
@@ -3688,15 +3822,16 @@ class ZoneControlThermostatStagedDualSetpoint(object):
         self._data["Stage 2 Cooling Temperature Offset"] = None
         self._data["Stage 3 Cooling Temperature Offset"] = None
         self._data["Stage 4 Cooling Temperature Offset"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -3810,6 +3945,7 @@ class ZoneControlThermostatStagedDualSetpoint(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -3836,7 +3972,7 @@ class ZoneControlThermostatStagedDualSetpoint(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3871,7 +4007,7 @@ class ZoneControlThermostatStagedDualSetpoint(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `zone_or_zonelist_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3909,8 +4045,15 @@ class ZoneControlThermostatStagedDualSetpoint(object):
             try:
                 value = int(value)
             except ValueError:
-                raise ValueError('value {} need to be of type int '
-                                 'for field `number_of_heating_stages`'.format(value))
+                if not self.strict:
+                    try:
+                        conv_value = int(float(value))
+                        logging.warn('Cast float {} to int {}, precision may be lost '
+                                     'for field `number_of_heating_stages`'.format(value, conv_value))
+                        value = conv_value
+                    except ValueError:
+                        raise ValueError('value {} need to be of type int '
+                                         'for field `number_of_heating_stages`'.format(value))
             if value < 1:
                 raise ValueError('value need to be greater or equal 1 '
                                  'for field `number_of_heating_stages`')
@@ -3944,7 +4087,7 @@ class ZoneControlThermostatStagedDualSetpoint(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `heating_temperature_setpoint_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3982,7 +4125,7 @@ class ZoneControlThermostatStagedDualSetpoint(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `heating_throttling_temperature_range`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -4021,7 +4164,7 @@ class ZoneControlThermostatStagedDualSetpoint(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `stage_1_heating_temperature_offset`'.format(value))
             if value > 0.0:
                 raise ValueError('value need to be smaller 0.0 '
@@ -4061,7 +4204,7 @@ class ZoneControlThermostatStagedDualSetpoint(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `stage_2_heating_temperature_offset`'.format(value))
             if value > 0.0:
                 raise ValueError('value need to be smaller 0.0 '
@@ -4101,7 +4244,7 @@ class ZoneControlThermostatStagedDualSetpoint(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `stage_3_heating_temperature_offset`'.format(value))
             if value > 0.0:
                 raise ValueError('value need to be smaller 0.0 '
@@ -4140,7 +4283,7 @@ class ZoneControlThermostatStagedDualSetpoint(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `stage_4_heating_temperature_offset`'.format(value))
             if value > 0.0:
                 raise ValueError('value need to be smaller 0.0 '
@@ -4175,8 +4318,15 @@ class ZoneControlThermostatStagedDualSetpoint(object):
             try:
                 value = int(value)
             except ValueError:
-                raise ValueError('value {} need to be of type int '
-                                 'for field `number_of_cooling_stages`'.format(value))
+                if not self.strict:
+                    try:
+                        conv_value = int(float(value))
+                        logging.warn('Cast float {} to int {}, precision may be lost '
+                                     'for field `number_of_cooling_stages`'.format(value, conv_value))
+                        value = conv_value
+                    except ValueError:
+                        raise ValueError('value {} need to be of type int '
+                                         'for field `number_of_cooling_stages`'.format(value))
             if value < 1:
                 raise ValueError('value need to be greater or equal 1 '
                                  'for field `number_of_cooling_stages`')
@@ -4210,7 +4360,7 @@ class ZoneControlThermostatStagedDualSetpoint(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `cooling_temperature_setpoint_base_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4248,7 +4398,7 @@ class ZoneControlThermostatStagedDualSetpoint(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `cooling_throttling_temperature_range`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -4287,7 +4437,7 @@ class ZoneControlThermostatStagedDualSetpoint(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `stage_1_cooling_temperature_offset`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -4327,7 +4477,7 @@ class ZoneControlThermostatStagedDualSetpoint(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `stage_2_cooling_temperature_offset`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -4367,7 +4517,7 @@ class ZoneControlThermostatStagedDualSetpoint(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `stage_3_cooling_temperature_offset`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -4406,7 +4556,7 @@ class ZoneControlThermostatStagedDualSetpoint(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `stage_4_cooling_temperature_offset`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -4451,7 +4601,6 @@ class ZoneControlContaminantController(object):
     """ Corresponds to IDD object `ZoneControl:ContaminantController`
         Used to control a zone to a specified indoor level of CO2 or generic contaminants, or
         to specify minimum CO2 concentration schedule name for a zone.
-    
     """
     internal_name = "ZoneControl:ContaminantController"
     field_count = 7
@@ -4468,15 +4617,16 @@ class ZoneControlContaminantController(object):
         self._data["Minimum Carbon Dioxide Concentration Schedule Name"] = None
         self._data["Generic Contaminant Control Availability Schedule Name"] = None
         self._data["Generic Contaminant Setpoint Schedule Name"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -4527,6 +4677,7 @@ class ZoneControlContaminantController(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -4553,7 +4704,7 @@ class ZoneControlContaminantController(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4588,7 +4739,7 @@ class ZoneControlContaminantController(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `controlled_zone_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4625,7 +4776,7 @@ class ZoneControlContaminantController(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `carbon_dioxide_control_availability_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4661,7 +4812,7 @@ class ZoneControlContaminantController(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `carbon_dioxide_setpoint_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4700,7 +4851,7 @@ class ZoneControlContaminantController(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `minimum_carbon_dioxide_concentration_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4738,7 +4889,7 @@ class ZoneControlContaminantController(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `generic_contaminant_control_availability_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4777,7 +4928,7 @@ class ZoneControlContaminantController(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `generic_contaminant_setpoint_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '

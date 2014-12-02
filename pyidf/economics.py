@@ -1,9 +1,10 @@
 from collections import OrderedDict
+import logging
+import re
 
 class CurrencyType(object):
     """ Corresponds to IDD object `CurrencyType`
         If CurrencyType is not specified, it will default to USD and produce $ in the reports.
-    
     """
     internal_name = "CurrencyType"
     field_count = 1
@@ -14,15 +15,16 @@ class CurrencyType(object):
         """
         self._data = OrderedDict()
         self._data["Monetary Unit"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.monetary_unit = None
@@ -31,6 +33,7 @@ class CurrencyType(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def monetary_unit(self):
@@ -171,7 +174,7 @@ class CurrencyType(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `monetary_unit`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -294,16 +297,26 @@ class CurrencyType(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `monetary_unit`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `monetary_unit`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Monetary Unit"] = value
 
@@ -346,7 +359,6 @@ class ComponentCostAdjustments(object):
         Used to perform various modifications to the construction costs to arrive at an
         estimate for total project costs. This object allows extending the line item model
         so that the overall costs of the project will reflect various profit and fees.
-    
     """
     internal_name = "ComponentCost:Adjustments"
     field_count = 7
@@ -363,15 +375,16 @@ class ComponentCostAdjustments(object):
         self._data["Permits, Bonding and Insurance"] = None
         self._data["Commissioning Fee"] = None
         self._data["Regional Adjustment Factor"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.miscellaneous_cost_per_conditioned_area = None
@@ -422,6 +435,7 @@ class ComponentCostAdjustments(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def miscellaneous_cost_per_conditioned_area(self):
@@ -451,7 +465,7 @@ class ComponentCostAdjustments(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `miscellaneous_cost_per_conditioned_area`'.format(value))
         self._data["Miscellaneous Cost per Conditioned Area"] = value
 
@@ -481,7 +495,7 @@ class ComponentCostAdjustments(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `design_and_engineering_fees`'.format(value))
         self._data["Design and Engineering Fees"] = value
 
@@ -511,7 +525,7 @@ class ComponentCostAdjustments(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `contractor_fee`'.format(value))
         self._data["Contractor Fee"] = value
 
@@ -541,7 +555,7 @@ class ComponentCostAdjustments(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `contingency`'.format(value))
         self._data["Contingency"] = value
 
@@ -571,7 +585,7 @@ class ComponentCostAdjustments(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `permits_bonding_and_insurance`'.format(value))
         self._data["Permits, Bonding and Insurance"] = value
 
@@ -601,7 +615,7 @@ class ComponentCostAdjustments(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `commissioning_fee`'.format(value))
         self._data["Commissioning Fee"] = value
 
@@ -632,7 +646,7 @@ class ComponentCostAdjustments(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `regional_adjustment_factor`'.format(value))
         self._data["Regional Adjustment Factor"] = value
 
@@ -678,7 +692,6 @@ class ComponentCostReference(object):
         building. The factors entered in this object are applied to the reference building
         while the factors listed in the ComponentCost:Adjustments object are applied to the
         current building model cost estimate.
-    
     """
     internal_name = "ComponentCost:Reference"
     field_count = 8
@@ -696,15 +709,16 @@ class ComponentCostReference(object):
         self._data["Reference Building Permits, Bonding and Insurance"] = None
         self._data["Reference Building Commissioning Fee"] = None
         self._data["Reference Building Regional Adjustment Factor"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.reference_building_line_item_costs = None
@@ -762,6 +776,7 @@ class ComponentCostReference(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def reference_building_line_item_costs(self):
@@ -790,7 +805,7 @@ class ComponentCostReference(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `reference_building_line_item_costs`'.format(value))
         self._data["Reference Building Line Item Costs"] = value
 
@@ -822,7 +837,7 @@ class ComponentCostReference(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `reference_building_miscellaneous_cost_per_conditioned_area`'.format(value))
         self._data["Reference Building Miscellaneous Cost per Conditioned Area"] = value
 
@@ -852,7 +867,7 @@ class ComponentCostReference(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `reference_building_design_and_engineering_fees`'.format(value))
         self._data["Reference Building Design and Engineering Fees"] = value
 
@@ -882,7 +897,7 @@ class ComponentCostReference(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `reference_building_contractor_fee`'.format(value))
         self._data["Reference Building Contractor Fee"] = value
 
@@ -911,7 +926,7 @@ class ComponentCostReference(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `reference_building_contingency`'.format(value))
         self._data["Reference Building Contingency"] = value
 
@@ -941,7 +956,7 @@ class ComponentCostReference(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `reference_building_permits_bonding_and_insurance`'.format(value))
         self._data["Reference Building Permits, Bonding and Insurance"] = value
 
@@ -971,7 +986,7 @@ class ComponentCostReference(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `reference_building_commissioning_fee`'.format(value))
         self._data["Reference Building Commissioning Fee"] = value
 
@@ -1002,7 +1017,7 @@ class ComponentCostReference(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `reference_building_regional_adjustment_factor`'.format(value))
         self._data["Reference Building Regional Adjustment Factor"] = value
 
@@ -1044,7 +1059,6 @@ class ComponentCostLineItem(object):
     """ Corresponds to IDD object `ComponentCost:LineItem`
         Each instance of this object creates a cost line item and will contribute to the total
         for a cost estimate.
-    
     """
     internal_name = "ComponentCost:LineItem"
     field_count = 13
@@ -1067,15 +1081,16 @@ class ComponentCostLineItem(object):
         self._data["Cost per Volume Rate"] = None
         self._data["Cost per Energy per Temperature Difference"] = None
         self._data["Quantity"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -1168,6 +1183,7 @@ class ComponentCostLineItem(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -1194,7 +1210,7 @@ class ComponentCostLineItem(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1229,7 +1245,7 @@ class ComponentCostLineItem(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1276,7 +1292,7 @@ class ComponentCostLineItem(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `line_item_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1298,16 +1314,26 @@ class ComponentCostLineItem(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `line_item_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `line_item_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Line Item Type"] = value
 
@@ -1337,7 +1363,7 @@ class ComponentCostLineItem(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `item_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1373,7 +1399,7 @@ class ComponentCostLineItem(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `object_enduse_key`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1409,7 +1435,7 @@ class ComponentCostLineItem(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `cost_per_each`'.format(value))
         self._data["Cost per Each"] = value
 
@@ -1439,7 +1465,7 @@ class ComponentCostLineItem(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `cost_per_area`'.format(value))
         self._data["Cost per Area"] = value
 
@@ -1469,7 +1495,7 @@ class ComponentCostLineItem(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `cost_per_unit_of_output_capacity`'.format(value))
         self._data["Cost per Unit of Output Capacity"] = value
 
@@ -1500,7 +1526,7 @@ class ComponentCostLineItem(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `cost_per_unit_of_output_capacity_per_cop`'.format(value))
         self._data["Cost per Unit of Output Capacity per COP"] = value
 
@@ -1530,7 +1556,7 @@ class ComponentCostLineItem(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `cost_per_volume`'.format(value))
         self._data["Cost per Volume"] = value
 
@@ -1560,7 +1586,7 @@ class ComponentCostLineItem(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `cost_per_volume_rate`'.format(value))
         self._data["Cost per Volume Rate"] = value
 
@@ -1591,7 +1617,7 @@ class ComponentCostLineItem(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `cost_per_energy_per_temperature_difference`'.format(value))
         self._data["Cost per Energy per Temperature Difference"] = value
 
@@ -1622,7 +1648,7 @@ class ComponentCostLineItem(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `quantity`'.format(value))
         self._data["Quantity"] = value
 
@@ -1667,7 +1693,6 @@ class UtilityCostTariff(object):
         references the tariff name.  See UtilityCost:Charge:Simple, UtilityCost:Charge:Block,
         UtilityCost:Ratchet, UtilityCost:Qualify, UtilityCost:Variable and
         UtilityCost:Computation objects.
-    
     """
     internal_name = "UtilityCost:Tariff"
     field_count = 15
@@ -1692,15 +1717,16 @@ class UtilityCostTariff(object):
         self._data["Customer Baseline Load Schedule Name"] = None
         self._data["Group Name"] = None
         self._data["Buy Or Sell"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -1807,6 +1833,7 @@ class UtilityCostTariff(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -1835,7 +1862,7 @@ class UtilityCostTariff(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1871,7 +1898,7 @@ class UtilityCostTariff(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `output_meter_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1917,7 +1944,7 @@ class UtilityCostTariff(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `conversion_factor_choice`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1937,16 +1964,26 @@ class UtilityCostTariff(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `conversion_factor_choice`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `conversion_factor_choice`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Conversion Factor Choice"] = value
 
@@ -1980,7 +2017,7 @@ class UtilityCostTariff(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `energy_conversion_factor`'.format(value))
         self._data["Energy Conversion Factor"] = value
 
@@ -2014,7 +2051,7 @@ class UtilityCostTariff(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `demand_conversion_factor`'.format(value))
         self._data["Demand Conversion Factor"] = value
 
@@ -2045,7 +2082,7 @@ class UtilityCostTariff(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `time_of_use_period_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2082,7 +2119,7 @@ class UtilityCostTariff(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `season_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2123,7 +2160,7 @@ class UtilityCostTariff(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `month_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2167,7 +2204,7 @@ class UtilityCostTariff(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `demand_window_length`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2184,16 +2221,26 @@ class UtilityCostTariff(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `demand_window_length`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `demand_window_length`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Demand Window Length"] = value
 
@@ -2224,7 +2271,7 @@ class UtilityCostTariff(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `monthly_charge_or_variable_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2261,7 +2308,7 @@ class UtilityCostTariff(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `minimum_monthly_charge_or_variable_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2299,7 +2346,7 @@ class UtilityCostTariff(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `real_time_pricing_charge_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2337,7 +2384,7 @@ class UtilityCostTariff(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `customer_baseline_load_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2376,7 +2423,7 @@ class UtilityCostTariff(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `group_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2419,7 +2466,7 @@ class UtilityCostTariff(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `buy_or_sell`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2434,16 +2481,26 @@ class UtilityCostTariff(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `buy_or_sell`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `buy_or_sell`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Buy Or Sell"] = value
 
@@ -2489,7 +2546,6 @@ class UtilityCostQualify(object):
         "Qualified" entry will say "No" and the UtilityCost:Qualify that caused its exclusion
         is shown. Multiple UtilityCost:Qualify objects can appear for the same tarriff and
         they can be based on any variable.
-    
     """
     internal_name = "UtilityCost:Qualify"
     field_count = 8
@@ -2507,15 +2563,16 @@ class UtilityCostQualify(object):
         self._data["Season"] = None
         self._data["Threshold Test"] = None
         self._data["Number of Months"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -2573,6 +2630,7 @@ class UtilityCostQualify(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -2600,7 +2658,7 @@ class UtilityCostQualify(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2636,7 +2694,7 @@ class UtilityCostQualify(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `tariff_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2673,7 +2731,7 @@ class UtilityCostQualify(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `variable_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2712,7 +2770,7 @@ class UtilityCostQualify(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `qualify_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2726,16 +2784,26 @@ class UtilityCostQualify(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `qualify_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `qualify_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Qualify Type"] = value
 
@@ -2767,7 +2835,7 @@ class UtilityCostQualify(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `threshold_value_or_variable_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2810,7 +2878,7 @@ class UtilityCostQualify(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `season`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2827,16 +2895,26 @@ class UtilityCostQualify(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `season`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `season`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Season"] = value
 
@@ -2873,7 +2951,7 @@ class UtilityCostQualify(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `threshold_test`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2887,16 +2965,26 @@ class UtilityCostQualify(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `threshold_test`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `threshold_test`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Threshold Test"] = value
 
@@ -2931,7 +3019,7 @@ class UtilityCostQualify(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `number_of_months`'.format(value))
             if value < 1.0:
                 raise ValueError('value need to be greater or equal 1.0 '
@@ -2982,7 +3070,6 @@ class UtilityCostChargeSimple(object):
         It may also be used for taxes, surcharges and any other charges that occur on a
         utility bill. Multiple UtilityCost:Charge:Simple objects may be defined for a single
         tariff and they will be added together.
-    
     """
     internal_name = "UtilityCost:Charge:Simple"
     field_count = 6
@@ -2998,15 +3085,16 @@ class UtilityCostChargeSimple(object):
         self._data["Season"] = None
         self._data["Category Variable Name"] = None
         self._data["Cost per Unit Value or Variable Name"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -3050,6 +3138,7 @@ class UtilityCostChargeSimple(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -3081,7 +3170,7 @@ class UtilityCostChargeSimple(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3117,7 +3206,7 @@ class UtilityCostChargeSimple(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `tariff_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3159,7 +3248,7 @@ class UtilityCostChargeSimple(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `source_variable`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3202,7 +3291,7 @@ class UtilityCostChargeSimple(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `season`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3219,16 +3308,26 @@ class UtilityCostChargeSimple(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `season`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `season`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Season"] = value
 
@@ -3271,7 +3370,7 @@ class UtilityCostChargeSimple(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `category_variable_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3293,16 +3392,26 @@ class UtilityCostChargeSimple(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `category_variable_name`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `category_variable_name`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Category Variable Name"] = value
 
@@ -3336,7 +3445,7 @@ class UtilityCostChargeSimple(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `cost_per_unit_value_or_variable_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3385,7 +3494,6 @@ class UtilityCostChargeBlock(object):
         Used to compute energy and demand charges (or any other charges) that are structured
         in blocks of charges. Multiple UtilityCost:Charge:Block objects may be defined for a
         single tariff and they will be added together.
-    
     """
     internal_name = "UtilityCost:Charge:Block"
     field_count = 37
@@ -3432,15 +3540,16 @@ class UtilityCostChargeBlock(object):
         self._data["Block 14 Cost per Unit Value or Variable Name"] = None
         self._data["Block Size 15 Value or Variable Name"] = None
         self._data["Block 15 Cost per Unit Value or Variable Name"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -3701,6 +3810,7 @@ class UtilityCostChargeBlock(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -3731,7 +3841,7 @@ class UtilityCostChargeBlock(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3767,7 +3877,7 @@ class UtilityCostChargeBlock(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `tariff_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3809,7 +3919,7 @@ class UtilityCostChargeBlock(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `source_variable`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3853,7 +3963,7 @@ class UtilityCostChargeBlock(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `season`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3870,16 +3980,26 @@ class UtilityCostChargeBlock(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `season`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `season`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Season"] = value
 
@@ -3922,7 +4042,7 @@ class UtilityCostChargeBlock(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `category_variable_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3944,16 +4064,26 @@ class UtilityCostChargeBlock(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `category_variable_name`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `category_variable_name`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Category Variable Name"] = value
 
@@ -3985,7 +4115,7 @@ class UtilityCostChargeBlock(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `remaining_into_variable`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4026,7 +4156,7 @@ class UtilityCostChargeBlock(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `block_size_multiplier_value_or_variable_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4064,7 +4194,7 @@ class UtilityCostChargeBlock(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `block_size_1_value_or_variable_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4101,7 +4231,7 @@ class UtilityCostChargeBlock(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `block_1_cost_per_unit_value_or_variable_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4139,7 +4269,7 @@ class UtilityCostChargeBlock(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `block_size_2_value_or_variable_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4176,7 +4306,7 @@ class UtilityCostChargeBlock(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `block_2_cost_per_unit_value_or_variable_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4214,7 +4344,7 @@ class UtilityCostChargeBlock(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `block_size_3_value_or_variable_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4251,7 +4381,7 @@ class UtilityCostChargeBlock(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `block_3_cost_per_unit_value_or_variable_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4289,7 +4419,7 @@ class UtilityCostChargeBlock(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `block_size_4_value_or_variable_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4326,7 +4456,7 @@ class UtilityCostChargeBlock(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `block_4_cost_per_unit_value_or_variable_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4364,7 +4494,7 @@ class UtilityCostChargeBlock(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `block_size_5_value_or_variable_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4401,7 +4531,7 @@ class UtilityCostChargeBlock(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `block_5_cost_per_unit_value_or_variable_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4439,7 +4569,7 @@ class UtilityCostChargeBlock(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `block_size_6_value_or_variable_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4476,7 +4606,7 @@ class UtilityCostChargeBlock(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `block_6_cost_per_unit_value_or_variable_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4514,7 +4644,7 @@ class UtilityCostChargeBlock(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `block_size_7_value_or_variable_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4551,7 +4681,7 @@ class UtilityCostChargeBlock(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `block_7_cost_per_unit_value_or_variable_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4589,7 +4719,7 @@ class UtilityCostChargeBlock(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `block_size_8_value_or_variable_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4626,7 +4756,7 @@ class UtilityCostChargeBlock(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `block_8_cost_per_unit_value_or_variable_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4664,7 +4794,7 @@ class UtilityCostChargeBlock(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `block_size_9_value_or_variable_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4701,7 +4831,7 @@ class UtilityCostChargeBlock(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `block_9_cost_per_unit_value_or_variable_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4739,7 +4869,7 @@ class UtilityCostChargeBlock(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `block_size_10_value_or_variable_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4776,7 +4906,7 @@ class UtilityCostChargeBlock(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `block_10_cost_per_unit_value_or_variable_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4814,7 +4944,7 @@ class UtilityCostChargeBlock(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `block_size_11_value_or_variable_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4851,7 +4981,7 @@ class UtilityCostChargeBlock(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `block_11_cost_per_unit_value_or_variable_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4889,7 +5019,7 @@ class UtilityCostChargeBlock(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `block_size_12_value_or_variable_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4926,7 +5056,7 @@ class UtilityCostChargeBlock(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `block_12_cost_per_unit_value_or_variable_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4964,7 +5094,7 @@ class UtilityCostChargeBlock(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `block_size_13_value_or_variable_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -5001,7 +5131,7 @@ class UtilityCostChargeBlock(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `block_13_cost_per_unit_value_or_variable_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -5039,7 +5169,7 @@ class UtilityCostChargeBlock(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `block_size_14_value_or_variable_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -5076,7 +5206,7 @@ class UtilityCostChargeBlock(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `block_14_cost_per_unit_value_or_variable_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -5114,7 +5244,7 @@ class UtilityCostChargeBlock(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `block_size_15_value_or_variable_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -5151,7 +5281,7 @@ class UtilityCostChargeBlock(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `block_15_cost_per_unit_value_or_variable_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -5201,7 +5331,6 @@ class UtilityCostRatchet(object):
         Ratchets are most common when used with electric demand charges. A ratchet is when a
         utility requires that the demand charge for a month with a low demand may be
         increased to be more consistent with a month that set a higher demand charge.
-    
     """
     internal_name = "UtilityCost:Ratchet"
     field_count = 8
@@ -5219,15 +5348,16 @@ class UtilityCostRatchet(object):
         self._data["Season To"] = None
         self._data["Multiplier Value or Variable Name"] = None
         self._data["Offset Value or Variable Name"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -5285,6 +5415,7 @@ class UtilityCostRatchet(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -5313,7 +5444,7 @@ class UtilityCostRatchet(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -5349,7 +5480,7 @@ class UtilityCostRatchet(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `tariff_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -5388,7 +5519,7 @@ class UtilityCostRatchet(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `baseline_source_variable`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -5427,7 +5558,7 @@ class UtilityCostRatchet(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `adjustment_source_variable`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -5472,7 +5603,7 @@ class UtilityCostRatchet(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `season_from`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -5490,16 +5621,26 @@ class UtilityCostRatchet(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `season_from`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `season_from`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Season From"] = value
 
@@ -5537,7 +5678,7 @@ class UtilityCostRatchet(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `season_to`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -5554,16 +5695,26 @@ class UtilityCostRatchet(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `season_to`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `season_to`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Season To"] = value
 
@@ -5595,7 +5746,7 @@ class UtilityCostRatchet(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `multiplier_value_or_variable_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -5634,7 +5785,7 @@ class UtilityCostRatchet(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `offset_value_or_variable_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -5681,7 +5832,6 @@ class UtilityCostRatchet(object):
 class UtilityCostVariable(object):
     """ Corresponds to IDD object `UtilityCost:Variable`
         Allows for the direct entry of monthly values into a utility tariff variable.
-    
     """
     internal_name = "UtilityCost:Variable"
     field_count = 15
@@ -5706,15 +5856,16 @@ class UtilityCostVariable(object):
         self._data["October Value"] = None
         self._data["November Value"] = None
         self._data["December Value"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -5821,6 +5972,7 @@ class UtilityCostVariable(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -5847,7 +5999,7 @@ class UtilityCostVariable(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -5883,7 +6035,7 @@ class UtilityCostVariable(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `tariff_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -5924,7 +6076,7 @@ class UtilityCostVariable(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `variable_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -5940,16 +6092,26 @@ class UtilityCostVariable(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `variable_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `variable_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Variable Type"] = value
 
@@ -5978,7 +6140,7 @@ class UtilityCostVariable(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `january_value`'.format(value))
         self._data["January Value"] = value
 
@@ -6007,7 +6169,7 @@ class UtilityCostVariable(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `february_value`'.format(value))
         self._data["February Value"] = value
 
@@ -6036,7 +6198,7 @@ class UtilityCostVariable(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `march_value`'.format(value))
         self._data["March Value"] = value
 
@@ -6065,7 +6227,7 @@ class UtilityCostVariable(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `april_value`'.format(value))
         self._data["April Value"] = value
 
@@ -6094,7 +6256,7 @@ class UtilityCostVariable(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `may_value`'.format(value))
         self._data["May Value"] = value
 
@@ -6123,7 +6285,7 @@ class UtilityCostVariable(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `june_value`'.format(value))
         self._data["June Value"] = value
 
@@ -6152,7 +6314,7 @@ class UtilityCostVariable(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `july_value`'.format(value))
         self._data["July Value"] = value
 
@@ -6181,7 +6343,7 @@ class UtilityCostVariable(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `august_value`'.format(value))
         self._data["August Value"] = value
 
@@ -6210,7 +6372,7 @@ class UtilityCostVariable(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `september_value`'.format(value))
         self._data["September Value"] = value
 
@@ -6239,7 +6401,7 @@ class UtilityCostVariable(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `october_value`'.format(value))
         self._data["October Value"] = value
 
@@ -6268,7 +6430,7 @@ class UtilityCostVariable(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `november_value`'.format(value))
         self._data["November Value"] = value
 
@@ -6297,7 +6459,7 @@ class UtilityCostVariable(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `december_value`'.format(value))
         self._data["December Value"] = value
 
@@ -6342,7 +6504,6 @@ class UtilityCostComputation(object):
         other way. For most utility tariffs, UtilityCost:Computation is unnecessary and
         should be avoided. If UtilityCost:Computation is used, it must contain references
         to all objects involved in the rate in the order that they should be computed.
-    
     """
     internal_name = "UtilityCost:Computation"
     field_count = 32
@@ -6384,15 +6545,16 @@ class UtilityCostComputation(object):
         self._data["Compute Step 28"] = None
         self._data["Compute Step 29"] = None
         self._data["Compute Step 30"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -6618,6 +6780,7 @@ class UtilityCostComputation(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -6644,7 +6807,7 @@ class UtilityCostComputation(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -6680,7 +6843,7 @@ class UtilityCostComputation(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `tariff_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -6717,7 +6880,7 @@ class UtilityCostComputation(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `compute_step_1`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -6752,7 +6915,7 @@ class UtilityCostComputation(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `compute_step_2`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -6787,7 +6950,7 @@ class UtilityCostComputation(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `compute_step_3`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -6822,7 +6985,7 @@ class UtilityCostComputation(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `compute_step_4`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -6857,7 +7020,7 @@ class UtilityCostComputation(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `compute_step_5`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -6892,7 +7055,7 @@ class UtilityCostComputation(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `compute_step_6`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -6927,7 +7090,7 @@ class UtilityCostComputation(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `compute_step_7`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -6962,7 +7125,7 @@ class UtilityCostComputation(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `compute_step_8`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -6997,7 +7160,7 @@ class UtilityCostComputation(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `compute_step_9`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -7032,7 +7195,7 @@ class UtilityCostComputation(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `compute_step_10`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -7067,7 +7230,7 @@ class UtilityCostComputation(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `compute_step_11`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -7102,7 +7265,7 @@ class UtilityCostComputation(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `compute_step_12`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -7137,7 +7300,7 @@ class UtilityCostComputation(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `compute_step_13`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -7172,7 +7335,7 @@ class UtilityCostComputation(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `compute_step_14`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -7207,7 +7370,7 @@ class UtilityCostComputation(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `compute_step_15`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -7242,7 +7405,7 @@ class UtilityCostComputation(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `compute_step_16`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -7277,7 +7440,7 @@ class UtilityCostComputation(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `compute_step_17`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -7312,7 +7475,7 @@ class UtilityCostComputation(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `compute_step_18`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -7347,7 +7510,7 @@ class UtilityCostComputation(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `compute_step_19`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -7382,7 +7545,7 @@ class UtilityCostComputation(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `compute_step_20`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -7417,7 +7580,7 @@ class UtilityCostComputation(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `compute_step_21`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -7452,7 +7615,7 @@ class UtilityCostComputation(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `compute_step_22`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -7487,7 +7650,7 @@ class UtilityCostComputation(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `compute_step_23`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -7522,7 +7685,7 @@ class UtilityCostComputation(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `compute_step_24`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -7557,7 +7720,7 @@ class UtilityCostComputation(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `compute_step_25`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -7592,7 +7755,7 @@ class UtilityCostComputation(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `compute_step_26`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -7627,7 +7790,7 @@ class UtilityCostComputation(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `compute_step_27`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -7662,7 +7825,7 @@ class UtilityCostComputation(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `compute_step_28`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -7697,7 +7860,7 @@ class UtilityCostComputation(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `compute_step_29`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -7732,7 +7895,7 @@ class UtilityCostComputation(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `compute_step_30`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -7783,7 +7946,6 @@ class LifeCycleCostParameters(object):
         comparing the results of multiple simulations that the fields in the
         LifeCycleCost:Parameters objects are the same for all the simulations. When this
         object is present the tabular report file will contain the Life-Cycle Cost Report.
-    
     """
     internal_name = "LifeCycleCost:Parameters"
     field_count = 13
@@ -7806,15 +7968,16 @@ class LifeCycleCostParameters(object):
         self._data["Length of Study Period in Years"] = None
         self._data["Tax rate"] = None
         self._data["Depreciation Method"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -7907,6 +8070,7 @@ class LifeCycleCostParameters(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -7933,7 +8097,7 @@ class LifeCycleCostParameters(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -7976,7 +8140,7 @@ class LifeCycleCostParameters(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `discounting_convention`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -7991,16 +8155,26 @@ class LifeCycleCostParameters(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `discounting_convention`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `discounting_convention`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Discounting Convention"] = value
 
@@ -8037,7 +8211,7 @@ class LifeCycleCostParameters(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `inflation_approach`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -8051,16 +8225,26 @@ class LifeCycleCostParameters(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `inflation_approach`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `inflation_approach`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Inflation Approach"] = value
 
@@ -8093,7 +8277,7 @@ class LifeCycleCostParameters(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `real_discount_rate`'.format(value))
         self._data["Real Discount Rate"] = value
 
@@ -8126,7 +8310,7 @@ class LifeCycleCostParameters(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `nominal_discount_rate`'.format(value))
         self._data["Nominal Discount Rate"] = value
 
@@ -8157,7 +8341,7 @@ class LifeCycleCostParameters(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `inflation`'.format(value))
         self._data["Inflation"] = value
 
@@ -8201,7 +8385,7 @@ class LifeCycleCostParameters(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `base_date_month`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -8225,16 +8409,26 @@ class LifeCycleCostParameters(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `base_date_month`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `base_date_month`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Base Date Month"] = value
 
@@ -8267,8 +8461,15 @@ class LifeCycleCostParameters(object):
             try:
                 value = int(value)
             except ValueError:
-                raise ValueError('value {} need to be of type int '
-                                 'for field `base_date_year`'.format(value))
+                if not self.strict:
+                    try:
+                        conv_value = int(float(value))
+                        logging.warn('Cast float {} to int {}, precision may be lost '
+                                     'for field `base_date_year`'.format(value, conv_value))
+                        value = conv_value
+                    except ValueError:
+                        raise ValueError('value {} need to be of type int '
+                                         'for field `base_date_year`'.format(value))
             if value < 1900:
                 raise ValueError('value need to be greater or equal 1900 '
                                  'for field `base_date_year`')
@@ -8320,7 +8521,7 @@ class LifeCycleCostParameters(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `service_date_month`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -8344,16 +8545,26 @@ class LifeCycleCostParameters(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `service_date_month`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `service_date_month`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Service Date Month"] = value
 
@@ -8385,8 +8596,15 @@ class LifeCycleCostParameters(object):
             try:
                 value = int(value)
             except ValueError:
-                raise ValueError('value {} need to be of type int '
-                                 'for field `service_date_year`'.format(value))
+                if not self.strict:
+                    try:
+                        conv_value = int(float(value))
+                        logging.warn('Cast float {} to int {}, precision may be lost '
+                                     'for field `service_date_year`'.format(value, conv_value))
+                        value = conv_value
+                    except ValueError:
+                        raise ValueError('value {} need to be of type int '
+                                         'for field `service_date_year`'.format(value))
             if value < 1900:
                 raise ValueError('value need to be greater or equal 1900 '
                                  'for field `service_date_year`')
@@ -8425,8 +8643,15 @@ class LifeCycleCostParameters(object):
             try:
                 value = int(value)
             except ValueError:
-                raise ValueError('value {} need to be of type int '
-                                 'for field `length_of_study_period_in_years`'.format(value))
+                if not self.strict:
+                    try:
+                        conv_value = int(float(value))
+                        logging.warn('Cast float {} to int {}, precision may be lost '
+                                     'for field `length_of_study_period_in_years`'.format(value, conv_value))
+                        value = conv_value
+                    except ValueError:
+                        raise ValueError('value {} need to be of type int '
+                                         'for field `length_of_study_period_in_years`'.format(value))
             if value < 1:
                 raise ValueError('value need to be greater or equal 1 '
                                  'for field `length_of_study_period_in_years`')
@@ -8469,7 +8694,7 @@ class LifeCycleCostParameters(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `tax_rate`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -8517,7 +8742,7 @@ class LifeCycleCostParameters(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `depreciation_method`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -8540,16 +8765,26 @@ class LifeCycleCostParameters(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `depreciation_method`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `depreciation_method`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Depreciation Method"] = value
 
@@ -8592,7 +8827,6 @@ class LifeCycleCostRecurringCosts(object):
         Recurring costs are costs that repeat over time on a regular schedule during the
         study period. If costs associated with equipment do repeat but not on a regular
         schedule, use LifeCycleCost:NonrecurringCost objects instead.
-    
     """
     internal_name = "LifeCycleCost:RecurringCosts"
     field_count = 9
@@ -8611,15 +8845,16 @@ class LifeCycleCostRecurringCosts(object):
         self._data["Repeat Period Years"] = None
         self._data["Repeat Period Months"] = None
         self._data["Annual escalation rate"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -8684,6 +8919,7 @@ class LifeCycleCostRecurringCosts(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -8710,7 +8946,7 @@ class LifeCycleCostRecurringCosts(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -8754,7 +8990,7 @@ class LifeCycleCostRecurringCosts(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `category`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -8773,16 +9009,26 @@ class LifeCycleCostRecurringCosts(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `category`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `category`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Category"] = value
 
@@ -8814,7 +9060,7 @@ class LifeCycleCostRecurringCosts(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `cost`'.format(value))
         self._data["Cost"] = value
 
@@ -8849,7 +9095,7 @@ class LifeCycleCostRecurringCosts(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `start_of_costs`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -8863,16 +9109,26 @@ class LifeCycleCostRecurringCosts(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `start_of_costs`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `start_of_costs`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Start of Costs"] = value
 
@@ -8907,8 +9163,15 @@ class LifeCycleCostRecurringCosts(object):
             try:
                 value = int(value)
             except ValueError:
-                raise ValueError('value {} need to be of type int '
-                                 'for field `years_from_start`'.format(value))
+                if not self.strict:
+                    try:
+                        conv_value = int(float(value))
+                        logging.warn('Cast float {} to int {}, precision may be lost '
+                                     'for field `years_from_start`'.format(value, conv_value))
+                        value = conv_value
+                    except ValueError:
+                        raise ValueError('value {} need to be of type int '
+                                         'for field `years_from_start`'.format(value))
             if value < 0:
                 raise ValueError('value need to be greater or equal 0 '
                                  'for field `years_from_start`')
@@ -8949,8 +9212,15 @@ class LifeCycleCostRecurringCosts(object):
             try:
                 value = int(value)
             except ValueError:
-                raise ValueError('value {} need to be of type int '
-                                 'for field `months_from_start`'.format(value))
+                if not self.strict:
+                    try:
+                        conv_value = int(float(value))
+                        logging.warn('Cast float {} to int {}, precision may be lost '
+                                     'for field `months_from_start`'.format(value, conv_value))
+                        value = conv_value
+                    except ValueError:
+                        raise ValueError('value {} need to be of type int '
+                                         'for field `months_from_start`'.format(value))
             if value < 0:
                 raise ValueError('value need to be greater or equal 0 '
                                  'for field `months_from_start`')
@@ -8991,8 +9261,15 @@ class LifeCycleCostRecurringCosts(object):
             try:
                 value = int(value)
             except ValueError:
-                raise ValueError('value {} need to be of type int '
-                                 'for field `repeat_period_years`'.format(value))
+                if not self.strict:
+                    try:
+                        conv_value = int(float(value))
+                        logging.warn('Cast float {} to int {}, precision may be lost '
+                                     'for field `repeat_period_years`'.format(value, conv_value))
+                        value = conv_value
+                    except ValueError:
+                        raise ValueError('value {} need to be of type int '
+                                         'for field `repeat_period_years`'.format(value))
             if value < 0:
                 raise ValueError('value need to be greater or equal 0 '
                                  'for field `repeat_period_years`')
@@ -9032,8 +9309,15 @@ class LifeCycleCostRecurringCosts(object):
             try:
                 value = int(value)
             except ValueError:
-                raise ValueError('value {} need to be of type int '
-                                 'for field `repeat_period_months`'.format(value))
+                if not self.strict:
+                    try:
+                        conv_value = int(float(value))
+                        logging.warn('Cast float {} to int {}, precision may be lost '
+                                     'for field `repeat_period_months`'.format(value, conv_value))
+                        value = conv_value
+                    except ValueError:
+                        raise ValueError('value {} need to be of type int '
+                                         'for field `repeat_period_months`'.format(value))
             if value < 0:
                 raise ValueError('value need to be greater or equal 0 '
                                  'for field `repeat_period_months`')
@@ -9072,7 +9356,7 @@ class LifeCycleCostRecurringCosts(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `annual_escalation_rate`'.format(value))
             if value < -0.3:
                 raise ValueError('value need to be greater or equal -0.3 '
@@ -9121,7 +9405,6 @@ class LifeCycleCostNonrecurringCost(object):
         A non-recurring cost happens only once during the study period. For costs that occur
         more than once during the study period on a regular schedule, use the
         LifeCycleCost:RecurringCost object.
-    
     """
     internal_name = "LifeCycleCost:NonrecurringCost"
     field_count = 6
@@ -9137,15 +9420,16 @@ class LifeCycleCostNonrecurringCost(object):
         self._data["Start of Costs"] = None
         self._data["Years from Start"] = None
         self._data["Months from Start"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -9189,6 +9473,7 @@ class LifeCycleCostNonrecurringCost(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -9215,7 +9500,7 @@ class LifeCycleCostNonrecurringCost(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -9255,7 +9540,7 @@ class LifeCycleCostNonrecurringCost(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `category`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -9270,16 +9555,26 @@ class LifeCycleCostNonrecurringCost(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `category`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `category`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Category"] = value
 
@@ -9312,7 +9607,7 @@ class LifeCycleCostNonrecurringCost(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `cost`'.format(value))
         self._data["Cost"] = value
 
@@ -9348,7 +9643,7 @@ class LifeCycleCostNonrecurringCost(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `start_of_costs`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -9362,16 +9657,26 @@ class LifeCycleCostNonrecurringCost(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `start_of_costs`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `start_of_costs`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Start of Costs"] = value
 
@@ -9406,8 +9711,15 @@ class LifeCycleCostNonrecurringCost(object):
             try:
                 value = int(value)
             except ValueError:
-                raise ValueError('value {} need to be of type int '
-                                 'for field `years_from_start`'.format(value))
+                if not self.strict:
+                    try:
+                        conv_value = int(float(value))
+                        logging.warn('Cast float {} to int {}, precision may be lost '
+                                     'for field `years_from_start`'.format(value, conv_value))
+                        value = conv_value
+                    except ValueError:
+                        raise ValueError('value {} need to be of type int '
+                                         'for field `years_from_start`'.format(value))
             if value < 0:
                 raise ValueError('value need to be greater or equal 0 '
                                  'for field `years_from_start`')
@@ -9448,8 +9760,15 @@ class LifeCycleCostNonrecurringCost(object):
             try:
                 value = int(value)
             except ValueError:
-                raise ValueError('value {} need to be of type int '
-                                 'for field `months_from_start`'.format(value))
+                if not self.strict:
+                    try:
+                        conv_value = int(float(value))
+                        logging.warn('Cast float {} to int {}, precision may be lost '
+                                     'for field `months_from_start`'.format(value, conv_value))
+                        value = conv_value
+                    except ValueError:
+                        raise ValueError('value {} need to be of type int '
+                                         'for field `months_from_start`'.format(value))
             if value < 0:
                 raise ValueError('value need to be greater or equal 0 '
                                  'for field `months_from_start`')
@@ -9497,7 +9816,6 @@ class LifeCycleCostUsePriceEscalation(object):
         Life cycle cost escalation factors. The values for this object may be found in the
         annual supplement to NIST Handbook 135 in Tables Ca-1 to Ca-5 and are included in an
         EnergyPlus dataset file.
-    
     """
     internal_name = "LifeCycleCost:UsePriceEscalation"
     field_count = 34
@@ -9541,15 +9859,16 @@ class LifeCycleCostUsePriceEscalation(object):
         self._data["Year 28 Escalation"] = None
         self._data["Year 29 Escalation"] = None
         self._data["Year 30 Escalation"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -9789,6 +10108,7 @@ class LifeCycleCostUsePriceEscalation(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -9819,7 +10139,7 @@ class LifeCycleCostUsePriceEscalation(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -9871,7 +10191,7 @@ class LifeCycleCostUsePriceEscalation(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `resource`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -9899,16 +10219,26 @@ class LifeCycleCostUsePriceEscalation(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `resource`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `resource`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Resource"] = value
 
@@ -9942,8 +10272,15 @@ class LifeCycleCostUsePriceEscalation(object):
             try:
                 value = int(value)
             except ValueError:
-                raise ValueError('value {} need to be of type int '
-                                 'for field `escalation_start_year`'.format(value))
+                if not self.strict:
+                    try:
+                        conv_value = int(float(value))
+                        logging.warn('Cast float {} to int {}, precision may be lost '
+                                     'for field `escalation_start_year`'.format(value, conv_value))
+                        value = conv_value
+                    except ValueError:
+                        raise ValueError('value {} need to be of type int '
+                                         'for field `escalation_start_year`'.format(value))
             if value < 1900:
                 raise ValueError('value need to be greater or equal 1900 '
                                  'for field `escalation_start_year`')
@@ -9994,7 +10331,7 @@ class LifeCycleCostUsePriceEscalation(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `escalation_start_month`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -10018,16 +10355,26 @@ class LifeCycleCostUsePriceEscalation(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `escalation_start_month`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `escalation_start_month`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Escalation Start Month"] = value
 
@@ -10057,7 +10404,7 @@ class LifeCycleCostUsePriceEscalation(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `year_1_escalation`'.format(value))
         self._data["Year 1 Escalation"] = value
 
@@ -10087,7 +10434,7 @@ class LifeCycleCostUsePriceEscalation(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `year_2_escalation`'.format(value))
         self._data["Year 2 Escalation"] = value
 
@@ -10117,7 +10464,7 @@ class LifeCycleCostUsePriceEscalation(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `year_3_escalation`'.format(value))
         self._data["Year 3 Escalation"] = value
 
@@ -10147,7 +10494,7 @@ class LifeCycleCostUsePriceEscalation(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `year_4_escalation`'.format(value))
         self._data["Year 4 Escalation"] = value
 
@@ -10177,7 +10524,7 @@ class LifeCycleCostUsePriceEscalation(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `year_5_escalation`'.format(value))
         self._data["Year 5 Escalation"] = value
 
@@ -10207,7 +10554,7 @@ class LifeCycleCostUsePriceEscalation(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `year_6_escalation`'.format(value))
         self._data["Year 6 Escalation"] = value
 
@@ -10237,7 +10584,7 @@ class LifeCycleCostUsePriceEscalation(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `year_7_escalation`'.format(value))
         self._data["Year 7 Escalation"] = value
 
@@ -10267,7 +10614,7 @@ class LifeCycleCostUsePriceEscalation(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `year_8_escalation`'.format(value))
         self._data["Year 8 Escalation"] = value
 
@@ -10297,7 +10644,7 @@ class LifeCycleCostUsePriceEscalation(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `year_9_escalation`'.format(value))
         self._data["Year 9 Escalation"] = value
 
@@ -10327,7 +10674,7 @@ class LifeCycleCostUsePriceEscalation(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `year_10_escalation`'.format(value))
         self._data["Year 10 Escalation"] = value
 
@@ -10357,7 +10704,7 @@ class LifeCycleCostUsePriceEscalation(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `year_11_escalation`'.format(value))
         self._data["Year 11 Escalation"] = value
 
@@ -10387,7 +10734,7 @@ class LifeCycleCostUsePriceEscalation(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `year_12_escalation`'.format(value))
         self._data["Year 12 Escalation"] = value
 
@@ -10417,7 +10764,7 @@ class LifeCycleCostUsePriceEscalation(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `year_13_escalation`'.format(value))
         self._data["Year 13 Escalation"] = value
 
@@ -10447,7 +10794,7 @@ class LifeCycleCostUsePriceEscalation(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `year_14_escalation`'.format(value))
         self._data["Year 14 Escalation"] = value
 
@@ -10477,7 +10824,7 @@ class LifeCycleCostUsePriceEscalation(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `year_15_escalation`'.format(value))
         self._data["Year 15 Escalation"] = value
 
@@ -10507,7 +10854,7 @@ class LifeCycleCostUsePriceEscalation(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `year_16_escalation`'.format(value))
         self._data["Year 16 Escalation"] = value
 
@@ -10537,7 +10884,7 @@ class LifeCycleCostUsePriceEscalation(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `year_17_escalation`'.format(value))
         self._data["Year 17 Escalation"] = value
 
@@ -10567,7 +10914,7 @@ class LifeCycleCostUsePriceEscalation(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `year_18_escalation`'.format(value))
         self._data["Year 18 Escalation"] = value
 
@@ -10597,7 +10944,7 @@ class LifeCycleCostUsePriceEscalation(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `year_19_escalation`'.format(value))
         self._data["Year 19 Escalation"] = value
 
@@ -10627,7 +10974,7 @@ class LifeCycleCostUsePriceEscalation(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `year_20_escalation`'.format(value))
         self._data["Year 20 Escalation"] = value
 
@@ -10657,7 +11004,7 @@ class LifeCycleCostUsePriceEscalation(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `year_21_escalation`'.format(value))
         self._data["Year 21 Escalation"] = value
 
@@ -10687,7 +11034,7 @@ class LifeCycleCostUsePriceEscalation(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `year_22_escalation`'.format(value))
         self._data["Year 22 Escalation"] = value
 
@@ -10717,7 +11064,7 @@ class LifeCycleCostUsePriceEscalation(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `year_23_escalation`'.format(value))
         self._data["Year 23 Escalation"] = value
 
@@ -10747,7 +11094,7 @@ class LifeCycleCostUsePriceEscalation(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `year_24_escalation`'.format(value))
         self._data["Year 24 Escalation"] = value
 
@@ -10777,7 +11124,7 @@ class LifeCycleCostUsePriceEscalation(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `year_25_escalation`'.format(value))
         self._data["Year 25 Escalation"] = value
 
@@ -10807,7 +11154,7 @@ class LifeCycleCostUsePriceEscalation(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `year_26_escalation`'.format(value))
         self._data["Year 26 Escalation"] = value
 
@@ -10837,7 +11184,7 @@ class LifeCycleCostUsePriceEscalation(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `year_27_escalation`'.format(value))
         self._data["Year 27 Escalation"] = value
 
@@ -10867,7 +11214,7 @@ class LifeCycleCostUsePriceEscalation(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `year_28_escalation`'.format(value))
         self._data["Year 28 Escalation"] = value
 
@@ -10897,7 +11244,7 @@ class LifeCycleCostUsePriceEscalation(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `year_29_escalation`'.format(value))
         self._data["Year 29 Escalation"] = value
 
@@ -10927,7 +11274,7 @@ class LifeCycleCostUsePriceEscalation(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `year_30_escalation`'.format(value))
         self._data["Year 30 Escalation"] = value
 
@@ -10972,7 +11319,6 @@ class LifeCycleCostUseAdjustment(object):
         the costs of energy or water based on assumed changes to the actual usage, such as
         anticipated changes in the future function of the building. The adjustments begin at
         the start of the service period.
-    
     """
     internal_name = "LifeCycleCost:UseAdjustment"
     field_count = 32
@@ -11014,15 +11360,16 @@ class LifeCycleCostUseAdjustment(object):
         self._data["Year 28 Multiplier"] = None
         self._data["Year 29 Multiplier"] = None
         self._data["Year 30 Multiplier"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -11248,6 +11595,7 @@ class LifeCycleCostUseAdjustment(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -11274,7 +11622,7 @@ class LifeCycleCostUseAdjustment(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -11326,7 +11674,7 @@ class LifeCycleCostUseAdjustment(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `resource`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -11354,16 +11702,26 @@ class LifeCycleCostUseAdjustment(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `resource`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `resource`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Resource"] = value
 
@@ -11395,7 +11753,7 @@ class LifeCycleCostUseAdjustment(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `year_1_multiplier`'.format(value))
         self._data["Year 1 Multiplier"] = value
 
@@ -11426,7 +11784,7 @@ class LifeCycleCostUseAdjustment(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `year_2_multiplier`'.format(value))
         self._data["Year 2 Multiplier"] = value
 
@@ -11457,7 +11815,7 @@ class LifeCycleCostUseAdjustment(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `year_3_multiplier`'.format(value))
         self._data["Year 3 Multiplier"] = value
 
@@ -11488,7 +11846,7 @@ class LifeCycleCostUseAdjustment(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `year_4_multiplier`'.format(value))
         self._data["Year 4 Multiplier"] = value
 
@@ -11519,7 +11877,7 @@ class LifeCycleCostUseAdjustment(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `year_5_multiplier`'.format(value))
         self._data["Year 5 Multiplier"] = value
 
@@ -11550,7 +11908,7 @@ class LifeCycleCostUseAdjustment(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `year_6_multiplier`'.format(value))
         self._data["Year 6 Multiplier"] = value
 
@@ -11581,7 +11939,7 @@ class LifeCycleCostUseAdjustment(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `year_7_multiplier`'.format(value))
         self._data["Year 7 Multiplier"] = value
 
@@ -11612,7 +11970,7 @@ class LifeCycleCostUseAdjustment(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `year_8_multiplier`'.format(value))
         self._data["Year 8 Multiplier"] = value
 
@@ -11643,7 +12001,7 @@ class LifeCycleCostUseAdjustment(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `year_9_multiplier`'.format(value))
         self._data["Year 9 Multiplier"] = value
 
@@ -11674,7 +12032,7 @@ class LifeCycleCostUseAdjustment(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `year_10_multiplier`'.format(value))
         self._data["Year 10 Multiplier"] = value
 
@@ -11705,7 +12063,7 @@ class LifeCycleCostUseAdjustment(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `year_11_multiplier`'.format(value))
         self._data["Year 11 Multiplier"] = value
 
@@ -11736,7 +12094,7 @@ class LifeCycleCostUseAdjustment(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `year_12_multiplier`'.format(value))
         self._data["Year 12 Multiplier"] = value
 
@@ -11767,7 +12125,7 @@ class LifeCycleCostUseAdjustment(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `year_13_multiplier`'.format(value))
         self._data["Year 13 Multiplier"] = value
 
@@ -11798,7 +12156,7 @@ class LifeCycleCostUseAdjustment(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `year_14_multiplier`'.format(value))
         self._data["Year 14 Multiplier"] = value
 
@@ -11829,7 +12187,7 @@ class LifeCycleCostUseAdjustment(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `year_15_multiplier`'.format(value))
         self._data["Year 15 Multiplier"] = value
 
@@ -11860,7 +12218,7 @@ class LifeCycleCostUseAdjustment(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `year_16_multiplier`'.format(value))
         self._data["Year 16 Multiplier"] = value
 
@@ -11891,7 +12249,7 @@ class LifeCycleCostUseAdjustment(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `year_17_multiplier`'.format(value))
         self._data["Year 17 Multiplier"] = value
 
@@ -11922,7 +12280,7 @@ class LifeCycleCostUseAdjustment(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `year_18_multiplier`'.format(value))
         self._data["Year 18 Multiplier"] = value
 
@@ -11953,7 +12311,7 @@ class LifeCycleCostUseAdjustment(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `year_19_multiplier`'.format(value))
         self._data["Year 19 Multiplier"] = value
 
@@ -11984,7 +12342,7 @@ class LifeCycleCostUseAdjustment(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `year_20_multiplier`'.format(value))
         self._data["Year 20 Multiplier"] = value
 
@@ -12015,7 +12373,7 @@ class LifeCycleCostUseAdjustment(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `year_21_multiplier`'.format(value))
         self._data["Year 21 Multiplier"] = value
 
@@ -12046,7 +12404,7 @@ class LifeCycleCostUseAdjustment(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `year_22_multiplier`'.format(value))
         self._data["Year 22 Multiplier"] = value
 
@@ -12077,7 +12435,7 @@ class LifeCycleCostUseAdjustment(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `year_23_multiplier`'.format(value))
         self._data["Year 23 Multiplier"] = value
 
@@ -12108,7 +12466,7 @@ class LifeCycleCostUseAdjustment(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `year_24_multiplier`'.format(value))
         self._data["Year 24 Multiplier"] = value
 
@@ -12139,7 +12497,7 @@ class LifeCycleCostUseAdjustment(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `year_25_multiplier`'.format(value))
         self._data["Year 25 Multiplier"] = value
 
@@ -12170,7 +12528,7 @@ class LifeCycleCostUseAdjustment(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `year_26_multiplier`'.format(value))
         self._data["Year 26 Multiplier"] = value
 
@@ -12201,7 +12559,7 @@ class LifeCycleCostUseAdjustment(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `year_27_multiplier`'.format(value))
         self._data["Year 27 Multiplier"] = value
 
@@ -12232,7 +12590,7 @@ class LifeCycleCostUseAdjustment(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `year_28_multiplier`'.format(value))
         self._data["Year 28 Multiplier"] = value
 
@@ -12263,7 +12621,7 @@ class LifeCycleCostUseAdjustment(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `year_29_multiplier`'.format(value))
         self._data["Year 29 Multiplier"] = value
 
@@ -12294,7 +12652,7 @@ class LifeCycleCostUseAdjustment(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `year_30_multiplier`'.format(value))
         self._data["Year 30 Multiplier"] = value
 

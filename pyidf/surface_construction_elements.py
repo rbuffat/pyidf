@@ -1,9 +1,10 @@
 from collections import OrderedDict
+import logging
+import re
 
 class Material(object):
     """ Corresponds to IDD object `Material`
         Regular materials described with full set of thermal properties
-    
     """
     internal_name = "Material"
     field_count = 9
@@ -22,15 +23,16 @@ class Material(object):
         self._data["Thermal Absorptance"] = None
         self._data["Solar Absorptance"] = None
         self._data["Visible Absorptance"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -95,6 +97,7 @@ class Material(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -121,7 +124,7 @@ class Material(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -163,7 +166,7 @@ class Material(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `roughness`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -181,16 +184,26 @@ class Material(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `roughness`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `roughness`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Roughness"] = value
 
@@ -223,7 +236,7 @@ class Material(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `thickness`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -260,7 +273,7 @@ class Material(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `conductivity`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -294,7 +307,7 @@ class Material(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `density`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -328,7 +341,7 @@ class Material(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `specific_heat`'.format(value))
             if value < 100.0:
                 raise ValueError('value need to be greater or equal 100.0 '
@@ -363,7 +376,7 @@ class Material(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `thermal_absorptance`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -401,7 +414,7 @@ class Material(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `solar_absorptance`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -439,7 +452,7 @@ class Material(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `visible_absorptance`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -486,7 +499,6 @@ class Material(object):
 class MaterialNoMass(object):
     """ Corresponds to IDD object `Material:NoMass`
         Regular materials properties described whose principal description is R (Thermal Resistance)
-    
     """
     internal_name = "Material:NoMass"
     field_count = 6
@@ -502,15 +514,16 @@ class MaterialNoMass(object):
         self._data["Thermal Absorptance"] = None
         self._data["Solar Absorptance"] = None
         self._data["Visible Absorptance"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -554,6 +567,7 @@ class MaterialNoMass(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -580,7 +594,7 @@ class MaterialNoMass(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -622,7 +636,7 @@ class MaterialNoMass(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `roughness`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -640,16 +654,26 @@ class MaterialNoMass(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `roughness`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `roughness`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Roughness"] = value
 
@@ -680,7 +704,7 @@ class MaterialNoMass(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `thermal_resistance`'.format(value))
             if value < 0.001:
                 raise ValueError('value need to be greater or equal 0.001 '
@@ -715,7 +739,7 @@ class MaterialNoMass(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `thermal_absorptance`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -753,7 +777,7 @@ class MaterialNoMass(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `solar_absorptance`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -791,7 +815,7 @@ class MaterialNoMass(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `visible_absorptance`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -843,7 +867,6 @@ class MaterialInfraredTransparent(object):
         Should be only material in single layer surface construction.
         All thermal properties are set internally. User needs only to supply name.
         Cannot be used with ConductionFiniteDifference solution algorithms
-    
     """
     internal_name = "Material:InfraredTransparent"
     field_count = 1
@@ -854,15 +877,16 @@ class MaterialInfraredTransparent(object):
         """
         self._data = OrderedDict()
         self._data["Name"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -871,6 +895,7 @@ class MaterialInfraredTransparent(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -897,7 +922,7 @@ class MaterialInfraredTransparent(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -944,7 +969,6 @@ class MaterialInfraredTransparent(object):
 class MaterialAirGap(object):
     """ Corresponds to IDD object `Material:AirGap`
         Air Space in Opaque Construction
-    
     """
     internal_name = "Material:AirGap"
     field_count = 2
@@ -956,15 +980,16 @@ class MaterialAirGap(object):
         self._data = OrderedDict()
         self._data["Name"] = None
         self._data["Thermal Resistance"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -980,6 +1005,7 @@ class MaterialAirGap(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -1006,7 +1032,7 @@ class MaterialAirGap(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1043,7 +1069,7 @@ class MaterialAirGap(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `thermal_resistance`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -1092,7 +1118,6 @@ class MaterialRoofVegetation(object):
         only one material must be referenced per simulation though the same EcoRoof material could be
         used in multiple constructions. New moisture redistribution scheme (2010) requires higher
         number of timesteps per hour (minimum 12 recommended).
-    
     """
     internal_name = "Material:RoofVegetation"
     field_count = 19
@@ -1121,15 +1146,16 @@ class MaterialRoofVegetation(object):
         self._data["Residual Volumetric Moisture Content of the Soil Layer"] = None
         self._data["Initial Volumetric Moisture Content of the Soil Layer"] = None
         self._data["Moisture Diffusion Calculation Method"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -1264,6 +1290,7 @@ class MaterialRoofVegetation(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -1290,7 +1317,7 @@ class MaterialRoofVegetation(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1330,7 +1357,7 @@ class MaterialRoofVegetation(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `height_of_plants`'.format(value))
             if value <= 0.005:
                 raise ValueError('value need to be greater 0.005 '
@@ -1370,7 +1397,7 @@ class MaterialRoofVegetation(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `leaf_area_index`'.format(value))
             if value <= 0.001:
                 raise ValueError('value need to be greater 0.001 '
@@ -1410,7 +1437,7 @@ class MaterialRoofVegetation(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `leaf_reflectivity`'.format(value))
             if value < 0.05:
                 raise ValueError('value need to be greater or equal 0.05 '
@@ -1448,7 +1475,7 @@ class MaterialRoofVegetation(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `leaf_emissivity`'.format(value))
             if value < 0.8:
                 raise ValueError('value need to be greater or equal 0.8 '
@@ -1488,7 +1515,7 @@ class MaterialRoofVegetation(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `minimum_stomatal_resistance`'.format(value))
             if value < 50.0:
                 raise ValueError('value need to be greater or equal 50.0 '
@@ -1524,7 +1551,7 @@ class MaterialRoofVegetation(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `soil_layer_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1567,7 +1594,7 @@ class MaterialRoofVegetation(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `roughness`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1585,16 +1612,26 @@ class MaterialRoofVegetation(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `roughness`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `roughness`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Roughness"] = value
 
@@ -1630,7 +1667,7 @@ class MaterialRoofVegetation(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `thickness`'.format(value))
             if value <= 0.05:
                 raise ValueError('value need to be greater 0.05 '
@@ -1671,7 +1708,7 @@ class MaterialRoofVegetation(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `conductivity_of_dry_soil`'.format(value))
             if value < 0.2:
                 raise ValueError('value need to be greater or equal 0.2 '
@@ -1712,7 +1749,7 @@ class MaterialRoofVegetation(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `density_of_dry_soil`'.format(value))
             if value < 300.0:
                 raise ValueError('value need to be greater or equal 300.0 '
@@ -1752,7 +1789,7 @@ class MaterialRoofVegetation(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `specific_heat_of_dry_soil`'.format(value))
             if value <= 500.0:
                 raise ValueError('value need to be greater 500.0 '
@@ -1791,7 +1828,7 @@ class MaterialRoofVegetation(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `thermal_absorptance`'.format(value))
             if value <= 0.8:
                 raise ValueError('value need to be greater 0.8 '
@@ -1831,7 +1868,7 @@ class MaterialRoofVegetation(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `solar_absorptance`'.format(value))
             if value < 0.4:
                 raise ValueError('value need to be greater or equal 0.4 '
@@ -1869,7 +1906,7 @@ class MaterialRoofVegetation(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `visible_absorptance`'.format(value))
             if value <= 0.5:
                 raise ValueError('value need to be greater 0.5 '
@@ -1908,7 +1945,7 @@ class MaterialRoofVegetation(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `saturation_volumetric_moisture_content_of_the_soil_layer`'.format(value))
             if value <= 0.1:
                 raise ValueError('value need to be greater 0.1 '
@@ -1946,7 +1983,7 @@ class MaterialRoofVegetation(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `residual_volumetric_moisture_content_of_the_soil_layer`'.format(value))
             if value < 0.01:
                 raise ValueError('value need to be greater or equal 0.01 '
@@ -1984,7 +2021,7 @@ class MaterialRoofVegetation(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `initial_volumetric_moisture_content_of_the_soil_layer`'.format(value))
             if value <= 0.05:
                 raise ValueError('value need to be greater 0.05 '
@@ -2024,7 +2061,7 @@ class MaterialRoofVegetation(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `moisture_diffusion_calculation_method`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2038,16 +2075,26 @@ class MaterialRoofVegetation(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `moisture_diffusion_calculation_method`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `moisture_diffusion_calculation_method`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Moisture Diffusion Calculation Method"] = value
 
@@ -2090,7 +2137,6 @@ class WindowMaterialSimpleGlazingSystem(object):
         Alternate method of describing windows
         This window material object is used to define an entire glazing system
         using simple performance parameters.
-    
     """
     internal_name = "WindowMaterial:SimpleGlazingSystem"
     field_count = 4
@@ -2104,15 +2150,16 @@ class WindowMaterialSimpleGlazingSystem(object):
         self._data["U-Factor"] = None
         self._data["Solar Heat Gain Coefficient"] = None
         self._data["Visible Transmittance"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -2142,6 +2189,7 @@ class WindowMaterialSimpleGlazingSystem(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -2168,7 +2216,7 @@ class WindowMaterialSimpleGlazingSystem(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2208,7 +2256,7 @@ class WindowMaterialSimpleGlazingSystem(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `ufactor`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -2246,7 +2294,7 @@ class WindowMaterialSimpleGlazingSystem(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `solar_heat_gain_coefficient`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -2285,7 +2333,7 @@ class WindowMaterialSimpleGlazingSystem(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `visible_transmittance`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -2333,7 +2381,6 @@ class WindowMaterialGlazing(object):
     """ Corresponds to IDD object `WindowMaterial:Glazing`
         Glass material properties for Windows or Glass Doors
         Transmittance/Reflectance input method.
-    
     """
     internal_name = "WindowMaterial:Glazing"
     field_count = 18
@@ -2361,15 +2408,16 @@ class WindowMaterialGlazing(object):
         self._data["Solar Diffusing"] = None
         self._data["Youngs modulus"] = None
         self._data["Poissons ratio"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -2497,6 +2545,7 @@ class WindowMaterialGlazing(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -2523,7 +2572,7 @@ class WindowMaterialGlazing(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2562,7 +2611,7 @@ class WindowMaterialGlazing(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `optical_data_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2577,16 +2626,26 @@ class WindowMaterialGlazing(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `optical_data_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `optical_data_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Optical Data Type"] = value
 
@@ -2616,7 +2675,7 @@ class WindowMaterialGlazing(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `window_glass_spectral_data_set_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2654,7 +2713,7 @@ class WindowMaterialGlazing(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `thickness`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -2689,7 +2748,7 @@ class WindowMaterialGlazing(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `solar_transmittance_at_normal_incidence`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -2728,7 +2787,7 @@ class WindowMaterialGlazing(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `front_side_solar_reflectance_at_normal_incidence`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -2767,7 +2826,7 @@ class WindowMaterialGlazing(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `back_side_solar_reflectance_at_normal_incidence`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -2805,7 +2864,7 @@ class WindowMaterialGlazing(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `visible_transmittance_at_normal_incidence`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -2843,7 +2902,7 @@ class WindowMaterialGlazing(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `front_side_visible_reflectance_at_normal_incidence`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -2881,7 +2940,7 @@ class WindowMaterialGlazing(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `back_side_visible_reflectance_at_normal_incidence`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -2919,7 +2978,7 @@ class WindowMaterialGlazing(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `infrared_transmittance_at_normal_incidence`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -2957,7 +3016,7 @@ class WindowMaterialGlazing(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `front_side_infrared_hemispherical_emissivity`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -2995,7 +3054,7 @@ class WindowMaterialGlazing(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `back_side_infrared_hemispherical_emissivity`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -3033,7 +3092,7 @@ class WindowMaterialGlazing(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `conductivity`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -3068,7 +3127,7 @@ class WindowMaterialGlazing(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `dirt_correction_factor_for_solar_and_visible_transmittance`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -3107,7 +3166,7 @@ class WindowMaterialGlazing(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `solar_diffusing`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3121,16 +3180,26 @@ class WindowMaterialGlazing(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `solar_diffusing`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `solar_diffusing`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Solar Diffusing"] = value
 
@@ -3164,7 +3233,7 @@ class WindowMaterialGlazing(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `youngs_modulus`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -3201,7 +3270,7 @@ class WindowMaterialGlazing(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `poissons_ratio`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -3248,7 +3317,6 @@ class WindowMaterialGlazing(object):
 class WindowMaterialGlazingGroupThermochromic(object):
     """ Corresponds to IDD object `WindowMaterial:GlazingGroup:Thermochromic`
         thermochromic glass at different temperatures
-    
     """
     internal_name = "WindowMaterial:GlazingGroup:Thermochromic"
     field_count = 91
@@ -3349,15 +3417,16 @@ class WindowMaterialGlazingGroupThermochromic(object):
         self._data["Window Material Glazing Name 44"] = None
         self._data["Optical Data Temperature 45"] = None
         self._data["Window Material Glazing Name 45"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -3996,6 +4065,7 @@ class WindowMaterialGlazingGroupThermochromic(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -4022,7 +4092,7 @@ class WindowMaterialGlazingGroupThermochromic(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4059,7 +4129,7 @@ class WindowMaterialGlazingGroupThermochromic(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `optical_data_temperature_1`'.format(value))
         self._data["Optical Data Temperature 1"] = value
 
@@ -4088,7 +4158,7 @@ class WindowMaterialGlazingGroupThermochromic(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `window_material_glazing_name_1`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4125,7 +4195,7 @@ class WindowMaterialGlazingGroupThermochromic(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `optical_data_temperature_2`'.format(value))
         self._data["Optical Data Temperature 2"] = value
 
@@ -4154,7 +4224,7 @@ class WindowMaterialGlazingGroupThermochromic(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `window_material_glazing_name_2`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4191,7 +4261,7 @@ class WindowMaterialGlazingGroupThermochromic(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `optical_data_temperature_3`'.format(value))
         self._data["Optical Data Temperature 3"] = value
 
@@ -4220,7 +4290,7 @@ class WindowMaterialGlazingGroupThermochromic(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `window_material_glazing_name_3`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4257,7 +4327,7 @@ class WindowMaterialGlazingGroupThermochromic(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `optical_data_temperature_4`'.format(value))
         self._data["Optical Data Temperature 4"] = value
 
@@ -4286,7 +4356,7 @@ class WindowMaterialGlazingGroupThermochromic(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `window_material_glazing_name_4`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4323,7 +4393,7 @@ class WindowMaterialGlazingGroupThermochromic(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `optical_data_temperature_5`'.format(value))
         self._data["Optical Data Temperature 5"] = value
 
@@ -4352,7 +4422,7 @@ class WindowMaterialGlazingGroupThermochromic(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `window_material_glazing_name_5`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4389,7 +4459,7 @@ class WindowMaterialGlazingGroupThermochromic(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `optical_data_temperature_6`'.format(value))
         self._data["Optical Data Temperature 6"] = value
 
@@ -4418,7 +4488,7 @@ class WindowMaterialGlazingGroupThermochromic(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `window_material_glazing_name_6`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4455,7 +4525,7 @@ class WindowMaterialGlazingGroupThermochromic(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `optical_data_temperature_7`'.format(value))
         self._data["Optical Data Temperature 7"] = value
 
@@ -4484,7 +4554,7 @@ class WindowMaterialGlazingGroupThermochromic(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `window_material_glazing_name_7`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4521,7 +4591,7 @@ class WindowMaterialGlazingGroupThermochromic(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `optical_data_temperature_8`'.format(value))
         self._data["Optical Data Temperature 8"] = value
 
@@ -4550,7 +4620,7 @@ class WindowMaterialGlazingGroupThermochromic(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `window_material_glazing_name_8`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4587,7 +4657,7 @@ class WindowMaterialGlazingGroupThermochromic(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `optical_data_temperature_9`'.format(value))
         self._data["Optical Data Temperature 9"] = value
 
@@ -4616,7 +4686,7 @@ class WindowMaterialGlazingGroupThermochromic(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `window_material_glazing_name_9`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4653,7 +4723,7 @@ class WindowMaterialGlazingGroupThermochromic(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `optical_data_temperature_10`'.format(value))
         self._data["Optical Data Temperature 10"] = value
 
@@ -4682,7 +4752,7 @@ class WindowMaterialGlazingGroupThermochromic(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `window_material_glazing_name_10`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4719,7 +4789,7 @@ class WindowMaterialGlazingGroupThermochromic(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `optical_data_temperature_11`'.format(value))
         self._data["Optical Data Temperature 11"] = value
 
@@ -4748,7 +4818,7 @@ class WindowMaterialGlazingGroupThermochromic(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `window_material_glazing_name_11`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4785,7 +4855,7 @@ class WindowMaterialGlazingGroupThermochromic(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `optical_data_temperature_12`'.format(value))
         self._data["Optical Data Temperature 12"] = value
 
@@ -4814,7 +4884,7 @@ class WindowMaterialGlazingGroupThermochromic(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `window_material_glazing_name_12`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4851,7 +4921,7 @@ class WindowMaterialGlazingGroupThermochromic(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `optical_data_temperature_13`'.format(value))
         self._data["Optical Data Temperature 13"] = value
 
@@ -4880,7 +4950,7 @@ class WindowMaterialGlazingGroupThermochromic(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `window_material_glazing_name_13`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4917,7 +4987,7 @@ class WindowMaterialGlazingGroupThermochromic(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `optical_data_temperature_14`'.format(value))
         self._data["Optical Data Temperature 14"] = value
 
@@ -4946,7 +5016,7 @@ class WindowMaterialGlazingGroupThermochromic(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `window_material_glazing_name_14`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4983,7 +5053,7 @@ class WindowMaterialGlazingGroupThermochromic(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `optical_data_temperature_15`'.format(value))
         self._data["Optical Data Temperature 15"] = value
 
@@ -5012,7 +5082,7 @@ class WindowMaterialGlazingGroupThermochromic(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `window_material_glazing_name_15`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -5049,7 +5119,7 @@ class WindowMaterialGlazingGroupThermochromic(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `optical_data_temperature_16`'.format(value))
         self._data["Optical Data Temperature 16"] = value
 
@@ -5078,7 +5148,7 @@ class WindowMaterialGlazingGroupThermochromic(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `window_material_glazing_name_16`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -5115,7 +5185,7 @@ class WindowMaterialGlazingGroupThermochromic(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `optical_data_temperature_17`'.format(value))
         self._data["Optical Data Temperature 17"] = value
 
@@ -5144,7 +5214,7 @@ class WindowMaterialGlazingGroupThermochromic(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `window_material_glazing_name_17`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -5181,7 +5251,7 @@ class WindowMaterialGlazingGroupThermochromic(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `optical_data_temperature_18`'.format(value))
         self._data["Optical Data Temperature 18"] = value
 
@@ -5210,7 +5280,7 @@ class WindowMaterialGlazingGroupThermochromic(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `window_material_glazing_name_18`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -5247,7 +5317,7 @@ class WindowMaterialGlazingGroupThermochromic(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `optical_data_temperature_19`'.format(value))
         self._data["Optical Data Temperature 19"] = value
 
@@ -5276,7 +5346,7 @@ class WindowMaterialGlazingGroupThermochromic(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `window_material_glazing_name_19`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -5313,7 +5383,7 @@ class WindowMaterialGlazingGroupThermochromic(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `optical_data_temperature_20`'.format(value))
         self._data["Optical Data Temperature 20"] = value
 
@@ -5342,7 +5412,7 @@ class WindowMaterialGlazingGroupThermochromic(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `window_material_glazing_name_20`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -5379,7 +5449,7 @@ class WindowMaterialGlazingGroupThermochromic(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `optical_data_temperature_21`'.format(value))
         self._data["Optical Data Temperature 21"] = value
 
@@ -5408,7 +5478,7 @@ class WindowMaterialGlazingGroupThermochromic(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `window_material_glazing_name_21`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -5445,7 +5515,7 @@ class WindowMaterialGlazingGroupThermochromic(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `optical_data_temperature_22`'.format(value))
         self._data["Optical Data Temperature 22"] = value
 
@@ -5474,7 +5544,7 @@ class WindowMaterialGlazingGroupThermochromic(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `window_material_glazing_name_22`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -5511,7 +5581,7 @@ class WindowMaterialGlazingGroupThermochromic(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `optical_data_temperature_23`'.format(value))
         self._data["Optical Data Temperature 23"] = value
 
@@ -5540,7 +5610,7 @@ class WindowMaterialGlazingGroupThermochromic(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `window_material_glazing_name_23`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -5577,7 +5647,7 @@ class WindowMaterialGlazingGroupThermochromic(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `optical_data_temperature_24`'.format(value))
         self._data["Optical Data Temperature 24"] = value
 
@@ -5606,7 +5676,7 @@ class WindowMaterialGlazingGroupThermochromic(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `window_material_glazing_name_24`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -5643,7 +5713,7 @@ class WindowMaterialGlazingGroupThermochromic(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `optical_data_temperature_25`'.format(value))
         self._data["Optical Data Temperature 25"] = value
 
@@ -5672,7 +5742,7 @@ class WindowMaterialGlazingGroupThermochromic(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `window_material_glazing_name_25`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -5709,7 +5779,7 @@ class WindowMaterialGlazingGroupThermochromic(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `optical_data_temperature_26`'.format(value))
         self._data["Optical Data Temperature 26"] = value
 
@@ -5738,7 +5808,7 @@ class WindowMaterialGlazingGroupThermochromic(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `window_material_glazing_name_26`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -5775,7 +5845,7 @@ class WindowMaterialGlazingGroupThermochromic(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `optical_data_temperature_27`'.format(value))
         self._data["Optical Data Temperature 27"] = value
 
@@ -5804,7 +5874,7 @@ class WindowMaterialGlazingGroupThermochromic(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `window_material_glazing_name_27`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -5841,7 +5911,7 @@ class WindowMaterialGlazingGroupThermochromic(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `optical_data_temperature_28`'.format(value))
         self._data["Optical Data Temperature 28"] = value
 
@@ -5870,7 +5940,7 @@ class WindowMaterialGlazingGroupThermochromic(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `window_material_glazing_name_28`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -5907,7 +5977,7 @@ class WindowMaterialGlazingGroupThermochromic(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `optical_data_temperature_29`'.format(value))
         self._data["Optical Data Temperature 29"] = value
 
@@ -5936,7 +6006,7 @@ class WindowMaterialGlazingGroupThermochromic(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `window_material_glazing_name_29`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -5973,7 +6043,7 @@ class WindowMaterialGlazingGroupThermochromic(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `optical_data_temperature_30`'.format(value))
         self._data["Optical Data Temperature 30"] = value
 
@@ -6002,7 +6072,7 @@ class WindowMaterialGlazingGroupThermochromic(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `window_material_glazing_name_30`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -6039,7 +6109,7 @@ class WindowMaterialGlazingGroupThermochromic(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `optical_data_temperature_31`'.format(value))
         self._data["Optical Data Temperature 31"] = value
 
@@ -6068,7 +6138,7 @@ class WindowMaterialGlazingGroupThermochromic(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `window_material_glazing_name_31`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -6105,7 +6175,7 @@ class WindowMaterialGlazingGroupThermochromic(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `optical_data_temperature_32`'.format(value))
         self._data["Optical Data Temperature 32"] = value
 
@@ -6134,7 +6204,7 @@ class WindowMaterialGlazingGroupThermochromic(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `window_material_glazing_name_32`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -6171,7 +6241,7 @@ class WindowMaterialGlazingGroupThermochromic(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `optical_data_temperature_33`'.format(value))
         self._data["Optical Data Temperature 33"] = value
 
@@ -6200,7 +6270,7 @@ class WindowMaterialGlazingGroupThermochromic(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `window_material_glazing_name_33`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -6237,7 +6307,7 @@ class WindowMaterialGlazingGroupThermochromic(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `optical_data_temperature_34`'.format(value))
         self._data["Optical Data Temperature 34"] = value
 
@@ -6266,7 +6336,7 @@ class WindowMaterialGlazingGroupThermochromic(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `window_material_glazing_name_34`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -6303,7 +6373,7 @@ class WindowMaterialGlazingGroupThermochromic(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `optical_data_temperature_35`'.format(value))
         self._data["Optical Data Temperature 35"] = value
 
@@ -6332,7 +6402,7 @@ class WindowMaterialGlazingGroupThermochromic(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `window_material_glazing_name_35`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -6369,7 +6439,7 @@ class WindowMaterialGlazingGroupThermochromic(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `optical_data_temperature_36`'.format(value))
         self._data["Optical Data Temperature 36"] = value
 
@@ -6398,7 +6468,7 @@ class WindowMaterialGlazingGroupThermochromic(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `window_material_glazing_name_36`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -6435,7 +6505,7 @@ class WindowMaterialGlazingGroupThermochromic(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `optical_data_temperature_37`'.format(value))
         self._data["Optical Data Temperature 37"] = value
 
@@ -6464,7 +6534,7 @@ class WindowMaterialGlazingGroupThermochromic(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `window_material_glazing_name_37`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -6501,7 +6571,7 @@ class WindowMaterialGlazingGroupThermochromic(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `optical_data_temperature_38`'.format(value))
         self._data["Optical Data Temperature 38"] = value
 
@@ -6530,7 +6600,7 @@ class WindowMaterialGlazingGroupThermochromic(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `window_material_glazing_name_38`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -6567,7 +6637,7 @@ class WindowMaterialGlazingGroupThermochromic(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `optical_data_temperature_39`'.format(value))
         self._data["Optical Data Temperature 39"] = value
 
@@ -6596,7 +6666,7 @@ class WindowMaterialGlazingGroupThermochromic(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `window_material_glazing_name_39`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -6633,7 +6703,7 @@ class WindowMaterialGlazingGroupThermochromic(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `optical_data_temperature_40`'.format(value))
         self._data["Optical Data Temperature 40"] = value
 
@@ -6662,7 +6732,7 @@ class WindowMaterialGlazingGroupThermochromic(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `window_material_glazing_name_40`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -6699,7 +6769,7 @@ class WindowMaterialGlazingGroupThermochromic(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `optical_data_temperature_41`'.format(value))
         self._data["Optical Data Temperature 41"] = value
 
@@ -6728,7 +6798,7 @@ class WindowMaterialGlazingGroupThermochromic(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `window_material_glazing_name_41`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -6765,7 +6835,7 @@ class WindowMaterialGlazingGroupThermochromic(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `optical_data_temperature_42`'.format(value))
         self._data["Optical Data Temperature 42"] = value
 
@@ -6794,7 +6864,7 @@ class WindowMaterialGlazingGroupThermochromic(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `window_material_glazing_name_42`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -6831,7 +6901,7 @@ class WindowMaterialGlazingGroupThermochromic(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `optical_data_temperature_43`'.format(value))
         self._data["Optical Data Temperature 43"] = value
 
@@ -6860,7 +6930,7 @@ class WindowMaterialGlazingGroupThermochromic(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `window_material_glazing_name_43`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -6897,7 +6967,7 @@ class WindowMaterialGlazingGroupThermochromic(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `optical_data_temperature_44`'.format(value))
         self._data["Optical Data Temperature 44"] = value
 
@@ -6926,7 +6996,7 @@ class WindowMaterialGlazingGroupThermochromic(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `window_material_glazing_name_44`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -6963,7 +7033,7 @@ class WindowMaterialGlazingGroupThermochromic(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `optical_data_temperature_45`'.format(value))
         self._data["Optical Data Temperature 45"] = value
 
@@ -6992,7 +7062,7 @@ class WindowMaterialGlazingGroupThermochromic(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `window_material_glazing_name_45`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -7041,7 +7111,6 @@ class WindowMaterialGlazingRefractionExtinctionMethod(object):
         Glass material properties for Windows or Glass Doors
         Index of Refraction/Extinction Coefficient input method
         Not to be used for coated glass
-    
     """
     internal_name = "WindowMaterial:Glazing:RefractionExtinctionMethod"
     field_count = 11
@@ -7062,15 +7131,16 @@ class WindowMaterialGlazingRefractionExtinctionMethod(object):
         self._data["Conductivity"] = None
         self._data["Dirt Correction Factor for Solar and Visible Transmittance"] = None
         self._data["Solar Diffusing"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -7149,6 +7219,7 @@ class WindowMaterialGlazingRefractionExtinctionMethod(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -7175,7 +7246,7 @@ class WindowMaterialGlazingRefractionExtinctionMethod(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -7213,7 +7284,7 @@ class WindowMaterialGlazingRefractionExtinctionMethod(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `thickness`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -7246,7 +7317,7 @@ class WindowMaterialGlazingRefractionExtinctionMethod(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `solar_index_of_refraction`'.format(value))
             if value <= 1.0:
                 raise ValueError('value need to be greater 1.0 '
@@ -7280,7 +7351,7 @@ class WindowMaterialGlazingRefractionExtinctionMethod(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `solar_extinction_coefficient`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -7313,7 +7384,7 @@ class WindowMaterialGlazingRefractionExtinctionMethod(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `visible_index_of_refraction`'.format(value))
             if value <= 1.0:
                 raise ValueError('value need to be greater 1.0 '
@@ -7347,7 +7418,7 @@ class WindowMaterialGlazingRefractionExtinctionMethod(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `visible_extinction_coefficient`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -7382,7 +7453,7 @@ class WindowMaterialGlazingRefractionExtinctionMethod(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `infrared_transmittance_at_normal_incidence`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -7421,7 +7492,7 @@ class WindowMaterialGlazingRefractionExtinctionMethod(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `infrared_hemispherical_emissivity`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -7459,7 +7530,7 @@ class WindowMaterialGlazingRefractionExtinctionMethod(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `conductivity`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -7494,7 +7565,7 @@ class WindowMaterialGlazingRefractionExtinctionMethod(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `dirt_correction_factor_for_solar_and_visible_transmittance`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -7533,7 +7604,7 @@ class WindowMaterialGlazingRefractionExtinctionMethod(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `solar_diffusing`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -7547,16 +7618,26 @@ class WindowMaterialGlazingRefractionExtinctionMethod(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `solar_diffusing`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `solar_diffusing`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Solar Diffusing"] = value
 
@@ -7597,7 +7678,6 @@ class WindowMaterialGlazingRefractionExtinctionMethod(object):
 class WindowMaterialGas(object):
     """ Corresponds to IDD object `WindowMaterial:Gas`
         Gas material properties that are used in Windows or Glass Doors
-    
     """
     internal_name = "WindowMaterial:Gas"
     field_count = 14
@@ -7621,15 +7701,16 @@ class WindowMaterialGas(object):
         self._data["Specific Heat Coefficient C"] = None
         self._data["Molecular Weight"] = None
         self._data["Specific Heat Ratio"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -7729,6 +7810,7 @@ class WindowMaterialGas(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -7755,7 +7837,7 @@ class WindowMaterialGas(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -7796,7 +7878,7 @@ class WindowMaterialGas(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `gas_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -7813,16 +7895,26 @@ class WindowMaterialGas(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `gas_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `gas_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Gas Type"] = value
 
@@ -7854,7 +7946,7 @@ class WindowMaterialGas(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `thickness`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -7888,7 +7980,7 @@ class WindowMaterialGas(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `conductivity_coefficient_a`'.format(value))
         self._data["Conductivity Coefficient A"] = value
 
@@ -7919,7 +8011,7 @@ class WindowMaterialGas(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `conductivity_coefficient_b`'.format(value))
         self._data["Conductivity Coefficient B"] = value
 
@@ -7950,7 +8042,7 @@ class WindowMaterialGas(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `conductivity_coefficient_c`'.format(value))
         self._data["Conductivity Coefficient C"] = value
 
@@ -7982,7 +8074,7 @@ class WindowMaterialGas(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `viscosity_coefficient_a`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -8016,7 +8108,7 @@ class WindowMaterialGas(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `viscosity_coefficient_b`'.format(value))
         self._data["Viscosity Coefficient B"] = value
 
@@ -8047,7 +8139,7 @@ class WindowMaterialGas(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `viscosity_coefficient_c`'.format(value))
         self._data["Viscosity Coefficient C"] = value
 
@@ -8079,7 +8171,7 @@ class WindowMaterialGas(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `specific_heat_coefficient_a`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -8113,7 +8205,7 @@ class WindowMaterialGas(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `specific_heat_coefficient_b`'.format(value))
         self._data["Specific Heat Coefficient B"] = value
 
@@ -8144,7 +8236,7 @@ class WindowMaterialGas(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `specific_heat_coefficient_c`'.format(value))
         self._data["Specific Heat Coefficient C"] = value
 
@@ -8177,7 +8269,7 @@ class WindowMaterialGas(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `molecular_weight`'.format(value))
             if value < 20.0:
                 raise ValueError('value need to be greater or equal 20.0 '
@@ -8213,7 +8305,7 @@ class WindowMaterialGas(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `specific_heat_ratio`'.format(value))
         self._data["Specific Heat Ratio"] = value
 
@@ -8254,7 +8346,6 @@ class WindowMaterialGas(object):
 class WindowGapSupportPillar(object):
     """ Corresponds to IDD object `WindowGap:SupportPillar`
         used to define pillar geometry for support pillars
-    
     """
     internal_name = "WindowGap:SupportPillar"
     field_count = 3
@@ -8267,15 +8358,16 @@ class WindowGapSupportPillar(object):
         self._data["Name"] = None
         self._data["Spacing"] = None
         self._data["Radius"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -8298,6 +8390,7 @@ class WindowGapSupportPillar(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -8324,7 +8417,7 @@ class WindowGapSupportPillar(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -8362,7 +8455,7 @@ class WindowGapSupportPillar(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `spacing`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -8397,7 +8490,7 @@ class WindowGapSupportPillar(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `radius`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -8443,7 +8536,6 @@ class WindowGapDeflectionState(object):
         Used to enter data describing deflection state of the gap. It is referenced from
         WindowMaterial:Gap object only and it is used only when deflection model is set to
         MeasuredDeflection, otherwise it is ignored.
-    
     """
     internal_name = "WindowGap:DeflectionState"
     field_count = 4
@@ -8457,15 +8549,16 @@ class WindowGapDeflectionState(object):
         self._data["Deflected Thickness"] = None
         self._data["Initial Temperature"] = None
         self._data["Initial Pressure"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -8495,6 +8588,7 @@ class WindowGapDeflectionState(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -8521,7 +8615,7 @@ class WindowGapDeflectionState(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -8560,7 +8654,7 @@ class WindowGapDeflectionState(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `deflected_thickness`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -8595,7 +8689,7 @@ class WindowGapDeflectionState(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `initial_temperature`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -8630,7 +8724,7 @@ class WindowGapDeflectionState(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `initial_pressure`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -8674,7 +8768,6 @@ class WindowGapDeflectionState(object):
 class WindowMaterialGasMixture(object):
     """ Corresponds to IDD object `WindowMaterial:GasMixture`
         Gas mixtures that are used in Windows or Glass Doors
-    
     """
     internal_name = "WindowMaterial:GasMixture"
     field_count = 11
@@ -8695,15 +8788,16 @@ class WindowMaterialGasMixture(object):
         self._data["Gas 3 Fraction"] = None
         self._data["Gas 4 Type"] = None
         self._data["Gas 4 Fraction"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -8782,6 +8876,7 @@ class WindowMaterialGasMixture(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -8808,7 +8903,7 @@ class WindowMaterialGasMixture(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -8845,7 +8940,7 @@ class WindowMaterialGasMixture(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `thickness`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -8879,8 +8974,15 @@ class WindowMaterialGasMixture(object):
             try:
                 value = int(value)
             except ValueError:
-                raise ValueError('value {} need to be of type int '
-                                 'for field `number_of_gases_in_mixture`'.format(value))
+                if not self.strict:
+                    try:
+                        conv_value = int(float(value))
+                        logging.warn('Cast float {} to int {}, precision may be lost '
+                                     'for field `number_of_gases_in_mixture`'.format(value, conv_value))
+                        value = conv_value
+                    except ValueError:
+                        raise ValueError('value {} need to be of type int '
+                                         'for field `number_of_gases_in_mixture`'.format(value))
             if value < 1:
                 raise ValueError('value need to be greater or equal 1 '
                                  'for field `number_of_gases_in_mixture`')
@@ -8919,7 +9021,7 @@ class WindowMaterialGasMixture(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `gas_1_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -8935,16 +9037,26 @@ class WindowMaterialGasMixture(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `gas_1_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `gas_1_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Gas 1 Type"] = value
 
@@ -8975,7 +9087,7 @@ class WindowMaterialGasMixture(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `gas_1_fraction`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -9015,7 +9127,7 @@ class WindowMaterialGasMixture(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `gas_2_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -9031,16 +9143,26 @@ class WindowMaterialGasMixture(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `gas_2_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `gas_2_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Gas 2 Type"] = value
 
@@ -9071,7 +9193,7 @@ class WindowMaterialGasMixture(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `gas_2_fraction`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -9111,7 +9233,7 @@ class WindowMaterialGasMixture(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `gas_3_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -9127,16 +9249,26 @@ class WindowMaterialGasMixture(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `gas_3_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `gas_3_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Gas 3 Type"] = value
 
@@ -9167,7 +9299,7 @@ class WindowMaterialGasMixture(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `gas_3_fraction`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -9207,7 +9339,7 @@ class WindowMaterialGasMixture(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `gas_4_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -9223,16 +9355,26 @@ class WindowMaterialGasMixture(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `gas_4_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `gas_4_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Gas 4 Type"] = value
 
@@ -9263,7 +9405,7 @@ class WindowMaterialGasMixture(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `gas_4_fraction`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -9313,7 +9455,6 @@ class WindowMaterialGap(object):
         Construction:ComplexFenestrationState object is used. It is referenced as a layer in the
         Construction:ComplexFenestrationState object. It cannot be referenced as a layer from the
         Construction object.
-    
     """
     internal_name = "WindowMaterial:Gap"
     field_count = 6
@@ -9329,15 +9470,16 @@ class WindowMaterialGap(object):
         self._data["Pressure"] = None
         self._data["Deflection State"] = None
         self._data["Support Pillar"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -9381,6 +9523,7 @@ class WindowMaterialGap(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -9407,7 +9550,7 @@ class WindowMaterialGap(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -9443,7 +9586,7 @@ class WindowMaterialGap(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `thickness`'.format(value))
         self._data["Thickness"] = value
 
@@ -9474,7 +9617,7 @@ class WindowMaterialGap(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `gas_or_gas_mixture`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -9511,7 +9654,7 @@ class WindowMaterialGap(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `pressure`'.format(value))
         self._data["Pressure"] = value
 
@@ -9541,7 +9684,7 @@ class WindowMaterialGap(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `deflection_state`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -9578,7 +9721,7 @@ class WindowMaterialGap(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `support_pillar`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -9628,7 +9771,6 @@ class WindowMaterialShade(object):
         properties are assumed to be the same on both sides of the shade. Shades are considered
         to be perfect diffusers (all transmitted and reflected radiation is
         hemispherically-diffuse) independent of angle of incidence.
-    
     """
     internal_name = "WindowMaterial:Shade"
     field_count = 15
@@ -9653,15 +9795,16 @@ class WindowMaterialShade(object):
         self._data["Left-Side Opening Multiplier"] = None
         self._data["Right-Side Opening Multiplier"] = None
         self._data["Airflow Permeability"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -9768,6 +9911,7 @@ class WindowMaterialShade(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -9794,7 +9938,7 @@ class WindowMaterialShade(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -9833,7 +9977,7 @@ class WindowMaterialShade(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `solar_transmittance`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -9873,7 +10017,7 @@ class WindowMaterialShade(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `solar_reflectance`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -9912,7 +10056,7 @@ class WindowMaterialShade(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `visible_transmittance`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -9952,7 +10096,7 @@ class WindowMaterialShade(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `visible_reflectance`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -9990,7 +10134,7 @@ class WindowMaterialShade(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `infrared_hemispherical_emissivity`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -10028,7 +10172,7 @@ class WindowMaterialShade(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `infrared_transmittance`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -10066,7 +10210,7 @@ class WindowMaterialShade(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `thickness`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -10100,7 +10244,7 @@ class WindowMaterialShade(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `conductivity`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -10137,7 +10281,7 @@ class WindowMaterialShade(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `shade_to_glass_distance`'.format(value))
             if value < 0.001:
                 raise ValueError('value need to be greater or equal 0.001 '
@@ -10175,7 +10319,7 @@ class WindowMaterialShade(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `top_opening_multiplier`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -10213,7 +10357,7 @@ class WindowMaterialShade(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `bottom_opening_multiplier`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -10251,7 +10395,7 @@ class WindowMaterialShade(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `leftside_opening_multiplier`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -10289,7 +10433,7 @@ class WindowMaterialShade(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `rightside_opening_multiplier`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -10328,7 +10472,7 @@ class WindowMaterialShade(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `airflow_permeability`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -10375,7 +10519,6 @@ class WindowMaterialShade(object):
 class WindowMaterialComplexShade(object):
     """ Corresponds to IDD object `WindowMaterial:ComplexShade`
         Complex window shading layer thermal properties
-    
     """
     internal_name = "WindowMaterial:ComplexShade"
     field_count = 18
@@ -10403,15 +10546,16 @@ class WindowMaterialComplexShade(object):
         self._data["Slat Angle"] = None
         self._data["Slat Conductivity"] = None
         self._data["Slat Curve"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -10539,6 +10683,7 @@ class WindowMaterialComplexShade(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -10565,7 +10710,7 @@ class WindowMaterialComplexShade(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -10607,7 +10752,7 @@ class WindowMaterialComplexShade(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `layer_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -10624,16 +10769,26 @@ class WindowMaterialComplexShade(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `layer_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `layer_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Layer Type"] = value
 
@@ -10665,7 +10820,7 @@ class WindowMaterialComplexShade(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `thickness`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -10700,7 +10855,7 @@ class WindowMaterialComplexShade(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `conductivity`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -10735,7 +10890,7 @@ class WindowMaterialComplexShade(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `ir_transmittance`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -10773,7 +10928,7 @@ class WindowMaterialComplexShade(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `front_emissivity`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -10811,7 +10966,7 @@ class WindowMaterialComplexShade(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `back_emissivity`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -10849,7 +11004,7 @@ class WindowMaterialComplexShade(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `top_opening_multiplier`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -10887,7 +11042,7 @@ class WindowMaterialComplexShade(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `bottom_opening_multiplier`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -10925,7 +11080,7 @@ class WindowMaterialComplexShade(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `left_side_opening_multiplier`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -10963,7 +11118,7 @@ class WindowMaterialComplexShade(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `right_side_opening_multiplier`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -11001,7 +11156,7 @@ class WindowMaterialComplexShade(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `front_opening_multiplier`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -11039,7 +11194,7 @@ class WindowMaterialComplexShade(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `slat_width`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -11075,7 +11230,7 @@ class WindowMaterialComplexShade(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `slat_spacing`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -11112,7 +11267,7 @@ class WindowMaterialComplexShade(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `slat_thickness`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -11148,7 +11303,7 @@ class WindowMaterialComplexShade(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `slat_angle`'.format(value))
             if value < -90.0:
                 raise ValueError('value need to be greater or equal -90.0 '
@@ -11186,7 +11341,7 @@ class WindowMaterialComplexShade(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `slat_conductivity`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -11224,7 +11379,7 @@ class WindowMaterialComplexShade(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `slat_curve`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -11268,7 +11423,6 @@ class WindowMaterialComplexShade(object):
 class WindowMaterialBlind(object):
     """ Corresponds to IDD object `WindowMaterial:Blind`
         Window blind thermal properties
-    
     """
     internal_name = "WindowMaterial:Blind"
     field_count = 29
@@ -11307,15 +11461,16 @@ class WindowMaterialBlind(object):
         self._data["Blind Right Side Opening Multiplier"] = None
         self._data["Minimum Slat Angle"] = None
         self._data["Maximum Slat Angle"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -11520,6 +11675,7 @@ class WindowMaterialBlind(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -11546,7 +11702,7 @@ class WindowMaterialBlind(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -11585,7 +11741,7 @@ class WindowMaterialBlind(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `slat_orientation`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -11599,16 +11755,26 @@ class WindowMaterialBlind(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `slat_orientation`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `slat_orientation`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Slat Orientation"] = value
 
@@ -11641,7 +11807,7 @@ class WindowMaterialBlind(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `slat_width`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -11681,7 +11847,7 @@ class WindowMaterialBlind(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `slat_separation`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -11723,7 +11889,7 @@ class WindowMaterialBlind(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `slat_thickness`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -11771,7 +11937,7 @@ class WindowMaterialBlind(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `slat_angle`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -11810,7 +11976,7 @@ class WindowMaterialBlind(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `slat_conductivity`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -11845,7 +12011,7 @@ class WindowMaterialBlind(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `slat_beam_solar_transmittance`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -11882,7 +12048,7 @@ class WindowMaterialBlind(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `front_side_slat_beam_solar_reflectance`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -11919,7 +12085,7 @@ class WindowMaterialBlind(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `back_side_slat_beam_solar_reflectance`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -11958,7 +12124,7 @@ class WindowMaterialBlind(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `slat_diffuse_solar_transmittance`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -11996,7 +12162,7 @@ class WindowMaterialBlind(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `front_side_slat_diffuse_solar_reflectance`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -12034,7 +12200,7 @@ class WindowMaterialBlind(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `back_side_slat_diffuse_solar_reflectance`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -12072,7 +12238,7 @@ class WindowMaterialBlind(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `slat_beam_visible_transmittance`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -12110,7 +12276,7 @@ class WindowMaterialBlind(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `front_side_slat_beam_visible_reflectance`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -12148,7 +12314,7 @@ class WindowMaterialBlind(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `back_side_slat_beam_visible_reflectance`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -12188,7 +12354,7 @@ class WindowMaterialBlind(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `slat_diffuse_visible_transmittance`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -12227,7 +12393,7 @@ class WindowMaterialBlind(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `front_side_slat_diffuse_visible_reflectance`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -12266,7 +12432,7 @@ class WindowMaterialBlind(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `back_side_slat_diffuse_visible_reflectance`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -12304,7 +12470,7 @@ class WindowMaterialBlind(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `slat_infrared_hemispherical_transmittance`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -12342,7 +12508,7 @@ class WindowMaterialBlind(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `front_side_slat_infrared_hemispherical_emissivity`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -12380,7 +12546,7 @@ class WindowMaterialBlind(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `back_side_slat_infrared_hemispherical_emissivity`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -12420,7 +12586,7 @@ class WindowMaterialBlind(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `blind_to_glass_distance`'.format(value))
             if value < 0.01:
                 raise ValueError('value need to be greater or equal 0.01 '
@@ -12458,7 +12624,7 @@ class WindowMaterialBlind(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `blind_top_opening_multiplier`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -12496,7 +12662,7 @@ class WindowMaterialBlind(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `blind_bottom_opening_multiplier`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -12534,7 +12700,7 @@ class WindowMaterialBlind(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `blind_left_side_opening_multiplier`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -12572,7 +12738,7 @@ class WindowMaterialBlind(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `blind_right_side_opening_multiplier`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -12615,7 +12781,7 @@ class WindowMaterialBlind(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `minimum_slat_angle`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -12658,7 +12824,7 @@ class WindowMaterialBlind(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `maximum_slat_angle`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -12705,7 +12871,6 @@ class WindowMaterialBlind(object):
 class WindowMaterialScreen(object):
     """ Corresponds to IDD object `WindowMaterial:Screen`
         Window screen physical properties. Can only be located on the exterior side of a window construction.
-    
     """
     internal_name = "WindowMaterial:Screen"
     field_count = 14
@@ -12729,15 +12894,16 @@ class WindowMaterialScreen(object):
         self._data["Left Side Opening Multiplier"] = None
         self._data["Right Side Opening Multiplier"] = None
         self._data["Angle of Resolution for Screen Transmittance Output Map"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -12837,6 +13003,7 @@ class WindowMaterialScreen(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -12864,7 +13031,7 @@ class WindowMaterialScreen(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -12905,7 +13072,7 @@ class WindowMaterialScreen(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `reflected_beam_transmittance_accounting_method`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -12920,16 +13087,26 @@ class WindowMaterialScreen(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `reflected_beam_transmittance_accounting_method`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `reflected_beam_transmittance_accounting_method`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Reflected Beam Transmittance Accounting Method"] = value
 
@@ -12963,7 +13140,7 @@ class WindowMaterialScreen(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `diffuse_solar_reflectance`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -13004,7 +13181,7 @@ class WindowMaterialScreen(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `diffuse_visible_reflectance`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -13045,7 +13222,7 @@ class WindowMaterialScreen(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `thermal_hemispherical_emissivity`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -13085,7 +13262,7 @@ class WindowMaterialScreen(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `conductivity`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -13121,7 +13298,7 @@ class WindowMaterialScreen(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `screen_material_spacing`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -13157,7 +13334,7 @@ class WindowMaterialScreen(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `screen_material_diameter`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -13195,7 +13372,7 @@ class WindowMaterialScreen(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `screen_to_glass_distance`'.format(value))
             if value < 0.001:
                 raise ValueError('value need to be greater or equal 0.001 '
@@ -13236,7 +13413,7 @@ class WindowMaterialScreen(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `top_opening_multiplier`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -13277,7 +13454,7 @@ class WindowMaterialScreen(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `bottom_opening_multiplier`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -13318,7 +13495,7 @@ class WindowMaterialScreen(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `left_side_opening_multiplier`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -13359,7 +13536,7 @@ class WindowMaterialScreen(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `right_side_opening_multiplier`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -13405,7 +13582,7 @@ class WindowMaterialScreen(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `angle_of_resolution_for_screen_transmittance_output_map`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -13422,16 +13599,26 @@ class WindowMaterialScreen(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `angle_of_resolution_for_screen_transmittance_output_map`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `angle_of_resolution_for_screen_transmittance_output_map`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Angle of Resolution for Screen Transmittance Output Map"] = value
 
@@ -13475,7 +13662,6 @@ class WindowMaterialShadeEquivalentLayer(object):
         Shades are considered to be perfect diffusers (all transmitted and
         reflected radiation is hemispherically-diffuse) independent of angle
         of incidence.  Shade represents roller blinds.
-    
     """
     internal_name = "WindowMaterial:Shade:EquivalentLayer"
     field_count = 12
@@ -13497,15 +13683,16 @@ class WindowMaterialShadeEquivalentLayer(object):
         self._data["Shade Material Infrared Transmittance"] = None
         self._data["Front Side Shade Material Infrared Emissivity"] = None
         self._data["Back Side Shade Material Infrared Emissivity"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -13591,6 +13778,7 @@ class WindowMaterialShadeEquivalentLayer(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -13617,7 +13805,7 @@ class WindowMaterialShadeEquivalentLayer(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -13659,7 +13847,7 @@ class WindowMaterialShadeEquivalentLayer(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `shade_beambeam_solar_transmittance`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -13699,7 +13887,7 @@ class WindowMaterialShadeEquivalentLayer(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `front_side_shade_beamdiffuse_solar_transmittance`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -13739,7 +13927,7 @@ class WindowMaterialShadeEquivalentLayer(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `back_side_shade_beamdiffuse_solar_transmittance`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -13779,7 +13967,7 @@ class WindowMaterialShadeEquivalentLayer(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `front_side_shade_beamdiffuse_solar_reflectance`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -13819,7 +14007,7 @@ class WindowMaterialShadeEquivalentLayer(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `back_side_shade_beamdiffuse_solar_reflectance`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -13860,7 +14048,7 @@ class WindowMaterialShadeEquivalentLayer(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `shade_beambeam_visible_transmittance_at_normal_incidence`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -13901,7 +14089,7 @@ class WindowMaterialShadeEquivalentLayer(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `shade_beamdiffuse_visible_transmittance_at_normal_incidence`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -13942,7 +14130,7 @@ class WindowMaterialShadeEquivalentLayer(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `shade_beamdiffuse_visible_reflectance_at_normal_incidence`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -13983,7 +14171,7 @@ class WindowMaterialShadeEquivalentLayer(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `shade_material_infrared_transmittance`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -14025,7 +14213,7 @@ class WindowMaterialShadeEquivalentLayer(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `front_side_shade_material_infrared_emissivity`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -14067,7 +14255,7 @@ class WindowMaterialShadeEquivalentLayer(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `back_side_shade_material_infrared_emissivity`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -14117,7 +14305,6 @@ class WindowMaterialDrapeEquivalentLayer(object):
         Shades are considered to be perfect diffusers (all transmitted and reflected
         radiation is hemispherically-diffuse) independent of angle of incidence.
         unpleated drape fabric is treated as thin and flat layer.
-    
     """
     internal_name = "WindowMaterial:Drape:EquivalentLayer"
     field_count = 14
@@ -14141,15 +14328,16 @@ class WindowMaterialDrapeEquivalentLayer(object):
         self._data["Back Side Drape Material Infrared Emissivity"] = None
         self._data["Width of Pleated Fabric"] = None
         self._data["Length of Pleated Fabric"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -14249,6 +14437,7 @@ class WindowMaterialDrapeEquivalentLayer(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -14275,7 +14464,7 @@ class WindowMaterialDrapeEquivalentLayer(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -14317,7 +14506,7 @@ class WindowMaterialDrapeEquivalentLayer(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `drape_beambeam_solar_transmittance_at_normal_incidence`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -14358,7 +14547,7 @@ class WindowMaterialDrapeEquivalentLayer(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `front_side_drape_beamdiffuse_solar_transmittance`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -14399,7 +14588,7 @@ class WindowMaterialDrapeEquivalentLayer(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `back_side_drape_beamdiffuse_solar_transmittance`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -14439,7 +14628,7 @@ class WindowMaterialDrapeEquivalentLayer(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `front_side_drape_beamdiffuse_solar_reflectance`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -14479,7 +14668,7 @@ class WindowMaterialDrapeEquivalentLayer(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `back_side_drape_beamdiffuse_solar_reflectance`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -14519,7 +14708,7 @@ class WindowMaterialDrapeEquivalentLayer(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `drape_beambeam_visible_transmittance`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -14560,7 +14749,7 @@ class WindowMaterialDrapeEquivalentLayer(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `drape_beamdiffuse_visible_transmittance`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -14601,7 +14790,7 @@ class WindowMaterialDrapeEquivalentLayer(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `drape_beamdiffuse_visible_reflectance`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -14642,7 +14831,7 @@ class WindowMaterialDrapeEquivalentLayer(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `drape_material_infrared_transmittance`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -14684,7 +14873,7 @@ class WindowMaterialDrapeEquivalentLayer(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `front_side_drape_material_infrared_emissivity`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -14726,7 +14915,7 @@ class WindowMaterialDrapeEquivalentLayer(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `back_side_drape_material_infrared_emissivity`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -14767,7 +14956,7 @@ class WindowMaterialDrapeEquivalentLayer(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `width_of_pleated_fabric`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -14805,7 +14994,7 @@ class WindowMaterialDrapeEquivalentLayer(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `length_of_pleated_fabric`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -14852,7 +15041,6 @@ class WindowMaterialBlindEquivalentLayer(object):
         The model assumes that slats are thin and flat, applies correction
         imperical correlation to accout for curvature effect. Slats are
         assumed to transmit and reflect diffusely.
-    
     """
     internal_name = "WindowMaterial:Blind:EquivalentLayer"
     field_count = 24
@@ -14886,15 +15074,16 @@ class WindowMaterialBlindEquivalentLayer(object):
         self._data["Front Side Slat Infrared Emissivity"] = None
         self._data["Back Side Slat Infrared Emissivity"] = None
         self._data["Slat Angle Control"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -15064,6 +15253,7 @@ class WindowMaterialBlindEquivalentLayer(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -15090,7 +15280,7 @@ class WindowMaterialBlindEquivalentLayer(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -15129,7 +15319,7 @@ class WindowMaterialBlindEquivalentLayer(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `slat_orientation`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -15143,16 +15333,26 @@ class WindowMaterialBlindEquivalentLayer(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `slat_orientation`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `slat_orientation`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Slat Orientation"] = value
 
@@ -15185,7 +15385,7 @@ class WindowMaterialBlindEquivalentLayer(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `slat_width`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -15225,7 +15425,7 @@ class WindowMaterialBlindEquivalentLayer(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `slat_separation`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -15268,7 +15468,7 @@ class WindowMaterialBlindEquivalentLayer(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `slat_crown`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -15307,7 +15507,7 @@ class WindowMaterialBlindEquivalentLayer(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `slat_angle`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -15347,7 +15547,7 @@ class WindowMaterialBlindEquivalentLayer(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `front_side_slat_beamdiffuse_solar_transmittance`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -15388,7 +15588,7 @@ class WindowMaterialBlindEquivalentLayer(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `back_side_slat_beamdiffuse_solar_transmittance`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -15428,7 +15628,7 @@ class WindowMaterialBlindEquivalentLayer(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `front_side_slat_beamdiffuse_solar_reflectance`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -15468,7 +15668,7 @@ class WindowMaterialBlindEquivalentLayer(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `back_side_slat_beamdiffuse_solar_reflectance`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -15510,7 +15710,7 @@ class WindowMaterialBlindEquivalentLayer(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `front_side_slat_beamdiffuse_visible_transmittance`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -15552,7 +15752,7 @@ class WindowMaterialBlindEquivalentLayer(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `back_side_slat_beamdiffuse_visible_transmittance`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -15593,7 +15793,7 @@ class WindowMaterialBlindEquivalentLayer(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `front_side_slat_beamdiffuse_visible_reflectance`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -15634,7 +15834,7 @@ class WindowMaterialBlindEquivalentLayer(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `back_side_slat_beamdiffuse_visible_reflectance`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -15675,7 +15875,7 @@ class WindowMaterialBlindEquivalentLayer(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `slat_diffusediffuse_solar_transmittance`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -15715,7 +15915,7 @@ class WindowMaterialBlindEquivalentLayer(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `front_side_slat_diffusediffuse_solar_reflectance`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -15755,7 +15955,7 @@ class WindowMaterialBlindEquivalentLayer(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `back_side_slat_diffusediffuse_solar_reflectance`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -15794,7 +15994,7 @@ class WindowMaterialBlindEquivalentLayer(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `slat_diffusediffuse_visible_transmittance`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -15834,7 +16034,7 @@ class WindowMaterialBlindEquivalentLayer(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `front_side_slat_diffusediffuse_visible_reflectance`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -15874,7 +16074,7 @@ class WindowMaterialBlindEquivalentLayer(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `back_side_slat_diffusediffuse_visible_reflectance`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -15914,7 +16114,7 @@ class WindowMaterialBlindEquivalentLayer(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `slat_infrared_transmittance`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -15954,7 +16154,7 @@ class WindowMaterialBlindEquivalentLayer(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `front_side_slat_infrared_emissivity`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -15994,7 +16194,7 @@ class WindowMaterialBlindEquivalentLayer(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `back_side_slat_infrared_emissivity`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -16038,7 +16238,7 @@ class WindowMaterialBlindEquivalentLayer(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `slat_angle_control`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -16053,16 +16253,26 @@ class WindowMaterialBlindEquivalentLayer(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `slat_angle_control`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `slat_angle_control`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Slat Angle Control"] = value
 
@@ -16104,7 +16314,6 @@ class WindowMaterialScreenEquivalentLayer(object):
     """ Corresponds to IDD object `WindowMaterial:Screen:EquivalentLayer`
         Equivalent layer window screen physical properties. Can only be
         located on the exterior side of a window construction.
-    
     """
     internal_name = "WindowMaterial:Screen:EquivalentLayer"
     field_count = 11
@@ -16125,15 +16334,16 @@ class WindowMaterialScreenEquivalentLayer(object):
         self._data["Screen Infrared Emissivity"] = None
         self._data["Screen Wire Spacing"] = None
         self._data["Screen Wire Diameter"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -16212,6 +16422,7 @@ class WindowMaterialScreenEquivalentLayer(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -16239,7 +16450,7 @@ class WindowMaterialScreenEquivalentLayer(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -16284,12 +16495,17 @@ class WindowMaterialScreenEquivalentLayer(object):
                 if value_lower == "autocalculate":
                     self._data["Screen Beam-Beam Solar Transmittance"] = "Autocalculate"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autocalculate" '
+                                 'for field `screen_beambeam_solar_transmittance`'.format(value))
+                    self._data["Screen Beam-Beam Solar Transmittance"] = "Autocalculate"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autocalculate"'
                                  'for field `screen_beambeam_solar_transmittance`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -16330,7 +16546,7 @@ class WindowMaterialScreenEquivalentLayer(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `screen_beamdiffuse_solar_transmittance`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -16371,7 +16587,7 @@ class WindowMaterialScreenEquivalentLayer(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `screen_beamdiffuse_solar_reflectance`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -16412,7 +16628,7 @@ class WindowMaterialScreenEquivalentLayer(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `screen_beambeam_visible_transmittance`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -16453,7 +16669,7 @@ class WindowMaterialScreenEquivalentLayer(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `screen_beamdiffuse_visible_transmittance`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -16494,7 +16710,7 @@ class WindowMaterialScreenEquivalentLayer(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `screen_beamdiffuse_visible_reflectance`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -16535,7 +16751,7 @@ class WindowMaterialScreenEquivalentLayer(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `screen_infrared_transmittance`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -16576,7 +16792,7 @@ class WindowMaterialScreenEquivalentLayer(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `screen_infrared_emissivity`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -16616,7 +16832,7 @@ class WindowMaterialScreenEquivalentLayer(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `screen_wire_spacing`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -16653,7 +16869,7 @@ class WindowMaterialScreenEquivalentLayer(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `screen_wire_diameter`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -16698,7 +16914,6 @@ class WindowMaterialGlazingEquivalentLayer(object):
     """ Corresponds to IDD object `WindowMaterial:Glazing:EquivalentLayer`
         Glass material properties for Windows or Glass Doors
         Transmittance/Reflectance input method.
-    
     """
     internal_name = "WindowMaterial:Glazing:EquivalentLayer"
     field_count = 28
@@ -16736,15 +16951,16 @@ class WindowMaterialGlazingEquivalentLayer(object):
         self._data["Infrared Transmittance (applies to front and back)"] = None
         self._data["Front Side Infrared Emissivity"] = None
         self._data["Back Side Infrared Emissivity"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -16942,6 +17158,7 @@ class WindowMaterialGlazingEquivalentLayer(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -16968,7 +17185,7 @@ class WindowMaterialGlazingEquivalentLayer(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -17006,7 +17223,7 @@ class WindowMaterialGlazingEquivalentLayer(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `optical_data_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -17020,16 +17237,26 @@ class WindowMaterialGlazingEquivalentLayer(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `optical_data_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `optical_data_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Optical Data Type"] = value
 
@@ -17059,7 +17286,7 @@ class WindowMaterialGlazingEquivalentLayer(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `window_glass_spectral_data_set_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -17098,7 +17325,7 @@ class WindowMaterialGlazingEquivalentLayer(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `front_side_beambeam_solar_transmittance`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -17137,7 +17364,7 @@ class WindowMaterialGlazingEquivalentLayer(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `back_side_beambeam_solar_transmittance`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -17177,7 +17404,7 @@ class WindowMaterialGlazingEquivalentLayer(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `front_side_beambeam_solar_reflectance`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -17217,7 +17444,7 @@ class WindowMaterialGlazingEquivalentLayer(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `back_side_beambeam_solar_reflectance`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -17256,7 +17483,7 @@ class WindowMaterialGlazingEquivalentLayer(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `front_side_beambeam_visible_solar_transmittance`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -17295,7 +17522,7 @@ class WindowMaterialGlazingEquivalentLayer(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `back_side_beambeam_visible_solar_transmittance`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -17335,7 +17562,7 @@ class WindowMaterialGlazingEquivalentLayer(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `front_side_beambeam_visible_solar_reflectance`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -17375,7 +17602,7 @@ class WindowMaterialGlazingEquivalentLayer(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `back_side_beambeam_visible_solar_reflectance`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -17415,7 +17642,7 @@ class WindowMaterialGlazingEquivalentLayer(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `front_side_beamdiffuse_solar_transmittance`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -17455,7 +17682,7 @@ class WindowMaterialGlazingEquivalentLayer(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `back_side_beamdiffuse_solar_transmittance`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -17496,7 +17723,7 @@ class WindowMaterialGlazingEquivalentLayer(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `front_side_beamdiffuse_solar_reflectance`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -17537,7 +17764,7 @@ class WindowMaterialGlazingEquivalentLayer(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `back_side_beamdiffuse_solar_reflectance`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -17577,7 +17804,7 @@ class WindowMaterialGlazingEquivalentLayer(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `front_side_beamdiffuse_visible_solar_transmittance`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -17617,7 +17844,7 @@ class WindowMaterialGlazingEquivalentLayer(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `back_side_beamdiffuse_visible_solar_transmittance`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -17658,7 +17885,7 @@ class WindowMaterialGlazingEquivalentLayer(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `front_side_beamdiffuse_visible_solar_reflectance`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -17699,7 +17926,7 @@ class WindowMaterialGlazingEquivalentLayer(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `back_side_beamdiffuse_visible_solar_reflectance`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -17745,12 +17972,17 @@ class WindowMaterialGlazingEquivalentLayer(object):
                 if value_lower == "autocalculate":
                     self._data["Diffuse-Diffuse Solar Transmittance"] = "Autocalculate"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autocalculate" '
+                                 'for field `diffusediffuse_solar_transmittance`'.format(value))
+                    self._data["Diffuse-Diffuse Solar Transmittance"] = "Autocalculate"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autocalculate"'
                                  'for field `diffusediffuse_solar_transmittance`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -17796,12 +18028,17 @@ class WindowMaterialGlazingEquivalentLayer(object):
                 if value_lower == "autocalculate":
                     self._data["Front Side Diffuse-Diffuse Solar Reflectance"] = "Autocalculate"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autocalculate" '
+                                 'for field `front_side_diffusediffuse_solar_reflectance`'.format(value))
+                    self._data["Front Side Diffuse-Diffuse Solar Reflectance"] = "Autocalculate"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autocalculate"'
                                  'for field `front_side_diffusediffuse_solar_reflectance`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -17847,12 +18084,17 @@ class WindowMaterialGlazingEquivalentLayer(object):
                 if value_lower == "autocalculate":
                     self._data["Back Side Diffuse-Diffuse Solar Reflectance"] = "Autocalculate"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autocalculate" '
+                                 'for field `back_side_diffusediffuse_solar_reflectance`'.format(value))
+                    self._data["Back Side Diffuse-Diffuse Solar Reflectance"] = "Autocalculate"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autocalculate"'
                                  'for field `back_side_diffusediffuse_solar_reflectance`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -17895,12 +18137,17 @@ class WindowMaterialGlazingEquivalentLayer(object):
                 if value_lower == "autocalculate":
                     self._data["Diffuse-Diffuse Visible Solar Transmittance"] = "Autocalculate"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autocalculate" '
+                                 'for field `diffusediffuse_visible_solar_transmittance`'.format(value))
+                    self._data["Diffuse-Diffuse Visible Solar Transmittance"] = "Autocalculate"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autocalculate"'
                                  'for field `diffusediffuse_visible_solar_transmittance`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -17943,12 +18190,17 @@ class WindowMaterialGlazingEquivalentLayer(object):
                 if value_lower == "autocalculate":
                     self._data["Front Side Diffuse-Diffuse Visible Solar Reflectance"] = "Autocalculate"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autocalculate" '
+                                 'for field `front_side_diffusediffuse_visible_solar_reflectance`'.format(value))
+                    self._data["Front Side Diffuse-Diffuse Visible Solar Reflectance"] = "Autocalculate"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autocalculate"'
                                  'for field `front_side_diffusediffuse_visible_solar_reflectance`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -17991,12 +18243,17 @@ class WindowMaterialGlazingEquivalentLayer(object):
                 if value_lower == "autocalculate":
                     self._data["Back Side Diffuse-Diffuse Visible Solar Reflectance"] = "Autocalculate"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autocalculate" '
+                                 'for field `back_side_diffusediffuse_visible_solar_reflectance`'.format(value))
+                    self._data["Back Side Diffuse-Diffuse Visible Solar Reflectance"] = "Autocalculate"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autocalculate"'
                                  'for field `back_side_diffusediffuse_visible_solar_reflectance`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -18037,7 +18294,7 @@ class WindowMaterialGlazingEquivalentLayer(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `infrared_transmittance_applies_to_front_and_back`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -18077,7 +18334,7 @@ class WindowMaterialGlazingEquivalentLayer(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `front_side_infrared_emissivity`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -18117,7 +18374,7 @@ class WindowMaterialGlazingEquivalentLayer(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `back_side_infrared_emissivity`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -18166,7 +18423,6 @@ class ConstructionWindowEquivalentLayer(object):
         Start with outside layer and work your way to the inside Layer
         Up to 11 layers total. Up to six solid layers and up to five gaps.
         Enter the material name for each layer
-    
     """
     internal_name = "Construction:WindowEquivalentLayer"
     field_count = 12
@@ -18188,15 +18444,16 @@ class ConstructionWindowEquivalentLayer(object):
         self._data["Layer 9"] = None
         self._data["Layer 10"] = None
         self._data["Layer 11"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -18282,6 +18539,7 @@ class ConstructionWindowEquivalentLayer(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -18308,7 +18566,7 @@ class ConstructionWindowEquivalentLayer(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -18343,7 +18601,7 @@ class ConstructionWindowEquivalentLayer(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `outside_layer`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -18378,7 +18636,7 @@ class ConstructionWindowEquivalentLayer(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `layer_2`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -18413,7 +18671,7 @@ class ConstructionWindowEquivalentLayer(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `layer_3`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -18448,7 +18706,7 @@ class ConstructionWindowEquivalentLayer(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `layer_4`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -18483,7 +18741,7 @@ class ConstructionWindowEquivalentLayer(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `layer_5`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -18518,7 +18776,7 @@ class ConstructionWindowEquivalentLayer(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `layer_6`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -18553,7 +18811,7 @@ class ConstructionWindowEquivalentLayer(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `layer_7`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -18588,7 +18846,7 @@ class ConstructionWindowEquivalentLayer(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `layer_8`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -18623,7 +18881,7 @@ class ConstructionWindowEquivalentLayer(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `layer_9`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -18658,7 +18916,7 @@ class ConstructionWindowEquivalentLayer(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `layer_10`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -18693,7 +18951,7 @@ class ConstructionWindowEquivalentLayer(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `layer_11`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -18741,7 +18999,6 @@ class WindowMaterialGapEquivalentLayer(object):
     """ Corresponds to IDD object `WindowMaterial:Gap:EquivalentLayer`
         Gas material properties that are used in Windows Equivalent Layer
         References only WindowMaterial:Gas properties
-    
     """
     internal_name = "WindowMaterial:Gap:EquivalentLayer"
     field_count = 15
@@ -18766,15 +19023,16 @@ class WindowMaterialGapEquivalentLayer(object):
         self._data["Specific Heat Coefficient C"] = None
         self._data["Molecular Weight"] = None
         self._data["Specific Heat Ratio"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -18881,6 +19139,7 @@ class WindowMaterialGapEquivalentLayer(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -18907,7 +19166,7 @@ class WindowMaterialGapEquivalentLayer(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -18948,7 +19207,7 @@ class WindowMaterialGapEquivalentLayer(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `gas_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -18965,16 +19224,26 @@ class WindowMaterialGapEquivalentLayer(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `gas_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `gas_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Gas Type"] = value
 
@@ -19006,7 +19275,7 @@ class WindowMaterialGapEquivalentLayer(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `thickness`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -19046,7 +19315,7 @@ class WindowMaterialGapEquivalentLayer(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `gap_vent_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -19061,16 +19330,26 @@ class WindowMaterialGapEquivalentLayer(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `gap_vent_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `gap_vent_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Gap Vent Type"] = value
 
@@ -19101,7 +19380,7 @@ class WindowMaterialGapEquivalentLayer(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `conductivity_coefficient_a`'.format(value))
         self._data["Conductivity Coefficient A"] = value
 
@@ -19132,7 +19411,7 @@ class WindowMaterialGapEquivalentLayer(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `conductivity_coefficient_b`'.format(value))
         self._data["Conductivity Coefficient B"] = value
 
@@ -19163,7 +19442,7 @@ class WindowMaterialGapEquivalentLayer(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `conductivity_coefficient_c`'.format(value))
         self._data["Conductivity Coefficient C"] = value
 
@@ -19195,7 +19474,7 @@ class WindowMaterialGapEquivalentLayer(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `viscosity_coefficient_a`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -19229,7 +19508,7 @@ class WindowMaterialGapEquivalentLayer(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `viscosity_coefficient_b`'.format(value))
         self._data["Viscosity Coefficient B"] = value
 
@@ -19260,7 +19539,7 @@ class WindowMaterialGapEquivalentLayer(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `viscosity_coefficient_c`'.format(value))
         self._data["Viscosity Coefficient C"] = value
 
@@ -19292,7 +19571,7 @@ class WindowMaterialGapEquivalentLayer(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `specific_heat_coefficient_a`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -19326,7 +19605,7 @@ class WindowMaterialGapEquivalentLayer(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `specific_heat_coefficient_b`'.format(value))
         self._data["Specific Heat Coefficient B"] = value
 
@@ -19357,7 +19636,7 @@ class WindowMaterialGapEquivalentLayer(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `specific_heat_coefficient_c`'.format(value))
         self._data["Specific Heat Coefficient C"] = value
 
@@ -19390,7 +19669,7 @@ class WindowMaterialGapEquivalentLayer(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `molecular_weight`'.format(value))
             if value < 20.0:
                 raise ValueError('value need to be greater or equal 20.0 '
@@ -19426,7 +19705,7 @@ class WindowMaterialGapEquivalentLayer(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `specific_heat_ratio`'.format(value))
         self._data["Specific Heat Ratio"] = value
 
@@ -19469,7 +19748,6 @@ class MaterialPropertyMoisturePenetrationDepthSettings(object):
         Additional properties for moisture using EMPD procedure
         HeatBalanceAlgorithm choice=MoisturePenetrationDepthConductionTransferFunction only
         Has no effect with other HeatBalanceAlgorithm solution algorithms
-    
     """
     internal_name = "MaterialProperty:MoisturePenetrationDepth:Settings"
     field_count = 6
@@ -19485,15 +19763,16 @@ class MaterialPropertyMoisturePenetrationDepthSettings(object):
         self._data["Moisture Equation Coefficient b"] = None
         self._data["Moisture Equation Coefficient c"] = None
         self._data["Moisture Equation Coefficient d"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -19537,6 +19816,7 @@ class MaterialPropertyMoisturePenetrationDepthSettings(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -19566,7 +19846,7 @@ class MaterialPropertyMoisturePenetrationDepthSettings(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -19604,7 +19884,7 @@ class MaterialPropertyMoisturePenetrationDepthSettings(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `moisture_penetration_depth`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -19637,7 +19917,7 @@ class MaterialPropertyMoisturePenetrationDepthSettings(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `moisture_equation_coefficient_a`'.format(value))
         self._data["Moisture Equation Coefficient a"] = value
 
@@ -19667,7 +19947,7 @@ class MaterialPropertyMoisturePenetrationDepthSettings(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `moisture_equation_coefficient_b`'.format(value))
         self._data["Moisture Equation Coefficient b"] = value
 
@@ -19697,7 +19977,7 @@ class MaterialPropertyMoisturePenetrationDepthSettings(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `moisture_equation_coefficient_c`'.format(value))
         self._data["Moisture Equation Coefficient c"] = value
 
@@ -19727,7 +20007,7 @@ class MaterialPropertyMoisturePenetrationDepthSettings(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `moisture_equation_coefficient_d`'.format(value))
         self._data["Moisture Equation Coefficient d"] = value
 
@@ -19772,7 +20052,6 @@ class MaterialPropertyPhaseChange(object):
         HeatBalanceAlgorithm = CondFD(ConductionFiniteDifference) solution algorithm only.
         Constructions with this should use the detailed CondFD process.
         Has no effect with other HeatBalanceAlgorithm solution algorithms
-    
     """
     internal_name = "MaterialProperty:PhaseChange"
     field_count = 34
@@ -19816,15 +20095,16 @@ class MaterialPropertyPhaseChange(object):
         self._data["Enthalpy 15"] = None
         self._data["Temperature 16"] = None
         self._data["Enthalpy 16"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -20064,6 +20344,7 @@ class MaterialPropertyPhaseChange(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -20092,7 +20373,7 @@ class MaterialPropertyPhaseChange(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -20132,7 +20413,7 @@ class MaterialPropertyPhaseChange(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_coefficient_for_thermal_conductivity`'.format(value))
         self._data["Temperature Coefficient for Thermal Conductivity"] = value
 
@@ -20164,7 +20445,7 @@ class MaterialPropertyPhaseChange(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_1`'.format(value))
         self._data["Temperature 1"] = value
 
@@ -20196,7 +20477,7 @@ class MaterialPropertyPhaseChange(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `enthalpy_1`'.format(value))
         self._data["Enthalpy 1"] = value
 
@@ -20228,7 +20509,7 @@ class MaterialPropertyPhaseChange(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_2`'.format(value))
         self._data["Temperature 2"] = value
 
@@ -20260,7 +20541,7 @@ class MaterialPropertyPhaseChange(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `enthalpy_2`'.format(value))
         self._data["Enthalpy 2"] = value
 
@@ -20292,7 +20573,7 @@ class MaterialPropertyPhaseChange(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_3`'.format(value))
         self._data["Temperature 3"] = value
 
@@ -20324,7 +20605,7 @@ class MaterialPropertyPhaseChange(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `enthalpy_3`'.format(value))
         self._data["Enthalpy 3"] = value
 
@@ -20356,7 +20637,7 @@ class MaterialPropertyPhaseChange(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_4`'.format(value))
         self._data["Temperature 4"] = value
 
@@ -20388,7 +20669,7 @@ class MaterialPropertyPhaseChange(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `enthalpy_4`'.format(value))
         self._data["Enthalpy 4"] = value
 
@@ -20420,7 +20701,7 @@ class MaterialPropertyPhaseChange(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_5`'.format(value))
         self._data["Temperature 5"] = value
 
@@ -20452,7 +20733,7 @@ class MaterialPropertyPhaseChange(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `enthalpy_5`'.format(value))
         self._data["Enthalpy 5"] = value
 
@@ -20484,7 +20765,7 @@ class MaterialPropertyPhaseChange(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_6`'.format(value))
         self._data["Temperature 6"] = value
 
@@ -20516,7 +20797,7 @@ class MaterialPropertyPhaseChange(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `enthalpy_6`'.format(value))
         self._data["Enthalpy 6"] = value
 
@@ -20548,7 +20829,7 @@ class MaterialPropertyPhaseChange(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_7`'.format(value))
         self._data["Temperature 7"] = value
 
@@ -20580,7 +20861,7 @@ class MaterialPropertyPhaseChange(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `enthalpy_7`'.format(value))
         self._data["Enthalpy 7"] = value
 
@@ -20612,7 +20893,7 @@ class MaterialPropertyPhaseChange(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_8`'.format(value))
         self._data["Temperature 8"] = value
 
@@ -20644,7 +20925,7 @@ class MaterialPropertyPhaseChange(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `enthalpy_8`'.format(value))
         self._data["Enthalpy 8"] = value
 
@@ -20676,7 +20957,7 @@ class MaterialPropertyPhaseChange(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_9`'.format(value))
         self._data["Temperature 9"] = value
 
@@ -20708,7 +20989,7 @@ class MaterialPropertyPhaseChange(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `enthalpy_9`'.format(value))
         self._data["Enthalpy 9"] = value
 
@@ -20740,7 +21021,7 @@ class MaterialPropertyPhaseChange(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_10`'.format(value))
         self._data["Temperature 10"] = value
 
@@ -20772,7 +21053,7 @@ class MaterialPropertyPhaseChange(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `enthalpy_10`'.format(value))
         self._data["Enthalpy 10"] = value
 
@@ -20804,7 +21085,7 @@ class MaterialPropertyPhaseChange(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_11`'.format(value))
         self._data["Temperature 11"] = value
 
@@ -20836,7 +21117,7 @@ class MaterialPropertyPhaseChange(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `enthalpy_11`'.format(value))
         self._data["Enthalpy 11"] = value
 
@@ -20868,7 +21149,7 @@ class MaterialPropertyPhaseChange(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_12`'.format(value))
         self._data["Temperature 12"] = value
 
@@ -20900,7 +21181,7 @@ class MaterialPropertyPhaseChange(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `enthalpy_12`'.format(value))
         self._data["Enthalpy 12"] = value
 
@@ -20932,7 +21213,7 @@ class MaterialPropertyPhaseChange(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_13`'.format(value))
         self._data["Temperature 13"] = value
 
@@ -20964,7 +21245,7 @@ class MaterialPropertyPhaseChange(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `enthalpy_13`'.format(value))
         self._data["Enthalpy 13"] = value
 
@@ -20996,7 +21277,7 @@ class MaterialPropertyPhaseChange(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_14`'.format(value))
         self._data["Temperature 14"] = value
 
@@ -21028,7 +21309,7 @@ class MaterialPropertyPhaseChange(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `enthalpy_14`'.format(value))
         self._data["Enthalpy 14"] = value
 
@@ -21060,7 +21341,7 @@ class MaterialPropertyPhaseChange(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_15`'.format(value))
         self._data["Temperature 15"] = value
 
@@ -21092,7 +21373,7 @@ class MaterialPropertyPhaseChange(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `enthalpy_15`'.format(value))
         self._data["Enthalpy 15"] = value
 
@@ -21124,7 +21405,7 @@ class MaterialPropertyPhaseChange(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_16`'.format(value))
         self._data["Temperature 16"] = value
 
@@ -21156,7 +21437,7 @@ class MaterialPropertyPhaseChange(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `enthalpy_16`'.format(value))
         self._data["Enthalpy 16"] = value
 
@@ -21200,7 +21481,6 @@ class MaterialPropertyVariableThermalConductivity(object):
         using piecewise linear temperature-conductivity function.
         HeatBalanceAlgorithm = CondFD(ConductionFiniteDifference) solution algorithm only.
         Has no effect with other HeatBalanceAlgorithm solution algorithms
-    
     """
     internal_name = "MaterialProperty:VariableThermalConductivity"
     field_count = 21
@@ -21231,15 +21511,16 @@ class MaterialPropertyVariableThermalConductivity(object):
         self._data["Thermal Conductivity 9"] = None
         self._data["Temperature 10"] = None
         self._data["Thermal Conductivity 10"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -21388,6 +21669,7 @@ class MaterialPropertyVariableThermalConductivity(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -21416,7 +21698,7 @@ class MaterialPropertyVariableThermalConductivity(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -21454,7 +21736,7 @@ class MaterialPropertyVariableThermalConductivity(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_1`'.format(value))
         self._data["Temperature 1"] = value
 
@@ -21486,7 +21768,7 @@ class MaterialPropertyVariableThermalConductivity(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `thermal_conductivity_1`'.format(value))
         self._data["Thermal Conductivity 1"] = value
 
@@ -21518,7 +21800,7 @@ class MaterialPropertyVariableThermalConductivity(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_2`'.format(value))
         self._data["Temperature 2"] = value
 
@@ -21550,7 +21832,7 @@ class MaterialPropertyVariableThermalConductivity(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `thermal_conductivity_2`'.format(value))
         self._data["Thermal Conductivity 2"] = value
 
@@ -21582,7 +21864,7 @@ class MaterialPropertyVariableThermalConductivity(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_3`'.format(value))
         self._data["Temperature 3"] = value
 
@@ -21614,7 +21896,7 @@ class MaterialPropertyVariableThermalConductivity(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `thermal_conductivity_3`'.format(value))
         self._data["Thermal Conductivity 3"] = value
 
@@ -21646,7 +21928,7 @@ class MaterialPropertyVariableThermalConductivity(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_4`'.format(value))
         self._data["Temperature 4"] = value
 
@@ -21678,7 +21960,7 @@ class MaterialPropertyVariableThermalConductivity(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `thermal_conductivity_4`'.format(value))
         self._data["Thermal Conductivity 4"] = value
 
@@ -21710,7 +21992,7 @@ class MaterialPropertyVariableThermalConductivity(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_5`'.format(value))
         self._data["Temperature 5"] = value
 
@@ -21742,7 +22024,7 @@ class MaterialPropertyVariableThermalConductivity(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `thermal_conductivity_5`'.format(value))
         self._data["Thermal Conductivity 5"] = value
 
@@ -21774,7 +22056,7 @@ class MaterialPropertyVariableThermalConductivity(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_6`'.format(value))
         self._data["Temperature 6"] = value
 
@@ -21806,7 +22088,7 @@ class MaterialPropertyVariableThermalConductivity(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `thermal_conductivity_6`'.format(value))
         self._data["Thermal Conductivity 6"] = value
 
@@ -21838,7 +22120,7 @@ class MaterialPropertyVariableThermalConductivity(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_7`'.format(value))
         self._data["Temperature 7"] = value
 
@@ -21870,7 +22152,7 @@ class MaterialPropertyVariableThermalConductivity(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `thermal_conductivity_7`'.format(value))
         self._data["Thermal Conductivity 7"] = value
 
@@ -21902,7 +22184,7 @@ class MaterialPropertyVariableThermalConductivity(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_8`'.format(value))
         self._data["Temperature 8"] = value
 
@@ -21934,7 +22216,7 @@ class MaterialPropertyVariableThermalConductivity(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `thermal_conductivity_8`'.format(value))
         self._data["Thermal Conductivity 8"] = value
 
@@ -21966,7 +22248,7 @@ class MaterialPropertyVariableThermalConductivity(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_9`'.format(value))
         self._data["Temperature 9"] = value
 
@@ -21998,7 +22280,7 @@ class MaterialPropertyVariableThermalConductivity(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `thermal_conductivity_9`'.format(value))
         self._data["Thermal Conductivity 9"] = value
 
@@ -22030,7 +22312,7 @@ class MaterialPropertyVariableThermalConductivity(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_10`'.format(value))
         self._data["Temperature 10"] = value
 
@@ -22062,7 +22344,7 @@ class MaterialPropertyVariableThermalConductivity(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `thermal_conductivity_10`'.format(value))
         self._data["Thermal Conductivity 10"] = value
 
@@ -22105,7 +22387,6 @@ class MaterialPropertyHeatAndMoistureTransferSettings(object):
         HeatBalanceAlgorithm = CombinedHeatAndMoistureFiniteElement solution algorithm only.
         Additional material properties for surfaces.
         Has no effect with other HeatBalanceAlgorithm solution algorithms
-    
     """
     internal_name = "MaterialProperty:HeatAndMoistureTransfer:Settings"
     field_count = 3
@@ -22118,15 +22399,16 @@ class MaterialPropertyHeatAndMoistureTransferSettings(object):
         self._data["Material Name"] = None
         self._data["Porosity"] = None
         self._data["Initial Water Content Ratio"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.material_name = None
@@ -22149,6 +22431,7 @@ class MaterialPropertyHeatAndMoistureTransferSettings(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def material_name(self):
@@ -22177,7 +22460,7 @@ class MaterialPropertyHeatAndMoistureTransferSettings(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `material_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -22215,7 +22498,7 @@ class MaterialPropertyHeatAndMoistureTransferSettings(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `porosity`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -22254,7 +22537,7 @@ class MaterialPropertyHeatAndMoistureTransferSettings(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `initial_water_content_ratio`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -22300,7 +22583,6 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(object):
         HeatBalanceAlgorithm = CombinedHeatAndMoistureFiniteElement solution algorithm only.
         Relationship between moisture content and relative humidity fraction.
         Has no effect with other HeatBalanceAlgorithm solution algorithms
-    
     """
     internal_name = "MaterialProperty:HeatAndMoistureTransfer:SorptionIsotherm"
     field_count = 52
@@ -22362,15 +22644,16 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(object):
         self._data["Moisture Content 24"] = None
         self._data["Relative Humidity Fraction 25"] = None
         self._data["Moisture Content 25"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.material_name = None
@@ -22736,6 +23019,7 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def material_name(self):
@@ -22763,7 +23047,7 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `material_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -22801,8 +23085,15 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(object):
             try:
                 value = int(value)
             except ValueError:
-                raise ValueError('value {} need to be of type int '
-                                 'for field `number_of_isotherm_coordinates`'.format(value))
+                if not self.strict:
+                    try:
+                        conv_value = int(float(value))
+                        logging.warn('Cast float {} to int {}, precision may be lost '
+                                     'for field `number_of_isotherm_coordinates`'.format(value, conv_value))
+                        value = conv_value
+                    except ValueError:
+                        raise ValueError('value {} need to be of type int '
+                                         'for field `number_of_isotherm_coordinates`'.format(value))
             if value < 1:
                 raise ValueError('value need to be greater or equal 1 '
                                  'for field `number_of_isotherm_coordinates`')
@@ -22840,7 +23131,7 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `relative_humidity_fraction_1`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -22877,7 +23168,7 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `moisture_content_1`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -22913,7 +23204,7 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `relative_humidity_fraction_2`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -22950,7 +23241,7 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `moisture_content_2`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -22986,7 +23277,7 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `relative_humidity_fraction_3`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -23023,7 +23314,7 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `moisture_content_3`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -23059,7 +23350,7 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `relative_humidity_fraction_4`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -23096,7 +23387,7 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `moisture_content_4`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -23132,7 +23423,7 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `relative_humidity_fraction_5`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -23169,7 +23460,7 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `moisture_content_5`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -23205,7 +23496,7 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `relative_humidity_fraction_6`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -23242,7 +23533,7 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `moisture_content_6`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -23278,7 +23569,7 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `relative_humidity_fraction_7`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -23315,7 +23606,7 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `moisture_content_7`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -23351,7 +23642,7 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `relative_humidity_fraction_8`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -23388,7 +23679,7 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `moisture_content_8`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -23424,7 +23715,7 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `relative_humidity_fraction_9`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -23461,7 +23752,7 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `moisture_content_9`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -23497,7 +23788,7 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `relative_humidity_fraction_10`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -23534,7 +23825,7 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `moisture_content_10`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -23570,7 +23861,7 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `relative_humidity_fraction_11`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -23607,7 +23898,7 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `moisture_content_11`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -23643,7 +23934,7 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `relative_humidity_fraction_12`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -23680,7 +23971,7 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `moisture_content_12`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -23716,7 +24007,7 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `relative_humidity_fraction_13`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -23753,7 +24044,7 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `moisture_content_13`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -23789,7 +24080,7 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `relative_humidity_fraction_14`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -23826,7 +24117,7 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `moisture_content_14`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -23862,7 +24153,7 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `relative_humidity_fraction_15`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -23899,7 +24190,7 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `moisture_content_15`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -23935,7 +24226,7 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `relative_humidity_fraction_16`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -23972,7 +24263,7 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `moisture_content_16`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -24008,7 +24299,7 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `relative_humidity_fraction_17`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -24045,7 +24336,7 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `moisture_content_17`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -24081,7 +24372,7 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `relative_humidity_fraction_18`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -24118,7 +24409,7 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `moisture_content_18`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -24154,7 +24445,7 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `relative_humidity_fraction_19`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -24191,7 +24482,7 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `moisture_content_19`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -24227,7 +24518,7 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `relative_humidity_fraction_20`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -24264,7 +24555,7 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `moisture_content_20`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -24300,7 +24591,7 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `relative_humidity_fraction_21`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -24337,7 +24628,7 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `moisture_content_21`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -24373,7 +24664,7 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `relative_humidity_fraction_22`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -24410,7 +24701,7 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `moisture_content_22`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -24446,7 +24737,7 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `relative_humidity_fraction_23`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -24483,7 +24774,7 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `moisture_content_23`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -24519,7 +24810,7 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `relative_humidity_fraction_24`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -24556,7 +24847,7 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `moisture_content_24`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -24592,7 +24883,7 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `relative_humidity_fraction_25`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -24629,7 +24920,7 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `moisture_content_25`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -24675,7 +24966,6 @@ class MaterialPropertyHeatAndMoistureTransferSuction(object):
         HeatBalanceAlgorithm = CombinedHeatAndMoistureFiniteElement solution algorithm only.
         Relationship between liquid suction transport coefficient and moisture content
         Has no effect with other HeatBalanceAlgorithm solution algorithms
-    
     """
     internal_name = "MaterialProperty:HeatAndMoistureTransfer:Suction"
     field_count = 52
@@ -24737,15 +25027,16 @@ class MaterialPropertyHeatAndMoistureTransferSuction(object):
         self._data["Liquid Transport Coefficient 24"] = None
         self._data["Moisture Content 25"] = None
         self._data["Liquid Transport Coefficient 25"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.material_name = None
@@ -25111,6 +25402,7 @@ class MaterialPropertyHeatAndMoistureTransferSuction(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def material_name(self):
@@ -25138,7 +25430,7 @@ class MaterialPropertyHeatAndMoistureTransferSuction(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `material_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -25176,8 +25468,15 @@ class MaterialPropertyHeatAndMoistureTransferSuction(object):
             try:
                 value = int(value)
             except ValueError:
-                raise ValueError('value {} need to be of type int '
-                                 'for field `number_of_suction_points`'.format(value))
+                if not self.strict:
+                    try:
+                        conv_value = int(float(value))
+                        logging.warn('Cast float {} to int {}, precision may be lost '
+                                     'for field `number_of_suction_points`'.format(value, conv_value))
+                        value = conv_value
+                    except ValueError:
+                        raise ValueError('value {} need to be of type int '
+                                         'for field `number_of_suction_points`'.format(value))
             if value < 1:
                 raise ValueError('value need to be greater or equal 1 '
                                  'for field `number_of_suction_points`')
@@ -25213,7 +25512,7 @@ class MaterialPropertyHeatAndMoistureTransferSuction(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `moisture_content_1`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -25247,7 +25546,7 @@ class MaterialPropertyHeatAndMoistureTransferSuction(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `liquid_transport_coefficient_1`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -25281,7 +25580,7 @@ class MaterialPropertyHeatAndMoistureTransferSuction(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `moisture_content_2`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -25315,7 +25614,7 @@ class MaterialPropertyHeatAndMoistureTransferSuction(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `liquid_transport_coefficient_2`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -25349,7 +25648,7 @@ class MaterialPropertyHeatAndMoistureTransferSuction(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `moisture_content_3`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -25383,7 +25682,7 @@ class MaterialPropertyHeatAndMoistureTransferSuction(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `liquid_transport_coefficient_3`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -25417,7 +25716,7 @@ class MaterialPropertyHeatAndMoistureTransferSuction(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `moisture_content_4`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -25451,7 +25750,7 @@ class MaterialPropertyHeatAndMoistureTransferSuction(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `liquid_transport_coefficient_4`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -25485,7 +25784,7 @@ class MaterialPropertyHeatAndMoistureTransferSuction(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `moisture_content_5`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -25519,7 +25818,7 @@ class MaterialPropertyHeatAndMoistureTransferSuction(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `liquid_transport_coefficient_5`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -25553,7 +25852,7 @@ class MaterialPropertyHeatAndMoistureTransferSuction(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `moisture_content_6`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -25587,7 +25886,7 @@ class MaterialPropertyHeatAndMoistureTransferSuction(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `liquid_transport_coefficient_6`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -25621,7 +25920,7 @@ class MaterialPropertyHeatAndMoistureTransferSuction(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `moisture_content_7`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -25655,7 +25954,7 @@ class MaterialPropertyHeatAndMoistureTransferSuction(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `liquid_transport_coefficient_7`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -25689,7 +25988,7 @@ class MaterialPropertyHeatAndMoistureTransferSuction(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `moisture_content_8`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -25723,7 +26022,7 @@ class MaterialPropertyHeatAndMoistureTransferSuction(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `liquid_transport_coefficient_8`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -25757,7 +26056,7 @@ class MaterialPropertyHeatAndMoistureTransferSuction(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `moisture_content_9`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -25791,7 +26090,7 @@ class MaterialPropertyHeatAndMoistureTransferSuction(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `liquid_transport_coefficient_9`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -25825,7 +26124,7 @@ class MaterialPropertyHeatAndMoistureTransferSuction(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `moisture_content_10`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -25859,7 +26158,7 @@ class MaterialPropertyHeatAndMoistureTransferSuction(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `liquid_transport_coefficient_10`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -25893,7 +26192,7 @@ class MaterialPropertyHeatAndMoistureTransferSuction(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `moisture_content_11`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -25927,7 +26226,7 @@ class MaterialPropertyHeatAndMoistureTransferSuction(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `liquid_transport_coefficient_11`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -25961,7 +26260,7 @@ class MaterialPropertyHeatAndMoistureTransferSuction(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `moisture_content_12`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -25995,7 +26294,7 @@ class MaterialPropertyHeatAndMoistureTransferSuction(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `liquid_transport_coefficient_12`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -26029,7 +26328,7 @@ class MaterialPropertyHeatAndMoistureTransferSuction(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `moisture_content_13`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -26063,7 +26362,7 @@ class MaterialPropertyHeatAndMoistureTransferSuction(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `liquid_transport_coefficient_13`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -26097,7 +26396,7 @@ class MaterialPropertyHeatAndMoistureTransferSuction(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `moisture_content_14`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -26131,7 +26430,7 @@ class MaterialPropertyHeatAndMoistureTransferSuction(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `liquid_transport_coefficient_14`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -26165,7 +26464,7 @@ class MaterialPropertyHeatAndMoistureTransferSuction(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `moisture_content_15`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -26199,7 +26498,7 @@ class MaterialPropertyHeatAndMoistureTransferSuction(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `liquid_transport_coefficient_15`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -26233,7 +26532,7 @@ class MaterialPropertyHeatAndMoistureTransferSuction(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `moisture_content_16`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -26267,7 +26566,7 @@ class MaterialPropertyHeatAndMoistureTransferSuction(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `liquid_transport_coefficient_16`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -26301,7 +26600,7 @@ class MaterialPropertyHeatAndMoistureTransferSuction(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `moisture_content_17`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -26335,7 +26634,7 @@ class MaterialPropertyHeatAndMoistureTransferSuction(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `liquid_transport_coefficient_17`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -26369,7 +26668,7 @@ class MaterialPropertyHeatAndMoistureTransferSuction(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `moisture_content_18`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -26403,7 +26702,7 @@ class MaterialPropertyHeatAndMoistureTransferSuction(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `liquid_transport_coefficient_18`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -26437,7 +26736,7 @@ class MaterialPropertyHeatAndMoistureTransferSuction(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `moisture_content_19`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -26471,7 +26770,7 @@ class MaterialPropertyHeatAndMoistureTransferSuction(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `liquid_transport_coefficient_19`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -26505,7 +26804,7 @@ class MaterialPropertyHeatAndMoistureTransferSuction(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `moisture_content_20`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -26539,7 +26838,7 @@ class MaterialPropertyHeatAndMoistureTransferSuction(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `liquid_transport_coefficient_20`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -26573,7 +26872,7 @@ class MaterialPropertyHeatAndMoistureTransferSuction(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `moisture_content_21`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -26607,7 +26906,7 @@ class MaterialPropertyHeatAndMoistureTransferSuction(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `liquid_transport_coefficient_21`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -26641,7 +26940,7 @@ class MaterialPropertyHeatAndMoistureTransferSuction(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `moisture_content_22`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -26675,7 +26974,7 @@ class MaterialPropertyHeatAndMoistureTransferSuction(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `liquid_transport_coefficient_22`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -26709,7 +27008,7 @@ class MaterialPropertyHeatAndMoistureTransferSuction(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `moisture_content_23`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -26743,7 +27042,7 @@ class MaterialPropertyHeatAndMoistureTransferSuction(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `liquid_transport_coefficient_23`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -26777,7 +27076,7 @@ class MaterialPropertyHeatAndMoistureTransferSuction(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `moisture_content_24`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -26811,7 +27110,7 @@ class MaterialPropertyHeatAndMoistureTransferSuction(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `liquid_transport_coefficient_24`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -26845,7 +27144,7 @@ class MaterialPropertyHeatAndMoistureTransferSuction(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `moisture_content_25`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -26879,7 +27178,7 @@ class MaterialPropertyHeatAndMoistureTransferSuction(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `liquid_transport_coefficient_25`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -26925,7 +27224,6 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(object):
         HeatBalanceAlgorithm = CombinedHeatAndMoistureFiniteElement solution algorithm only.
         Relationship between liquid transport coefficient and moisture content
         Has no effect with other HeatBalanceAlgorithm solution algorithms
-    
     """
     internal_name = "MaterialProperty:HeatAndMoistureTransfer:Redistribution"
     field_count = 52
@@ -26987,15 +27285,16 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(object):
         self._data["Liquid Transport Coefficient 24"] = None
         self._data["Moisture Content 25"] = None
         self._data["Liquid Transport Coefficient 25"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.material_name = None
@@ -27361,6 +27660,7 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def material_name(self):
@@ -27388,7 +27688,7 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `material_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -27426,8 +27726,15 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(object):
             try:
                 value = int(value)
             except ValueError:
-                raise ValueError('value {} need to be of type int '
-                                 'for field `number_of_redistribution_points`'.format(value))
+                if not self.strict:
+                    try:
+                        conv_value = int(float(value))
+                        logging.warn('Cast float {} to int {}, precision may be lost '
+                                     'for field `number_of_redistribution_points`'.format(value, conv_value))
+                        value = conv_value
+                    except ValueError:
+                        raise ValueError('value {} need to be of type int '
+                                         'for field `number_of_redistribution_points`'.format(value))
             if value < 1:
                 raise ValueError('value need to be greater or equal 1 '
                                  'for field `number_of_redistribution_points`')
@@ -27463,7 +27770,7 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `moisture_content_1`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -27497,7 +27804,7 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `liquid_transport_coefficient_1`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -27531,7 +27838,7 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `moisture_content_2`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -27565,7 +27872,7 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `liquid_transport_coefficient_2`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -27599,7 +27906,7 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `moisture_content_3`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -27633,7 +27940,7 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `liquid_transport_coefficient_3`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -27667,7 +27974,7 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `moisture_content_4`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -27701,7 +28008,7 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `liquid_transport_coefficient_4`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -27735,7 +28042,7 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `moisture_content_5`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -27769,7 +28076,7 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `liquid_transport_coefficient_5`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -27803,7 +28110,7 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `moisture_content_6`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -27837,7 +28144,7 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `liquid_transport_coefficient_6`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -27871,7 +28178,7 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `moisture_content_7`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -27905,7 +28212,7 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `liquid_transport_coefficient_7`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -27939,7 +28246,7 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `moisture_content_8`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -27973,7 +28280,7 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `liquid_transport_coefficient_8`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -28007,7 +28314,7 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `moisture_content_9`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -28041,7 +28348,7 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `liquid_transport_coefficient_9`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -28075,7 +28382,7 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `moisture_content_10`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -28109,7 +28416,7 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `liquid_transport_coefficient_10`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -28143,7 +28450,7 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `moisture_content_11`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -28177,7 +28484,7 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `liquid_transport_coefficient_11`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -28211,7 +28518,7 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `moisture_content_12`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -28245,7 +28552,7 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `liquid_transport_coefficient_12`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -28279,7 +28586,7 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `moisture_content_13`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -28313,7 +28620,7 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `liquid_transport_coefficient_13`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -28347,7 +28654,7 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `moisture_content_14`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -28381,7 +28688,7 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `liquid_transport_coefficient_14`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -28415,7 +28722,7 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `moisture_content_15`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -28449,7 +28756,7 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `liquid_transport_coefficient_15`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -28483,7 +28790,7 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `moisture_content_16`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -28517,7 +28824,7 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `liquid_transport_coefficient_16`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -28551,7 +28858,7 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `moisture_content_17`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -28585,7 +28892,7 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `liquid_transport_coefficient_17`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -28619,7 +28926,7 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `moisture_content_18`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -28653,7 +28960,7 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `liquid_transport_coefficient_18`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -28687,7 +28994,7 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `moisture_content_19`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -28721,7 +29028,7 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `liquid_transport_coefficient_19`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -28755,7 +29062,7 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `moisture_content_20`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -28789,7 +29096,7 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `liquid_transport_coefficient_20`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -28823,7 +29130,7 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `moisture_content_21`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -28857,7 +29164,7 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `liquid_transport_coefficient_21`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -28891,7 +29198,7 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `moisture_content_22`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -28925,7 +29232,7 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `liquid_transport_coefficient_22`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -28959,7 +29266,7 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `moisture_content_23`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -28993,7 +29300,7 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `liquid_transport_coefficient_23`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -29027,7 +29334,7 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `moisture_content_24`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -29061,7 +29368,7 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `liquid_transport_coefficient_24`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -29095,7 +29402,7 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `moisture_content_25`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -29129,7 +29436,7 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `liquid_transport_coefficient_25`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -29175,7 +29482,6 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(object):
         HeatBalanceAlgorithm = CombinedHeatAndMoistureFiniteElement solution algorithm only.
         Relationship between water vapor diffusion and relative humidity fraction
         Has no effect with other HeatBalanceAlgorithm solution algorithms
-    
     """
     internal_name = "MaterialProperty:HeatAndMoistureTransfer:Diffusion"
     field_count = 52
@@ -29237,15 +29543,16 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(object):
         self._data["Water Vapor Diffusion Resistance Factor 24"] = None
         self._data["Relative Humidity Fraction 25"] = None
         self._data["Water Vapor Diffusion Resistance Factor 25"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.material_name = None
@@ -29611,6 +29918,7 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def material_name(self):
@@ -29638,7 +29946,7 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `material_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -29676,8 +29984,15 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(object):
             try:
                 value = int(value)
             except ValueError:
-                raise ValueError('value {} need to be of type int '
-                                 'for field `number_of_data_pairs`'.format(value))
+                if not self.strict:
+                    try:
+                        conv_value = int(float(value))
+                        logging.warn('Cast float {} to int {}, precision may be lost '
+                                     'for field `number_of_data_pairs`'.format(value, conv_value))
+                        value = conv_value
+                    except ValueError:
+                        raise ValueError('value {} need to be of type int '
+                                         'for field `number_of_data_pairs`'.format(value))
             if value < 1:
                 raise ValueError('value need to be greater or equal 1 '
                                  'for field `number_of_data_pairs`')
@@ -29715,7 +30030,7 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `relative_humidity_fraction_1`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -29752,7 +30067,7 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `water_vapor_diffusion_resistance_factor_1`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -29788,7 +30103,7 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `relative_humidity_fraction_2`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -29825,7 +30140,7 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `water_vapor_diffusion_resistance_factor_2`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -29861,7 +30176,7 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `relative_humidity_fraction_3`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -29898,7 +30213,7 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `water_vapor_diffusion_resistance_factor_3`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -29934,7 +30249,7 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `relative_humidity_fraction_4`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -29971,7 +30286,7 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `water_vapor_diffusion_resistance_factor_4`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -30007,7 +30322,7 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `relative_humidity_fraction_5`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -30044,7 +30359,7 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `water_vapor_diffusion_resistance_factor_5`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -30080,7 +30395,7 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `relative_humidity_fraction_6`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -30117,7 +30432,7 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `water_vapor_diffusion_resistance_factor_6`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -30153,7 +30468,7 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `relative_humidity_fraction_7`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -30190,7 +30505,7 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `water_vapor_diffusion_resistance_factor_7`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -30226,7 +30541,7 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `relative_humidity_fraction_8`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -30263,7 +30578,7 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `water_vapor_diffusion_resistance_factor_8`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -30299,7 +30614,7 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `relative_humidity_fraction_9`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -30336,7 +30651,7 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `water_vapor_diffusion_resistance_factor_9`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -30372,7 +30687,7 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `relative_humidity_fraction_10`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -30409,7 +30724,7 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `water_vapor_diffusion_resistance_factor_10`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -30445,7 +30760,7 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `relative_humidity_fraction_11`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -30482,7 +30797,7 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `water_vapor_diffusion_resistance_factor_11`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -30518,7 +30833,7 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `relative_humidity_fraction_12`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -30555,7 +30870,7 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `water_vapor_diffusion_resistance_factor_12`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -30591,7 +30906,7 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `relative_humidity_fraction_13`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -30628,7 +30943,7 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `water_vapor_diffusion_resistance_factor_13`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -30664,7 +30979,7 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `relative_humidity_fraction_14`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -30701,7 +31016,7 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `water_vapor_diffusion_resistance_factor_14`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -30737,7 +31052,7 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `relative_humidity_fraction_15`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -30774,7 +31089,7 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `water_vapor_diffusion_resistance_factor_15`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -30810,7 +31125,7 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `relative_humidity_fraction_16`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -30847,7 +31162,7 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `water_vapor_diffusion_resistance_factor_16`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -30883,7 +31198,7 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `relative_humidity_fraction_17`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -30920,7 +31235,7 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `water_vapor_diffusion_resistance_factor_17`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -30956,7 +31271,7 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `relative_humidity_fraction_18`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -30993,7 +31308,7 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `water_vapor_diffusion_resistance_factor_18`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -31029,7 +31344,7 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `relative_humidity_fraction_19`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -31066,7 +31381,7 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `water_vapor_diffusion_resistance_factor_19`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -31102,7 +31417,7 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `relative_humidity_fraction_20`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -31139,7 +31454,7 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `water_vapor_diffusion_resistance_factor_20`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -31175,7 +31490,7 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `relative_humidity_fraction_21`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -31212,7 +31527,7 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `water_vapor_diffusion_resistance_factor_21`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -31248,7 +31563,7 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `relative_humidity_fraction_22`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -31285,7 +31600,7 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `water_vapor_diffusion_resistance_factor_22`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -31321,7 +31636,7 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `relative_humidity_fraction_23`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -31358,7 +31673,7 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `water_vapor_diffusion_resistance_factor_23`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -31394,7 +31709,7 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `relative_humidity_fraction_24`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -31431,7 +31746,7 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `water_vapor_diffusion_resistance_factor_24`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -31467,7 +31782,7 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `relative_humidity_fraction_25`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -31504,7 +31819,7 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `water_vapor_diffusion_resistance_factor_25`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -31550,7 +31865,6 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(object):
         HeatBalanceAlgorithm = CombinedHeatAndMoistureFiniteElement solution algorithm only.
         Relationship between thermal conductivity and moisture content
         Has no effect with other HeatBalanceAlgorithm solution algorithms
-    
     """
     internal_name = "MaterialProperty:HeatAndMoistureTransfer:ThermalConductivity"
     field_count = 52
@@ -31612,15 +31926,16 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(object):
         self._data["Thermal Conductivity 24"] = None
         self._data["Moisture Content 25"] = None
         self._data["Thermal Conductivity 25"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.material_name = None
@@ -31986,6 +32301,7 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def material_name(self):
@@ -32013,7 +32329,7 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `material_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -32051,8 +32367,15 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(object):
             try:
                 value = int(value)
             except ValueError:
-                raise ValueError('value {} need to be of type int '
-                                 'for field `number_of_thermal_coordinates`'.format(value))
+                if not self.strict:
+                    try:
+                        conv_value = int(float(value))
+                        logging.warn('Cast float {} to int {}, precision may be lost '
+                                     'for field `number_of_thermal_coordinates`'.format(value, conv_value))
+                        value = conv_value
+                    except ValueError:
+                        raise ValueError('value {} need to be of type int '
+                                         'for field `number_of_thermal_coordinates`'.format(value))
             if value < 1:
                 raise ValueError('value need to be greater or equal 1 '
                                  'for field `number_of_thermal_coordinates`')
@@ -32088,7 +32411,7 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `moisture_content_1`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -32122,7 +32445,7 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `thermal_conductivity_1`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -32156,7 +32479,7 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `moisture_content_2`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -32190,7 +32513,7 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `thermal_conductivity_2`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -32224,7 +32547,7 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `moisture_content_3`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -32258,7 +32581,7 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `thermal_conductivity_3`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -32292,7 +32615,7 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `moisture_content_4`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -32326,7 +32649,7 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `thermal_conductivity_4`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -32360,7 +32683,7 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `moisture_content_5`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -32394,7 +32717,7 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `thermal_conductivity_5`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -32428,7 +32751,7 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `moisture_content_6`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -32462,7 +32785,7 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `thermal_conductivity_6`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -32496,7 +32819,7 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `moisture_content_7`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -32530,7 +32853,7 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `thermal_conductivity_7`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -32564,7 +32887,7 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `moisture_content_8`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -32598,7 +32921,7 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `thermal_conductivity_8`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -32632,7 +32955,7 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `moisture_content_9`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -32666,7 +32989,7 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `thermal_conductivity_9`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -32700,7 +33023,7 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `moisture_content_10`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -32734,7 +33057,7 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `thermal_conductivity_10`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -32768,7 +33091,7 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `moisture_content_11`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -32802,7 +33125,7 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `thermal_conductivity_11`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -32836,7 +33159,7 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `moisture_content_12`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -32870,7 +33193,7 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `thermal_conductivity_12`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -32904,7 +33227,7 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `moisture_content_13`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -32938,7 +33261,7 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `thermal_conductivity_13`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -32972,7 +33295,7 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `moisture_content_14`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -33006,7 +33329,7 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `thermal_conductivity_14`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -33040,7 +33363,7 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `moisture_content_15`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -33074,7 +33397,7 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `thermal_conductivity_15`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -33108,7 +33431,7 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `moisture_content_16`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -33142,7 +33465,7 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `thermal_conductivity_16`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -33176,7 +33499,7 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `moisture_content_17`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -33210,7 +33533,7 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `thermal_conductivity_17`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -33244,7 +33567,7 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `moisture_content_18`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -33278,7 +33601,7 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `thermal_conductivity_18`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -33312,7 +33635,7 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `moisture_content_19`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -33346,7 +33669,7 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `thermal_conductivity_19`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -33380,7 +33703,7 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `moisture_content_20`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -33414,7 +33737,7 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `thermal_conductivity_20`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -33448,7 +33771,7 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `moisture_content_21`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -33482,7 +33805,7 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `thermal_conductivity_21`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -33516,7 +33839,7 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `moisture_content_22`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -33550,7 +33873,7 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `thermal_conductivity_22`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -33584,7 +33907,7 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `moisture_content_23`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -33618,7 +33941,7 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `thermal_conductivity_23`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -33652,7 +33975,7 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `moisture_content_24`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -33686,7 +34009,7 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `thermal_conductivity_24`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -33720,7 +34043,7 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `moisture_content_25`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -33754,7 +34077,7 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `thermal_conductivity_25`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -33800,7 +34123,6 @@ class Construction(object):
         Start with outside layer and work your way to the inside layer
         Up to 10 layers total, 8 for windows
         Enter the material name for each layer
-    
     """
     internal_name = "Construction"
     field_count = 11
@@ -33821,15 +34143,16 @@ class Construction(object):
         self._data["Layer 8"] = None
         self._data["Layer 9"] = None
         self._data["Layer 10"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -33908,6 +34231,7 @@ class Construction(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -33934,7 +34258,7 @@ class Construction(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -33969,7 +34293,7 @@ class Construction(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `outside_layer`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -34004,7 +34328,7 @@ class Construction(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `layer_2`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -34039,7 +34363,7 @@ class Construction(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `layer_3`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -34074,7 +34398,7 @@ class Construction(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `layer_4`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -34109,7 +34433,7 @@ class Construction(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `layer_5`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -34144,7 +34468,7 @@ class Construction(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `layer_6`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -34179,7 +34503,7 @@ class Construction(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `layer_7`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -34214,7 +34538,7 @@ class Construction(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `layer_8`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -34249,7 +34573,7 @@ class Construction(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `layer_9`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -34284,7 +34608,7 @@ class Construction(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `layer_10`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -34331,7 +34655,6 @@ class Construction(object):
 class ConstructionCfactorUndergroundWall(object):
     """ Corresponds to IDD object `Construction:CfactorUndergroundWall`
         Alternate method of describing underground wall constructions
-    
     """
     internal_name = "Construction:CfactorUndergroundWall"
     field_count = 3
@@ -34344,15 +34667,16 @@ class ConstructionCfactorUndergroundWall(object):
         self._data["Name"] = None
         self._data["C-Factor"] = None
         self._data["Height"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -34375,6 +34699,7 @@ class ConstructionCfactorUndergroundWall(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -34401,7 +34726,7 @@ class ConstructionCfactorUndergroundWall(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -34439,7 +34764,7 @@ class ConstructionCfactorUndergroundWall(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `cfactor`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -34474,7 +34799,7 @@ class ConstructionCfactorUndergroundWall(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `height`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -34518,7 +34843,6 @@ class ConstructionCfactorUndergroundWall(object):
 class ConstructionFfactorGroundFloor(object):
     """ Corresponds to IDD object `Construction:FfactorGroundFloor`
         Alternate method of describing slab-on-grade or underground floor constructions
-    
     """
     internal_name = "Construction:FfactorGroundFloor"
     field_count = 4
@@ -34532,15 +34856,16 @@ class ConstructionFfactorGroundFloor(object):
         self._data["F-Factor"] = None
         self._data["Area"] = None
         self._data["PerimeterExposed"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -34570,6 +34895,7 @@ class ConstructionFfactorGroundFloor(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -34596,7 +34922,7 @@ class ConstructionFfactorGroundFloor(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -34634,7 +34960,7 @@ class ConstructionFfactorGroundFloor(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `ffactor`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -34669,7 +34995,7 @@ class ConstructionFfactorGroundFloor(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `area`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -34704,7 +35030,7 @@ class ConstructionFfactorGroundFloor(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `perimeterexposed`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -34750,7 +35076,6 @@ class ConstructionInternalSource(object):
         Start with outside layer and work your way to the inside Layer
         Up to 10 layers total, 8 for windows
         Enter the material name for each layer
-    
     """
     internal_name = "Construction:InternalSource"
     field_count = 15
@@ -34775,15 +35100,16 @@ class ConstructionInternalSource(object):
         self._data["Layer 8"] = None
         self._data["Layer 9"] = None
         self._data["Layer 10"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -34890,6 +35216,7 @@ class ConstructionInternalSource(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -34916,7 +35243,7 @@ class ConstructionInternalSource(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -34953,8 +35280,15 @@ class ConstructionInternalSource(object):
             try:
                 value = int(value)
             except ValueError:
-                raise ValueError('value {} need to be of type int '
-                                 'for field `source_present_after_layer_number`'.format(value))
+                if not self.strict:
+                    try:
+                        conv_value = int(float(value))
+                        logging.warn('Cast float {} to int {}, precision may be lost '
+                                     'for field `source_present_after_layer_number`'.format(value, conv_value))
+                        value = conv_value
+                    except ValueError:
+                        raise ValueError('value {} need to be of type int '
+                                         'for field `source_present_after_layer_number`'.format(value))
             if value < 1:
                 raise ValueError('value need to be greater or equal 1 '
                                  'for field `source_present_after_layer_number`')
@@ -34986,8 +35320,15 @@ class ConstructionInternalSource(object):
             try:
                 value = int(value)
             except ValueError:
-                raise ValueError('value {} need to be of type int '
-                                 'for field `temperature_calculation_requested_after_layer_number`'.format(value))
+                if not self.strict:
+                    try:
+                        conv_value = int(float(value))
+                        logging.warn('Cast float {} to int {}, precision may be lost '
+                                     'for field `temperature_calculation_requested_after_layer_number`'.format(value, conv_value))
+                        value = conv_value
+                    except ValueError:
+                        raise ValueError('value {} need to be of type int '
+                                         'for field `temperature_calculation_requested_after_layer_number`'.format(value))
         self._data["Temperature Calculation Requested After Layer Number"] = value
 
     @property
@@ -35018,8 +35359,15 @@ class ConstructionInternalSource(object):
             try:
                 value = int(value)
             except ValueError:
-                raise ValueError('value {} need to be of type int '
-                                 'for field `dimensions_for_the_ctf_calculation`'.format(value))
+                if not self.strict:
+                    try:
+                        conv_value = int(float(value))
+                        logging.warn('Cast float {} to int {}, precision may be lost '
+                                     'for field `dimensions_for_the_ctf_calculation`'.format(value, conv_value))
+                        value = conv_value
+                    except ValueError:
+                        raise ValueError('value {} need to be of type int '
+                                         'for field `dimensions_for_the_ctf_calculation`'.format(value))
             if value < 1:
                 raise ValueError('value need to be greater or equal 1 '
                                  'for field `dimensions_for_the_ctf_calculation`')
@@ -35056,7 +35404,7 @@ class ConstructionInternalSource(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `tube_spacing`'.format(value))
         self._data["Tube Spacing"] = value
 
@@ -35085,7 +35433,7 @@ class ConstructionInternalSource(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `outside_layer`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -35120,7 +35468,7 @@ class ConstructionInternalSource(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `layer_2`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -35155,7 +35503,7 @@ class ConstructionInternalSource(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `layer_3`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -35190,7 +35538,7 @@ class ConstructionInternalSource(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `layer_4`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -35225,7 +35573,7 @@ class ConstructionInternalSource(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `layer_5`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -35260,7 +35608,7 @@ class ConstructionInternalSource(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `layer_6`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -35295,7 +35643,7 @@ class ConstructionInternalSource(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `layer_7`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -35330,7 +35678,7 @@ class ConstructionInternalSource(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `layer_8`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -35365,7 +35713,7 @@ class ConstructionInternalSource(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `layer_9`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -35400,7 +35748,7 @@ class ConstructionInternalSource(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `layer_10`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -35447,7 +35795,6 @@ class ConstructionInternalSource(object):
 class WindowThermalModelParams(object):
     """ Corresponds to IDD object `WindowThermalModel:Params`
         object is used to select which thermal model should be used in tarcog simulations
-    
     """
     internal_name = "WindowThermalModel:Params"
     field_count = 8
@@ -35465,15 +35812,16 @@ class WindowThermalModelParams(object):
         self._data["Vacuum Pressure Limit"] = None
         self._data["Initial temperature"] = None
         self._data["Initial pressure"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -35531,6 +35879,7 @@ class WindowThermalModelParams(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -35557,7 +35906,7 @@ class WindowThermalModelParams(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -35597,7 +35946,7 @@ class WindowThermalModelParams(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `standard`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -35612,16 +35961,26 @@ class WindowThermalModelParams(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `standard`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `standard`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["standard"] = value
 
@@ -35656,7 +36015,7 @@ class WindowThermalModelParams(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `thermal_model`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -35672,16 +36031,26 @@ class WindowThermalModelParams(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `thermal_model`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `thermal_model`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Thermal Model"] = value
 
@@ -35713,7 +36082,7 @@ class WindowThermalModelParams(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `sdscalar`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -35753,7 +36122,7 @@ class WindowThermalModelParams(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `deflection_model`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -35768,16 +36137,26 @@ class WindowThermalModelParams(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `deflection_model`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `deflection_model`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Deflection Model"] = value
 
@@ -35808,7 +36187,7 @@ class WindowThermalModelParams(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vacuum_pressure_limit`'.format(value))
         self._data["Vacuum Pressure Limit"] = value
 
@@ -35840,7 +36219,7 @@ class WindowThermalModelParams(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `initial_temperature`'.format(value))
         self._data["Initial temperature"] = value
 
@@ -35872,7 +36251,7 @@ class WindowThermalModelParams(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `initial_pressure`'.format(value))
         self._data["Initial pressure"] = value
 
@@ -35914,7 +36293,6 @@ class ConstructionComplexFenestrationState(object):
     """ Corresponds to IDD object `Construction:ComplexFenestrationState`
         Describes one state for a complex glazing system
         These input objects are typically generated by using WINDOW software and export to IDF syntax
-    
     """
     internal_name = "Construction:ComplexFenestrationState"
     field_count = 36
@@ -35960,15 +36338,16 @@ class ConstructionComplexFenestrationState(object):
         self._data["Layer 5 Name"] = None
         self._data["Layer 5 Directional Front Absoptance Matrix Name"] = None
         self._data["Layer 5 Directional Back Absoptance Matrix Name"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -36222,6 +36601,7 @@ class ConstructionComplexFenestrationState(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -36248,7 +36628,7 @@ class ConstructionComplexFenestrationState(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -36287,7 +36667,7 @@ class ConstructionComplexFenestrationState(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `basis_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -36301,16 +36681,26 @@ class ConstructionComplexFenestrationState(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `basis_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `basis_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Basis Type"] = value
 
@@ -36343,7 +36733,7 @@ class ConstructionComplexFenestrationState(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `basis_symmetry_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -36357,16 +36747,26 @@ class ConstructionComplexFenestrationState(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `basis_symmetry_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `basis_symmetry_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Basis Symmetry Type"] = value
 
@@ -36395,7 +36795,7 @@ class ConstructionComplexFenestrationState(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `window_thermal_model`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -36430,7 +36830,7 @@ class ConstructionComplexFenestrationState(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `basis_matrix_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -36465,7 +36865,7 @@ class ConstructionComplexFenestrationState(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `solar_optical_complex_front_transmittance_matrix_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -36500,7 +36900,7 @@ class ConstructionComplexFenestrationState(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `solar_optical_complex_back_reflectance_matrix_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -36535,7 +36935,7 @@ class ConstructionComplexFenestrationState(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `visible_optical_complex_front_transmittance_matrix_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -36570,7 +36970,7 @@ class ConstructionComplexFenestrationState(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `visible_optical_complex_back_transmittance_matrix_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -36605,7 +37005,7 @@ class ConstructionComplexFenestrationState(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `outside_layer_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -36640,7 +37040,7 @@ class ConstructionComplexFenestrationState(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `outside_layer_directional_front_absoptance_matrix_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -36675,7 +37075,7 @@ class ConstructionComplexFenestrationState(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `outside_layer_directional_back_absoptance_matrix_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -36710,7 +37110,7 @@ class ConstructionComplexFenestrationState(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `gap_1_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -36746,7 +37146,7 @@ class ConstructionComplexFenestrationState(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `cfs_gap_1_directional_front_absoptance_matrix_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -36782,7 +37182,7 @@ class ConstructionComplexFenestrationState(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `cfs_gap_1_directional_back_absoptance_matrix_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -36817,7 +37217,7 @@ class ConstructionComplexFenestrationState(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `layer_2_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -36852,7 +37252,7 @@ class ConstructionComplexFenestrationState(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `layer_2_directional_front_absoptance_matrix_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -36887,7 +37287,7 @@ class ConstructionComplexFenestrationState(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `layer_2_directional_back_absoptance_matrix_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -36922,7 +37322,7 @@ class ConstructionComplexFenestrationState(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `gap_2_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -36958,7 +37358,7 @@ class ConstructionComplexFenestrationState(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `gap_2_directional_front_absoptance_matrix_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -36994,7 +37394,7 @@ class ConstructionComplexFenestrationState(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `gap_2_directional_back_absoptance_matrix_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -37029,7 +37429,7 @@ class ConstructionComplexFenestrationState(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `layer_3_material`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -37064,7 +37464,7 @@ class ConstructionComplexFenestrationState(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `layer_3_directional_front_absoptance_matrix_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -37099,7 +37499,7 @@ class ConstructionComplexFenestrationState(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `layer_3_directional_back_absoptance_matrix_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -37134,7 +37534,7 @@ class ConstructionComplexFenestrationState(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `gap_3_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -37170,7 +37570,7 @@ class ConstructionComplexFenestrationState(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `gap_3_directional_front_absoptance_matrix_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -37206,7 +37606,7 @@ class ConstructionComplexFenestrationState(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `gap_3_directional_back_absoptance_matrix_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -37241,7 +37641,7 @@ class ConstructionComplexFenestrationState(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `layer_4_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -37276,7 +37676,7 @@ class ConstructionComplexFenestrationState(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `layer_4_directional_front_absoptance_matrix_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -37311,7 +37711,7 @@ class ConstructionComplexFenestrationState(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `layer_4_directional_back_absoptance_matrix_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -37346,7 +37746,7 @@ class ConstructionComplexFenestrationState(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `gap_4_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -37382,7 +37782,7 @@ class ConstructionComplexFenestrationState(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `gap_4_directional_front_absoptance_matrix_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -37418,7 +37818,7 @@ class ConstructionComplexFenestrationState(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `gap_4_directional_back_absoptance_matrix_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -37453,7 +37853,7 @@ class ConstructionComplexFenestrationState(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `layer_5_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -37488,7 +37888,7 @@ class ConstructionComplexFenestrationState(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `layer_5_directional_front_absoptance_matrix_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -37523,7 +37923,7 @@ class ConstructionComplexFenestrationState(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `layer_5_directional_back_absoptance_matrix_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -37570,7 +37970,6 @@ class ConstructionComplexFenestrationState(object):
 class ConstructionWindowDataFile(object):
     """ Corresponds to IDD object `Construction:WindowDataFile`
         Initiates search of the Window data file for a window called Name.
-    
     """
     internal_name = "Construction:WindowDataFile"
     field_count = 2
@@ -37582,15 +37981,16 @@ class ConstructionWindowDataFile(object):
         self._data = OrderedDict()
         self._data["Name"] = None
         self._data["File Name"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -37606,6 +38006,7 @@ class ConstructionWindowDataFile(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -37632,7 +38033,7 @@ class ConstructionWindowDataFile(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -37669,7 +38070,7 @@ class ConstructionWindowDataFile(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `file_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '

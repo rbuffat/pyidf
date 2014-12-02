@@ -1,10 +1,11 @@
 from collections import OrderedDict
+import logging
+import re
 
 class ZoneHvacForcedAirUserDefined(object):
     """ Corresponds to IDD object `ZoneHVAC:ForcedAir:UserDefined`
         Defines a generic zone air unit for custom modeling
         using Energy Management System or External Interface
-    
     """
     internal_name = "ZoneHVAC:ForcedAir:UserDefined"
     field_count = 17
@@ -31,15 +32,16 @@ class ZoneHvacForcedAirUserDefined(object):
         self._data["Supply Inlet Water Storage Tank Name"] = None
         self._data["Collection Outlet Water Storage Tank Name"] = None
         self._data["Ambient Zone Name"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -160,6 +162,7 @@ class ZoneHvacForcedAirUserDefined(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -187,7 +190,7 @@ class ZoneHvacForcedAirUserDefined(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -222,7 +225,7 @@ class ZoneHvacForcedAirUserDefined(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `overall_model_simulation_program_calling_manager_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -257,7 +260,7 @@ class ZoneHvacForcedAirUserDefined(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `model_setup_and_sizing_program_calling_manager_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -293,7 +296,7 @@ class ZoneHvacForcedAirUserDefined(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `primary_air_inlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -329,7 +332,7 @@ class ZoneHvacForcedAirUserDefined(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `primary_air_outlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -365,7 +368,7 @@ class ZoneHvacForcedAirUserDefined(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `secondary_air_inlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -401,7 +404,7 @@ class ZoneHvacForcedAirUserDefined(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `secondary_air_outlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -438,8 +441,15 @@ class ZoneHvacForcedAirUserDefined(object):
             try:
                 value = int(value)
             except ValueError:
-                raise ValueError('value {} need to be of type int '
-                                 'for field `number_of_plant_loop_connections`'.format(value))
+                if not self.strict:
+                    try:
+                        conv_value = int(float(value))
+                        logging.warn('Cast float {} to int {}, precision may be lost '
+                                     'for field `number_of_plant_loop_connections`'.format(value, conv_value))
+                        value = conv_value
+                    except ValueError:
+                        raise ValueError('value {} need to be of type int '
+                                         'for field `number_of_plant_loop_connections`'.format(value))
             if value < 0:
                 raise ValueError('value need to be greater or equal 0 '
                                  'for field `number_of_plant_loop_connections`')
@@ -473,7 +483,7 @@ class ZoneHvacForcedAirUserDefined(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `plant_connection_1_inlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -508,7 +518,7 @@ class ZoneHvacForcedAirUserDefined(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `plant_connection_1_outlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -543,7 +553,7 @@ class ZoneHvacForcedAirUserDefined(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `plant_connection_2_inlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -578,7 +588,7 @@ class ZoneHvacForcedAirUserDefined(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `plant_connection_2_outlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -613,7 +623,7 @@ class ZoneHvacForcedAirUserDefined(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `plant_connection_3_inlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -648,7 +658,7 @@ class ZoneHvacForcedAirUserDefined(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `plant_connection_3_outlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -684,7 +694,7 @@ class ZoneHvacForcedAirUserDefined(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `supply_inlet_water_storage_tank_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -720,7 +730,7 @@ class ZoneHvacForcedAirUserDefined(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `collection_outlet_water_storage_tank_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -756,7 +766,7 @@ class ZoneHvacForcedAirUserDefined(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `ambient_zone_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -804,7 +814,6 @@ class AirTerminalSingleDuctUserDefined(object):
     """ Corresponds to IDD object `AirTerminal:SingleDuct:UserDefined`
         Defines a generic single duct air terminal unit for custom modeling
         using Energy Management System or External Interface
-    
     """
     internal_name = "AirTerminal:SingleDuct:UserDefined"
     field_count = 15
@@ -829,15 +838,16 @@ class AirTerminalSingleDuctUserDefined(object):
         self._data["Supply Inlet Water Storage Tank Name"] = None
         self._data["Collection Outlet Water Storage Tank Name"] = None
         self._data["Ambient Zone Name"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -944,6 +954,7 @@ class AirTerminalSingleDuctUserDefined(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -971,7 +982,7 @@ class AirTerminalSingleDuctUserDefined(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1006,7 +1017,7 @@ class AirTerminalSingleDuctUserDefined(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `overall_model_simulation_program_calling_manager_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1041,7 +1052,7 @@ class AirTerminalSingleDuctUserDefined(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `model_setup_and_sizing_program_calling_manager_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1077,7 +1088,7 @@ class AirTerminalSingleDuctUserDefined(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `primary_air_inlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1113,7 +1124,7 @@ class AirTerminalSingleDuctUserDefined(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `primary_air_outlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1149,7 +1160,7 @@ class AirTerminalSingleDuctUserDefined(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `secondary_air_inlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1185,7 +1196,7 @@ class AirTerminalSingleDuctUserDefined(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `secondary_air_outlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1222,8 +1233,15 @@ class AirTerminalSingleDuctUserDefined(object):
             try:
                 value = int(value)
             except ValueError:
-                raise ValueError('value {} need to be of type int '
-                                 'for field `number_of_plant_loop_connections`'.format(value))
+                if not self.strict:
+                    try:
+                        conv_value = int(float(value))
+                        logging.warn('Cast float {} to int {}, precision may be lost '
+                                     'for field `number_of_plant_loop_connections`'.format(value, conv_value))
+                        value = conv_value
+                    except ValueError:
+                        raise ValueError('value {} need to be of type int '
+                                         'for field `number_of_plant_loop_connections`'.format(value))
             if value < 0:
                 raise ValueError('value need to be greater or equal 0 '
                                  'for field `number_of_plant_loop_connections`')
@@ -1257,7 +1275,7 @@ class AirTerminalSingleDuctUserDefined(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `plant_connection_1_inlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1292,7 +1310,7 @@ class AirTerminalSingleDuctUserDefined(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `plant_connection_1_outlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1327,7 +1345,7 @@ class AirTerminalSingleDuctUserDefined(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `plant_connection_2_inlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1362,7 +1380,7 @@ class AirTerminalSingleDuctUserDefined(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `plant_connection_2_outlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1398,7 +1416,7 @@ class AirTerminalSingleDuctUserDefined(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `supply_inlet_water_storage_tank_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1434,7 +1452,7 @@ class AirTerminalSingleDuctUserDefined(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `collection_outlet_water_storage_tank_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1470,7 +1488,7 @@ class AirTerminalSingleDuctUserDefined(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `ambient_zone_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1518,7 +1536,6 @@ class CoilUserDefined(object):
     """ Corresponds to IDD object `Coil:UserDefined`
         Defines a generic air system component for custom modeling
         using Energy Management System or External Interface
-    
     """
     internal_name = "Coil:UserDefined"
     field_count = 14
@@ -1542,15 +1559,16 @@ class CoilUserDefined(object):
         self._data["Supply Inlet Water Storage Tank Name"] = None
         self._data["Collection Outlet Water Storage Tank Name"] = None
         self._data["Ambient Zone Name"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -1650,6 +1668,7 @@ class CoilUserDefined(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -1677,7 +1696,7 @@ class CoilUserDefined(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1712,7 +1731,7 @@ class CoilUserDefined(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `overall_model_simulation_program_calling_manager_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1747,7 +1766,7 @@ class CoilUserDefined(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `model_setup_and_sizing_program_calling_manager_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1784,8 +1803,15 @@ class CoilUserDefined(object):
             try:
                 value = int(value)
             except ValueError:
-                raise ValueError('value {} need to be of type int '
-                                 'for field `number_of_air_connections`'.format(value))
+                if not self.strict:
+                    try:
+                        conv_value = int(float(value))
+                        logging.warn('Cast float {} to int {}, precision may be lost '
+                                     'for field `number_of_air_connections`'.format(value, conv_value))
+                        value = conv_value
+                    except ValueError:
+                        raise ValueError('value {} need to be of type int '
+                                         'for field `number_of_air_connections`'.format(value))
             if value < 1:
                 raise ValueError('value need to be greater or equal 1 '
                                  'for field `number_of_air_connections`')
@@ -1820,7 +1846,7 @@ class CoilUserDefined(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `air_connection_1_inlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1856,7 +1882,7 @@ class CoilUserDefined(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `air_connection_1_outlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1892,7 +1918,7 @@ class CoilUserDefined(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `air_connection_2_inlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1928,7 +1954,7 @@ class CoilUserDefined(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `air_connection_2_outlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1966,7 +1992,7 @@ class CoilUserDefined(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `plant_connection_is_used`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1980,16 +2006,26 @@ class CoilUserDefined(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `plant_connection_is_used`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `plant_connection_is_used`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Plant Connection is Used"] = value
 
@@ -2018,7 +2054,7 @@ class CoilUserDefined(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `plant_connection_inlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2053,7 +2089,7 @@ class CoilUserDefined(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `plant_connection_outlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2089,7 +2125,7 @@ class CoilUserDefined(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `supply_inlet_water_storage_tank_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2125,7 +2161,7 @@ class CoilUserDefined(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `collection_outlet_water_storage_tank_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2161,7 +2197,7 @@ class CoilUserDefined(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `ambient_zone_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2209,7 +2245,6 @@ class PlantComponentUserDefined(object):
     """ Corresponds to IDD object `PlantComponent:UserDefined`
         Defines a generic plant component for custom modeling
         using Energy Management System or External Interface
-    
     """
     internal_name = "PlantComponent:UserDefined"
     field_count = 32
@@ -2251,15 +2286,16 @@ class PlantComponentUserDefined(object):
         self._data["Supply Inlet Water Storage Tank Name"] = None
         self._data["Collection Outlet Water Storage Tank Name"] = None
         self._data["Ambient Zone Name"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -2485,6 +2521,7 @@ class PlantComponentUserDefined(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -2512,7 +2549,7 @@ class PlantComponentUserDefined(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2547,7 +2584,7 @@ class PlantComponentUserDefined(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `main_model_program_calling_manager_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2584,8 +2621,15 @@ class PlantComponentUserDefined(object):
             try:
                 value = int(value)
             except ValueError:
-                raise ValueError('value {} need to be of type int '
-                                 'for field `number_of_plant_loop_connections`'.format(value))
+                if not self.strict:
+                    try:
+                        conv_value = int(float(value))
+                        logging.warn('Cast float {} to int {}, precision may be lost '
+                                     'for field `number_of_plant_loop_connections`'.format(value, conv_value))
+                        value = conv_value
+                    except ValueError:
+                        raise ValueError('value {} need to be of type int '
+                                         'for field `number_of_plant_loop_connections`'.format(value))
             if value < 1:
                 raise ValueError('value need to be greater or equal 1 '
                                  'for field `number_of_plant_loop_connections`')
@@ -2619,7 +2663,7 @@ class PlantComponentUserDefined(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `plant_connection_1_inlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2654,7 +2698,7 @@ class PlantComponentUserDefined(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `plant_connection_1_outlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2695,7 +2739,7 @@ class PlantComponentUserDefined(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `plant_connection_1_loading_mode`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2712,16 +2756,26 @@ class PlantComponentUserDefined(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `plant_connection_1_loading_mode`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `plant_connection_1_loading_mode`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Plant Connection 1 Loading Mode"] = value
 
@@ -2750,7 +2804,7 @@ class PlantComponentUserDefined(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `plant_connection_1_loop_flow_request_mode`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2785,7 +2839,7 @@ class PlantComponentUserDefined(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `plant_connection_1_initialization_program_calling_manager_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2820,7 +2874,7 @@ class PlantComponentUserDefined(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `plant_connection_1_simulation_program_calling_manager_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2855,7 +2909,7 @@ class PlantComponentUserDefined(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `plant_connection_2_inlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2890,7 +2944,7 @@ class PlantComponentUserDefined(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `plant_connection_2_outlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2931,7 +2985,7 @@ class PlantComponentUserDefined(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `plant_connection_2_loading_mode`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2948,16 +3002,26 @@ class PlantComponentUserDefined(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `plant_connection_2_loading_mode`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `plant_connection_2_loading_mode`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Plant Connection 2 Loading Mode"] = value
 
@@ -2986,7 +3050,7 @@ class PlantComponentUserDefined(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `plant_connection_2_loop_flow_request_mode`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3021,7 +3085,7 @@ class PlantComponentUserDefined(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `plant_connection_2_initialization_program_calling_manager_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3056,7 +3120,7 @@ class PlantComponentUserDefined(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `plant_connection_2_simulation_program_calling_manager_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3091,7 +3155,7 @@ class PlantComponentUserDefined(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `plant_connection_3_inlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3126,7 +3190,7 @@ class PlantComponentUserDefined(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `plant_connection_3_outlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3167,7 +3231,7 @@ class PlantComponentUserDefined(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `plant_connection_3_loading_mode`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3184,16 +3248,26 @@ class PlantComponentUserDefined(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `plant_connection_3_loading_mode`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `plant_connection_3_loading_mode`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Plant Connection 3 Loading Mode"] = value
 
@@ -3222,7 +3296,7 @@ class PlantComponentUserDefined(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `plant_connection_3_loop_flow_request_mode`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3257,7 +3331,7 @@ class PlantComponentUserDefined(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `plant_connection_3_initialization_program_calling_manager_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3292,7 +3366,7 @@ class PlantComponentUserDefined(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `plant_connection_3_simulation_program_calling_manager_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3327,7 +3401,7 @@ class PlantComponentUserDefined(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `plant_connection_4_inlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3362,7 +3436,7 @@ class PlantComponentUserDefined(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `plant_connection_4_outlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3403,7 +3477,7 @@ class PlantComponentUserDefined(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `plant_connection_4_loading_mode`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3420,16 +3494,26 @@ class PlantComponentUserDefined(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `plant_connection_4_loading_mode`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `plant_connection_4_loading_mode`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Plant Connection 4 Loading Mode"] = value
 
@@ -3458,7 +3542,7 @@ class PlantComponentUserDefined(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `plant_connection_4_loop_flow_request_mode`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3493,7 +3577,7 @@ class PlantComponentUserDefined(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `plant_connection_4_initialization_program_calling_manager_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3528,7 +3612,7 @@ class PlantComponentUserDefined(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `plant_connection_4_simulation_program_calling_manager_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3564,7 +3648,7 @@ class PlantComponentUserDefined(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `air_connection_inlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3600,7 +3684,7 @@ class PlantComponentUserDefined(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `air_connection_outlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3636,7 +3720,7 @@ class PlantComponentUserDefined(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `supply_inlet_water_storage_tank_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3672,7 +3756,7 @@ class PlantComponentUserDefined(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `collection_outlet_water_storage_tank_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3708,7 +3792,7 @@ class PlantComponentUserDefined(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `ambient_zone_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3756,7 +3840,6 @@ class PlantEquipmentOperationUserDefined(object):
     """ Corresponds to IDD object `PlantEquipmentOperation:UserDefined`
         Defines a generic plant operation scheme for custom supervisory control
         using Energy Management System or External Interface to dispatch loads
-    
     """
     internal_name = "PlantEquipmentOperation:UserDefined"
     field_count = 23
@@ -3789,15 +3872,16 @@ class PlantEquipmentOperationUserDefined(object):
         self._data["Equipment 9 Name"] = None
         self._data["Equipment 10 Object Type"] = None
         self._data["Equipment 10 Name"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -3960,6 +4044,7 @@ class PlantEquipmentOperationUserDefined(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -3987,7 +4072,7 @@ class PlantEquipmentOperationUserDefined(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4022,7 +4107,7 @@ class PlantEquipmentOperationUserDefined(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `main_model_program_calling_manager_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4057,7 +4142,7 @@ class PlantEquipmentOperationUserDefined(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `initialization_program_calling_manager_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4092,7 +4177,7 @@ class PlantEquipmentOperationUserDefined(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `equipment_1_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4127,7 +4212,7 @@ class PlantEquipmentOperationUserDefined(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `equipment_1_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4162,7 +4247,7 @@ class PlantEquipmentOperationUserDefined(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `equipment_2_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4197,7 +4282,7 @@ class PlantEquipmentOperationUserDefined(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `equipment_2_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4232,7 +4317,7 @@ class PlantEquipmentOperationUserDefined(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `equipment_3_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4267,7 +4352,7 @@ class PlantEquipmentOperationUserDefined(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `equipment_3_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4302,7 +4387,7 @@ class PlantEquipmentOperationUserDefined(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `equipment_4_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4337,7 +4422,7 @@ class PlantEquipmentOperationUserDefined(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `equipment_4_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4372,7 +4457,7 @@ class PlantEquipmentOperationUserDefined(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `equipment_5_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4407,7 +4492,7 @@ class PlantEquipmentOperationUserDefined(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `equipment_5_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4442,7 +4527,7 @@ class PlantEquipmentOperationUserDefined(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `equipment_6_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4477,7 +4562,7 @@ class PlantEquipmentOperationUserDefined(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `equipment_6_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4512,7 +4597,7 @@ class PlantEquipmentOperationUserDefined(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `equipment_7_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4547,7 +4632,7 @@ class PlantEquipmentOperationUserDefined(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `equipment_7_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4582,7 +4667,7 @@ class PlantEquipmentOperationUserDefined(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `equipment_8_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4617,7 +4702,7 @@ class PlantEquipmentOperationUserDefined(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `equipment_8_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4652,7 +4737,7 @@ class PlantEquipmentOperationUserDefined(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `equipment_9_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4687,7 +4772,7 @@ class PlantEquipmentOperationUserDefined(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `equipment_9_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4722,7 +4807,7 @@ class PlantEquipmentOperationUserDefined(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `equipment_10_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4757,7 +4842,7 @@ class PlantEquipmentOperationUserDefined(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `equipment_10_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '

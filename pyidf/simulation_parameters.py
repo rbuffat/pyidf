@@ -1,9 +1,10 @@
 from collections import OrderedDict
+import logging
+import re
 
 class Version(object):
     """ Corresponds to IDD object `Version`
         Specifies the EnergyPlus version of the IDF file.
-    
     """
     internal_name = "Version"
     field_count = 1
@@ -14,15 +15,16 @@ class Version(object):
         """
         self._data = OrderedDict()
         self._data["Version Identifier"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.version_identifier = None
@@ -31,6 +33,7 @@ class Version(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def version_identifier(self):
@@ -58,7 +61,7 @@ class Version(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `version_identifier`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -110,7 +113,6 @@ class SimulationControl(object):
         fields set to No, the corresponding Sizing object is ignored.
         Note also, if you want to do system sizing, you must also do zone sizing in the same
         run or an error will result.
-    
     """
     internal_name = "SimulationControl"
     field_count = 5
@@ -125,15 +127,16 @@ class SimulationControl(object):
         self._data["Do Plant Sizing Calculation"] = None
         self._data["Run Simulation for Sizing Periods"] = None
         self._data["Run Simulation for Weather File Run Periods"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.do_zone_sizing_calculation = None
@@ -170,6 +173,7 @@ class SimulationControl(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def do_zone_sizing_calculation(self):
@@ -202,7 +206,7 @@ class SimulationControl(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `do_zone_sizing_calculation`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -216,16 +220,26 @@ class SimulationControl(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `do_zone_sizing_calculation`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `do_zone_sizing_calculation`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Do Zone Sizing Calculation"] = value
 
@@ -261,7 +275,7 @@ class SimulationControl(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `do_system_sizing_calculation`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -275,16 +289,26 @@ class SimulationControl(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `do_system_sizing_calculation`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `do_system_sizing_calculation`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Do System Sizing Calculation"] = value
 
@@ -319,7 +343,7 @@ class SimulationControl(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `do_plant_sizing_calculation`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -333,16 +357,26 @@ class SimulationControl(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `do_plant_sizing_calculation`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `do_plant_sizing_calculation`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Do Plant Sizing Calculation"] = value
 
@@ -376,7 +410,7 @@ class SimulationControl(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `run_simulation_for_sizing_periods`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -390,16 +424,26 @@ class SimulationControl(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `run_simulation_for_sizing_periods`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `run_simulation_for_sizing_periods`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Run Simulation for Sizing Periods"] = value
 
@@ -433,7 +477,7 @@ class SimulationControl(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `run_simulation_for_weather_file_run_periods`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -447,16 +491,26 @@ class SimulationControl(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `run_simulation_for_weather_file_run_periods`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `run_simulation_for_weather_file_run_periods`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Run Simulation for Weather File Run Periods"] = value
 
@@ -500,7 +554,6 @@ class Building(object):
         of the building. There are necessary correlations between the entries for
         this object and some entries in the Site:WeatherStation and
         Site:HeightVariation objects, specifically the Terrain field.
-    
     """
     internal_name = "Building"
     field_count = 8
@@ -518,15 +571,16 @@ class Building(object):
         self._data["Solar Distribution"] = None
         self._data["Maximum Number of Warmup Days"] = None
         self._data["Minimum Number of Warmup Days"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -584,6 +638,7 @@ class Building(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -611,7 +666,7 @@ class Building(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -649,7 +704,7 @@ class Building(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `north_axis`'.format(value))
         self._data["North Axis"] = value
 
@@ -686,7 +741,7 @@ class Building(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `terrain`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -703,16 +758,26 @@ class Building(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `terrain`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `terrain`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Terrain"] = value
 
@@ -745,7 +810,7 @@ class Building(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `loads_convergence_tolerance_value`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -784,7 +849,7 @@ class Building(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_convergence_tolerance_value`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -827,7 +892,7 @@ class Building(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `solar_distribution`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -844,16 +909,26 @@ class Building(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `solar_distribution`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `solar_distribution`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Solar Distribution"] = value
 
@@ -886,8 +961,15 @@ class Building(object):
             try:
                 value = int(value)
             except ValueError:
-                raise ValueError('value {} need to be of type int '
-                                 'for field `maximum_number_of_warmup_days`'.format(value))
+                if not self.strict:
+                    try:
+                        conv_value = int(float(value))
+                        logging.warn('Cast float {} to int {}, precision may be lost '
+                                     'for field `maximum_number_of_warmup_days`'.format(value, conv_value))
+                        value = conv_value
+                    except ValueError:
+                        raise ValueError('value {} need to be of type int '
+                                         'for field `maximum_number_of_warmup_days`'.format(value))
             if value <= 0:
                 raise ValueError('value need to be greater 0 '
                                  'for field `maximum_number_of_warmup_days`')
@@ -925,8 +1007,15 @@ class Building(object):
             try:
                 value = int(value)
             except ValueError:
-                raise ValueError('value {} need to be of type int '
-                                 'for field `minimum_number_of_warmup_days`'.format(value))
+                if not self.strict:
+                    try:
+                        conv_value = int(float(value))
+                        logging.warn('Cast float {} to int {}, precision may be lost '
+                                     'for field `minimum_number_of_warmup_days`'.format(value, conv_value))
+                        value = conv_value
+                    except ValueError:
+                        raise ValueError('value {} need to be of type int '
+                                         'for field `minimum_number_of_warmup_days`'.format(value))
             if value <= 0:
                 raise ValueError('value need to be greater 0 '
                                  'for field `minimum_number_of_warmup_days`')
@@ -969,7 +1058,6 @@ class Building(object):
 class ShadowCalculation(object):
     """ Corresponds to IDD object `ShadowCalculation`
         This object is used to control details of the solar, shading, and daylighting models
-    
     """
     internal_name = "ShadowCalculation"
     field_count = 5
@@ -984,15 +1072,16 @@ class ShadowCalculation(object):
         self._data["Maximum Figures in Shadow Overlap Calculations"] = None
         self._data["Polygon Clipping Algorithm"] = None
         self._data["Sky Diffuse Modeling Algorithm"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.calculation_method = None
@@ -1029,6 +1118,7 @@ class ShadowCalculation(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def calculation_method(self):
@@ -1061,7 +1151,7 @@ class ShadowCalculation(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `calculation_method`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1075,16 +1165,26 @@ class ShadowCalculation(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `calculation_method`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `calculation_method`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Calculation Method"] = value
 
@@ -1120,8 +1220,15 @@ class ShadowCalculation(object):
             try:
                 value = int(value)
             except ValueError:
-                raise ValueError('value {} need to be of type int '
-                                 'for field `calculation_frequency`'.format(value))
+                if not self.strict:
+                    try:
+                        conv_value = int(float(value))
+                        logging.warn('Cast float {} to int {}, precision may be lost '
+                                     'for field `calculation_frequency`'.format(value, conv_value))
+                        value = conv_value
+                    except ValueError:
+                        raise ValueError('value {} need to be of type int '
+                                         'for field `calculation_frequency`'.format(value))
             if value < 1:
                 raise ValueError('value need to be greater or equal 1 '
                                  'for field `calculation_frequency`')
@@ -1155,8 +1262,15 @@ class ShadowCalculation(object):
             try:
                 value = int(value)
             except ValueError:
-                raise ValueError('value {} need to be of type int '
-                                 'for field `maximum_figures_in_shadow_overlap_calculations`'.format(value))
+                if not self.strict:
+                    try:
+                        conv_value = int(float(value))
+                        logging.warn('Cast float {} to int {}, precision may be lost '
+                                     'for field `maximum_figures_in_shadow_overlap_calculations`'.format(value, conv_value))
+                        value = conv_value
+                    except ValueError:
+                        raise ValueError('value {} need to be of type int '
+                                         'for field `maximum_figures_in_shadow_overlap_calculations`'.format(value))
             if value < 200:
                 raise ValueError('value need to be greater or equal 200 '
                                  'for field `maximum_figures_in_shadow_overlap_calculations`')
@@ -1192,7 +1306,7 @@ class ShadowCalculation(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `polygon_clipping_algorithm`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1206,16 +1320,26 @@ class ShadowCalculation(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `polygon_clipping_algorithm`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `polygon_clipping_algorithm`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Polygon Clipping Algorithm"] = value
 
@@ -1251,7 +1375,7 @@ class ShadowCalculation(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `sky_diffuse_modeling_algorithm`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1265,16 +1389,26 @@ class ShadowCalculation(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `sky_diffuse_modeling_algorithm`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `sky_diffuse_modeling_algorithm`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Sky Diffuse Modeling Algorithm"] = value
 
@@ -1315,7 +1449,6 @@ class ShadowCalculation(object):
 class SurfaceConvectionAlgorithmInside(object):
     """ Corresponds to IDD object `SurfaceConvectionAlgorithm:Inside`
         Default indoor surface heat transfer convection algorithm to be used for all zones
-    
     """
     internal_name = "SurfaceConvectionAlgorithm:Inside"
     field_count = 1
@@ -1326,15 +1459,16 @@ class SurfaceConvectionAlgorithmInside(object):
         """
         self._data = OrderedDict()
         self._data["Algorithm"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.algorithm = None
@@ -1343,6 +1477,7 @@ class SurfaceConvectionAlgorithmInside(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def algorithm(self):
@@ -1380,7 +1515,7 @@ class SurfaceConvectionAlgorithmInside(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `algorithm`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1396,16 +1531,26 @@ class SurfaceConvectionAlgorithmInside(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `algorithm`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `algorithm`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Algorithm"] = value
 
@@ -1446,7 +1591,6 @@ class SurfaceConvectionAlgorithmInside(object):
 class SurfaceConvectionAlgorithmOutside(object):
     """ Corresponds to IDD object `SurfaceConvectionAlgorithm:Outside`
         Default outside surface heat transfer convection algorithm to be used for all zones
-    
     """
     internal_name = "SurfaceConvectionAlgorithm:Outside"
     field_count = 1
@@ -1457,15 +1601,16 @@ class SurfaceConvectionAlgorithmOutside(object):
         """
         self._data = OrderedDict()
         self._data["Algorithm"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.algorithm = None
@@ -1474,6 +1619,7 @@ class SurfaceConvectionAlgorithmOutside(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def algorithm(self):
@@ -1512,7 +1658,7 @@ class SurfaceConvectionAlgorithmOutside(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `algorithm`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1529,16 +1675,26 @@ class SurfaceConvectionAlgorithmOutside(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `algorithm`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `algorithm`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Algorithm"] = value
 
@@ -1584,7 +1740,6 @@ class HeatBalanceAlgorithm(object):
         Advanced/Research Usage: CondFD (Conduction Finite Difference)
         Advanced/Research Usage: ConductionFiniteDifferenceSimplified
         Advanced/Research Usage: HAMT (Combined Heat And Moisture Finite Element)
-    
     """
     internal_name = "HeatBalanceAlgorithm"
     field_count = 4
@@ -1598,15 +1753,16 @@ class HeatBalanceAlgorithm(object):
         self._data["Surface Temperature Upper Limit"] = None
         self._data["Minimum Surface Convection Heat Transfer Coefficient Value"] = None
         self._data["Maximum Surface Convection Heat Transfer Coefficient Value"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.algorithm = None
@@ -1636,6 +1792,7 @@ class HeatBalanceAlgorithm(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def algorithm(self):
@@ -1668,7 +1825,7 @@ class HeatBalanceAlgorithm(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `algorithm`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1684,16 +1841,26 @@ class HeatBalanceAlgorithm(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `algorithm`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `algorithm`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Algorithm"] = value
 
@@ -1725,7 +1892,7 @@ class HeatBalanceAlgorithm(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `surface_temperature_upper_limit`'.format(value))
             if value < 200.0:
                 raise ValueError('value need to be greater or equal 200.0 '
@@ -1760,7 +1927,7 @@ class HeatBalanceAlgorithm(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `minimum_surface_convection_heat_transfer_coefficient_value`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -1795,7 +1962,7 @@ class HeatBalanceAlgorithm(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `maximum_surface_convection_heat_transfer_coefficient_value`'.format(value))
             if value < 1.0:
                 raise ValueError('value need to be greater or equal 1.0 '
@@ -1840,7 +2007,6 @@ class HeatBalanceSettingsConductionFiniteDifference(object):
     """ Corresponds to IDD object `HeatBalanceSettings:ConductionFiniteDifference`
         Determines settings for the Conduction Finite Difference
         algorithm for surface heat transfer modeling.
-    
     """
     internal_name = "HeatBalanceSettings:ConductionFiniteDifference"
     field_count = 4
@@ -1854,15 +2020,16 @@ class HeatBalanceSettingsConductionFiniteDifference(object):
         self._data["Space Discretization Constant"] = None
         self._data["Relaxation Factor"] = None
         self._data["Inside Face Surface Temperature Convergence Criteria"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.difference_scheme = None
@@ -1892,6 +2059,7 @@ class HeatBalanceSettingsConductionFiniteDifference(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def difference_scheme(self):
@@ -1922,7 +2090,7 @@ class HeatBalanceSettingsConductionFiniteDifference(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `difference_scheme`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1936,16 +2104,26 @@ class HeatBalanceSettingsConductionFiniteDifference(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `difference_scheme`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `difference_scheme`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Difference Scheme"] = value
 
@@ -1976,7 +2154,7 @@ class HeatBalanceSettingsConductionFiniteDifference(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `space_discretization_constant`'.format(value))
         self._data["Space Discretization Constant"] = value
 
@@ -2008,7 +2186,7 @@ class HeatBalanceSettingsConductionFiniteDifference(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `relaxation_factor`'.format(value))
             if value < 0.01:
                 raise ValueError('value need to be greater or equal 0.01 '
@@ -2046,7 +2224,7 @@ class HeatBalanceSettingsConductionFiniteDifference(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `inside_face_surface_temperature_convergence_criteria`'.format(value))
             if value < 1e-07:
                 raise ValueError('value need to be greater or equal 1e-07 '
@@ -2093,7 +2271,6 @@ class HeatBalanceSettingsConductionFiniteDifference(object):
 class ZoneAirHeatBalanceAlgorithm(object):
     """ Corresponds to IDD object `ZoneAirHeatBalanceAlgorithm`
         Determines which algorithm will be used to solve the zone air heat balance.
-    
     """
     internal_name = "ZoneAirHeatBalanceAlgorithm"
     field_count = 1
@@ -2104,15 +2281,16 @@ class ZoneAirHeatBalanceAlgorithm(object):
         """
         self._data = OrderedDict()
         self._data["Algorithm"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.algorithm = None
@@ -2121,6 +2299,7 @@ class ZoneAirHeatBalanceAlgorithm(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def algorithm(self):
@@ -2152,7 +2331,7 @@ class ZoneAirHeatBalanceAlgorithm(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `algorithm`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2167,16 +2346,26 @@ class ZoneAirHeatBalanceAlgorithm(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `algorithm`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `algorithm`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Algorithm"] = value
 
@@ -2217,7 +2406,6 @@ class ZoneAirHeatBalanceAlgorithm(object):
 class ZoneAirContaminantBalance(object):
     """ Corresponds to IDD object `ZoneAirContaminantBalance`
         Determines which contaminant concentration will be simulates.
-    
     """
     internal_name = "ZoneAirContaminantBalance"
     field_count = 4
@@ -2231,15 +2419,16 @@ class ZoneAirContaminantBalance(object):
         self._data["Outdoor Carbon Dioxide Schedule Name"] = None
         self._data["Generic Contaminant Concentration"] = None
         self._data["Outdoor Generic Contaminant Schedule Name"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.carbon_dioxide_concentration = None
@@ -2269,6 +2458,7 @@ class ZoneAirContaminantBalance(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def carbon_dioxide_concentration(self):
@@ -2300,7 +2490,7 @@ class ZoneAirContaminantBalance(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `carbon_dioxide_concentration`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2314,16 +2504,26 @@ class ZoneAirContaminantBalance(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `carbon_dioxide_concentration`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `carbon_dioxide_concentration`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Carbon Dioxide Concentration"] = value
 
@@ -2353,7 +2553,7 @@ class ZoneAirContaminantBalance(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `outdoor_carbon_dioxide_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2393,7 +2593,7 @@ class ZoneAirContaminantBalance(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `generic_contaminant_concentration`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2407,16 +2607,26 @@ class ZoneAirContaminantBalance(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `generic_contaminant_concentration`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `generic_contaminant_concentration`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Generic Contaminant Concentration"] = value
 
@@ -2447,7 +2657,7 @@ class ZoneAirContaminantBalance(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `outdoor_generic_contaminant_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2496,7 +2706,6 @@ class ZoneAirMassFlowConservation(object):
         Enforces the zone air mass flow balance by adjusting zone mixing object flow rates.
         The infiltration object mass flow rate may also be adjusted or may add infiltration
         air flow to the base infiltration air flow for source zones only.
-    
     """
     internal_name = "ZoneAirMassFlowConservation"
     field_count = 2
@@ -2508,15 +2717,16 @@ class ZoneAirMassFlowConservation(object):
         self._data = OrderedDict()
         self._data["Adjust Zone Mixing For Zone Air Mass Flow Balance"] = None
         self._data["Source Zone Infiltration Treatment"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.adjust_zone_mixing_for_zone_air_mass_flow_balance = None
@@ -2532,6 +2742,7 @@ class ZoneAirMassFlowConservation(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def adjust_zone_mixing_for_zone_air_mass_flow_balance(self):
@@ -2576,7 +2787,7 @@ class ZoneAirMassFlowConservation(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `adjust_zone_mixing_for_zone_air_mass_flow_balance`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2590,16 +2801,26 @@ class ZoneAirMassFlowConservation(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `adjust_zone_mixing_for_zone_air_mass_flow_balance`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `adjust_zone_mixing_for_zone_air_mass_flow_balance`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Adjust Zone Mixing For Zone Air Mass Flow Balance"] = value
 
@@ -2645,7 +2866,7 @@ class ZoneAirMassFlowConservation(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `source_zone_infiltration_treatment`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2659,16 +2880,26 @@ class ZoneAirMassFlowConservation(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `source_zone_infiltration_treatment`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `source_zone_infiltration_treatment`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Source Zone Infiltration Treatment"] = value
 
@@ -2709,7 +2940,6 @@ class ZoneAirMassFlowConservation(object):
 class ZoneCapacitanceMultiplierResearchSpecial(object):
     """ Corresponds to IDD object `ZoneCapacitanceMultiplier:ResearchSpecial`
         Multiplier altering the relative capacitance of the air compared to an empty zone
-    
     """
     internal_name = "ZoneCapacitanceMultiplier:ResearchSpecial"
     field_count = 4
@@ -2723,15 +2953,16 @@ class ZoneCapacitanceMultiplierResearchSpecial(object):
         self._data["Humidity Capacity Multiplier"] = None
         self._data["Carbon Dioxide Capacity Multiplier"] = None
         self._data["Generic Contaminant Capacity Multiplier"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.temperature_capacity_multiplier = None
@@ -2761,6 +2992,7 @@ class ZoneCapacitanceMultiplierResearchSpecial(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def temperature_capacity_multiplier(self):
@@ -2790,7 +3022,7 @@ class ZoneCapacitanceMultiplierResearchSpecial(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_capacity_multiplier`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -2825,7 +3057,7 @@ class ZoneCapacitanceMultiplierResearchSpecial(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `humidity_capacity_multiplier`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -2860,7 +3092,7 @@ class ZoneCapacitanceMultiplierResearchSpecial(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `carbon_dioxide_capacity_multiplier`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -2895,7 +3127,7 @@ class ZoneCapacitanceMultiplierResearchSpecial(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `generic_contaminant_capacity_multiplier`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -2942,7 +3174,6 @@ class Timestep(object):
         value entered here is also known as the Zone Timestep.  This is used in
         the Zone Heat Balance Model calculation as the driving timestep for heat
         transfer and load calculations.
-    
     """
     internal_name = "Timestep"
     field_count = 1
@@ -2953,15 +3184,16 @@ class Timestep(object):
         """
         self._data = OrderedDict()
         self._data["Number of Timesteps per Hour"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.number_of_timesteps_per_hour = None
@@ -2970,6 +3202,7 @@ class Timestep(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def number_of_timesteps_per_hour(self):
@@ -3006,8 +3239,15 @@ class Timestep(object):
             try:
                 value = int(value)
             except ValueError:
-                raise ValueError('value {} need to be of type int '
-                                 'for field `number_of_timesteps_per_hour`'.format(value))
+                if not self.strict:
+                    try:
+                        conv_value = int(float(value))
+                        logging.warn('Cast float {} to int {}, precision may be lost '
+                                     'for field `number_of_timesteps_per_hour`'.format(value, conv_value))
+                        value = conv_value
+                    except ValueError:
+                        raise ValueError('value {} need to be of type int '
+                                         'for field `number_of_timesteps_per_hour`'.format(value))
             if value < 1:
                 raise ValueError('value need to be greater or equal 1 '
                                  'for field `number_of_timesteps_per_hour`')
@@ -3054,7 +3294,6 @@ class ConvergenceLimits(object):
     """ Corresponds to IDD object `ConvergenceLimits`
         Specifies limits on HVAC system simulation timesteps and iterations.
         This item is an advanced feature that should be used only with caution.
-    
     """
     internal_name = "ConvergenceLimits"
     field_count = 4
@@ -3068,15 +3307,16 @@ class ConvergenceLimits(object):
         self._data["Maximum HVAC Iterations"] = None
         self._data["Minimum Plant Iterations"] = None
         self._data["Maximum Plant Iterations"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.minimum_system_timestep = None
@@ -3106,6 +3346,7 @@ class ConvergenceLimits(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def minimum_system_timestep(self):
@@ -3138,8 +3379,15 @@ class ConvergenceLimits(object):
             try:
                 value = int(value)
             except ValueError:
-                raise ValueError('value {} need to be of type int '
-                                 'for field `minimum_system_timestep`'.format(value))
+                if not self.strict:
+                    try:
+                        conv_value = int(float(value))
+                        logging.warn('Cast float {} to int {}, precision may be lost '
+                                     'for field `minimum_system_timestep`'.format(value, conv_value))
+                        value = conv_value
+                    except ValueError:
+                        raise ValueError('value {} need to be of type int '
+                                         'for field `minimum_system_timestep`'.format(value))
             if value < 0:
                 raise ValueError('value need to be greater or equal 0 '
                                  'for field `minimum_system_timestep`')
@@ -3175,8 +3423,15 @@ class ConvergenceLimits(object):
             try:
                 value = int(value)
             except ValueError:
-                raise ValueError('value {} need to be of type int '
-                                 'for field `maximum_hvac_iterations`'.format(value))
+                if not self.strict:
+                    try:
+                        conv_value = int(float(value))
+                        logging.warn('Cast float {} to int {}, precision may be lost '
+                                     'for field `maximum_hvac_iterations`'.format(value, conv_value))
+                        value = conv_value
+                    except ValueError:
+                        raise ValueError('value {} need to be of type int '
+                                         'for field `maximum_hvac_iterations`'.format(value))
             if value < 1:
                 raise ValueError('value need to be greater or equal 1 '
                                  'for field `maximum_hvac_iterations`')
@@ -3212,8 +3467,15 @@ class ConvergenceLimits(object):
             try:
                 value = int(value)
             except ValueError:
-                raise ValueError('value {} need to be of type int '
-                                 'for field `minimum_plant_iterations`'.format(value))
+                if not self.strict:
+                    try:
+                        conv_value = int(float(value))
+                        logging.warn('Cast float {} to int {}, precision may be lost '
+                                     'for field `minimum_plant_iterations`'.format(value, conv_value))
+                        value = conv_value
+                    except ValueError:
+                        raise ValueError('value {} need to be of type int '
+                                         'for field `minimum_plant_iterations`'.format(value))
             if value < 1:
                 raise ValueError('value need to be greater or equal 1 '
                                  'for field `minimum_plant_iterations`')
@@ -3248,8 +3510,15 @@ class ConvergenceLimits(object):
             try:
                 value = int(value)
             except ValueError:
-                raise ValueError('value {} need to be of type int '
-                                 'for field `maximum_plant_iterations`'.format(value))
+                if not self.strict:
+                    try:
+                        conv_value = int(float(value))
+                        logging.warn('Cast float {} to int {}, precision may be lost '
+                                     'for field `maximum_plant_iterations`'.format(value, conv_value))
+                        value = conv_value
+                    except ValueError:
+                        raise ValueError('value {} need to be of type int '
+                                         'for field `maximum_plant_iterations`'.format(value))
             if value < 2:
                 raise ValueError('value need to be greater or equal 2 '
                                  'for field `maximum_plant_iterations`')
@@ -3292,7 +3561,6 @@ class ConvergenceLimits(object):
 class ProgramControl(object):
     """ Corresponds to IDD object `ProgramControl`
         used to support various efforts in time reduction for simulation including threading
-    
     """
     internal_name = "ProgramControl"
     field_count = 1
@@ -3303,15 +3571,16 @@ class ProgramControl(object):
         """
         self._data = OrderedDict()
         self._data["Number of Threads Allowed"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.number_of_threads_allowed = None
@@ -3320,6 +3589,7 @@ class ProgramControl(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def number_of_threads_allowed(self):
@@ -3349,8 +3619,15 @@ class ProgramControl(object):
             try:
                 value = int(value)
             except ValueError:
-                raise ValueError('value {} need to be of type int '
-                                 'for field `number_of_threads_allowed`'.format(value))
+                if not self.strict:
+                    try:
+                        conv_value = int(float(value))
+                        logging.warn('Cast float {} to int {}, precision may be lost '
+                                     'for field `number_of_threads_allowed`'.format(value, conv_value))
+                        value = conv_value
+                    except ValueError:
+                        raise ValueError('value {} need to be of type int '
+                                         'for field `number_of_threads_allowed`'.format(value))
             if value < 0:
                 raise ValueError('value need to be greater or equal 0 '
                                  'for field `number_of_threads_allowed`')

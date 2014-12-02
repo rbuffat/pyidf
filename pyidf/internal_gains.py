@@ -1,11 +1,12 @@
 from collections import OrderedDict
+import logging
+import re
 
 class People(object):
     """ Corresponds to IDD object `People`
         Sets internal gains and contaminant rates for occupants in the zone.
         If you use a ZoneList in the Zone or ZoneList name field then this definition applies
         to all the zones in the ZoneList.
-    
     """
     internal_name = "People"
     field_count = 24
@@ -39,15 +40,16 @@ class People(object):
         self._data["Thermal Comfort Model 3 Type"] = None
         self._data["Thermal Comfort Model 4 Type"] = None
         self._data["Thermal Comfort Model 5 Type"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -217,6 +219,7 @@ class People(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -243,7 +246,7 @@ class People(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -278,7 +281,7 @@ class People(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `zone_or_zonelist_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -314,7 +317,7 @@ class People(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `number_of_people_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -359,7 +362,7 @@ class People(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `number_of_people_calculation_method`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -374,16 +377,26 @@ class People(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `number_of_people_calculation_method`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `number_of_people_calculation_method`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Number of People Calculation Method"] = value
 
@@ -413,7 +426,7 @@ class People(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `number_of_people`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -447,7 +460,7 @@ class People(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `people_per_zone_floor_area`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -481,7 +494,7 @@ class People(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `zone_floor_area_per_person`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -515,7 +528,7 @@ class People(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_radiant`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -556,12 +569,17 @@ class People(object):
                 if value_lower == "autocalculate":
                     self._data["Sensible Heat Fraction"] = "Autocalculate"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autocalculate" '
+                                 'for field `sensible_heat_fraction`'.format(value))
+                    self._data["Sensible Heat Fraction"] = "Autocalculate"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autocalculate"'
                                  'for field `sensible_heat_fraction`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -598,7 +616,7 @@ class People(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `activity_level_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -640,7 +658,7 @@ class People(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `carbon_dioxide_generation_rate`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -679,7 +697,7 @@ class People(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `enable_ashrae_55_comfort_warnings`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -693,16 +711,26 @@ class People(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `enable_ashrae_55_comfort_warnings`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `enable_ashrae_55_comfort_warnings`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Enable ASHRAE 55 Comfort Warnings"] = value
 
@@ -737,7 +765,7 @@ class People(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `mean_radiant_temperature_calculation_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -752,16 +780,26 @@ class People(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `mean_radiant_temperature_calculation_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `mean_radiant_temperature_calculation_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Mean Radiant Temperature Calculation Type"] = value
 
@@ -791,7 +829,7 @@ class People(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_name_or_angle_factor_list_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -828,7 +866,7 @@ class People(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `work_efficiency_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -868,7 +906,7 @@ class People(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `clothing_insulation_calculation_method`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -883,16 +921,26 @@ class People(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `clothing_insulation_calculation_method`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `clothing_insulation_calculation_method`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Clothing Insulation Calculation Method"] = value
 
@@ -922,7 +970,7 @@ class People(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `clothing_insulation_calculation_method_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -959,7 +1007,7 @@ class People(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `clothing_insulation_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -996,7 +1044,7 @@ class People(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `air_velocity_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1038,7 +1086,7 @@ class People(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `thermal_comfort_model_1_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1055,16 +1103,26 @@ class People(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `thermal_comfort_model_1_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `thermal_comfort_model_1_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Thermal Comfort Model 1 Type"] = value
 
@@ -1100,7 +1158,7 @@ class People(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `thermal_comfort_model_2_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1117,16 +1175,26 @@ class People(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `thermal_comfort_model_2_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `thermal_comfort_model_2_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Thermal Comfort Model 2 Type"] = value
 
@@ -1162,7 +1230,7 @@ class People(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `thermal_comfort_model_3_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1179,16 +1247,26 @@ class People(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `thermal_comfort_model_3_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `thermal_comfort_model_3_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Thermal Comfort Model 3 Type"] = value
 
@@ -1224,7 +1302,7 @@ class People(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `thermal_comfort_model_4_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1241,16 +1319,26 @@ class People(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `thermal_comfort_model_4_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `thermal_comfort_model_4_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Thermal Comfort Model 4 Type"] = value
 
@@ -1286,7 +1374,7 @@ class People(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `thermal_comfort_model_5_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1303,16 +1391,26 @@ class People(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `thermal_comfort_model_5_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `thermal_comfort_model_5_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Thermal Comfort Model 5 Type"] = value
 
@@ -1353,7 +1451,6 @@ class People(object):
 class ComfortViewFactorAngles(object):
     """ Corresponds to IDD object `ComfortViewFactorAngles`
         Used to specify radiant view factors for thermal comfort calculations.
-    
     """
     internal_name = "ComfortViewFactorAngles"
     field_count = 42
@@ -1405,15 +1502,16 @@ class ComfortViewFactorAngles(object):
         self._data["Angle Factor 19"] = None
         self._data["Surface 20 Name"] = None
         self._data["Angle Factor 20"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -1709,6 +1807,7 @@ class ComfortViewFactorAngles(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -1735,7 +1834,7 @@ class ComfortViewFactorAngles(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1770,7 +1869,7 @@ class ComfortViewFactorAngles(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `zone_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1805,7 +1904,7 @@ class ComfortViewFactorAngles(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_1_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1842,7 +1941,7 @@ class ComfortViewFactorAngles(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `angle_factor_1`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -1877,7 +1976,7 @@ class ComfortViewFactorAngles(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_2_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1914,7 +2013,7 @@ class ComfortViewFactorAngles(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `angle_factor_2`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -1949,7 +2048,7 @@ class ComfortViewFactorAngles(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_3_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1986,7 +2085,7 @@ class ComfortViewFactorAngles(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `angle_factor_3`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -2021,7 +2120,7 @@ class ComfortViewFactorAngles(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_4_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2058,7 +2157,7 @@ class ComfortViewFactorAngles(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `angle_factor_4`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -2093,7 +2192,7 @@ class ComfortViewFactorAngles(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_5_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2130,7 +2229,7 @@ class ComfortViewFactorAngles(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `angle_factor_5`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -2165,7 +2264,7 @@ class ComfortViewFactorAngles(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_6_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2202,7 +2301,7 @@ class ComfortViewFactorAngles(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `angle_factor_6`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -2237,7 +2336,7 @@ class ComfortViewFactorAngles(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_7_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2274,7 +2373,7 @@ class ComfortViewFactorAngles(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `angle_factor_7`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -2309,7 +2408,7 @@ class ComfortViewFactorAngles(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_8_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2346,7 +2445,7 @@ class ComfortViewFactorAngles(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `angle_factor_8`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -2381,7 +2480,7 @@ class ComfortViewFactorAngles(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_9_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2418,7 +2517,7 @@ class ComfortViewFactorAngles(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `angle_factor_9`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -2453,7 +2552,7 @@ class ComfortViewFactorAngles(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_10_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2490,7 +2589,7 @@ class ComfortViewFactorAngles(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `angle_factor_10`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -2525,7 +2624,7 @@ class ComfortViewFactorAngles(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_11_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2562,7 +2661,7 @@ class ComfortViewFactorAngles(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `angle_factor_11`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -2597,7 +2696,7 @@ class ComfortViewFactorAngles(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_12_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2634,7 +2733,7 @@ class ComfortViewFactorAngles(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `angle_factor_12`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -2669,7 +2768,7 @@ class ComfortViewFactorAngles(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_13_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2706,7 +2805,7 @@ class ComfortViewFactorAngles(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `angle_factor_13`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -2741,7 +2840,7 @@ class ComfortViewFactorAngles(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_14_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2778,7 +2877,7 @@ class ComfortViewFactorAngles(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `angle_factor_14`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -2813,7 +2912,7 @@ class ComfortViewFactorAngles(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_15_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2850,7 +2949,7 @@ class ComfortViewFactorAngles(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `angle_factor_15`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -2885,7 +2984,7 @@ class ComfortViewFactorAngles(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_16_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2922,7 +3021,7 @@ class ComfortViewFactorAngles(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `angle_factor_16`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -2957,7 +3056,7 @@ class ComfortViewFactorAngles(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_17_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2994,7 +3093,7 @@ class ComfortViewFactorAngles(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `angle_factor_17`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -3029,7 +3128,7 @@ class ComfortViewFactorAngles(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_18_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3066,7 +3165,7 @@ class ComfortViewFactorAngles(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `angle_factor_18`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -3101,7 +3200,7 @@ class ComfortViewFactorAngles(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_19_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3138,7 +3237,7 @@ class ComfortViewFactorAngles(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `angle_factor_19`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -3173,7 +3272,7 @@ class ComfortViewFactorAngles(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_20_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3210,7 +3309,7 @@ class ComfortViewFactorAngles(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `angle_factor_20`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -3259,7 +3358,6 @@ class Lights(object):
         Sets internal gains for lights in the zone.
         If you use a ZoneList in the Zone or ZoneList name field then this definition applies
         to all the zones in the ZoneList.
-    
     """
     internal_name = "Lights"
     field_count = 15
@@ -3284,15 +3382,16 @@ class Lights(object):
         self._data["Return Air Fraction Calculated from Plenum Temperature"] = None
         self._data["Return Air Fraction Function of Plenum Temperature Coefficient 1"] = None
         self._data["Return Air Fraction Function of Plenum Temperature Coefficient 2"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -3399,6 +3498,7 @@ class Lights(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -3425,7 +3525,7 @@ class Lights(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3460,7 +3560,7 @@ class Lights(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `zone_or_zonelist_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3496,7 +3596,7 @@ class Lights(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3541,7 +3641,7 @@ class Lights(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `design_level_calculation_method`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3556,16 +3656,26 @@ class Lights(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `design_level_calculation_method`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `design_level_calculation_method`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Design Level Calculation Method"] = value
 
@@ -3597,7 +3707,7 @@ class Lights(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `lighting_level`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -3632,7 +3742,7 @@ class Lights(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `watts_per_zone_floor_area`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -3667,7 +3777,7 @@ class Lights(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `watts_per_person`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -3704,7 +3814,7 @@ class Lights(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `return_air_fraction`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -3742,7 +3852,7 @@ class Lights(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_radiant`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -3780,7 +3890,7 @@ class Lights(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_visible`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -3820,7 +3930,7 @@ class Lights(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_replaceable`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -3856,7 +3966,7 @@ class Lights(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `enduse_subcategory`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3895,7 +4005,7 @@ class Lights(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `return_air_fraction_calculated_from_plenum_temperature`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3909,16 +4019,26 @@ class Lights(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `return_air_fraction_calculated_from_plenum_temperature`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `return_air_fraction_calculated_from_plenum_temperature`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Return Air Fraction Calculated from Plenum Temperature"] = value
 
@@ -3951,7 +4071,7 @@ class Lights(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `return_air_fraction_function_of_plenum_temperature_coefficient_1`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -3988,7 +4108,7 @@ class Lights(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `return_air_fraction_function_of_plenum_temperature_coefficient_2`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -4034,7 +4154,6 @@ class ElectricEquipment(object):
         Sets internal gains for electric equipment in the zone.
         If you use a ZoneList in the Zone or ZoneList name field then this definition applies
         to all the zones in the ZoneList.
-    
     """
     internal_name = "ElectricEquipment"
     field_count = 11
@@ -4055,15 +4174,16 @@ class ElectricEquipment(object):
         self._data["Fraction Radiant"] = None
         self._data["Fraction Lost"] = None
         self._data["End-Use Subcategory"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -4142,6 +4262,7 @@ class ElectricEquipment(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -4168,7 +4289,7 @@ class ElectricEquipment(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4203,7 +4324,7 @@ class ElectricEquipment(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `zone_or_zonelist_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4239,7 +4360,7 @@ class ElectricEquipment(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4284,7 +4405,7 @@ class ElectricEquipment(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `design_level_calculation_method`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4299,16 +4420,26 @@ class ElectricEquipment(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `design_level_calculation_method`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `design_level_calculation_method`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Design Level Calculation Method"] = value
 
@@ -4340,7 +4471,7 @@ class ElectricEquipment(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `design_level`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -4375,7 +4506,7 @@ class ElectricEquipment(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `watts_per_zone_floor_area`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -4410,7 +4541,7 @@ class ElectricEquipment(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `watts_per_person`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -4445,7 +4576,7 @@ class ElectricEquipment(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_latent`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -4483,7 +4614,7 @@ class ElectricEquipment(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_radiant`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -4521,7 +4652,7 @@ class ElectricEquipment(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_lost`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -4557,7 +4688,7 @@ class ElectricEquipment(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `enduse_subcategory`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4605,7 +4736,6 @@ class GasEquipment(object):
     """ Corresponds to IDD object `GasEquipment`
         Sets internal gains and contaminant rates for gas equipment in the zone.
         If you use a ZoneList in the Zone name field then this definition applies to all those zones.
-    
     """
     internal_name = "GasEquipment"
     field_count = 12
@@ -4627,15 +4757,16 @@ class GasEquipment(object):
         self._data["Fraction Lost"] = None
         self._data["Carbon Dioxide Generation Rate"] = None
         self._data["End-Use Subcategory"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -4721,6 +4852,7 @@ class GasEquipment(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -4747,7 +4879,7 @@ class GasEquipment(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4782,7 +4914,7 @@ class GasEquipment(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `zone_or_zonelist_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4818,7 +4950,7 @@ class GasEquipment(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4865,7 +4997,7 @@ class GasEquipment(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `design_level_calculation_method`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4882,16 +5014,26 @@ class GasEquipment(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `design_level_calculation_method`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `design_level_calculation_method`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Design Level Calculation Method"] = value
 
@@ -4923,7 +5065,7 @@ class GasEquipment(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `design_level`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -4958,7 +5100,7 @@ class GasEquipment(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `power_per_zone_floor_area`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -4993,7 +5135,7 @@ class GasEquipment(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `power_per_person`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -5028,7 +5170,7 @@ class GasEquipment(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_latent`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -5066,7 +5208,7 @@ class GasEquipment(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_radiant`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -5104,7 +5246,7 @@ class GasEquipment(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_lost`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -5149,7 +5291,7 @@ class GasEquipment(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `carbon_dioxide_generation_rate`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -5185,7 +5327,7 @@ class GasEquipment(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `enduse_subcategory`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -5233,7 +5375,6 @@ class HotWaterEquipment(object):
     """ Corresponds to IDD object `HotWaterEquipment`
         Sets internal gains for hot water equipment in the zone.
         If you use a ZoneList in the Zone name field then this definition applies to all those zones.
-    
     """
     internal_name = "HotWaterEquipment"
     field_count = 11
@@ -5254,15 +5395,16 @@ class HotWaterEquipment(object):
         self._data["Fraction Radiant"] = None
         self._data["Fraction Lost"] = None
         self._data["End-Use Subcategory"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -5341,6 +5483,7 @@ class HotWaterEquipment(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -5367,7 +5510,7 @@ class HotWaterEquipment(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -5402,7 +5545,7 @@ class HotWaterEquipment(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `zone_or_zonelist_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -5438,7 +5581,7 @@ class HotWaterEquipment(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -5485,7 +5628,7 @@ class HotWaterEquipment(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `design_level_calculation_method`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -5502,16 +5645,26 @@ class HotWaterEquipment(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `design_level_calculation_method`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `design_level_calculation_method`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Design Level Calculation Method"] = value
 
@@ -5543,7 +5696,7 @@ class HotWaterEquipment(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `design_level`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -5578,7 +5731,7 @@ class HotWaterEquipment(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `power_per_zone_floor_area`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -5613,7 +5766,7 @@ class HotWaterEquipment(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `power_per_person`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -5648,7 +5801,7 @@ class HotWaterEquipment(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_latent`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -5686,7 +5839,7 @@ class HotWaterEquipment(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_radiant`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -5724,7 +5877,7 @@ class HotWaterEquipment(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_lost`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -5760,7 +5913,7 @@ class HotWaterEquipment(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `enduse_subcategory`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -5807,7 +5960,6 @@ class HotWaterEquipment(object):
 class SteamEquipment(object):
     """ Corresponds to IDD object `SteamEquipment`
         Sets internal gains for steam equipment in the zone.
-    
     """
     internal_name = "SteamEquipment"
     field_count = 11
@@ -5828,15 +5980,16 @@ class SteamEquipment(object):
         self._data["Fraction Radiant"] = None
         self._data["Fraction Lost"] = None
         self._data["End-Use Subcategory"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -5915,6 +6068,7 @@ class SteamEquipment(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -5941,7 +6095,7 @@ class SteamEquipment(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -5976,7 +6130,7 @@ class SteamEquipment(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `zone_or_zonelist_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -6012,7 +6166,7 @@ class SteamEquipment(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -6059,7 +6213,7 @@ class SteamEquipment(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `design_level_calculation_method`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -6076,16 +6230,26 @@ class SteamEquipment(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `design_level_calculation_method`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `design_level_calculation_method`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Design Level Calculation Method"] = value
 
@@ -6117,7 +6281,7 @@ class SteamEquipment(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `design_level`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -6152,7 +6316,7 @@ class SteamEquipment(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `power_per_zone_floor_area`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -6187,7 +6351,7 @@ class SteamEquipment(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `power_per_person`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -6222,7 +6386,7 @@ class SteamEquipment(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_latent`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -6260,7 +6424,7 @@ class SteamEquipment(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_radiant`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -6298,7 +6462,7 @@ class SteamEquipment(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_lost`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -6334,7 +6498,7 @@ class SteamEquipment(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `enduse_subcategory`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -6381,7 +6545,6 @@ class SteamEquipment(object):
 class OtherEquipment(object):
     """ Corresponds to IDD object `OtherEquipment`
         Sets internal gains or losses for "other" equipment in the zone.
-    
     """
     internal_name = "OtherEquipment"
     field_count = 10
@@ -6401,15 +6564,16 @@ class OtherEquipment(object):
         self._data["Fraction Latent"] = None
         self._data["Fraction Radiant"] = None
         self._data["Fraction Lost"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -6481,6 +6645,7 @@ class OtherEquipment(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -6507,7 +6672,7 @@ class OtherEquipment(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -6542,7 +6707,7 @@ class OtherEquipment(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `zone_or_zonelist_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -6578,7 +6743,7 @@ class OtherEquipment(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -6626,7 +6791,7 @@ class OtherEquipment(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `design_level_calculation_method`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -6643,16 +6808,26 @@ class OtherEquipment(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `design_level_calculation_method`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `design_level_calculation_method`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Design Level Calculation Method"] = value
 
@@ -6683,7 +6858,7 @@ class OtherEquipment(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `design_level`'.format(value))
         self._data["Design Level"] = value
 
@@ -6714,7 +6889,7 @@ class OtherEquipment(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `power_per_zone_floor_area`'.format(value))
         self._data["Power per Zone Floor Area"] = value
 
@@ -6745,7 +6920,7 @@ class OtherEquipment(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `power_per_person`'.format(value))
         self._data["Power per Person"] = value
 
@@ -6777,7 +6952,7 @@ class OtherEquipment(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_latent`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -6815,7 +6990,7 @@ class OtherEquipment(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_radiant`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -6853,7 +7028,7 @@ class OtherEquipment(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_lost`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -6900,7 +7075,6 @@ class OtherEquipment(object):
 class ZoneBaseboardOutdoorTemperatureControlled(object):
     """ Corresponds to IDD object `ZoneBaseboard:OutdoorTemperatureControlled`
         Specifies outside temperature-controlled electric baseboard heating.
-    
     """
     internal_name = "ZoneBaseboard:OutdoorTemperatureControlled"
     field_count = 9
@@ -6919,15 +7093,16 @@ class ZoneBaseboardOutdoorTemperatureControlled(object):
         self._data["High Temperature"] = None
         self._data["Fraction Radiant"] = None
         self._data["End-Use Subcategory"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -6992,6 +7167,7 @@ class ZoneBaseboardOutdoorTemperatureControlled(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -7018,7 +7194,7 @@ class ZoneBaseboardOutdoorTemperatureControlled(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -7053,7 +7229,7 @@ class ZoneBaseboardOutdoorTemperatureControlled(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `zone_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -7089,7 +7265,7 @@ class ZoneBaseboardOutdoorTemperatureControlled(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -7126,7 +7302,7 @@ class ZoneBaseboardOutdoorTemperatureControlled(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `capacity_at_low_temperature`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -7159,7 +7335,7 @@ class ZoneBaseboardOutdoorTemperatureControlled(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `low_temperature`'.format(value))
         self._data["Low Temperature"] = value
 
@@ -7190,7 +7366,7 @@ class ZoneBaseboardOutdoorTemperatureControlled(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `capacity_at_high_temperature`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -7223,7 +7399,7 @@ class ZoneBaseboardOutdoorTemperatureControlled(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `high_temperature`'.format(value))
         self._data["High Temperature"] = value
 
@@ -7255,7 +7431,7 @@ class ZoneBaseboardOutdoorTemperatureControlled(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_radiant`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -7291,7 +7467,7 @@ class ZoneBaseboardOutdoorTemperatureControlled(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `enduse_subcategory`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -7338,7 +7514,6 @@ class ZoneBaseboardOutdoorTemperatureControlled(object):
 class ZoneContaminantSourceAndSinkCarbonDioxide(object):
     """ Corresponds to IDD object `ZoneContaminantSourceAndSink:CarbonDioxide`
         Represents internal CO2 gains and sinks in the zone.
-    
     """
     internal_name = "ZoneContaminantSourceAndSink:CarbonDioxide"
     field_count = 4
@@ -7352,15 +7527,16 @@ class ZoneContaminantSourceAndSinkCarbonDioxide(object):
         self._data["Zone Name"] = None
         self._data["Design Generation Rate"] = None
         self._data["Schedule Name"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -7390,6 +7566,7 @@ class ZoneContaminantSourceAndSinkCarbonDioxide(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -7416,7 +7593,7 @@ class ZoneContaminantSourceAndSinkCarbonDioxide(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -7451,7 +7628,7 @@ class ZoneContaminantSourceAndSinkCarbonDioxide(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `zone_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -7473,6 +7650,7 @@ class ZoneContaminantSourceAndSinkCarbonDioxide(object):
     @design_generation_rate.setter
     def design_generation_rate(self, value=None):
         """  Corresponds to IDD Field `Design Generation Rate`
+        Positive values represent sources and negative values represent sinks.
 
         Args:
             value (float): value for IDD Field `Design Generation Rate`
@@ -7487,7 +7665,7 @@ class ZoneContaminantSourceAndSinkCarbonDioxide(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `design_generation_rate`'.format(value))
         self._data["Design Generation Rate"] = value
 
@@ -7517,7 +7695,7 @@ class ZoneContaminantSourceAndSinkCarbonDioxide(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -7564,7 +7742,6 @@ class ZoneContaminantSourceAndSinkCarbonDioxide(object):
 class ZoneContaminantSourceAndSinkGenericConstant(object):
     """ Corresponds to IDD object `ZoneContaminantSourceAndSink:Generic:Constant`
         Sets internal generic contaminant gains and sinks in a zone with constant values.
-    
     """
     internal_name = "ZoneContaminantSourceAndSink:Generic:Constant"
     field_count = 6
@@ -7580,15 +7757,16 @@ class ZoneContaminantSourceAndSinkGenericConstant(object):
         self._data["Generation Schedule Name"] = None
         self._data["Design Removal Coefficient"] = None
         self._data["Removal Schedule Name"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -7632,6 +7810,7 @@ class ZoneContaminantSourceAndSinkGenericConstant(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -7658,7 +7837,7 @@ class ZoneContaminantSourceAndSinkGenericConstant(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -7693,7 +7872,7 @@ class ZoneContaminantSourceAndSinkGenericConstant(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `zone_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -7715,6 +7894,7 @@ class ZoneContaminantSourceAndSinkGenericConstant(object):
     @design_generation_rate.setter
     def design_generation_rate(self, value=None):
         """  Corresponds to IDD Field `Design Generation Rate`
+        The values represent source.
 
         Args:
             value (float): value for IDD Field `Design Generation Rate`
@@ -7730,7 +7910,7 @@ class ZoneContaminantSourceAndSinkGenericConstant(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `design_generation_rate`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -7763,7 +7943,7 @@ class ZoneContaminantSourceAndSinkGenericConstant(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `generation_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -7785,6 +7965,7 @@ class ZoneContaminantSourceAndSinkGenericConstant(object):
     @design_removal_coefficient.setter
     def design_removal_coefficient(self, value=None):
         """  Corresponds to IDD Field `Design Removal Coefficient`
+        The value represent sink.
 
         Args:
             value (float): value for IDD Field `Design Removal Coefficient`
@@ -7800,7 +7981,7 @@ class ZoneContaminantSourceAndSinkGenericConstant(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `design_removal_coefficient`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -7834,7 +8015,7 @@ class ZoneContaminantSourceAndSinkGenericConstant(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `removal_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -7881,7 +8062,6 @@ class ZoneContaminantSourceAndSinkGenericConstant(object):
 class SurfaceContaminantSourceAndSinkGenericPressureDriven(object):
     """ Corresponds to IDD object `SurfaceContaminantSourceAndSink:Generic:PressureDriven`
         Simulate generic contaminant source driven by the pressure difference across a surface.
-    
     """
     internal_name = "SurfaceContaminantSourceAndSink:Generic:PressureDriven"
     field_count = 5
@@ -7896,15 +8076,16 @@ class SurfaceContaminantSourceAndSinkGenericPressureDriven(object):
         self._data["Design Generation Rate Coefficient"] = None
         self._data["Generation Schedule Name"] = None
         self._data["Generation Exponent"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -7941,6 +8122,7 @@ class SurfaceContaminantSourceAndSinkGenericPressureDriven(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -7967,7 +8149,7 @@ class SurfaceContaminantSourceAndSinkGenericPressureDriven(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -8002,7 +8184,7 @@ class SurfaceContaminantSourceAndSinkGenericPressureDriven(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -8039,7 +8221,7 @@ class SurfaceContaminantSourceAndSinkGenericPressureDriven(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `design_generation_rate_coefficient`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -8073,7 +8255,7 @@ class SurfaceContaminantSourceAndSinkGenericPressureDriven(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `generation_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -8111,7 +8293,7 @@ class SurfaceContaminantSourceAndSinkGenericPressureDriven(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `generation_exponent`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -8158,7 +8340,6 @@ class SurfaceContaminantSourceAndSinkGenericPressureDriven(object):
 class ZoneContaminantSourceAndSinkGenericCutoffModel(object):
     """ Corresponds to IDD object `ZoneContaminantSourceAndSink:Generic:CutoffModel`
         Simulate generic contaminant source driven by the cutoff concentration model.
-    
     """
     internal_name = "ZoneContaminantSourceAndSink:Generic:CutoffModel"
     field_count = 5
@@ -8173,15 +8354,16 @@ class ZoneContaminantSourceAndSinkGenericCutoffModel(object):
         self._data["Design Generation Rate Coefficient"] = None
         self._data["Schedule Name"] = None
         self._data["Cutoff Generic Contaminant at which Emission Ceases"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -8218,6 +8400,7 @@ class ZoneContaminantSourceAndSinkGenericCutoffModel(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -8244,7 +8427,7 @@ class ZoneContaminantSourceAndSinkGenericCutoffModel(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -8279,7 +8462,7 @@ class ZoneContaminantSourceAndSinkGenericCutoffModel(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `zone_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -8316,7 +8499,7 @@ class ZoneContaminantSourceAndSinkGenericCutoffModel(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `design_generation_rate_coefficient`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -8350,7 +8533,7 @@ class ZoneContaminantSourceAndSinkGenericCutoffModel(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -8389,7 +8572,7 @@ class ZoneContaminantSourceAndSinkGenericCutoffModel(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `cutoff_generic_contaminant_at_which_emission_ceases`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -8433,7 +8616,6 @@ class ZoneContaminantSourceAndSinkGenericCutoffModel(object):
 class ZoneContaminantSourceAndSinkGenericDecaySource(object):
     """ Corresponds to IDD object `ZoneContaminantSourceAndSink:Generic:DecaySource`
         Simulate generic contaminant source driven by the cutoff concentration model.
-    
     """
     internal_name = "ZoneContaminantSourceAndSink:Generic:DecaySource"
     field_count = 5
@@ -8448,15 +8630,16 @@ class ZoneContaminantSourceAndSinkGenericDecaySource(object):
         self._data["Initial Emission Rate"] = None
         self._data["Schedule Name"] = None
         self._data["Delay Time Constant"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -8493,6 +8676,7 @@ class ZoneContaminantSourceAndSinkGenericDecaySource(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -8519,7 +8703,7 @@ class ZoneContaminantSourceAndSinkGenericDecaySource(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -8554,7 +8738,7 @@ class ZoneContaminantSourceAndSinkGenericDecaySource(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `zone_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -8591,7 +8775,7 @@ class ZoneContaminantSourceAndSinkGenericDecaySource(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `initial_emission_rate`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -8626,7 +8810,7 @@ class ZoneContaminantSourceAndSinkGenericDecaySource(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -8663,7 +8847,7 @@ class ZoneContaminantSourceAndSinkGenericDecaySource(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `delay_time_constant`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -8707,7 +8891,6 @@ class ZoneContaminantSourceAndSinkGenericDecaySource(object):
 class SurfaceContaminantSourceAndSinkGenericBoundaryLayerDiffusion(object):
     """ Corresponds to IDD object `SurfaceContaminantSourceAndSink:Generic:BoundaryLayerDiffusion`
         Simulate generic contaminant source driven by the boundary layer diffusion controlled model.
-    
     """
     internal_name = "SurfaceContaminantSourceAndSink:Generic:BoundaryLayerDiffusion"
     field_count = 5
@@ -8722,15 +8905,16 @@ class SurfaceContaminantSourceAndSinkGenericBoundaryLayerDiffusion(object):
         self._data["Mass Transfer Coefficient"] = None
         self._data["Schedule Name"] = None
         self._data["Henry adsorption constant or partition coefficient"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -8767,6 +8951,7 @@ class SurfaceContaminantSourceAndSinkGenericBoundaryLayerDiffusion(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -8793,7 +8978,7 @@ class SurfaceContaminantSourceAndSinkGenericBoundaryLayerDiffusion(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -8828,7 +9013,7 @@ class SurfaceContaminantSourceAndSinkGenericBoundaryLayerDiffusion(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -8865,7 +9050,7 @@ class SurfaceContaminantSourceAndSinkGenericBoundaryLayerDiffusion(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `mass_transfer_coefficient`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -8900,7 +9085,7 @@ class SurfaceContaminantSourceAndSinkGenericBoundaryLayerDiffusion(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -8937,7 +9122,7 @@ class SurfaceContaminantSourceAndSinkGenericBoundaryLayerDiffusion(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `henry_adsorption_constant_or_partition_coefficient`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -8981,7 +9166,6 @@ class SurfaceContaminantSourceAndSinkGenericBoundaryLayerDiffusion(object):
 class SurfaceContaminantSourceAndSinkGenericDepositionVelocitySink(object):
     """ Corresponds to IDD object `SurfaceContaminantSourceAndSink:Generic:DepositionVelocitySink`
         Simulate generic contaminant source driven by the boundary layer diffusion controlled model.
-    
     """
     internal_name = "SurfaceContaminantSourceAndSink:Generic:DepositionVelocitySink"
     field_count = 4
@@ -8995,15 +9179,16 @@ class SurfaceContaminantSourceAndSinkGenericDepositionVelocitySink(object):
         self._data["Surface Name"] = None
         self._data["Deposition Velocity"] = None
         self._data["Schedule Name"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -9033,6 +9218,7 @@ class SurfaceContaminantSourceAndSinkGenericDepositionVelocitySink(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -9059,7 +9245,7 @@ class SurfaceContaminantSourceAndSinkGenericDepositionVelocitySink(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -9094,7 +9280,7 @@ class SurfaceContaminantSourceAndSinkGenericDepositionVelocitySink(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -9131,7 +9317,7 @@ class SurfaceContaminantSourceAndSinkGenericDepositionVelocitySink(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `deposition_velocity`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -9166,7 +9352,7 @@ class SurfaceContaminantSourceAndSinkGenericDepositionVelocitySink(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -9213,7 +9399,6 @@ class SurfaceContaminantSourceAndSinkGenericDepositionVelocitySink(object):
 class ZoneContaminantSourceAndSinkGenericDepositionRateSink(object):
     """ Corresponds to IDD object `ZoneContaminantSourceAndSink:Generic:DepositionRateSink`
         Simulate generic contaminant source driven by the boundary layer diffusion controlled model.
-    
     """
     internal_name = "ZoneContaminantSourceAndSink:Generic:DepositionRateSink"
     field_count = 4
@@ -9227,15 +9412,16 @@ class ZoneContaminantSourceAndSinkGenericDepositionRateSink(object):
         self._data["Zone Name"] = None
         self._data["Deposition Rate"] = None
         self._data["Schedule Name"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -9265,6 +9451,7 @@ class ZoneContaminantSourceAndSinkGenericDepositionRateSink(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -9291,7 +9478,7 @@ class ZoneContaminantSourceAndSinkGenericDepositionRateSink(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -9326,7 +9513,7 @@ class ZoneContaminantSourceAndSinkGenericDepositionRateSink(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `zone_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -9363,7 +9550,7 @@ class ZoneContaminantSourceAndSinkGenericDepositionRateSink(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `deposition_rate`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -9398,7 +9585,7 @@ class ZoneContaminantSourceAndSinkGenericDepositionRateSink(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '

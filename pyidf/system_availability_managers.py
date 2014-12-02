@@ -1,10 +1,11 @@
 from collections import OrderedDict
+import logging
+import re
 
 class AvailabilityManagerScheduled(object):
     """ Corresponds to IDD object `AvailabilityManager:Scheduled`
         Determines the availability of a loop or system: whether it is on or off.
         Schedule overrides fan/pump schedule.
-    
     """
     internal_name = "AvailabilityManager:Scheduled"
     field_count = 2
@@ -16,15 +17,16 @@ class AvailabilityManagerScheduled(object):
         self._data = OrderedDict()
         self._data["Name"] = None
         self._data["Schedule Name"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -40,6 +42,7 @@ class AvailabilityManagerScheduled(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -66,7 +69,7 @@ class AvailabilityManagerScheduled(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -101,7 +104,7 @@ class AvailabilityManagerScheduled(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -149,7 +152,6 @@ class AvailabilityManagerScheduledOn(object):
     """ Corresponds to IDD object `AvailabilityManager:ScheduledOn`
         Determines the availability of a loop or system: only controls the turn on action.
         Schedule overrides fan/pump schedule.
-    
     """
     internal_name = "AvailabilityManager:ScheduledOn"
     field_count = 2
@@ -161,15 +163,16 @@ class AvailabilityManagerScheduledOn(object):
         self._data = OrderedDict()
         self._data["Name"] = None
         self._data["Schedule Name"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -185,6 +188,7 @@ class AvailabilityManagerScheduledOn(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -211,7 +215,7 @@ class AvailabilityManagerScheduledOn(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -246,7 +250,7 @@ class AvailabilityManagerScheduledOn(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -294,7 +298,6 @@ class AvailabilityManagerScheduledOff(object):
     """ Corresponds to IDD object `AvailabilityManager:ScheduledOff`
         Determines the availability of a loop or system: only controls the turn off action.
         Schedule overrides fan/pump schedule.
-    
     """
     internal_name = "AvailabilityManager:ScheduledOff"
     field_count = 2
@@ -306,15 +309,16 @@ class AvailabilityManagerScheduledOff(object):
         self._data = OrderedDict()
         self._data["Name"] = None
         self._data["Schedule Name"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -330,6 +334,7 @@ class AvailabilityManagerScheduledOff(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -356,7 +361,7 @@ class AvailabilityManagerScheduledOff(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -391,7 +396,7 @@ class AvailabilityManagerScheduledOff(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -438,7 +443,6 @@ class AvailabilityManagerScheduledOff(object):
 class AvailabilityManagerOptimumStart(object):
     """ Corresponds to IDD object `AvailabilityManager:OptimumStart`
         Determines the optimal start of HVAC systems before occupancy.
-    
     """
     internal_name = "AvailabilityManager:OptimumStart"
     field_count = 14
@@ -462,15 +466,16 @@ class AvailabilityManagerOptimumStart(object):
         self._data["Initial Temperature Gradient during Heating"] = None
         self._data["Constant Start Time"] = None
         self._data["Number of Previous Days"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -570,6 +575,7 @@ class AvailabilityManagerOptimumStart(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -596,7 +602,7 @@ class AvailabilityManagerOptimumStart(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -631,7 +637,7 @@ class AvailabilityManagerOptimumStart(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `applicability_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -666,7 +672,7 @@ class AvailabilityManagerOptimumStart(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `fan_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -706,7 +712,7 @@ class AvailabilityManagerOptimumStart(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `control_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -721,16 +727,26 @@ class AvailabilityManagerOptimumStart(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `control_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `control_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Control Type"] = value
 
@@ -759,7 +775,7 @@ class AvailabilityManagerOptimumStart(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `control_zone_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -794,7 +810,7 @@ class AvailabilityManagerOptimumStart(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `zone_list_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -832,7 +848,7 @@ class AvailabilityManagerOptimumStart(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `maximum_value_for_optimum_start_time`'.format(value))
         self._data["Maximum Value for Optimum Start Time"] = value
 
@@ -867,7 +883,7 @@ class AvailabilityManagerOptimumStart(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `control_algorithm`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -883,16 +899,26 @@ class AvailabilityManagerOptimumStart(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `control_algorithm`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `control_algorithm`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Control Algorithm"] = value
 
@@ -922,7 +948,7 @@ class AvailabilityManagerOptimumStart(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `constant_temperature_gradient_during_cooling`'.format(value))
         self._data["Constant Temperature Gradient during Cooling"] = value
 
@@ -952,7 +978,7 @@ class AvailabilityManagerOptimumStart(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `constant_temperature_gradient_during_heating`'.format(value))
         self._data["Constant Temperature Gradient during Heating"] = value
 
@@ -982,7 +1008,7 @@ class AvailabilityManagerOptimumStart(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `initial_temperature_gradient_during_cooling`'.format(value))
         self._data["Initial Temperature Gradient during Cooling"] = value
 
@@ -1012,7 +1038,7 @@ class AvailabilityManagerOptimumStart(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `initial_temperature_gradient_during_heating`'.format(value))
         self._data["Initial Temperature Gradient during Heating"] = value
 
@@ -1043,7 +1069,7 @@ class AvailabilityManagerOptimumStart(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `constant_start_time`'.format(value))
         self._data["Constant Start Time"] = value
 
@@ -1078,8 +1104,15 @@ class AvailabilityManagerOptimumStart(object):
             try:
                 value = int(value)
             except ValueError:
-                raise ValueError('value {} need to be of type int '
-                                 'for field `number_of_previous_days`'.format(value))
+                if not self.strict:
+                    try:
+                        conv_value = int(float(value))
+                        logging.warn('Cast float {} to int {}, precision may be lost '
+                                     'for field `number_of_previous_days`'.format(value, conv_value))
+                        value = conv_value
+                    except ValueError:
+                        raise ValueError('value {} need to be of type int '
+                                         'for field `number_of_previous_days`'.format(value))
             if value < 2:
                 raise ValueError('value need to be greater or equal 2 '
                                  'for field `number_of_previous_days`')
@@ -1126,7 +1159,6 @@ class AvailabilityManagerNightCycle(object):
     """ Corresponds to IDD object `AvailabilityManager:NightCycle`
         Determines the availability of a loop or system: whether it is on or off.
         Depending on zone temperatures, overrides Schedules and forces system Fans on.
-    
     """
     internal_name = "AvailabilityManager:NightCycle"
     field_count = 7
@@ -1143,15 +1175,16 @@ class AvailabilityManagerNightCycle(object):
         self._data["Thermostat Tolerance"] = None
         self._data["Cycling Run Time"] = None
         self._data["Control Zone Name"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -1202,6 +1235,7 @@ class AvailabilityManagerNightCycle(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -1228,7 +1262,7 @@ class AvailabilityManagerNightCycle(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1263,7 +1297,7 @@ class AvailabilityManagerNightCycle(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `applicability_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1298,7 +1332,7 @@ class AvailabilityManagerNightCycle(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `fan_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1342,7 +1376,7 @@ class AvailabilityManagerNightCycle(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `control_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1358,16 +1392,26 @@ class AvailabilityManagerNightCycle(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `control_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `control_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Control Type"] = value
 
@@ -1398,7 +1442,7 @@ class AvailabilityManagerNightCycle(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `thermostat_tolerance`'.format(value))
         self._data["Thermostat Tolerance"] = value
 
@@ -1429,7 +1473,7 @@ class AvailabilityManagerNightCycle(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `cycling_run_time`'.format(value))
         self._data["Cycling Run Time"] = value
 
@@ -1461,7 +1505,7 @@ class AvailabilityManagerNightCycle(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `control_zone_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1508,7 +1552,6 @@ class AvailabilityManagerNightCycle(object):
 class AvailabilityManagerDifferentialThermostat(object):
     """ Corresponds to IDD object `AvailabilityManager:DifferentialThermostat`
         Overrides fan/pump schedules depending on temperature difference between two nodes.
-    
     """
     internal_name = "AvailabilityManager:DifferentialThermostat"
     field_count = 5
@@ -1523,15 +1566,16 @@ class AvailabilityManagerDifferentialThermostat(object):
         self._data["Cold Node Name"] = None
         self._data["Temperature Difference On Limit"] = None
         self._data["Temperature Difference Off Limit"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -1568,6 +1612,7 @@ class AvailabilityManagerDifferentialThermostat(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -1594,7 +1639,7 @@ class AvailabilityManagerDifferentialThermostat(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1629,7 +1674,7 @@ class AvailabilityManagerDifferentialThermostat(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `hot_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1664,7 +1709,7 @@ class AvailabilityManagerDifferentialThermostat(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `cold_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1700,7 +1745,7 @@ class AvailabilityManagerDifferentialThermostat(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_difference_on_limit`'.format(value))
         self._data["Temperature Difference On Limit"] = value
 
@@ -1731,7 +1776,7 @@ class AvailabilityManagerDifferentialThermostat(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_difference_off_limit`'.format(value))
         self._data["Temperature Difference Off Limit"] = value
 
@@ -1772,7 +1817,6 @@ class AvailabilityManagerDifferentialThermostat(object):
 class AvailabilityManagerHighTemperatureTurnOff(object):
     """ Corresponds to IDD object `AvailabilityManager:HighTemperatureTurnOff`
         Overrides fan/pump schedules depending on temperature at sensor node.
-    
     """
     internal_name = "AvailabilityManager:HighTemperatureTurnOff"
     field_count = 3
@@ -1785,15 +1829,16 @@ class AvailabilityManagerHighTemperatureTurnOff(object):
         self._data["Name"] = None
         self._data["Sensor Node Name"] = None
         self._data["Temperature"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -1816,6 +1861,7 @@ class AvailabilityManagerHighTemperatureTurnOff(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -1842,7 +1888,7 @@ class AvailabilityManagerHighTemperatureTurnOff(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1877,7 +1923,7 @@ class AvailabilityManagerHighTemperatureTurnOff(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `sensor_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1913,7 +1959,7 @@ class AvailabilityManagerHighTemperatureTurnOff(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature`'.format(value))
         self._data["Temperature"] = value
 
@@ -1954,7 +2000,6 @@ class AvailabilityManagerHighTemperatureTurnOff(object):
 class AvailabilityManagerHighTemperatureTurnOn(object):
     """ Corresponds to IDD object `AvailabilityManager:HighTemperatureTurnOn`
         Overrides fan/pump schedules depending on temperature at sensor node.
-    
     """
     internal_name = "AvailabilityManager:HighTemperatureTurnOn"
     field_count = 3
@@ -1967,15 +2012,16 @@ class AvailabilityManagerHighTemperatureTurnOn(object):
         self._data["Name"] = None
         self._data["Sensor Node Name"] = None
         self._data["Temperature"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -1998,6 +2044,7 @@ class AvailabilityManagerHighTemperatureTurnOn(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -2024,7 +2071,7 @@ class AvailabilityManagerHighTemperatureTurnOn(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2059,7 +2106,7 @@ class AvailabilityManagerHighTemperatureTurnOn(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `sensor_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2095,7 +2142,7 @@ class AvailabilityManagerHighTemperatureTurnOn(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature`'.format(value))
         self._data["Temperature"] = value
 
@@ -2136,7 +2183,6 @@ class AvailabilityManagerHighTemperatureTurnOn(object):
 class AvailabilityManagerLowTemperatureTurnOff(object):
     """ Corresponds to IDD object `AvailabilityManager:LowTemperatureTurnOff`
         Overrides fan/pump schedules depending on temperature at sensor node.
-    
     """
     internal_name = "AvailabilityManager:LowTemperatureTurnOff"
     field_count = 4
@@ -2150,15 +2196,16 @@ class AvailabilityManagerLowTemperatureTurnOff(object):
         self._data["Sensor Node Name"] = None
         self._data["Temperature"] = None
         self._data["Applicability Schedule Name"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -2188,6 +2235,7 @@ class AvailabilityManagerLowTemperatureTurnOff(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -2214,7 +2262,7 @@ class AvailabilityManagerLowTemperatureTurnOff(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2249,7 +2297,7 @@ class AvailabilityManagerLowTemperatureTurnOff(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `sensor_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2285,7 +2333,7 @@ class AvailabilityManagerLowTemperatureTurnOff(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature`'.format(value))
         self._data["Temperature"] = value
 
@@ -2315,7 +2363,7 @@ class AvailabilityManagerLowTemperatureTurnOff(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `applicability_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2362,7 +2410,6 @@ class AvailabilityManagerLowTemperatureTurnOff(object):
 class AvailabilityManagerLowTemperatureTurnOn(object):
     """ Corresponds to IDD object `AvailabilityManager:LowTemperatureTurnOn`
         Overrides fan/pump schedules depending on temperature at sensor node.
-    
     """
     internal_name = "AvailabilityManager:LowTemperatureTurnOn"
     field_count = 3
@@ -2375,15 +2422,16 @@ class AvailabilityManagerLowTemperatureTurnOn(object):
         self._data["Name"] = None
         self._data["Sensor Node Name"] = None
         self._data["Temperature"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -2406,6 +2454,7 @@ class AvailabilityManagerLowTemperatureTurnOn(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -2432,7 +2481,7 @@ class AvailabilityManagerLowTemperatureTurnOn(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2467,7 +2516,7 @@ class AvailabilityManagerLowTemperatureTurnOn(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `sensor_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2503,7 +2552,7 @@ class AvailabilityManagerLowTemperatureTurnOn(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature`'.format(value))
         self._data["Temperature"] = value
 
@@ -2545,7 +2594,6 @@ class AvailabilityManagerNightVentilation(object):
     """ Corresponds to IDD object `AvailabilityManager:NightVentilation`
         depending on zone and outdoor conditions overides fan schedule to do
         precooling with outdoor air
-    
     """
     internal_name = "AvailabilityManager:NightVentilation"
     field_count = 8
@@ -2563,15 +2611,16 @@ class AvailabilityManagerNightVentilation(object):
         self._data["Ventilation Temperature Low Limit"] = None
         self._data["Night Venting Flow Fraction"] = None
         self._data["Control Zone Name"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -2629,6 +2678,7 @@ class AvailabilityManagerNightVentilation(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -2655,7 +2705,7 @@ class AvailabilityManagerNightVentilation(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2690,7 +2740,7 @@ class AvailabilityManagerNightVentilation(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `applicability_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2725,7 +2775,7 @@ class AvailabilityManagerNightVentilation(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `fan_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2762,7 +2812,7 @@ class AvailabilityManagerNightVentilation(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `ventilation_temperature_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2801,7 +2851,7 @@ class AvailabilityManagerNightVentilation(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `ventilation_temperature_difference`'.format(value))
         self._data["Ventilation Temperature Difference"] = value
 
@@ -2834,7 +2884,7 @@ class AvailabilityManagerNightVentilation(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `ventilation_temperature_low_limit`'.format(value))
         self._data["Ventilation Temperature Low Limit"] = value
 
@@ -2867,7 +2917,7 @@ class AvailabilityManagerNightVentilation(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `night_venting_flow_fraction`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -2902,7 +2952,7 @@ class AvailabilityManagerNightVentilation(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `control_zone_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2960,7 +3010,6 @@ class AvailabilityManagerHybridVentilation(object):
         through the air loop or directly to the zone. If hybrid ventilation manager is applied to an
         air loop and one of the zones served by that air loop also has hybrid ventilation manager,
         then zone hybrid ventilation manager is disabled.
-    
     """
     internal_name = "AvailabilityManager:HybridVentilation"
     field_count = 17
@@ -2987,15 +3036,16 @@ class AvailabilityManagerHybridVentilation(object):
         self._data["AirflowNetwork Control Type Schedule Name"] = None
         self._data["Simple Airflow Control Type Schedule Name"] = None
         self._data["ZoneVentilation Object Name"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -3116,6 +3166,7 @@ class AvailabilityManagerHybridVentilation(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -3142,7 +3193,7 @@ class AvailabilityManagerHybridVentilation(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3180,7 +3231,7 @@ class AvailabilityManagerHybridVentilation(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `hvac_air_loop_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3217,7 +3268,7 @@ class AvailabilityManagerHybridVentilation(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `controlled_zone_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3258,7 +3309,7 @@ class AvailabilityManagerHybridVentilation(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `ventilation_control_mode_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3299,7 +3350,7 @@ class AvailabilityManagerHybridVentilation(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `use_weather_file_rain_indicators`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3313,16 +3364,26 @@ class AvailabilityManagerHybridVentilation(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `use_weather_file_rain_indicators`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `use_weather_file_rain_indicators`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Use Weather File Rain Indicators"] = value
 
@@ -3356,7 +3417,7 @@ class AvailabilityManagerHybridVentilation(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `maximum_wind_speed`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -3396,7 +3457,7 @@ class AvailabilityManagerHybridVentilation(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `minimum_outdoor_temperature`'.format(value))
             if value < -100.0:
                 raise ValueError('value need to be greater or equal -100.0 '
@@ -3436,7 +3497,7 @@ class AvailabilityManagerHybridVentilation(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `maximum_outdoor_temperature`'.format(value))
             if value < -100.0:
                 raise ValueError('value need to be greater or equal -100.0 '
@@ -3475,7 +3536,7 @@ class AvailabilityManagerHybridVentilation(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `minimum_outdoor_enthalpy`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -3514,7 +3575,7 @@ class AvailabilityManagerHybridVentilation(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `maximum_outdoor_enthalpy`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -3555,7 +3616,7 @@ class AvailabilityManagerHybridVentilation(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `minimum_outdoor_dewpoint`'.format(value))
             if value < -100.0:
                 raise ValueError('value need to be greater or equal -100.0 '
@@ -3596,7 +3657,7 @@ class AvailabilityManagerHybridVentilation(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `maximum_outdoor_dewpoint`'.format(value))
             if value < -100.0:
                 raise ValueError('value need to be greater or equal -100.0 '
@@ -3632,7 +3693,7 @@ class AvailabilityManagerHybridVentilation(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `minimum_outdoor_ventilation_air_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3671,7 +3732,7 @@ class AvailabilityManagerHybridVentilation(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `opening_factor_function_of_wind_speed_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3708,7 +3769,7 @@ class AvailabilityManagerHybridVentilation(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `airflownetwork_control_type_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3746,7 +3807,7 @@ class AvailabilityManagerHybridVentilation(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `simple_airflow_control_type_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3788,7 +3849,7 @@ class AvailabilityManagerHybridVentilation(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `zoneventilation_object_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3838,7 +3899,6 @@ class AvailabilityManagerAssignmentList(object):
         availability managers is based on a set of rules and are specific to the type of loop.
         The output from each availability manager is an availability status flag:
         NoAction, ForceOff, CycleOn, or CycleOnZoneFansOnly (used only for air loops).
-    
     """
     internal_name = "AvailabilityManagerAssignmentList"
     field_count = 13
@@ -3861,15 +3921,16 @@ class AvailabilityManagerAssignmentList(object):
         self._data["Availability Manager 5 Name"] = None
         self._data["Availability Manager 6 Object Type"] = None
         self._data["Availability Manager 6 Name"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -3962,6 +4023,7 @@ class AvailabilityManagerAssignmentList(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -3988,7 +4050,7 @@ class AvailabilityManagerAssignmentList(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4034,7 +4096,7 @@ class AvailabilityManagerAssignmentList(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `availability_manager_1_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4056,16 +4118,26 @@ class AvailabilityManagerAssignmentList(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `availability_manager_1_object_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `availability_manager_1_object_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Availability Manager 1 Object Type"] = value
 
@@ -4094,7 +4166,7 @@ class AvailabilityManagerAssignmentList(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `availability_manager_1_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4140,7 +4212,7 @@ class AvailabilityManagerAssignmentList(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `availability_manager_2_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4162,16 +4234,26 @@ class AvailabilityManagerAssignmentList(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `availability_manager_2_object_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `availability_manager_2_object_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Availability Manager 2 Object Type"] = value
 
@@ -4200,7 +4282,7 @@ class AvailabilityManagerAssignmentList(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `availability_manager_2_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4246,7 +4328,7 @@ class AvailabilityManagerAssignmentList(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `availability_manager_3_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4268,16 +4350,26 @@ class AvailabilityManagerAssignmentList(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `availability_manager_3_object_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `availability_manager_3_object_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Availability Manager 3 Object Type"] = value
 
@@ -4306,7 +4398,7 @@ class AvailabilityManagerAssignmentList(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `availability_manager_3_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4352,7 +4444,7 @@ class AvailabilityManagerAssignmentList(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `availability_manager_4_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4374,16 +4466,26 @@ class AvailabilityManagerAssignmentList(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `availability_manager_4_object_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `availability_manager_4_object_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Availability Manager 4 Object Type"] = value
 
@@ -4412,7 +4514,7 @@ class AvailabilityManagerAssignmentList(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `availability_manager_4_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4458,7 +4560,7 @@ class AvailabilityManagerAssignmentList(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `availability_manager_5_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4480,16 +4582,26 @@ class AvailabilityManagerAssignmentList(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `availability_manager_5_object_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `availability_manager_5_object_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Availability Manager 5 Object Type"] = value
 
@@ -4518,7 +4630,7 @@ class AvailabilityManagerAssignmentList(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `availability_manager_5_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4564,7 +4676,7 @@ class AvailabilityManagerAssignmentList(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `availability_manager_6_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4586,16 +4698,26 @@ class AvailabilityManagerAssignmentList(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `availability_manager_6_object_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `availability_manager_6_object_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Availability Manager 6 Object Type"] = value
 
@@ -4624,7 +4746,7 @@ class AvailabilityManagerAssignmentList(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `availability_manager_6_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '

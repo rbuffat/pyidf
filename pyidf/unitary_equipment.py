@@ -1,4 +1,6 @@
 from collections import OrderedDict
+import logging
+import re
 
 class AirLoopHvacUnitarySystem(object):
     """ Corresponds to IDD object `AirLoopHVAC:UnitarySystem`
@@ -6,7 +8,6 @@ class AirLoopHvacUnitarySystem(object):
         configuration of coils and/or fan. This object is a replacement of other
         AirloopHVAC objects. This object can be used in outdoor air systems,
         outdoor air units, air loops, and as zone equipment if desired.
-    
     """
     internal_name = "AirLoopHVAC:UnitarySystem"
     field_count = 53
@@ -69,15 +70,16 @@ class AirLoopHvacUnitarySystem(object):
         self._data["Heat Recovery Water Outlet Node Name"] = None
         self._data["Design Specification Multispeed Heat Pump Object Type"] = None
         self._data["Design Specification Multispeed Heat Pump Object Name"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -450,6 +452,7 @@ class AirLoopHvacUnitarySystem(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -477,7 +480,7 @@ class AirLoopHvacUnitarySystem(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -518,7 +521,7 @@ class AirLoopHvacUnitarySystem(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `control_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -532,16 +535,26 @@ class AirLoopHvacUnitarySystem(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `control_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `control_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Control Type"] = value
 
@@ -572,7 +585,7 @@ class AirLoopHvacUnitarySystem(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `controlling_zone_or_thermostat_location`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -624,7 +637,7 @@ class AirLoopHvacUnitarySystem(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `dehumidification_control_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -639,16 +652,26 @@ class AirLoopHvacUnitarySystem(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `dehumidification_control_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `dehumidification_control_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Dehumidification Control Type"] = value
 
@@ -682,7 +705,7 @@ class AirLoopHvacUnitarySystem(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `availability_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -718,7 +741,7 @@ class AirLoopHvacUnitarySystem(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `air_inlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -754,7 +777,7 @@ class AirLoopHvacUnitarySystem(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `air_outlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -802,7 +825,7 @@ class AirLoopHvacUnitarySystem(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `supply_fan_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -817,16 +840,26 @@ class AirLoopHvacUnitarySystem(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `supply_fan_object_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `supply_fan_object_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Supply Fan Object Type"] = value
 
@@ -856,7 +889,7 @@ class AirLoopHvacUnitarySystem(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `supply_fan_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -895,7 +928,7 @@ class AirLoopHvacUnitarySystem(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `fan_placement`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -909,16 +942,26 @@ class AirLoopHvacUnitarySystem(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `fan_placement`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `fan_placement`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Fan Placement"] = value
 
@@ -956,7 +999,7 @@ class AirLoopHvacUnitarySystem(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `supply_air_fan_operating_mode_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1006,7 +1049,7 @@ class AirLoopHvacUnitarySystem(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `heating_coil_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1031,16 +1074,26 @@ class AirLoopHvacUnitarySystem(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `heating_coil_object_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `heating_coil_object_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Heating Coil Object Type"] = value
 
@@ -1070,7 +1123,7 @@ class AirLoopHvacUnitarySystem(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `heating_coil_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1109,7 +1162,7 @@ class AirLoopHvacUnitarySystem(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `dx_heating_coil_sizing_ratio`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -1155,7 +1208,7 @@ class AirLoopHvacUnitarySystem(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `cooling_coil_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1179,16 +1232,26 @@ class AirLoopHvacUnitarySystem(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `cooling_coil_object_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `cooling_coil_object_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Cooling Coil Object Type"] = value
 
@@ -1218,7 +1281,7 @@ class AirLoopHvacUnitarySystem(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `cooling_coil_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1260,7 +1323,7 @@ class AirLoopHvacUnitarySystem(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `use_doas_dx_cooling_coil`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1274,16 +1337,26 @@ class AirLoopHvacUnitarySystem(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `use_doas_dx_cooling_coil`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `use_doas_dx_cooling_coil`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Use DOAS DX Cooling Coil"] = value
 
@@ -1319,7 +1392,7 @@ class AirLoopHvacUnitarySystem(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `doas_dx_cooling_coil_leaving_minimum_air_temperature`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -1339,7 +1412,7 @@ class AirLoopHvacUnitarySystem(object):
         return self._data["Latent Load Control"]
 
     @latent_load_control.setter
-    def latent_load_control(self, value=None):
+    def latent_load_control(self, value="SensibleOnlyLoadControl"):
         """  Corresponds to IDD Field `Latent Load Control`
         SensibleOnlyLoadControl is selected when thermostat control is used.
         LatentOnlyLoadControl is selected when humidistat control is used.
@@ -1355,6 +1428,7 @@ class AirLoopHvacUnitarySystem(object):
                       - LatentOnlyLoadControl
                       - LatentWithSensibleLoadControl
                       - LatentOrSensibleLoadControl
+                Default value: SensibleOnlyLoadControl
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -1365,7 +1439,7 @@ class AirLoopHvacUnitarySystem(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `latent_load_control`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1381,16 +1455,26 @@ class AirLoopHvacUnitarySystem(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `latent_load_control`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `latent_load_control`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Latent Load Control"] = value
 
@@ -1427,7 +1511,7 @@ class AirLoopHvacUnitarySystem(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `supplemental_heating_coil_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1444,16 +1528,26 @@ class AirLoopHvacUnitarySystem(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `supplemental_heating_coil_object_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `supplemental_heating_coil_object_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Supplemental Heating Coil Object Type"] = value
 
@@ -1484,7 +1578,7 @@ class AirLoopHvacUnitarySystem(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `supplemental_heating_coil_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1534,7 +1628,7 @@ class AirLoopHvacUnitarySystem(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `supply_air_flow_rate_method_during_cooling_operation`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1551,16 +1645,26 @@ class AirLoopHvacUnitarySystem(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `supply_air_flow_rate_method_during_cooling_operation`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `supply_air_flow_rate_method_during_cooling_operation`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Supply Air Flow Rate Method During Cooling Operation"] = value
 
@@ -1596,12 +1700,17 @@ class AirLoopHvacUnitarySystem(object):
                 if value_lower == "autosize":
                     self._data["Supply Air Flow Rate During Cooling Operation"] = "Autosize"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autosize" '
+                                 'for field `supply_air_flow_rate_during_cooling_operation`'.format(value))
+                    self._data["Supply Air Flow Rate During Cooling Operation"] = "Autosize"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autosize"'
                                  'for field `supply_air_flow_rate_during_cooling_operation`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -1638,7 +1747,7 @@ class AirLoopHvacUnitarySystem(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `supply_air_flow_rate_per_floor_area_during_cooling_operation`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -1674,7 +1783,7 @@ class AirLoopHvacUnitarySystem(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_autosized_design_cooling_supply_air_flow_rate`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -1711,7 +1820,7 @@ class AirLoopHvacUnitarySystem(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `design_supply_air_flow_rate_per_unit_of_capacity_during_cooling_operation`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -1758,7 +1867,7 @@ class AirLoopHvacUnitarySystem(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `supply_air_flow_rate_method_during_heating_operation`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1775,16 +1884,26 @@ class AirLoopHvacUnitarySystem(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `supply_air_flow_rate_method_during_heating_operation`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `supply_air_flow_rate_method_during_heating_operation`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Supply air Flow Rate Method During Heating Operation"] = value
 
@@ -1820,12 +1939,17 @@ class AirLoopHvacUnitarySystem(object):
                 if value_lower == "autosize":
                     self._data["Supply Air Flow Rate During Heating Operation"] = "Autosize"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autosize" '
+                                 'for field `supply_air_flow_rate_during_heating_operation`'.format(value))
+                    self._data["Supply Air Flow Rate During Heating Operation"] = "Autosize"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autosize"'
                                  'for field `supply_air_flow_rate_during_heating_operation`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -1862,7 +1986,7 @@ class AirLoopHvacUnitarySystem(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `supply_air_flow_rate_per_floor_area_during_heating_operation`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -1898,7 +2022,7 @@ class AirLoopHvacUnitarySystem(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_autosized_design_heating_supply_air_flow_rate`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -1935,7 +2059,7 @@ class AirLoopHvacUnitarySystem(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `design_supply_air_flow_rate_per_unit_of_capacity_during_heating_operation`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -1988,7 +2112,7 @@ class AirLoopHvacUnitarySystem(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `supply_air_flow_rate_method_when_no_cooling_or_heating_is_required`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2007,16 +2131,26 @@ class AirLoopHvacUnitarySystem(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `supply_air_flow_rate_method_when_no_cooling_or_heating_is_required`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `supply_air_flow_rate_method_when_no_cooling_or_heating_is_required`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Supply Air Flow Rate Method When No Cooling or Heating is Required"] = value
 
@@ -2051,12 +2185,17 @@ class AirLoopHvacUnitarySystem(object):
                 if value_lower == "autosize":
                     self._data["Supply Air Flow Rate When No Cooling or Heating is Required"] = "Autosize"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autosize" '
+                                 'for field `supply_air_flow_rate_when_no_cooling_or_heating_is_required`'.format(value))
+                    self._data["Supply Air Flow Rate When No Cooling or Heating is Required"] = "Autosize"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autosize"'
                                  'for field `supply_air_flow_rate_when_no_cooling_or_heating_is_required`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -2092,7 +2231,7 @@ class AirLoopHvacUnitarySystem(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `supply_air_flow_rate_per_floor_area_when_no_cooling_or_heating_is_required`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -2127,7 +2266,7 @@ class AirLoopHvacUnitarySystem(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_autosized_design_cooling_supply_air_flow_rate_v3`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -2162,7 +2301,7 @@ class AirLoopHvacUnitarySystem(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_autosized_design_heating_supply_air_flow_rate_v3`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -2198,7 +2337,7 @@ class AirLoopHvacUnitarySystem(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `design_supply_air_flow_rate_per_unit_of_capacity_during_cooling_operation_v3`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -2234,7 +2373,7 @@ class AirLoopHvacUnitarySystem(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `design_supply_air_flow_rate_per_unit_of_capacity_during_heating_operation_v3`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -2271,12 +2410,17 @@ class AirLoopHvacUnitarySystem(object):
                 if value_lower == "autosize":
                     self._data["Maximum Supply Air Temperature"] = "Autosize"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autosize" '
+                                 'for field `maximum_supply_air_temperature`'.format(value))
+                    self._data["Maximum Supply Air Temperature"] = "Autosize"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autosize"'
                                  'for field `maximum_supply_air_temperature`'.format(value))
         self._data["Maximum Supply Air Temperature"] = value
 
@@ -2308,7 +2452,7 @@ class AirLoopHvacUnitarySystem(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `maximum_outdoor_drybulb_temperature_for_supplemental_heater_operation`'.format(value))
         self._data["Maximum Outdoor Dry-Bulb Temperature for Supplemental Heater Operation"] = value
 
@@ -2340,7 +2484,7 @@ class AirLoopHvacUnitarySystem(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `outdoor_drybulb_temperature_sensor_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2382,7 +2526,7 @@ class AirLoopHvacUnitarySystem(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `maximum_cycling_rate`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -2424,7 +2568,7 @@ class AirLoopHvacUnitarySystem(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `heat_pump_time_constant`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -2466,7 +2610,7 @@ class AirLoopHvacUnitarySystem(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_oncycle_power_use`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -2508,7 +2652,7 @@ class AirLoopHvacUnitarySystem(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `heat_pump_fan_delay_time`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -2544,7 +2688,7 @@ class AirLoopHvacUnitarySystem(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `ancilliary_oncycle_electric_power`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -2580,7 +2724,7 @@ class AirLoopHvacUnitarySystem(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `ancilliary_offcycle_electric_power`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -2617,7 +2761,7 @@ class AirLoopHvacUnitarySystem(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `design_heat_recovery_water_flow_rate`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -2654,7 +2798,7 @@ class AirLoopHvacUnitarySystem(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `maximum_temperature_for_heat_recovery`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -2690,7 +2834,7 @@ class AirLoopHvacUnitarySystem(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `heat_recovery_water_inlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2726,7 +2870,7 @@ class AirLoopHvacUnitarySystem(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `heat_recovery_water_outlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2764,7 +2908,7 @@ class AirLoopHvacUnitarySystem(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `design_specification_multispeed_heat_pump_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2777,16 +2921,26 @@ class AirLoopHvacUnitarySystem(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `design_specification_multispeed_heat_pump_object_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `design_specification_multispeed_heat_pump_object_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Design Specification Multispeed Heat Pump Object Type"] = value
 
@@ -2816,7 +2970,7 @@ class AirLoopHvacUnitarySystem(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `design_specification_multispeed_heat_pump_object_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2865,7 +3019,6 @@ class UnitarySystemPerformanceHeatPumpMultispeed(object):
         The UnitarySystemPerformance object is used to specify the air flow ratio at each
         operating speed. This object is primarily used for multispeed coils to allow operation
         at alternate flow rates different from those specified in the coil object.
-    
     """
     internal_name = "UnitarySystemPerformance:HeatPump:Multispeed"
     field_count = 11
@@ -2886,15 +3039,16 @@ class UnitarySystemPerformanceHeatPumpMultispeed(object):
         self._data["Speed 3 Supply Air Flow Ratio During Cooling Operation"] = None
         self._data["Speed 4 Supply Air Flow Ratio During Heating Operation"] = None
         self._data["Speed 4 Supply Air Flow Ratio During Cooling Operation"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -2973,6 +3127,7 @@ class UnitarySystemPerformanceHeatPumpMultispeed(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -2999,7 +3154,7 @@ class UnitarySystemPerformanceHeatPumpMultispeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3038,8 +3193,15 @@ class UnitarySystemPerformanceHeatPumpMultispeed(object):
             try:
                 value = int(value)
             except ValueError:
-                raise ValueError('value {} need to be of type int '
-                                 'for field `number_of_speeds_for_heating`'.format(value))
+                if not self.strict:
+                    try:
+                        conv_value = int(float(value))
+                        logging.warn('Cast float {} to int {}, precision may be lost '
+                                     'for field `number_of_speeds_for_heating`'.format(value, conv_value))
+                        value = conv_value
+                    except ValueError:
+                        raise ValueError('value {} need to be of type int '
+                                         'for field `number_of_speeds_for_heating`'.format(value))
             if value < 0:
                 raise ValueError('value need to be greater or equal 0 '
                                  'for field `number_of_speeds_for_heating`')
@@ -3077,8 +3239,15 @@ class UnitarySystemPerformanceHeatPumpMultispeed(object):
             try:
                 value = int(value)
             except ValueError:
-                raise ValueError('value {} need to be of type int '
-                                 'for field `number_of_speeds_for_cooling`'.format(value))
+                if not self.strict:
+                    try:
+                        conv_value = int(float(value))
+                        logging.warn('Cast float {} to int {}, precision may be lost '
+                                     'for field `number_of_speeds_for_cooling`'.format(value, conv_value))
+                        value = conv_value
+                    except ValueError:
+                        raise ValueError('value {} need to be of type int '
+                                         'for field `number_of_speeds_for_cooling`'.format(value))
             if value < 0:
                 raise ValueError('value need to be greater or equal 0 '
                                  'for field `number_of_speeds_for_cooling`')
@@ -3120,12 +3289,17 @@ class UnitarySystemPerformanceHeatPumpMultispeed(object):
                 if value_lower == "autosize":
                     self._data["Speed 1 Supply Air Flow Ratio During Heating Operation"] = "Autosize"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autosize" '
+                                 'for field `speed_1_supply_air_flow_ratio_during_heating_operation`'.format(value))
+                    self._data["Speed 1 Supply Air Flow Ratio During Heating Operation"] = "Autosize"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autosize"'
                                  'for field `speed_1_supply_air_flow_ratio_during_heating_operation`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -3165,12 +3339,17 @@ class UnitarySystemPerformanceHeatPumpMultispeed(object):
                 if value_lower == "autosize":
                     self._data["Speed 1 Supply Air Flow Ratio During Cooling Operation"] = "Autosize"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autosize" '
+                                 'for field `speed_1_supply_air_flow_ratio_during_cooling_operation`'.format(value))
+                    self._data["Speed 1 Supply Air Flow Ratio During Cooling Operation"] = "Autosize"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autosize"'
                                  'for field `speed_1_supply_air_flow_ratio_during_cooling_operation`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -3210,12 +3389,17 @@ class UnitarySystemPerformanceHeatPumpMultispeed(object):
                 if value_lower == "autosize":
                     self._data["Speed 2 Supply Air Flow Ratio During Heating Operation"] = "Autosize"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autosize" '
+                                 'for field `speed_2_supply_air_flow_ratio_during_heating_operation`'.format(value))
+                    self._data["Speed 2 Supply Air Flow Ratio During Heating Operation"] = "Autosize"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autosize"'
                                  'for field `speed_2_supply_air_flow_ratio_during_heating_operation`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -3255,12 +3439,17 @@ class UnitarySystemPerformanceHeatPumpMultispeed(object):
                 if value_lower == "autosize":
                     self._data["Speed 2 Supply Air Flow Ratio During Cooling Operation"] = "Autosize"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autosize" '
+                                 'for field `speed_2_supply_air_flow_ratio_during_cooling_operation`'.format(value))
+                    self._data["Speed 2 Supply Air Flow Ratio During Cooling Operation"] = "Autosize"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autosize"'
                                  'for field `speed_2_supply_air_flow_ratio_during_cooling_operation`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -3300,12 +3489,17 @@ class UnitarySystemPerformanceHeatPumpMultispeed(object):
                 if value_lower == "autosize":
                     self._data["Speed 3 Supply Air Flow Ratio During Heating Operation"] = "Autosize"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autosize" '
+                                 'for field `speed_3_supply_air_flow_ratio_during_heating_operation`'.format(value))
+                    self._data["Speed 3 Supply Air Flow Ratio During Heating Operation"] = "Autosize"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autosize"'
                                  'for field `speed_3_supply_air_flow_ratio_during_heating_operation`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -3345,12 +3539,17 @@ class UnitarySystemPerformanceHeatPumpMultispeed(object):
                 if value_lower == "autosize":
                     self._data["Speed 3 Supply Air Flow Ratio During Cooling Operation"] = "Autosize"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autosize" '
+                                 'for field `speed_3_supply_air_flow_ratio_during_cooling_operation`'.format(value))
+                    self._data["Speed 3 Supply Air Flow Ratio During Cooling Operation"] = "Autosize"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autosize"'
                                  'for field `speed_3_supply_air_flow_ratio_during_cooling_operation`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -3390,12 +3589,17 @@ class UnitarySystemPerformanceHeatPumpMultispeed(object):
                 if value_lower == "autosize":
                     self._data["Speed 4 Supply Air Flow Ratio During Heating Operation"] = "Autosize"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autosize" '
+                                 'for field `speed_4_supply_air_flow_ratio_during_heating_operation`'.format(value))
+                    self._data["Speed 4 Supply Air Flow Ratio During Heating Operation"] = "Autosize"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autosize"'
                                  'for field `speed_4_supply_air_flow_ratio_during_heating_operation`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -3435,12 +3639,17 @@ class UnitarySystemPerformanceHeatPumpMultispeed(object):
                 if value_lower == "autosize":
                     self._data["Speed 4 Supply Air Flow Ratio During Cooling Operation"] = "Autosize"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autosize" '
+                                 'for field `speed_4_supply_air_flow_ratio_during_cooling_operation`'.format(value))
+                    self._data["Speed 4 Supply Air Flow Ratio During Cooling Operation"] = "Autosize"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autosize"'
                                  'for field `speed_4_supply_air_flow_ratio_during_cooling_operation`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -3486,7 +3695,6 @@ class AirLoopHvacUnitaryFurnaceHeatOnly(object):
         Unitary system, heating-only with constant volume supply fan (continuous or cycling)
         and heating coil (gas, electric, hot water, or steam). Identical to
         AirLoopHVAC:UnitaryHeatOnly.
-    
     """
     internal_name = "AirLoopHVAC:Unitary:Furnace:HeatOnly"
     field_count = 13
@@ -3509,15 +3717,16 @@ class AirLoopHvacUnitaryFurnaceHeatOnly(object):
         self._data["Fan Placement"] = None
         self._data["Heating Coil Object Type"] = None
         self._data["Heating Coil Name"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -3610,6 +3819,7 @@ class AirLoopHvacUnitaryFurnaceHeatOnly(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -3636,7 +3846,7 @@ class AirLoopHvacUnitaryFurnaceHeatOnly(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3673,7 +3883,7 @@ class AirLoopHvacUnitaryFurnaceHeatOnly(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `availability_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3708,7 +3918,7 @@ class AirLoopHvacUnitaryFurnaceHeatOnly(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `furnace_air_inlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3743,7 +3953,7 @@ class AirLoopHvacUnitaryFurnaceHeatOnly(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `furnace_air_outlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3784,7 +3994,7 @@ class AirLoopHvacUnitaryFurnaceHeatOnly(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `supply_air_fan_operating_mode_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3823,12 +4033,17 @@ class AirLoopHvacUnitaryFurnaceHeatOnly(object):
                 if value_lower == "autosize":
                     self._data["Maximum Supply Air Temperature"] = "Autosize"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autosize" '
+                                 'for field `maximum_supply_air_temperature`'.format(value))
+                    self._data["Maximum Supply Air Temperature"] = "Autosize"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autosize"'
                                  'for field `maximum_supply_air_temperature`'.format(value))
         self._data["Maximum Supply Air Temperature"] = value
 
@@ -3862,12 +4077,17 @@ class AirLoopHvacUnitaryFurnaceHeatOnly(object):
                 if value_lower == "autosize":
                     self._data["Supply Air Flow Rate"] = "Autosize"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autosize" '
+                                 'for field `supply_air_flow_rate`'.format(value))
+                    self._data["Supply Air Flow Rate"] = "Autosize"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autosize"'
                                  'for field `supply_air_flow_rate`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -3899,7 +4119,7 @@ class AirLoopHvacUnitaryFurnaceHeatOnly(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `controlling_zone_or_thermostat_location`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3939,7 +4159,7 @@ class AirLoopHvacUnitaryFurnaceHeatOnly(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `supply_fan_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3953,16 +4173,26 @@ class AirLoopHvacUnitaryFurnaceHeatOnly(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `supply_fan_object_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `supply_fan_object_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Supply Fan Object Type"] = value
 
@@ -3991,7 +4221,7 @@ class AirLoopHvacUnitaryFurnaceHeatOnly(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `supply_fan_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4030,7 +4260,7 @@ class AirLoopHvacUnitaryFurnaceHeatOnly(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `fan_placement`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4044,16 +4274,26 @@ class AirLoopHvacUnitaryFurnaceHeatOnly(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `fan_placement`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `fan_placement`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Fan Placement"] = value
 
@@ -4088,7 +4328,7 @@ class AirLoopHvacUnitaryFurnaceHeatOnly(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `heating_coil_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4104,16 +4344,26 @@ class AirLoopHvacUnitaryFurnaceHeatOnly(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `heating_coil_object_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `heating_coil_object_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Heating Coil Object Type"] = value
 
@@ -4142,7 +4392,7 @@ class AirLoopHvacUnitaryFurnaceHeatOnly(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `heating_coil_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4192,7 +4442,6 @@ class AirLoopHvacUnitaryFurnaceHeatCool(object):
         cycling), direct expansion (DX) cooling coil, heating coil (gas, electric,
         hot water, or steam), and optional reheat coil for dehumidification control.
         Identical to AirLoopHVAC:UnitaryHeatCool.
-    
     """
     internal_name = "AirLoopHVAC:Unitary:Furnace:HeatCool"
     field_count = 20
@@ -4222,15 +4471,16 @@ class AirLoopHvacUnitaryFurnaceHeatCool(object):
         self._data["Dehumidification Control Type"] = None
         self._data["Reheat Coil Object Type"] = None
         self._data["Reheat Coil Name"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -4372,6 +4622,7 @@ class AirLoopHvacUnitaryFurnaceHeatCool(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -4398,7 +4649,7 @@ class AirLoopHvacUnitaryFurnaceHeatCool(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4438,7 +4689,7 @@ class AirLoopHvacUnitaryFurnaceHeatCool(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `availability_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4473,7 +4724,7 @@ class AirLoopHvacUnitaryFurnaceHeatCool(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `furnace_air_inlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4508,7 +4759,7 @@ class AirLoopHvacUnitaryFurnaceHeatCool(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `furnace_air_outlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4550,7 +4801,7 @@ class AirLoopHvacUnitaryFurnaceHeatCool(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `supply_air_fan_operating_mode_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4589,12 +4840,17 @@ class AirLoopHvacUnitaryFurnaceHeatCool(object):
                 if value_lower == "autosize":
                     self._data["Maximum Supply Air Temperature"] = "Autosize"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autosize" '
+                                 'for field `maximum_supply_air_temperature`'.format(value))
+                    self._data["Maximum Supply Air Temperature"] = "Autosize"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autosize"'
                                  'for field `maximum_supply_air_temperature`'.format(value))
         self._data["Maximum Supply Air Temperature"] = value
 
@@ -4628,12 +4884,17 @@ class AirLoopHvacUnitaryFurnaceHeatCool(object):
                 if value_lower == "autosize":
                     self._data["Supply Air Flow Rate During Cooling Operation"] = "Autosize"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autosize" '
+                                 'for field `supply_air_flow_rate_during_cooling_operation`'.format(value))
+                    self._data["Supply Air Flow Rate During Cooling Operation"] = "Autosize"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autosize"'
                                  'for field `supply_air_flow_rate_during_cooling_operation`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -4670,12 +4931,17 @@ class AirLoopHvacUnitaryFurnaceHeatCool(object):
                 if value_lower == "autosize":
                     self._data["Supply Air Flow Rate During Heating Operation"] = "Autosize"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autosize" '
+                                 'for field `supply_air_flow_rate_during_heating_operation`'.format(value))
+                    self._data["Supply Air Flow Rate During Heating Operation"] = "Autosize"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autosize"'
                                  'for field `supply_air_flow_rate_during_heating_operation`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -4716,12 +4982,17 @@ class AirLoopHvacUnitaryFurnaceHeatCool(object):
                 if value_lower == "autosize":
                     self._data["Supply Air Flow Rate When No Cooling or Heating is Needed"] = "Autosize"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autosize" '
+                                 'for field `supply_air_flow_rate_when_no_cooling_or_heating_is_needed`'.format(value))
+                    self._data["Supply Air Flow Rate When No Cooling or Heating is Needed"] = "Autosize"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autosize"'
                                  'for field `supply_air_flow_rate_when_no_cooling_or_heating_is_needed`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -4753,7 +5024,7 @@ class AirLoopHvacUnitaryFurnaceHeatCool(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `controlling_zone_or_thermostat_location`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4793,7 +5064,7 @@ class AirLoopHvacUnitaryFurnaceHeatCool(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `supply_fan_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4807,16 +5078,26 @@ class AirLoopHvacUnitaryFurnaceHeatCool(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `supply_fan_object_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `supply_fan_object_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Supply Fan Object Type"] = value
 
@@ -4845,7 +5126,7 @@ class AirLoopHvacUnitaryFurnaceHeatCool(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `supply_fan_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4884,7 +5165,7 @@ class AirLoopHvacUnitaryFurnaceHeatCool(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `fan_placement`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4898,16 +5179,26 @@ class AirLoopHvacUnitaryFurnaceHeatCool(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `fan_placement`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `fan_placement`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Fan Placement"] = value
 
@@ -4942,7 +5233,7 @@ class AirLoopHvacUnitaryFurnaceHeatCool(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `heating_coil_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4958,16 +5249,26 @@ class AirLoopHvacUnitaryFurnaceHeatCool(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `heating_coil_object_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `heating_coil_object_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Heating Coil Object Type"] = value
 
@@ -4996,7 +5297,7 @@ class AirLoopHvacUnitaryFurnaceHeatCool(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `heating_coil_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -5035,7 +5336,7 @@ class AirLoopHvacUnitaryFurnaceHeatCool(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `cooling_coil_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -5049,16 +5350,26 @@ class AirLoopHvacUnitaryFurnaceHeatCool(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `cooling_coil_object_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `cooling_coil_object_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Cooling Coil Object Type"] = value
 
@@ -5087,7 +5398,7 @@ class AirLoopHvacUnitaryFurnaceHeatCool(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `cooling_coil_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -5139,7 +5450,7 @@ class AirLoopHvacUnitaryFurnaceHeatCool(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `dehumidification_control_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -5154,16 +5465,26 @@ class AirLoopHvacUnitaryFurnaceHeatCool(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `dehumidification_control_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `dehumidification_control_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Dehumidification Control Type"] = value
 
@@ -5200,7 +5521,7 @@ class AirLoopHvacUnitaryFurnaceHeatCool(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `reheat_coil_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -5217,16 +5538,26 @@ class AirLoopHvacUnitaryFurnaceHeatCool(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `reheat_coil_object_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `reheat_coil_object_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Reheat Coil Object Type"] = value
 
@@ -5256,7 +5587,7 @@ class AirLoopHvacUnitaryFurnaceHeatCool(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `reheat_coil_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -5305,7 +5636,6 @@ class AirLoopHvacUnitaryHeatOnly(object):
         Unitary system, heating-only with constant volume supply fan (continuous or cycling)
         and heating coil (gas, electric, hot water, or steam). Identical to
         AirLoopHVAC:Unitary:Furnace:HeatOnly.
-    
     """
     internal_name = "AirLoopHVAC:UnitaryHeatOnly"
     field_count = 13
@@ -5328,15 +5658,16 @@ class AirLoopHvacUnitaryHeatOnly(object):
         self._data["Fan Placement"] = None
         self._data["Heating Coil Object Type"] = None
         self._data["Heating Coil Name"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -5429,6 +5760,7 @@ class AirLoopHvacUnitaryHeatOnly(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -5455,7 +5787,7 @@ class AirLoopHvacUnitaryHeatOnly(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -5492,7 +5824,7 @@ class AirLoopHvacUnitaryHeatOnly(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `availability_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -5527,7 +5859,7 @@ class AirLoopHvacUnitaryHeatOnly(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `unitary_system_air_inlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -5562,7 +5894,7 @@ class AirLoopHvacUnitaryHeatOnly(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `unitary_system_air_outlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -5603,7 +5935,7 @@ class AirLoopHvacUnitaryHeatOnly(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `supply_air_fan_operating_mode_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -5642,12 +5974,17 @@ class AirLoopHvacUnitaryHeatOnly(object):
                 if value_lower == "autosize":
                     self._data["Maximum Supply Air Temperature"] = "Autosize"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autosize" '
+                                 'for field `maximum_supply_air_temperature`'.format(value))
+                    self._data["Maximum Supply Air Temperature"] = "Autosize"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autosize"'
                                  'for field `maximum_supply_air_temperature`'.format(value))
         self._data["Maximum Supply Air Temperature"] = value
 
@@ -5681,12 +6018,17 @@ class AirLoopHvacUnitaryHeatOnly(object):
                 if value_lower == "autosize":
                     self._data["Supply Air Flow Rate"] = "Autosize"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autosize" '
+                                 'for field `supply_air_flow_rate`'.format(value))
+                    self._data["Supply Air Flow Rate"] = "Autosize"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autosize"'
                                  'for field `supply_air_flow_rate`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -5718,7 +6060,7 @@ class AirLoopHvacUnitaryHeatOnly(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `controlling_zone_or_thermostat_location`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -5758,7 +6100,7 @@ class AirLoopHvacUnitaryHeatOnly(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `supply_fan_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -5772,16 +6114,26 @@ class AirLoopHvacUnitaryHeatOnly(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `supply_fan_object_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `supply_fan_object_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Supply Fan Object Type"] = value
 
@@ -5810,7 +6162,7 @@ class AirLoopHvacUnitaryHeatOnly(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `supply_fan_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -5849,7 +6201,7 @@ class AirLoopHvacUnitaryHeatOnly(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `fan_placement`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -5863,16 +6215,26 @@ class AirLoopHvacUnitaryHeatOnly(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `fan_placement`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `fan_placement`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Fan Placement"] = value
 
@@ -5907,7 +6269,7 @@ class AirLoopHvacUnitaryHeatOnly(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `heating_coil_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -5923,16 +6285,26 @@ class AirLoopHvacUnitaryHeatOnly(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `heating_coil_object_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `heating_coil_object_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Heating Coil Object Type"] = value
 
@@ -5961,7 +6333,7 @@ class AirLoopHvacUnitaryHeatOnly(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `heating_coil_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -6011,7 +6383,6 @@ class AirLoopHvacUnitaryHeatCool(object):
         cycling), direct expansion (DX) cooling coil, heating coil (gas, electric,
         hot water, or steam), and optional reheat coil for dehumidification control.
         Identical to AirLoopHVAC:Unitary:Furnace:HeatCool.
-    
     """
     internal_name = "AirLoopHVAC:UnitaryHeatCool"
     field_count = 20
@@ -6041,15 +6412,16 @@ class AirLoopHvacUnitaryHeatCool(object):
         self._data["Dehumidification Control Type"] = None
         self._data["Reheat Coil Object Type"] = None
         self._data["Reheat Coil Name"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -6191,6 +6563,7 @@ class AirLoopHvacUnitaryHeatCool(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -6217,7 +6590,7 @@ class AirLoopHvacUnitaryHeatCool(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -6254,7 +6627,7 @@ class AirLoopHvacUnitaryHeatCool(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `availability_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -6289,7 +6662,7 @@ class AirLoopHvacUnitaryHeatCool(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `unitary_system_air_inlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -6324,7 +6697,7 @@ class AirLoopHvacUnitaryHeatCool(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `unitary_system_air_outlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -6366,7 +6739,7 @@ class AirLoopHvacUnitaryHeatCool(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `supply_air_fan_operating_mode_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -6405,12 +6778,17 @@ class AirLoopHvacUnitaryHeatCool(object):
                 if value_lower == "autosize":
                     self._data["Maximum Supply Air Temperature"] = "Autosize"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autosize" '
+                                 'for field `maximum_supply_air_temperature`'.format(value))
+                    self._data["Maximum Supply Air Temperature"] = "Autosize"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autosize"'
                                  'for field `maximum_supply_air_temperature`'.format(value))
         self._data["Maximum Supply Air Temperature"] = value
 
@@ -6444,12 +6822,17 @@ class AirLoopHvacUnitaryHeatCool(object):
                 if value_lower == "autosize":
                     self._data["Supply Air Flow Rate During Cooling Operation"] = "Autosize"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autosize" '
+                                 'for field `supply_air_flow_rate_during_cooling_operation`'.format(value))
+                    self._data["Supply Air Flow Rate During Cooling Operation"] = "Autosize"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autosize"'
                                  'for field `supply_air_flow_rate_during_cooling_operation`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -6486,12 +6869,17 @@ class AirLoopHvacUnitaryHeatCool(object):
                 if value_lower == "autosize":
                     self._data["Supply Air Flow Rate During Heating Operation"] = "Autosize"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autosize" '
+                                 'for field `supply_air_flow_rate_during_heating_operation`'.format(value))
+                    self._data["Supply Air Flow Rate During Heating Operation"] = "Autosize"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autosize"'
                                  'for field `supply_air_flow_rate_during_heating_operation`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -6532,12 +6920,17 @@ class AirLoopHvacUnitaryHeatCool(object):
                 if value_lower == "autosize":
                     self._data["Supply Air Flow Rate When No Cooling or Heating is Needed"] = "Autosize"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autosize" '
+                                 'for field `supply_air_flow_rate_when_no_cooling_or_heating_is_needed`'.format(value))
+                    self._data["Supply Air Flow Rate When No Cooling or Heating is Needed"] = "Autosize"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autosize"'
                                  'for field `supply_air_flow_rate_when_no_cooling_or_heating_is_needed`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -6569,7 +6962,7 @@ class AirLoopHvacUnitaryHeatCool(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `controlling_zone_or_thermostat_location`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -6609,7 +7002,7 @@ class AirLoopHvacUnitaryHeatCool(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `supply_fan_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -6623,16 +7016,26 @@ class AirLoopHvacUnitaryHeatCool(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `supply_fan_object_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `supply_fan_object_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Supply Fan Object Type"] = value
 
@@ -6661,7 +7064,7 @@ class AirLoopHvacUnitaryHeatCool(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `supply_fan_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -6700,7 +7103,7 @@ class AirLoopHvacUnitaryHeatCool(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `fan_placement`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -6714,16 +7117,26 @@ class AirLoopHvacUnitaryHeatCool(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `fan_placement`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `fan_placement`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Fan Placement"] = value
 
@@ -6758,7 +7171,7 @@ class AirLoopHvacUnitaryHeatCool(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `heating_coil_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -6774,16 +7187,26 @@ class AirLoopHvacUnitaryHeatCool(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `heating_coil_object_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `heating_coil_object_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Heating Coil Object Type"] = value
 
@@ -6812,7 +7235,7 @@ class AirLoopHvacUnitaryHeatCool(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `heating_coil_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -6853,7 +7276,7 @@ class AirLoopHvacUnitaryHeatCool(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `cooling_coil_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -6868,16 +7291,26 @@ class AirLoopHvacUnitaryHeatCool(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `cooling_coil_object_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `cooling_coil_object_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Cooling Coil Object Type"] = value
 
@@ -6906,7 +7339,7 @@ class AirLoopHvacUnitaryHeatCool(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `cooling_coil_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -6958,7 +7391,7 @@ class AirLoopHvacUnitaryHeatCool(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `dehumidification_control_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -6973,16 +7406,26 @@ class AirLoopHvacUnitaryHeatCool(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `dehumidification_control_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `dehumidification_control_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Dehumidification Control Type"] = value
 
@@ -7019,7 +7462,7 @@ class AirLoopHvacUnitaryHeatCool(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `reheat_coil_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -7036,16 +7479,26 @@ class AirLoopHvacUnitaryHeatCool(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `reheat_coil_object_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `reheat_coil_object_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Reheat Coil Object Type"] = value
 
@@ -7075,7 +7528,7 @@ class AirLoopHvacUnitaryHeatCool(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `reheat_coil_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -7124,7 +7577,6 @@ class AirLoopHvacUnitaryHeatPumpAirToAir(object):
         Unitary heat pump system, heating and cooling, single-speed with supply fan, direct
         expansion (DX) cooling coil, DX heating coil (air-to-air heat pump), and supplemental
         heating coil (gas, electric, hot water, or steam).
-    
     """
     internal_name = "AirLoopHVAC:UnitaryHeatPump:AirToAir"
     field_count = 21
@@ -7155,15 +7607,16 @@ class AirLoopHvacUnitaryHeatPumpAirToAir(object):
         self._data["Fan Placement"] = None
         self._data["Supply Air Fan Operating Mode Schedule Name"] = None
         self._data["Dehumidification Control Type"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -7312,6 +7765,7 @@ class AirLoopHvacUnitaryHeatPumpAirToAir(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -7338,7 +7792,7 @@ class AirLoopHvacUnitaryHeatPumpAirToAir(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -7378,7 +7832,7 @@ class AirLoopHvacUnitaryHeatPumpAirToAir(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `availability_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -7413,7 +7867,7 @@ class AirLoopHvacUnitaryHeatPumpAirToAir(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `air_inlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -7448,7 +7902,7 @@ class AirLoopHvacUnitaryHeatPumpAirToAir(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `air_outlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -7488,12 +7942,17 @@ class AirLoopHvacUnitaryHeatPumpAirToAir(object):
                 if value_lower == "autosize":
                     self._data["Supply Air Flow Rate During Cooling Operation"] = "Autosize"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autosize" '
+                                 'for field `supply_air_flow_rate_during_cooling_operation`'.format(value))
+                    self._data["Supply Air Flow Rate During Cooling Operation"] = "Autosize"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autosize"'
                                  'for field `supply_air_flow_rate_during_cooling_operation`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -7530,12 +7989,17 @@ class AirLoopHvacUnitaryHeatPumpAirToAir(object):
                 if value_lower == "autosize":
                     self._data["Supply Air Flow Rate During Heating Operation"] = "Autosize"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autosize" '
+                                 'for field `supply_air_flow_rate_during_heating_operation`'.format(value))
+                    self._data["Supply Air Flow Rate During Heating Operation"] = "Autosize"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autosize"'
                                  'for field `supply_air_flow_rate_during_heating_operation`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -7576,12 +8040,17 @@ class AirLoopHvacUnitaryHeatPumpAirToAir(object):
                 if value_lower == "autosize":
                     self._data["Supply Air Flow Rate When No Cooling or Heating is Needed"] = "Autosize"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autosize" '
+                                 'for field `supply_air_flow_rate_when_no_cooling_or_heating_is_needed`'.format(value))
+                    self._data["Supply Air Flow Rate When No Cooling or Heating is Needed"] = "Autosize"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autosize"'
                                  'for field `supply_air_flow_rate_when_no_cooling_or_heating_is_needed`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -7613,7 +8082,7 @@ class AirLoopHvacUnitaryHeatPumpAirToAir(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `controlling_zone_or_thermostat_location`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -7654,7 +8123,7 @@ class AirLoopHvacUnitaryHeatPumpAirToAir(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `supply_air_fan_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -7668,16 +8137,26 @@ class AirLoopHvacUnitaryHeatPumpAirToAir(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `supply_air_fan_object_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `supply_air_fan_object_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Supply Air Fan Object Type"] = value
 
@@ -7707,7 +8186,7 @@ class AirLoopHvacUnitaryHeatPumpAirToAir(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `supply_air_fan_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -7747,7 +8226,7 @@ class AirLoopHvacUnitaryHeatPumpAirToAir(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `heating_coil_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -7761,16 +8240,26 @@ class AirLoopHvacUnitaryHeatPumpAirToAir(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `heating_coil_object_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `heating_coil_object_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Heating Coil Object Type"] = value
 
@@ -7800,7 +8289,7 @@ class AirLoopHvacUnitaryHeatPumpAirToAir(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `heating_coil_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -7842,7 +8331,7 @@ class AirLoopHvacUnitaryHeatPumpAirToAir(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `cooling_coil_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -7857,16 +8346,26 @@ class AirLoopHvacUnitaryHeatPumpAirToAir(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `cooling_coil_object_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `cooling_coil_object_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Cooling Coil Object Type"] = value
 
@@ -7896,7 +8395,7 @@ class AirLoopHvacUnitaryHeatPumpAirToAir(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `cooling_coil_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -7937,7 +8436,7 @@ class AirLoopHvacUnitaryHeatPumpAirToAir(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `supplemental_heating_coil_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -7953,16 +8452,26 @@ class AirLoopHvacUnitaryHeatPumpAirToAir(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `supplemental_heating_coil_object_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `supplemental_heating_coil_object_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Supplemental Heating Coil Object Type"] = value
 
@@ -7992,7 +8501,7 @@ class AirLoopHvacUnitaryHeatPumpAirToAir(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `supplemental_heating_coil_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -8030,12 +8539,17 @@ class AirLoopHvacUnitaryHeatPumpAirToAir(object):
                 if value_lower == "autosize":
                     self._data["Maximum Supply Air Temperature from Supplemental Heater"] = "Autosize"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autosize" '
+                                 'for field `maximum_supply_air_temperature_from_supplemental_heater`'.format(value))
+                    self._data["Maximum Supply Air Temperature from Supplemental Heater"] = "Autosize"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autosize"'
                                  'for field `maximum_supply_air_temperature_from_supplemental_heater`'.format(value))
         self._data["Maximum Supply Air Temperature from Supplemental Heater"] = value
 
@@ -8067,7 +8581,7 @@ class AirLoopHvacUnitaryHeatPumpAirToAir(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `maximum_outdoor_drybulb_temperature_for_supplemental_heater_operation`'.format(value))
             if value > 21.0:
                 raise ValueError('value need to be smaller 21.0 '
@@ -8103,7 +8617,7 @@ class AirLoopHvacUnitaryHeatPumpAirToAir(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `fan_placement`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -8117,16 +8631,26 @@ class AirLoopHvacUnitaryHeatPumpAirToAir(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `fan_placement`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `fan_placement`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Fan Placement"] = value
 
@@ -8161,7 +8685,7 @@ class AirLoopHvacUnitaryHeatPumpAirToAir(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `supply_air_fan_operating_mode_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -8213,7 +8737,7 @@ class AirLoopHvacUnitaryHeatPumpAirToAir(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `dehumidification_control_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -8228,16 +8752,26 @@ class AirLoopHvacUnitaryHeatPumpAirToAir(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `dehumidification_control_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `dehumidification_control_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Dehumidification Control Type"] = value
 
@@ -8281,7 +8815,6 @@ class AirLoopHvacUnitaryHeatPumpWaterToAir(object):
         supply fan (continuous or cycling), direct expansion (DX) cooling coil, DX heating
         coil (water-to-air heat pump), and supplemental heating coil (gas, electric,
         hot water, or steam).
-    
     """
     internal_name = "AirLoopHVAC:UnitaryHeatPump:WaterToAir"
     field_count = 27
@@ -8318,15 +8851,16 @@ class AirLoopHvacUnitaryHeatPumpWaterToAir(object):
         self._data["Supply Air Fan Operating Mode Schedule Name"] = None
         self._data["Dehumidification Control Type"] = None
         self._data["Heat Pump Coil Water Flow Mode"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -8517,6 +9051,7 @@ class AirLoopHvacUnitaryHeatPumpWaterToAir(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -8543,7 +9078,7 @@ class AirLoopHvacUnitaryHeatPumpWaterToAir(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -8580,7 +9115,7 @@ class AirLoopHvacUnitaryHeatPumpWaterToAir(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `availability_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -8615,7 +9150,7 @@ class AirLoopHvacUnitaryHeatPumpWaterToAir(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `air_inlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -8650,7 +9185,7 @@ class AirLoopHvacUnitaryHeatPumpWaterToAir(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `air_outlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -8690,12 +9225,17 @@ class AirLoopHvacUnitaryHeatPumpWaterToAir(object):
                 if value_lower == "autosize":
                     self._data["Supply Air Flow Rate"] = "Autosize"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autosize" '
+                                 'for field `supply_air_flow_rate`'.format(value))
+                    self._data["Supply Air Flow Rate"] = "Autosize"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autosize"'
                                  'for field `supply_air_flow_rate`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -8727,7 +9267,7 @@ class AirLoopHvacUnitaryHeatPumpWaterToAir(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `controlling_zone_or_thermostat_location`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -8765,7 +9305,7 @@ class AirLoopHvacUnitaryHeatPumpWaterToAir(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `supply_air_fan_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -8778,16 +9318,26 @@ class AirLoopHvacUnitaryHeatPumpWaterToAir(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `supply_air_fan_object_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `supply_air_fan_object_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Supply Air Fan Object Type"] = value
 
@@ -8817,7 +9367,7 @@ class AirLoopHvacUnitaryHeatPumpWaterToAir(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `supply_air_fan_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -8856,7 +9406,7 @@ class AirLoopHvacUnitaryHeatPumpWaterToAir(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `heating_coil_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -8871,16 +9421,26 @@ class AirLoopHvacUnitaryHeatPumpWaterToAir(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `heating_coil_object_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `heating_coil_object_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Heating Coil Object Type"] = value
 
@@ -8910,7 +9470,7 @@ class AirLoopHvacUnitaryHeatPumpWaterToAir(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `heating_coil_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -8947,7 +9507,7 @@ class AirLoopHvacUnitaryHeatPumpWaterToAir(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `heating_convergence`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -8983,7 +9543,7 @@ class AirLoopHvacUnitaryHeatPumpWaterToAir(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `cooling_coil_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -8998,16 +9558,26 @@ class AirLoopHvacUnitaryHeatPumpWaterToAir(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `cooling_coil_object_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `cooling_coil_object_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Cooling Coil Object Type"] = value
 
@@ -9037,7 +9607,7 @@ class AirLoopHvacUnitaryHeatPumpWaterToAir(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `cooling_coil_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -9074,7 +9644,7 @@ class AirLoopHvacUnitaryHeatPumpWaterToAir(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `cooling_convergence`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -9112,7 +9682,7 @@ class AirLoopHvacUnitaryHeatPumpWaterToAir(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `maximum_cycling_rate`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -9153,7 +9723,7 @@ class AirLoopHvacUnitaryHeatPumpWaterToAir(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `heat_pump_time_constant`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -9194,7 +9764,7 @@ class AirLoopHvacUnitaryHeatPumpWaterToAir(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_oncycle_power_use`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -9235,7 +9805,7 @@ class AirLoopHvacUnitaryHeatPumpWaterToAir(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `heat_pump_fan_delay_time`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -9273,7 +9843,7 @@ class AirLoopHvacUnitaryHeatPumpWaterToAir(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `supplemental_heating_coil_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -9289,16 +9859,26 @@ class AirLoopHvacUnitaryHeatPumpWaterToAir(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `supplemental_heating_coil_object_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `supplemental_heating_coil_object_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Supplemental Heating Coil Object Type"] = value
 
@@ -9328,7 +9908,7 @@ class AirLoopHvacUnitaryHeatPumpWaterToAir(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `supplemental_heating_coil_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -9366,12 +9946,17 @@ class AirLoopHvacUnitaryHeatPumpWaterToAir(object):
                 if value_lower == "autosize":
                     self._data["Maximum Supply Air Temperature from Supplemental Heater"] = "Autosize"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autosize" '
+                                 'for field `maximum_supply_air_temperature_from_supplemental_heater`'.format(value))
+                    self._data["Maximum Supply Air Temperature from Supplemental Heater"] = "Autosize"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autosize"'
                                  'for field `maximum_supply_air_temperature_from_supplemental_heater`'.format(value))
         self._data["Maximum Supply Air Temperature from Supplemental Heater"] = value
 
@@ -9403,7 +9988,7 @@ class AirLoopHvacUnitaryHeatPumpWaterToAir(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `maximum_outdoor_drybulb_temperature_for_supplemental_heater_operation`'.format(value))
             if value > 21.0:
                 raise ValueError('value need to be smaller 21.0 '
@@ -9435,7 +10020,7 @@ class AirLoopHvacUnitaryHeatPumpWaterToAir(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `outdoor_drybulb_temperature_sensor_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -9474,7 +10059,7 @@ class AirLoopHvacUnitaryHeatPumpWaterToAir(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `fan_placement`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -9488,16 +10073,26 @@ class AirLoopHvacUnitaryHeatPumpWaterToAir(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `fan_placement`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `fan_placement`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Fan Placement"] = value
 
@@ -9530,7 +10125,7 @@ class AirLoopHvacUnitaryHeatPumpWaterToAir(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `supply_air_fan_operating_mode_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -9574,7 +10169,7 @@ class AirLoopHvacUnitaryHeatPumpWaterToAir(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `dehumidification_control_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -9588,16 +10183,26 @@ class AirLoopHvacUnitaryHeatPumpWaterToAir(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `dehumidification_control_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `dehumidification_control_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Dehumidification Control Type"] = value
 
@@ -9635,7 +10240,7 @@ class AirLoopHvacUnitaryHeatPumpWaterToAir(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `heat_pump_coil_water_flow_mode`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -9650,16 +10255,26 @@ class AirLoopHvacUnitaryHeatPumpWaterToAir(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `heat_pump_coil_water_flow_mode`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `heat_pump_coil_water_flow_mode`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Heat Pump Coil Water Flow Mode"] = value
 
@@ -9704,7 +10319,6 @@ class AirLoopHvacUnitaryHeatCoolVavchangeoverBypass(object):
         hot water, steam, or DX air-to-air heat pump) and bypass damper for variable volume
         flow to terminal units. Used with AirTerminal:SingleDuct:VAV:HeatAndCool:Reheat
         or AirTerminal:SingleDuct:VAV:HeatAndCool:NoReheat.
-    
     """
     internal_name = "AirLoopHVAC:UnitaryHeatCool:VAVChangeoverBypass"
     field_count = 27
@@ -9741,15 +10355,16 @@ class AirLoopHvacUnitaryHeatCoolVavchangeoverBypass(object):
         self._data["Minimum Outlet Air Temperature During Cooling Operation"] = None
         self._data["Maximum Outlet Air Temperature During Heating Operation"] = None
         self._data["Dehumidification Control Type"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -9940,6 +10555,7 @@ class AirLoopHvacUnitaryHeatCoolVavchangeoverBypass(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -9967,7 +10583,7 @@ class AirLoopHvacUnitaryHeatCoolVavchangeoverBypass(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -10006,7 +10622,7 @@ class AirLoopHvacUnitaryHeatCoolVavchangeoverBypass(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `availability_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -10047,12 +10663,17 @@ class AirLoopHvacUnitaryHeatCoolVavchangeoverBypass(object):
                 if value_lower == "autosize":
                     self._data["System Air Flow Rate During Cooling Operation"] = "Autosize"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autosize" '
+                                 'for field `system_air_flow_rate_during_cooling_operation`'.format(value))
+                    self._data["System Air Flow Rate During Cooling Operation"] = "Autosize"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autosize"'
                                  'for field `system_air_flow_rate_during_cooling_operation`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -10090,12 +10711,17 @@ class AirLoopHvacUnitaryHeatCoolVavchangeoverBypass(object):
                 if value_lower == "autosize":
                     self._data["System Air Flow Rate During Heating Operation"] = "Autosize"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autosize" '
+                                 'for field `system_air_flow_rate_during_heating_operation`'.format(value))
+                    self._data["System Air Flow Rate During Heating Operation"] = "Autosize"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autosize"'
                                  'for field `system_air_flow_rate_during_heating_operation`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -10136,12 +10762,17 @@ class AirLoopHvacUnitaryHeatCoolVavchangeoverBypass(object):
                 if value_lower == "autosize":
                     self._data["System Air Flow Rate When No Cooling or Heating is Needed"] = "Autosize"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autosize" '
+                                 'for field `system_air_flow_rate_when_no_cooling_or_heating_is_needed`'.format(value))
+                    self._data["System Air Flow Rate When No Cooling or Heating is Needed"] = "Autosize"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autosize"'
                                  'for field `system_air_flow_rate_when_no_cooling_or_heating_is_needed`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -10179,12 +10810,17 @@ class AirLoopHvacUnitaryHeatCoolVavchangeoverBypass(object):
                 if value_lower == "autosize":
                     self._data["Outdoor Air Flow Rate During Cooling Operation"] = "Autosize"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autosize" '
+                                 'for field `outdoor_air_flow_rate_during_cooling_operation`'.format(value))
+                    self._data["Outdoor Air Flow Rate During Cooling Operation"] = "Autosize"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autosize"'
                                  'for field `outdoor_air_flow_rate_during_cooling_operation`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -10222,12 +10858,17 @@ class AirLoopHvacUnitaryHeatCoolVavchangeoverBypass(object):
                 if value_lower == "autosize":
                     self._data["Outdoor Air Flow Rate During Heating Operation"] = "Autosize"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autosize" '
+                                 'for field `outdoor_air_flow_rate_during_heating_operation`'.format(value))
+                    self._data["Outdoor Air Flow Rate During Heating Operation"] = "Autosize"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autosize"'
                                  'for field `outdoor_air_flow_rate_during_heating_operation`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -10268,12 +10909,17 @@ class AirLoopHvacUnitaryHeatCoolVavchangeoverBypass(object):
                 if value_lower == "autosize":
                     self._data["Outdoor Air Flow Rate When No Cooling or Heating is Needed"] = "Autosize"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autosize" '
+                                 'for field `outdoor_air_flow_rate_when_no_cooling_or_heating_is_needed`'.format(value))
+                    self._data["Outdoor Air Flow Rate When No Cooling or Heating is Needed"] = "Autosize"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autosize"'
                                  'for field `outdoor_air_flow_rate_when_no_cooling_or_heating_is_needed`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -10308,7 +10954,7 @@ class AirLoopHvacUnitaryHeatCoolVavchangeoverBypass(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `outdoor_air_flow_rate_multiplier_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -10344,7 +10990,7 @@ class AirLoopHvacUnitaryHeatCoolVavchangeoverBypass(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `air_inlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -10382,7 +11028,7 @@ class AirLoopHvacUnitaryHeatCoolVavchangeoverBypass(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `bypass_duct_mixer_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -10422,7 +11068,7 @@ class AirLoopHvacUnitaryHeatCoolVavchangeoverBypass(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `bypass_duct_splitter_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -10458,7 +11104,7 @@ class AirLoopHvacUnitaryHeatCoolVavchangeoverBypass(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `air_outlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -10496,7 +11142,7 @@ class AirLoopHvacUnitaryHeatCoolVavchangeoverBypass(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `outdoor_air_mixer_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -10509,16 +11155,26 @@ class AirLoopHvacUnitaryHeatCoolVavchangeoverBypass(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `outdoor_air_mixer_object_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `outdoor_air_mixer_object_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Outdoor Air Mixer Object Type"] = value
 
@@ -10548,7 +11204,7 @@ class AirLoopHvacUnitaryHeatCoolVavchangeoverBypass(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `outdoor_air_mixer_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -10587,7 +11243,7 @@ class AirLoopHvacUnitaryHeatCoolVavchangeoverBypass(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `supply_air_fan_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -10601,16 +11257,26 @@ class AirLoopHvacUnitaryHeatCoolVavchangeoverBypass(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `supply_air_fan_object_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `supply_air_fan_object_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Supply Air Fan Object Type"] = value
 
@@ -10640,7 +11306,7 @@ class AirLoopHvacUnitaryHeatCoolVavchangeoverBypass(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `supply_air_fan_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -10681,7 +11347,7 @@ class AirLoopHvacUnitaryHeatCoolVavchangeoverBypass(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `supply_air_fan_placement`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -10695,16 +11361,26 @@ class AirLoopHvacUnitaryHeatCoolVavchangeoverBypass(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `supply_air_fan_placement`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `supply_air_fan_placement`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Supply Air Fan Placement"] = value
 
@@ -10739,7 +11415,7 @@ class AirLoopHvacUnitaryHeatCoolVavchangeoverBypass(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `supply_air_fan_operating_mode_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -10779,7 +11455,7 @@ class AirLoopHvacUnitaryHeatCoolVavchangeoverBypass(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `cooling_coil_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -10794,16 +11470,26 @@ class AirLoopHvacUnitaryHeatCoolVavchangeoverBypass(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `cooling_coil_object_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `cooling_coil_object_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Cooling Coil Object Type"] = value
 
@@ -10833,7 +11519,7 @@ class AirLoopHvacUnitaryHeatCoolVavchangeoverBypass(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `cooling_coil_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -10876,7 +11562,7 @@ class AirLoopHvacUnitaryHeatCoolVavchangeoverBypass(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `heating_coil_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -10893,16 +11579,26 @@ class AirLoopHvacUnitaryHeatCoolVavchangeoverBypass(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `heating_coil_object_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `heating_coil_object_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Heating Coil Object Type"] = value
 
@@ -10932,7 +11628,7 @@ class AirLoopHvacUnitaryHeatCoolVavchangeoverBypass(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `heating_coil_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -10977,7 +11673,7 @@ class AirLoopHvacUnitaryHeatCoolVavchangeoverBypass(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `priority_control_mode`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -10992,16 +11688,26 @@ class AirLoopHvacUnitaryHeatCoolVavchangeoverBypass(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `priority_control_mode`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `priority_control_mode`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Priority Control Mode"] = value
 
@@ -11036,7 +11742,7 @@ class AirLoopHvacUnitaryHeatCoolVavchangeoverBypass(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `minimum_outlet_air_temperature_during_cooling_operation`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -11074,7 +11780,7 @@ class AirLoopHvacUnitaryHeatCoolVavchangeoverBypass(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `maximum_outlet_air_temperature_during_heating_operation`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -11124,7 +11830,7 @@ class AirLoopHvacUnitaryHeatCoolVavchangeoverBypass(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `dehumidification_control_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -11139,16 +11845,26 @@ class AirLoopHvacUnitaryHeatCoolVavchangeoverBypass(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `dehumidification_control_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `dehumidification_control_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Dehumidification Control Type"] = value
 
@@ -11192,7 +11908,6 @@ class AirLoopHvacUnitaryHeatPumpAirToAirMultiSpeed(object):
         (continuous or cycling), direct expansion (DX) cooling coil, heating coil
         (DX air-to-air heat pump, gas, electric, hot water, or steam), and supplemental
         heating coil (gas, electric, hot water, or steam).
-    
     """
     internal_name = "AirLoopHVAC:UnitaryHeatPump:AirToAir:MultiSpeed"
     field_count = 35
@@ -11237,15 +11952,16 @@ class AirLoopHvacUnitaryHeatPumpAirToAirMultiSpeed(object):
         self._data["Speed 2 Supply Air Flow Rate During Cooling Operation"] = None
         self._data["Speed 3 Supply Air Flow Rate During Cooling Operation"] = None
         self._data["Speed 4 Supply Air Flow Rate During Cooling Operation"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -11492,6 +12208,7 @@ class AirLoopHvacUnitaryHeatPumpAirToAirMultiSpeed(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -11518,7 +12235,7 @@ class AirLoopHvacUnitaryHeatPumpAirToAirMultiSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -11555,7 +12272,7 @@ class AirLoopHvacUnitaryHeatPumpAirToAirMultiSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `availability_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -11590,7 +12307,7 @@ class AirLoopHvacUnitaryHeatPumpAirToAirMultiSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `air_inlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -11625,7 +12342,7 @@ class AirLoopHvacUnitaryHeatPumpAirToAirMultiSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `air_outlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -11660,7 +12377,7 @@ class AirLoopHvacUnitaryHeatPumpAirToAirMultiSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `controlling_zone_or_thermostat_location`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -11699,7 +12416,7 @@ class AirLoopHvacUnitaryHeatPumpAirToAirMultiSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `supply_air_fan_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -11713,16 +12430,26 @@ class AirLoopHvacUnitaryHeatPumpAirToAirMultiSpeed(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `supply_air_fan_object_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `supply_air_fan_object_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Supply Air Fan Object Type"] = value
 
@@ -11752,7 +12479,7 @@ class AirLoopHvacUnitaryHeatPumpAirToAirMultiSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `supply_air_fan_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -11794,7 +12521,7 @@ class AirLoopHvacUnitaryHeatPumpAirToAirMultiSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `supply_air_fan_placement`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -11808,16 +12535,26 @@ class AirLoopHvacUnitaryHeatPumpAirToAirMultiSpeed(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `supply_air_fan_placement`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `supply_air_fan_placement`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Supply Air Fan Placement"] = value
 
@@ -11852,7 +12589,7 @@ class AirLoopHvacUnitaryHeatPumpAirToAirMultiSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `supply_air_fan_operating_mode_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -11894,7 +12631,7 @@ class AirLoopHvacUnitaryHeatPumpAirToAirMultiSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `heating_coil_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -11911,16 +12648,26 @@ class AirLoopHvacUnitaryHeatPumpAirToAirMultiSpeed(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `heating_coil_object_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `heating_coil_object_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Heating Coil Object Type"] = value
 
@@ -11949,7 +12696,7 @@ class AirLoopHvacUnitaryHeatPumpAirToAirMultiSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `heating_coil_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -11988,7 +12735,7 @@ class AirLoopHvacUnitaryHeatPumpAirToAirMultiSpeed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `minimum_outdoor_drybulb_temperature_for_compressor_operation`'.format(value))
         self._data["Minimum Outdoor Dry-Bulb Temperature for Compressor Operation"] = value
 
@@ -12020,7 +12767,7 @@ class AirLoopHvacUnitaryHeatPumpAirToAirMultiSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `cooling_coil_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -12033,16 +12780,26 @@ class AirLoopHvacUnitaryHeatPumpAirToAirMultiSpeed(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `cooling_coil_object_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `cooling_coil_object_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Cooling Coil Object Type"] = value
 
@@ -12072,7 +12829,7 @@ class AirLoopHvacUnitaryHeatPumpAirToAirMultiSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `cooling_coil_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -12113,7 +12870,7 @@ class AirLoopHvacUnitaryHeatPumpAirToAirMultiSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `supplemental_heating_coil_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -12129,16 +12886,26 @@ class AirLoopHvacUnitaryHeatPumpAirToAirMultiSpeed(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `supplemental_heating_coil_object_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `supplemental_heating_coil_object_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Supplemental Heating Coil Object Type"] = value
 
@@ -12168,7 +12935,7 @@ class AirLoopHvacUnitaryHeatPumpAirToAirMultiSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `supplemental_heating_coil_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -12206,12 +12973,17 @@ class AirLoopHvacUnitaryHeatPumpAirToAirMultiSpeed(object):
                 if value_lower == "autosize":
                     self._data["Maximum Supply Air Temperature from Supplemental Heater"] = "Autosize"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autosize" '
+                                 'for field `maximum_supply_air_temperature_from_supplemental_heater`'.format(value))
+                    self._data["Maximum Supply Air Temperature from Supplemental Heater"] = "Autosize"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autosize"'
                                  'for field `maximum_supply_air_temperature_from_supplemental_heater`'.format(value))
         self._data["Maximum Supply Air Temperature from Supplemental Heater"] = value
 
@@ -12243,7 +13015,7 @@ class AirLoopHvacUnitaryHeatPumpAirToAirMultiSpeed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `maximum_outdoor_drybulb_temperature_for_supplemental_heater_operation`'.format(value))
             if value > 21.0:
                 raise ValueError('value need to be smaller 21.0 '
@@ -12278,7 +13050,7 @@ class AirLoopHvacUnitaryHeatPumpAirToAirMultiSpeed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `auxiliary_oncycle_electric_power`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -12313,7 +13085,7 @@ class AirLoopHvacUnitaryHeatPumpAirToAirMultiSpeed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `auxiliary_offcycle_electric_power`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -12350,7 +13122,7 @@ class AirLoopHvacUnitaryHeatPumpAirToAirMultiSpeed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `design_heat_recovery_water_flow_rate`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -12386,7 +13158,7 @@ class AirLoopHvacUnitaryHeatPumpAirToAirMultiSpeed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `maximum_temperature_for_heat_recovery`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -12421,7 +13193,7 @@ class AirLoopHvacUnitaryHeatPumpAirToAirMultiSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `heat_recovery_water_inlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -12456,7 +13228,7 @@ class AirLoopHvacUnitaryHeatPumpAirToAirMultiSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `heat_recovery_water_outlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -12500,12 +13272,17 @@ class AirLoopHvacUnitaryHeatPumpAirToAirMultiSpeed(object):
                 if value_lower == "autosize":
                     self._data["Supply Air Flow Rate When No Cooling or Heating is Needed"] = "Autosize"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autosize" '
+                                 'for field `supply_air_flow_rate_when_no_cooling_or_heating_is_needed`'.format(value))
+                    self._data["Supply Air Flow Rate When No Cooling or Heating is Needed"] = "Autosize"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autosize"'
                                  'for field `supply_air_flow_rate_when_no_cooling_or_heating_is_needed`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -12542,8 +13319,15 @@ class AirLoopHvacUnitaryHeatPumpAirToAirMultiSpeed(object):
             try:
                 value = int(value)
             except ValueError:
-                raise ValueError('value {} need to be of type int '
-                                 'for field `number_of_speeds_for_heating`'.format(value))
+                if not self.strict:
+                    try:
+                        conv_value = int(float(value))
+                        logging.warn('Cast float {} to int {}, precision may be lost '
+                                     'for field `number_of_speeds_for_heating`'.format(value, conv_value))
+                        value = conv_value
+                    except ValueError:
+                        raise ValueError('value {} need to be of type int '
+                                         'for field `number_of_speeds_for_heating`'.format(value))
             if value < 1:
                 raise ValueError('value need to be greater or equal 1 '
                                  'for field `number_of_speeds_for_heating`')
@@ -12580,8 +13364,15 @@ class AirLoopHvacUnitaryHeatPumpAirToAirMultiSpeed(object):
             try:
                 value = int(value)
             except ValueError:
-                raise ValueError('value {} need to be of type int '
-                                 'for field `number_of_speeds_for_cooling`'.format(value))
+                if not self.strict:
+                    try:
+                        conv_value = int(float(value))
+                        logging.warn('Cast float {} to int {}, precision may be lost '
+                                     'for field `number_of_speeds_for_cooling`'.format(value, conv_value))
+                        value = conv_value
+                    except ValueError:
+                        raise ValueError('value {} need to be of type int '
+                                         'for field `number_of_speeds_for_cooling`'.format(value))
             if value < 2:
                 raise ValueError('value need to be greater or equal 2 '
                                  'for field `number_of_speeds_for_cooling`')
@@ -12621,12 +13412,17 @@ class AirLoopHvacUnitaryHeatPumpAirToAirMultiSpeed(object):
                 if value_lower == "autosize":
                     self._data["Speed 1 Supply Air Flow Rate During Heating Operation"] = "Autosize"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autosize" '
+                                 'for field `speed_1_supply_air_flow_rate_during_heating_operation`'.format(value))
+                    self._data["Speed 1 Supply Air Flow Rate During Heating Operation"] = "Autosize"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autosize"'
                                  'for field `speed_1_supply_air_flow_rate_during_heating_operation`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -12664,12 +13460,17 @@ class AirLoopHvacUnitaryHeatPumpAirToAirMultiSpeed(object):
                 if value_lower == "autosize":
                     self._data["Speed 2 Supply Air Flow Rate During Heating Operation"] = "Autosize"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autosize" '
+                                 'for field `speed_2_supply_air_flow_rate_during_heating_operation`'.format(value))
+                    self._data["Speed 2 Supply Air Flow Rate During Heating Operation"] = "Autosize"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autosize"'
                                  'for field `speed_2_supply_air_flow_rate_during_heating_operation`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -12707,12 +13508,17 @@ class AirLoopHvacUnitaryHeatPumpAirToAirMultiSpeed(object):
                 if value_lower == "autosize":
                     self._data["Speed 3 Supply Air Flow Rate During Heating Operation"] = "Autosize"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autosize" '
+                                 'for field `speed_3_supply_air_flow_rate_during_heating_operation`'.format(value))
+                    self._data["Speed 3 Supply Air Flow Rate During Heating Operation"] = "Autosize"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autosize"'
                                  'for field `speed_3_supply_air_flow_rate_during_heating_operation`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -12750,12 +13556,17 @@ class AirLoopHvacUnitaryHeatPumpAirToAirMultiSpeed(object):
                 if value_lower == "autosize":
                     self._data["Speed 4 Supply Air Flow Rate During Heating Operation"] = "Autosize"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autosize" '
+                                 'for field `speed_4_supply_air_flow_rate_during_heating_operation`'.format(value))
+                    self._data["Speed 4 Supply Air Flow Rate During Heating Operation"] = "Autosize"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autosize"'
                                  'for field `speed_4_supply_air_flow_rate_during_heating_operation`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -12793,12 +13604,17 @@ class AirLoopHvacUnitaryHeatPumpAirToAirMultiSpeed(object):
                 if value_lower == "autosize":
                     self._data["Speed 1 Supply Air Flow Rate During Cooling Operation"] = "Autosize"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autosize" '
+                                 'for field `speed_1_supply_air_flow_rate_during_cooling_operation`'.format(value))
+                    self._data["Speed 1 Supply Air Flow Rate During Cooling Operation"] = "Autosize"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autosize"'
                                  'for field `speed_1_supply_air_flow_rate_during_cooling_operation`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -12836,12 +13652,17 @@ class AirLoopHvacUnitaryHeatPumpAirToAirMultiSpeed(object):
                 if value_lower == "autosize":
                     self._data["Speed 2 Supply Air Flow Rate During Cooling Operation"] = "Autosize"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autosize" '
+                                 'for field `speed_2_supply_air_flow_rate_during_cooling_operation`'.format(value))
+                    self._data["Speed 2 Supply Air Flow Rate During Cooling Operation"] = "Autosize"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autosize"'
                                  'for field `speed_2_supply_air_flow_rate_during_cooling_operation`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -12879,12 +13700,17 @@ class AirLoopHvacUnitaryHeatPumpAirToAirMultiSpeed(object):
                 if value_lower == "autosize":
                     self._data["Speed 3 Supply Air Flow Rate During Cooling Operation"] = "Autosize"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autosize" '
+                                 'for field `speed_3_supply_air_flow_rate_during_cooling_operation`'.format(value))
+                    self._data["Speed 3 Supply Air Flow Rate During Cooling Operation"] = "Autosize"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autosize"'
                                  'for field `speed_3_supply_air_flow_rate_during_cooling_operation`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -12922,12 +13748,17 @@ class AirLoopHvacUnitaryHeatPumpAirToAirMultiSpeed(object):
                 if value_lower == "autosize":
                     self._data["Speed 4 Supply Air Flow Rate During Cooling Operation"] = "Autosize"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autosize" '
+                                 'for field `speed_4_supply_air_flow_rate_during_cooling_operation`'.format(value))
+                    self._data["Speed 4 Supply Air Flow Rate During Cooling Operation"] = "Autosize"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autosize"'
                                  'for field `speed_4_supply_air_flow_rate_during_cooling_operation`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '

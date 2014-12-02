@@ -1,4 +1,6 @@
 from collections import OrderedDict
+import logging
+import re
 
 class EnergyManagementSystemSensor(object):
     """ Corresponds to IDD object `EnergyManagementSystem:Sensor`
@@ -6,7 +8,6 @@ class EnergyManagementSystemSensor(object):
         a list of output variables and meters that can be reported are available after a run on
         the report (.rdd) or meter dictionary file (.mdd) if the Output:VariableDictionary
         has been requested.
-    
     """
     internal_name = "EnergyManagementSystem:Sensor"
     field_count = 3
@@ -19,15 +20,16 @@ class EnergyManagementSystemSensor(object):
         self._data["Name"] = None
         self._data["Output:Variable or Output:Meter Index Key Name"] = None
         self._data["Output:Variable or Output:Meter Name"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -50,6 +52,7 @@ class EnergyManagementSystemSensor(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -78,7 +81,7 @@ class EnergyManagementSystemSensor(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -113,7 +116,7 @@ class EnergyManagementSystemSensor(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `outputvariable_or_outputmeter_index_key_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -148,7 +151,7 @@ class EnergyManagementSystemSensor(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `outputvariable_or_outputmeter_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -195,7 +198,6 @@ class EnergyManagementSystemSensor(object):
 class EnergyManagementSystemActuator(object):
     """ Corresponds to IDD object `EnergyManagementSystem:Actuator`
         Hardware portion of EMS used to set up actuators in the model
-    
     """
     internal_name = "EnergyManagementSystem:Actuator"
     field_count = 4
@@ -209,15 +211,16 @@ class EnergyManagementSystemActuator(object):
         self._data["Actuated Component Unique Name"] = None
         self._data["Actuated Component Type"] = None
         self._data["Actuated Component Control Type"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -247,6 +250,7 @@ class EnergyManagementSystemActuator(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -275,7 +279,7 @@ class EnergyManagementSystemActuator(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -310,7 +314,7 @@ class EnergyManagementSystemActuator(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `actuated_component_unique_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -345,7 +349,7 @@ class EnergyManagementSystemActuator(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `actuated_component_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -380,7 +384,7 @@ class EnergyManagementSystemActuator(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `actuated_component_control_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -429,7 +433,6 @@ class EnergyManagementSystemProgramCallingManager(object):
         Input EMS program. a program needs a name
         a description of when it should be called
         and then lines of program code for EMS Runtime language
-    
     """
     internal_name = "EnergyManagementSystem:ProgramCallingManager"
     field_count = 27
@@ -466,15 +469,16 @@ class EnergyManagementSystemProgramCallingManager(object):
         self._data["Program Name 23"] = None
         self._data["Program Name 24"] = None
         self._data["Program Name 25"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -665,6 +669,7 @@ class EnergyManagementSystemProgramCallingManager(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -692,7 +697,7 @@ class EnergyManagementSystemProgramCallingManager(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -743,7 +748,7 @@ class EnergyManagementSystemProgramCallingManager(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `energyplus_model_calling_point`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -770,16 +775,26 @@ class EnergyManagementSystemProgramCallingManager(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `energyplus_model_calling_point`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `energyplus_model_calling_point`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["EnergyPlus Model Calling Point"] = value
 
@@ -809,7 +824,7 @@ class EnergyManagementSystemProgramCallingManager(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `program_name_1`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -845,7 +860,7 @@ class EnergyManagementSystemProgramCallingManager(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `program_name_2`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -881,7 +896,7 @@ class EnergyManagementSystemProgramCallingManager(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `program_name_3`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -917,7 +932,7 @@ class EnergyManagementSystemProgramCallingManager(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `program_name_4`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -953,7 +968,7 @@ class EnergyManagementSystemProgramCallingManager(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `program_name_5`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -989,7 +1004,7 @@ class EnergyManagementSystemProgramCallingManager(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `program_name_6`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1025,7 +1040,7 @@ class EnergyManagementSystemProgramCallingManager(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `program_name_7`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1061,7 +1076,7 @@ class EnergyManagementSystemProgramCallingManager(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `program_name_8`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1097,7 +1112,7 @@ class EnergyManagementSystemProgramCallingManager(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `program_name_9`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1133,7 +1148,7 @@ class EnergyManagementSystemProgramCallingManager(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `program_name_10`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1169,7 +1184,7 @@ class EnergyManagementSystemProgramCallingManager(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `program_name_11`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1205,7 +1220,7 @@ class EnergyManagementSystemProgramCallingManager(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `program_name_12`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1241,7 +1256,7 @@ class EnergyManagementSystemProgramCallingManager(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `program_name_13`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1277,7 +1292,7 @@ class EnergyManagementSystemProgramCallingManager(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `program_name_14`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1313,7 +1328,7 @@ class EnergyManagementSystemProgramCallingManager(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `program_name_15`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1349,7 +1364,7 @@ class EnergyManagementSystemProgramCallingManager(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `program_name_16`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1385,7 +1400,7 @@ class EnergyManagementSystemProgramCallingManager(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `program_name_17`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1421,7 +1436,7 @@ class EnergyManagementSystemProgramCallingManager(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `program_name_18`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1457,7 +1472,7 @@ class EnergyManagementSystemProgramCallingManager(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `program_name_19`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1493,7 +1508,7 @@ class EnergyManagementSystemProgramCallingManager(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `program_name_20`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1529,7 +1544,7 @@ class EnergyManagementSystemProgramCallingManager(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `program_name_21`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1565,7 +1580,7 @@ class EnergyManagementSystemProgramCallingManager(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `program_name_22`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1601,7 +1616,7 @@ class EnergyManagementSystemProgramCallingManager(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `program_name_23`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1637,7 +1652,7 @@ class EnergyManagementSystemProgramCallingManager(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `program_name_24`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1673,7 +1688,7 @@ class EnergyManagementSystemProgramCallingManager(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `program_name_25`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1720,7 +1735,6 @@ class EnergyManagementSystemProgramCallingManager(object):
 class EnergyManagementSystemOutputVariable(object):
     """ Corresponds to IDD object `EnergyManagementSystem:OutputVariable`
         This object sets up an EnergyPlus output variable from an Erl variable
-    
     """
     internal_name = "EnergyManagementSystem:OutputVariable"
     field_count = 6
@@ -1736,15 +1750,16 @@ class EnergyManagementSystemOutputVariable(object):
         self._data["Update Frequency"] = None
         self._data["EMS Program or Subroutine Name"] = None
         self._data["Units"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -1788,6 +1803,7 @@ class EnergyManagementSystemOutputVariable(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -1814,7 +1830,7 @@ class EnergyManagementSystemOutputVariable(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1850,7 +1866,7 @@ class EnergyManagementSystemOutputVariable(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `ems_variable_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1888,7 +1904,7 @@ class EnergyManagementSystemOutputVariable(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `type_of_data_in_variable`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1902,16 +1918,26 @@ class EnergyManagementSystemOutputVariable(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `type_of_data_in_variable`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `type_of_data_in_variable`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Type of Data in Variable"] = value
 
@@ -1943,7 +1969,7 @@ class EnergyManagementSystemOutputVariable(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `update_frequency`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1957,16 +1983,26 @@ class EnergyManagementSystemOutputVariable(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `update_frequency`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `update_frequency`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Update Frequency"] = value
 
@@ -1996,7 +2032,7 @@ class EnergyManagementSystemOutputVariable(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `ems_program_or_subroutine_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2033,7 +2069,7 @@ class EnergyManagementSystemOutputVariable(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `units`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2080,7 +2116,6 @@ class EnergyManagementSystemOutputVariable(object):
 class EnergyManagementSystemMeteredOutputVariable(object):
     """ Corresponds to IDD object `EnergyManagementSystem:MeteredOutputVariable`
         This object sets up an EnergyPlus output variable from an Erl variable
-    
     """
     internal_name = "EnergyManagementSystem:MeteredOutputVariable"
     field_count = 9
@@ -2099,15 +2134,16 @@ class EnergyManagementSystemMeteredOutputVariable(object):
         self._data["End-Use Category"] = None
         self._data["End-Use Subcategory"] = None
         self._data["Units"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -2172,6 +2208,7 @@ class EnergyManagementSystemMeteredOutputVariable(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -2198,7 +2235,7 @@ class EnergyManagementSystemMeteredOutputVariable(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2234,7 +2271,7 @@ class EnergyManagementSystemMeteredOutputVariable(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `ems_variable_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2272,7 +2309,7 @@ class EnergyManagementSystemMeteredOutputVariable(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `update_frequency`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2286,16 +2323,26 @@ class EnergyManagementSystemMeteredOutputVariable(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `update_frequency`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `update_frequency`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Update Frequency"] = value
 
@@ -2325,7 +2372,7 @@ class EnergyManagementSystemMeteredOutputVariable(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `ems_program_or_subroutine_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2385,7 +2432,7 @@ class EnergyManagementSystemMeteredOutputVariable(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `resource_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2420,16 +2467,26 @@ class EnergyManagementSystemMeteredOutputVariable(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `resource_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `resource_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Resource Type"] = value
 
@@ -2463,7 +2520,7 @@ class EnergyManagementSystemMeteredOutputVariable(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `group_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2478,16 +2535,26 @@ class EnergyManagementSystemMeteredOutputVariable(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `group_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `group_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Group Type"] = value
 
@@ -2532,7 +2599,7 @@ class EnergyManagementSystemMeteredOutputVariable(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `enduse_category`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2558,16 +2625,26 @@ class EnergyManagementSystemMeteredOutputVariable(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `enduse_category`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `enduse_category`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["End-Use Category"] = value
 
@@ -2597,7 +2674,7 @@ class EnergyManagementSystemMeteredOutputVariable(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `enduse_subcategory`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2634,7 +2711,7 @@ class EnergyManagementSystemMeteredOutputVariable(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `units`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2682,7 +2759,6 @@ class EnergyManagementSystemTrendVariable(object):
     """ Corresponds to IDD object `EnergyManagementSystem:TrendVariable`
         This object sets up an EMS trend variable from an Erl variable
         A trend variable logs values across timesteps
-    
     """
     internal_name = "EnergyManagementSystem:TrendVariable"
     field_count = 3
@@ -2695,15 +2771,16 @@ class EnergyManagementSystemTrendVariable(object):
         self._data["Name"] = None
         self._data["EMS Variable Name"] = None
         self._data["Number of Timesteps to be Logged"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -2726,6 +2803,7 @@ class EnergyManagementSystemTrendVariable(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -2753,7 +2831,7 @@ class EnergyManagementSystemTrendVariable(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2789,7 +2867,7 @@ class EnergyManagementSystemTrendVariable(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `ems_variable_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2825,8 +2903,15 @@ class EnergyManagementSystemTrendVariable(object):
             try:
                 value = int(value)
             except ValueError:
-                raise ValueError('value {} need to be of type int '
-                                 'for field `number_of_timesteps_to_be_logged`'.format(value))
+                if not self.strict:
+                    try:
+                        conv_value = int(float(value))
+                        logging.warn('Cast float {} to int {}, precision may be lost '
+                                     'for field `number_of_timesteps_to_be_logged`'.format(value, conv_value))
+                        value = conv_value
+                    except ValueError:
+                        raise ValueError('value {} need to be of type int '
+                                         'for field `number_of_timesteps_to_be_logged`'.format(value))
             if value < 1:
                 raise ValueError('value need to be greater or equal 1 '
                                  'for field `number_of_timesteps_to_be_logged`')
@@ -2869,7 +2954,6 @@ class EnergyManagementSystemTrendVariable(object):
 class EnergyManagementSystemInternalVariable(object):
     """ Corresponds to IDD object `EnergyManagementSystem:InternalVariable`
         Declares EMS variable as an internal data variable
-    
     """
     internal_name = "EnergyManagementSystem:InternalVariable"
     field_count = 3
@@ -2882,15 +2966,16 @@ class EnergyManagementSystemInternalVariable(object):
         self._data["Name"] = None
         self._data["Internal Data Index Key Name"] = None
         self._data["Internal Data Type"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -2913,6 +2998,7 @@ class EnergyManagementSystemInternalVariable(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -2941,7 +3027,7 @@ class EnergyManagementSystemInternalVariable(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2976,7 +3062,7 @@ class EnergyManagementSystemInternalVariable(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `internal_data_index_key_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3011,7 +3097,7 @@ class EnergyManagementSystemInternalVariable(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `internal_data_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3058,7 +3144,6 @@ class EnergyManagementSystemInternalVariable(object):
 class EnergyManagementSystemCurveOrTableIndexVariable(object):
     """ Corresponds to IDD object `EnergyManagementSystem:CurveOrTableIndexVariable`
         Declares EMS variable that identifies a curve or table
-    
     """
     internal_name = "EnergyManagementSystem:CurveOrTableIndexVariable"
     field_count = 2
@@ -3070,15 +3155,16 @@ class EnergyManagementSystemCurveOrTableIndexVariable(object):
         self._data = OrderedDict()
         self._data["Name"] = None
         self._data["Curve or Table Object Name"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -3094,6 +3180,7 @@ class EnergyManagementSystemCurveOrTableIndexVariable(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -3122,7 +3209,7 @@ class EnergyManagementSystemCurveOrTableIndexVariable(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3157,7 +3244,7 @@ class EnergyManagementSystemCurveOrTableIndexVariable(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `curve_or_table_object_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3204,7 +3291,6 @@ class EnergyManagementSystemCurveOrTableIndexVariable(object):
 class EnergyManagementSystemConstructionIndexVariable(object):
     """ Corresponds to IDD object `EnergyManagementSystem:ConstructionIndexVariable`
         Declares EMS variable that identifies a construction
-    
     """
     internal_name = "EnergyManagementSystem:ConstructionIndexVariable"
     field_count = 2
@@ -3216,15 +3302,16 @@ class EnergyManagementSystemConstructionIndexVariable(object):
         self._data = OrderedDict()
         self._data["Name"] = None
         self._data["Construction Object Name"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -3240,6 +3327,7 @@ class EnergyManagementSystemConstructionIndexVariable(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -3268,7 +3356,7 @@ class EnergyManagementSystemConstructionIndexVariable(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3303,7 +3391,7 @@ class EnergyManagementSystemConstructionIndexVariable(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `construction_object_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '

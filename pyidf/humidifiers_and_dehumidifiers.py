@@ -1,9 +1,10 @@
 from collections import OrderedDict
+import logging
+import re
 
 class HumidifierSteamElectric(object):
     """ Corresponds to IDD object `Humidifier:Steam:Electric`
         Electrically heated steam humidifier with fan.
-    
     """
     internal_name = "Humidifier:Steam:Electric"
     field_count = 9
@@ -22,15 +23,16 @@ class HumidifierSteamElectric(object):
         self._data["Air Inlet Node Name"] = None
         self._data["Air Outlet Node Name"] = None
         self._data["Water Storage Tank Name"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -95,6 +97,7 @@ class HumidifierSteamElectric(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -121,7 +124,7 @@ class HumidifierSteamElectric(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -158,7 +161,7 @@ class HumidifierSteamElectric(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `availability_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -197,7 +200,7 @@ class HumidifierSteamElectric(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `rated_capacity`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -237,12 +240,17 @@ class HumidifierSteamElectric(object):
                 if value_lower == "autosize":
                     self._data["Rated Power"] = "Autosize"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autosize" '
+                                 'for field `rated_power`'.format(value))
+                    self._data["Rated Power"] = "Autosize"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autosize"'
                                  'for field `rated_power`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -277,7 +285,7 @@ class HumidifierSteamElectric(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `rated_fan_power`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -312,7 +320,7 @@ class HumidifierSteamElectric(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `standby_power`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -344,7 +352,7 @@ class HumidifierSteamElectric(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `air_inlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -379,7 +387,7 @@ class HumidifierSteamElectric(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `air_outlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -414,7 +422,7 @@ class HumidifierSteamElectric(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `water_storage_tank_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -470,7 +478,6 @@ class DehumidifierDesiccantNoFans(object):
         to the inlet and outlet nodes of the dehumidifier. The solid
         desiccant dehumidifier is typically used in an AirLoopHVAC:OutdoorAirSystem,
         but can also be specified in any AirLoopHVAC.
-    
     """
     internal_name = "Dehumidifier:Desiccant:NoFans"
     field_count = 25
@@ -505,15 +512,16 @@ class DehumidifierDesiccantNoFans(object):
         self._data["Regeneration Velocity Function of Entering Dry-Bulb and Humidity Ratio Curve Name"] = None
         self._data["Regeneration Velocity Function of Air Velocity Curve Name"] = None
         self._data["Nominal Regeneration Temperature"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -690,6 +698,7 @@ class DehumidifierDesiccantNoFans(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -716,7 +725,7 @@ class DehumidifierDesiccantNoFans(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -753,7 +762,7 @@ class DehumidifierDesiccantNoFans(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `availability_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -789,7 +798,7 @@ class DehumidifierDesiccantNoFans(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `process_air_inlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -825,7 +834,7 @@ class DehumidifierDesiccantNoFans(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `process_air_outlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -862,7 +871,7 @@ class DehumidifierDesiccantNoFans(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `regeneration_air_inlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -899,7 +908,7 @@ class DehumidifierDesiccantNoFans(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `regeneration_fan_inlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -945,7 +954,7 @@ class DehumidifierDesiccantNoFans(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `control_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -959,16 +968,26 @@ class DehumidifierDesiccantNoFans(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `control_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `control_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Control Type"] = value
 
@@ -1000,7 +1019,7 @@ class DehumidifierDesiccantNoFans(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `leaving_maximum_humidity_ratio_setpoint`'.format(value))
         self._data["Leaving Maximum Humidity Ratio Setpoint"] = value
 
@@ -1032,7 +1051,7 @@ class DehumidifierDesiccantNoFans(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `nominal_process_air_flow_rate`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -1069,7 +1088,7 @@ class DehumidifierDesiccantNoFans(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `nominal_process_air_velocity`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -1108,7 +1127,7 @@ class DehumidifierDesiccantNoFans(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `rotor_power`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -1147,7 +1166,7 @@ class DehumidifierDesiccantNoFans(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `regeneration_coil_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1163,16 +1182,26 @@ class DehumidifierDesiccantNoFans(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `regeneration_coil_object_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `regeneration_coil_object_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Regeneration Coil Object Type"] = value
 
@@ -1202,7 +1231,7 @@ class DehumidifierDesiccantNoFans(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `regeneration_coil_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1242,7 +1271,7 @@ class DehumidifierDesiccantNoFans(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `regeneration_fan_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1256,16 +1285,26 @@ class DehumidifierDesiccantNoFans(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `regeneration_fan_object_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `regeneration_fan_object_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Regeneration Fan Object Type"] = value
 
@@ -1295,7 +1334,7 @@ class DehumidifierDesiccantNoFans(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `regeneration_fan_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1347,7 +1386,7 @@ class DehumidifierDesiccantNoFans(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `performance_model_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1361,16 +1400,26 @@ class DehumidifierDesiccantNoFans(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `performance_model_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `performance_model_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Performance Model Type"] = value
 
@@ -1405,7 +1454,7 @@ class DehumidifierDesiccantNoFans(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `leaving_drybulb_function_of_entering_drybulb_and_humidity_ratio_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1445,7 +1494,7 @@ class DehumidifierDesiccantNoFans(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `leaving_drybulb_function_of_air_velocity_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1486,7 +1535,7 @@ class DehumidifierDesiccantNoFans(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `leaving_humidity_ratio_function_of_entering_drybulb_and_humidity_ratio_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1526,7 +1575,7 @@ class DehumidifierDesiccantNoFans(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `leaving_humidity_ratio_function_of_air_velocity_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1567,7 +1616,7 @@ class DehumidifierDesiccantNoFans(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `regeneration_energy_function_of_entering_drybulb_and_humidity_ratio_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1607,7 +1656,7 @@ class DehumidifierDesiccantNoFans(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `regeneration_energy_function_of_air_velocity_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1648,7 +1697,7 @@ class DehumidifierDesiccantNoFans(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `regeneration_velocity_function_of_entering_drybulb_and_humidity_ratio_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1688,7 +1737,7 @@ class DehumidifierDesiccantNoFans(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `regeneration_velocity_function_of_air_velocity_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1729,7 +1778,7 @@ class DehumidifierDesiccantNoFans(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `nominal_regeneration_temperature`'.format(value))
             if value < 40.0:
                 raise ValueError('value need to be greater or equal 40.0 '
@@ -1782,7 +1831,6 @@ class DehumidifierDesiccantSystem(object):
         transfers both sensible and latent energy between the process and
         regeneration air streams. The desiccant dehumidifier is typically used
         in an AirLoopHVAC:OutdoorAirSystem, but can also be specified in any AirLoopHVAC.
-    
     """
     internal_name = "Dehumidifier:Desiccant:System"
     field_count = 18
@@ -1810,15 +1858,16 @@ class DehumidifierDesiccantSystem(object):
         self._data["Exhaust Fan Maximum Flow Rate"] = None
         self._data["Exhaust Fan Maximum Power"] = None
         self._data["Exhaust Fan Power Curve Name"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -1946,6 +1995,7 @@ class DehumidifierDesiccantSystem(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -1972,7 +2022,7 @@ class DehumidifierDesiccantSystem(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2009,7 +2059,7 @@ class DehumidifierDesiccantSystem(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `availability_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2046,7 +2096,7 @@ class DehumidifierDesiccantSystem(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `desiccant_heat_exchanger_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2059,16 +2109,26 @@ class DehumidifierDesiccantSystem(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `desiccant_heat_exchanger_object_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `desiccant_heat_exchanger_object_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Desiccant Heat Exchanger Object Type"] = value
 
@@ -2097,7 +2157,7 @@ class DehumidifierDesiccantSystem(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `desiccant_heat_exchanger_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2132,7 +2192,7 @@ class DehumidifierDesiccantSystem(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `sensor_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2170,7 +2230,7 @@ class DehumidifierDesiccantSystem(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `regeneration_air_fan_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2184,16 +2244,26 @@ class DehumidifierDesiccantSystem(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `regeneration_air_fan_object_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `regeneration_air_fan_object_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Regeneration Air Fan Object Type"] = value
 
@@ -2222,7 +2292,7 @@ class DehumidifierDesiccantSystem(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `regeneration_air_fan_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2261,7 +2331,7 @@ class DehumidifierDesiccantSystem(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `regeneration_air_fan_placement`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2275,16 +2345,26 @@ class DehumidifierDesiccantSystem(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `regeneration_air_fan_placement`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `regeneration_air_fan_placement`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Regeneration Air Fan Placement"] = value
 
@@ -2319,7 +2399,7 @@ class DehumidifierDesiccantSystem(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `regeneration_air_heater_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2335,16 +2415,26 @@ class DehumidifierDesiccantSystem(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `regeneration_air_heater_object_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `regeneration_air_heater_object_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Regeneration Air Heater Object Type"] = value
 
@@ -2373,7 +2463,7 @@ class DehumidifierDesiccantSystem(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `regeneration_air_heater_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2409,7 +2499,7 @@ class DehumidifierDesiccantSystem(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `regeneration_inlet_air_setpoint_temperature`'.format(value))
         self._data["Regeneration Inlet Air Setpoint Temperature"] = value
 
@@ -2441,7 +2531,7 @@ class DehumidifierDesiccantSystem(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `companion_cooling_coil_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2455,16 +2545,26 @@ class DehumidifierDesiccantSystem(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `companion_cooling_coil_object_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `companion_cooling_coil_object_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Companion Cooling Coil Object Type"] = value
 
@@ -2493,7 +2593,7 @@ class DehumidifierDesiccantSystem(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `companion_cooling_coil_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2534,7 +2634,7 @@ class DehumidifierDesiccantSystem(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `companion_cooling_coil_upstream_of_dehumidifier_process_inlet`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2548,16 +2648,26 @@ class DehumidifierDesiccantSystem(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `companion_cooling_coil_upstream_of_dehumidifier_process_inlet`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `companion_cooling_coil_upstream_of_dehumidifier_process_inlet`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Companion Cooling Coil Upstream of Dehumidifier Process Inlet"] = value
 
@@ -2590,7 +2700,7 @@ class DehumidifierDesiccantSystem(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `companion_coil_regeneration_air_heating`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2604,16 +2714,26 @@ class DehumidifierDesiccantSystem(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `companion_coil_regeneration_air_heating`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `companion_coil_regeneration_air_heating`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Companion Coil Regeneration Air Heating"] = value
 
@@ -2643,7 +2763,7 @@ class DehumidifierDesiccantSystem(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `exhaust_fan_maximum_flow_rate`'.format(value))
         self._data["Exhaust Fan Maximum Flow Rate"] = value
 
@@ -2673,7 +2793,7 @@ class DehumidifierDesiccantSystem(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `exhaust_fan_maximum_power`'.format(value))
         self._data["Exhaust Fan Maximum Power"] = value
 
@@ -2704,7 +2824,7 @@ class DehumidifierDesiccantSystem(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `exhaust_fan_power_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '

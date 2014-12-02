@@ -1,4 +1,6 @@
 from collections import OrderedDict
+import logging
+import re
 
 class SurfacePropertyHeatTransferAlgorithm(object):
     """ Corresponds to IDD object `SurfaceProperty:HeatTransferAlgorithm`
@@ -8,7 +10,6 @@ class SurfacePropertyHeatTransferAlgorithm(object):
         EMPD (Effective Moisture Penetration Depth with Conduction Transfer Functions).
         Advanced/Research Usage: CondFD (Conduction Finite Difference)
         Advanced/Research Usage: HAMT (Combined Heat And Moisture Finite Element)
-    
     """
     internal_name = "SurfaceProperty:HeatTransferAlgorithm"
     field_count = 2
@@ -20,15 +21,16 @@ class SurfacePropertyHeatTransferAlgorithm(object):
         self._data = OrderedDict()
         self._data["Surface Name"] = None
         self._data["Algorithm"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.surface_name = None
@@ -44,6 +46,7 @@ class SurfacePropertyHeatTransferAlgorithm(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def surface_name(self):
@@ -70,7 +73,7 @@ class SurfacePropertyHeatTransferAlgorithm(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -111,7 +114,7 @@ class SurfacePropertyHeatTransferAlgorithm(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `algorithm`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -127,16 +130,26 @@ class SurfacePropertyHeatTransferAlgorithm(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `algorithm`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `algorithm`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Algorithm"] = value
 
@@ -182,7 +195,6 @@ class SurfacePropertyHeatTransferAlgorithmMultipleSurface(object):
         EMPD (Effective Moisture Penetration Depth with Conduction Transfer Functions).
         Advanced/Research Usage: CondFD (Conduction Finite Difference)
         Advanced/Research Usage: HAMT (Combined Heat And Moisture Finite Element)
-    
     """
     internal_name = "SurfaceProperty:HeatTransferAlgorithm:MultipleSurface"
     field_count = 3
@@ -195,15 +207,16 @@ class SurfacePropertyHeatTransferAlgorithmMultipleSurface(object):
         self._data["Name"] = None
         self._data["Surface Type"] = None
         self._data["Algorithm"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -226,6 +239,7 @@ class SurfacePropertyHeatTransferAlgorithmMultipleSurface(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -252,7 +266,7 @@ class SurfacePropertyHeatTransferAlgorithmMultipleSurface(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -297,7 +311,7 @@ class SurfacePropertyHeatTransferAlgorithmMultipleSurface(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -318,16 +332,26 @@ class SurfacePropertyHeatTransferAlgorithmMultipleSurface(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `surface_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `surface_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Surface Type"] = value
 
@@ -362,7 +386,7 @@ class SurfacePropertyHeatTransferAlgorithmMultipleSurface(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `algorithm`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -378,16 +402,26 @@ class SurfacePropertyHeatTransferAlgorithmMultipleSurface(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `algorithm`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `algorithm`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Algorithm"] = value
 
@@ -433,7 +467,6 @@ class SurfacePropertyHeatTransferAlgorithmSurfaceList(object):
         EMPD (Effective Moisture Penetration Depth with Conduction Transfer Functions).
         Advanced/Research Usage: CondFD (Conduction Finite Difference)
         Advanced/Research Usage: HAMT (Combined Heat And Moisture Finite Element)
-    
     """
     internal_name = "SurfaceProperty:HeatTransferAlgorithm:SurfaceList"
     field_count = 8
@@ -451,15 +484,16 @@ class SurfacePropertyHeatTransferAlgorithmSurfaceList(object):
         self._data["Surface Name 4"] = None
         self._data["Surface Name 5"] = None
         self._data["Surface Name 6"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -517,6 +551,7 @@ class SurfacePropertyHeatTransferAlgorithmSurfaceList(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -543,7 +578,7 @@ class SurfacePropertyHeatTransferAlgorithmSurfaceList(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -584,7 +619,7 @@ class SurfacePropertyHeatTransferAlgorithmSurfaceList(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `algorithm`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -600,16 +635,26 @@ class SurfacePropertyHeatTransferAlgorithmSurfaceList(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `algorithm`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `algorithm`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Algorithm"] = value
 
@@ -638,7 +683,7 @@ class SurfacePropertyHeatTransferAlgorithmSurfaceList(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_name_1`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -673,7 +718,7 @@ class SurfacePropertyHeatTransferAlgorithmSurfaceList(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_name_2`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -708,7 +753,7 @@ class SurfacePropertyHeatTransferAlgorithmSurfaceList(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_name_3`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -743,7 +788,7 @@ class SurfacePropertyHeatTransferAlgorithmSurfaceList(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_name_4`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -778,7 +823,7 @@ class SurfacePropertyHeatTransferAlgorithmSurfaceList(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_name_5`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -813,7 +858,7 @@ class SurfacePropertyHeatTransferAlgorithmSurfaceList(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_name_6`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -865,7 +910,6 @@ class SurfacePropertyHeatTransferAlgorithmConstruction(object):
         EMPD (Effective Moisture Penetration Depth with Conduction Transfer Functions).
         Advanced/Research Usage: CondFD (Conduction Finite Difference)
         Advanced/Research Usage: HAMT (Combined Heat And Moisture Finite Element)
-    
     """
     internal_name = "SurfaceProperty:HeatTransferAlgorithm:Construction"
     field_count = 3
@@ -878,15 +922,16 @@ class SurfacePropertyHeatTransferAlgorithmConstruction(object):
         self._data["Name"] = None
         self._data["Algorithm"] = None
         self._data["Construction Name"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -909,6 +954,7 @@ class SurfacePropertyHeatTransferAlgorithmConstruction(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -935,7 +981,7 @@ class SurfacePropertyHeatTransferAlgorithmConstruction(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -976,7 +1022,7 @@ class SurfacePropertyHeatTransferAlgorithmConstruction(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `algorithm`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -992,16 +1038,26 @@ class SurfacePropertyHeatTransferAlgorithmConstruction(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `algorithm`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `algorithm`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Algorithm"] = value
 
@@ -1030,7 +1086,7 @@ class SurfacePropertyHeatTransferAlgorithmConstruction(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `construction_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1077,7 +1133,6 @@ class SurfacePropertyHeatTransferAlgorithmConstruction(object):
 class SurfaceControlMovableInsulation(object):
     """ Corresponds to IDD object `SurfaceControl:MovableInsulation`
         Exterior or Interior Insulation on opaque surfaces
-    
     """
     internal_name = "SurfaceControl:MovableInsulation"
     field_count = 4
@@ -1091,15 +1146,16 @@ class SurfaceControlMovableInsulation(object):
         self._data["Surface Name"] = None
         self._data["Material Name"] = None
         self._data["Schedule Name"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.insulation_type = None
@@ -1129,6 +1185,7 @@ class SurfaceControlMovableInsulation(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def insulation_type(self):
@@ -1158,7 +1215,7 @@ class SurfaceControlMovableInsulation(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `insulation_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1172,16 +1229,26 @@ class SurfaceControlMovableInsulation(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `insulation_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `insulation_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Insulation Type"] = value
 
@@ -1210,7 +1277,7 @@ class SurfaceControlMovableInsulation(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1245,7 +1312,7 @@ class SurfaceControlMovableInsulation(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `material_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1280,7 +1347,7 @@ class SurfaceControlMovableInsulation(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1327,7 +1394,6 @@ class SurfaceControlMovableInsulation(object):
 class SurfacePropertyOtherSideCoefficients(object):
     """ Corresponds to IDD object `SurfaceProperty:OtherSideCoefficients`
         This object sets the other side conditions for a surface in a variety of ways.
-    
     """
     internal_name = "SurfaceProperty:OtherSideCoefficients"
     field_count = 14
@@ -1351,15 +1417,16 @@ class SurfacePropertyOtherSideCoefficients(object):
         self._data["Previous Other Side Temperature Coefficient"] = None
         self._data["Minimum Other Side Temperature Limit"] = None
         self._data["Maximum Other Side Temperature Limit"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -1459,6 +1526,7 @@ class SurfacePropertyOtherSideCoefficients(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -1485,7 +1553,7 @@ class SurfacePropertyOtherSideCoefficients(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1527,7 +1595,7 @@ class SurfacePropertyOtherSideCoefficients(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `combined_convective_or_radiative_film_coefficient`'.format(value))
         self._data["Combined Convective/Radiative Film Coefficient"] = value
 
@@ -1559,7 +1627,7 @@ class SurfacePropertyOtherSideCoefficients(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `constant_temperature`'.format(value))
         self._data["Constant Temperature"] = value
 
@@ -1591,7 +1659,7 @@ class SurfacePropertyOtherSideCoefficients(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `constant_temperature_coefficient`'.format(value))
         self._data["Constant Temperature Coefficient"] = value
 
@@ -1621,7 +1689,7 @@ class SurfacePropertyOtherSideCoefficients(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `external_drybulb_temperature_coefficient`'.format(value))
         self._data["External Dry-Bulb Temperature Coefficient"] = value
 
@@ -1651,7 +1719,7 @@ class SurfacePropertyOtherSideCoefficients(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `ground_temperature_coefficient`'.format(value))
         self._data["Ground Temperature Coefficient"] = value
 
@@ -1681,7 +1749,7 @@ class SurfacePropertyOtherSideCoefficients(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `wind_speed_coefficient`'.format(value))
         self._data["Wind Speed Coefficient"] = value
 
@@ -1711,7 +1779,7 @@ class SurfacePropertyOtherSideCoefficients(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `zone_air_temperature_coefficient`'.format(value))
         self._data["Zone Air Temperature Coefficient"] = value
 
@@ -1742,7 +1810,7 @@ class SurfacePropertyOtherSideCoefficients(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `constant_temperature_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1782,7 +1850,7 @@ class SurfacePropertyOtherSideCoefficients(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `sinusoidal_variation_of_constant_temperature_coefficient`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1796,16 +1864,26 @@ class SurfacePropertyOtherSideCoefficients(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `sinusoidal_variation_of_constant_temperature_coefficient`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `sinusoidal_variation_of_constant_temperature_coefficient`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Sinusoidal Variation of Constant Temperature Coefficient"] = value
 
@@ -1838,7 +1916,7 @@ class SurfacePropertyOtherSideCoefficients(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `period_of_sinusoidal_variation`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -1873,7 +1951,7 @@ class SurfacePropertyOtherSideCoefficients(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `previous_other_side_temperature_coefficient`'.format(value))
         self._data["Previous Other Side Temperature Coefficient"] = value
 
@@ -1905,7 +1983,7 @@ class SurfacePropertyOtherSideCoefficients(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `minimum_other_side_temperature_limit`'.format(value))
         self._data["Minimum Other Side Temperature Limit"] = value
 
@@ -1937,7 +2015,7 @@ class SurfacePropertyOtherSideCoefficients(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `maximum_other_side_temperature_limit`'.format(value))
         self._data["Maximum Other Side Temperature Limit"] = value
 
@@ -1978,7 +2056,6 @@ class SurfacePropertyOtherSideCoefficients(object):
 class SurfacePropertyOtherSideConditionsModel(object):
     """ Corresponds to IDD object `SurfaceProperty:OtherSideConditionsModel`
         This object sets up modifying the other side conditions for a surface from other model results.
-    
     """
     internal_name = "SurfaceProperty:OtherSideConditionsModel"
     field_count = 2
@@ -1990,15 +2067,16 @@ class SurfacePropertyOtherSideConditionsModel(object):
         self._data = OrderedDict()
         self._data["Name"] = None
         self._data["Type of Modeling"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -2014,6 +2092,7 @@ class SurfacePropertyOtherSideConditionsModel(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -2040,7 +2119,7 @@ class SurfacePropertyOtherSideConditionsModel(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2087,7 +2166,7 @@ class SurfacePropertyOtherSideConditionsModel(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `type_of_modeling`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2102,16 +2181,26 @@ class SurfacePropertyOtherSideConditionsModel(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `type_of_modeling`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `type_of_modeling`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Type of Modeling"] = value
 
@@ -2154,7 +2243,6 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
         Options to change the individual convection model equations for dynamic selection when using AdaptiveConvectiongAlgorithm
         This object is only needed to make changes to the default model selections for any or all of the surface categories.
         This object is for the inside face, the side of the surface facing a thermal zone.
-    
     """
     internal_name = "SurfaceConvectionAlgorithm:Inside:AdaptiveModelSelections"
     field_count = 91
@@ -2255,15 +2343,16 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
         self._data["Mixed Regime Unstable Ceiling Equation User Curve Name"] = None
         self._data["Mixed Regime Window Equation Source"] = None
         self._data["Mixed Regime Window Equation User Curve Name"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -2902,6 +2991,7 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -2928,7 +3018,7 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2974,7 +3064,7 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `simple_bouyancy_vertical_wall_equation_source`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2993,16 +3083,26 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `simple_bouyancy_vertical_wall_equation_source`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `simple_bouyancy_vertical_wall_equation_source`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Simple Bouyancy Vertical Wall Equation Source"] = value
 
@@ -3032,7 +3132,7 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `simple_bouyancy_vertical_wall_user_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3074,7 +3174,7 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `simple_bouyancy_stable_horizontal_equation_source`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3089,16 +3189,26 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `simple_bouyancy_stable_horizontal_equation_source`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `simple_bouyancy_stable_horizontal_equation_source`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Simple Bouyancy Stable Horizontal Equation Source"] = value
 
@@ -3128,7 +3238,7 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `simple_bouyancy_stable_horizontal_equation_user_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3170,7 +3280,7 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `simple_bouyancy_unstable_horizontal_equation_source`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3185,16 +3295,26 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `simple_bouyancy_unstable_horizontal_equation_source`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `simple_bouyancy_unstable_horizontal_equation_source`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Simple Bouyancy Unstable Horizontal Equation Source"] = value
 
@@ -3224,7 +3344,7 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `simple_bouyancy_unstable_horizontal_equation_user_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3266,7 +3386,7 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `simple_bouyancy_stable_tilted_equation_source`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3281,16 +3401,26 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `simple_bouyancy_stable_tilted_equation_source`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `simple_bouyancy_stable_tilted_equation_source`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Simple Bouyancy Stable Tilted Equation Source"] = value
 
@@ -3320,7 +3450,7 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `simple_bouyancy_stable_tilted_equation_user_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3362,7 +3492,7 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `simple_bouyancy_unstable_tilted_equation_source`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3377,16 +3507,26 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `simple_bouyancy_unstable_tilted_equation_source`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `simple_bouyancy_unstable_tilted_equation_source`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Simple Bouyancy Unstable Tilted Equation Source"] = value
 
@@ -3416,7 +3556,7 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `simple_bouyancy_unstable_tilted_equation_user_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3461,7 +3601,7 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `simple_bouyancy_windows_equation_source`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3479,16 +3619,26 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `simple_bouyancy_windows_equation_source`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `simple_bouyancy_windows_equation_source`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Simple Bouyancy Windows Equation Source"] = value
 
@@ -3518,7 +3668,7 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `simple_bouyancy_windows_equation_user_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3563,7 +3713,7 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `floor_heat_ceiling_cool_vertical_wall_equation_source`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3581,16 +3731,26 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `floor_heat_ceiling_cool_vertical_wall_equation_source`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `floor_heat_ceiling_cool_vertical_wall_equation_source`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Floor Heat Ceiling Cool Vertical Wall Equation Source"] = value
 
@@ -3620,7 +3780,7 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `floor_heat_ceiling_cool_vertical_wall_equation_user_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3662,7 +3822,7 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `floor_heat_ceiling_cool_stable_horizontal_equation_source`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3677,16 +3837,26 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `floor_heat_ceiling_cool_stable_horizontal_equation_source`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `floor_heat_ceiling_cool_stable_horizontal_equation_source`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Floor Heat Ceiling Cool Stable Horizontal Equation Source"] = value
 
@@ -3716,7 +3886,7 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `floor_heat_ceiling_cool_stable_horizontal_equation_user_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3759,7 +3929,7 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `floor_heat_ceiling_cool_unstable_horizontal_equation_source`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3775,16 +3945,26 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `floor_heat_ceiling_cool_unstable_horizontal_equation_source`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `floor_heat_ceiling_cool_unstable_horizontal_equation_source`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Floor Heat Ceiling Cool Unstable Horizontal Equation Source"] = value
 
@@ -3814,7 +3994,7 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `floor_heat_ceiling_cool_unstable_horizontal_equation_user_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3857,7 +4037,7 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `floor_heat_ceiling_cool_heated_floor_equation_source`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3873,16 +4053,26 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `floor_heat_ceiling_cool_heated_floor_equation_source`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `floor_heat_ceiling_cool_heated_floor_equation_source`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Floor Heat Ceiling Cool Heated Floor Equation Source"] = value
 
@@ -3912,7 +4102,7 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `floor_heat_ceiling_cool_heated_floor_equation_user_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3955,7 +4145,7 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `floor_heat_ceiling_cool_chilled_ceiling_equation_source`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3971,16 +4161,26 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `floor_heat_ceiling_cool_chilled_ceiling_equation_source`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `floor_heat_ceiling_cool_chilled_ceiling_equation_source`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Floor Heat Ceiling Cool Chilled Ceiling Equation Source"] = value
 
@@ -4010,7 +4210,7 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `floor_heat_ceiling_cool_chilled_ceiling_equation_user_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4053,7 +4253,7 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `floor_heat_ceiling_cool_stable_tilted_equation_source`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4069,16 +4269,26 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `floor_heat_ceiling_cool_stable_tilted_equation_source`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `floor_heat_ceiling_cool_stable_tilted_equation_source`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Floor Heat Ceiling Cool Stable Tilted Equation Source"] = value
 
@@ -4108,7 +4318,7 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `floor_heat_ceiling_cool_stable_tilted_equation_user_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4151,7 +4361,7 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `floor_heat_ceiling_cool_unstable_tilted_equation_source`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4167,16 +4377,26 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `floor_heat_ceiling_cool_unstable_tilted_equation_source`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `floor_heat_ceiling_cool_unstable_tilted_equation_source`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Floor Heat Ceiling Cool Unstable Tilted Equation Source"] = value
 
@@ -4206,7 +4426,7 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `floor_heat_ceiling_cool_unstable_tilted_equation_user_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4249,7 +4469,7 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `floor_heat_ceiling_cool_window_equation_source`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4265,16 +4485,26 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `floor_heat_ceiling_cool_window_equation_source`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `floor_heat_ceiling_cool_window_equation_source`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Floor Heat Ceiling Cool Window Equation Source"] = value
 
@@ -4304,7 +4534,7 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `floor_heat_ceiling_cool_window_equation_user_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4349,7 +4579,7 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `wall_panel_heating_vertical_wall_equation_source`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4367,16 +4597,26 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `wall_panel_heating_vertical_wall_equation_source`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `wall_panel_heating_vertical_wall_equation_source`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Wall Panel Heating Vertical Wall Equation Source"] = value
 
@@ -4406,7 +4646,7 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `wall_panel_heating_vertical_wall_equation_user_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4452,7 +4692,7 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `wall_panel_heating_heated_wall_equation_source`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4471,16 +4711,26 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `wall_panel_heating_heated_wall_equation_source`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `wall_panel_heating_heated_wall_equation_source`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Wall Panel Heating Heated Wall Equation Source"] = value
 
@@ -4510,7 +4760,7 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `wall_panel_heating_heated_wall_equation_user_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4552,7 +4802,7 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `wall_panel_heating_stable_horizontal_equation_source`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4567,16 +4817,26 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `wall_panel_heating_stable_horizontal_equation_source`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `wall_panel_heating_stable_horizontal_equation_source`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Wall Panel Heating Stable Horizontal Equation Source"] = value
 
@@ -4606,7 +4866,7 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `wall_panel_heating_stable_horizontal_equation_user_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4651,7 +4911,7 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `wall_panel_heating_unstable_horizontal_equation_source`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4669,16 +4929,26 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `wall_panel_heating_unstable_horizontal_equation_source`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `wall_panel_heating_unstable_horizontal_equation_source`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Wall Panel Heating Unstable Horizontal Equation Source"] = value
 
@@ -4708,7 +4978,7 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `wall_panel_heating_unstable_horizontal_equation_user_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4751,7 +5021,7 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `wall_panel_heating_stable_tilted_equation_source`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4767,16 +5037,26 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `wall_panel_heating_stable_tilted_equation_source`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `wall_panel_heating_stable_tilted_equation_source`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Wall Panel Heating Stable Tilted Equation Source"] = value
 
@@ -4806,7 +5086,7 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `wall_panel_heating_stable_tilted_equation_user_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4849,7 +5129,7 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `wall_panel_heating_unstable_tilted_equation_source`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4865,16 +5145,26 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `wall_panel_heating_unstable_tilted_equation_source`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `wall_panel_heating_unstable_tilted_equation_source`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Wall Panel Heating Unstable Tilted Equation Source"] = value
 
@@ -4904,7 +5194,7 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `wall_panel_heating_unstable_tilted_equation_user_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4948,7 +5238,7 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `wall_panel_heating_window_equation_source`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4965,16 +5255,26 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `wall_panel_heating_window_equation_source`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `wall_panel_heating_window_equation_source`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Wall Panel Heating Window Equation Source"] = value
 
@@ -5004,7 +5304,7 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `wall_panel_heating_window_equation_user_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -5050,7 +5350,7 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `convective_zone_heater_vertical_wall_equation_source`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -5069,16 +5369,26 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `convective_zone_heater_vertical_wall_equation_source`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `convective_zone_heater_vertical_wall_equation_source`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Convective Zone Heater Vertical Wall Equation Source"] = value
 
@@ -5108,7 +5418,7 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `convective_zone_heater_vertical_wall_equation_user_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -5155,7 +5465,7 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `convective_zone_heater_vertical_walls_near_heater_equation_source`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -5174,16 +5484,26 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `convective_zone_heater_vertical_walls_near_heater_equation_source`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `convective_zone_heater_vertical_walls_near_heater_equation_source`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Convective Zone Heater Vertical Walls Near Heater Equation Source"] = value
 
@@ -5213,7 +5533,7 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `convective_zone_heater_vertical_walls_near_heater_equation_user_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -5255,7 +5575,7 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `convective_zone_heater_stable_horizontal_equation_source`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -5270,16 +5590,26 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `convective_zone_heater_stable_horizontal_equation_source`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `convective_zone_heater_stable_horizontal_equation_source`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Convective Zone Heater Stable Horizontal Equation Source"] = value
 
@@ -5309,7 +5639,7 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `convective_zone_heater_stable_horizontal_equation_user_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -5353,7 +5683,7 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `convective_zone_heater_unstable_horizontal_equation_source`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -5370,16 +5700,26 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `convective_zone_heater_unstable_horizontal_equation_source`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `convective_zone_heater_unstable_horizontal_equation_source`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Convective Zone Heater Unstable Horizontal Equation Source"] = value
 
@@ -5409,7 +5749,7 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `convective_zone_heater_unstable_horizontal_equation_user_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -5451,7 +5791,7 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `convective_zone_heater_stable_tilted_equation_source`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -5466,16 +5806,26 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `convective_zone_heater_stable_tilted_equation_source`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `convective_zone_heater_stable_tilted_equation_source`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Convective Zone Heater Stable Tilted Equation Source"] = value
 
@@ -5505,7 +5855,7 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `convective_zone_heater_stable_tilted_equation_user_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -5547,7 +5897,7 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `convective_zone_heater_unstable_tilted_equation_source`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -5562,16 +5912,26 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `convective_zone_heater_unstable_tilted_equation_source`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `convective_zone_heater_unstable_tilted_equation_source`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Convective Zone Heater Unstable Tilted Equation Source"] = value
 
@@ -5601,7 +5961,7 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `convective_zone_heater_unstable_tilted_equation_user_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -5646,7 +6006,7 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `convective_zone_heater_windows_equation_source`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -5664,16 +6024,26 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `convective_zone_heater_windows_equation_source`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `convective_zone_heater_windows_equation_source`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Convective Zone Heater Windows Equation Source"] = value
 
@@ -5703,7 +6073,7 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `convective_zone_heater_windows_equation_user_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -5751,7 +6121,7 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `central_air_diffuser_wall_equation_source`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -5772,16 +6142,26 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `central_air_diffuser_wall_equation_source`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `central_air_diffuser_wall_equation_source`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Central Air Diffuser Wall Equation Source"] = value
 
@@ -5811,7 +6191,7 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `central_air_diffuser_wall_equation_user_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -5854,7 +6234,7 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `central_air_diffuser_ceiling_equation_source`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -5870,16 +6250,26 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `central_air_diffuser_ceiling_equation_source`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `central_air_diffuser_ceiling_equation_source`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Central Air Diffuser Ceiling Equation Source"] = value
 
@@ -5909,7 +6299,7 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `central_air_diffuser_ceiling_equation_user_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -5953,7 +6343,7 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `central_air_diffuser_floor_equation_source`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -5970,16 +6360,26 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `central_air_diffuser_floor_equation_source`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `central_air_diffuser_floor_equation_source`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Central Air Diffuser Floor Equation Source"] = value
 
@@ -6009,7 +6409,7 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `central_air_diffuser_floor_equation_user_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -6057,7 +6457,7 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `central_air_diffuser_window_equation_source`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -6078,16 +6478,26 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `central_air_diffuser_window_equation_source`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `central_air_diffuser_window_equation_source`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Central Air Diffuser Window Equation Source"] = value
 
@@ -6117,7 +6527,7 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `central_air_diffuser_window_equation_user_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -6165,7 +6575,7 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `mechanical_zone_fan_circulation_vertical_wall_equation_source`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -6187,16 +6597,26 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `mechanical_zone_fan_circulation_vertical_wall_equation_source`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `mechanical_zone_fan_circulation_vertical_wall_equation_source`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Mechanical Zone Fan Circulation Vertical Wall Equation Source"] = value
 
@@ -6226,7 +6646,7 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `mechanical_zone_fan_circulation_vertical_wall_equation_user_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -6267,7 +6687,7 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `mechanical_zone_fan_circulation_stable_horizontal_equation_source`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -6282,16 +6702,26 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `mechanical_zone_fan_circulation_stable_horizontal_equation_source`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `mechanical_zone_fan_circulation_stable_horizontal_equation_source`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Mechanical Zone Fan Circulation Stable Horizontal Equation Source"] = value
 
@@ -6321,7 +6751,7 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `mechanical_zone_fan_circulation_stable_horizontal_equation_user_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -6363,7 +6793,7 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `mechanical_zone_fan_circulation_unstable_horizontal_equation_source`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -6379,16 +6809,26 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `mechanical_zone_fan_circulation_unstable_horizontal_equation_source`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `mechanical_zone_fan_circulation_unstable_horizontal_equation_source`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Mechanical Zone Fan Circulation Unstable Horizontal Equation Source"] = value
 
@@ -6418,7 +6858,7 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `mechanical_zone_fan_circulation_unstable_horizontal_equation_user_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -6458,7 +6898,7 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `mechanical_zone_fan_circulation_stable_tilted_equation_source`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -6472,16 +6912,26 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `mechanical_zone_fan_circulation_stable_tilted_equation_source`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `mechanical_zone_fan_circulation_stable_tilted_equation_source`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Mechanical Zone Fan Circulation Stable Tilted Equation Source"] = value
 
@@ -6511,7 +6961,7 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `mechanical_zone_fan_circulation_stable_tilted_equation_user_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -6552,7 +7002,7 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `mechanical_zone_fan_circulation_unstable_tilted_equation_source`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -6567,16 +7017,26 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `mechanical_zone_fan_circulation_unstable_tilted_equation_source`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `mechanical_zone_fan_circulation_unstable_tilted_equation_source`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Mechanical Zone Fan Circulation Unstable Tilted Equation Source"] = value
 
@@ -6606,7 +7066,7 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `mechanical_zone_fan_circulation_unstable_tilted_equation_user_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -6650,7 +7110,7 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `mechanical_zone_fan_circulation_window_equation_source`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -6668,16 +7128,26 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `mechanical_zone_fan_circulation_window_equation_source`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `mechanical_zone_fan_circulation_window_equation_source`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Mechanical Zone Fan Circulation Window Equation Source"] = value
 
@@ -6707,7 +7177,7 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `mechanical_zone_fan_circulation_window_equation_user_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -6752,7 +7222,7 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `mixed_regime_bouyancy_assisting_flow_on_walls_equation_source`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -6771,16 +7241,26 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `mixed_regime_bouyancy_assisting_flow_on_walls_equation_source`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `mixed_regime_bouyancy_assisting_flow_on_walls_equation_source`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Mixed Regime Bouyancy Assisting Flow on Walls Equation Source"] = value
 
@@ -6810,7 +7290,7 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `mixed_regime_bouyancy_assisting_flow_on_walls_equation_user_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -6855,7 +7335,7 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `mixed_regime_bouyancy_oppossing_flow_on_walls_equation_source`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -6874,16 +7354,26 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `mixed_regime_bouyancy_oppossing_flow_on_walls_equation_source`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `mixed_regime_bouyancy_oppossing_flow_on_walls_equation_source`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Mixed Regime Bouyancy Oppossing Flow on Walls Equation Source"] = value
 
@@ -6913,7 +7403,7 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `mixed_regime_bouyancy_oppossing_flow_on_walls_equation_user_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -6955,7 +7445,7 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `mixed_regime_stable_floor_equation_source`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -6971,16 +7461,26 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `mixed_regime_stable_floor_equation_source`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `mixed_regime_stable_floor_equation_source`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Mixed Regime Stable Floor Equation Source"] = value
 
@@ -7010,7 +7510,7 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `mixed_regime_stable_floor_equation_user_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -7052,7 +7552,7 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `mixed_regime_unstable_floor_equation_source`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -7068,16 +7568,26 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `mixed_regime_unstable_floor_equation_source`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `mixed_regime_unstable_floor_equation_source`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Mixed Regime Unstable Floor Equation Source"] = value
 
@@ -7107,7 +7617,7 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `mixed_regime_unstable_floor_equation_user_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -7149,7 +7659,7 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `mixed_regime_stable_ceiling_equation_source`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -7165,16 +7675,26 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `mixed_regime_stable_ceiling_equation_source`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `mixed_regime_stable_ceiling_equation_source`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Mixed Regime Stable Ceiling Equation Source"] = value
 
@@ -7204,7 +7724,7 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `mixed_regime_stable_ceiling_equation_user_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -7246,7 +7766,7 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `mixed_regime_unstable_ceiling_equation_source`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -7262,16 +7782,26 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `mixed_regime_unstable_ceiling_equation_source`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `mixed_regime_unstable_ceiling_equation_source`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Mixed Regime Unstable Ceiling Equation Source"] = value
 
@@ -7301,7 +7831,7 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `mixed_regime_unstable_ceiling_equation_user_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -7342,7 +7872,7 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `mixed_regime_window_equation_source`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -7357,16 +7887,26 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `mixed_regime_window_equation_source`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `mixed_regime_window_equation_source`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Mixed Regime Window Equation Source"] = value
 
@@ -7396,7 +7936,7 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `mixed_regime_window_equation_user_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -7445,7 +7985,6 @@ class SurfaceConvectionAlgorithmOutsideAdaptiveModelSelections(object):
         Options to change the individual convection model equations for dynamic selection when using AdaptiveConvectiongAlgorithm
         This object is only needed to make changes to the default model selections for any or all of the surface categories.
         This object is for the outside face, the side of the surface facing away from the thermal zone.
-    
     """
     internal_name = "SurfaceConvectionAlgorithm:Outside:AdaptiveModelSelections"
     field_count = 13
@@ -7468,15 +8007,16 @@ class SurfaceConvectionAlgorithmOutsideAdaptiveModelSelections(object):
         self._data["Natural Convection Stable Horizontal Equation User Curve Name"] = None
         self._data["Natural Convection Unstable Horizontal Equation Source"] = None
         self._data["Natural Convection Unstable Horizontal Equation User Curve Name"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -7569,6 +8109,7 @@ class SurfaceConvectionAlgorithmOutsideAdaptiveModelSelections(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -7595,7 +8136,7 @@ class SurfaceConvectionAlgorithmOutsideAdaptiveModelSelections(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -7642,7 +8183,7 @@ class SurfaceConvectionAlgorithmOutsideAdaptiveModelSelections(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `wind_convection_windward_vertical_wall_equation_source`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -7664,16 +8205,26 @@ class SurfaceConvectionAlgorithmOutsideAdaptiveModelSelections(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `wind_convection_windward_vertical_wall_equation_source`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `wind_convection_windward_vertical_wall_equation_source`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Wind Convection Windward Vertical Wall Equation Source"] = value
 
@@ -7703,7 +8254,7 @@ class SurfaceConvectionAlgorithmOutsideAdaptiveModelSelections(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `wind_convection_windward_equation_vertical_wall_user_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -7749,7 +8300,7 @@ class SurfaceConvectionAlgorithmOutsideAdaptiveModelSelections(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `wind_convection_leeward_vertical_wall_equation_source`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -7770,16 +8321,26 @@ class SurfaceConvectionAlgorithmOutsideAdaptiveModelSelections(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `wind_convection_leeward_vertical_wall_equation_source`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `wind_convection_leeward_vertical_wall_equation_source`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Wind Convection Leeward Vertical Wall Equation Source"] = value
 
@@ -7809,7 +8370,7 @@ class SurfaceConvectionAlgorithmOutsideAdaptiveModelSelections(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `wind_convection_leeward_vertical_wall_equation_user_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -7857,7 +8418,7 @@ class SurfaceConvectionAlgorithmOutsideAdaptiveModelSelections(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `wind_convection_horizontal_roof_equation_source`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -7880,16 +8441,26 @@ class SurfaceConvectionAlgorithmOutsideAdaptiveModelSelections(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `wind_convection_horizontal_roof_equation_source`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `wind_convection_horizontal_roof_equation_source`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Wind Convection Horizontal Roof Equation Source"] = value
 
@@ -7919,7 +8490,7 @@ class SurfaceConvectionAlgorithmOutsideAdaptiveModelSelections(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `wind_convection_horizontal_roof_user_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -7963,7 +8534,7 @@ class SurfaceConvectionAlgorithmOutsideAdaptiveModelSelections(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `natural_convection_vertical_wall_equation_source`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -7981,16 +8552,26 @@ class SurfaceConvectionAlgorithmOutsideAdaptiveModelSelections(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `natural_convection_vertical_wall_equation_source`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `natural_convection_vertical_wall_equation_source`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Natural Convection Vertical Wall Equation Source"] = value
 
@@ -8020,7 +8601,7 @@ class SurfaceConvectionAlgorithmOutsideAdaptiveModelSelections(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `natural_convection_vertical_wall_equation_user_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -8062,7 +8643,7 @@ class SurfaceConvectionAlgorithmOutsideAdaptiveModelSelections(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `natural_convection_stable_horizontal_equation_source`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -8078,16 +8659,26 @@ class SurfaceConvectionAlgorithmOutsideAdaptiveModelSelections(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `natural_convection_stable_horizontal_equation_source`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `natural_convection_stable_horizontal_equation_source`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Natural Convection Stable Horizontal Equation Source"] = value
 
@@ -8117,7 +8708,7 @@ class SurfaceConvectionAlgorithmOutsideAdaptiveModelSelections(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `natural_convection_stable_horizontal_equation_user_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -8158,7 +8749,7 @@ class SurfaceConvectionAlgorithmOutsideAdaptiveModelSelections(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `natural_convection_unstable_horizontal_equation_source`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -8174,16 +8765,26 @@ class SurfaceConvectionAlgorithmOutsideAdaptiveModelSelections(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `natural_convection_unstable_horizontal_equation_source`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `natural_convection_unstable_horizontal_equation_source`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Natural Convection Unstable Horizontal Equation Source"] = value
 
@@ -8213,7 +8814,7 @@ class SurfaceConvectionAlgorithmOutsideAdaptiveModelSelections(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `natural_convection_unstable_horizontal_equation_user_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -8261,7 +8862,6 @@ class SurfaceConvectionAlgorithmInsideUserCurve(object):
     """ Corresponds to IDD object `SurfaceConvectionAlgorithm:Inside:UserCurve`
         Used to describe a custom model equation for surface convection heat transfer coefficient
         If more than one curve is referenced they are all used and added together.
-    
     """
     internal_name = "SurfaceConvectionAlgorithm:Inside:UserCurve"
     field_count = 6
@@ -8277,15 +8877,16 @@ class SurfaceConvectionAlgorithmInsideUserCurve(object):
         self._data["Hc Function of Temperature Difference Divided by Height Curve Name"] = None
         self._data["Hc Function of Air Change Rate Curve Name"] = None
         self._data["Hc Function of Air System Volume Flow Rate Divided by Zone Perimeter Length Curve Name"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -8329,6 +8930,7 @@ class SurfaceConvectionAlgorithmInsideUserCurve(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -8355,7 +8957,7 @@ class SurfaceConvectionAlgorithmInsideUserCurve(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -8395,7 +8997,7 @@ class SurfaceConvectionAlgorithmInsideUserCurve(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `reference_temperature_for_convection_heat_transfer`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -8410,16 +9012,26 @@ class SurfaceConvectionAlgorithmInsideUserCurve(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `reference_temperature_for_convection_heat_transfer`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `reference_temperature_for_convection_heat_transfer`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Reference Temperature for Convection Heat Transfer"] = value
 
@@ -8450,7 +9062,7 @@ class SurfaceConvectionAlgorithmInsideUserCurve(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `hc_function_of_temperature_difference_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -8488,7 +9100,7 @@ class SurfaceConvectionAlgorithmInsideUserCurve(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `hc_function_of_temperature_difference_divided_by_height_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -8525,7 +9137,7 @@ class SurfaceConvectionAlgorithmInsideUserCurve(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `hc_function_of_air_change_rate_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -8563,7 +9175,7 @@ class SurfaceConvectionAlgorithmInsideUserCurve(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `hc_function_of_air_system_volume_flow_rate_divided_by_zone_perimeter_length_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -8611,7 +9223,6 @@ class SurfaceConvectionAlgorithmOutsideUserCurve(object):
     """ Corresponds to IDD object `SurfaceConvectionAlgorithm:Outside:UserCurve`
         Used to describe a custom model equation for surface convection heat transfer coefficient
         If more than one curve is referenced they are all used and added together.
-    
     """
     internal_name = "SurfaceConvectionAlgorithm:Outside:UserCurve"
     field_count = 5
@@ -8626,15 +9237,16 @@ class SurfaceConvectionAlgorithmOutsideUserCurve(object):
         self._data["Hf Function of Wind Speed Curve Name"] = None
         self._data["Hn Function of Temperature Difference Curve Name"] = None
         self._data["Hn Function of Temperature Difference Divided by Height Curve Name"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -8671,6 +9283,7 @@ class SurfaceConvectionAlgorithmOutsideUserCurve(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -8697,7 +9310,7 @@ class SurfaceConvectionAlgorithmOutsideUserCurve(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -8738,7 +9351,7 @@ class SurfaceConvectionAlgorithmOutsideUserCurve(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `wind_speed_type_for_curve`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -8754,16 +9367,26 @@ class SurfaceConvectionAlgorithmOutsideUserCurve(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `wind_speed_type_for_curve`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `wind_speed_type_for_curve`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Wind Speed Type for Curve"] = value
 
@@ -8794,7 +9417,7 @@ class SurfaceConvectionAlgorithmOutsideUserCurve(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `hf_function_of_wind_speed_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -8831,7 +9454,7 @@ class SurfaceConvectionAlgorithmOutsideUserCurve(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `hn_function_of_temperature_difference_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -8869,7 +9492,7 @@ class SurfaceConvectionAlgorithmOutsideUserCurve(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `hn_function_of_temperature_difference_divided_by_height_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -8922,7 +9545,6 @@ class SurfacePropertyConvectionCoefficients(object):
         for TARP interior convection, the lower limit is also .1
         Minimum and maximum limits are set in HeatBalanceAlgorithm object.
         Defaults in HeatBalanceAlgorithm object are [.1,1000].
-    
     """
     internal_name = "SurfaceProperty:ConvectionCoefficients"
     field_count = 11
@@ -8943,15 +9565,16 @@ class SurfacePropertyConvectionCoefficients(object):
         self._data["Convection Coefficient 2"] = None
         self._data["Convection Coefficient 2 Schedule Name"] = None
         self._data["Convection Coefficient 2 User Curve Name"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.surface_name = None
@@ -9030,6 +9653,7 @@ class SurfacePropertyConvectionCoefficients(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def surface_name(self):
@@ -9056,7 +9680,7 @@ class SurfacePropertyConvectionCoefficients(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -9094,7 +9718,7 @@ class SurfacePropertyConvectionCoefficients(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `convection_coefficient_1_location`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -9108,16 +9732,26 @@ class SurfacePropertyConvectionCoefficients(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `convection_coefficient_1_location`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `convection_coefficient_1_location`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Convection Coefficient 1 Location"] = value
 
@@ -9190,7 +9824,7 @@ class SurfacePropertyConvectionCoefficients(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `convection_coefficient_1_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -9245,16 +9879,26 @@ class SurfacePropertyConvectionCoefficients(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `convection_coefficient_1_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `convection_coefficient_1_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Convection Coefficient 1 Type"] = value
 
@@ -9286,7 +9930,7 @@ class SurfacePropertyConvectionCoefficients(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `convection_coefficient_1`'.format(value))
         self._data["Convection Coefficient 1"] = value
 
@@ -9317,7 +9961,7 @@ class SurfacePropertyConvectionCoefficients(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `convection_coefficient_1_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -9353,7 +9997,7 @@ class SurfacePropertyConvectionCoefficients(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `convection_coefficient_1_user_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -9391,7 +10035,7 @@ class SurfacePropertyConvectionCoefficients(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `convection_coefficient_2_location`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -9405,16 +10049,26 @@ class SurfacePropertyConvectionCoefficients(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `convection_coefficient_2_location`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `convection_coefficient_2_location`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Convection Coefficient 2 Location"] = value
 
@@ -9487,7 +10141,7 @@ class SurfacePropertyConvectionCoefficients(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `convection_coefficient_2_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -9542,16 +10196,26 @@ class SurfacePropertyConvectionCoefficients(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `convection_coefficient_2_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `convection_coefficient_2_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Convection Coefficient 2 Type"] = value
 
@@ -9584,7 +10248,7 @@ class SurfacePropertyConvectionCoefficients(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `convection_coefficient_2`'.format(value))
         self._data["Convection Coefficient 2"] = value
 
@@ -9615,7 +10279,7 @@ class SurfacePropertyConvectionCoefficients(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `convection_coefficient_2_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -9651,7 +10315,7 @@ class SurfacePropertyConvectionCoefficients(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `convection_coefficient_2_user_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -9704,7 +10368,6 @@ class SurfacePropertyConvectionCoefficientsMultipleSurface(object):
         for TARP interior convection, the lower limit is also .1
         Minimum and maximum limits are set in HeatBalanceAlgorithm object.
         Defaults in HeatBalanceAlgorithm object are [.1,1000].
-    
     """
     internal_name = "SurfaceProperty:ConvectionCoefficients:MultipleSurface"
     field_count = 11
@@ -9725,15 +10388,16 @@ class SurfacePropertyConvectionCoefficientsMultipleSurface(object):
         self._data["Convection Coefficient 2"] = None
         self._data["Convection Coefficient 2 Schedule Name"] = None
         self._data["Convection Coefficient 2 User Curve Name"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.surface_type = None
@@ -9812,6 +10476,7 @@ class SurfacePropertyConvectionCoefficientsMultipleSurface(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def surface_type(self):
@@ -9849,7 +10514,7 @@ class SurfacePropertyConvectionCoefficientsMultipleSurface(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -9871,16 +10536,26 @@ class SurfacePropertyConvectionCoefficientsMultipleSurface(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `surface_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `surface_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Surface Type"] = value
 
@@ -9912,7 +10587,7 @@ class SurfacePropertyConvectionCoefficientsMultipleSurface(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `convection_coefficient_1_location`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -9926,16 +10601,26 @@ class SurfacePropertyConvectionCoefficientsMultipleSurface(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `convection_coefficient_1_location`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `convection_coefficient_1_location`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Convection Coefficient 1 Location"] = value
 
@@ -10009,7 +10694,7 @@ class SurfacePropertyConvectionCoefficientsMultipleSurface(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `convection_coefficient_1_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -10065,16 +10750,26 @@ class SurfacePropertyConvectionCoefficientsMultipleSurface(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `convection_coefficient_1_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `convection_coefficient_1_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Convection Coefficient 1 Type"] = value
 
@@ -10106,7 +10801,7 @@ class SurfacePropertyConvectionCoefficientsMultipleSurface(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `convection_coefficient_1`'.format(value))
         self._data["Convection Coefficient 1"] = value
 
@@ -10137,7 +10832,7 @@ class SurfacePropertyConvectionCoefficientsMultipleSurface(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `convection_coefficient_1_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -10173,7 +10868,7 @@ class SurfacePropertyConvectionCoefficientsMultipleSurface(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `convection_coefficient_1_user_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -10211,7 +10906,7 @@ class SurfacePropertyConvectionCoefficientsMultipleSurface(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `convection_coefficient_2_location`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -10225,16 +10920,26 @@ class SurfacePropertyConvectionCoefficientsMultipleSurface(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `convection_coefficient_2_location`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `convection_coefficient_2_location`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Convection Coefficient 2 Location"] = value
 
@@ -10308,7 +11013,7 @@ class SurfacePropertyConvectionCoefficientsMultipleSurface(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `convection_coefficient_2_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -10364,16 +11069,26 @@ class SurfacePropertyConvectionCoefficientsMultipleSurface(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `convection_coefficient_2_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `convection_coefficient_2_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Convection Coefficient 2 Type"] = value
 
@@ -10406,7 +11121,7 @@ class SurfacePropertyConvectionCoefficientsMultipleSurface(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `convection_coefficient_2`'.format(value))
         self._data["Convection Coefficient 2"] = value
 
@@ -10437,7 +11152,7 @@ class SurfacePropertyConvectionCoefficientsMultipleSurface(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `convection_coefficient_2_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -10473,7 +11188,7 @@ class SurfacePropertyConvectionCoefficientsMultipleSurface(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `convection_coefficient_2_user_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -10525,7 +11240,6 @@ class SurfacePropertiesVaporCoefficients(object):
         Units are kg/Pa.s.m2
         This will only work with the CombinedHeatAndMoistureFiniteElement algorithm for surfaces.
         Other algorithms will ignore these coefficients
-    
     """
     internal_name = "SurfaceProperties:VaporCoefficients"
     field_count = 5
@@ -10540,15 +11254,16 @@ class SurfacePropertiesVaporCoefficients(object):
         self._data["External Vapor Coefficient Value"] = None
         self._data["Constant Internal vapor Transfer Coefficient"] = None
         self._data["Internal Vapor Coefficient Value"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.surface_name = None
@@ -10585,6 +11300,7 @@ class SurfacePropertiesVaporCoefficients(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def surface_name(self):
@@ -10611,7 +11327,7 @@ class SurfacePropertiesVaporCoefficients(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -10650,7 +11366,7 @@ class SurfacePropertiesVaporCoefficients(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `constant_external_vapor_transfer_coefficient`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -10664,16 +11380,26 @@ class SurfacePropertiesVaporCoefficients(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `constant_external_vapor_transfer_coefficient`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `constant_external_vapor_transfer_coefficient`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Constant External Vapor Transfer Coefficient"] = value
 
@@ -10705,7 +11431,7 @@ class SurfacePropertiesVaporCoefficients(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `external_vapor_coefficient_value`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -10741,7 +11467,7 @@ class SurfacePropertiesVaporCoefficients(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `constant_internal_vapor_transfer_coefficient`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -10755,16 +11481,26 @@ class SurfacePropertiesVaporCoefficients(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `constant_internal_vapor_transfer_coefficient`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `constant_internal_vapor_transfer_coefficient`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Constant Internal vapor Transfer Coefficient"] = value
 
@@ -10796,7 +11532,7 @@ class SurfacePropertiesVaporCoefficients(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `internal_vapor_coefficient_value`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -10842,7 +11578,6 @@ class SurfacePropertyExteriorNaturalVentedCavity(object):
         Used to describe the decoupled layer, or baffle, and the characteristics of the cavity
         and openings for naturally ventilated exterior surfaces. This object is also used in
         conjunction with the OtherSideConditionsModel.
-    
     """
     internal_name = "SurfaceProperty:ExteriorNaturalVentedCavity"
     field_count = 21
@@ -10873,15 +11608,16 @@ class SurfacePropertyExteriorNaturalVentedCavity(object):
         self._data["Surface 8 Name"] = None
         self._data["Surface 9 Name"] = None
         self._data["Surface 10 Name"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -11030,6 +11766,7 @@ class SurfacePropertyExteriorNaturalVentedCavity(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -11056,7 +11793,7 @@ class SurfacePropertyExteriorNaturalVentedCavity(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -11092,7 +11829,7 @@ class SurfacePropertyExteriorNaturalVentedCavity(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `boundary_conditions_model_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -11130,7 +11867,7 @@ class SurfacePropertyExteriorNaturalVentedCavity(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `area_fraction_of_openings`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -11168,7 +11905,7 @@ class SurfacePropertyExteriorNaturalVentedCavity(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `thermal_emissivity_of_exterior_baffle_material`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -11206,7 +11943,7 @@ class SurfacePropertyExteriorNaturalVentedCavity(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `solar_absorbtivity_of_exterior_baffle`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -11243,7 +11980,7 @@ class SurfacePropertyExteriorNaturalVentedCavity(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `height_scale_for_buoyancydriven_ventilation`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -11278,7 +12015,7 @@ class SurfacePropertyExteriorNaturalVentedCavity(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `effective_thickness_of_cavity_behind_exterior_baffle`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -11315,7 +12052,7 @@ class SurfacePropertyExteriorNaturalVentedCavity(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `ratio_of_actual_surface_area_to_projected_surface_area`'.format(value))
             if value < 0.8:
                 raise ValueError('value need to be greater or equal 0.8 '
@@ -11357,7 +12094,7 @@ class SurfacePropertyExteriorNaturalVentedCavity(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `roughness_of_exterior_surface`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -11375,16 +12112,26 @@ class SurfacePropertyExteriorNaturalVentedCavity(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `roughness_of_exterior_surface`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `roughness_of_exterior_surface`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Roughness of Exterior Surface"] = value
 
@@ -11417,7 +12164,7 @@ class SurfacePropertyExteriorNaturalVentedCavity(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `effectiveness_for_perforations_with_respect_to_wind`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -11456,7 +12203,7 @@ class SurfacePropertyExteriorNaturalVentedCavity(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `discharge_coefficient_for_openings_with_respect_to_buoyancy_driven_flow`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -11491,7 +12238,7 @@ class SurfacePropertyExteriorNaturalVentedCavity(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_1_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -11526,7 +12273,7 @@ class SurfacePropertyExteriorNaturalVentedCavity(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_2_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -11561,7 +12308,7 @@ class SurfacePropertyExteriorNaturalVentedCavity(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_3_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -11596,7 +12343,7 @@ class SurfacePropertyExteriorNaturalVentedCavity(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_4_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -11631,7 +12378,7 @@ class SurfacePropertyExteriorNaturalVentedCavity(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_5_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -11666,7 +12413,7 @@ class SurfacePropertyExteriorNaturalVentedCavity(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_6_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -11701,7 +12448,7 @@ class SurfacePropertyExteriorNaturalVentedCavity(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_7_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -11736,7 +12483,7 @@ class SurfacePropertyExteriorNaturalVentedCavity(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_8_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -11771,7 +12518,7 @@ class SurfacePropertyExteriorNaturalVentedCavity(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_9_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -11806,7 +12553,7 @@ class SurfacePropertyExteriorNaturalVentedCavity(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_10_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -11854,7 +12601,6 @@ class SurfacePropertySolarIncidentInside(object):
     """ Corresponds to IDD object `SurfaceProperty:SolarIncidentInside`
         Used to provide incident solar radiation on the inside of the surface. Reference surface-construction pair
         and if that pair is used in a simulation, then program will use value provided in schedule instead of calculating it.
-    
     """
     internal_name = "SurfaceProperty:SolarIncidentInside"
     field_count = 4
@@ -11868,15 +12614,16 @@ class SurfacePropertySolarIncidentInside(object):
         self._data["Surface Name"] = None
         self._data["Construction Name"] = None
         self._data["Inside Surface Incident Sun Solar Radiation Schedule Name"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -11906,6 +12653,7 @@ class SurfacePropertySolarIncidentInside(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -11932,7 +12680,7 @@ class SurfacePropertySolarIncidentInside(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -11967,7 +12715,7 @@ class SurfacePropertySolarIncidentInside(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -12002,7 +12750,7 @@ class SurfacePropertySolarIncidentInside(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `construction_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -12037,7 +12785,7 @@ class SurfacePropertySolarIncidentInside(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `inside_surface_incident_sun_solar_radiation_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -12085,7 +12833,6 @@ class ComplexFenestrationPropertySolarAbsorbedLayers(object):
     """ Corresponds to IDD object `ComplexFenestrationProperty:SolarAbsorbedLayers`
         Used to provide solar radiation absorbed in fenestration layers. References surface-construction pair
         and if that pair is used in a simulation, then program will use value provided in schedules instead of calculating it.
-    
     """
     internal_name = "ComplexFenestrationProperty:SolarAbsorbedLayers"
     field_count = 8
@@ -12103,15 +12850,16 @@ class ComplexFenestrationPropertySolarAbsorbedLayers(object):
         self._data["Layer 3 Solar Radiation Absorbed Schedule Name"] = None
         self._data["Layer 4 Solar Radiation Absorbed Schedule Name"] = None
         self._data["Layer 5 Solar Radiation Absorbed Schedule Name"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -12169,6 +12917,7 @@ class ComplexFenestrationPropertySolarAbsorbedLayers(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -12195,7 +12944,7 @@ class ComplexFenestrationPropertySolarAbsorbedLayers(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -12230,7 +12979,7 @@ class ComplexFenestrationPropertySolarAbsorbedLayers(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `fenestration_surface`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -12265,7 +13014,7 @@ class ComplexFenestrationPropertySolarAbsorbedLayers(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `construction_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -12300,7 +13049,7 @@ class ComplexFenestrationPropertySolarAbsorbedLayers(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `layer_1_solar_radiation_absorbed_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -12335,7 +13084,7 @@ class ComplexFenestrationPropertySolarAbsorbedLayers(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `layer_2_solar_radiation_absorbed_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -12370,7 +13119,7 @@ class ComplexFenestrationPropertySolarAbsorbedLayers(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `layer_3_solar_radiation_absorbed_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -12405,7 +13154,7 @@ class ComplexFenestrationPropertySolarAbsorbedLayers(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `layer_4_solar_radiation_absorbed_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -12440,7 +13189,7 @@ class ComplexFenestrationPropertySolarAbsorbedLayers(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `layer_5_solar_radiation_absorbed_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -12488,7 +13237,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     """ Corresponds to IDD object `ZoneProperty:UserViewFactors:bySurfaceName`
         View factors for Surface to Surface in a zone.
         (Number of Surfaces)**2 must be entered.
-    
     """
     internal_name = "ZoneProperty:UserViewFactors:bySurfaceName"
     field_count = 364
@@ -12862,15 +13610,16 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         self._data["From Surface 121"] = None
         self._data["To Surface 121"] = None
         self._data["View Factor 121"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.zone_name = None
@@ -15420,6 +16169,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def zone_name(self):
@@ -15446,7 +16196,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `zone_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -15481,7 +16231,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `from_surface_1`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -15516,7 +16266,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `to_surface_1`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -15553,7 +16303,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `view_factor_1`'.format(value))
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
@@ -15585,7 +16335,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `from_surface_2`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -15620,7 +16370,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `to_surface_2`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -15657,7 +16407,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `view_factor_2`'.format(value))
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
@@ -15689,7 +16439,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `from_surface_3`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -15724,7 +16474,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `to_surface_3`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -15761,7 +16511,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `view_factor_3`'.format(value))
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
@@ -15793,7 +16543,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `from_surface_4`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -15828,7 +16578,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `to_surface_4`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -15865,7 +16615,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `view_factor_4`'.format(value))
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
@@ -15897,7 +16647,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `from_surface_5`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -15932,7 +16682,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `to_surface_5`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -15969,7 +16719,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `view_factor_5`'.format(value))
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
@@ -16001,7 +16751,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `from_surface_6`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -16036,7 +16786,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `to_surface_6`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -16073,7 +16823,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `view_factor_6`'.format(value))
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
@@ -16105,7 +16855,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `from_surface_7`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -16140,7 +16890,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `to_surface_7`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -16177,7 +16927,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `view_factor_7`'.format(value))
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
@@ -16209,7 +16959,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `from_surface_8`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -16244,7 +16994,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `to_surface_8`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -16281,7 +17031,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `view_factor_8`'.format(value))
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
@@ -16313,7 +17063,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `from_surface_9`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -16348,7 +17098,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `to_surface_9`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -16385,7 +17135,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `view_factor_9`'.format(value))
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
@@ -16417,7 +17167,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `from_surface_10`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -16452,7 +17202,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `to_surface_10`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -16489,7 +17239,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `view_factor_10`'.format(value))
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
@@ -16521,7 +17271,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `from_surface_11`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -16556,7 +17306,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `to_surface_11`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -16593,7 +17343,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `view_factor_11`'.format(value))
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
@@ -16625,7 +17375,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `from_surface_12`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -16660,7 +17410,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `to_surface_12`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -16697,7 +17447,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `view_factor_12`'.format(value))
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
@@ -16729,7 +17479,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `from_surface_13`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -16764,7 +17514,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `to_surface_13`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -16801,7 +17551,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `view_factor_13`'.format(value))
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
@@ -16833,7 +17583,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `from_surface_14`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -16868,7 +17618,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `to_surface_14`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -16905,7 +17655,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `view_factor_14`'.format(value))
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
@@ -16937,7 +17687,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `from_surface_15`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -16972,7 +17722,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `to_surface_15`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -17009,7 +17759,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `view_factor_15`'.format(value))
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
@@ -17041,7 +17791,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `from_surface_16`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -17076,7 +17826,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `to_surface_16`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -17113,7 +17863,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `view_factor_16`'.format(value))
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
@@ -17145,7 +17895,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `from_surface_17`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -17180,7 +17930,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `to_surface_17`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -17217,7 +17967,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `view_factor_17`'.format(value))
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
@@ -17249,7 +17999,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `from_surface_18`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -17284,7 +18034,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `to_surface_18`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -17321,7 +18071,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `view_factor_18`'.format(value))
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
@@ -17353,7 +18103,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `from_surface_19`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -17388,7 +18138,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `to_surface_19`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -17425,7 +18175,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `view_factor_19`'.format(value))
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
@@ -17457,7 +18207,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `from_surface_20`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -17492,7 +18242,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `to_surface_20`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -17529,7 +18279,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `view_factor_20`'.format(value))
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
@@ -17561,7 +18311,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `from_surface_21`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -17596,7 +18346,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `to_surface_21`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -17633,7 +18383,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `view_factor_21`'.format(value))
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
@@ -17665,7 +18415,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `from_surface_22`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -17700,7 +18450,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `to_surface_22`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -17737,7 +18487,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `view_factor_22`'.format(value))
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
@@ -17769,7 +18519,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `from_surface_23`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -17804,7 +18554,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `to_surface_23`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -17841,7 +18591,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `view_factor_23`'.format(value))
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
@@ -17873,7 +18623,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `from_surface_24`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -17908,7 +18658,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `to_surface_24`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -17945,7 +18695,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `view_factor_24`'.format(value))
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
@@ -17977,7 +18727,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `from_surface_25`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -18012,7 +18762,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `to_surface_25`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -18049,7 +18799,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `view_factor_25`'.format(value))
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
@@ -18081,7 +18831,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `from_surface_26`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -18116,7 +18866,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `to_surface_26`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -18153,7 +18903,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `view_factor_26`'.format(value))
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
@@ -18185,7 +18935,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `from_surface_27`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -18220,7 +18970,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `to_surface_27`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -18257,7 +19007,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `view_factor_27`'.format(value))
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
@@ -18289,7 +19039,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `from_surface_28`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -18324,7 +19074,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `to_surface_28`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -18361,7 +19111,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `view_factor_28`'.format(value))
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
@@ -18393,7 +19143,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `from_surface_29`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -18428,7 +19178,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `to_surface_29`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -18465,7 +19215,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `view_factor_29`'.format(value))
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
@@ -18497,7 +19247,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `from_surface_30`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -18532,7 +19282,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `to_surface_30`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -18569,7 +19319,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `view_factor_30`'.format(value))
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
@@ -18601,7 +19351,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `from_surface_31`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -18636,7 +19386,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `to_surface_31`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -18673,7 +19423,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `view_factor_31`'.format(value))
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
@@ -18705,7 +19455,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `from_surface_32`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -18740,7 +19490,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `to_surface_32`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -18777,7 +19527,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `view_factor_32`'.format(value))
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
@@ -18809,7 +19559,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `from_surface_33`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -18844,7 +19594,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `to_surface_33`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -18881,7 +19631,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `view_factor_33`'.format(value))
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
@@ -18913,7 +19663,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `from_surface_34`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -18948,7 +19698,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `to_surface_34`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -18985,7 +19735,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `view_factor_34`'.format(value))
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
@@ -19017,7 +19767,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `from_surface_35`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -19052,7 +19802,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `to_surface_35`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -19089,7 +19839,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `view_factor_35`'.format(value))
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
@@ -19121,7 +19871,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `from_surface_36`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -19156,7 +19906,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `to_surface_36`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -19193,7 +19943,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `view_factor_36`'.format(value))
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
@@ -19225,7 +19975,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `from_surface_37`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -19260,7 +20010,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `to_surface_37`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -19297,7 +20047,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `view_factor_37`'.format(value))
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
@@ -19329,7 +20079,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `from_surface_38`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -19364,7 +20114,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `to_surface_38`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -19401,7 +20151,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `view_factor_38`'.format(value))
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
@@ -19433,7 +20183,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `from_surface_39`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -19468,7 +20218,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `to_surface_39`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -19505,7 +20255,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `view_factor_39`'.format(value))
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
@@ -19537,7 +20287,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `from_surface_40`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -19572,7 +20322,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `to_surface_40`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -19609,7 +20359,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `view_factor_40`'.format(value))
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
@@ -19641,7 +20391,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `from_surface_41`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -19676,7 +20426,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `to_surface_41`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -19713,7 +20463,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `view_factor_41`'.format(value))
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
@@ -19745,7 +20495,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `from_surface_42`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -19780,7 +20530,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `to_surface_42`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -19817,7 +20567,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `view_factor_42`'.format(value))
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
@@ -19849,7 +20599,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `from_surface_43`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -19884,7 +20634,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `to_surface_43`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -19921,7 +20671,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `view_factor_43`'.format(value))
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
@@ -19953,7 +20703,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `from_surface_44`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -19988,7 +20738,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `to_surface_44`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -20025,7 +20775,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `view_factor_44`'.format(value))
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
@@ -20057,7 +20807,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `from_surface_45`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -20092,7 +20842,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `to_surface_45`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -20129,7 +20879,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `view_factor_45`'.format(value))
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
@@ -20161,7 +20911,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `from_surface_46`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -20196,7 +20946,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `to_surface_46`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -20233,7 +20983,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `view_factor_46`'.format(value))
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
@@ -20265,7 +21015,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `from_surface_47`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -20300,7 +21050,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `to_surface_47`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -20337,7 +21087,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `view_factor_47`'.format(value))
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
@@ -20369,7 +21119,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `from_surface_48`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -20404,7 +21154,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `to_surface_48`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -20441,7 +21191,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `view_factor_48`'.format(value))
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
@@ -20473,7 +21223,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `from_surface_49`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -20508,7 +21258,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `to_surface_49`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -20545,7 +21295,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `view_factor_49`'.format(value))
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
@@ -20577,7 +21327,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `from_surface_50`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -20612,7 +21362,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `to_surface_50`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -20649,7 +21399,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `view_factor_50`'.format(value))
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
@@ -20681,7 +21431,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `from_surface_51`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -20716,7 +21466,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `to_surface_51`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -20753,7 +21503,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `view_factor_51`'.format(value))
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
@@ -20785,7 +21535,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `from_surface_52`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -20820,7 +21570,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `to_surface_52`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -20857,7 +21607,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `view_factor_52`'.format(value))
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
@@ -20889,7 +21639,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `from_surface_53`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -20924,7 +21674,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `to_surface_53`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -20961,7 +21711,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `view_factor_53`'.format(value))
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
@@ -20993,7 +21743,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `from_surface_54`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -21028,7 +21778,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `to_surface_54`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -21065,7 +21815,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `view_factor_54`'.format(value))
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
@@ -21097,7 +21847,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `from_surface_55`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -21132,7 +21882,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `to_surface_55`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -21169,7 +21919,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `view_factor_55`'.format(value))
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
@@ -21201,7 +21951,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `from_surface_56`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -21236,7 +21986,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `to_surface_56`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -21273,7 +22023,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `view_factor_56`'.format(value))
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
@@ -21305,7 +22055,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `from_surface_57`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -21340,7 +22090,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `to_surface_57`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -21377,7 +22127,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `view_factor_57`'.format(value))
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
@@ -21409,7 +22159,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `from_surface_58`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -21444,7 +22194,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `to_surface_58`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -21481,7 +22231,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `view_factor_58`'.format(value))
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
@@ -21513,7 +22263,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `from_surface_59`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -21548,7 +22298,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `to_surface_59`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -21585,7 +22335,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `view_factor_59`'.format(value))
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
@@ -21617,7 +22367,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `from_surface_60`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -21652,7 +22402,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `to_surface_60`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -21689,7 +22439,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `view_factor_60`'.format(value))
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
@@ -21721,7 +22471,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `from_surface_61`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -21756,7 +22506,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `to_surface_61`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -21793,7 +22543,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `view_factor_61`'.format(value))
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
@@ -21825,7 +22575,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `from_surface_62`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -21860,7 +22610,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `to_surface_62`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -21897,7 +22647,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `view_factor_62`'.format(value))
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
@@ -21929,7 +22679,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `from_surface_63`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -21964,7 +22714,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `to_surface_63`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -22001,7 +22751,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `view_factor_63`'.format(value))
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
@@ -22033,7 +22783,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `from_surface_64`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -22068,7 +22818,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `to_surface_64`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -22105,7 +22855,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `view_factor_64`'.format(value))
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
@@ -22137,7 +22887,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `from_surface_65`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -22172,7 +22922,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `to_surface_65`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -22209,7 +22959,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `view_factor_65`'.format(value))
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
@@ -22241,7 +22991,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `from_surface_66`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -22276,7 +23026,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `to_surface_66`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -22313,7 +23063,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `view_factor_66`'.format(value))
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
@@ -22345,7 +23095,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `from_surface_67`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -22380,7 +23130,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `to_surface_67`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -22417,7 +23167,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `view_factor_67`'.format(value))
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
@@ -22449,7 +23199,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `from_surface_68`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -22484,7 +23234,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `to_surface_68`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -22521,7 +23271,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `view_factor_68`'.format(value))
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
@@ -22553,7 +23303,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `from_surface_69`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -22588,7 +23338,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `to_surface_69`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -22625,7 +23375,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `view_factor_69`'.format(value))
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
@@ -22657,7 +23407,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `from_surface_70`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -22692,7 +23442,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `to_surface_70`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -22729,7 +23479,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `view_factor_70`'.format(value))
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
@@ -22761,7 +23511,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `from_surface_71`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -22796,7 +23546,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `to_surface_71`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -22833,7 +23583,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `view_factor_71`'.format(value))
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
@@ -22865,7 +23615,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `from_surface_72`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -22900,7 +23650,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `to_surface_72`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -22937,7 +23687,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `view_factor_72`'.format(value))
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
@@ -22969,7 +23719,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `from_surface_73`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -23004,7 +23754,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `to_surface_73`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -23041,7 +23791,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `view_factor_73`'.format(value))
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
@@ -23073,7 +23823,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `from_surface_74`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -23108,7 +23858,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `to_surface_74`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -23145,7 +23895,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `view_factor_74`'.format(value))
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
@@ -23177,7 +23927,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `from_surface_75`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -23212,7 +23962,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `to_surface_75`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -23249,7 +23999,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `view_factor_75`'.format(value))
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
@@ -23281,7 +24031,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `from_surface_76`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -23316,7 +24066,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `to_surface_76`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -23353,7 +24103,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `view_factor_76`'.format(value))
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
@@ -23385,7 +24135,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `from_surface_77`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -23420,7 +24170,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `to_surface_77`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -23457,7 +24207,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `view_factor_77`'.format(value))
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
@@ -23489,7 +24239,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `from_surface_78`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -23524,7 +24274,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `to_surface_78`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -23561,7 +24311,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `view_factor_78`'.format(value))
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
@@ -23593,7 +24343,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `from_surface_79`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -23628,7 +24378,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `to_surface_79`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -23665,7 +24415,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `view_factor_79`'.format(value))
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
@@ -23697,7 +24447,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `from_surface_80`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -23732,7 +24482,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `to_surface_80`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -23769,7 +24519,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `view_factor_80`'.format(value))
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
@@ -23801,7 +24551,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `from_surface_81`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -23836,7 +24586,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `to_surface_81`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -23873,7 +24623,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `view_factor_81`'.format(value))
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
@@ -23905,7 +24655,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `from_surface_82`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -23940,7 +24690,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `to_surface_82`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -23977,7 +24727,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `view_factor_82`'.format(value))
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
@@ -24009,7 +24759,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `from_surface_83`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -24044,7 +24794,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `to_surface_83`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -24081,7 +24831,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `view_factor_83`'.format(value))
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
@@ -24113,7 +24863,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `from_surface_84`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -24148,7 +24898,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `to_surface_84`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -24185,7 +24935,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `view_factor_84`'.format(value))
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
@@ -24217,7 +24967,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `from_surface_85`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -24252,7 +25002,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `to_surface_85`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -24289,7 +25039,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `view_factor_85`'.format(value))
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
@@ -24321,7 +25071,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `from_surface_86`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -24356,7 +25106,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `to_surface_86`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -24393,7 +25143,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `view_factor_86`'.format(value))
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
@@ -24425,7 +25175,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `from_surface_87`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -24460,7 +25210,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `to_surface_87`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -24497,7 +25247,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `view_factor_87`'.format(value))
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
@@ -24529,7 +25279,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `from_surface_88`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -24564,7 +25314,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `to_surface_88`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -24601,7 +25351,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `view_factor_88`'.format(value))
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
@@ -24633,7 +25383,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `from_surface_89`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -24668,7 +25418,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `to_surface_89`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -24705,7 +25455,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `view_factor_89`'.format(value))
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
@@ -24737,7 +25487,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `from_surface_90`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -24772,7 +25522,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `to_surface_90`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -24809,7 +25559,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `view_factor_90`'.format(value))
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
@@ -24841,7 +25591,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `from_surface_91`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -24876,7 +25626,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `to_surface_91`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -24913,7 +25663,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `view_factor_91`'.format(value))
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
@@ -24945,7 +25695,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `from_surface_92`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -24980,7 +25730,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `to_surface_92`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -25017,7 +25767,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `view_factor_92`'.format(value))
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
@@ -25049,7 +25799,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `from_surface_93`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -25084,7 +25834,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `to_surface_93`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -25121,7 +25871,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `view_factor_93`'.format(value))
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
@@ -25153,7 +25903,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `from_surface_94`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -25188,7 +25938,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `to_surface_94`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -25225,7 +25975,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `view_factor_94`'.format(value))
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
@@ -25257,7 +26007,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `from_surface_95`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -25292,7 +26042,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `to_surface_95`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -25329,7 +26079,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `view_factor_95`'.format(value))
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
@@ -25361,7 +26111,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `from_surface_96`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -25396,7 +26146,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `to_surface_96`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -25433,7 +26183,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `view_factor_96`'.format(value))
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
@@ -25465,7 +26215,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `from_surface_97`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -25500,7 +26250,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `to_surface_97`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -25537,7 +26287,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `view_factor_97`'.format(value))
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
@@ -25569,7 +26319,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `from_surface_98`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -25604,7 +26354,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `to_surface_98`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -25641,7 +26391,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `view_factor_98`'.format(value))
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
@@ -25673,7 +26423,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `from_surface_99`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -25708,7 +26458,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `to_surface_99`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -25745,7 +26495,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `view_factor_99`'.format(value))
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
@@ -25777,7 +26527,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `from_surface_100`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -25812,7 +26562,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `to_surface_100`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -25849,7 +26599,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `view_factor_100`'.format(value))
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
@@ -25881,7 +26631,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `from_surface_101`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -25916,7 +26666,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `to_surface_101`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -25953,7 +26703,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `view_factor_101`'.format(value))
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
@@ -25985,7 +26735,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `from_surface_102`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -26020,7 +26770,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `to_surface_102`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -26057,7 +26807,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `view_factor_102`'.format(value))
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
@@ -26089,7 +26839,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `from_surface_103`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -26124,7 +26874,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `to_surface_103`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -26161,7 +26911,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `view_factor_103`'.format(value))
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
@@ -26193,7 +26943,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `from_surface_104`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -26228,7 +26978,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `to_surface_104`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -26265,7 +27015,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `view_factor_104`'.format(value))
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
@@ -26297,7 +27047,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `from_surface_105`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -26332,7 +27082,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `to_surface_105`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -26369,7 +27119,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `view_factor_105`'.format(value))
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
@@ -26401,7 +27151,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `from_surface_106`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -26436,7 +27186,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `to_surface_106`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -26473,7 +27223,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `view_factor_106`'.format(value))
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
@@ -26505,7 +27255,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `from_surface_107`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -26540,7 +27290,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `to_surface_107`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -26577,7 +27327,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `view_factor_107`'.format(value))
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
@@ -26609,7 +27359,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `from_surface_108`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -26644,7 +27394,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `to_surface_108`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -26681,7 +27431,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `view_factor_108`'.format(value))
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
@@ -26713,7 +27463,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `from_surface_109`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -26748,7 +27498,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `to_surface_109`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -26785,7 +27535,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `view_factor_109`'.format(value))
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
@@ -26817,7 +27567,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `from_surface_110`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -26852,7 +27602,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `to_surface_110`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -26889,7 +27639,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `view_factor_110`'.format(value))
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
@@ -26921,7 +27671,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `from_surface_111`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -26956,7 +27706,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `to_surface_111`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -26993,7 +27743,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `view_factor_111`'.format(value))
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
@@ -27025,7 +27775,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `from_surface_112`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -27060,7 +27810,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `to_surface_112`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -27097,7 +27847,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `view_factor_112`'.format(value))
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
@@ -27129,7 +27879,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `from_surface_113`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -27164,7 +27914,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `to_surface_113`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -27201,7 +27951,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `view_factor_113`'.format(value))
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
@@ -27233,7 +27983,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `from_surface_114`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -27268,7 +28018,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `to_surface_114`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -27305,7 +28055,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `view_factor_114`'.format(value))
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
@@ -27337,7 +28087,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `from_surface_115`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -27372,7 +28122,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `to_surface_115`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -27409,7 +28159,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `view_factor_115`'.format(value))
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
@@ -27441,7 +28191,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `from_surface_116`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -27476,7 +28226,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `to_surface_116`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -27513,7 +28263,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `view_factor_116`'.format(value))
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
@@ -27545,7 +28295,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `from_surface_117`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -27580,7 +28330,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `to_surface_117`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -27617,7 +28367,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `view_factor_117`'.format(value))
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
@@ -27649,7 +28399,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `from_surface_118`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -27684,7 +28434,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `to_surface_118`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -27721,7 +28471,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `view_factor_118`'.format(value))
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
@@ -27753,7 +28503,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `from_surface_119`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -27788,7 +28538,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `to_surface_119`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -27825,7 +28575,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `view_factor_119`'.format(value))
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
@@ -27857,7 +28607,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `from_surface_120`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -27892,7 +28642,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `to_surface_120`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -27929,7 +28679,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `view_factor_120`'.format(value))
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
@@ -27961,7 +28711,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `from_surface_121`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -27996,7 +28746,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `to_surface_121`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -28033,7 +28783,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `view_factor_121`'.format(value))
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '

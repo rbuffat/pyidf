@@ -1,10 +1,11 @@
 from collections import OrderedDict
+import logging
+import re
 
 class SetpointManagerScheduled(object):
     """ Corresponds to IDD object `SetpointManager:Scheduled`
         The simplest Setpoint Manager simply uses a schedule to determine one
         or more setpoints. Values of the nodes are not used as input.
-    
     """
     internal_name = "SetpointManager:Scheduled"
     field_count = 4
@@ -18,15 +19,16 @@ class SetpointManagerScheduled(object):
         self._data["Control Variable"] = None
         self._data["Schedule Name"] = None
         self._data["Setpoint Node or NodeList Name"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -56,6 +58,7 @@ class SetpointManagerScheduled(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -82,7 +85,7 @@ class SetpointManagerScheduled(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -127,7 +130,7 @@ class SetpointManagerScheduled(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `control_variable`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -148,16 +151,26 @@ class SetpointManagerScheduled(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `control_variable`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `control_variable`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Control Variable"] = value
 
@@ -186,7 +199,7 @@ class SetpointManagerScheduled(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -222,7 +235,7 @@ class SetpointManagerScheduled(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `setpoint_node_or_nodelist_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -270,7 +283,6 @@ class SetpointManagerScheduledDualSetpoint(object):
     """ Corresponds to IDD object `SetpointManager:Scheduled:DualSetpoint`
         This setpoint manager places a high and low schedule value
         on one or more nodes.
-    
     """
     internal_name = "SetpointManager:Scheduled:DualSetpoint"
     field_count = 5
@@ -285,15 +297,16 @@ class SetpointManagerScheduledDualSetpoint(object):
         self._data["High Setpoint Schedule Name"] = None
         self._data["Low Setpoint Schedule Name"] = None
         self._data["Setpoint Node or NodeList Name"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -330,6 +343,7 @@ class SetpointManagerScheduledDualSetpoint(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -356,7 +370,7 @@ class SetpointManagerScheduledDualSetpoint(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -394,7 +408,7 @@ class SetpointManagerScheduledDualSetpoint(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `control_variable`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -407,16 +421,26 @@ class SetpointManagerScheduledDualSetpoint(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `control_variable`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `control_variable`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Control Variable"] = value
 
@@ -445,7 +469,7 @@ class SetpointManagerScheduledDualSetpoint(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `high_setpoint_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -480,7 +504,7 @@ class SetpointManagerScheduledDualSetpoint(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `low_setpoint_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -516,7 +540,7 @@ class SetpointManagerScheduledDualSetpoint(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `setpoint_node_or_nodelist_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -564,7 +588,6 @@ class SetpointManagerOutdoorAirReset(object):
     """ Corresponds to IDD object `SetpointManager:OutdoorAirReset`
         The Outdoor Air Reset Setpoint Manager sets the supply air
         temperature according to the outdoor air temperature using a reset rule.
-    
     """
     internal_name = "SetpointManager:OutdoorAirReset"
     field_count = 12
@@ -586,15 +609,16 @@ class SetpointManagerOutdoorAirReset(object):
         self._data["Outdoor Low Temperature 2"] = None
         self._data["Setpoint at Outdoor High Temperature 2"] = None
         self._data["Outdoor High Temperature 2"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -680,6 +704,7 @@ class SetpointManagerOutdoorAirReset(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -706,7 +731,7 @@ class SetpointManagerOutdoorAirReset(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -744,7 +769,7 @@ class SetpointManagerOutdoorAirReset(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `control_variable`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -757,16 +782,26 @@ class SetpointManagerOutdoorAirReset(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `control_variable`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `control_variable`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Control Variable"] = value
 
@@ -796,7 +831,7 @@ class SetpointManagerOutdoorAirReset(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `setpoint_at_outdoor_low_temperature`'.format(value))
         self._data["Setpoint at Outdoor Low Temperature"] = value
 
@@ -826,7 +861,7 @@ class SetpointManagerOutdoorAirReset(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `outdoor_low_temperature`'.format(value))
         self._data["Outdoor Low Temperature"] = value
 
@@ -856,7 +891,7 @@ class SetpointManagerOutdoorAirReset(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `setpoint_at_outdoor_high_temperature`'.format(value))
         self._data["Setpoint at Outdoor High Temperature"] = value
 
@@ -886,7 +921,7 @@ class SetpointManagerOutdoorAirReset(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `outdoor_high_temperature`'.format(value))
         self._data["Outdoor High Temperature"] = value
 
@@ -916,7 +951,7 @@ class SetpointManagerOutdoorAirReset(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `setpoint_node_or_nodelist_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -954,7 +989,7 @@ class SetpointManagerOutdoorAirReset(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -991,7 +1026,7 @@ class SetpointManagerOutdoorAirReset(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `setpoint_at_outdoor_low_temperature_2`'.format(value))
         self._data["Setpoint at Outdoor Low Temperature 2"] = value
 
@@ -1022,7 +1057,7 @@ class SetpointManagerOutdoorAirReset(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `outdoor_low_temperature_2`'.format(value))
         self._data["Outdoor Low Temperature 2"] = value
 
@@ -1053,7 +1088,7 @@ class SetpointManagerOutdoorAirReset(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `setpoint_at_outdoor_high_temperature_2`'.format(value))
         self._data["Setpoint at Outdoor High Temperature 2"] = value
 
@@ -1084,7 +1119,7 @@ class SetpointManagerOutdoorAirReset(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `outdoor_high_temperature_2`'.format(value))
         self._data["Outdoor High Temperature 2"] = value
 
@@ -1128,7 +1163,6 @@ class SetpointManagerSingleZoneReheat(object):
         zone node temperature and calculates a setpoint temperature for the supply air that
         will satisfy the zone load (heating or cooling) for the control zone. This setpoint
         manager is not limited to reheat applications.
-    
     """
     internal_name = "SetpointManager:SingleZone:Reheat"
     field_count = 8
@@ -1146,15 +1180,16 @@ class SetpointManagerSingleZoneReheat(object):
         self._data["Zone Node Name"] = None
         self._data["Zone Inlet Node Name"] = None
         self._data["Setpoint Node or NodeList Name"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -1212,6 +1247,7 @@ class SetpointManagerSingleZoneReheat(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -1238,7 +1274,7 @@ class SetpointManagerSingleZoneReheat(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1276,7 +1312,7 @@ class SetpointManagerSingleZoneReheat(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `control_variable`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1289,16 +1325,26 @@ class SetpointManagerSingleZoneReheat(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `control_variable`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `control_variable`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Control Variable"] = value
 
@@ -1329,7 +1375,7 @@ class SetpointManagerSingleZoneReheat(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `minimum_supply_air_temperature`'.format(value))
         self._data["Minimum Supply Air Temperature"] = value
 
@@ -1360,7 +1406,7 @@ class SetpointManagerSingleZoneReheat(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `maximum_supply_air_temperature`'.format(value))
         self._data["Maximum Supply Air Temperature"] = value
 
@@ -1389,7 +1435,7 @@ class SetpointManagerSingleZoneReheat(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `control_zone_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1424,7 +1470,7 @@ class SetpointManagerSingleZoneReheat(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `zone_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1459,7 +1505,7 @@ class SetpointManagerSingleZoneReheat(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `zone_inlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1495,7 +1541,7 @@ class SetpointManagerSingleZoneReheat(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `setpoint_node_or_nodelist_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1545,7 +1591,6 @@ class SetpointManagerSingleZoneHeating(object):
         setpoint, zone inlet node flow rate, and zone node temperature, and calculates a
         setpoint temperature for the supply air that will satisfy the zone heating load for
         the control zone.
-    
     """
     internal_name = "SetpointManager:SingleZone:Heating"
     field_count = 8
@@ -1563,15 +1608,16 @@ class SetpointManagerSingleZoneHeating(object):
         self._data["Zone Node Name"] = None
         self._data["Zone Inlet Node Name"] = None
         self._data["Setpoint Node or NodeList Name"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -1629,6 +1675,7 @@ class SetpointManagerSingleZoneHeating(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -1655,7 +1702,7 @@ class SetpointManagerSingleZoneHeating(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1693,7 +1740,7 @@ class SetpointManagerSingleZoneHeating(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `control_variable`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1706,16 +1753,26 @@ class SetpointManagerSingleZoneHeating(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `control_variable`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `control_variable`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Control Variable"] = value
 
@@ -1746,7 +1803,7 @@ class SetpointManagerSingleZoneHeating(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `minimum_supply_air_temperature`'.format(value))
         self._data["Minimum Supply Air Temperature"] = value
 
@@ -1777,7 +1834,7 @@ class SetpointManagerSingleZoneHeating(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `maximum_supply_air_temperature`'.format(value))
         self._data["Maximum Supply Air Temperature"] = value
 
@@ -1806,7 +1863,7 @@ class SetpointManagerSingleZoneHeating(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `control_zone_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1841,7 +1898,7 @@ class SetpointManagerSingleZoneHeating(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `zone_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1876,7 +1933,7 @@ class SetpointManagerSingleZoneHeating(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `zone_inlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1912,7 +1969,7 @@ class SetpointManagerSingleZoneHeating(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `setpoint_node_or_nodelist_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1962,7 +2019,6 @@ class SetpointManagerSingleZoneCooling(object):
         setpoint, zone inlet node flow rate, and zone node temperature, and calculates a
         setpoint temperature for the supply air that will satisfy the zone cooling load for
         the control zone.
-    
     """
     internal_name = "SetpointManager:SingleZone:Cooling"
     field_count = 8
@@ -1980,15 +2036,16 @@ class SetpointManagerSingleZoneCooling(object):
         self._data["Zone Node Name"] = None
         self._data["Zone Inlet Node Name"] = None
         self._data["Setpoint Node or NodeList Name"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -2046,6 +2103,7 @@ class SetpointManagerSingleZoneCooling(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -2072,7 +2130,7 @@ class SetpointManagerSingleZoneCooling(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2110,7 +2168,7 @@ class SetpointManagerSingleZoneCooling(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `control_variable`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2123,16 +2181,26 @@ class SetpointManagerSingleZoneCooling(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `control_variable`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `control_variable`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Control Variable"] = value
 
@@ -2163,7 +2231,7 @@ class SetpointManagerSingleZoneCooling(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `minimum_supply_air_temperature`'.format(value))
         self._data["Minimum Supply Air Temperature"] = value
 
@@ -2194,7 +2262,7 @@ class SetpointManagerSingleZoneCooling(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `maximum_supply_air_temperature`'.format(value))
         self._data["Maximum Supply Air Temperature"] = value
 
@@ -2223,7 +2291,7 @@ class SetpointManagerSingleZoneCooling(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `control_zone_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2258,7 +2326,7 @@ class SetpointManagerSingleZoneCooling(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `zone_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2293,7 +2361,7 @@ class SetpointManagerSingleZoneCooling(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `zone_inlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2329,7 +2397,7 @@ class SetpointManagerSingleZoneCooling(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `setpoint_node_or_nodelist_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2379,7 +2447,6 @@ class SetpointManagerSingleZoneHumidityMinimum(object):
         control of a single zone minimum humidity level.
         This setpoint manager can be used in conjunction with
         object ZoneControl:Humidistat to detect humidity levels.
-    
     """
     internal_name = "SetpointManager:SingleZone:Humidity:Minimum"
     field_count = 5
@@ -2394,15 +2461,16 @@ class SetpointManagerSingleZoneHumidityMinimum(object):
         self._data["Schedule Name"] = None
         self._data["Setpoint Node or NodeList Name"] = None
         self._data["Control Zone Air Node Name"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -2439,6 +2507,7 @@ class SetpointManagerSingleZoneHumidityMinimum(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -2465,7 +2534,7 @@ class SetpointManagerSingleZoneHumidityMinimum(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2487,6 +2556,9 @@ class SetpointManagerSingleZoneHumidityMinimum(object):
     @control_variable.setter
     def control_variable(self, value=None):
         """  Corresponds to IDD Field `Control Variable`
+        This field is not really used and will be deleted from the object.
+        The required information is gotten internally or
+        not needed by the program.
 
         Args:
             value (str): value for IDD Field `Control Variable`
@@ -2500,7 +2572,7 @@ class SetpointManagerSingleZoneHumidityMinimum(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `control_variable`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2522,6 +2594,9 @@ class SetpointManagerSingleZoneHumidityMinimum(object):
     @schedule_name.setter
     def schedule_name(self, value=None):
         """  Corresponds to IDD Field `Schedule Name`
+        This field is not really used and will be deleted from the object.
+        The required information is gotten internally or
+        not needed by the program.
 
         Args:
             value (str): value for IDD Field `Schedule Name`
@@ -2535,7 +2610,7 @@ class SetpointManagerSingleZoneHumidityMinimum(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2571,7 +2646,7 @@ class SetpointManagerSingleZoneHumidityMinimum(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `setpoint_node_or_nodelist_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2607,7 +2682,7 @@ class SetpointManagerSingleZoneHumidityMinimum(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `control_zone_air_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2657,7 +2732,6 @@ class SetpointManagerSingleZoneHumidityMaximum(object):
         control of a single zone maximum humidity level.
         This setpoint manager can be used in conjunction with
         object ZoneControl:Humidistat to detect humidity levels.
-    
     """
     internal_name = "SetpointManager:SingleZone:Humidity:Maximum"
     field_count = 5
@@ -2672,15 +2746,16 @@ class SetpointManagerSingleZoneHumidityMaximum(object):
         self._data["Schedule Name"] = None
         self._data["Setpoint Node or NodeList Name"] = None
         self._data["Control Zone Air Node Name"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -2717,6 +2792,7 @@ class SetpointManagerSingleZoneHumidityMaximum(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -2743,7 +2819,7 @@ class SetpointManagerSingleZoneHumidityMaximum(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2765,6 +2841,9 @@ class SetpointManagerSingleZoneHumidityMaximum(object):
     @control_variable.setter
     def control_variable(self, value=None):
         """  Corresponds to IDD Field `Control Variable`
+        This field is not really used and will be deleted from the object.
+        The required information is gotten internally or
+        not needed by the program.
 
         Args:
             value (str): value for IDD Field `Control Variable`
@@ -2778,7 +2857,7 @@ class SetpointManagerSingleZoneHumidityMaximum(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `control_variable`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2800,6 +2879,9 @@ class SetpointManagerSingleZoneHumidityMaximum(object):
     @schedule_name.setter
     def schedule_name(self, value=None):
         """  Corresponds to IDD Field `Schedule Name`
+        This field is not really used and will be deleted from the object.
+        The required information is gotten internally or
+        not needed by the program.
 
         Args:
             value (str): value for IDD Field `Schedule Name`
@@ -2813,7 +2895,7 @@ class SetpointManagerSingleZoneHumidityMaximum(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2849,7 +2931,7 @@ class SetpointManagerSingleZoneHumidityMaximum(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `setpoint_node_or_nodelist_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2885,7 +2967,7 @@ class SetpointManagerSingleZoneHumidityMaximum(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `control_zone_air_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2934,7 +3016,6 @@ class SetpointManagerMixedAir(object):
         The Mixed Air Setpoint Manager is meant to be used in conjunction
         with a Controller:OutdoorAir object. This setpoint manager is used
         to establish a temperature setpoint at the mixed air node.
-    
     """
     internal_name = "SetpointManager:MixedAir"
     field_count = 6
@@ -2950,15 +3031,16 @@ class SetpointManagerMixedAir(object):
         self._data["Fan Inlet Node Name"] = None
         self._data["Fan Outlet Node Name"] = None
         self._data["Setpoint Node or NodeList Name"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -3002,6 +3084,7 @@ class SetpointManagerMixedAir(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -3028,7 +3111,7 @@ class SetpointManagerMixedAir(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3066,7 +3149,7 @@ class SetpointManagerMixedAir(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `control_variable`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3079,16 +3162,26 @@ class SetpointManagerMixedAir(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `control_variable`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `control_variable`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Control Variable"] = value
 
@@ -3117,7 +3210,7 @@ class SetpointManagerMixedAir(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `reference_setpoint_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3152,7 +3245,7 @@ class SetpointManagerMixedAir(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `fan_inlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3187,7 +3280,7 @@ class SetpointManagerMixedAir(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `fan_outlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3223,7 +3316,7 @@ class SetpointManagerMixedAir(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `setpoint_node_or_nodelist_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3273,7 +3366,6 @@ class SetpointManagerOutdoorAirPretreat(object):
         conditions at the outdoor air stream node which will
         produce the reference setpoint condition at the
         mixed air node when mixed with the return air stream
-    
     """
     internal_name = "SetpointManager:OutdoorAirPretreat"
     field_count = 11
@@ -3294,15 +3386,16 @@ class SetpointManagerOutdoorAirPretreat(object):
         self._data["Outdoor Air Stream Node Name"] = None
         self._data["Return Air Stream Node Name"] = None
         self._data["Setpoint Node or NodeList Name"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -3381,6 +3474,7 @@ class SetpointManagerOutdoorAirPretreat(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -3407,7 +3501,7 @@ class SetpointManagerOutdoorAirPretreat(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3447,7 +3541,7 @@ class SetpointManagerOutdoorAirPretreat(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `control_variable`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3463,16 +3557,26 @@ class SetpointManagerOutdoorAirPretreat(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `control_variable`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `control_variable`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Control Variable"] = value
 
@@ -3504,7 +3608,7 @@ class SetpointManagerOutdoorAirPretreat(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `minimum_setpoint_temperature`'.format(value))
         self._data["Minimum Setpoint Temperature"] = value
 
@@ -3536,7 +3640,7 @@ class SetpointManagerOutdoorAirPretreat(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `maximum_setpoint_temperature`'.format(value))
         self._data["Maximum Setpoint Temperature"] = value
 
@@ -3570,7 +3674,7 @@ class SetpointManagerOutdoorAirPretreat(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `minimum_setpoint_humidity_ratio`'.format(value))
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
@@ -3607,7 +3711,7 @@ class SetpointManagerOutdoorAirPretreat(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `maximum_setpoint_humidity_ratio`'.format(value))
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
@@ -3643,7 +3747,7 @@ class SetpointManagerOutdoorAirPretreat(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `reference_setpoint_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3679,7 +3783,7 @@ class SetpointManagerOutdoorAirPretreat(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `mixed_air_stream_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3715,7 +3819,7 @@ class SetpointManagerOutdoorAirPretreat(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `outdoor_air_stream_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3751,7 +3855,7 @@ class SetpointManagerOutdoorAirPretreat(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `return_air_stream_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3788,7 +3892,7 @@ class SetpointManagerOutdoorAirPretreat(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `setpoint_node_or_nodelist_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3837,7 +3941,6 @@ class SetpointManagerWarmest(object):
         This SetpointManager resets the cooling supply air temperature
         of a central forced air HVAC system according to the
         cooling demand of the warmest zone.
-    
     """
     internal_name = "SetpointManager:Warmest"
     field_count = 7
@@ -3854,15 +3957,16 @@ class SetpointManagerWarmest(object):
         self._data["Maximum Setpoint Temperature"] = None
         self._data["Strategy"] = None
         self._data["Setpoint Node or NodeList Name"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -3913,6 +4017,7 @@ class SetpointManagerWarmest(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -3939,7 +4044,7 @@ class SetpointManagerWarmest(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3977,7 +4082,7 @@ class SetpointManagerWarmest(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `control_variable`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3990,16 +4095,26 @@ class SetpointManagerWarmest(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `control_variable`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `control_variable`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Control Variable"] = value
 
@@ -4029,7 +4144,7 @@ class SetpointManagerWarmest(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `hvac_air_loop_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4067,7 +4182,7 @@ class SetpointManagerWarmest(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `minimum_setpoint_temperature`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -4102,7 +4217,7 @@ class SetpointManagerWarmest(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `maximum_setpoint_temperature`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -4137,7 +4252,7 @@ class SetpointManagerWarmest(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `strategy`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4150,16 +4265,26 @@ class SetpointManagerWarmest(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `strategy`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `strategy`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Strategy"] = value
 
@@ -4189,7 +4314,7 @@ class SetpointManagerWarmest(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `setpoint_node_or_nodelist_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4239,7 +4364,6 @@ class SetpointManagerColdest(object):
         the setpoint temperature of the air in the heating supply duct.
         Usually it is used in conjunction with a SetpointManager:Warmest
         resetting the temperature of the air in the cooling supply duct.
-    
     """
     internal_name = "SetpointManager:Coldest"
     field_count = 7
@@ -4256,15 +4380,16 @@ class SetpointManagerColdest(object):
         self._data["Maximum Setpoint Temperature"] = None
         self._data["Strategy"] = None
         self._data["Setpoint Node or NodeList Name"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -4315,6 +4440,7 @@ class SetpointManagerColdest(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -4341,7 +4467,7 @@ class SetpointManagerColdest(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4379,7 +4505,7 @@ class SetpointManagerColdest(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `control_variable`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4392,16 +4518,26 @@ class SetpointManagerColdest(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `control_variable`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `control_variable`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Control Variable"] = value
 
@@ -4431,7 +4567,7 @@ class SetpointManagerColdest(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `hvac_air_loop_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4469,7 +4605,7 @@ class SetpointManagerColdest(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `minimum_setpoint_temperature`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -4504,7 +4640,7 @@ class SetpointManagerColdest(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `maximum_setpoint_temperature`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -4539,7 +4675,7 @@ class SetpointManagerColdest(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `strategy`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4552,16 +4688,26 @@ class SetpointManagerColdest(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `strategy`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `strategy`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Strategy"] = value
 
@@ -4591,7 +4737,7 @@ class SetpointManagerColdest(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `setpoint_node_or_nodelist_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4640,7 +4786,6 @@ class SetpointManagerReturnAirBypassFlow(object):
         This setpoint manager determines the required
         mass flow rate through a return air bypass duct
         to meet the specified temperature setpoint
-    
     """
     internal_name = "SetpointManager:ReturnAirBypassFlow"
     field_count = 4
@@ -4654,15 +4799,16 @@ class SetpointManagerReturnAirBypassFlow(object):
         self._data["Control Variable"] = None
         self._data["HVAC Air Loop Name"] = None
         self._data["Temperature Setpoint Schedule Name"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -4692,6 +4838,7 @@ class SetpointManagerReturnAirBypassFlow(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -4718,7 +4865,7 @@ class SetpointManagerReturnAirBypassFlow(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4756,7 +4903,7 @@ class SetpointManagerReturnAirBypassFlow(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `control_variable`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4769,16 +4916,26 @@ class SetpointManagerReturnAirBypassFlow(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `control_variable`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `control_variable`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Control Variable"] = value
 
@@ -4808,7 +4965,7 @@ class SetpointManagerReturnAirBypassFlow(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `hvac_air_loop_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4843,7 +5000,7 @@ class SetpointManagerReturnAirBypassFlow(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `temperature_setpoint_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4891,7 +5048,6 @@ class SetpointManagerWarmestTemperatureFlow(object):
     """ Corresponds to IDD object `SetpointManager:WarmestTemperatureFlow`
         This setpoint manager sets both the supply air temperature
         and the supply air flow rate.
-    
     """
     internal_name = "SetpointManager:WarmestTemperatureFlow"
     field_count = 8
@@ -4909,15 +5065,16 @@ class SetpointManagerWarmestTemperatureFlow(object):
         self._data["Strategy"] = None
         self._data["Setpoint Node or NodeList Name"] = None
         self._data["Minimum Turndown Ratio"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -4975,6 +5132,7 @@ class SetpointManagerWarmestTemperatureFlow(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -5001,7 +5159,7 @@ class SetpointManagerWarmestTemperatureFlow(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -5038,7 +5196,7 @@ class SetpointManagerWarmestTemperatureFlow(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `control_variable`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -5051,16 +5209,26 @@ class SetpointManagerWarmestTemperatureFlow(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `control_variable`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `control_variable`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Control Variable"] = value
 
@@ -5090,7 +5258,7 @@ class SetpointManagerWarmestTemperatureFlow(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `hvac_air_loop_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -5128,7 +5296,7 @@ class SetpointManagerWarmestTemperatureFlow(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `minimum_setpoint_temperature`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -5163,7 +5331,7 @@ class SetpointManagerWarmestTemperatureFlow(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `maximum_setpoint_temperature`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -5207,7 +5375,7 @@ class SetpointManagerWarmestTemperatureFlow(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `strategy`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -5221,16 +5389,26 @@ class SetpointManagerWarmestTemperatureFlow(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `strategy`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `strategy`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Strategy"] = value
 
@@ -5260,7 +5438,7 @@ class SetpointManagerWarmestTemperatureFlow(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `setpoint_node_or_nodelist_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -5300,7 +5478,7 @@ class SetpointManagerWarmestTemperatureFlow(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `minimum_turndown_ratio`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -5345,7 +5523,6 @@ class SetpointManagerMultiZoneHeatingAverage(object):
     """ Corresponds to IDD object `SetpointManager:MultiZone:Heating:Average`
         This setpoint manager sets the average supply air temperature based on the heating load
         requirements of all controlled zones in an air loop served by a central air-conditioner.
-    
     """
     internal_name = "SetpointManager:MultiZone:Heating:Average"
     field_count = 5
@@ -5360,15 +5537,16 @@ class SetpointManagerMultiZoneHeatingAverage(object):
         self._data["Minimum Setpoint Temperature"] = None
         self._data["Maximum Setpoint Temperature"] = None
         self._data["Setpoint Node or NodeList Name"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -5405,6 +5583,7 @@ class SetpointManagerMultiZoneHeatingAverage(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -5431,7 +5610,7 @@ class SetpointManagerMultiZoneHeatingAverage(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -5467,7 +5646,7 @@ class SetpointManagerMultiZoneHeatingAverage(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `hvac_air_loop_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -5505,7 +5684,7 @@ class SetpointManagerMultiZoneHeatingAverage(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `minimum_setpoint_temperature`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -5540,7 +5719,7 @@ class SetpointManagerMultiZoneHeatingAverage(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `maximum_setpoint_temperature`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -5573,7 +5752,7 @@ class SetpointManagerMultiZoneHeatingAverage(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `setpoint_node_or_nodelist_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -5621,7 +5800,6 @@ class SetpointManagerMultiZoneCoolingAverage(object):
     """ Corresponds to IDD object `SetpointManager:MultiZone:Cooling:Average`
         This setpoint manager sets the average supply air temperature based on the cooling load
         requirements of all controlled zones in an air loop served by a central air-conditioner.
-    
     """
     internal_name = "SetpointManager:MultiZone:Cooling:Average"
     field_count = 5
@@ -5636,15 +5814,16 @@ class SetpointManagerMultiZoneCoolingAverage(object):
         self._data["Minimum Setpoint Temperature"] = None
         self._data["Maximum Setpoint Temperature"] = None
         self._data["Setpoint Node or NodeList Name"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -5681,6 +5860,7 @@ class SetpointManagerMultiZoneCoolingAverage(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -5707,7 +5887,7 @@ class SetpointManagerMultiZoneCoolingAverage(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -5743,7 +5923,7 @@ class SetpointManagerMultiZoneCoolingAverage(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `hvac_air_loop_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -5781,7 +5961,7 @@ class SetpointManagerMultiZoneCoolingAverage(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `minimum_setpoint_temperature`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -5816,7 +5996,7 @@ class SetpointManagerMultiZoneCoolingAverage(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `maximum_setpoint_temperature`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -5849,7 +6029,7 @@ class SetpointManagerMultiZoneCoolingAverage(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `setpoint_node_or_nodelist_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -5897,7 +6077,6 @@ class SetpointManagerMultiZoneMinimumHumidityAverage(object):
     """ Corresponds to IDD object `SetpointManager:MultiZone:MinimumHumidity:Average`
         This setpoint manager sets the average supply air minimum humidity ratio based on moisture
         load requirements of all controlled zones in an air loop served by a central air-conditioner.
-    
     """
     internal_name = "SetpointManager:MultiZone:MinimumHumidity:Average"
     field_count = 5
@@ -5912,15 +6091,16 @@ class SetpointManagerMultiZoneMinimumHumidityAverage(object):
         self._data["Minimum Setpoint Humidity Ratio"] = None
         self._data["Maximum Setpoint Humidity Ratio"] = None
         self._data["Setpoint Node or NodeList Name"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -5957,6 +6137,7 @@ class SetpointManagerMultiZoneMinimumHumidityAverage(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -5983,7 +6164,7 @@ class SetpointManagerMultiZoneMinimumHumidityAverage(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -6019,7 +6200,7 @@ class SetpointManagerMultiZoneMinimumHumidityAverage(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `hvac_air_loop_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -6057,7 +6238,7 @@ class SetpointManagerMultiZoneMinimumHumidityAverage(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `minimum_setpoint_humidity_ratio`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -6092,7 +6273,7 @@ class SetpointManagerMultiZoneMinimumHumidityAverage(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `maximum_setpoint_humidity_ratio`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -6125,7 +6306,7 @@ class SetpointManagerMultiZoneMinimumHumidityAverage(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `setpoint_node_or_nodelist_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -6173,7 +6354,6 @@ class SetpointManagerMultiZoneMaximumHumidityAverage(object):
     """ Corresponds to IDD object `SetpointManager:MultiZone:MaximumHumidity:Average`
         This setpoint manager sets the average supply air maximum humidity ratio based on moisture
         load requirements of all controlled zones in an air loop served by a central air-conditioner.
-    
     """
     internal_name = "SetpointManager:MultiZone:MaximumHumidity:Average"
     field_count = 5
@@ -6188,15 +6368,16 @@ class SetpointManagerMultiZoneMaximumHumidityAverage(object):
         self._data["Minimum Setpoint Humidity Ratio"] = None
         self._data["Maximum Setpoint Humidity Ratio"] = None
         self._data["Setpoint Node or NodeList Name"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -6233,6 +6414,7 @@ class SetpointManagerMultiZoneMaximumHumidityAverage(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -6259,7 +6441,7 @@ class SetpointManagerMultiZoneMaximumHumidityAverage(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -6295,7 +6477,7 @@ class SetpointManagerMultiZoneMaximumHumidityAverage(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `hvac_air_loop_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -6333,7 +6515,7 @@ class SetpointManagerMultiZoneMaximumHumidityAverage(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `minimum_setpoint_humidity_ratio`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -6368,7 +6550,7 @@ class SetpointManagerMultiZoneMaximumHumidityAverage(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `maximum_setpoint_humidity_ratio`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -6401,7 +6583,7 @@ class SetpointManagerMultiZoneMaximumHumidityAverage(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `setpoint_node_or_nodelist_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -6450,7 +6632,6 @@ class SetpointManagerMultiZoneHumidityMinimum(object):
         This setpoint manager sets the minimum supply air humidity ratio based on humidification
         requirements of a controlled zone with critical humidity ratio setpoint (i.e., a zone with
         the highest humidity ratio setpoint) in an air loop served by a central air-conditioner.
-    
     """
     internal_name = "SetpointManager:MultiZone:Humidity:Minimum"
     field_count = 5
@@ -6465,15 +6646,16 @@ class SetpointManagerMultiZoneHumidityMinimum(object):
         self._data["Minimum Setpoint Humidity Ratio"] = None
         self._data["Maximum Setpoint Humidity Ratio"] = None
         self._data["Setpoint Node or NodeList Name"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -6510,6 +6692,7 @@ class SetpointManagerMultiZoneHumidityMinimum(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -6536,7 +6719,7 @@ class SetpointManagerMultiZoneHumidityMinimum(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -6572,7 +6755,7 @@ class SetpointManagerMultiZoneHumidityMinimum(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `hvac_air_loop_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -6610,7 +6793,7 @@ class SetpointManagerMultiZoneHumidityMinimum(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `minimum_setpoint_humidity_ratio`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -6645,7 +6828,7 @@ class SetpointManagerMultiZoneHumidityMinimum(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `maximum_setpoint_humidity_ratio`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -6678,7 +6861,7 @@ class SetpointManagerMultiZoneHumidityMinimum(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `setpoint_node_or_nodelist_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -6727,7 +6910,6 @@ class SetpointManagerMultiZoneHumidityMaximum(object):
         This setpoint manager sets the maximum supply air humidity ratio based on dehumidification
         requirements of a controlled zone with critical humidity ratio setpoint (i.e., a zone with
         the lowest humidity ratio setpoint) in an air loop served by a central air-conditioner.
-    
     """
     internal_name = "SetpointManager:MultiZone:Humidity:Maximum"
     field_count = 5
@@ -6742,15 +6924,16 @@ class SetpointManagerMultiZoneHumidityMaximum(object):
         self._data["Minimum Setpoint Humidity Ratio"] = None
         self._data["Maximum Setpoint Humidity Ratio"] = None
         self._data["Setpoint Node or NodeList Name"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -6787,6 +6970,7 @@ class SetpointManagerMultiZoneHumidityMaximum(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -6813,7 +6997,7 @@ class SetpointManagerMultiZoneHumidityMaximum(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -6849,7 +7033,7 @@ class SetpointManagerMultiZoneHumidityMaximum(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `hvac_air_loop_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -6887,7 +7071,7 @@ class SetpointManagerMultiZoneHumidityMaximum(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `minimum_setpoint_humidity_ratio`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -6922,7 +7106,7 @@ class SetpointManagerMultiZoneHumidityMaximum(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `maximum_setpoint_humidity_ratio`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -6955,7 +7139,7 @@ class SetpointManagerMultiZoneHumidityMaximum(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `setpoint_node_or_nodelist_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -7004,7 +7188,6 @@ class SetpointManagerFollowOutdoorAirTemperature(object):
         This setpoint manager is used to place a temperature setpoint on a system node
         that is derived from the current outdoor air environmental conditions.
         The outdoor air conditions are obtained from the weather information during the simulation.
-    
     """
     internal_name = "SetpointManager:FollowOutdoorAirTemperature"
     field_count = 7
@@ -7021,15 +7204,16 @@ class SetpointManagerFollowOutdoorAirTemperature(object):
         self._data["Maximum Setpoint Temperature"] = None
         self._data["Minimum Setpoint Temperature"] = None
         self._data["Setpoint Node or NodeList Name"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -7080,6 +7264,7 @@ class SetpointManagerFollowOutdoorAirTemperature(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -7106,7 +7291,7 @@ class SetpointManagerFollowOutdoorAirTemperature(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -7146,7 +7331,7 @@ class SetpointManagerFollowOutdoorAirTemperature(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `control_variable`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -7161,16 +7346,26 @@ class SetpointManagerFollowOutdoorAirTemperature(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `control_variable`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `control_variable`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Control Variable"] = value
 
@@ -7203,7 +7398,7 @@ class SetpointManagerFollowOutdoorAirTemperature(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `reference_temperature_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -7217,16 +7412,26 @@ class SetpointManagerFollowOutdoorAirTemperature(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `reference_temperature_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `reference_temperature_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Reference Temperature Type"] = value
 
@@ -7256,7 +7461,7 @@ class SetpointManagerFollowOutdoorAirTemperature(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `offset_temperature_difference`'.format(value))
         self._data["Offset Temperature Difference"] = value
 
@@ -7286,7 +7491,7 @@ class SetpointManagerFollowOutdoorAirTemperature(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `maximum_setpoint_temperature`'.format(value))
         self._data["Maximum Setpoint Temperature"] = value
 
@@ -7316,7 +7521,7 @@ class SetpointManagerFollowOutdoorAirTemperature(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `minimum_setpoint_temperature`'.format(value))
         self._data["Minimum Setpoint Temperature"] = value
 
@@ -7346,7 +7551,7 @@ class SetpointManagerFollowOutdoorAirTemperature(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `setpoint_node_or_nodelist_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -7399,7 +7604,6 @@ class SetpointManagerFollowSystemNodeTemperature(object):
         If the reference node is also designated to be an outdoor air (intake) node,
         then this setpoint manager can be used to follow outdoor air conditions
         that are adjusted for altitude.
-    
     """
     internal_name = "SetpointManager:FollowSystemNodeTemperature"
     field_count = 8
@@ -7417,15 +7621,16 @@ class SetpointManagerFollowSystemNodeTemperature(object):
         self._data["Maximum Limit Setpoint Temperature"] = None
         self._data["Minimum Limit Setpoint Temperature"] = None
         self._data["Setpoint Node or NodeList Name"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -7483,6 +7688,7 @@ class SetpointManagerFollowSystemNodeTemperature(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -7509,7 +7715,7 @@ class SetpointManagerFollowSystemNodeTemperature(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -7549,7 +7755,7 @@ class SetpointManagerFollowSystemNodeTemperature(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `control_variable`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -7564,16 +7770,26 @@ class SetpointManagerFollowSystemNodeTemperature(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `control_variable`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `control_variable`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Control Variable"] = value
 
@@ -7602,7 +7818,7 @@ class SetpointManagerFollowSystemNodeTemperature(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `reference_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -7641,7 +7857,7 @@ class SetpointManagerFollowSystemNodeTemperature(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `reference_temperature_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -7655,16 +7871,26 @@ class SetpointManagerFollowSystemNodeTemperature(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `reference_temperature_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `reference_temperature_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Reference Temperature Type"] = value
 
@@ -7694,7 +7920,7 @@ class SetpointManagerFollowSystemNodeTemperature(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `offset_temperature_difference`'.format(value))
         self._data["Offset Temperature Difference"] = value
 
@@ -7724,7 +7950,7 @@ class SetpointManagerFollowSystemNodeTemperature(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `maximum_limit_setpoint_temperature`'.format(value))
         self._data["Maximum Limit Setpoint Temperature"] = value
 
@@ -7754,7 +7980,7 @@ class SetpointManagerFollowSystemNodeTemperature(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `minimum_limit_setpoint_temperature`'.format(value))
         self._data["Minimum Limit Setpoint Temperature"] = value
 
@@ -7784,7 +8010,7 @@ class SetpointManagerFollowSystemNodeTemperature(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `setpoint_node_or_nodelist_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -7836,7 +8062,6 @@ class SetpointManagerFollowGroundTemperature(object):
         Site:GroundTemperature:* objects and used during the simulation.
         This setpoint manager is primarily intended for condenser or plant loops
         using some type of ground heat exchanger.
-    
     """
     internal_name = "SetpointManager:FollowGroundTemperature"
     field_count = 7
@@ -7853,15 +8078,16 @@ class SetpointManagerFollowGroundTemperature(object):
         self._data["Maximum Setpoint Temperature"] = None
         self._data["Minimum Setpoint Temperature"] = None
         self._data["Setpoint Node or NodeList Name"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -7912,6 +8138,7 @@ class SetpointManagerFollowGroundTemperature(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -7938,7 +8165,7 @@ class SetpointManagerFollowGroundTemperature(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -7978,7 +8205,7 @@ class SetpointManagerFollowGroundTemperature(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `control_variable`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -7993,16 +8220,26 @@ class SetpointManagerFollowGroundTemperature(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `control_variable`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `control_variable`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Control Variable"] = value
 
@@ -8036,7 +8273,7 @@ class SetpointManagerFollowGroundTemperature(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `reference_ground_temperature_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -8052,16 +8289,26 @@ class SetpointManagerFollowGroundTemperature(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `reference_ground_temperature_object_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `reference_ground_temperature_object_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Reference Ground Temperature Object Type"] = value
 
@@ -8091,7 +8338,7 @@ class SetpointManagerFollowGroundTemperature(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `offset_temperature_difference`'.format(value))
         self._data["Offset Temperature Difference"] = value
 
@@ -8121,7 +8368,7 @@ class SetpointManagerFollowGroundTemperature(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `maximum_setpoint_temperature`'.format(value))
         self._data["Maximum Setpoint Temperature"] = value
 
@@ -8151,7 +8398,7 @@ class SetpointManagerFollowGroundTemperature(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `minimum_setpoint_temperature`'.format(value))
         self._data["Minimum Setpoint Temperature"] = value
 
@@ -8181,7 +8428,7 @@ class SetpointManagerFollowGroundTemperature(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `setpoint_node_or_nodelist_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -8229,7 +8476,6 @@ class SetpointManagerCondenserEnteringReset(object):
     """ Corresponds to IDD object `SetpointManager:CondenserEnteringReset`
         This setpoint manager uses one curve to determine the optimum condenser entering water temperature
         for a given timestep and two other curves to place boundary conditions on the setpoint value.
-    
     """
     internal_name = "SetpointManager:CondenserEnteringReset"
     field_count = 10
@@ -8249,15 +8495,16 @@ class SetpointManagerCondenserEnteringReset(object):
         self._data["Maximum Condenser Entering Water Temperature"] = None
         self._data["Cooling Tower Design Inlet Air Wet-Bulb Temperature"] = None
         self._data["Setpoint Node or NodeList Name"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -8329,6 +8576,7 @@ class SetpointManagerCondenserEnteringReset(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -8355,7 +8603,7 @@ class SetpointManagerCondenserEnteringReset(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -8393,7 +8641,7 @@ class SetpointManagerCondenserEnteringReset(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `control_variable`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -8406,16 +8654,26 @@ class SetpointManagerCondenserEnteringReset(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `control_variable`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `control_variable`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Control Variable"] = value
 
@@ -8447,7 +8705,7 @@ class SetpointManagerCondenserEnteringReset(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `default_condenser_entering_water_temperature_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -8483,7 +8741,7 @@ class SetpointManagerCondenserEnteringReset(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `minimum_design_wetbulb_temperature_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -8519,7 +8777,7 @@ class SetpointManagerCondenserEnteringReset(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `minimum_outside_air_wetbulb_temperature_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -8555,7 +8813,7 @@ class SetpointManagerCondenserEnteringReset(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `optimized_cond_entering_water_temperature_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -8592,7 +8850,7 @@ class SetpointManagerCondenserEnteringReset(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `minimum_lift`'.format(value))
         self._data["Minimum Lift"] = value
 
@@ -8623,7 +8881,7 @@ class SetpointManagerCondenserEnteringReset(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `maximum_condenser_entering_water_temperature`'.format(value))
         self._data["Maximum Condenser Entering Water Temperature"] = value
 
@@ -8654,7 +8912,7 @@ class SetpointManagerCondenserEnteringReset(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `cooling_tower_design_inlet_air_wetbulb_temperature`'.format(value))
         self._data["Cooling Tower Design Inlet Air Wet-Bulb Temperature"] = value
 
@@ -8684,7 +8942,7 @@ class SetpointManagerCondenserEnteringReset(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `setpoint_node_or_nodelist_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -8732,7 +8990,6 @@ class SetpointManagerCondenserEnteringResetIdeal(object):
     """ Corresponds to IDD object `SetpointManager:CondenserEnteringReset:Ideal`
         This setpoint manager determine the ideal optimum condenser entering water temperature
         setpoint for a given timestep.
-    
     """
     internal_name = "SetpointManager:CondenserEnteringReset:Ideal"
     field_count = 5
@@ -8747,15 +9004,16 @@ class SetpointManagerCondenserEnteringResetIdeal(object):
         self._data["Minimum Lift"] = None
         self._data["Maximum Condenser Entering Water Temperature"] = None
         self._data["Setpoint Node or NodeList Name"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -8792,6 +9050,7 @@ class SetpointManagerCondenserEnteringResetIdeal(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -8818,7 +9077,7 @@ class SetpointManagerCondenserEnteringResetIdeal(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -8856,7 +9115,7 @@ class SetpointManagerCondenserEnteringResetIdeal(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `control_variable`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -8869,16 +9128,26 @@ class SetpointManagerCondenserEnteringResetIdeal(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `control_variable`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `control_variable`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Control Variable"] = value
 
@@ -8909,7 +9178,7 @@ class SetpointManagerCondenserEnteringResetIdeal(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `minimum_lift`'.format(value))
         self._data["Minimum Lift"] = value
 
@@ -8940,7 +9209,7 @@ class SetpointManagerCondenserEnteringResetIdeal(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `maximum_condenser_entering_water_temperature`'.format(value))
         self._data["Maximum Condenser Entering Water Temperature"] = value
 
@@ -8970,7 +9239,7 @@ class SetpointManagerCondenserEnteringResetIdeal(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `setpoint_node_or_nodelist_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -9019,7 +9288,6 @@ class SetpointManagerSingleZoneOneStageCooling(object):
         This object can be used with CoilSystem:Cooling:DX to model on/off cycling control
         of single stage air systems. Setpoints are modulated to run coil full on or full off
         depending on zone conditions. Intended for use with ZoneControl:Thermostat:StagedDualSetpoint
-    
     """
     internal_name = "SetpointManager:SingleZone:OneStageCooling"
     field_count = 5
@@ -9034,15 +9302,16 @@ class SetpointManagerSingleZoneOneStageCooling(object):
         self._data["Cooling Stage Off Supply Air Setpoint Temperature"] = None
         self._data["Control Zone Name"] = None
         self._data["Setpoint Node or NodeList Name"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -9079,6 +9348,7 @@ class SetpointManagerSingleZoneOneStageCooling(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -9105,7 +9375,7 @@ class SetpointManagerSingleZoneOneStageCooling(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -9143,7 +9413,7 @@ class SetpointManagerSingleZoneOneStageCooling(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `cooling_stage_on_supply_air_setpoint_temperature`'.format(value))
         self._data["Cooling Stage On Supply Air Setpoint Temperature"] = value
 
@@ -9175,7 +9445,7 @@ class SetpointManagerSingleZoneOneStageCooling(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `cooling_stage_off_supply_air_setpoint_temperature`'.format(value))
         self._data["Cooling Stage Off Supply Air Setpoint Temperature"] = value
 
@@ -9204,7 +9474,7 @@ class SetpointManagerSingleZoneOneStageCooling(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `control_zone_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -9240,7 +9510,7 @@ class SetpointManagerSingleZoneOneStageCooling(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `setpoint_node_or_nodelist_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -9290,7 +9560,6 @@ class SetpointManagerSingleZoneOneStageHeating(object):
         Coil:Heating:Electric to model on/off cycling control of single stage air systems.
         Setpoints are modulated to run coil full on or full off depending on zone conditions.
         Intended for use with ZoneControl:Thermostat:StagedDualSetpoint.
-    
     """
     internal_name = "SetpointManager:SingleZone:OneStageHeating"
     field_count = 5
@@ -9305,15 +9574,16 @@ class SetpointManagerSingleZoneOneStageHeating(object):
         self._data["Heating Stage Off Supply Air Setpoint Temperature"] = None
         self._data["Control Zone Name"] = None
         self._data["Setpoint Node or NodeList Name"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -9350,6 +9620,7 @@ class SetpointManagerSingleZoneOneStageHeating(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -9376,7 +9647,7 @@ class SetpointManagerSingleZoneOneStageHeating(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -9414,7 +9685,7 @@ class SetpointManagerSingleZoneOneStageHeating(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `heating_stage_on_supply_air_setpoint_temperature`'.format(value))
         self._data["Heating Stage On Supply Air Setpoint Temperature"] = value
 
@@ -9446,7 +9717,7 @@ class SetpointManagerSingleZoneOneStageHeating(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `heating_stage_off_supply_air_setpoint_temperature`'.format(value))
         self._data["Heating Stage Off Supply Air Setpoint Temperature"] = value
 
@@ -9475,7 +9746,7 @@ class SetpointManagerSingleZoneOneStageHeating(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `control_zone_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -9511,7 +9782,7 @@ class SetpointManagerSingleZoneOneStageHeating(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `setpoint_node_or_nodelist_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '

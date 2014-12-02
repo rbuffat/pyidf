@@ -1,10 +1,11 @@
 from collections import OrderedDict
+import logging
+import re
 
 class ZoneHvacBaseboardRadiantConvectiveWater(object):
     """ Corresponds to IDD object `ZoneHVAC:Baseboard:RadiantConvective:Water`
         The number of surfaces can be expanded beyond 100, if necessary, by adding more
         groups to the end of the list
-    
     """
     internal_name = "ZoneHVAC:Baseboard:RadiantConvective:Water"
     field_count = 214
@@ -228,15 +229,16 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
         self._data["Fraction of Radiant Energy to Surface 99"] = None
         self._data["Surface 100 Name"] = None
         self._data["Fraction of Radiant Energy to Surface 100"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -1736,6 +1738,7 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -1762,7 +1765,7 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1799,7 +1802,7 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `availability_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1834,7 +1837,7 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `inlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1869,7 +1872,7 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `outlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1910,7 +1913,7 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `rated_average_water_temperature`'.format(value))
             if value < 20.0:
                 raise ValueError('value need to be greater or equal 20.0 '
@@ -1953,7 +1956,7 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `rated_water_mass_flow_rate`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -1999,7 +2002,7 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `heating_design_capacity_method`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2014,16 +2017,26 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `heating_design_capacity_method`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `heating_design_capacity_method`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Heating Design Capacity Method"] = value
 
@@ -2063,12 +2076,17 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
                 if value_lower == "autosize":
                     self._data["Heating Design Capacity"] = "Autosize"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autosize" '
+                                 'for field `heating_design_capacity`'.format(value))
+                    self._data["Heating Design Capacity"] = "Autosize"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autosize"'
                                  'for field `heating_design_capacity`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -2104,7 +2122,7 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `heating_design_capacity_per_floor_area`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -2140,7 +2158,7 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_autosized_heating_design_capacity`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -2175,12 +2193,17 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
                 if value_lower == "autosize":
                     self._data["Maximum Water Flow Rate"] = "Autosize"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autosize" '
+                                 'for field `maximum_water_flow_rate`'.format(value))
+                    self._data["Maximum Water Flow Rate"] = "Autosize"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autosize"'
                                  'for field `maximum_water_flow_rate`'.format(value))
         self._data["Maximum Water Flow Rate"] = value
 
@@ -2211,7 +2234,7 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `convergence_tolerance`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -2245,7 +2268,7 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_radiant`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -2282,7 +2305,7 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_incident_on_people`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -2318,7 +2341,7 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_1_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2355,7 +2378,7 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_1`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -2390,7 +2413,7 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_2_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2427,7 +2450,7 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_2`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -2462,7 +2485,7 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_3_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2499,7 +2522,7 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_3`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -2534,7 +2557,7 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_4_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2571,7 +2594,7 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_4`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -2606,7 +2629,7 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_5_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2643,7 +2666,7 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_5`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -2678,7 +2701,7 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_6_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2715,7 +2738,7 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_6`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -2750,7 +2773,7 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_7_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2787,7 +2810,7 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_7`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -2822,7 +2845,7 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_8_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2859,7 +2882,7 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_8`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -2894,7 +2917,7 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_9_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2931,7 +2954,7 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_9`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -2966,7 +2989,7 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_10_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3003,7 +3026,7 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_10`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -3038,7 +3061,7 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_11_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3075,7 +3098,7 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_11`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -3110,7 +3133,7 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_12_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3147,7 +3170,7 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_12`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -3182,7 +3205,7 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_13_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3219,7 +3242,7 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_13`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -3254,7 +3277,7 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_14_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3291,7 +3314,7 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_14`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -3326,7 +3349,7 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_15_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3363,7 +3386,7 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_15`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -3398,7 +3421,7 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_16_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3435,7 +3458,7 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_16`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -3470,7 +3493,7 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_17_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3507,7 +3530,7 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_17`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -3542,7 +3565,7 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_18_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3579,7 +3602,7 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_18`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -3614,7 +3637,7 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_19_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3651,7 +3674,7 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_19`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -3686,7 +3709,7 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_20_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3723,7 +3746,7 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_20`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -3758,7 +3781,7 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_21_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3795,7 +3818,7 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_21`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -3830,7 +3853,7 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_22_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3867,7 +3890,7 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_22`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -3902,7 +3925,7 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_23_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3939,7 +3962,7 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_23`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -3974,7 +3997,7 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_24_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4011,7 +4034,7 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_24`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -4046,7 +4069,7 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_25_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4083,7 +4106,7 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_25`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -4118,7 +4141,7 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_26_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4155,7 +4178,7 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_26`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -4190,7 +4213,7 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_27_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4227,7 +4250,7 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_27`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -4262,7 +4285,7 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_28_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4299,7 +4322,7 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_28`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -4334,7 +4357,7 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_29_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4371,7 +4394,7 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_29`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -4406,7 +4429,7 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_30_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4443,7 +4466,7 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_30`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -4478,7 +4501,7 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_31_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4515,7 +4538,7 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_31`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -4550,7 +4573,7 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_32_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4587,7 +4610,7 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_32`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -4622,7 +4645,7 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_33_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4659,7 +4682,7 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_33`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -4694,7 +4717,7 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_34_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4731,7 +4754,7 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_34`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -4766,7 +4789,7 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_35_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4803,7 +4826,7 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_35`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -4838,7 +4861,7 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_36_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4875,7 +4898,7 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_36`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -4910,7 +4933,7 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_37_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4947,7 +4970,7 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_37`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -4982,7 +5005,7 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_38_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -5019,7 +5042,7 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_38`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -5054,7 +5077,7 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_39_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -5091,7 +5114,7 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_39`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -5126,7 +5149,7 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_40_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -5163,7 +5186,7 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_40`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -5198,7 +5221,7 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_41_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -5235,7 +5258,7 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_41`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -5270,7 +5293,7 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_42_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -5307,7 +5330,7 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_42`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -5342,7 +5365,7 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_43_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -5379,7 +5402,7 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_43`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -5414,7 +5437,7 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_44_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -5451,7 +5474,7 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_44`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -5486,7 +5509,7 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_45_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -5523,7 +5546,7 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_45`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -5558,7 +5581,7 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_46_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -5595,7 +5618,7 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_46`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -5630,7 +5653,7 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_47_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -5667,7 +5690,7 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_47`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -5702,7 +5725,7 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_48_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -5739,7 +5762,7 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_48`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -5774,7 +5797,7 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_49_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -5811,7 +5834,7 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_49`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -5846,7 +5869,7 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_50_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -5883,7 +5906,7 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_50`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -5918,7 +5941,7 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_51_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -5955,7 +5978,7 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_51`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -5990,7 +6013,7 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_52_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -6027,7 +6050,7 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_52`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -6062,7 +6085,7 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_53_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -6099,7 +6122,7 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_53`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -6134,7 +6157,7 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_54_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -6171,7 +6194,7 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_54`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -6206,7 +6229,7 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_55_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -6243,7 +6266,7 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_55`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -6278,7 +6301,7 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_56_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -6315,7 +6338,7 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_56`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -6350,7 +6373,7 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_57_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -6387,7 +6410,7 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_57`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -6422,7 +6445,7 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_58_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -6459,7 +6482,7 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_58`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -6494,7 +6517,7 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_59_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -6531,7 +6554,7 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_59`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -6566,7 +6589,7 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_60_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -6603,7 +6626,7 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_60`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -6638,7 +6661,7 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_61_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -6675,7 +6698,7 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_61`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -6710,7 +6733,7 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_62_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -6747,7 +6770,7 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_62`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -6782,7 +6805,7 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_63_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -6819,7 +6842,7 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_63`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -6854,7 +6877,7 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_64_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -6891,7 +6914,7 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_64`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -6926,7 +6949,7 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_65_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -6963,7 +6986,7 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_65`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -6998,7 +7021,7 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_66_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -7035,7 +7058,7 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_66`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -7070,7 +7093,7 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_67_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -7107,7 +7130,7 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_67`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -7142,7 +7165,7 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_68_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -7179,7 +7202,7 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_68`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -7214,7 +7237,7 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_69_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -7251,7 +7274,7 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_69`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -7286,7 +7309,7 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_70_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -7323,7 +7346,7 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_70`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -7358,7 +7381,7 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_71_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -7395,7 +7418,7 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_71`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -7430,7 +7453,7 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_72_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -7467,7 +7490,7 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_72`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -7502,7 +7525,7 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_73_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -7539,7 +7562,7 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_73`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -7574,7 +7597,7 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_74_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -7611,7 +7634,7 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_74`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -7646,7 +7669,7 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_75_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -7683,7 +7706,7 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_75`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -7718,7 +7741,7 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_76_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -7755,7 +7778,7 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_76`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -7790,7 +7813,7 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_77_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -7827,7 +7850,7 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_77`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -7862,7 +7885,7 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_78_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -7899,7 +7922,7 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_78`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -7934,7 +7957,7 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_79_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -7971,7 +7994,7 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_79`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -8006,7 +8029,7 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_80_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -8043,7 +8066,7 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_80`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -8078,7 +8101,7 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_81_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -8115,7 +8138,7 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_81`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -8150,7 +8173,7 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_82_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -8187,7 +8210,7 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_82`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -8222,7 +8245,7 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_83_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -8259,7 +8282,7 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_83`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -8294,7 +8317,7 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_84_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -8331,7 +8354,7 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_84`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -8366,7 +8389,7 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_85_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -8403,7 +8426,7 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_85`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -8438,7 +8461,7 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_86_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -8475,7 +8498,7 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_86`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -8510,7 +8533,7 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_87_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -8547,7 +8570,7 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_87`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -8582,7 +8605,7 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_88_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -8619,7 +8642,7 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_88`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -8654,7 +8677,7 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_89_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -8691,7 +8714,7 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_89`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -8726,7 +8749,7 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_90_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -8763,7 +8786,7 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_90`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -8798,7 +8821,7 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_91_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -8835,7 +8858,7 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_91`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -8870,7 +8893,7 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_92_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -8907,7 +8930,7 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_92`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -8942,7 +8965,7 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_93_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -8979,7 +9002,7 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_93`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -9014,7 +9037,7 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_94_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -9051,7 +9074,7 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_94`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -9086,7 +9109,7 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_95_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -9123,7 +9146,7 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_95`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -9158,7 +9181,7 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_96_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -9195,7 +9218,7 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_96`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -9230,7 +9253,7 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_97_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -9267,7 +9290,7 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_97`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -9302,7 +9325,7 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_98_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -9339,7 +9362,7 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_98`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -9374,7 +9397,7 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_99_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -9411,7 +9434,7 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_99`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -9446,7 +9469,7 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_100_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -9483,7 +9506,7 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_100`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -9531,7 +9554,6 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
     """ Corresponds to IDD object `ZoneHVAC:Baseboard:RadiantConvective:Steam`
         The number of surfaces can be expanded beyond 100, if necessary, by adding more
         groups to the end of the list
-    
     """
     internal_name = "ZoneHVAC:Baseboard:RadiantConvective:Steam"
     field_count = 213
@@ -9754,15 +9776,16 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
         self._data["Fraction of Radiant Energy to Surface 99"] = None
         self._data["Surface 100 Name"] = None
         self._data["Fraction of Radiant Energy to Surface 100"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -11255,6 +11278,7 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -11281,7 +11305,7 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -11318,7 +11342,7 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `availability_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -11353,7 +11377,7 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `inlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -11388,7 +11412,7 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `outlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -11434,7 +11458,7 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `heating_design_capacity_method`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -11449,16 +11473,26 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `heating_design_capacity_method`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `heating_design_capacity_method`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Heating Design Capacity Method"] = value
 
@@ -11495,12 +11529,17 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
                 if value_lower == "autosize":
                     self._data["Heating Design Capacity"] = "Autosize"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autosize" '
+                                 'for field `heating_design_capacity`'.format(value))
+                    self._data["Heating Design Capacity"] = "Autosize"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autosize"'
                                  'for field `heating_design_capacity`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -11536,7 +11575,7 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `heating_design_capacity_per_floor_area`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -11572,7 +11611,7 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_autosized_heating_design_capacity`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -11607,7 +11646,7 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `degree_of_subcooling`'.format(value))
             if value < 1.0:
                 raise ValueError('value need to be greater or equal 1.0 '
@@ -11643,12 +11682,17 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
                 if value_lower == "autosize":
                     self._data["Maximum Steam Flow Rate"] = "Autosize"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autosize" '
+                                 'for field `maximum_steam_flow_rate`'.format(value))
+                    self._data["Maximum Steam Flow Rate"] = "Autosize"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autosize"'
                                  'for field `maximum_steam_flow_rate`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -11682,7 +11726,7 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `convergence_tolerance`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -11716,7 +11760,7 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_radiant`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -11753,7 +11797,7 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_incident_on_people`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -11789,7 +11833,7 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_1_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -11826,7 +11870,7 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_1`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -11861,7 +11905,7 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_2_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -11898,7 +11942,7 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_2`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -11933,7 +11977,7 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_3_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -11970,7 +12014,7 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_3`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -12005,7 +12049,7 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_4_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -12042,7 +12086,7 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_4`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -12077,7 +12121,7 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_5_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -12114,7 +12158,7 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_5`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -12149,7 +12193,7 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_6_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -12186,7 +12230,7 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_6`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -12221,7 +12265,7 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_7_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -12258,7 +12302,7 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_7`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -12293,7 +12337,7 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_8_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -12330,7 +12374,7 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_8`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -12365,7 +12409,7 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_9_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -12402,7 +12446,7 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_9`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -12437,7 +12481,7 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_10_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -12474,7 +12518,7 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_10`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -12509,7 +12553,7 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_11_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -12546,7 +12590,7 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_11`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -12581,7 +12625,7 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_12_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -12618,7 +12662,7 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_12`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -12653,7 +12697,7 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_13_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -12690,7 +12734,7 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_13`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -12725,7 +12769,7 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_14_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -12762,7 +12806,7 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_14`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -12797,7 +12841,7 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_15_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -12834,7 +12878,7 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_15`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -12869,7 +12913,7 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_16_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -12906,7 +12950,7 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_16`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -12941,7 +12985,7 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_17_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -12978,7 +13022,7 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_17`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -13013,7 +13057,7 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_18_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -13050,7 +13094,7 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_18`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -13085,7 +13129,7 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_19_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -13122,7 +13166,7 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_19`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -13157,7 +13201,7 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_20_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -13194,7 +13238,7 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_20`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -13229,7 +13273,7 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_21_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -13266,7 +13310,7 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_21`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -13301,7 +13345,7 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_22_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -13338,7 +13382,7 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_22`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -13373,7 +13417,7 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_23_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -13410,7 +13454,7 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_23`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -13445,7 +13489,7 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_24_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -13482,7 +13526,7 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_24`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -13517,7 +13561,7 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_25_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -13554,7 +13598,7 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_25`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -13589,7 +13633,7 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_26_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -13626,7 +13670,7 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_26`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -13661,7 +13705,7 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_27_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -13698,7 +13742,7 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_27`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -13733,7 +13777,7 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_28_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -13770,7 +13814,7 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_28`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -13805,7 +13849,7 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_29_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -13842,7 +13886,7 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_29`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -13877,7 +13921,7 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_30_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -13914,7 +13958,7 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_30`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -13949,7 +13993,7 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_31_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -13986,7 +14030,7 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_31`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -14021,7 +14065,7 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_32_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -14058,7 +14102,7 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_32`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -14093,7 +14137,7 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_33_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -14130,7 +14174,7 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_33`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -14165,7 +14209,7 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_34_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -14202,7 +14246,7 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_34`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -14237,7 +14281,7 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_35_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -14274,7 +14318,7 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_35`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -14309,7 +14353,7 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_36_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -14346,7 +14390,7 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_36`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -14381,7 +14425,7 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_37_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -14418,7 +14462,7 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_37`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -14453,7 +14497,7 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_38_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -14490,7 +14534,7 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_38`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -14525,7 +14569,7 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_39_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -14562,7 +14606,7 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_39`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -14597,7 +14641,7 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_40_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -14634,7 +14678,7 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_40`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -14669,7 +14713,7 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_41_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -14706,7 +14750,7 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_41`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -14741,7 +14785,7 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_42_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -14778,7 +14822,7 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_42`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -14813,7 +14857,7 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_43_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -14850,7 +14894,7 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_43`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -14885,7 +14929,7 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_44_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -14922,7 +14966,7 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_44`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -14957,7 +15001,7 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_45_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -14994,7 +15038,7 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_45`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -15029,7 +15073,7 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_46_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -15066,7 +15110,7 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_46`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -15101,7 +15145,7 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_47_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -15138,7 +15182,7 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_47`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -15173,7 +15217,7 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_48_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -15210,7 +15254,7 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_48`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -15245,7 +15289,7 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_49_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -15282,7 +15326,7 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_49`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -15317,7 +15361,7 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_50_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -15354,7 +15398,7 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_50`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -15389,7 +15433,7 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_51_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -15426,7 +15470,7 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_51`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -15461,7 +15505,7 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_52_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -15498,7 +15542,7 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_52`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -15533,7 +15577,7 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_53_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -15570,7 +15614,7 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_53`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -15605,7 +15649,7 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_54_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -15642,7 +15686,7 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_54`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -15677,7 +15721,7 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_55_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -15714,7 +15758,7 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_55`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -15749,7 +15793,7 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_56_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -15786,7 +15830,7 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_56`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -15821,7 +15865,7 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_57_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -15858,7 +15902,7 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_57`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -15893,7 +15937,7 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_58_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -15930,7 +15974,7 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_58`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -15965,7 +16009,7 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_59_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -16002,7 +16046,7 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_59`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -16037,7 +16081,7 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_60_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -16074,7 +16118,7 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_60`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -16109,7 +16153,7 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_61_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -16146,7 +16190,7 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_61`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -16181,7 +16225,7 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_62_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -16218,7 +16262,7 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_62`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -16253,7 +16297,7 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_63_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -16290,7 +16334,7 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_63`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -16325,7 +16369,7 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_64_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -16362,7 +16406,7 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_64`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -16397,7 +16441,7 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_65_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -16434,7 +16478,7 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_65`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -16469,7 +16513,7 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_66_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -16506,7 +16550,7 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_66`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -16541,7 +16585,7 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_67_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -16578,7 +16622,7 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_67`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -16613,7 +16657,7 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_68_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -16650,7 +16694,7 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_68`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -16685,7 +16729,7 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_69_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -16722,7 +16766,7 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_69`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -16757,7 +16801,7 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_70_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -16794,7 +16838,7 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_70`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -16829,7 +16873,7 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_71_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -16866,7 +16910,7 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_71`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -16901,7 +16945,7 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_72_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -16938,7 +16982,7 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_72`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -16973,7 +17017,7 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_73_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -17010,7 +17054,7 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_73`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -17045,7 +17089,7 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_74_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -17082,7 +17126,7 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_74`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -17117,7 +17161,7 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_75_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -17154,7 +17198,7 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_75`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -17189,7 +17233,7 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_76_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -17226,7 +17270,7 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_76`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -17261,7 +17305,7 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_77_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -17298,7 +17342,7 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_77`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -17333,7 +17377,7 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_78_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -17370,7 +17414,7 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_78`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -17405,7 +17449,7 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_79_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -17442,7 +17486,7 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_79`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -17477,7 +17521,7 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_80_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -17514,7 +17558,7 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_80`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -17549,7 +17593,7 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_81_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -17586,7 +17630,7 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_81`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -17621,7 +17665,7 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_82_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -17658,7 +17702,7 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_82`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -17693,7 +17737,7 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_83_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -17730,7 +17774,7 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_83`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -17765,7 +17809,7 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_84_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -17802,7 +17846,7 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_84`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -17837,7 +17881,7 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_85_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -17874,7 +17918,7 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_85`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -17909,7 +17953,7 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_86_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -17946,7 +17990,7 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_86`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -17981,7 +18025,7 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_87_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -18018,7 +18062,7 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_87`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -18053,7 +18097,7 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_88_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -18090,7 +18134,7 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_88`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -18125,7 +18169,7 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_89_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -18162,7 +18206,7 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_89`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -18197,7 +18241,7 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_90_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -18234,7 +18278,7 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_90`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -18269,7 +18313,7 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_91_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -18306,7 +18350,7 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_91`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -18341,7 +18385,7 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_92_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -18378,7 +18422,7 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_92`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -18413,7 +18457,7 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_93_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -18450,7 +18494,7 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_93`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -18485,7 +18529,7 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_94_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -18522,7 +18566,7 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_94`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -18557,7 +18601,7 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_95_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -18594,7 +18638,7 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_95`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -18629,7 +18673,7 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_96_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -18666,7 +18710,7 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_96`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -18701,7 +18745,7 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_97_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -18738,7 +18782,7 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_97`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -18773,7 +18817,7 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_98_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -18810,7 +18854,7 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_98`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -18845,7 +18889,7 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_99_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -18882,7 +18926,7 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_99`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -18917,7 +18961,7 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_100_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -18954,7 +18998,7 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_100`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -19002,7 +19046,6 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
     """ Corresponds to IDD object `ZoneHVAC:Baseboard:RadiantConvective:Electric`
         The number of surfaces can be expanded beyond 100, if necessary, by adding more
         groups to the end of the list
-    
     """
     internal_name = "ZoneHVAC:Baseboard:RadiantConvective:Electric"
     field_count = 209
@@ -19221,15 +19264,16 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
         self._data["Fraction of Radiant Energy to Surface 99"] = None
         self._data["Surface 100 Name"] = None
         self._data["Fraction of Radiant Energy to Surface 100"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -20694,6 +20738,7 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -20720,7 +20765,7 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -20757,7 +20802,7 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `availability_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -20803,7 +20848,7 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `heating_design_capacity_method`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -20818,16 +20863,26 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `heating_design_capacity_method`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `heating_design_capacity_method`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Heating Design Capacity Method"] = value
 
@@ -20864,12 +20919,17 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
                 if value_lower == "autosize":
                     self._data["Heating Design Capacity"] = "Autosize"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autosize" '
+                                 'for field `heating_design_capacity`'.format(value))
+                    self._data["Heating Design Capacity"] = "Autosize"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autosize"'
                                  'for field `heating_design_capacity`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -20905,7 +20965,7 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `heating_design_capacity_per_floor_area`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -20941,7 +21001,7 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_autosized_heating_design_capacity`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -20976,7 +21036,7 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `efficiency`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -21013,7 +21073,7 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_radiant`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -21050,7 +21110,7 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_incident_on_people`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -21086,7 +21146,7 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_1_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -21123,7 +21183,7 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_1`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -21158,7 +21218,7 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_2_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -21195,7 +21255,7 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_2`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -21230,7 +21290,7 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_3_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -21267,7 +21327,7 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_3`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -21302,7 +21362,7 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_4_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -21339,7 +21399,7 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_4`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -21374,7 +21434,7 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_5_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -21411,7 +21471,7 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_5`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -21446,7 +21506,7 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_6_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -21483,7 +21543,7 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_6`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -21518,7 +21578,7 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_7_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -21555,7 +21615,7 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_7`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -21590,7 +21650,7 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_8_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -21627,7 +21687,7 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_8`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -21662,7 +21722,7 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_9_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -21699,7 +21759,7 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_9`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -21734,7 +21794,7 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_10_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -21771,7 +21831,7 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_10`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -21806,7 +21866,7 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_11_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -21843,7 +21903,7 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_11`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -21878,7 +21938,7 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_12_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -21915,7 +21975,7 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_12`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -21950,7 +22010,7 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_13_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -21987,7 +22047,7 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_13`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -22022,7 +22082,7 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_14_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -22059,7 +22119,7 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_14`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -22094,7 +22154,7 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_15_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -22131,7 +22191,7 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_15`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -22166,7 +22226,7 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_16_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -22203,7 +22263,7 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_16`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -22238,7 +22298,7 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_17_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -22275,7 +22335,7 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_17`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -22310,7 +22370,7 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_18_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -22347,7 +22407,7 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_18`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -22382,7 +22442,7 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_19_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -22419,7 +22479,7 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_19`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -22454,7 +22514,7 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_20_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -22491,7 +22551,7 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_20`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -22526,7 +22586,7 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_21_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -22563,7 +22623,7 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_21`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -22598,7 +22658,7 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_22_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -22635,7 +22695,7 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_22`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -22670,7 +22730,7 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_23_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -22707,7 +22767,7 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_23`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -22742,7 +22802,7 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_24_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -22779,7 +22839,7 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_24`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -22814,7 +22874,7 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_25_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -22851,7 +22911,7 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_25`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -22886,7 +22946,7 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_26_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -22923,7 +22983,7 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_26`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -22958,7 +23018,7 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_27_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -22995,7 +23055,7 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_27`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -23030,7 +23090,7 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_28_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -23067,7 +23127,7 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_28`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -23102,7 +23162,7 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_29_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -23139,7 +23199,7 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_29`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -23174,7 +23234,7 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_30_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -23211,7 +23271,7 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_30`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -23246,7 +23306,7 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_31_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -23283,7 +23343,7 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_31`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -23318,7 +23378,7 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_32_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -23355,7 +23415,7 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_32`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -23390,7 +23450,7 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_33_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -23427,7 +23487,7 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_33`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -23462,7 +23522,7 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_34_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -23499,7 +23559,7 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_34`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -23534,7 +23594,7 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_35_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -23571,7 +23631,7 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_35`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -23606,7 +23666,7 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_36_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -23643,7 +23703,7 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_36`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -23678,7 +23738,7 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_37_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -23715,7 +23775,7 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_37`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -23750,7 +23810,7 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_38_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -23787,7 +23847,7 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_38`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -23822,7 +23882,7 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_39_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -23859,7 +23919,7 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_39`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -23894,7 +23954,7 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_40_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -23931,7 +23991,7 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_40`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -23966,7 +24026,7 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_41_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -24003,7 +24063,7 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_41`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -24038,7 +24098,7 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_42_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -24075,7 +24135,7 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_42`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -24110,7 +24170,7 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_43_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -24147,7 +24207,7 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_43`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -24182,7 +24242,7 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_44_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -24219,7 +24279,7 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_44`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -24254,7 +24314,7 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_45_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -24291,7 +24351,7 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_45`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -24326,7 +24386,7 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_46_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -24363,7 +24423,7 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_46`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -24398,7 +24458,7 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_47_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -24435,7 +24495,7 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_47`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -24470,7 +24530,7 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_48_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -24507,7 +24567,7 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_48`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -24542,7 +24602,7 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_49_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -24579,7 +24639,7 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_49`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -24614,7 +24674,7 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_50_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -24651,7 +24711,7 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_50`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -24686,7 +24746,7 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_51_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -24723,7 +24783,7 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_51`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -24758,7 +24818,7 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_52_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -24795,7 +24855,7 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_52`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -24830,7 +24890,7 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_53_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -24867,7 +24927,7 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_53`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -24902,7 +24962,7 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_54_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -24939,7 +24999,7 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_54`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -24974,7 +25034,7 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_55_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -25011,7 +25071,7 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_55`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -25046,7 +25106,7 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_56_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -25083,7 +25143,7 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_56`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -25118,7 +25178,7 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_57_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -25155,7 +25215,7 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_57`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -25190,7 +25250,7 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_58_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -25227,7 +25287,7 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_58`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -25262,7 +25322,7 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_59_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -25299,7 +25359,7 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_59`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -25334,7 +25394,7 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_60_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -25371,7 +25431,7 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_60`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -25406,7 +25466,7 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_61_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -25443,7 +25503,7 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_61`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -25478,7 +25538,7 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_62_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -25515,7 +25575,7 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_62`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -25550,7 +25610,7 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_63_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -25587,7 +25647,7 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_63`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -25622,7 +25682,7 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_64_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -25659,7 +25719,7 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_64`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -25694,7 +25754,7 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_65_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -25731,7 +25791,7 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_65`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -25766,7 +25826,7 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_66_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -25803,7 +25863,7 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_66`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -25838,7 +25898,7 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_67_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -25875,7 +25935,7 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_67`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -25910,7 +25970,7 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_68_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -25947,7 +26007,7 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_68`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -25982,7 +26042,7 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_69_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -26019,7 +26079,7 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_69`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -26054,7 +26114,7 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_70_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -26091,7 +26151,7 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_70`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -26126,7 +26186,7 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_71_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -26163,7 +26223,7 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_71`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -26198,7 +26258,7 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_72_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -26235,7 +26295,7 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_72`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -26270,7 +26330,7 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_73_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -26307,7 +26367,7 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_73`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -26342,7 +26402,7 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_74_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -26379,7 +26439,7 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_74`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -26414,7 +26474,7 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_75_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -26451,7 +26511,7 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_75`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -26486,7 +26546,7 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_76_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -26523,7 +26583,7 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_76`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -26558,7 +26618,7 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_77_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -26595,7 +26655,7 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_77`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -26630,7 +26690,7 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_78_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -26667,7 +26727,7 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_78`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -26702,7 +26762,7 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_79_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -26739,7 +26799,7 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_79`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -26774,7 +26834,7 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_80_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -26811,7 +26871,7 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_80`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -26846,7 +26906,7 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_81_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -26883,7 +26943,7 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_81`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -26918,7 +26978,7 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_82_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -26955,7 +27015,7 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_82`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -26990,7 +27050,7 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_83_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -27027,7 +27087,7 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_83`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -27062,7 +27122,7 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_84_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -27099,7 +27159,7 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_84`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -27134,7 +27194,7 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_85_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -27171,7 +27231,7 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_85`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -27206,7 +27266,7 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_86_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -27243,7 +27303,7 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_86`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -27278,7 +27338,7 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_87_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -27315,7 +27375,7 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_87`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -27350,7 +27410,7 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_88_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -27387,7 +27447,7 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_88`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -27422,7 +27482,7 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_89_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -27459,7 +27519,7 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_89`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -27494,7 +27554,7 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_90_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -27531,7 +27591,7 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_90`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -27566,7 +27626,7 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_91_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -27603,7 +27663,7 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_91`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -27638,7 +27698,7 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_92_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -27675,7 +27735,7 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_92`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -27710,7 +27770,7 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_93_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -27747,7 +27807,7 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_93`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -27782,7 +27842,7 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_94_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -27819,7 +27879,7 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_94`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -27854,7 +27914,7 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_95_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -27891,7 +27951,7 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_95`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -27926,7 +27986,7 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_96_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -27963,7 +28023,7 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_96`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -27998,7 +28058,7 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_97_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -28035,7 +28095,7 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_97`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -28070,7 +28130,7 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_98_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -28107,7 +28167,7 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_98`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -28142,7 +28202,7 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_99_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -28179,7 +28239,7 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_99`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -28214,7 +28274,7 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_100_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -28251,7 +28311,7 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_100`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -28298,7 +28358,6 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
 class ZoneHvacBaseboardConvectiveWater(object):
     """ Corresponds to IDD object `ZoneHVAC:Baseboard:Convective:Water`
         Hot water baseboard heater, convection-only. Natural convection hydronic heating unit.
-    
     """
     internal_name = "ZoneHVAC:Baseboard:Convective:Water"
     field_count = 11
@@ -28319,15 +28378,16 @@ class ZoneHvacBaseboardConvectiveWater(object):
         self._data["U-Factor Times Area Value"] = None
         self._data["Maximum Water Flow Rate"] = None
         self._data["Convergence Tolerance"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -28406,6 +28466,7 @@ class ZoneHvacBaseboardConvectiveWater(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -28432,7 +28493,7 @@ class ZoneHvacBaseboardConvectiveWater(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -28469,7 +28530,7 @@ class ZoneHvacBaseboardConvectiveWater(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `availability_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -28504,7 +28565,7 @@ class ZoneHvacBaseboardConvectiveWater(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `inlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -28539,7 +28600,7 @@ class ZoneHvacBaseboardConvectiveWater(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `outlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -28585,7 +28646,7 @@ class ZoneHvacBaseboardConvectiveWater(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `heating_design_capacity_method`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -28600,16 +28661,26 @@ class ZoneHvacBaseboardConvectiveWater(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `heating_design_capacity_method`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `heating_design_capacity_method`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Heating Design Capacity Method"] = value
 
@@ -28646,12 +28717,17 @@ class ZoneHvacBaseboardConvectiveWater(object):
                 if value_lower == "autosize":
                     self._data["Heating Design Capacity"] = "Autosize"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autosize" '
+                                 'for field `heating_design_capacity`'.format(value))
+                    self._data["Heating Design Capacity"] = "Autosize"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autosize"'
                                  'for field `heating_design_capacity`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -28687,7 +28763,7 @@ class ZoneHvacBaseboardConvectiveWater(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `heating_design_capacity_per_floor_area`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -28723,7 +28799,7 @@ class ZoneHvacBaseboardConvectiveWater(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_autosized_heating_design_capacity`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -28758,12 +28834,17 @@ class ZoneHvacBaseboardConvectiveWater(object):
                 if value_lower == "autosize":
                     self._data["U-Factor Times Area Value"] = "Autosize"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autosize" '
+                                 'for field `ufactor_times_area_value`'.format(value))
+                    self._data["U-Factor Times Area Value"] = "Autosize"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autosize"'
                                  'for field `ufactor_times_area_value`'.format(value))
         self._data["U-Factor Times Area Value"] = value
 
@@ -28796,12 +28877,17 @@ class ZoneHvacBaseboardConvectiveWater(object):
                 if value_lower == "autosize":
                     self._data["Maximum Water Flow Rate"] = "Autosize"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autosize" '
+                                 'for field `maximum_water_flow_rate`'.format(value))
+                    self._data["Maximum Water Flow Rate"] = "Autosize"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autosize"'
                                  'for field `maximum_water_flow_rate`'.format(value))
         self._data["Maximum Water Flow Rate"] = value
 
@@ -28832,7 +28918,7 @@ class ZoneHvacBaseboardConvectiveWater(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `convergence_tolerance`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -28876,7 +28962,6 @@ class ZoneHvacBaseboardConvectiveWater(object):
 class ZoneHvacBaseboardConvectiveElectric(object):
     """ Corresponds to IDD object `ZoneHVAC:Baseboard:Convective:Electric`
         Electric baseboard heater, convection-only. Natural convection electric heating unit.
-    
     """
     internal_name = "ZoneHVAC:Baseboard:Convective:Electric"
     field_count = 7
@@ -28893,15 +28978,16 @@ class ZoneHvacBaseboardConvectiveElectric(object):
         self._data["Heating Design Capacity Per Floor Area"] = None
         self._data["Fraction of Autosized Heating Design Capacity"] = None
         self._data["Efficiency"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -28952,6 +29038,7 @@ class ZoneHvacBaseboardConvectiveElectric(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -28978,7 +29065,7 @@ class ZoneHvacBaseboardConvectiveElectric(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -29015,7 +29102,7 @@ class ZoneHvacBaseboardConvectiveElectric(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `availability_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -29061,7 +29148,7 @@ class ZoneHvacBaseboardConvectiveElectric(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `heating_design_capacity_method`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -29076,16 +29163,26 @@ class ZoneHvacBaseboardConvectiveElectric(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `heating_design_capacity_method`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `heating_design_capacity_method`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Heating Design Capacity Method"] = value
 
@@ -29122,12 +29219,17 @@ class ZoneHvacBaseboardConvectiveElectric(object):
                 if value_lower == "autosize":
                     self._data["Heating Design Capacity"] = "Autosize"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autosize" '
+                                 'for field `heating_design_capacity`'.format(value))
+                    self._data["Heating Design Capacity"] = "Autosize"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autosize"'
                                  'for field `heating_design_capacity`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -29163,7 +29265,7 @@ class ZoneHvacBaseboardConvectiveElectric(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `heating_design_capacity_per_floor_area`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -29199,7 +29301,7 @@ class ZoneHvacBaseboardConvectiveElectric(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_autosized_heating_design_capacity`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -29234,7 +29336,7 @@ class ZoneHvacBaseboardConvectiveElectric(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `efficiency`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -29283,7 +29385,6 @@ class ZoneHvacLowTemperatureRadiantVariableFlow(object):
         Low temperature hydronic radiant heating and/or cooling system embedded in a building
         surface (wall, ceiling, or floor). Controlled by varying the hot or chilled water
         flow to the unit.
-    
     """
     internal_name = "ZoneHVAC:LowTemperatureRadiant:VariableFlow"
     field_count = 29
@@ -29322,15 +29423,16 @@ class ZoneHvacLowTemperatureRadiantVariableFlow(object):
         self._data["Condensation Control Dewpoint Offset"] = None
         self._data["Number of Circuits"] = None
         self._data["Circuit Length"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -29535,6 +29637,7 @@ class ZoneHvacLowTemperatureRadiantVariableFlow(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -29561,7 +29664,7 @@ class ZoneHvacLowTemperatureRadiantVariableFlow(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -29598,7 +29701,7 @@ class ZoneHvacLowTemperatureRadiantVariableFlow(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `availability_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -29634,7 +29737,7 @@ class ZoneHvacLowTemperatureRadiantVariableFlow(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `zone_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -29672,7 +29775,7 @@ class ZoneHvacLowTemperatureRadiantVariableFlow(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_name_or_radiant_surface_group_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -29711,7 +29814,7 @@ class ZoneHvacLowTemperatureRadiantVariableFlow(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `hydronic_tubing_inside_diameter`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -29748,12 +29851,17 @@ class ZoneHvacLowTemperatureRadiantVariableFlow(object):
                 if value_lower == "autosize":
                     self._data["Hydronic Tubing Length"] = "Autosize"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autosize" '
+                                 'for field `hydronic_tubing_length`'.format(value))
+                    self._data["Hydronic Tubing Length"] = "Autosize"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autosize"'
                                  'for field `hydronic_tubing_length`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -29793,7 +29901,7 @@ class ZoneHvacLowTemperatureRadiantVariableFlow(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `temperature_control_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -29810,16 +29918,26 @@ class ZoneHvacLowTemperatureRadiantVariableFlow(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `temperature_control_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `temperature_control_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Temperature Control Type"] = value
 
@@ -29859,7 +29977,7 @@ class ZoneHvacLowTemperatureRadiantVariableFlow(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `heating_design_capacity_method`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -29874,16 +29992,26 @@ class ZoneHvacLowTemperatureRadiantVariableFlow(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `heating_design_capacity_method`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `heating_design_capacity_method`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Heating Design Capacity Method"] = value
 
@@ -29920,12 +30048,17 @@ class ZoneHvacLowTemperatureRadiantVariableFlow(object):
                 if value_lower == "autosize":
                     self._data["Heating Design Capacity"] = "Autosize"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autosize" '
+                                 'for field `heating_design_capacity`'.format(value))
+                    self._data["Heating Design Capacity"] = "Autosize"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autosize"'
                                  'for field `heating_design_capacity`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -29961,7 +30094,7 @@ class ZoneHvacLowTemperatureRadiantVariableFlow(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `heating_design_capacity_per_floor_area`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -29997,7 +30130,7 @@ class ZoneHvacLowTemperatureRadiantVariableFlow(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_autosized_heating_design_capacity`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -30034,12 +30167,17 @@ class ZoneHvacLowTemperatureRadiantVariableFlow(object):
                 if value_lower == "autosize":
                     self._data["Maximum Hot Water Flow"] = "Autosize"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autosize" '
+                                 'for field `maximum_hot_water_flow`'.format(value))
+                    self._data["Maximum Hot Water Flow"] = "Autosize"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autosize"'
                                  'for field `maximum_hot_water_flow`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -30071,7 +30209,7 @@ class ZoneHvacLowTemperatureRadiantVariableFlow(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `heating_water_inlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -30106,7 +30244,7 @@ class ZoneHvacLowTemperatureRadiantVariableFlow(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `heating_water_outlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -30144,7 +30282,7 @@ class ZoneHvacLowTemperatureRadiantVariableFlow(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `heating_control_throttling_range`'.format(value))
             if value < 0.5:
                 raise ValueError('value need to be greater or equal 0.5 '
@@ -30176,7 +30314,7 @@ class ZoneHvacLowTemperatureRadiantVariableFlow(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `heating_control_temperature_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -30224,7 +30362,7 @@ class ZoneHvacLowTemperatureRadiantVariableFlow(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `cooling_design_capacity_method`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -30240,16 +30378,26 @@ class ZoneHvacLowTemperatureRadiantVariableFlow(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `cooling_design_capacity_method`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `cooling_design_capacity_method`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Cooling Design Capacity Method"] = value
 
@@ -30284,12 +30432,17 @@ class ZoneHvacLowTemperatureRadiantVariableFlow(object):
                 if value_lower == "autosize":
                     self._data["Cooling Design Capacity"] = "Autosize"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autosize" '
+                                 'for field `cooling_design_capacity`'.format(value))
+                    self._data["Cooling Design Capacity"] = "Autosize"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autosize"'
                                  'for field `cooling_design_capacity`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -30325,7 +30478,7 @@ class ZoneHvacLowTemperatureRadiantVariableFlow(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `cooling_design_capacity_per_floor_area`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -30360,7 +30513,7 @@ class ZoneHvacLowTemperatureRadiantVariableFlow(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_autosized_cooling_design_capacity`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -30397,12 +30550,17 @@ class ZoneHvacLowTemperatureRadiantVariableFlow(object):
                 if value_lower == "autosize":
                     self._data["Maximum Cold Water Flow"] = "Autosize"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autosize" '
+                                 'for field `maximum_cold_water_flow`'.format(value))
+                    self._data["Maximum Cold Water Flow"] = "Autosize"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autosize"'
                                  'for field `maximum_cold_water_flow`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -30434,7 +30592,7 @@ class ZoneHvacLowTemperatureRadiantVariableFlow(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `cooling_water_inlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -30469,7 +30627,7 @@ class ZoneHvacLowTemperatureRadiantVariableFlow(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `cooling_water_outlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -30507,7 +30665,7 @@ class ZoneHvacLowTemperatureRadiantVariableFlow(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `cooling_control_throttling_range`'.format(value))
             if value < 0.5:
                 raise ValueError('value need to be greater or equal 0.5 '
@@ -30539,7 +30697,7 @@ class ZoneHvacLowTemperatureRadiantVariableFlow(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `cooling_control_temperature_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -30579,7 +30737,7 @@ class ZoneHvacLowTemperatureRadiantVariableFlow(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `condensation_control_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -30594,16 +30752,26 @@ class ZoneHvacLowTemperatureRadiantVariableFlow(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `condensation_control_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `condensation_control_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Condensation Control Type"] = value
 
@@ -30634,7 +30802,7 @@ class ZoneHvacLowTemperatureRadiantVariableFlow(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `condensation_control_dewpoint_offset`'.format(value))
         self._data["Condensation Control Dewpoint Offset"] = value
 
@@ -30667,7 +30835,7 @@ class ZoneHvacLowTemperatureRadiantVariableFlow(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `number_of_circuits`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -30681,16 +30849,26 @@ class ZoneHvacLowTemperatureRadiantVariableFlow(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `number_of_circuits`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `number_of_circuits`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Number of Circuits"] = value
 
@@ -30721,7 +30899,7 @@ class ZoneHvacLowTemperatureRadiantVariableFlow(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `circuit_length`'.format(value))
         self._data["Circuit Length"] = value
 
@@ -30764,7 +30942,6 @@ class ZoneHvacLowTemperatureRadiantConstantFlow(object):
         Low temperature hydronic radiant heating and/or cooling system embedded in a building
         surface (wall, ceiling, or floor). Controlled by varying the hot or chilled water
         temperature circulating through the unit.
-    
     """
     internal_name = "ZoneHVAC:LowTemperatureRadiant:ConstantFlow"
     field_count = 29
@@ -30803,15 +30980,16 @@ class ZoneHvacLowTemperatureRadiantConstantFlow(object):
         self._data["Condensation Control Dewpoint Offset"] = None
         self._data["Number of Circuits"] = None
         self._data["Circuit Length"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -31016,6 +31194,7 @@ class ZoneHvacLowTemperatureRadiantConstantFlow(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -31042,7 +31221,7 @@ class ZoneHvacLowTemperatureRadiantConstantFlow(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -31079,7 +31258,7 @@ class ZoneHvacLowTemperatureRadiantConstantFlow(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `availability_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -31115,7 +31294,7 @@ class ZoneHvacLowTemperatureRadiantConstantFlow(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `zone_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -31153,7 +31332,7 @@ class ZoneHvacLowTemperatureRadiantConstantFlow(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_name_or_radiant_surface_group_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -31191,7 +31370,7 @@ class ZoneHvacLowTemperatureRadiantConstantFlow(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `hydronic_tubing_inside_diameter`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -31226,7 +31405,7 @@ class ZoneHvacLowTemperatureRadiantConstantFlow(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `hydronic_tubing_length`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -31266,7 +31445,7 @@ class ZoneHvacLowTemperatureRadiantConstantFlow(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `temperature_control_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -31283,16 +31462,26 @@ class ZoneHvacLowTemperatureRadiantConstantFlow(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `temperature_control_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `temperature_control_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Temperature Control Type"] = value
 
@@ -31322,7 +31511,7 @@ class ZoneHvacLowTemperatureRadiantConstantFlow(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `rated_flow_rate`'.format(value))
         self._data["Rated Flow Rate"] = value
 
@@ -31356,7 +31545,7 @@ class ZoneHvacLowTemperatureRadiantConstantFlow(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `pump_flow_rate_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -31394,7 +31583,7 @@ class ZoneHvacLowTemperatureRadiantConstantFlow(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `rated_pump_head`'.format(value))
         self._data["Rated Pump Head"] = value
 
@@ -31424,7 +31613,7 @@ class ZoneHvacLowTemperatureRadiantConstantFlow(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `rated_power_consumption`'.format(value))
         self._data["Rated Power Consumption"] = value
 
@@ -31456,7 +31645,7 @@ class ZoneHvacLowTemperatureRadiantConstantFlow(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `motor_efficiency`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -31494,7 +31683,7 @@ class ZoneHvacLowTemperatureRadiantConstantFlow(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_motor_inefficiencies_to_fluid_stream`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -31529,7 +31718,7 @@ class ZoneHvacLowTemperatureRadiantConstantFlow(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `heating_water_inlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -31564,7 +31753,7 @@ class ZoneHvacLowTemperatureRadiantConstantFlow(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `heating_water_outlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -31610,7 +31799,7 @@ class ZoneHvacLowTemperatureRadiantConstantFlow(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `heating_high_water_temperature_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -31645,7 +31834,7 @@ class ZoneHvacLowTemperatureRadiantConstantFlow(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `heating_low_water_temperature_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -31680,7 +31869,7 @@ class ZoneHvacLowTemperatureRadiantConstantFlow(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `heating_high_control_temperature_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -31715,7 +31904,7 @@ class ZoneHvacLowTemperatureRadiantConstantFlow(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `heating_low_control_temperature_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -31750,7 +31939,7 @@ class ZoneHvacLowTemperatureRadiantConstantFlow(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `cooling_water_inlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -31785,7 +31974,7 @@ class ZoneHvacLowTemperatureRadiantConstantFlow(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `cooling_water_outlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -31822,7 +32011,7 @@ class ZoneHvacLowTemperatureRadiantConstantFlow(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `cooling_high_water_temperature_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -31857,7 +32046,7 @@ class ZoneHvacLowTemperatureRadiantConstantFlow(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `cooling_low_water_temperature_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -31892,7 +32081,7 @@ class ZoneHvacLowTemperatureRadiantConstantFlow(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `cooling_high_control_temperature_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -31927,7 +32116,7 @@ class ZoneHvacLowTemperatureRadiantConstantFlow(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `cooling_low_control_temperature_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -31967,7 +32156,7 @@ class ZoneHvacLowTemperatureRadiantConstantFlow(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `condensation_control_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -31982,16 +32171,26 @@ class ZoneHvacLowTemperatureRadiantConstantFlow(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `condensation_control_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `condensation_control_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Condensation Control Type"] = value
 
@@ -32022,7 +32221,7 @@ class ZoneHvacLowTemperatureRadiantConstantFlow(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `condensation_control_dewpoint_offset`'.format(value))
         self._data["Condensation Control Dewpoint Offset"] = value
 
@@ -32055,7 +32254,7 @@ class ZoneHvacLowTemperatureRadiantConstantFlow(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `number_of_circuits`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -32069,16 +32268,26 @@ class ZoneHvacLowTemperatureRadiantConstantFlow(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `number_of_circuits`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `number_of_circuits`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Number of Circuits"] = value
 
@@ -32109,7 +32318,7 @@ class ZoneHvacLowTemperatureRadiantConstantFlow(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `circuit_length`'.format(value))
         self._data["Circuit Length"] = value
 
@@ -32150,7 +32359,6 @@ class ZoneHvacLowTemperatureRadiantConstantFlow(object):
 class ZoneHvacLowTemperatureRadiantElectric(object):
     """ Corresponds to IDD object `ZoneHVAC:LowTemperatureRadiant:Electric`
         Electric resistance low temperature radiant system
-    
     """
     internal_name = "ZoneHVAC:LowTemperatureRadiant:Electric"
     field_count = 11
@@ -32171,15 +32379,16 @@ class ZoneHvacLowTemperatureRadiantElectric(object):
         self._data["Temperature Control Type"] = None
         self._data["Heating Throttling Range"] = None
         self._data["Heating Setpoint Temperature Schedule Name"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -32258,6 +32467,7 @@ class ZoneHvacLowTemperatureRadiantElectric(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -32284,7 +32494,7 @@ class ZoneHvacLowTemperatureRadiantElectric(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -32321,7 +32531,7 @@ class ZoneHvacLowTemperatureRadiantElectric(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `availability_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -32357,7 +32567,7 @@ class ZoneHvacLowTemperatureRadiantElectric(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `zone_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -32395,7 +32605,7 @@ class ZoneHvacLowTemperatureRadiantElectric(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_name_or_radiant_surface_group_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -32441,7 +32651,7 @@ class ZoneHvacLowTemperatureRadiantElectric(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `heating_design_capacity_method`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -32456,16 +32666,26 @@ class ZoneHvacLowTemperatureRadiantElectric(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `heating_design_capacity_method`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `heating_design_capacity_method`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Heating Design Capacity Method"] = value
 
@@ -32502,12 +32722,17 @@ class ZoneHvacLowTemperatureRadiantElectric(object):
                 if value_lower == "autosize":
                     self._data["Heating Design Capacity"] = "Autosize"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autosize" '
+                                 'for field `heating_design_capacity`'.format(value))
+                    self._data["Heating Design Capacity"] = "Autosize"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autosize"'
                                  'for field `heating_design_capacity`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -32543,7 +32768,7 @@ class ZoneHvacLowTemperatureRadiantElectric(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `heating_design_capacity_per_floor_area`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -32579,7 +32804,7 @@ class ZoneHvacLowTemperatureRadiantElectric(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_autosized_heating_design_capacity`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -32619,7 +32844,7 @@ class ZoneHvacLowTemperatureRadiantElectric(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `temperature_control_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -32636,16 +32861,26 @@ class ZoneHvacLowTemperatureRadiantElectric(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `temperature_control_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `temperature_control_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Temperature Control Type"] = value
 
@@ -32677,7 +32912,7 @@ class ZoneHvacLowTemperatureRadiantElectric(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `heating_throttling_range`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -32709,7 +32944,7 @@ class ZoneHvacLowTemperatureRadiantElectric(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `heating_setpoint_temperature_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -32759,7 +32994,6 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
         Note that the following flow fractions must sum up to 1.0
         The number of surfaces can be expanded beyond 100, if necessary, by adding more
         groups to the end of the list
-    
     """
     internal_name = "ZoneHVAC:LowTemperatureRadiant:SurfaceGroup"
     field_count = 201
@@ -32970,15 +33204,16 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
         self._data["Flow Fraction for Surface 99"] = None
         self._data["Surface 100 Name"] = None
         self._data["Flow Fraction for Surface 100"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -34387,6 +34622,7 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -34413,7 +34649,7 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -34448,7 +34684,7 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_1_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -34484,7 +34720,7 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `flow_fraction_for_surface_1`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -34516,7 +34752,7 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_2_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -34552,7 +34788,7 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `flow_fraction_for_surface_2`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -34584,7 +34820,7 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_3_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -34620,7 +34856,7 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `flow_fraction_for_surface_3`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -34652,7 +34888,7 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_4_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -34688,7 +34924,7 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `flow_fraction_for_surface_4`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -34720,7 +34956,7 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_5_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -34756,7 +34992,7 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `flow_fraction_for_surface_5`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -34788,7 +35024,7 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_6_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -34824,7 +35060,7 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `flow_fraction_for_surface_6`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -34856,7 +35092,7 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_7_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -34892,7 +35128,7 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `flow_fraction_for_surface_7`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -34924,7 +35160,7 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_8_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -34960,7 +35196,7 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `flow_fraction_for_surface_8`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -34992,7 +35228,7 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_9_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -35028,7 +35264,7 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `flow_fraction_for_surface_9`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -35060,7 +35296,7 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_10_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -35096,7 +35332,7 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `flow_fraction_for_surface_10`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -35128,7 +35364,7 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_11_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -35164,7 +35400,7 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `flow_fraction_for_surface_11`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -35196,7 +35432,7 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_12_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -35232,7 +35468,7 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `flow_fraction_for_surface_12`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -35264,7 +35500,7 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_13_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -35300,7 +35536,7 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `flow_fraction_for_surface_13`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -35332,7 +35568,7 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_14_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -35368,7 +35604,7 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `flow_fraction_for_surface_14`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -35400,7 +35636,7 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_15_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -35436,7 +35672,7 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `flow_fraction_for_surface_15`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -35468,7 +35704,7 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_16_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -35504,7 +35740,7 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `flow_fraction_for_surface_16`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -35536,7 +35772,7 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_17_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -35572,7 +35808,7 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `flow_fraction_for_surface_17`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -35604,7 +35840,7 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_18_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -35640,7 +35876,7 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `flow_fraction_for_surface_18`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -35672,7 +35908,7 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_19_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -35708,7 +35944,7 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `flow_fraction_for_surface_19`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -35740,7 +35976,7 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_20_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -35776,7 +36012,7 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `flow_fraction_for_surface_20`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -35808,7 +36044,7 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_21_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -35844,7 +36080,7 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `flow_fraction_for_surface_21`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -35876,7 +36112,7 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_22_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -35912,7 +36148,7 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `flow_fraction_for_surface_22`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -35944,7 +36180,7 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_23_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -35980,7 +36216,7 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `flow_fraction_for_surface_23`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -36012,7 +36248,7 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_24_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -36048,7 +36284,7 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `flow_fraction_for_surface_24`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -36080,7 +36316,7 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_25_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -36116,7 +36352,7 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `flow_fraction_for_surface_25`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -36148,7 +36384,7 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_26_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -36184,7 +36420,7 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `flow_fraction_for_surface_26`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -36216,7 +36452,7 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_27_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -36252,7 +36488,7 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `flow_fraction_for_surface_27`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -36284,7 +36520,7 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_28_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -36320,7 +36556,7 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `flow_fraction_for_surface_28`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -36352,7 +36588,7 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_29_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -36388,7 +36624,7 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `flow_fraction_for_surface_29`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -36420,7 +36656,7 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_30_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -36456,7 +36692,7 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `flow_fraction_for_surface_30`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -36488,7 +36724,7 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_31_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -36524,7 +36760,7 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `flow_fraction_for_surface_31`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -36556,7 +36792,7 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_32_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -36592,7 +36828,7 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `flow_fraction_for_surface_32`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -36624,7 +36860,7 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_33_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -36660,7 +36896,7 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `flow_fraction_for_surface_33`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -36692,7 +36928,7 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_34_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -36728,7 +36964,7 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `flow_fraction_for_surface_34`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -36760,7 +36996,7 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_35_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -36796,7 +37032,7 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `flow_fraction_for_surface_35`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -36828,7 +37064,7 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_36_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -36864,7 +37100,7 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `flow_fraction_for_surface_36`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -36896,7 +37132,7 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_37_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -36932,7 +37168,7 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `flow_fraction_for_surface_37`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -36964,7 +37200,7 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_38_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -37000,7 +37236,7 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `flow_fraction_for_surface_38`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -37032,7 +37268,7 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_39_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -37068,7 +37304,7 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `flow_fraction_for_surface_39`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -37100,7 +37336,7 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_40_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -37136,7 +37372,7 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `flow_fraction_for_surface_40`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -37168,7 +37404,7 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_41_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -37204,7 +37440,7 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `flow_fraction_for_surface_41`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -37236,7 +37472,7 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_42_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -37272,7 +37508,7 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `flow_fraction_for_surface_42`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -37304,7 +37540,7 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_43_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -37340,7 +37576,7 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `flow_fraction_for_surface_43`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -37372,7 +37608,7 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_44_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -37408,7 +37644,7 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `flow_fraction_for_surface_44`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -37440,7 +37676,7 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_45_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -37476,7 +37712,7 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `flow_fraction_for_surface_45`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -37508,7 +37744,7 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_46_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -37544,7 +37780,7 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `flow_fraction_for_surface_46`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -37576,7 +37812,7 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_47_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -37612,7 +37848,7 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `flow_fraction_for_surface_47`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -37644,7 +37880,7 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_48_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -37680,7 +37916,7 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `flow_fraction_for_surface_48`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -37712,7 +37948,7 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_49_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -37748,7 +37984,7 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `flow_fraction_for_surface_49`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -37780,7 +38016,7 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_50_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -37816,7 +38052,7 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `flow_fraction_for_surface_50`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -37848,7 +38084,7 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_51_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -37884,7 +38120,7 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `flow_fraction_for_surface_51`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -37916,7 +38152,7 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_52_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -37952,7 +38188,7 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `flow_fraction_for_surface_52`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -37984,7 +38220,7 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_53_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -38020,7 +38256,7 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `flow_fraction_for_surface_53`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -38052,7 +38288,7 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_54_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -38088,7 +38324,7 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `flow_fraction_for_surface_54`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -38120,7 +38356,7 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_55_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -38156,7 +38392,7 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `flow_fraction_for_surface_55`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -38188,7 +38424,7 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_56_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -38224,7 +38460,7 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `flow_fraction_for_surface_56`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -38256,7 +38492,7 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_57_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -38292,7 +38528,7 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `flow_fraction_for_surface_57`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -38324,7 +38560,7 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_58_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -38360,7 +38596,7 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `flow_fraction_for_surface_58`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -38392,7 +38628,7 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_59_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -38428,7 +38664,7 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `flow_fraction_for_surface_59`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -38460,7 +38696,7 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_60_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -38496,7 +38732,7 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `flow_fraction_for_surface_60`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -38528,7 +38764,7 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_61_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -38564,7 +38800,7 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `flow_fraction_for_surface_61`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -38596,7 +38832,7 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_62_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -38632,7 +38868,7 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `flow_fraction_for_surface_62`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -38664,7 +38900,7 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_63_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -38700,7 +38936,7 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `flow_fraction_for_surface_63`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -38732,7 +38968,7 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_64_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -38768,7 +39004,7 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `flow_fraction_for_surface_64`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -38800,7 +39036,7 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_65_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -38836,7 +39072,7 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `flow_fraction_for_surface_65`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -38868,7 +39104,7 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_66_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -38904,7 +39140,7 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `flow_fraction_for_surface_66`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -38936,7 +39172,7 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_67_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -38972,7 +39208,7 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `flow_fraction_for_surface_67`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -39004,7 +39240,7 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_68_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -39040,7 +39276,7 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `flow_fraction_for_surface_68`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -39072,7 +39308,7 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_69_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -39108,7 +39344,7 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `flow_fraction_for_surface_69`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -39140,7 +39376,7 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_70_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -39176,7 +39412,7 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `flow_fraction_for_surface_70`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -39208,7 +39444,7 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_71_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -39244,7 +39480,7 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `flow_fraction_for_surface_71`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -39276,7 +39512,7 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_72_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -39312,7 +39548,7 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `flow_fraction_for_surface_72`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -39344,7 +39580,7 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_73_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -39380,7 +39616,7 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `flow_fraction_for_surface_73`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -39412,7 +39648,7 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_74_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -39448,7 +39684,7 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `flow_fraction_for_surface_74`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -39480,7 +39716,7 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_75_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -39516,7 +39752,7 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `flow_fraction_for_surface_75`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -39548,7 +39784,7 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_76_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -39584,7 +39820,7 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `flow_fraction_for_surface_76`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -39616,7 +39852,7 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_77_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -39652,7 +39888,7 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `flow_fraction_for_surface_77`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -39684,7 +39920,7 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_78_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -39720,7 +39956,7 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `flow_fraction_for_surface_78`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -39752,7 +39988,7 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_79_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -39788,7 +40024,7 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `flow_fraction_for_surface_79`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -39820,7 +40056,7 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_80_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -39856,7 +40092,7 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `flow_fraction_for_surface_80`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -39888,7 +40124,7 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_81_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -39924,7 +40160,7 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `flow_fraction_for_surface_81`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -39956,7 +40192,7 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_82_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -39992,7 +40228,7 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `flow_fraction_for_surface_82`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -40024,7 +40260,7 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_83_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -40060,7 +40296,7 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `flow_fraction_for_surface_83`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -40092,7 +40328,7 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_84_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -40128,7 +40364,7 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `flow_fraction_for_surface_84`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -40160,7 +40396,7 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_85_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -40196,7 +40432,7 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `flow_fraction_for_surface_85`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -40228,7 +40464,7 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_86_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -40264,7 +40500,7 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `flow_fraction_for_surface_86`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -40296,7 +40532,7 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_87_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -40332,7 +40568,7 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `flow_fraction_for_surface_87`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -40364,7 +40600,7 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_88_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -40400,7 +40636,7 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `flow_fraction_for_surface_88`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -40432,7 +40668,7 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_89_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -40468,7 +40704,7 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `flow_fraction_for_surface_89`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -40500,7 +40736,7 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_90_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -40536,7 +40772,7 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `flow_fraction_for_surface_90`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -40568,7 +40804,7 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_91_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -40604,7 +40840,7 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `flow_fraction_for_surface_91`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -40636,7 +40872,7 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_92_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -40672,7 +40908,7 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `flow_fraction_for_surface_92`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -40704,7 +40940,7 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_93_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -40740,7 +40976,7 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `flow_fraction_for_surface_93`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -40772,7 +41008,7 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_94_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -40808,7 +41044,7 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `flow_fraction_for_surface_94`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -40840,7 +41076,7 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_95_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -40876,7 +41112,7 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `flow_fraction_for_surface_95`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -40908,7 +41144,7 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_96_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -40944,7 +41180,7 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `flow_fraction_for_surface_96`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -40976,7 +41212,7 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_97_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -41012,7 +41248,7 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `flow_fraction_for_surface_97`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -41044,7 +41280,7 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_98_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -41080,7 +41316,7 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `flow_fraction_for_surface_98`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -41112,7 +41348,7 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_99_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -41148,7 +41384,7 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `flow_fraction_for_surface_99`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -41180,7 +41416,7 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_100_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -41216,7 +41452,7 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `flow_fraction_for_surface_100`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -41261,7 +41497,6 @@ class ZoneHvacHighTemperatureRadiant(object):
     """ Corresponds to IDD object `ZoneHVAC:HighTemperatureRadiant`
         The number of surfaces can be expanded beyond 100, if necessary, by adding more
         groups to the end of the list
-    
     """
     internal_name = "ZoneHVAC:HighTemperatureRadiant"
     field_count = 216
@@ -41487,15 +41722,16 @@ class ZoneHvacHighTemperatureRadiant(object):
         self._data["Fraction of Radiant Energy to Surface 99"] = None
         self._data["Surface 100 Name"] = None
         self._data["Fraction of Radiant Energy to Surface 100"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -43009,6 +43245,7 @@ class ZoneHvacHighTemperatureRadiant(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -43035,7 +43272,7 @@ class ZoneHvacHighTemperatureRadiant(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -43072,7 +43309,7 @@ class ZoneHvacHighTemperatureRadiant(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `availability_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -43108,7 +43345,7 @@ class ZoneHvacHighTemperatureRadiant(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `zone_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -43154,7 +43391,7 @@ class ZoneHvacHighTemperatureRadiant(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `heating_design_capacity_method`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -43169,16 +43406,26 @@ class ZoneHvacHighTemperatureRadiant(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `heating_design_capacity_method`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `heating_design_capacity_method`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Heating Design Capacity Method"] = value
 
@@ -43214,12 +43461,17 @@ class ZoneHvacHighTemperatureRadiant(object):
                 if value_lower == "autosize":
                     self._data["Heating Design Capacity"] = "Autosize"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autosize" '
+                                 'for field `heating_design_capacity`'.format(value))
+                    self._data["Heating Design Capacity"] = "Autosize"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autosize"'
                                  'for field `heating_design_capacity`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -43255,7 +43507,7 @@ class ZoneHvacHighTemperatureRadiant(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `heating_design_capacity_per_floor_area`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -43291,7 +43543,7 @@ class ZoneHvacHighTemperatureRadiant(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_autosized_heating_design_capacity`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -43327,7 +43579,7 @@ class ZoneHvacHighTemperatureRadiant(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `fuel_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -43341,16 +43593,26 @@ class ZoneHvacHighTemperatureRadiant(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `fuel_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `fuel_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Fuel Type"] = value
 
@@ -43383,7 +43645,7 @@ class ZoneHvacHighTemperatureRadiant(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `combustion_efficiency`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -43422,7 +43684,7 @@ class ZoneHvacHighTemperatureRadiant(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_input_converted_to_radiant_energy`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -43460,7 +43722,7 @@ class ZoneHvacHighTemperatureRadiant(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_input_converted_to_latent_energy`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -43499,7 +43761,7 @@ class ZoneHvacHighTemperatureRadiant(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_input_that_is_lost`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -43543,7 +43805,7 @@ class ZoneHvacHighTemperatureRadiant(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `temperature_control_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -43561,16 +43823,26 @@ class ZoneHvacHighTemperatureRadiant(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `temperature_control_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `temperature_control_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Temperature Control Type"] = value
 
@@ -43602,7 +43874,7 @@ class ZoneHvacHighTemperatureRadiant(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `heating_throttling_range`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -43635,7 +43907,7 @@ class ZoneHvacHighTemperatureRadiant(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `heating_setpoint_temperature_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -43674,7 +43946,7 @@ class ZoneHvacHighTemperatureRadiant(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_incident_on_people`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -43710,7 +43982,7 @@ class ZoneHvacHighTemperatureRadiant(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_1_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -43747,7 +44019,7 @@ class ZoneHvacHighTemperatureRadiant(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_1`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -43782,7 +44054,7 @@ class ZoneHvacHighTemperatureRadiant(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_2_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -43819,7 +44091,7 @@ class ZoneHvacHighTemperatureRadiant(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_2`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -43854,7 +44126,7 @@ class ZoneHvacHighTemperatureRadiant(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_3_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -43891,7 +44163,7 @@ class ZoneHvacHighTemperatureRadiant(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_3`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -43926,7 +44198,7 @@ class ZoneHvacHighTemperatureRadiant(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_4_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -43963,7 +44235,7 @@ class ZoneHvacHighTemperatureRadiant(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_4`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -43998,7 +44270,7 @@ class ZoneHvacHighTemperatureRadiant(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_5_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -44035,7 +44307,7 @@ class ZoneHvacHighTemperatureRadiant(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_5`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -44070,7 +44342,7 @@ class ZoneHvacHighTemperatureRadiant(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_6_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -44107,7 +44379,7 @@ class ZoneHvacHighTemperatureRadiant(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_6`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -44142,7 +44414,7 @@ class ZoneHvacHighTemperatureRadiant(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_7_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -44179,7 +44451,7 @@ class ZoneHvacHighTemperatureRadiant(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_7`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -44214,7 +44486,7 @@ class ZoneHvacHighTemperatureRadiant(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_8_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -44251,7 +44523,7 @@ class ZoneHvacHighTemperatureRadiant(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_8`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -44286,7 +44558,7 @@ class ZoneHvacHighTemperatureRadiant(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_9_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -44323,7 +44595,7 @@ class ZoneHvacHighTemperatureRadiant(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_9`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -44358,7 +44630,7 @@ class ZoneHvacHighTemperatureRadiant(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_10_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -44395,7 +44667,7 @@ class ZoneHvacHighTemperatureRadiant(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_10`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -44430,7 +44702,7 @@ class ZoneHvacHighTemperatureRadiant(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_11_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -44467,7 +44739,7 @@ class ZoneHvacHighTemperatureRadiant(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_11`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -44502,7 +44774,7 @@ class ZoneHvacHighTemperatureRadiant(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_12_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -44539,7 +44811,7 @@ class ZoneHvacHighTemperatureRadiant(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_12`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -44574,7 +44846,7 @@ class ZoneHvacHighTemperatureRadiant(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_13_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -44611,7 +44883,7 @@ class ZoneHvacHighTemperatureRadiant(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_13`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -44646,7 +44918,7 @@ class ZoneHvacHighTemperatureRadiant(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_14_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -44683,7 +44955,7 @@ class ZoneHvacHighTemperatureRadiant(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_14`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -44718,7 +44990,7 @@ class ZoneHvacHighTemperatureRadiant(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_15_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -44755,7 +45027,7 @@ class ZoneHvacHighTemperatureRadiant(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_15`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -44790,7 +45062,7 @@ class ZoneHvacHighTemperatureRadiant(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_16_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -44827,7 +45099,7 @@ class ZoneHvacHighTemperatureRadiant(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_16`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -44862,7 +45134,7 @@ class ZoneHvacHighTemperatureRadiant(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_17_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -44899,7 +45171,7 @@ class ZoneHvacHighTemperatureRadiant(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_17`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -44934,7 +45206,7 @@ class ZoneHvacHighTemperatureRadiant(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_18_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -44971,7 +45243,7 @@ class ZoneHvacHighTemperatureRadiant(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_18`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -45006,7 +45278,7 @@ class ZoneHvacHighTemperatureRadiant(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_19_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -45043,7 +45315,7 @@ class ZoneHvacHighTemperatureRadiant(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_19`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -45078,7 +45350,7 @@ class ZoneHvacHighTemperatureRadiant(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_20_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -45115,7 +45387,7 @@ class ZoneHvacHighTemperatureRadiant(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_20`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -45150,7 +45422,7 @@ class ZoneHvacHighTemperatureRadiant(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_21_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -45187,7 +45459,7 @@ class ZoneHvacHighTemperatureRadiant(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_21`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -45222,7 +45494,7 @@ class ZoneHvacHighTemperatureRadiant(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_22_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -45259,7 +45531,7 @@ class ZoneHvacHighTemperatureRadiant(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_22`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -45294,7 +45566,7 @@ class ZoneHvacHighTemperatureRadiant(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_23_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -45331,7 +45603,7 @@ class ZoneHvacHighTemperatureRadiant(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_23`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -45366,7 +45638,7 @@ class ZoneHvacHighTemperatureRadiant(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_24_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -45403,7 +45675,7 @@ class ZoneHvacHighTemperatureRadiant(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_24`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -45438,7 +45710,7 @@ class ZoneHvacHighTemperatureRadiant(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_25_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -45475,7 +45747,7 @@ class ZoneHvacHighTemperatureRadiant(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_25`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -45510,7 +45782,7 @@ class ZoneHvacHighTemperatureRadiant(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_26_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -45547,7 +45819,7 @@ class ZoneHvacHighTemperatureRadiant(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_26`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -45582,7 +45854,7 @@ class ZoneHvacHighTemperatureRadiant(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_27_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -45619,7 +45891,7 @@ class ZoneHvacHighTemperatureRadiant(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_27`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -45654,7 +45926,7 @@ class ZoneHvacHighTemperatureRadiant(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_28_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -45691,7 +45963,7 @@ class ZoneHvacHighTemperatureRadiant(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_28`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -45726,7 +45998,7 @@ class ZoneHvacHighTemperatureRadiant(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_29_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -45763,7 +46035,7 @@ class ZoneHvacHighTemperatureRadiant(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_29`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -45798,7 +46070,7 @@ class ZoneHvacHighTemperatureRadiant(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_30_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -45835,7 +46107,7 @@ class ZoneHvacHighTemperatureRadiant(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_30`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -45870,7 +46142,7 @@ class ZoneHvacHighTemperatureRadiant(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_31_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -45907,7 +46179,7 @@ class ZoneHvacHighTemperatureRadiant(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_31`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -45942,7 +46214,7 @@ class ZoneHvacHighTemperatureRadiant(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_32_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -45979,7 +46251,7 @@ class ZoneHvacHighTemperatureRadiant(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_32`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -46014,7 +46286,7 @@ class ZoneHvacHighTemperatureRadiant(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_33_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -46051,7 +46323,7 @@ class ZoneHvacHighTemperatureRadiant(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_33`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -46086,7 +46358,7 @@ class ZoneHvacHighTemperatureRadiant(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_34_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -46123,7 +46395,7 @@ class ZoneHvacHighTemperatureRadiant(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_34`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -46158,7 +46430,7 @@ class ZoneHvacHighTemperatureRadiant(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_35_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -46195,7 +46467,7 @@ class ZoneHvacHighTemperatureRadiant(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_35`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -46230,7 +46502,7 @@ class ZoneHvacHighTemperatureRadiant(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_36_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -46267,7 +46539,7 @@ class ZoneHvacHighTemperatureRadiant(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_36`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -46302,7 +46574,7 @@ class ZoneHvacHighTemperatureRadiant(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_37_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -46339,7 +46611,7 @@ class ZoneHvacHighTemperatureRadiant(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_37`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -46374,7 +46646,7 @@ class ZoneHvacHighTemperatureRadiant(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_38_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -46411,7 +46683,7 @@ class ZoneHvacHighTemperatureRadiant(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_38`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -46446,7 +46718,7 @@ class ZoneHvacHighTemperatureRadiant(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_39_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -46483,7 +46755,7 @@ class ZoneHvacHighTemperatureRadiant(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_39`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -46518,7 +46790,7 @@ class ZoneHvacHighTemperatureRadiant(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_40_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -46555,7 +46827,7 @@ class ZoneHvacHighTemperatureRadiant(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_40`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -46590,7 +46862,7 @@ class ZoneHvacHighTemperatureRadiant(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_41_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -46627,7 +46899,7 @@ class ZoneHvacHighTemperatureRadiant(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_41`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -46662,7 +46934,7 @@ class ZoneHvacHighTemperatureRadiant(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_42_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -46699,7 +46971,7 @@ class ZoneHvacHighTemperatureRadiant(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_42`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -46734,7 +47006,7 @@ class ZoneHvacHighTemperatureRadiant(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_43_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -46771,7 +47043,7 @@ class ZoneHvacHighTemperatureRadiant(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_43`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -46806,7 +47078,7 @@ class ZoneHvacHighTemperatureRadiant(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_44_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -46843,7 +47115,7 @@ class ZoneHvacHighTemperatureRadiant(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_44`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -46878,7 +47150,7 @@ class ZoneHvacHighTemperatureRadiant(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_45_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -46915,7 +47187,7 @@ class ZoneHvacHighTemperatureRadiant(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_45`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -46950,7 +47222,7 @@ class ZoneHvacHighTemperatureRadiant(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_46_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -46987,7 +47259,7 @@ class ZoneHvacHighTemperatureRadiant(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_46`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -47022,7 +47294,7 @@ class ZoneHvacHighTemperatureRadiant(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_47_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -47059,7 +47331,7 @@ class ZoneHvacHighTemperatureRadiant(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_47`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -47094,7 +47366,7 @@ class ZoneHvacHighTemperatureRadiant(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_48_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -47131,7 +47403,7 @@ class ZoneHvacHighTemperatureRadiant(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_48`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -47166,7 +47438,7 @@ class ZoneHvacHighTemperatureRadiant(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_49_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -47203,7 +47475,7 @@ class ZoneHvacHighTemperatureRadiant(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_49`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -47238,7 +47510,7 @@ class ZoneHvacHighTemperatureRadiant(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_50_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -47275,7 +47547,7 @@ class ZoneHvacHighTemperatureRadiant(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_50`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -47310,7 +47582,7 @@ class ZoneHvacHighTemperatureRadiant(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_51_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -47347,7 +47619,7 @@ class ZoneHvacHighTemperatureRadiant(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_51`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -47382,7 +47654,7 @@ class ZoneHvacHighTemperatureRadiant(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_52_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -47419,7 +47691,7 @@ class ZoneHvacHighTemperatureRadiant(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_52`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -47454,7 +47726,7 @@ class ZoneHvacHighTemperatureRadiant(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_53_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -47491,7 +47763,7 @@ class ZoneHvacHighTemperatureRadiant(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_53`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -47526,7 +47798,7 @@ class ZoneHvacHighTemperatureRadiant(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_54_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -47563,7 +47835,7 @@ class ZoneHvacHighTemperatureRadiant(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_54`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -47598,7 +47870,7 @@ class ZoneHvacHighTemperatureRadiant(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_55_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -47635,7 +47907,7 @@ class ZoneHvacHighTemperatureRadiant(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_55`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -47670,7 +47942,7 @@ class ZoneHvacHighTemperatureRadiant(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_56_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -47707,7 +47979,7 @@ class ZoneHvacHighTemperatureRadiant(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_56`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -47742,7 +48014,7 @@ class ZoneHvacHighTemperatureRadiant(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_57_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -47779,7 +48051,7 @@ class ZoneHvacHighTemperatureRadiant(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_57`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -47814,7 +48086,7 @@ class ZoneHvacHighTemperatureRadiant(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_58_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -47851,7 +48123,7 @@ class ZoneHvacHighTemperatureRadiant(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_58`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -47886,7 +48158,7 @@ class ZoneHvacHighTemperatureRadiant(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_59_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -47923,7 +48195,7 @@ class ZoneHvacHighTemperatureRadiant(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_59`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -47958,7 +48230,7 @@ class ZoneHvacHighTemperatureRadiant(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_60_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -47995,7 +48267,7 @@ class ZoneHvacHighTemperatureRadiant(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_60`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -48030,7 +48302,7 @@ class ZoneHvacHighTemperatureRadiant(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_61_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -48067,7 +48339,7 @@ class ZoneHvacHighTemperatureRadiant(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_61`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -48102,7 +48374,7 @@ class ZoneHvacHighTemperatureRadiant(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_62_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -48139,7 +48411,7 @@ class ZoneHvacHighTemperatureRadiant(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_62`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -48174,7 +48446,7 @@ class ZoneHvacHighTemperatureRadiant(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_63_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -48211,7 +48483,7 @@ class ZoneHvacHighTemperatureRadiant(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_63`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -48246,7 +48518,7 @@ class ZoneHvacHighTemperatureRadiant(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_64_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -48283,7 +48555,7 @@ class ZoneHvacHighTemperatureRadiant(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_64`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -48318,7 +48590,7 @@ class ZoneHvacHighTemperatureRadiant(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_65_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -48355,7 +48627,7 @@ class ZoneHvacHighTemperatureRadiant(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_65`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -48390,7 +48662,7 @@ class ZoneHvacHighTemperatureRadiant(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_66_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -48427,7 +48699,7 @@ class ZoneHvacHighTemperatureRadiant(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_66`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -48462,7 +48734,7 @@ class ZoneHvacHighTemperatureRadiant(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_67_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -48499,7 +48771,7 @@ class ZoneHvacHighTemperatureRadiant(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_67`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -48534,7 +48806,7 @@ class ZoneHvacHighTemperatureRadiant(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_68_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -48571,7 +48843,7 @@ class ZoneHvacHighTemperatureRadiant(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_68`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -48606,7 +48878,7 @@ class ZoneHvacHighTemperatureRadiant(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_69_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -48643,7 +48915,7 @@ class ZoneHvacHighTemperatureRadiant(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_69`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -48678,7 +48950,7 @@ class ZoneHvacHighTemperatureRadiant(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_70_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -48715,7 +48987,7 @@ class ZoneHvacHighTemperatureRadiant(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_70`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -48750,7 +49022,7 @@ class ZoneHvacHighTemperatureRadiant(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_71_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -48787,7 +49059,7 @@ class ZoneHvacHighTemperatureRadiant(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_71`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -48822,7 +49094,7 @@ class ZoneHvacHighTemperatureRadiant(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_72_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -48859,7 +49131,7 @@ class ZoneHvacHighTemperatureRadiant(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_72`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -48894,7 +49166,7 @@ class ZoneHvacHighTemperatureRadiant(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_73_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -48931,7 +49203,7 @@ class ZoneHvacHighTemperatureRadiant(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_73`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -48966,7 +49238,7 @@ class ZoneHvacHighTemperatureRadiant(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_74_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -49003,7 +49275,7 @@ class ZoneHvacHighTemperatureRadiant(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_74`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -49038,7 +49310,7 @@ class ZoneHvacHighTemperatureRadiant(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_75_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -49075,7 +49347,7 @@ class ZoneHvacHighTemperatureRadiant(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_75`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -49110,7 +49382,7 @@ class ZoneHvacHighTemperatureRadiant(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_76_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -49147,7 +49419,7 @@ class ZoneHvacHighTemperatureRadiant(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_76`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -49182,7 +49454,7 @@ class ZoneHvacHighTemperatureRadiant(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_77_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -49219,7 +49491,7 @@ class ZoneHvacHighTemperatureRadiant(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_77`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -49254,7 +49526,7 @@ class ZoneHvacHighTemperatureRadiant(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_78_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -49291,7 +49563,7 @@ class ZoneHvacHighTemperatureRadiant(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_78`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -49326,7 +49598,7 @@ class ZoneHvacHighTemperatureRadiant(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_79_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -49363,7 +49635,7 @@ class ZoneHvacHighTemperatureRadiant(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_79`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -49398,7 +49670,7 @@ class ZoneHvacHighTemperatureRadiant(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_80_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -49435,7 +49707,7 @@ class ZoneHvacHighTemperatureRadiant(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_80`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -49470,7 +49742,7 @@ class ZoneHvacHighTemperatureRadiant(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_81_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -49507,7 +49779,7 @@ class ZoneHvacHighTemperatureRadiant(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_81`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -49542,7 +49814,7 @@ class ZoneHvacHighTemperatureRadiant(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_82_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -49579,7 +49851,7 @@ class ZoneHvacHighTemperatureRadiant(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_82`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -49614,7 +49886,7 @@ class ZoneHvacHighTemperatureRadiant(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_83_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -49651,7 +49923,7 @@ class ZoneHvacHighTemperatureRadiant(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_83`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -49686,7 +49958,7 @@ class ZoneHvacHighTemperatureRadiant(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_84_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -49723,7 +49995,7 @@ class ZoneHvacHighTemperatureRadiant(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_84`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -49758,7 +50030,7 @@ class ZoneHvacHighTemperatureRadiant(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_85_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -49795,7 +50067,7 @@ class ZoneHvacHighTemperatureRadiant(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_85`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -49830,7 +50102,7 @@ class ZoneHvacHighTemperatureRadiant(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_86_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -49867,7 +50139,7 @@ class ZoneHvacHighTemperatureRadiant(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_86`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -49902,7 +50174,7 @@ class ZoneHvacHighTemperatureRadiant(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_87_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -49939,7 +50211,7 @@ class ZoneHvacHighTemperatureRadiant(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_87`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -49974,7 +50246,7 @@ class ZoneHvacHighTemperatureRadiant(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_88_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -50011,7 +50283,7 @@ class ZoneHvacHighTemperatureRadiant(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_88`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -50046,7 +50318,7 @@ class ZoneHvacHighTemperatureRadiant(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_89_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -50083,7 +50355,7 @@ class ZoneHvacHighTemperatureRadiant(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_89`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -50118,7 +50390,7 @@ class ZoneHvacHighTemperatureRadiant(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_90_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -50155,7 +50427,7 @@ class ZoneHvacHighTemperatureRadiant(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_90`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -50190,7 +50462,7 @@ class ZoneHvacHighTemperatureRadiant(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_91_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -50227,7 +50499,7 @@ class ZoneHvacHighTemperatureRadiant(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_91`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -50262,7 +50534,7 @@ class ZoneHvacHighTemperatureRadiant(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_92_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -50299,7 +50571,7 @@ class ZoneHvacHighTemperatureRadiant(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_92`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -50334,7 +50606,7 @@ class ZoneHvacHighTemperatureRadiant(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_93_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -50371,7 +50643,7 @@ class ZoneHvacHighTemperatureRadiant(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_93`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -50406,7 +50678,7 @@ class ZoneHvacHighTemperatureRadiant(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_94_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -50443,7 +50715,7 @@ class ZoneHvacHighTemperatureRadiant(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_94`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -50478,7 +50750,7 @@ class ZoneHvacHighTemperatureRadiant(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_95_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -50515,7 +50787,7 @@ class ZoneHvacHighTemperatureRadiant(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_95`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -50550,7 +50822,7 @@ class ZoneHvacHighTemperatureRadiant(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_96_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -50587,7 +50859,7 @@ class ZoneHvacHighTemperatureRadiant(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_96`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -50622,7 +50894,7 @@ class ZoneHvacHighTemperatureRadiant(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_97_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -50659,7 +50931,7 @@ class ZoneHvacHighTemperatureRadiant(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_97`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -50694,7 +50966,7 @@ class ZoneHvacHighTemperatureRadiant(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_98_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -50731,7 +51003,7 @@ class ZoneHvacHighTemperatureRadiant(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_98`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -50766,7 +51038,7 @@ class ZoneHvacHighTemperatureRadiant(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_99_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -50803,7 +51075,7 @@ class ZoneHvacHighTemperatureRadiant(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_99`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -50838,7 +51110,7 @@ class ZoneHvacHighTemperatureRadiant(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_100_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -50875,7 +51147,7 @@ class ZoneHvacHighTemperatureRadiant(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_radiant_energy_to_surface_100`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -50923,7 +51195,6 @@ class ZoneHvacVentilatedSlab(object):
     """ Corresponds to IDD object `ZoneHVAC:VentilatedSlab`
         Ventilated slab system where outdoor air flows through hollow cores in a building
         surface (wall, ceiling, or floor).
-    
     """
     internal_name = "ZoneHVAC:VentilatedSlab"
     field_count = 40
@@ -50973,15 +51244,16 @@ class ZoneHvacVentilatedSlab(object):
         self._data["Cold Water Inlet Node Name"] = None
         self._data["Availability Manager List Name"] = None
         self._data["Design Specification ZoneHVAC Sizing Object Name"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -51263,6 +51535,7 @@ class ZoneHvacVentilatedSlab(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -51289,7 +51562,7 @@ class ZoneHvacVentilatedSlab(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -51326,7 +51599,7 @@ class ZoneHvacVentilatedSlab(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `availability_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -51362,7 +51635,7 @@ class ZoneHvacVentilatedSlab(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `zone_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -51398,7 +51671,7 @@ class ZoneHvacVentilatedSlab(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_name_or_radiant_surface_group_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -51437,12 +51710,17 @@ class ZoneHvacVentilatedSlab(object):
                 if value_lower == "autosize":
                     self._data["Maximum Air Flow Rate"] = "Autosize"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autosize" '
+                                 'for field `maximum_air_flow_rate`'.format(value))
+                    self._data["Maximum Air Flow Rate"] = "Autosize"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autosize"'
                                  'for field `maximum_air_flow_rate`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -51478,7 +51756,7 @@ class ZoneHvacVentilatedSlab(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `outdoor_air_control_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -51493,16 +51771,26 @@ class ZoneHvacVentilatedSlab(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `outdoor_air_control_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `outdoor_air_control_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Outdoor Air Control Type"] = value
 
@@ -51535,12 +51823,17 @@ class ZoneHvacVentilatedSlab(object):
                 if value_lower == "autosize":
                     self._data["Minimum Outdoor Air Flow Rate"] = "Autosize"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autosize" '
+                                 'for field `minimum_outdoor_air_flow_rate`'.format(value))
+                    self._data["Minimum Outdoor Air Flow Rate"] = "Autosize"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autosize"'
                                  'for field `minimum_outdoor_air_flow_rate`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -51572,7 +51865,7 @@ class ZoneHvacVentilatedSlab(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `minimum_outdoor_air_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -51612,12 +51905,17 @@ class ZoneHvacVentilatedSlab(object):
                 if value_lower == "autosize":
                     self._data["Maximum Outdoor Air Flow Rate"] = "Autosize"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autosize" '
+                                 'for field `maximum_outdoor_air_flow_rate`'.format(value))
+                    self._data["Maximum Outdoor Air Flow Rate"] = "Autosize"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autosize"'
                                  'for field `maximum_outdoor_air_flow_rate`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -51650,7 +51948,7 @@ class ZoneHvacVentilatedSlab(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `maximum_outdoor_air_fraction_or_temperature_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -51690,7 +51988,7 @@ class ZoneHvacVentilatedSlab(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `system_configuration_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -51705,16 +52003,26 @@ class ZoneHvacVentilatedSlab(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `system_configuration_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `system_configuration_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["System Configuration Type"] = value
 
@@ -51747,7 +52055,7 @@ class ZoneHvacVentilatedSlab(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `hollow_core_inside_diameter`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -51782,7 +52090,7 @@ class ZoneHvacVentilatedSlab(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `hollow_core_length`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -51816,7 +52124,7 @@ class ZoneHvacVentilatedSlab(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `number_of_cores`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -51858,7 +52166,7 @@ class ZoneHvacVentilatedSlab(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `temperature_control_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -51877,16 +52185,26 @@ class ZoneHvacVentilatedSlab(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `temperature_control_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `temperature_control_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Temperature Control Type"] = value
 
@@ -51926,7 +52244,7 @@ class ZoneHvacVentilatedSlab(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `heating_high_air_temperature_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -51961,7 +52279,7 @@ class ZoneHvacVentilatedSlab(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `heating_low_air_temperature_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -51996,7 +52314,7 @@ class ZoneHvacVentilatedSlab(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `heating_high_control_temperature_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -52031,7 +52349,7 @@ class ZoneHvacVentilatedSlab(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `heating_low_control_temperature_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -52068,7 +52386,7 @@ class ZoneHvacVentilatedSlab(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `cooling_high_air_temperature_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -52103,7 +52421,7 @@ class ZoneHvacVentilatedSlab(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `cooling_low_air_temperature_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -52138,7 +52456,7 @@ class ZoneHvacVentilatedSlab(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `cooling_high_control_temperature_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -52173,7 +52491,7 @@ class ZoneHvacVentilatedSlab(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `cooling_low_control_temperature_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -52210,7 +52528,7 @@ class ZoneHvacVentilatedSlab(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `return_air_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -52246,7 +52564,7 @@ class ZoneHvacVentilatedSlab(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `slab_in_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -52284,7 +52602,7 @@ class ZoneHvacVentilatedSlab(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `zone_supply_air_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -52321,7 +52639,7 @@ class ZoneHvacVentilatedSlab(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `outdoor_air_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -52357,7 +52675,7 @@ class ZoneHvacVentilatedSlab(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `relief_air_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -52393,7 +52711,7 @@ class ZoneHvacVentilatedSlab(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `outdoor_air_mixer_outlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -52429,7 +52747,7 @@ class ZoneHvacVentilatedSlab(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `fan_outlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -52465,7 +52783,7 @@ class ZoneHvacVentilatedSlab(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `fan_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -52505,7 +52823,7 @@ class ZoneHvacVentilatedSlab(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `coil_option_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -52521,16 +52839,26 @@ class ZoneHvacVentilatedSlab(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `coil_option_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `coil_option_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Coil Option Type"] = value
 
@@ -52564,7 +52892,7 @@ class ZoneHvacVentilatedSlab(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `heating_coil_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -52580,16 +52908,26 @@ class ZoneHvacVentilatedSlab(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `heating_coil_object_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `heating_coil_object_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Heating Coil Object Type"] = value
 
@@ -52618,7 +52956,7 @@ class ZoneHvacVentilatedSlab(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `heating_coil_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -52653,7 +52991,7 @@ class ZoneHvacVentilatedSlab(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `hot_water_or_steam_inlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -52692,7 +53030,7 @@ class ZoneHvacVentilatedSlab(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `cooling_coil_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -52707,16 +53045,26 @@ class ZoneHvacVentilatedSlab(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `cooling_coil_object_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `cooling_coil_object_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Cooling Coil Object Type"] = value
 
@@ -52745,7 +53093,7 @@ class ZoneHvacVentilatedSlab(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `cooling_coil_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -52780,7 +53128,7 @@ class ZoneHvacVentilatedSlab(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `cold_water_inlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -52816,7 +53164,7 @@ class ZoneHvacVentilatedSlab(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `availability_manager_list_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -52852,7 +53200,7 @@ class ZoneHvacVentilatedSlab(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `design_specification_zonehvac_sizing_object_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -52902,7 +53250,6 @@ class ZoneHvacVentilatedSlabSlabGroup(object):
         surfaces. Note that the flow fractions must sum up to 1.0.
         The number of surfaces can be expanded beyond 10, if necessary, by adding more
         groups to the end of the list
-    
     """
     internal_name = "ZoneHVAC:VentilatedSlab:SlabGroup"
     field_count = 71
@@ -52983,15 +53330,16 @@ class ZoneHvacVentilatedSlabSlabGroup(object):
         self._data["Core Numbers for Surface 10"] = None
         self._data["Slab Inlet Node Name for Surface 10"] = None
         self._data["Slab Outlet Node Name for Surface 10"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -53490,6 +53838,7 @@ class ZoneHvacVentilatedSlabSlabGroup(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -53516,7 +53865,7 @@ class ZoneHvacVentilatedSlabSlabGroup(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -53551,7 +53900,7 @@ class ZoneHvacVentilatedSlabSlabGroup(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `zone_1_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -53586,7 +53935,7 @@ class ZoneHvacVentilatedSlabSlabGroup(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_1_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -53623,7 +53972,7 @@ class ZoneHvacVentilatedSlabSlabGroup(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `core_diameter_for_surface_1`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -53657,7 +54006,7 @@ class ZoneHvacVentilatedSlabSlabGroup(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `core_length_for_surface_1`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -53690,7 +54039,7 @@ class ZoneHvacVentilatedSlabSlabGroup(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `core_numbers_for_surface_1`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -53722,7 +54071,7 @@ class ZoneHvacVentilatedSlabSlabGroup(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `slab_inlet_node_name_for_surface_1`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -53757,7 +54106,7 @@ class ZoneHvacVentilatedSlabSlabGroup(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `slab_outlet_node_name_for_surface_1`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -53792,7 +54141,7 @@ class ZoneHvacVentilatedSlabSlabGroup(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `zone_2_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -53827,7 +54176,7 @@ class ZoneHvacVentilatedSlabSlabGroup(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_2_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -53864,7 +54213,7 @@ class ZoneHvacVentilatedSlabSlabGroup(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `core_diameter_for_surface_2`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -53898,7 +54247,7 @@ class ZoneHvacVentilatedSlabSlabGroup(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `core_length_for_surface_2`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -53931,7 +54280,7 @@ class ZoneHvacVentilatedSlabSlabGroup(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `core_numbers_for_surface_2`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -53963,7 +54312,7 @@ class ZoneHvacVentilatedSlabSlabGroup(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `slab_inlet_node_name_for_surface_2`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -53998,7 +54347,7 @@ class ZoneHvacVentilatedSlabSlabGroup(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `slab_outlet_node_name_for_surface_2`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -54033,7 +54382,7 @@ class ZoneHvacVentilatedSlabSlabGroup(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `zone_3_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -54068,7 +54417,7 @@ class ZoneHvacVentilatedSlabSlabGroup(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_3_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -54105,7 +54454,7 @@ class ZoneHvacVentilatedSlabSlabGroup(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `core_diameter_for_surface_3`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -54139,7 +54488,7 @@ class ZoneHvacVentilatedSlabSlabGroup(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `core_length_for_surface_3`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -54172,7 +54521,7 @@ class ZoneHvacVentilatedSlabSlabGroup(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `core_numbers_for_surface_3`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -54204,7 +54553,7 @@ class ZoneHvacVentilatedSlabSlabGroup(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `slab_inlet_node_name_for_surface_3`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -54239,7 +54588,7 @@ class ZoneHvacVentilatedSlabSlabGroup(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `slab_outlet_node_name_for_surface_3`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -54274,7 +54623,7 @@ class ZoneHvacVentilatedSlabSlabGroup(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `zone_4_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -54309,7 +54658,7 @@ class ZoneHvacVentilatedSlabSlabGroup(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_4_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -54346,7 +54695,7 @@ class ZoneHvacVentilatedSlabSlabGroup(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `core_diameter_for_surface_4`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -54380,7 +54729,7 @@ class ZoneHvacVentilatedSlabSlabGroup(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `core_length_for_surface_4`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -54413,7 +54762,7 @@ class ZoneHvacVentilatedSlabSlabGroup(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `core_numbers_for_surface_4`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -54445,7 +54794,7 @@ class ZoneHvacVentilatedSlabSlabGroup(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `slab_inlet_node_name_for_surface_4`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -54480,7 +54829,7 @@ class ZoneHvacVentilatedSlabSlabGroup(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `slab_outlet_node_name_for_surface_4`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -54515,7 +54864,7 @@ class ZoneHvacVentilatedSlabSlabGroup(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `zone_5_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -54550,7 +54899,7 @@ class ZoneHvacVentilatedSlabSlabGroup(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_5_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -54587,7 +54936,7 @@ class ZoneHvacVentilatedSlabSlabGroup(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `core_diameter_for_surface_5`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -54621,7 +54970,7 @@ class ZoneHvacVentilatedSlabSlabGroup(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `core_length_for_surface_5`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -54654,7 +55003,7 @@ class ZoneHvacVentilatedSlabSlabGroup(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `core_numbers_for_surface_5`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -54686,7 +55035,7 @@ class ZoneHvacVentilatedSlabSlabGroup(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `slab_inlet_node_name_for_surface_5`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -54721,7 +55070,7 @@ class ZoneHvacVentilatedSlabSlabGroup(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `slab_outlet_node_name_for_surface_5`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -54756,7 +55105,7 @@ class ZoneHvacVentilatedSlabSlabGroup(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `zone_6_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -54791,7 +55140,7 @@ class ZoneHvacVentilatedSlabSlabGroup(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_6_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -54828,7 +55177,7 @@ class ZoneHvacVentilatedSlabSlabGroup(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `core_diameter_for_surface_6`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -54862,7 +55211,7 @@ class ZoneHvacVentilatedSlabSlabGroup(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `core_length_for_surface_6`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -54895,7 +55244,7 @@ class ZoneHvacVentilatedSlabSlabGroup(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `core_numbers_for_surface_6`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -54927,7 +55276,7 @@ class ZoneHvacVentilatedSlabSlabGroup(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `slab_inlet_node_name_for_surface_6`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -54962,7 +55311,7 @@ class ZoneHvacVentilatedSlabSlabGroup(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `slab_outlet_node_name_for_surface_6`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -54997,7 +55346,7 @@ class ZoneHvacVentilatedSlabSlabGroup(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `zone_7_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -55032,7 +55381,7 @@ class ZoneHvacVentilatedSlabSlabGroup(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_7_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -55069,7 +55418,7 @@ class ZoneHvacVentilatedSlabSlabGroup(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `core_diameter_for_surface_7`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -55103,7 +55452,7 @@ class ZoneHvacVentilatedSlabSlabGroup(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `core_length_for_surface_7`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -55136,7 +55485,7 @@ class ZoneHvacVentilatedSlabSlabGroup(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `core_numbers_for_surface_7`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -55168,7 +55517,7 @@ class ZoneHvacVentilatedSlabSlabGroup(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `slab_inlet_node_name_for_surface_7`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -55203,7 +55552,7 @@ class ZoneHvacVentilatedSlabSlabGroup(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `slab_outlet_node_name_for_surface_7`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -55238,7 +55587,7 @@ class ZoneHvacVentilatedSlabSlabGroup(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `zone_8_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -55273,7 +55622,7 @@ class ZoneHvacVentilatedSlabSlabGroup(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_8_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -55310,7 +55659,7 @@ class ZoneHvacVentilatedSlabSlabGroup(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `core_diameter_for_surface_8`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -55344,7 +55693,7 @@ class ZoneHvacVentilatedSlabSlabGroup(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `core_length_for_surface_8`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -55377,7 +55726,7 @@ class ZoneHvacVentilatedSlabSlabGroup(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `core_numbers_for_surface_8`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -55409,7 +55758,7 @@ class ZoneHvacVentilatedSlabSlabGroup(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `slab_inlet_node_name_for_surface_8`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -55444,7 +55793,7 @@ class ZoneHvacVentilatedSlabSlabGroup(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `slab_outlet_node_name_for_surface_8`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -55479,7 +55828,7 @@ class ZoneHvacVentilatedSlabSlabGroup(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `zone_9_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -55514,7 +55863,7 @@ class ZoneHvacVentilatedSlabSlabGroup(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_9_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -55551,7 +55900,7 @@ class ZoneHvacVentilatedSlabSlabGroup(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `core_diameter_for_surface_9`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -55585,7 +55934,7 @@ class ZoneHvacVentilatedSlabSlabGroup(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `core_length_for_surface_9`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -55618,7 +55967,7 @@ class ZoneHvacVentilatedSlabSlabGroup(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `core_numbers_for_surface_9`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -55650,7 +55999,7 @@ class ZoneHvacVentilatedSlabSlabGroup(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `slab_inlet_node_name_for_surface_9`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -55685,7 +56034,7 @@ class ZoneHvacVentilatedSlabSlabGroup(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `slab_outlet_node_name_for_surface_9`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -55720,7 +56069,7 @@ class ZoneHvacVentilatedSlabSlabGroup(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `zone_10_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -55755,7 +56104,7 @@ class ZoneHvacVentilatedSlabSlabGroup(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_10_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -55792,7 +56141,7 @@ class ZoneHvacVentilatedSlabSlabGroup(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `core_diameter_for_surface_10`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -55826,7 +56175,7 @@ class ZoneHvacVentilatedSlabSlabGroup(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `core_length_for_surface_10`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -55859,7 +56208,7 @@ class ZoneHvacVentilatedSlabSlabGroup(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `core_numbers_for_surface_10`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -55891,7 +56240,7 @@ class ZoneHvacVentilatedSlabSlabGroup(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `slab_inlet_node_name_for_surface_10`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -55926,7 +56275,7 @@ class ZoneHvacVentilatedSlabSlabGroup(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `slab_outlet_node_name_for_surface_10`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '

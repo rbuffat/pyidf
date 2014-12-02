@@ -1,4 +1,6 @@
 from collections import OrderedDict
+import logging
+import re
 
 class LoadProfilePlant(object):
     """ Corresponds to IDD object `LoadProfile:Plant`
@@ -6,7 +8,6 @@ class LoadProfilePlant(object):
         specified using schedules. Positive values are heating loads, and negative values are
         cooling loads. The actual load met is dependent on the performance of the supply
         loop components.
-    
     """
     internal_name = "LoadProfile:Plant"
     field_count = 6
@@ -22,15 +23,16 @@ class LoadProfilePlant(object):
         self._data["Load Schedule Name"] = None
         self._data["Peak Flow Rate"] = None
         self._data["Flow Rate Fraction Schedule Name"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -74,6 +76,7 @@ class LoadProfilePlant(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -100,7 +103,7 @@ class LoadProfilePlant(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -135,7 +138,7 @@ class LoadProfilePlant(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `inlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -170,7 +173,7 @@ class LoadProfilePlant(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `outlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -206,7 +209,7 @@ class LoadProfilePlant(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `load_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -242,7 +245,7 @@ class LoadProfilePlant(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `peak_flow_rate`'.format(value))
         self._data["Peak Flow Rate"] = value
 
@@ -271,7 +274,7 @@ class LoadProfilePlant(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `flow_rate_fraction_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '

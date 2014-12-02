@@ -1,10 +1,11 @@
 from collections import OrderedDict
+import logging
+import re
 
 class HeatExchangerAirToAirFlatPlate(object):
     """ Corresponds to IDD object `HeatExchanger:AirToAir:FlatPlate`
         Flat plate air-to-air heat exchanger, typically used for exhaust or relief air heat
         recovery.
-    
     """
     internal_name = "HeatExchanger:AirToAir:FlatPlate"
     field_count = 15
@@ -29,15 +30,16 @@ class HeatExchangerAirToAirFlatPlate(object):
         self._data["Supply Air Outlet Node Name"] = None
         self._data["Secondary Air Inlet Node Name"] = None
         self._data["Secondary Air Outlet Node Name"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -144,6 +146,7 @@ class HeatExchangerAirToAirFlatPlate(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -170,7 +173,7 @@ class HeatExchangerAirToAirFlatPlate(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -207,7 +210,7 @@ class HeatExchangerAirToAirFlatPlate(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `availability_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -246,7 +249,7 @@ class HeatExchangerAirToAirFlatPlate(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `flow_arrangement_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -261,16 +264,26 @@ class HeatExchangerAirToAirFlatPlate(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `flow_arrangement_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `flow_arrangement_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Flow Arrangement Type"] = value
 
@@ -305,7 +318,7 @@ class HeatExchangerAirToAirFlatPlate(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `economizer_lockout`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -319,16 +332,26 @@ class HeatExchangerAirToAirFlatPlate(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `economizer_lockout`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `economizer_lockout`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Economizer Lockout"] = value
 
@@ -359,7 +382,7 @@ class HeatExchangerAirToAirFlatPlate(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `ratio_of_supply_to_secondary_ha_values`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -393,7 +416,7 @@ class HeatExchangerAirToAirFlatPlate(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `nominal_supply_air_flow_rate`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -426,7 +449,7 @@ class HeatExchangerAirToAirFlatPlate(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `nominal_supply_air_inlet_temperature`'.format(value))
         self._data["Nominal Supply Air Inlet Temperature"] = value
 
@@ -456,7 +479,7 @@ class HeatExchangerAirToAirFlatPlate(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `nominal_supply_air_outlet_temperature`'.format(value))
         self._data["Nominal Supply Air Outlet Temperature"] = value
 
@@ -487,7 +510,7 @@ class HeatExchangerAirToAirFlatPlate(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `nominal_secondary_air_flow_rate`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -520,7 +543,7 @@ class HeatExchangerAirToAirFlatPlate(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `nominal_secondary_air_inlet_temperature`'.format(value))
         self._data["Nominal Secondary Air Inlet Temperature"] = value
 
@@ -551,7 +574,7 @@ class HeatExchangerAirToAirFlatPlate(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `nominal_electric_power`'.format(value))
         self._data["Nominal Electric Power"] = value
 
@@ -580,7 +603,7 @@ class HeatExchangerAirToAirFlatPlate(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `supply_air_inlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -615,7 +638,7 @@ class HeatExchangerAirToAirFlatPlate(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `supply_air_outlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -650,7 +673,7 @@ class HeatExchangerAirToAirFlatPlate(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `secondary_air_inlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -685,7 +708,7 @@ class HeatExchangerAirToAirFlatPlate(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `secondary_air_outlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -734,7 +757,6 @@ class HeatExchangerAirToAirSensibleAndLatent(object):
         This object models an air-to-air heat exchanger using effectiveness relationships.
         The heat exchanger can transfer sensible energy, latent energy, or both between the
         supply (primary) and exhaust (secondary) air streams.
-    
     """
     internal_name = "HeatExchanger:AirToAir:SensibleAndLatent"
     field_count = 23
@@ -767,15 +789,16 @@ class HeatExchangerAirToAirSensibleAndLatent(object):
         self._data["Initial Defrost Time Fraction"] = None
         self._data["Rate of Defrost Time Fraction Increase"] = None
         self._data["Economizer Lockout"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -938,6 +961,7 @@ class HeatExchangerAirToAirSensibleAndLatent(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -964,7 +988,7 @@ class HeatExchangerAirToAirSensibleAndLatent(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1001,7 +1025,7 @@ class HeatExchangerAirToAirSensibleAndLatent(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `availability_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1040,12 +1064,17 @@ class HeatExchangerAirToAirSensibleAndLatent(object):
                 if value_lower == "autosize":
                     self._data["Nominal Supply Air Flow Rate"] = "Autosize"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autosize" '
+                                 'for field `nominal_supply_air_flow_rate`'.format(value))
+                    self._data["Nominal Supply Air Flow Rate"] = "Autosize"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autosize"'
                                  'for field `nominal_supply_air_flow_rate`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -1081,7 +1110,7 @@ class HeatExchangerAirToAirSensibleAndLatent(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `sensible_effectiveness_at_100_heating_air_flow`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -1120,7 +1149,7 @@ class HeatExchangerAirToAirSensibleAndLatent(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `latent_effectiveness_at_100_heating_air_flow`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -1159,7 +1188,7 @@ class HeatExchangerAirToAirSensibleAndLatent(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `sensible_effectiveness_at_75_heating_air_flow`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -1198,7 +1227,7 @@ class HeatExchangerAirToAirSensibleAndLatent(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `latent_effectiveness_at_75_heating_air_flow`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -1237,7 +1266,7 @@ class HeatExchangerAirToAirSensibleAndLatent(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `sensible_effectiveness_at_100_cooling_air_flow`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -1276,7 +1305,7 @@ class HeatExchangerAirToAirSensibleAndLatent(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `latent_effectiveness_at_100_cooling_air_flow`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -1315,7 +1344,7 @@ class HeatExchangerAirToAirSensibleAndLatent(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `sensible_effectiveness_at_75_cooling_air_flow`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -1354,7 +1383,7 @@ class HeatExchangerAirToAirSensibleAndLatent(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `latent_effectiveness_at_75_cooling_air_flow`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -1389,7 +1418,7 @@ class HeatExchangerAirToAirSensibleAndLatent(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `supply_air_inlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1424,7 +1453,7 @@ class HeatExchangerAirToAirSensibleAndLatent(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `supply_air_outlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1459,7 +1488,7 @@ class HeatExchangerAirToAirSensibleAndLatent(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `exhaust_air_inlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1494,7 +1523,7 @@ class HeatExchangerAirToAirSensibleAndLatent(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `exhaust_air_outlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1533,7 +1562,7 @@ class HeatExchangerAirToAirSensibleAndLatent(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `nominal_electric_power`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -1569,7 +1598,7 @@ class HeatExchangerAirToAirSensibleAndLatent(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `supply_air_outlet_temperature_control`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1583,16 +1612,26 @@ class HeatExchangerAirToAirSensibleAndLatent(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `supply_air_outlet_temperature_control`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `supply_air_outlet_temperature_control`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Supply Air Outlet Temperature Control"] = value
 
@@ -1625,7 +1664,7 @@ class HeatExchangerAirToAirSensibleAndLatent(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `heat_exchanger_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1639,16 +1678,26 @@ class HeatExchangerAirToAirSensibleAndLatent(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `heat_exchanger_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `heat_exchanger_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Heat Exchanger Type"] = value
 
@@ -1683,7 +1732,7 @@ class HeatExchangerAirToAirSensibleAndLatent(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `frost_control_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1699,16 +1748,26 @@ class HeatExchangerAirToAirSensibleAndLatent(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `frost_control_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `frost_control_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Frost Control Type"] = value
 
@@ -1742,7 +1801,7 @@ class HeatExchangerAirToAirSensibleAndLatent(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `threshold_temperature`'.format(value))
         self._data["Threshold Temperature"] = value
 
@@ -1777,7 +1836,7 @@ class HeatExchangerAirToAirSensibleAndLatent(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `initial_defrost_time_fraction`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -1817,7 +1876,7 @@ class HeatExchangerAirToAirSensibleAndLatent(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `rate_of_defrost_time_fraction_increase`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -1855,7 +1914,7 @@ class HeatExchangerAirToAirSensibleAndLatent(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `economizer_lockout`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1869,16 +1928,26 @@ class HeatExchangerAirToAirSensibleAndLatent(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `economizer_lockout`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `economizer_lockout`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Economizer Lockout"] = value
 
@@ -1923,7 +1992,6 @@ class HeatExchangerDesiccantBalancedFlow(object):
         process and regeneration air streams. The air flow rate and face velocity
         are assumed to be the same on both the process and regeneration sides of the
         heat exchanger.
-    
     """
     internal_name = "HeatExchanger:Desiccant:BalancedFlow"
     field_count = 9
@@ -1942,15 +2010,16 @@ class HeatExchangerDesiccantBalancedFlow(object):
         self._data["Heat Exchanger Performance Object Type"] = None
         self._data["Heat Exchanger Performance Name"] = None
         self._data["Economizer Lockout"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -2015,6 +2084,7 @@ class HeatExchangerDesiccantBalancedFlow(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -2041,7 +2111,7 @@ class HeatExchangerDesiccantBalancedFlow(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2078,7 +2148,7 @@ class HeatExchangerDesiccantBalancedFlow(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `availability_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2113,7 +2183,7 @@ class HeatExchangerDesiccantBalancedFlow(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `regeneration_air_inlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2148,7 +2218,7 @@ class HeatExchangerDesiccantBalancedFlow(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `regeneration_air_outlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2183,7 +2253,7 @@ class HeatExchangerDesiccantBalancedFlow(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `process_air_inlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2218,7 +2288,7 @@ class HeatExchangerDesiccantBalancedFlow(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `process_air_outlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2256,7 +2326,7 @@ class HeatExchangerDesiccantBalancedFlow(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `heat_exchanger_performance_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2269,16 +2339,26 @@ class HeatExchangerDesiccantBalancedFlow(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `heat_exchanger_performance_object_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `heat_exchanger_performance_object_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Heat Exchanger Performance Object Type"] = value
 
@@ -2307,7 +2387,7 @@ class HeatExchangerDesiccantBalancedFlow(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `heat_exchanger_performance_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2348,7 +2428,7 @@ class HeatExchangerDesiccantBalancedFlow(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `economizer_lockout`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2362,16 +2442,26 @@ class HeatExchangerDesiccantBalancedFlow(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `economizer_lockout`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `economizer_lockout`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Economizer Lockout"] = value
 
@@ -2423,7 +2513,6 @@ class HeatExchangerDesiccantBalancedFlowPerformanceDataType1(object):
         PWI = Humidity ratio of the process inlet air (kgWater/kgDryAir)
         PTI = Dry-bulb temperature of the process inlet air (C)
         RFV = Regeneration Face Velocity (m/s)
-    
     """
     internal_name = "HeatExchanger:Desiccant:BalancedFlow:PerformanceDataType1"
     field_count = 52
@@ -2485,15 +2574,16 @@ class HeatExchangerDesiccantBalancedFlowPerformanceDataType1(object):
         self._data["Maximum Regeneration Inlet Air Relative Humidity for Humidity Ratio Equation"] = None
         self._data["Minimum Process Inlet Air Relative Humidity for Humidity Ratio Equation"] = None
         self._data["Maximum Process Inlet Air Relative Humidity for Humidity Ratio Equation"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -2859,6 +2949,7 @@ class HeatExchangerDesiccantBalancedFlowPerformanceDataType1(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -2885,7 +2976,7 @@ class HeatExchangerDesiccantBalancedFlowPerformanceDataType1(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2924,7 +3015,7 @@ class HeatExchangerDesiccantBalancedFlowPerformanceDataType1(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `nominal_air_flow_rate`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -2959,7 +3050,7 @@ class HeatExchangerDesiccantBalancedFlowPerformanceDataType1(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `nominal_air_face_velocity`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -2999,7 +3090,7 @@ class HeatExchangerDesiccantBalancedFlowPerformanceDataType1(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `nominal_electric_power`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -3031,7 +3122,7 @@ class HeatExchangerDesiccantBalancedFlowPerformanceDataType1(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_equation_coefficient_1`'.format(value))
         self._data["Temperature Equation Coefficient 1"] = value
 
@@ -3060,7 +3151,7 @@ class HeatExchangerDesiccantBalancedFlowPerformanceDataType1(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_equation_coefficient_2`'.format(value))
         self._data["Temperature Equation Coefficient 2"] = value
 
@@ -3089,7 +3180,7 @@ class HeatExchangerDesiccantBalancedFlowPerformanceDataType1(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_equation_coefficient_3`'.format(value))
         self._data["Temperature Equation Coefficient 3"] = value
 
@@ -3118,7 +3209,7 @@ class HeatExchangerDesiccantBalancedFlowPerformanceDataType1(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_equation_coefficient_4`'.format(value))
         self._data["Temperature Equation Coefficient 4"] = value
 
@@ -3147,7 +3238,7 @@ class HeatExchangerDesiccantBalancedFlowPerformanceDataType1(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_equation_coefficient_5`'.format(value))
         self._data["Temperature Equation Coefficient 5"] = value
 
@@ -3176,7 +3267,7 @@ class HeatExchangerDesiccantBalancedFlowPerformanceDataType1(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_equation_coefficient_6`'.format(value))
         self._data["Temperature Equation Coefficient 6"] = value
 
@@ -3205,7 +3296,7 @@ class HeatExchangerDesiccantBalancedFlowPerformanceDataType1(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_equation_coefficient_7`'.format(value))
         self._data["Temperature Equation Coefficient 7"] = value
 
@@ -3234,7 +3325,7 @@ class HeatExchangerDesiccantBalancedFlowPerformanceDataType1(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_equation_coefficient_8`'.format(value))
         self._data["Temperature Equation Coefficient 8"] = value
 
@@ -3266,7 +3357,7 @@ class HeatExchangerDesiccantBalancedFlowPerformanceDataType1(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `minimum_regeneration_inlet_air_humidity_ratio_for_temperature_equation`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -3304,7 +3395,7 @@ class HeatExchangerDesiccantBalancedFlowPerformanceDataType1(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `maximum_regeneration_inlet_air_humidity_ratio_for_temperature_equation`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -3340,7 +3431,7 @@ class HeatExchangerDesiccantBalancedFlowPerformanceDataType1(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `minimum_regeneration_inlet_air_temperature_for_temperature_equation`'.format(value))
         self._data["Minimum Regeneration Inlet Air Temperature for Temperature Equation"] = value
 
@@ -3370,7 +3461,7 @@ class HeatExchangerDesiccantBalancedFlowPerformanceDataType1(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `maximum_regeneration_inlet_air_temperature_for_temperature_equation`'.format(value))
         self._data["Maximum Regeneration Inlet Air Temperature for Temperature Equation"] = value
 
@@ -3402,7 +3493,7 @@ class HeatExchangerDesiccantBalancedFlowPerformanceDataType1(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `minimum_process_inlet_air_humidity_ratio_for_temperature_equation`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -3440,7 +3531,7 @@ class HeatExchangerDesiccantBalancedFlowPerformanceDataType1(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `maximum_process_inlet_air_humidity_ratio_for_temperature_equation`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -3476,7 +3567,7 @@ class HeatExchangerDesiccantBalancedFlowPerformanceDataType1(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `minimum_process_inlet_air_temperature_for_temperature_equation`'.format(value))
         self._data["Minimum Process Inlet Air Temperature for Temperature Equation"] = value
 
@@ -3506,7 +3597,7 @@ class HeatExchangerDesiccantBalancedFlowPerformanceDataType1(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `maximum_process_inlet_air_temperature_for_temperature_equation`'.format(value))
         self._data["Maximum Process Inlet Air Temperature for Temperature Equation"] = value
 
@@ -3537,7 +3628,7 @@ class HeatExchangerDesiccantBalancedFlowPerformanceDataType1(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `minimum_regeneration_air_velocity_for_temperature_equation`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -3571,7 +3662,7 @@ class HeatExchangerDesiccantBalancedFlowPerformanceDataType1(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `maximum_regeneration_air_velocity_for_temperature_equation`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -3604,7 +3695,7 @@ class HeatExchangerDesiccantBalancedFlowPerformanceDataType1(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `minimum_regeneration_outlet_air_temperature_for_temperature_equation`'.format(value))
         self._data["Minimum Regeneration Outlet Air Temperature for Temperature Equation"] = value
 
@@ -3634,7 +3725,7 @@ class HeatExchangerDesiccantBalancedFlowPerformanceDataType1(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `maximum_regeneration_outlet_air_temperature_for_temperature_equation`'.format(value))
         self._data["Maximum Regeneration Outlet Air Temperature for Temperature Equation"] = value
 
@@ -3666,7 +3757,7 @@ class HeatExchangerDesiccantBalancedFlowPerformanceDataType1(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `minimum_regeneration_inlet_air_relative_humidity_for_temperature_equation`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -3704,7 +3795,7 @@ class HeatExchangerDesiccantBalancedFlowPerformanceDataType1(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `maximum_regeneration_inlet_air_relative_humidity_for_temperature_equation`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -3742,7 +3833,7 @@ class HeatExchangerDesiccantBalancedFlowPerformanceDataType1(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `minimum_process_inlet_air_relative_humidity_for_temperature_equation`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -3780,7 +3871,7 @@ class HeatExchangerDesiccantBalancedFlowPerformanceDataType1(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `maximum_process_inlet_air_relative_humidity_for_temperature_equation`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -3815,7 +3906,7 @@ class HeatExchangerDesiccantBalancedFlowPerformanceDataType1(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `humidity_ratio_equation_coefficient_1`'.format(value))
         self._data["Humidity Ratio Equation Coefficient 1"] = value
 
@@ -3844,7 +3935,7 @@ class HeatExchangerDesiccantBalancedFlowPerformanceDataType1(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `humidity_ratio_equation_coefficient_2`'.format(value))
         self._data["Humidity Ratio Equation Coefficient 2"] = value
 
@@ -3873,7 +3964,7 @@ class HeatExchangerDesiccantBalancedFlowPerformanceDataType1(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `humidity_ratio_equation_coefficient_3`'.format(value))
         self._data["Humidity Ratio Equation Coefficient 3"] = value
 
@@ -3902,7 +3993,7 @@ class HeatExchangerDesiccantBalancedFlowPerformanceDataType1(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `humidity_ratio_equation_coefficient_4`'.format(value))
         self._data["Humidity Ratio Equation Coefficient 4"] = value
 
@@ -3931,7 +4022,7 @@ class HeatExchangerDesiccantBalancedFlowPerformanceDataType1(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `humidity_ratio_equation_coefficient_5`'.format(value))
         self._data["Humidity Ratio Equation Coefficient 5"] = value
 
@@ -3960,7 +4051,7 @@ class HeatExchangerDesiccantBalancedFlowPerformanceDataType1(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `humidity_ratio_equation_coefficient_6`'.format(value))
         self._data["Humidity Ratio Equation Coefficient 6"] = value
 
@@ -3989,7 +4080,7 @@ class HeatExchangerDesiccantBalancedFlowPerformanceDataType1(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `humidity_ratio_equation_coefficient_7`'.format(value))
         self._data["Humidity Ratio Equation Coefficient 7"] = value
 
@@ -4018,7 +4109,7 @@ class HeatExchangerDesiccantBalancedFlowPerformanceDataType1(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `humidity_ratio_equation_coefficient_8`'.format(value))
         self._data["Humidity Ratio Equation Coefficient 8"] = value
 
@@ -4050,7 +4141,7 @@ class HeatExchangerDesiccantBalancedFlowPerformanceDataType1(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `minimum_regeneration_inlet_air_humidity_ratio_for_humidity_ratio_equation`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -4088,7 +4179,7 @@ class HeatExchangerDesiccantBalancedFlowPerformanceDataType1(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `maximum_regeneration_inlet_air_humidity_ratio_for_humidity_ratio_equation`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -4124,7 +4215,7 @@ class HeatExchangerDesiccantBalancedFlowPerformanceDataType1(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `minimum_regeneration_inlet_air_temperature_for_humidity_ratio_equation`'.format(value))
         self._data["Minimum Regeneration Inlet Air Temperature for Humidity Ratio Equation"] = value
 
@@ -4154,7 +4245,7 @@ class HeatExchangerDesiccantBalancedFlowPerformanceDataType1(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `maximum_regeneration_inlet_air_temperature_for_humidity_ratio_equation`'.format(value))
         self._data["Maximum Regeneration Inlet Air Temperature for Humidity Ratio Equation"] = value
 
@@ -4186,7 +4277,7 @@ class HeatExchangerDesiccantBalancedFlowPerformanceDataType1(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `minimum_process_inlet_air_humidity_ratio_for_humidity_ratio_equation`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -4224,7 +4315,7 @@ class HeatExchangerDesiccantBalancedFlowPerformanceDataType1(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `maximum_process_inlet_air_humidity_ratio_for_humidity_ratio_equation`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -4260,7 +4351,7 @@ class HeatExchangerDesiccantBalancedFlowPerformanceDataType1(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `minimum_process_inlet_air_temperature_for_humidity_ratio_equation`'.format(value))
         self._data["Minimum Process Inlet Air Temperature for Humidity Ratio Equation"] = value
 
@@ -4290,7 +4381,7 @@ class HeatExchangerDesiccantBalancedFlowPerformanceDataType1(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `maximum_process_inlet_air_temperature_for_humidity_ratio_equation`'.format(value))
         self._data["Maximum Process Inlet Air Temperature for Humidity Ratio Equation"] = value
 
@@ -4321,7 +4412,7 @@ class HeatExchangerDesiccantBalancedFlowPerformanceDataType1(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `minimum_regeneration_air_velocity_for_humidity_ratio_equation`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -4355,7 +4446,7 @@ class HeatExchangerDesiccantBalancedFlowPerformanceDataType1(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `maximum_regeneration_air_velocity_for_humidity_ratio_equation`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -4390,7 +4481,7 @@ class HeatExchangerDesiccantBalancedFlowPerformanceDataType1(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `minimum_regeneration_outlet_air_humidity_ratio_for_humidity_ratio_equation`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -4428,7 +4519,7 @@ class HeatExchangerDesiccantBalancedFlowPerformanceDataType1(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `maximum_regeneration_outlet_air_humidity_ratio_for_humidity_ratio_equation`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -4466,7 +4557,7 @@ class HeatExchangerDesiccantBalancedFlowPerformanceDataType1(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `minimum_regeneration_inlet_air_relative_humidity_for_humidity_ratio_equation`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -4504,7 +4595,7 @@ class HeatExchangerDesiccantBalancedFlowPerformanceDataType1(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `maximum_regeneration_inlet_air_relative_humidity_for_humidity_ratio_equation`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -4542,7 +4633,7 @@ class HeatExchangerDesiccantBalancedFlowPerformanceDataType1(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `minimum_process_inlet_air_relative_humidity_for_humidity_ratio_equation`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -4580,7 +4671,7 @@ class HeatExchangerDesiccantBalancedFlowPerformanceDataType1(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `maximum_process_inlet_air_relative_humidity_for_humidity_ratio_equation`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '

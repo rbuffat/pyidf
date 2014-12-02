@@ -1,10 +1,11 @@
 from collections import OrderedDict
+import logging
+import re
 
 class DemandManagerAssignmentList(object):
     """ Corresponds to IDD object `DemandManagerAssignmentList`
         a list of meters that can be reported are available after a run on
         the meter dictionary file (.mdd) if the Output:VariableDictionary has been requested.
-    
     """
     internal_name = "DemandManagerAssignmentList"
     field_count = 28
@@ -42,15 +43,16 @@ class DemandManagerAssignmentList(object):
         self._data["DemandManager 9 Name"] = None
         self._data["DemandManager 10 Object Type"] = None
         self._data["DemandManager 10 Name"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -248,6 +250,7 @@ class DemandManagerAssignmentList(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -274,7 +277,7 @@ class DemandManagerAssignmentList(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -309,7 +312,7 @@ class DemandManagerAssignmentList(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `meter_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -344,7 +347,7 @@ class DemandManagerAssignmentList(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `demand_limit_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -380,7 +383,7 @@ class DemandManagerAssignmentList(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `demand_limit_safety_fraction`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -415,7 +418,7 @@ class DemandManagerAssignmentList(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `billing_period_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -453,7 +456,7 @@ class DemandManagerAssignmentList(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `peak_period_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -490,8 +493,15 @@ class DemandManagerAssignmentList(object):
             try:
                 value = int(value)
             except ValueError:
-                raise ValueError('value {} need to be of type int '
-                                 'for field `demand_window_length`'.format(value))
+                if not self.strict:
+                    try:
+                        conv_value = int(float(value))
+                        logging.warn('Cast float {} to int {}, precision may be lost '
+                                     'for field `demand_window_length`'.format(value, conv_value))
+                        value = conv_value
+                    except ValueError:
+                        raise ValueError('value {} need to be of type int '
+                                         'for field `demand_window_length`'.format(value))
             if value <= 0:
                 raise ValueError('value need to be greater 0 '
                                  'for field `demand_window_length`')
@@ -525,7 +535,7 @@ class DemandManagerAssignmentList(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `demand_manager_priority`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -539,16 +549,26 @@ class DemandManagerAssignmentList(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `demand_manager_priority`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `demand_manager_priority`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Demand Manager Priority"] = value
 
@@ -582,7 +602,7 @@ class DemandManagerAssignmentList(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `demandmanager_1_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -598,16 +618,26 @@ class DemandManagerAssignmentList(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `demandmanager_1_object_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `demandmanager_1_object_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["DemandManager 1 Object Type"] = value
 
@@ -636,7 +666,7 @@ class DemandManagerAssignmentList(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `demandmanager_1_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -676,7 +706,7 @@ class DemandManagerAssignmentList(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `demandmanager_2_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -692,16 +722,26 @@ class DemandManagerAssignmentList(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `demandmanager_2_object_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `demandmanager_2_object_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["DemandManager 2 Object Type"] = value
 
@@ -730,7 +770,7 @@ class DemandManagerAssignmentList(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `demandmanager_2_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -770,7 +810,7 @@ class DemandManagerAssignmentList(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `demandmanager_3_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -786,16 +826,26 @@ class DemandManagerAssignmentList(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `demandmanager_3_object_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `demandmanager_3_object_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["DemandManager 3 Object Type"] = value
 
@@ -824,7 +874,7 @@ class DemandManagerAssignmentList(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `demandmanager_3_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -864,7 +914,7 @@ class DemandManagerAssignmentList(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `demandmanager_4_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -880,16 +930,26 @@ class DemandManagerAssignmentList(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `demandmanager_4_object_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `demandmanager_4_object_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["DemandManager 4 Object Type"] = value
 
@@ -918,7 +978,7 @@ class DemandManagerAssignmentList(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `demandmanager_4_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -958,7 +1018,7 @@ class DemandManagerAssignmentList(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `demandmanager_5_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -974,16 +1034,26 @@ class DemandManagerAssignmentList(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `demandmanager_5_object_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `demandmanager_5_object_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["DemandManager 5 Object Type"] = value
 
@@ -1012,7 +1082,7 @@ class DemandManagerAssignmentList(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `demandmanager_5_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1052,7 +1122,7 @@ class DemandManagerAssignmentList(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `demandmanager_6_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1068,16 +1138,26 @@ class DemandManagerAssignmentList(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `demandmanager_6_object_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `demandmanager_6_object_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["DemandManager 6 Object Type"] = value
 
@@ -1106,7 +1186,7 @@ class DemandManagerAssignmentList(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `demandmanager_6_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1146,7 +1226,7 @@ class DemandManagerAssignmentList(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `demandmanager_7_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1162,16 +1242,26 @@ class DemandManagerAssignmentList(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `demandmanager_7_object_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `demandmanager_7_object_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["DemandManager 7 Object Type"] = value
 
@@ -1200,7 +1290,7 @@ class DemandManagerAssignmentList(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `demandmanager_7_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1240,7 +1330,7 @@ class DemandManagerAssignmentList(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `demandmanager_8_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1256,16 +1346,26 @@ class DemandManagerAssignmentList(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `demandmanager_8_object_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `demandmanager_8_object_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["DemandManager 8 Object Type"] = value
 
@@ -1294,7 +1394,7 @@ class DemandManagerAssignmentList(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `demandmanager_8_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1334,7 +1434,7 @@ class DemandManagerAssignmentList(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `demandmanager_9_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1350,16 +1450,26 @@ class DemandManagerAssignmentList(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `demandmanager_9_object_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `demandmanager_9_object_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["DemandManager 9 Object Type"] = value
 
@@ -1388,7 +1498,7 @@ class DemandManagerAssignmentList(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `demandmanager_9_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1428,7 +1538,7 @@ class DemandManagerAssignmentList(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `demandmanager_10_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1444,16 +1554,26 @@ class DemandManagerAssignmentList(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `demandmanager_10_object_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `demandmanager_10_object_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["DemandManager 10 Object Type"] = value
 
@@ -1482,7 +1602,7 @@ class DemandManagerAssignmentList(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `demandmanager_10_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1529,7 +1649,6 @@ class DemandManagerAssignmentList(object):
 class DemandManagerExteriorLights(object):
     """ Corresponds to IDD object `DemandManager:ExteriorLights`
         used for demand limiting Exterior:Lights objects.
-    
     """
     internal_name = "DemandManager:ExteriorLights"
     field_count = 18
@@ -1557,15 +1676,16 @@ class DemandManagerExteriorLights(object):
         self._data["Exterior Lights 8 Name"] = None
         self._data["Exterior Lights 9 Name"] = None
         self._data["Exterior Lights 10 Name"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -1693,6 +1813,7 @@ class DemandManagerExteriorLights(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -1719,7 +1840,7 @@ class DemandManagerExteriorLights(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1756,7 +1877,7 @@ class DemandManagerExteriorLights(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `availability_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1794,7 +1915,7 @@ class DemandManagerExteriorLights(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `limit_control`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1808,16 +1929,26 @@ class DemandManagerExteriorLights(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `limit_control`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `limit_control`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Limit Control"] = value
 
@@ -1849,8 +1980,15 @@ class DemandManagerExteriorLights(object):
             try:
                 value = int(value)
             except ValueError:
-                raise ValueError('value {} need to be of type int '
-                                 'for field `minimum_limit_duration`'.format(value))
+                if not self.strict:
+                    try:
+                        conv_value = int(float(value))
+                        logging.warn('Cast float {} to int {}, precision may be lost '
+                                     'for field `minimum_limit_duration`'.format(value, conv_value))
+                        value = conv_value
+                    except ValueError:
+                        raise ValueError('value {} need to be of type int '
+                                         'for field `minimum_limit_duration`'.format(value))
             if value <= 0:
                 raise ValueError('value need to be greater 0 '
                                  'for field `minimum_limit_duration`')
@@ -1883,7 +2021,7 @@ class DemandManagerExteriorLights(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `maximum_limit_fraction`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -1919,7 +2057,7 @@ class DemandManagerExteriorLights(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `limit_step_change`'.format(value))
         self._data["Limit Step Change"] = value
 
@@ -1952,7 +2090,7 @@ class DemandManagerExteriorLights(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `selection_control`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1967,16 +2105,26 @@ class DemandManagerExteriorLights(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `selection_control`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `selection_control`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Selection Control"] = value
 
@@ -2008,8 +2156,15 @@ class DemandManagerExteriorLights(object):
             try:
                 value = int(value)
             except ValueError:
-                raise ValueError('value {} need to be of type int '
-                                 'for field `rotation_duration`'.format(value))
+                if not self.strict:
+                    try:
+                        conv_value = int(float(value))
+                        logging.warn('Cast float {} to int {}, precision may be lost '
+                                     'for field `rotation_duration`'.format(value, conv_value))
+                        value = conv_value
+                    except ValueError:
+                        raise ValueError('value {} need to be of type int '
+                                         'for field `rotation_duration`'.format(value))
             if value < 0:
                 raise ValueError('value need to be greater or equal 0 '
                                  'for field `rotation_duration`')
@@ -2041,7 +2196,7 @@ class DemandManagerExteriorLights(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `exterior_lights_1_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2077,7 +2232,7 @@ class DemandManagerExteriorLights(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `exterior_lights_2_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2113,7 +2268,7 @@ class DemandManagerExteriorLights(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `exterior_lights_3_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2149,7 +2304,7 @@ class DemandManagerExteriorLights(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `exterior_lights_4_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2185,7 +2340,7 @@ class DemandManagerExteriorLights(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `exterior_lights_5_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2221,7 +2376,7 @@ class DemandManagerExteriorLights(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `exterior_lights_6_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2257,7 +2412,7 @@ class DemandManagerExteriorLights(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `exterior_lights_7_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2293,7 +2448,7 @@ class DemandManagerExteriorLights(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `exterior_lights_8_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2329,7 +2484,7 @@ class DemandManagerExteriorLights(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `exterior_lights_9_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2365,7 +2520,7 @@ class DemandManagerExteriorLights(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `exterior_lights_10_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2412,7 +2567,6 @@ class DemandManagerExteriorLights(object):
 class DemandManagerLights(object):
     """ Corresponds to IDD object `DemandManager:Lights`
         used for demand limiting Lights objects.
-    
     """
     internal_name = "DemandManager:Lights"
     field_count = 18
@@ -2440,15 +2594,16 @@ class DemandManagerLights(object):
         self._data["Lights 8 Name"] = None
         self._data["Lights 9 Name"] = None
         self._data["Lights 10 Name"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -2576,6 +2731,7 @@ class DemandManagerLights(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -2602,7 +2758,7 @@ class DemandManagerLights(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2639,7 +2795,7 @@ class DemandManagerLights(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `availability_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2677,7 +2833,7 @@ class DemandManagerLights(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `limit_control`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2691,16 +2847,26 @@ class DemandManagerLights(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `limit_control`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `limit_control`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Limit Control"] = value
 
@@ -2732,8 +2898,15 @@ class DemandManagerLights(object):
             try:
                 value = int(value)
             except ValueError:
-                raise ValueError('value {} need to be of type int '
-                                 'for field `minimum_limit_duration`'.format(value))
+                if not self.strict:
+                    try:
+                        conv_value = int(float(value))
+                        logging.warn('Cast float {} to int {}, precision may be lost '
+                                     'for field `minimum_limit_duration`'.format(value, conv_value))
+                        value = conv_value
+                    except ValueError:
+                        raise ValueError('value {} need to be of type int '
+                                         'for field `minimum_limit_duration`'.format(value))
             if value <= 0:
                 raise ValueError('value need to be greater 0 '
                                  'for field `minimum_limit_duration`')
@@ -2766,7 +2939,7 @@ class DemandManagerLights(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `maximum_limit_fraction`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -2802,7 +2975,7 @@ class DemandManagerLights(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `limit_step_change`'.format(value))
         self._data["Limit Step Change"] = value
 
@@ -2835,7 +3008,7 @@ class DemandManagerLights(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `selection_control`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2850,16 +3023,26 @@ class DemandManagerLights(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `selection_control`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `selection_control`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Selection Control"] = value
 
@@ -2891,8 +3074,15 @@ class DemandManagerLights(object):
             try:
                 value = int(value)
             except ValueError:
-                raise ValueError('value {} need to be of type int '
-                                 'for field `rotation_duration`'.format(value))
+                if not self.strict:
+                    try:
+                        conv_value = int(float(value))
+                        logging.warn('Cast float {} to int {}, precision may be lost '
+                                     'for field `rotation_duration`'.format(value, conv_value))
+                        value = conv_value
+                    except ValueError:
+                        raise ValueError('value {} need to be of type int '
+                                         'for field `rotation_duration`'.format(value))
             if value < 0:
                 raise ValueError('value need to be greater or equal 0 '
                                  'for field `rotation_duration`')
@@ -2927,7 +3117,7 @@ class DemandManagerLights(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `lights_1_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2966,7 +3156,7 @@ class DemandManagerLights(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `lights_2_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3005,7 +3195,7 @@ class DemandManagerLights(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `lights_3_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3044,7 +3234,7 @@ class DemandManagerLights(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `lights_4_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3083,7 +3273,7 @@ class DemandManagerLights(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `lights_5_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3122,7 +3312,7 @@ class DemandManagerLights(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `lights_6_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3161,7 +3351,7 @@ class DemandManagerLights(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `lights_7_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3200,7 +3390,7 @@ class DemandManagerLights(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `lights_8_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3239,7 +3429,7 @@ class DemandManagerLights(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `lights_9_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3278,7 +3468,7 @@ class DemandManagerLights(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `lights_10_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3325,7 +3515,6 @@ class DemandManagerLights(object):
 class DemandManagerElectricEquipment(object):
     """ Corresponds to IDD object `DemandManager:ElectricEquipment`
         used for demand limiting ElectricEquipment objects.
-    
     """
     internal_name = "DemandManager:ElectricEquipment"
     field_count = 18
@@ -3353,15 +3542,16 @@ class DemandManagerElectricEquipment(object):
         self._data["Electric Equipment 8 Name"] = None
         self._data["Electric Equipment 9 Name"] = None
         self._data["Electric Equipment 10 Name"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -3489,6 +3679,7 @@ class DemandManagerElectricEquipment(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -3515,7 +3706,7 @@ class DemandManagerElectricEquipment(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3552,7 +3743,7 @@ class DemandManagerElectricEquipment(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `availability_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3590,7 +3781,7 @@ class DemandManagerElectricEquipment(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `limit_control`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3604,16 +3795,26 @@ class DemandManagerElectricEquipment(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `limit_control`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `limit_control`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Limit Control"] = value
 
@@ -3645,8 +3846,15 @@ class DemandManagerElectricEquipment(object):
             try:
                 value = int(value)
             except ValueError:
-                raise ValueError('value {} need to be of type int '
-                                 'for field `minimum_limit_duration`'.format(value))
+                if not self.strict:
+                    try:
+                        conv_value = int(float(value))
+                        logging.warn('Cast float {} to int {}, precision may be lost '
+                                     'for field `minimum_limit_duration`'.format(value, conv_value))
+                        value = conv_value
+                    except ValueError:
+                        raise ValueError('value {} need to be of type int '
+                                         'for field `minimum_limit_duration`'.format(value))
             if value <= 0:
                 raise ValueError('value need to be greater 0 '
                                  'for field `minimum_limit_duration`')
@@ -3679,7 +3887,7 @@ class DemandManagerElectricEquipment(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `maximum_limit_fraction`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -3715,7 +3923,7 @@ class DemandManagerElectricEquipment(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `limit_step_change`'.format(value))
         self._data["Limit Step Change"] = value
 
@@ -3748,7 +3956,7 @@ class DemandManagerElectricEquipment(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `selection_control`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3763,16 +3971,26 @@ class DemandManagerElectricEquipment(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `selection_control`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `selection_control`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Selection Control"] = value
 
@@ -3804,8 +4022,15 @@ class DemandManagerElectricEquipment(object):
             try:
                 value = int(value)
             except ValueError:
-                raise ValueError('value {} need to be of type int '
-                                 'for field `rotation_duration`'.format(value))
+                if not self.strict:
+                    try:
+                        conv_value = int(float(value))
+                        logging.warn('Cast float {} to int {}, precision may be lost '
+                                     'for field `rotation_duration`'.format(value, conv_value))
+                        value = conv_value
+                    except ValueError:
+                        raise ValueError('value {} need to be of type int '
+                                         'for field `rotation_duration`'.format(value))
             if value < 0:
                 raise ValueError('value need to be greater or equal 0 '
                                  'for field `rotation_duration`')
@@ -3840,7 +4065,7 @@ class DemandManagerElectricEquipment(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `electric_equipment_1_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3879,7 +4104,7 @@ class DemandManagerElectricEquipment(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `electric_equipment_2_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3918,7 +4143,7 @@ class DemandManagerElectricEquipment(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `electric_equipment_3_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3957,7 +4182,7 @@ class DemandManagerElectricEquipment(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `electric_equipment_4_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3996,7 +4221,7 @@ class DemandManagerElectricEquipment(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `electric_equipment_5_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4035,7 +4260,7 @@ class DemandManagerElectricEquipment(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `electric_equipment_6_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4074,7 +4299,7 @@ class DemandManagerElectricEquipment(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `electric_equipment_7_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4113,7 +4338,7 @@ class DemandManagerElectricEquipment(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `electric_equipment_8_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4152,7 +4377,7 @@ class DemandManagerElectricEquipment(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `electric_equipment_9_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4191,7 +4416,7 @@ class DemandManagerElectricEquipment(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `electric_equipment_10_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4238,7 +4463,6 @@ class DemandManagerElectricEquipment(object):
 class DemandManagerThermostats(object):
     """ Corresponds to IDD object `DemandManager:Thermostats`
         used for demand limiting ZoneControl:Thermostat objects.
-    
     """
     internal_name = "DemandManager:Thermostats"
     field_count = 19
@@ -4267,15 +4491,16 @@ class DemandManagerThermostats(object):
         self._data["Thermostat 8 Name"] = None
         self._data["Thermostat 9 Name"] = None
         self._data["Thermostat 10 Name"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -4410,6 +4635,7 @@ class DemandManagerThermostats(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -4436,7 +4662,7 @@ class DemandManagerThermostats(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4473,7 +4699,7 @@ class DemandManagerThermostats(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `availability_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4511,7 +4737,7 @@ class DemandManagerThermostats(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `reset_control`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4525,16 +4751,26 @@ class DemandManagerThermostats(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `reset_control`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `reset_control`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Reset Control"] = value
 
@@ -4566,8 +4802,15 @@ class DemandManagerThermostats(object):
             try:
                 value = int(value)
             except ValueError:
-                raise ValueError('value {} need to be of type int '
-                                 'for field `minimum_reset_duration`'.format(value))
+                if not self.strict:
+                    try:
+                        conv_value = int(float(value))
+                        logging.warn('Cast float {} to int {}, precision may be lost '
+                                     'for field `minimum_reset_duration`'.format(value, conv_value))
+                        value = conv_value
+                    except ValueError:
+                        raise ValueError('value {} need to be of type int '
+                                         'for field `minimum_reset_duration`'.format(value))
             if value <= 0:
                 raise ValueError('value need to be greater 0 '
                                  'for field `minimum_reset_duration`')
@@ -4599,7 +4842,7 @@ class DemandManagerThermostats(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `maximum_heating_setpoint_reset`'.format(value))
         self._data["Maximum Heating Setpoint Reset"] = value
 
@@ -4629,7 +4872,7 @@ class DemandManagerThermostats(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `maximum_cooling_setpoint_reset`'.format(value))
         self._data["Maximum Cooling Setpoint Reset"] = value
 
@@ -4659,7 +4902,7 @@ class DemandManagerThermostats(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `reset_step_change`'.format(value))
         self._data["Reset Step Change"] = value
 
@@ -4692,7 +4935,7 @@ class DemandManagerThermostats(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `selection_control`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4707,16 +4950,26 @@ class DemandManagerThermostats(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `selection_control`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `selection_control`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Selection Control"] = value
 
@@ -4748,8 +5001,15 @@ class DemandManagerThermostats(object):
             try:
                 value = int(value)
             except ValueError:
-                raise ValueError('value {} need to be of type int '
-                                 'for field `rotation_duration`'.format(value))
+                if not self.strict:
+                    try:
+                        conv_value = int(float(value))
+                        logging.warn('Cast float {} to int {}, precision may be lost '
+                                     'for field `rotation_duration`'.format(value, conv_value))
+                        value = conv_value
+                    except ValueError:
+                        raise ValueError('value {} need to be of type int '
+                                         'for field `rotation_duration`'.format(value))
             if value < 0:
                 raise ValueError('value need to be greater or equal 0 '
                                  'for field `rotation_duration`')
@@ -4784,7 +5044,7 @@ class DemandManagerThermostats(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `thermostat_1_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4823,7 +5083,7 @@ class DemandManagerThermostats(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `thermostat_2_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4862,7 +5122,7 @@ class DemandManagerThermostats(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `thermostat_3_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4901,7 +5161,7 @@ class DemandManagerThermostats(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `thermostat_4_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4940,7 +5200,7 @@ class DemandManagerThermostats(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `thermostat_5_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4979,7 +5239,7 @@ class DemandManagerThermostats(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `thermostat_6_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -5018,7 +5278,7 @@ class DemandManagerThermostats(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `thermostat_7_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -5057,7 +5317,7 @@ class DemandManagerThermostats(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `thermostat_8_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -5096,7 +5356,7 @@ class DemandManagerThermostats(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `thermostat_9_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -5135,7 +5395,7 @@ class DemandManagerThermostats(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `thermostat_10_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '

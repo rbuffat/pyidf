@@ -1,4 +1,6 @@
 from collections import OrderedDict
+import logging
+import re
 
 class SolarCollectorPerformanceFlatPlate(object):
     """ Corresponds to IDD object `SolarCollectorPerformance:FlatPlate`
@@ -7,7 +9,6 @@ class SolarCollectorPerformanceFlatPlate(object):
         Standards 93 and 96 which are used Solar Rating and Certification Corporation (SRCC)
         Directory of SRCC Certified Solar Collector Ratings. See EnergyPlus DataSets file
         SolarCollectors.idf.
-    
     """
     internal_name = "SolarCollectorPerformance:FlatPlate"
     field_count = 10
@@ -27,15 +28,16 @@ class SolarCollectorPerformanceFlatPlate(object):
         self._data["Coefficient 3 of Efficiency Equation"] = None
         self._data["Coefficient 2 of Incident Angle Modifier"] = None
         self._data["Coefficient 3 of Incident Angle Modifier"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -107,6 +109,7 @@ class SolarCollectorPerformanceFlatPlate(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -133,7 +136,7 @@ class SolarCollectorPerformanceFlatPlate(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -170,7 +173,7 @@ class SolarCollectorPerformanceFlatPlate(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `gross_area`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -205,7 +208,7 @@ class SolarCollectorPerformanceFlatPlate(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `test_fluid`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -218,16 +221,26 @@ class SolarCollectorPerformanceFlatPlate(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `test_fluid`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `test_fluid`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Test Fluid"] = value
 
@@ -258,7 +271,7 @@ class SolarCollectorPerformanceFlatPlate(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `test_flow_rate`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -294,7 +307,7 @@ class SolarCollectorPerformanceFlatPlate(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `test_correlation_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -309,16 +322,26 @@ class SolarCollectorPerformanceFlatPlate(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `test_correlation_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `test_correlation_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Test Correlation Type"] = value
 
@@ -349,7 +372,7 @@ class SolarCollectorPerformanceFlatPlate(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `coefficient_1_of_efficiency_equation`'.format(value))
         self._data["Coefficient 1 of Efficiency Equation"] = value
 
@@ -380,7 +403,7 @@ class SolarCollectorPerformanceFlatPlate(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `coefficient_2_of_efficiency_equation`'.format(value))
         self._data["Coefficient 2 of Efficiency Equation"] = value
 
@@ -411,7 +434,7 @@ class SolarCollectorPerformanceFlatPlate(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `coefficient_3_of_efficiency_equation`'.format(value))
         self._data["Coefficient 3 of Efficiency Equation"] = value
 
@@ -441,7 +464,7 @@ class SolarCollectorPerformanceFlatPlate(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `coefficient_2_of_incident_angle_modifier`'.format(value))
         self._data["Coefficient 2 of Incident Angle Modifier"] = value
 
@@ -471,7 +494,7 @@ class SolarCollectorPerformanceFlatPlate(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `coefficient_3_of_incident_angle_modifier`'.format(value))
         self._data["Coefficient 3 of Incident Angle Modifier"] = value
 
@@ -516,7 +539,6 @@ class SolarCollectorFlatPlateWater(object):
         SolarCollectorPerformance:FlatPlate object. Collector tilt, azimuth, and gross area
         are taken from the referenced building surface or shading surface. The collector
         surface participates normally in all shading calculations.
-    
     """
     internal_name = "SolarCollector:FlatPlate:Water"
     field_count = 6
@@ -532,15 +554,16 @@ class SolarCollectorFlatPlateWater(object):
         self._data["Inlet Node Name"] = None
         self._data["Outlet Node Name"] = None
         self._data["Maximum Flow Rate"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -584,6 +607,7 @@ class SolarCollectorFlatPlateWater(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -610,7 +634,7 @@ class SolarCollectorFlatPlateWater(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -645,7 +669,7 @@ class SolarCollectorFlatPlateWater(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `solarcollectorperformance_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -680,7 +704,7 @@ class SolarCollectorFlatPlateWater(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -715,7 +739,7 @@ class SolarCollectorFlatPlateWater(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `inlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -750,7 +774,7 @@ class SolarCollectorFlatPlateWater(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `outlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -787,7 +811,7 @@ class SolarCollectorFlatPlateWater(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `maximum_flow_rate`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -832,7 +856,6 @@ class SolarCollectorFlatPlatePhotovoltaicThermal(object):
     """ Corresponds to IDD object `SolarCollector:FlatPlate:PhotovoltaicThermal`
         Models hybrid photovoltaic-thermal (PVT) solar collectors that convert incident solar
         energy into both electricity and useful thermal energy by heating air or water.
-    
     """
     internal_name = "SolarCollector:FlatPlate:PhotovoltaicThermal"
     field_count = 10
@@ -852,15 +875,16 @@ class SolarCollectorFlatPlatePhotovoltaicThermal(object):
         self._data["Air Inlet Node Name"] = None
         self._data["Air Outlet Node Name"] = None
         self._data["Design Flow Rate"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -932,6 +956,7 @@ class SolarCollectorFlatPlatePhotovoltaicThermal(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -958,7 +983,7 @@ class SolarCollectorFlatPlatePhotovoltaicThermal(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -993,7 +1018,7 @@ class SolarCollectorFlatPlatePhotovoltaicThermal(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1028,7 +1053,7 @@ class SolarCollectorFlatPlatePhotovoltaicThermal(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `photovoltaicthermal_model_performance_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1064,7 +1089,7 @@ class SolarCollectorFlatPlatePhotovoltaicThermal(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `photovoltaic_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1102,7 +1127,7 @@ class SolarCollectorFlatPlatePhotovoltaicThermal(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `thermal_working_fluid_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1116,16 +1141,26 @@ class SolarCollectorFlatPlatePhotovoltaicThermal(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `thermal_working_fluid_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `thermal_working_fluid_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Thermal Working Fluid Type"] = value
 
@@ -1154,7 +1189,7 @@ class SolarCollectorFlatPlatePhotovoltaicThermal(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `water_inlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1189,7 +1224,7 @@ class SolarCollectorFlatPlatePhotovoltaicThermal(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `water_outlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1224,7 +1259,7 @@ class SolarCollectorFlatPlatePhotovoltaicThermal(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `air_inlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1259,7 +1294,7 @@ class SolarCollectorFlatPlatePhotovoltaicThermal(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `air_outlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1297,12 +1332,17 @@ class SolarCollectorFlatPlatePhotovoltaicThermal(object):
                 if value_lower == "autosize":
                     self._data["Design Flow Rate"] = "Autosize"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autosize" '
+                                 'for field `design_flow_rate`'.format(value))
+                    self._data["Design Flow Rate"] = "Autosize"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autosize"'
                                  'for field `design_flow_rate`'.format(value))
         self._data["Design Flow Rate"] = value
 
@@ -1343,7 +1383,6 @@ class SolarCollectorFlatPlatePhotovoltaicThermal(object):
 class SolarCollectorPerformancePhotovoltaicThermalSimple(object):
     """ Corresponds to IDD object `SolarCollectorPerformance:PhotovoltaicThermal:Simple`
         Thermal performance parameters for a hybrid photovoltaic-thermal (PVT) solar collector.
-    
     """
     internal_name = "SolarCollectorPerformance:PhotovoltaicThermal:Simple"
     field_count = 6
@@ -1359,15 +1398,16 @@ class SolarCollectorPerformancePhotovoltaicThermalSimple(object):
         self._data["Value for Thermal Conversion Efficiency if Fixed"] = None
         self._data["Thermal Conversion Efficiency Schedule Name"] = None
         self._data["Front Surface Emittance"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -1411,6 +1451,7 @@ class SolarCollectorPerformancePhotovoltaicThermalSimple(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -1437,7 +1478,7 @@ class SolarCollectorPerformancePhotovoltaicThermalSimple(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1475,7 +1516,7 @@ class SolarCollectorPerformancePhotovoltaicThermalSimple(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_surface_area_with_active_thermal_collector`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -1513,7 +1554,7 @@ class SolarCollectorPerformancePhotovoltaicThermalSimple(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `thermal_conversion_efficiency_input_mode_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1527,16 +1568,26 @@ class SolarCollectorPerformancePhotovoltaicThermalSimple(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `thermal_conversion_efficiency_input_mode_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `thermal_conversion_efficiency_input_mode_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Thermal Conversion Efficiency Input Mode Type"] = value
 
@@ -1568,7 +1619,7 @@ class SolarCollectorPerformancePhotovoltaicThermalSimple(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `value_for_thermal_conversion_efficiency_if_fixed`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -1603,7 +1654,7 @@ class SolarCollectorPerformancePhotovoltaicThermalSimple(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `thermal_conversion_efficiency_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1641,7 +1692,7 @@ class SolarCollectorPerformancePhotovoltaicThermalSimple(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `front_surface_emittance`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -1692,7 +1743,6 @@ class SolarCollectorIntegralCollectorStorage(object):
         Collector tilt, azimuth, and gross area are taken from the referenced building surface
         or shading surface. The collector surface participates normally in all shading
         calculations.
-    
     """
     internal_name = "SolarCollector:IntegralCollectorStorage"
     field_count = 8
@@ -1710,15 +1760,16 @@ class SolarCollectorIntegralCollectorStorage(object):
         self._data["Inlet Node Name"] = None
         self._data["Outlet Node Name"] = None
         self._data["Maximum Flow Rate"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -1776,6 +1827,7 @@ class SolarCollectorIntegralCollectorStorage(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -1802,7 +1854,7 @@ class SolarCollectorIntegralCollectorStorage(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1837,7 +1889,7 @@ class SolarCollectorIntegralCollectorStorage(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `integralcollectorstorageparameters_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1872,7 +1924,7 @@ class SolarCollectorIntegralCollectorStorage(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1892,12 +1944,15 @@ class SolarCollectorIntegralCollectorStorage(object):
         return self._data["Bottom Surface Boundary Conditions Type"]
 
     @bottom_surface_boundary_conditions_type.setter
-    def bottom_surface_boundary_conditions_type(self, value=None):
+    def bottom_surface_boundary_conditions_type(self, value="AmbientAir"):
         """  Corresponds to IDD Field `Bottom Surface Boundary Conditions Type`
 
         Args:
             value (str): value for IDD Field `Bottom Surface Boundary Conditions Type`
                 Accepted values are:
+                      - OtherSideConditionsModel
+                      - AmbientAir
+                Default value: AmbientAir
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -1908,7 +1963,7 @@ class SolarCollectorIntegralCollectorStorage(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `bottom_surface_boundary_conditions_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1917,19 +1972,31 @@ class SolarCollectorIntegralCollectorStorage(object):
                 raise ValueError('value should not contain a ! '
                                  'for field `bottom_surface_boundary_conditions_type`')
             vals = {}
+            vals["othersideconditionsmodel"] = "OtherSideConditionsModel"
+            vals["ambientair"] = "AmbientAir"
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `bottom_surface_boundary_conditions_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `bottom_surface_boundary_conditions_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Bottom Surface Boundary Conditions Type"] = value
 
@@ -1961,7 +2028,7 @@ class SolarCollectorIntegralCollectorStorage(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `boundary_condition_model_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1996,7 +2063,7 @@ class SolarCollectorIntegralCollectorStorage(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `inlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2031,7 +2098,7 @@ class SolarCollectorIntegralCollectorStorage(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `outlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2068,7 +2135,7 @@ class SolarCollectorIntegralCollectorStorage(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `maximum_flow_rate`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -2113,7 +2180,6 @@ class SolarCollectorPerformanceIntegralCollectorStorage(object):
     """ Corresponds to IDD object `SolarCollectorPerformance:IntegralCollectorStorage`
         Thermal and optical performance parameters for a single glazed solar collector with
         integral storage unit.
-    
     """
     internal_name = "SolarCollectorPerformance:IntegralCollectorStorage"
     field_count = 19
@@ -2142,15 +2208,16 @@ class SolarCollectorPerformanceIntegralCollectorStorage(object):
         self._data["Emmissivity of Inner Cover"] = None
         self._data["Absorptance of Absorber Plate"] = None
         self._data["Emissivity of Absorber Plate"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -2285,6 +2352,7 @@ class SolarCollectorPerformanceIntegralCollectorStorage(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -2311,7 +2379,7 @@ class SolarCollectorPerformanceIntegralCollectorStorage(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2338,6 +2406,7 @@ class SolarCollectorPerformanceIntegralCollectorStorage(object):
         Args:
             value (str): value for IDD Field `ICS Collector Type`
                 Accepted values are:
+                      - RectangularTank
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -2348,7 +2417,7 @@ class SolarCollectorPerformanceIntegralCollectorStorage(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `ics_collector_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2357,19 +2426,30 @@ class SolarCollectorPerformanceIntegralCollectorStorage(object):
                 raise ValueError('value should not contain a ! '
                                  'for field `ics_collector_type`')
             vals = {}
+            vals["rectangulartank"] = "RectangularTank"
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `ics_collector_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `ics_collector_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["ICS Collector Type"] = value
 
@@ -2400,7 +2480,7 @@ class SolarCollectorPerformanceIntegralCollectorStorage(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `gross_area`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -2434,7 +2514,7 @@ class SolarCollectorPerformanceIntegralCollectorStorage(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `collector_water_volume`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -2470,7 +2550,7 @@ class SolarCollectorPerformanceIntegralCollectorStorage(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `bottom_heat_loss_conductance`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -2506,7 +2586,7 @@ class SolarCollectorPerformanceIntegralCollectorStorage(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `side_heat_loss_conductance`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -2545,7 +2625,7 @@ class SolarCollectorPerformanceIntegralCollectorStorage(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `aspect_ratio`'.format(value))
             if value <= 0.5:
                 raise ValueError('value need to be greater 0.5 '
@@ -2586,7 +2666,7 @@ class SolarCollectorPerformanceIntegralCollectorStorage(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `collector_side_height`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -2626,7 +2706,7 @@ class SolarCollectorPerformanceIntegralCollectorStorage(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `thermal_mass_of_absorber_plate`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -2664,8 +2744,15 @@ class SolarCollectorPerformanceIntegralCollectorStorage(object):
             try:
                 value = int(value)
             except ValueError:
-                raise ValueError('value {} need to be of type int '
-                                 'for field `number_of_covers`'.format(value))
+                if not self.strict:
+                    try:
+                        conv_value = int(float(value))
+                        logging.warn('Cast float {} to int {}, precision may be lost '
+                                     'for field `number_of_covers`'.format(value, conv_value))
+                        value = conv_value
+                    except ValueError:
+                        raise ValueError('value {} need to be of type int '
+                                         'for field `number_of_covers`'.format(value))
             if value < 1:
                 raise ValueError('value need to be greater or equal 1 '
                                  'for field `number_of_covers`')
@@ -2705,7 +2792,7 @@ class SolarCollectorPerformanceIntegralCollectorStorage(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `cover_spacing`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -2747,7 +2834,7 @@ class SolarCollectorPerformanceIntegralCollectorStorage(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `refractive_index_of_outer_cover`'.format(value))
             if value < 1.0:
                 raise ValueError('value need to be greater or equal 1.0 '
@@ -2788,7 +2875,7 @@ class SolarCollectorPerformanceIntegralCollectorStorage(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `extinction_coefficient_times_thickness_of_outer_cover`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -2826,7 +2913,7 @@ class SolarCollectorPerformanceIntegralCollectorStorage(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `emissivity_of_outer_cover`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -2867,7 +2954,7 @@ class SolarCollectorPerformanceIntegralCollectorStorage(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `refractive_index_of_inner_cover`'.format(value))
             if value < 1.0:
                 raise ValueError('value need to be greater or equal 1.0 '
@@ -2908,7 +2995,7 @@ class SolarCollectorPerformanceIntegralCollectorStorage(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `extinction_coefficient_times_thickness_of_the_inner_cover`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -2945,7 +3032,7 @@ class SolarCollectorPerformanceIntegralCollectorStorage(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `emmissivity_of_inner_cover`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -2986,7 +3073,7 @@ class SolarCollectorPerformanceIntegralCollectorStorage(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `absorptance_of_absorber_plate`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -3026,7 +3113,7 @@ class SolarCollectorPerformanceIntegralCollectorStorage(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `emissivity_of_absorber_plate`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -3077,7 +3164,6 @@ class SolarCollectorUnglazedTranspired(object):
         recover heat conducted out through the underlying surfae. This object represents a
         single collector attached to one or more building or shading surfaces and to one or
         more outdoor air systems.
-    
     """
     internal_name = "SolarCollector:UnglazedTranspired"
     field_count = 32
@@ -3119,15 +3205,16 @@ class SolarCollectorUnglazedTranspired(object):
         self._data["Surface 8 Name"] = None
         self._data["Surface 9 Name"] = None
         self._data["Surface 10 Name"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -3353,6 +3440,7 @@ class SolarCollectorUnglazedTranspired(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -3379,7 +3467,7 @@ class SolarCollectorUnglazedTranspired(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3415,7 +3503,7 @@ class SolarCollectorUnglazedTranspired(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `boundary_conditions_model_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3452,7 +3540,7 @@ class SolarCollectorUnglazedTranspired(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `availability_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3488,7 +3576,7 @@ class SolarCollectorUnglazedTranspired(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `inlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3524,7 +3612,7 @@ class SolarCollectorUnglazedTranspired(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `outlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3561,7 +3649,7 @@ class SolarCollectorUnglazedTranspired(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `setpoint_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3598,7 +3686,7 @@ class SolarCollectorUnglazedTranspired(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `zone_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3633,7 +3721,7 @@ class SolarCollectorUnglazedTranspired(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `free_heating_setpoint_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3670,7 +3758,7 @@ class SolarCollectorUnglazedTranspired(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `diameter_of_perforations_in_collector`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -3704,7 +3792,7 @@ class SolarCollectorUnglazedTranspired(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `distance_between_perforations_in_collector`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -3739,7 +3827,7 @@ class SolarCollectorUnglazedTranspired(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `thermal_emissivity_of_collector_surface`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -3777,7 +3865,7 @@ class SolarCollectorUnglazedTranspired(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `solar_absorbtivity_of_collector_surface`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -3813,7 +3901,7 @@ class SolarCollectorUnglazedTranspired(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `effective_overall_height_of_collector`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -3848,7 +3936,7 @@ class SolarCollectorUnglazedTranspired(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `effective_gap_thickness_of_plenum_behind_collector`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -3883,7 +3971,7 @@ class SolarCollectorUnglazedTranspired(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `effective_cross_section_area_of_plenum_behind_collector`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -3919,7 +4007,7 @@ class SolarCollectorUnglazedTranspired(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `hole_layout_pattern_for_pitch`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3933,16 +4021,26 @@ class SolarCollectorUnglazedTranspired(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `hole_layout_pattern_for_pitch`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `hole_layout_pattern_for_pitch`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Hole Layout Pattern for Pitch"] = value
 
@@ -3975,7 +4073,7 @@ class SolarCollectorUnglazedTranspired(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `heat_exchange_effectiveness_correlation`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3989,16 +4087,26 @@ class SolarCollectorUnglazedTranspired(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `heat_exchange_effectiveness_correlation`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `heat_exchange_effectiveness_correlation`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Heat Exchange Effectiveness Correlation"] = value
 
@@ -4032,7 +4140,7 @@ class SolarCollectorUnglazedTranspired(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `ratio_of_actual_collector_surface_area_to_projected_surface_area`'.format(value))
             if value < 1.0:
                 raise ValueError('value need to be greater or equal 1.0 '
@@ -4074,7 +4182,7 @@ class SolarCollectorUnglazedTranspired(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `roughness_of_collector`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4092,16 +4200,26 @@ class SolarCollectorUnglazedTranspired(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `roughness_of_collector`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `roughness_of_collector`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Roughness of Collector"] = value
 
@@ -4135,7 +4253,7 @@ class SolarCollectorUnglazedTranspired(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `collector_thickness`'.format(value))
             if value < 0.0005:
                 raise ValueError('value need to be greater or equal 0.0005 '
@@ -4175,7 +4293,7 @@ class SolarCollectorUnglazedTranspired(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `effectiveness_for_perforations_with_respect_to_wind`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -4215,7 +4333,7 @@ class SolarCollectorUnglazedTranspired(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `discharge_coefficient_for_openings_with_respect_to_buoyancy_driven_flow`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -4250,7 +4368,7 @@ class SolarCollectorUnglazedTranspired(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_1_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4285,7 +4403,7 @@ class SolarCollectorUnglazedTranspired(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_2_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4320,7 +4438,7 @@ class SolarCollectorUnglazedTranspired(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_3_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4355,7 +4473,7 @@ class SolarCollectorUnglazedTranspired(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_4_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4390,7 +4508,7 @@ class SolarCollectorUnglazedTranspired(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_5_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4425,7 +4543,7 @@ class SolarCollectorUnglazedTranspired(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_6_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4460,7 +4578,7 @@ class SolarCollectorUnglazedTranspired(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_7_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4495,7 +4613,7 @@ class SolarCollectorUnglazedTranspired(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_8_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4530,7 +4648,7 @@ class SolarCollectorUnglazedTranspired(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_9_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4565,7 +4683,7 @@ class SolarCollectorUnglazedTranspired(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_10_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4613,7 +4731,6 @@ class SolarCollectorUnglazedTranspiredMultisystem(object):
     """ Corresponds to IDD object `SolarCollector:UnglazedTranspired:Multisystem`
         quad-tuples of inlet, outlet, control, and zone nodes
         for multiple different outdoor air systems attached to same collector
-    
     """
     internal_name = "SolarCollector:UnglazedTranspired:Multisystem"
     field_count = 21
@@ -4644,15 +4761,16 @@ class SolarCollectorUnglazedTranspiredMultisystem(object):
         self._data["Outdoor Air System 5 Collector Outlet Node"] = None
         self._data["Outdoor Air System 5 Mixed Air Node"] = None
         self._data["Outdoor Air System 5 Zone Node"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.solar_collector_name = None
@@ -4801,6 +4919,7 @@ class SolarCollectorUnglazedTranspiredMultisystem(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def solar_collector_name(self):
@@ -4828,7 +4947,7 @@ class SolarCollectorUnglazedTranspiredMultisystem(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `solar_collector_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4863,7 +4982,7 @@ class SolarCollectorUnglazedTranspiredMultisystem(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `outdoor_air_system_1_collector_inlet_node`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4898,7 +5017,7 @@ class SolarCollectorUnglazedTranspiredMultisystem(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `outdoor_air_system_1_collector_outlet_node`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4933,7 +5052,7 @@ class SolarCollectorUnglazedTranspiredMultisystem(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `outdoor_air_system_1_mixed_air_node`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4968,7 +5087,7 @@ class SolarCollectorUnglazedTranspiredMultisystem(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `outdoor_air_system_1_zone_node`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -5003,7 +5122,7 @@ class SolarCollectorUnglazedTranspiredMultisystem(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `outdoor_air_system_2_collector_inlet_node`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -5038,7 +5157,7 @@ class SolarCollectorUnglazedTranspiredMultisystem(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `outdoor_air_system_2_collector_outlet_node`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -5073,7 +5192,7 @@ class SolarCollectorUnglazedTranspiredMultisystem(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `outdoor_air_system_2_mixed_air_node`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -5108,7 +5227,7 @@ class SolarCollectorUnglazedTranspiredMultisystem(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `outdoor_air_system_2_zone_node`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -5143,7 +5262,7 @@ class SolarCollectorUnglazedTranspiredMultisystem(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `outdoor_air_system_3_collector_inlet_node`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -5178,7 +5297,7 @@ class SolarCollectorUnglazedTranspiredMultisystem(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `outdoor_air_system_3_collector_outlet_node`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -5213,7 +5332,7 @@ class SolarCollectorUnglazedTranspiredMultisystem(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `outdoor_air_system_3_mixed_air_node`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -5248,7 +5367,7 @@ class SolarCollectorUnglazedTranspiredMultisystem(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `outdoor_air_system_3_zone_node`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -5283,7 +5402,7 @@ class SolarCollectorUnglazedTranspiredMultisystem(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `outdoor_air_system_4_collector_inlet_node`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -5318,7 +5437,7 @@ class SolarCollectorUnglazedTranspiredMultisystem(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `outdoor_air_system_4_collector_outlet_node`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -5353,7 +5472,7 @@ class SolarCollectorUnglazedTranspiredMultisystem(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `outdoor_air_system_4_mixed_air_node`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -5388,7 +5507,7 @@ class SolarCollectorUnglazedTranspiredMultisystem(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `outdoor_air_system_4_zone_node`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -5423,7 +5542,7 @@ class SolarCollectorUnglazedTranspiredMultisystem(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `outdoor_air_system_5_collector_inlet_node`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -5458,7 +5577,7 @@ class SolarCollectorUnglazedTranspiredMultisystem(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `outdoor_air_system_5_collector_outlet_node`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -5493,7 +5612,7 @@ class SolarCollectorUnglazedTranspiredMultisystem(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `outdoor_air_system_5_mixed_air_node`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -5528,7 +5647,7 @@ class SolarCollectorUnglazedTranspiredMultisystem(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `outdoor_air_system_5_zone_node`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '

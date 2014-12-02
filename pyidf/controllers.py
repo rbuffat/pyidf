@@ -1,4 +1,6 @@
 from collections import OrderedDict
+import logging
+import re
 
 class ControllerWaterCoil(object):
     """ Corresponds to IDD object `Controller:WaterCoil`
@@ -7,7 +9,6 @@ class ControllerWaterCoil(object):
         leaving air setpoint(s). Used with Coil:Heating:Water, Coil:Cooling:Water,
         Coil:Cooling:Water:DetailedGeometry, and
         CoilSystem:Cooling:Water:HeatexchangerAssisted.
-    
     """
     internal_name = "Controller:WaterCoil"
     field_count = 9
@@ -26,15 +27,16 @@ class ControllerWaterCoil(object):
         self._data["Controller Convergence Tolerance"] = None
         self._data["Maximum Actuated Flow"] = None
         self._data["Minimum Actuated Flow"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -99,6 +101,7 @@ class ControllerWaterCoil(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -125,7 +128,7 @@ class ControllerWaterCoil(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -169,7 +172,7 @@ class ControllerWaterCoil(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `control_variable`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -184,16 +187,26 @@ class ControllerWaterCoil(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `control_variable`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `control_variable`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Control Variable"] = value
 
@@ -228,7 +241,7 @@ class ControllerWaterCoil(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `action`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -242,16 +255,26 @@ class ControllerWaterCoil(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `action`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `action`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Action"] = value
 
@@ -282,7 +305,7 @@ class ControllerWaterCoil(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `actuator_variable`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -295,16 +318,26 @@ class ControllerWaterCoil(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `actuator_variable`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `actuator_variable`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Actuator Variable"] = value
 
@@ -333,7 +366,7 @@ class ControllerWaterCoil(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `sensor_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -368,7 +401,7 @@ class ControllerWaterCoil(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `actuator_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -407,12 +440,17 @@ class ControllerWaterCoil(object):
                 if value_lower == "autosize":
                     self._data["Controller Convergence Tolerance"] = "Autosize"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autosize" '
+                                 'for field `controller_convergence_tolerance`'.format(value))
+                    self._data["Controller Convergence Tolerance"] = "Autosize"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autosize"'
                                  'for field `controller_convergence_tolerance`'.format(value))
         self._data["Controller Convergence Tolerance"] = value
 
@@ -444,12 +482,17 @@ class ControllerWaterCoil(object):
                 if value_lower == "autosize":
                     self._data["Maximum Actuated Flow"] = "Autosize"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autosize" '
+                                 'for field `maximum_actuated_flow`'.format(value))
+                    self._data["Maximum Actuated Flow"] = "Autosize"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autosize"'
                                  'for field `maximum_actuated_flow`'.format(value))
         self._data["Maximum Actuated Flow"] = value
 
@@ -480,7 +523,7 @@ class ControllerWaterCoil(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `minimum_actuated_flow`'.format(value))
         self._data["Minimum Actuated Flow"] = value
 
@@ -522,7 +565,6 @@ class ControllerOutdoorAir(object):
     """ Corresponds to IDD object `Controller:OutdoorAir`
         Controller to set the outdoor air flow rate for an air loop. Control options include
         fixed, proportional, scheduled, economizer, and demand-controlled ventilation.
-    
     """
     internal_name = "Controller:OutdoorAir"
     field_count = 26
@@ -558,15 +600,16 @@ class ControllerOutdoorAir(object):
         self._data["High Humidity Outdoor Air Flow Ratio"] = None
         self._data["Control High Indoor Humidity Based on Outdoor Humidity Ratio"] = None
         self._data["Heat Recovery Bypass Control Type"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -750,6 +793,7 @@ class ControllerOutdoorAir(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -776,7 +820,7 @@ class ControllerOutdoorAir(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -811,7 +855,7 @@ class ControllerOutdoorAir(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `relief_air_outlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -846,7 +890,7 @@ class ControllerOutdoorAir(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `return_air_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -881,7 +925,7 @@ class ControllerOutdoorAir(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `mixed_air_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -917,7 +961,7 @@ class ControllerOutdoorAir(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `actuator_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -955,12 +999,17 @@ class ControllerOutdoorAir(object):
                 if value_lower == "autosize":
                     self._data["Minimum Outdoor Air Flow Rate"] = "Autosize"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autosize" '
+                                 'for field `minimum_outdoor_air_flow_rate`'.format(value))
+                    self._data["Minimum Outdoor Air Flow Rate"] = "Autosize"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autosize"'
                                  'for field `minimum_outdoor_air_flow_rate`'.format(value))
         self._data["Minimum Outdoor Air Flow Rate"] = value
 
@@ -992,12 +1041,17 @@ class ControllerOutdoorAir(object):
                 if value_lower == "autosize":
                     self._data["Maximum Outdoor Air Flow Rate"] = "Autosize"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autosize" '
+                                 'for field `maximum_outdoor_air_flow_rate`'.format(value))
+                    self._data["Maximum Outdoor Air Flow Rate"] = "Autosize"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autosize"'
                                  'for field `maximum_outdoor_air_flow_rate`'.format(value))
         self._data["Maximum Outdoor Air Flow Rate"] = value
 
@@ -1036,7 +1090,7 @@ class ControllerOutdoorAir(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `economizer_control_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1056,16 +1110,26 @@ class ControllerOutdoorAir(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `economizer_control_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `economizer_control_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Economizer Control Type"] = value
 
@@ -1098,7 +1162,7 @@ class ControllerOutdoorAir(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `economizer_control_action_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1112,16 +1176,26 @@ class ControllerOutdoorAir(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `economizer_control_action_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `economizer_control_action_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Economizer Control Action Type"] = value
 
@@ -1154,7 +1228,7 @@ class ControllerOutdoorAir(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `economizer_maximum_limit_drybulb_temperature`'.format(value))
         self._data["Economizer Maximum Limit Dry-Bulb Temperature"] = value
 
@@ -1187,7 +1261,7 @@ class ControllerOutdoorAir(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `economizer_maximum_limit_enthalpy`'.format(value))
         self._data["Economizer Maximum Limit Enthalpy"] = value
 
@@ -1220,7 +1294,7 @@ class ControllerOutdoorAir(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `economizer_maximum_limit_dewpoint_temperature`'.format(value))
         self._data["Economizer Maximum Limit Dewpoint Temperature"] = value
 
@@ -1254,7 +1328,7 @@ class ControllerOutdoorAir(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `electronic_enthalpy_limit_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1293,7 +1367,7 @@ class ControllerOutdoorAir(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `economizer_minimum_limit_drybulb_temperature`'.format(value))
         self._data["Economizer Minimum Limit Dry-Bulb Temperature"] = value
 
@@ -1327,7 +1401,7 @@ class ControllerOutdoorAir(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `lockout_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1342,16 +1416,26 @@ class ControllerOutdoorAir(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `lockout_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `lockout_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Lockout Type"] = value
 
@@ -1384,7 +1468,7 @@ class ControllerOutdoorAir(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `minimum_limit_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1398,16 +1482,26 @@ class ControllerOutdoorAir(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `minimum_limit_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `minimum_limit_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Minimum Limit Type"] = value
 
@@ -1437,7 +1531,7 @@ class ControllerOutdoorAir(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `minimum_outdoor_air_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1473,7 +1567,7 @@ class ControllerOutdoorAir(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `minimum_fraction_of_outdoor_air_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1509,7 +1603,7 @@ class ControllerOutdoorAir(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `maximum_fraction_of_outdoor_air_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1547,7 +1641,7 @@ class ControllerOutdoorAir(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `mechanical_ventilation_controller_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1587,7 +1681,7 @@ class ControllerOutdoorAir(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `time_of_day_economizer_control_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1630,7 +1724,7 @@ class ControllerOutdoorAir(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `high_humidity_control`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1644,16 +1738,26 @@ class ControllerOutdoorAir(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `high_humidity_control`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `high_humidity_control`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["High Humidity Control"] = value
 
@@ -1684,7 +1788,7 @@ class ControllerOutdoorAir(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `humidistat_control_zone_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1725,7 +1829,7 @@ class ControllerOutdoorAir(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `high_humidity_outdoor_air_flow_ratio`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -1766,7 +1870,7 @@ class ControllerOutdoorAir(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `control_high_indoor_humidity_based_on_outdoor_humidity_ratio`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1780,16 +1884,26 @@ class ControllerOutdoorAir(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `control_high_indoor_humidity_based_on_outdoor_humidity_ratio`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `control_high_indoor_humidity_based_on_outdoor_humidity_ratio`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Control High Indoor Humidity Based on Outdoor Humidity Ratio"] = value
 
@@ -1825,7 +1939,7 @@ class ControllerOutdoorAir(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `heat_recovery_bypass_control_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1878,7 +1992,6 @@ class ControllerMechanicalVentilation(object):
         attached to that specific air loop.
         Duplicate groups of Zone name, Design Specification Outdoor Air Object Name,
         and Design Specification Zone Air Distribution Object Name to increase allowable number of entries
-    
     """
     internal_name = "Controller:MechanicalVentilation"
     field_count = 155
@@ -2043,15 +2156,16 @@ class ControllerMechanicalVentilation(object):
         self._data["Zone 50 Name"] = None
         self._data["Design Specification Outdoor Air Object Name 50"] = None
         self._data["Design Specification Zone Air Distribution Object Name 50"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -3138,6 +3252,7 @@ class ControllerMechanicalVentilation(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -3164,7 +3279,7 @@ class ControllerMechanicalVentilation(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3201,7 +3316,7 @@ class ControllerMechanicalVentilation(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `availability_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3240,7 +3355,7 @@ class ControllerMechanicalVentilation(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `demand_controlled_ventilation`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3254,16 +3369,26 @@ class ControllerMechanicalVentilation(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `demand_controlled_ventilation`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `demand_controlled_ventilation`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Demand Controlled Ventilation"] = value
 
@@ -3299,7 +3424,7 @@ class ControllerMechanicalVentilation(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `system_outdoor_air_method`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3316,16 +3441,26 @@ class ControllerMechanicalVentilation(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `system_outdoor_air_method`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `system_outdoor_air_method`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["System Outdoor Air Method"] = value
 
@@ -3357,7 +3492,7 @@ class ControllerMechanicalVentilation(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `zone_maximum_outdoor_air_fraction`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -3390,7 +3525,7 @@ class ControllerMechanicalVentilation(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `zone_1_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3425,7 +3560,7 @@ class ControllerMechanicalVentilation(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `design_specification_outdoor_air_object_name_1`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3460,7 +3595,7 @@ class ControllerMechanicalVentilation(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `design_specification_zone_air_distribution_object_name_1`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3496,7 +3631,7 @@ class ControllerMechanicalVentilation(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `zone_2_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3531,7 +3666,7 @@ class ControllerMechanicalVentilation(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `design_specification_outdoor_air_object_name_2`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3566,7 +3701,7 @@ class ControllerMechanicalVentilation(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `design_specification_zone_air_distribution_object_name_2`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3602,7 +3737,7 @@ class ControllerMechanicalVentilation(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `zone_3_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3637,7 +3772,7 @@ class ControllerMechanicalVentilation(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `design_specification_outdoor_air_object_name_3`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3672,7 +3807,7 @@ class ControllerMechanicalVentilation(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `design_specification_zone_air_distribution_object_name_3`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3708,7 +3843,7 @@ class ControllerMechanicalVentilation(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `zone_4_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3743,7 +3878,7 @@ class ControllerMechanicalVentilation(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `design_specification_outdoor_air_object_name_4`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3778,7 +3913,7 @@ class ControllerMechanicalVentilation(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `design_specification_zone_air_distribution_object_name_4`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3814,7 +3949,7 @@ class ControllerMechanicalVentilation(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `zone_5_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3849,7 +3984,7 @@ class ControllerMechanicalVentilation(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `design_specification_outdoor_air_object_name_5`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3884,7 +4019,7 @@ class ControllerMechanicalVentilation(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `design_specification_zone_air_distribution_object_name_5`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3920,7 +4055,7 @@ class ControllerMechanicalVentilation(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `zone_6_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3955,7 +4090,7 @@ class ControllerMechanicalVentilation(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `design_specification_outdoor_air_object_name_6`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3990,7 +4125,7 @@ class ControllerMechanicalVentilation(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `design_specification_zone_air_distribution_object_name_6`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4026,7 +4161,7 @@ class ControllerMechanicalVentilation(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `zone_7_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4061,7 +4196,7 @@ class ControllerMechanicalVentilation(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `design_specification_outdoor_air_object_name_7`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4096,7 +4231,7 @@ class ControllerMechanicalVentilation(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `design_specification_zone_air_distribution_object_name_7`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4132,7 +4267,7 @@ class ControllerMechanicalVentilation(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `zone_8_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4167,7 +4302,7 @@ class ControllerMechanicalVentilation(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `design_specification_outdoor_air_object_name_8`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4202,7 +4337,7 @@ class ControllerMechanicalVentilation(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `design_specification_zone_air_distribution_object_name_8`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4238,7 +4373,7 @@ class ControllerMechanicalVentilation(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `zone_9_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4273,7 +4408,7 @@ class ControllerMechanicalVentilation(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `design_specification_outdoor_air_object_name_9`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4308,7 +4443,7 @@ class ControllerMechanicalVentilation(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `design_specification_zone_air_distribution_object_name_9`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4344,7 +4479,7 @@ class ControllerMechanicalVentilation(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `zone_10_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4379,7 +4514,7 @@ class ControllerMechanicalVentilation(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `design_specification_outdoor_air_object_name_10`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4414,7 +4549,7 @@ class ControllerMechanicalVentilation(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `design_specification_zone_air_distribution_object_name_10`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4450,7 +4585,7 @@ class ControllerMechanicalVentilation(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `zone_11_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4485,7 +4620,7 @@ class ControllerMechanicalVentilation(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `design_specification_outdoor_air_object_name_11`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4520,7 +4655,7 @@ class ControllerMechanicalVentilation(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `design_specification_zone_air_distribution_object_name_11`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4556,7 +4691,7 @@ class ControllerMechanicalVentilation(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `zone_12_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4591,7 +4726,7 @@ class ControllerMechanicalVentilation(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `design_specification_outdoor_air_object_name_12`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4626,7 +4761,7 @@ class ControllerMechanicalVentilation(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `design_specification_zone_air_distribution_object_name_12`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4662,7 +4797,7 @@ class ControllerMechanicalVentilation(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `zone_13_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4697,7 +4832,7 @@ class ControllerMechanicalVentilation(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `design_specification_outdoor_air_object_name_13`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4732,7 +4867,7 @@ class ControllerMechanicalVentilation(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `design_specification_zone_air_distribution_object_name_13`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4768,7 +4903,7 @@ class ControllerMechanicalVentilation(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `zone_14_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4803,7 +4938,7 @@ class ControllerMechanicalVentilation(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `design_specification_outdoor_air_object_name_14`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4838,7 +4973,7 @@ class ControllerMechanicalVentilation(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `design_specification_zone_air_distribution_object_name_14`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4874,7 +5009,7 @@ class ControllerMechanicalVentilation(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `zone_15_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4909,7 +5044,7 @@ class ControllerMechanicalVentilation(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `design_specification_outdoor_air_object_name_15`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4944,7 +5079,7 @@ class ControllerMechanicalVentilation(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `design_specification_zone_air_distribution_object_name_15`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4980,7 +5115,7 @@ class ControllerMechanicalVentilation(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `zone_16_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -5015,7 +5150,7 @@ class ControllerMechanicalVentilation(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `design_specification_outdoor_air_object_name_16`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -5050,7 +5185,7 @@ class ControllerMechanicalVentilation(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `design_specification_zone_air_distribution_object_name_16`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -5086,7 +5221,7 @@ class ControllerMechanicalVentilation(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `zone_17_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -5121,7 +5256,7 @@ class ControllerMechanicalVentilation(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `design_specification_outdoor_air_object_name_17`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -5156,7 +5291,7 @@ class ControllerMechanicalVentilation(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `design_specification_zone_air_distribution_object_name_17`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -5192,7 +5327,7 @@ class ControllerMechanicalVentilation(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `zone_18_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -5227,7 +5362,7 @@ class ControllerMechanicalVentilation(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `design_specification_outdoor_air_object_name_18`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -5262,7 +5397,7 @@ class ControllerMechanicalVentilation(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `design_specification_zone_air_distribution_object_name_18`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -5298,7 +5433,7 @@ class ControllerMechanicalVentilation(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `zone_19_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -5333,7 +5468,7 @@ class ControllerMechanicalVentilation(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `design_specification_outdoor_air_object_name_19`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -5368,7 +5503,7 @@ class ControllerMechanicalVentilation(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `design_specification_zone_air_distribution_object_name_19`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -5404,7 +5539,7 @@ class ControllerMechanicalVentilation(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `zone_20_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -5439,7 +5574,7 @@ class ControllerMechanicalVentilation(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `design_specification_outdoor_air_object_name_20`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -5474,7 +5609,7 @@ class ControllerMechanicalVentilation(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `design_specification_zone_air_distribution_object_name_20`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -5510,7 +5645,7 @@ class ControllerMechanicalVentilation(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `zone_21_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -5545,7 +5680,7 @@ class ControllerMechanicalVentilation(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `design_specification_outdoor_air_object_name_21`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -5580,7 +5715,7 @@ class ControllerMechanicalVentilation(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `design_specification_zone_air_distribution_object_name_21`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -5616,7 +5751,7 @@ class ControllerMechanicalVentilation(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `zone_22_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -5651,7 +5786,7 @@ class ControllerMechanicalVentilation(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `design_specification_outdoor_air_object_name_22`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -5686,7 +5821,7 @@ class ControllerMechanicalVentilation(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `design_specification_zone_air_distribution_object_name_22`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -5722,7 +5857,7 @@ class ControllerMechanicalVentilation(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `zone_23_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -5757,7 +5892,7 @@ class ControllerMechanicalVentilation(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `design_specification_outdoor_air_object_name_23`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -5792,7 +5927,7 @@ class ControllerMechanicalVentilation(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `design_specification_zone_air_distribution_object_name_23`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -5828,7 +5963,7 @@ class ControllerMechanicalVentilation(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `zone_24_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -5863,7 +5998,7 @@ class ControllerMechanicalVentilation(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `design_specification_outdoor_air_object_name_24`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -5898,7 +6033,7 @@ class ControllerMechanicalVentilation(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `design_specification_zone_air_distribution_object_name_24`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -5934,7 +6069,7 @@ class ControllerMechanicalVentilation(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `zone_25_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -5969,7 +6104,7 @@ class ControllerMechanicalVentilation(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `design_specification_outdoor_air_object_name_25`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -6004,7 +6139,7 @@ class ControllerMechanicalVentilation(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `design_specification_zone_air_distribution_object_name_25`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -6040,7 +6175,7 @@ class ControllerMechanicalVentilation(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `zone_26_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -6075,7 +6210,7 @@ class ControllerMechanicalVentilation(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `design_specification_outdoor_air_object_name_26`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -6110,7 +6245,7 @@ class ControllerMechanicalVentilation(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `design_specification_zone_air_distribution_object_name_26`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -6146,7 +6281,7 @@ class ControllerMechanicalVentilation(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `zone_27_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -6181,7 +6316,7 @@ class ControllerMechanicalVentilation(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `design_specification_outdoor_air_object_name_27`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -6216,7 +6351,7 @@ class ControllerMechanicalVentilation(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `design_specification_zone_air_distribution_object_name_27`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -6252,7 +6387,7 @@ class ControllerMechanicalVentilation(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `zone_28_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -6287,7 +6422,7 @@ class ControllerMechanicalVentilation(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `design_specification_outdoor_air_object_name_28`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -6322,7 +6457,7 @@ class ControllerMechanicalVentilation(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `design_specification_zone_air_distribution_object_name_28`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -6358,7 +6493,7 @@ class ControllerMechanicalVentilation(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `zone_29_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -6393,7 +6528,7 @@ class ControllerMechanicalVentilation(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `design_specification_outdoor_air_object_name_29`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -6428,7 +6563,7 @@ class ControllerMechanicalVentilation(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `design_specification_zone_air_distribution_object_name_29`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -6464,7 +6599,7 @@ class ControllerMechanicalVentilation(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `zone_30_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -6499,7 +6634,7 @@ class ControllerMechanicalVentilation(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `design_specification_outdoor_air_object_name_30`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -6534,7 +6669,7 @@ class ControllerMechanicalVentilation(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `design_specification_zone_air_distribution_object_name_30`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -6570,7 +6705,7 @@ class ControllerMechanicalVentilation(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `zone_31_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -6605,7 +6740,7 @@ class ControllerMechanicalVentilation(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `design_specification_outdoor_air_object_name_31`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -6640,7 +6775,7 @@ class ControllerMechanicalVentilation(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `design_specification_zone_air_distribution_object_name_31`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -6676,7 +6811,7 @@ class ControllerMechanicalVentilation(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `zone_32_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -6711,7 +6846,7 @@ class ControllerMechanicalVentilation(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `design_specification_outdoor_air_object_name_32`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -6746,7 +6881,7 @@ class ControllerMechanicalVentilation(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `design_specification_zone_air_distribution_object_name_32`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -6782,7 +6917,7 @@ class ControllerMechanicalVentilation(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `zone_33_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -6817,7 +6952,7 @@ class ControllerMechanicalVentilation(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `design_specification_outdoor_air_object_name_33`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -6852,7 +6987,7 @@ class ControllerMechanicalVentilation(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `design_specification_zone_air_distribution_object_name_33`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -6888,7 +7023,7 @@ class ControllerMechanicalVentilation(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `zone_34_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -6923,7 +7058,7 @@ class ControllerMechanicalVentilation(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `design_specification_outdoor_air_object_name_34`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -6958,7 +7093,7 @@ class ControllerMechanicalVentilation(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `design_specification_zone_air_distribution_object_name_34`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -6994,7 +7129,7 @@ class ControllerMechanicalVentilation(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `zone_35_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -7029,7 +7164,7 @@ class ControllerMechanicalVentilation(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `design_specification_outdoor_air_object_name_35`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -7064,7 +7199,7 @@ class ControllerMechanicalVentilation(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `design_specification_zone_air_distribution_object_name_35`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -7100,7 +7235,7 @@ class ControllerMechanicalVentilation(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `zone_36_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -7135,7 +7270,7 @@ class ControllerMechanicalVentilation(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `design_specification_outdoor_air_object_name_36`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -7170,7 +7305,7 @@ class ControllerMechanicalVentilation(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `design_specification_zone_air_distribution_object_name_36`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -7206,7 +7341,7 @@ class ControllerMechanicalVentilation(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `zone_37_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -7241,7 +7376,7 @@ class ControllerMechanicalVentilation(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `design_specification_outdoor_air_object_name_37`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -7276,7 +7411,7 @@ class ControllerMechanicalVentilation(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `design_specification_zone_air_distribution_object_name_37`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -7312,7 +7447,7 @@ class ControllerMechanicalVentilation(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `zone_38_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -7347,7 +7482,7 @@ class ControllerMechanicalVentilation(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `design_specification_outdoor_air_object_name_38`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -7382,7 +7517,7 @@ class ControllerMechanicalVentilation(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `design_specification_zone_air_distribution_object_name_38`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -7418,7 +7553,7 @@ class ControllerMechanicalVentilation(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `zone_39_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -7453,7 +7588,7 @@ class ControllerMechanicalVentilation(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `design_specification_outdoor_air_object_name_39`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -7488,7 +7623,7 @@ class ControllerMechanicalVentilation(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `design_specification_zone_air_distribution_object_name_39`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -7524,7 +7659,7 @@ class ControllerMechanicalVentilation(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `zone_40_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -7559,7 +7694,7 @@ class ControllerMechanicalVentilation(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `design_specification_outdoor_air_object_name_40`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -7594,7 +7729,7 @@ class ControllerMechanicalVentilation(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `design_specification_zone_air_distribution_object_name_40`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -7630,7 +7765,7 @@ class ControllerMechanicalVentilation(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `zone_41_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -7665,7 +7800,7 @@ class ControllerMechanicalVentilation(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `design_specification_outdoor_air_object_name_41`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -7700,7 +7835,7 @@ class ControllerMechanicalVentilation(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `design_specification_zone_air_distribution_object_name_41`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -7736,7 +7871,7 @@ class ControllerMechanicalVentilation(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `zone_42_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -7771,7 +7906,7 @@ class ControllerMechanicalVentilation(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `design_specification_outdoor_air_object_name_42`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -7806,7 +7941,7 @@ class ControllerMechanicalVentilation(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `design_specification_zone_air_distribution_object_name_42`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -7842,7 +7977,7 @@ class ControllerMechanicalVentilation(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `zone_43_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -7877,7 +8012,7 @@ class ControllerMechanicalVentilation(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `design_specification_outdoor_air_object_name_43`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -7912,7 +8047,7 @@ class ControllerMechanicalVentilation(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `design_specification_zone_air_distribution_object_name_43`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -7948,7 +8083,7 @@ class ControllerMechanicalVentilation(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `zone_44_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -7983,7 +8118,7 @@ class ControllerMechanicalVentilation(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `design_specification_outdoor_air_object_name_44`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -8018,7 +8153,7 @@ class ControllerMechanicalVentilation(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `design_specification_zone_air_distribution_object_name_44`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -8054,7 +8189,7 @@ class ControllerMechanicalVentilation(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `zone_45_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -8089,7 +8224,7 @@ class ControllerMechanicalVentilation(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `design_specification_outdoor_air_object_name_45`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -8124,7 +8259,7 @@ class ControllerMechanicalVentilation(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `design_specification_zone_air_distribution_object_name_45`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -8160,7 +8295,7 @@ class ControllerMechanicalVentilation(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `zone_46_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -8195,7 +8330,7 @@ class ControllerMechanicalVentilation(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `design_specification_outdoor_air_object_name_46`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -8230,7 +8365,7 @@ class ControllerMechanicalVentilation(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `design_specification_zone_air_distribution_object_name_46`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -8266,7 +8401,7 @@ class ControllerMechanicalVentilation(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `zone_47_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -8301,7 +8436,7 @@ class ControllerMechanicalVentilation(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `design_specification_outdoor_air_object_name_47`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -8336,7 +8471,7 @@ class ControllerMechanicalVentilation(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `design_specification_zone_air_distribution_object_name_47`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -8372,7 +8507,7 @@ class ControllerMechanicalVentilation(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `zone_48_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -8407,7 +8542,7 @@ class ControllerMechanicalVentilation(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `design_specification_outdoor_air_object_name_48`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -8442,7 +8577,7 @@ class ControllerMechanicalVentilation(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `design_specification_zone_air_distribution_object_name_48`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -8478,7 +8613,7 @@ class ControllerMechanicalVentilation(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `zone_49_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -8513,7 +8648,7 @@ class ControllerMechanicalVentilation(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `design_specification_outdoor_air_object_name_49`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -8548,7 +8683,7 @@ class ControllerMechanicalVentilation(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `design_specification_zone_air_distribution_object_name_49`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -8584,7 +8719,7 @@ class ControllerMechanicalVentilation(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `zone_50_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -8619,7 +8754,7 @@ class ControllerMechanicalVentilation(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `design_specification_outdoor_air_object_name_50`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -8654,7 +8789,7 @@ class ControllerMechanicalVentilation(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `design_specification_zone_air_distribution_object_name_50`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -8701,7 +8836,6 @@ class ControllerMechanicalVentilation(object):
 class AirLoopHvacControllerList(object):
     """ Corresponds to IDD object `AirLoopHVAC:ControllerList`
         List controllers in order of control sequence
-    
     """
     internal_name = "AirLoopHVAC:ControllerList"
     field_count = 17
@@ -8728,15 +8862,16 @@ class AirLoopHvacControllerList(object):
         self._data["Controller 7 Name"] = None
         self._data["Controller 8 Object Type"] = None
         self._data["Controller 8 Name"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -8857,6 +8992,7 @@ class AirLoopHvacControllerList(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -8883,7 +9019,7 @@ class AirLoopHvacControllerList(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -8921,7 +9057,7 @@ class AirLoopHvacControllerList(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `controller_1_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -8935,16 +9071,26 @@ class AirLoopHvacControllerList(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `controller_1_object_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `controller_1_object_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Controller 1 Object Type"] = value
 
@@ -8973,7 +9119,7 @@ class AirLoopHvacControllerList(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `controller_1_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -9011,7 +9157,7 @@ class AirLoopHvacControllerList(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `controller_2_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -9025,16 +9171,26 @@ class AirLoopHvacControllerList(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `controller_2_object_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `controller_2_object_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Controller 2 Object Type"] = value
 
@@ -9063,7 +9219,7 @@ class AirLoopHvacControllerList(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `controller_2_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -9101,7 +9257,7 @@ class AirLoopHvacControllerList(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `controller_3_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -9115,16 +9271,26 @@ class AirLoopHvacControllerList(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `controller_3_object_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `controller_3_object_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Controller 3 Object Type"] = value
 
@@ -9153,7 +9319,7 @@ class AirLoopHvacControllerList(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `controller_3_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -9191,7 +9357,7 @@ class AirLoopHvacControllerList(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `controller_4_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -9205,16 +9371,26 @@ class AirLoopHvacControllerList(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `controller_4_object_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `controller_4_object_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Controller 4 Object Type"] = value
 
@@ -9243,7 +9419,7 @@ class AirLoopHvacControllerList(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `controller_4_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -9281,7 +9457,7 @@ class AirLoopHvacControllerList(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `controller_5_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -9295,16 +9471,26 @@ class AirLoopHvacControllerList(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `controller_5_object_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `controller_5_object_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Controller 5 Object Type"] = value
 
@@ -9333,7 +9519,7 @@ class AirLoopHvacControllerList(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `controller_5_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -9371,7 +9557,7 @@ class AirLoopHvacControllerList(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `controller_6_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -9385,16 +9571,26 @@ class AirLoopHvacControllerList(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `controller_6_object_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `controller_6_object_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Controller 6 Object Type"] = value
 
@@ -9423,7 +9619,7 @@ class AirLoopHvacControllerList(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `controller_6_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -9461,7 +9657,7 @@ class AirLoopHvacControllerList(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `controller_7_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -9475,16 +9671,26 @@ class AirLoopHvacControllerList(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `controller_7_object_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `controller_7_object_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Controller 7 Object Type"] = value
 
@@ -9513,7 +9719,7 @@ class AirLoopHvacControllerList(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `controller_7_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -9551,7 +9757,7 @@ class AirLoopHvacControllerList(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `controller_8_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -9565,16 +9771,26 @@ class AirLoopHvacControllerList(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `controller_8_object_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `controller_8_object_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Controller 8 Object Type"] = value
 
@@ -9603,7 +9819,7 @@ class AirLoopHvacControllerList(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `controller_8_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '

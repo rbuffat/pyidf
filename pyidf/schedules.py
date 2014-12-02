@@ -1,9 +1,10 @@
 from collections import OrderedDict
+import logging
+import re
 
 class ScheduleTypeLimits(object):
     """ Corresponds to IDD object `ScheduleTypeLimits`
         ScheduleTypeLimits specifies the data types and limits for the values contained in schedules
-    
     """
     internal_name = "ScheduleTypeLimits"
     field_count = 5
@@ -18,15 +19,16 @@ class ScheduleTypeLimits(object):
         self._data["Upper Limit Value"] = None
         self._data["Numeric Type"] = None
         self._data["Unit Type"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -63,6 +65,7 @@ class ScheduleTypeLimits(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -90,7 +93,7 @@ class ScheduleTypeLimits(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -116,6 +119,7 @@ class ScheduleTypeLimits(object):
 
         Args:
             value (float): value for IDD Field `Lower Limit Value`
+                Units are based on field `A3`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -126,7 +130,7 @@ class ScheduleTypeLimits(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `lower_limit_value`'.format(value))
         self._data["Lower Limit Value"] = value
 
@@ -146,6 +150,7 @@ class ScheduleTypeLimits(object):
 
         Args:
             value (float): value for IDD Field `Upper Limit Value`
+                Units are based on field `A3`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -156,7 +161,7 @@ class ScheduleTypeLimits(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `upper_limit_value`'.format(value))
         self._data["Upper Limit Value"] = value
 
@@ -192,7 +197,7 @@ class ScheduleTypeLimits(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `numeric_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -206,16 +211,26 @@ class ScheduleTypeLimits(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `numeric_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `numeric_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Numeric Type"] = value
 
@@ -269,7 +284,7 @@ class ScheduleTypeLimits(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `unit_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -295,16 +310,26 @@ class ScheduleTypeLimits(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `unit_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `unit_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Unit Type"] = value
 
@@ -345,7 +370,6 @@ class ScheduleTypeLimits(object):
 class ScheduleDayHourly(object):
     """ Corresponds to IDD object `Schedule:Day:Hourly`
         A Schedule:Day:Hourly contains 24 values for each hour of the day.
-    
     """
     internal_name = "Schedule:Day:Hourly"
     field_count = 26
@@ -381,15 +405,16 @@ class ScheduleDayHourly(object):
         self._data["Hour 22"] = None
         self._data["Hour 23"] = None
         self._data["Hour 24"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -573,6 +598,7 @@ class ScheduleDayHourly(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -599,7 +625,7 @@ class ScheduleDayHourly(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -634,7 +660,7 @@ class ScheduleDayHourly(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `schedule_type_limits_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -670,7 +696,7 @@ class ScheduleDayHourly(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `hour_1`'.format(value))
         self._data["Hour 1"] = value
 
@@ -700,7 +726,7 @@ class ScheduleDayHourly(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `hour_2`'.format(value))
         self._data["Hour 2"] = value
 
@@ -730,7 +756,7 @@ class ScheduleDayHourly(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `hour_3`'.format(value))
         self._data["Hour 3"] = value
 
@@ -760,7 +786,7 @@ class ScheduleDayHourly(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `hour_4`'.format(value))
         self._data["Hour 4"] = value
 
@@ -790,7 +816,7 @@ class ScheduleDayHourly(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `hour_5`'.format(value))
         self._data["Hour 5"] = value
 
@@ -820,7 +846,7 @@ class ScheduleDayHourly(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `hour_6`'.format(value))
         self._data["Hour 6"] = value
 
@@ -850,7 +876,7 @@ class ScheduleDayHourly(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `hour_7`'.format(value))
         self._data["Hour 7"] = value
 
@@ -880,7 +906,7 @@ class ScheduleDayHourly(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `hour_8`'.format(value))
         self._data["Hour 8"] = value
 
@@ -910,7 +936,7 @@ class ScheduleDayHourly(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `hour_9`'.format(value))
         self._data["Hour 9"] = value
 
@@ -940,7 +966,7 @@ class ScheduleDayHourly(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `hour_10`'.format(value))
         self._data["Hour 10"] = value
 
@@ -970,7 +996,7 @@ class ScheduleDayHourly(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `hour_11`'.format(value))
         self._data["Hour 11"] = value
 
@@ -1000,7 +1026,7 @@ class ScheduleDayHourly(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `hour_12`'.format(value))
         self._data["Hour 12"] = value
 
@@ -1030,7 +1056,7 @@ class ScheduleDayHourly(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `hour_13`'.format(value))
         self._data["Hour 13"] = value
 
@@ -1060,7 +1086,7 @@ class ScheduleDayHourly(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `hour_14`'.format(value))
         self._data["Hour 14"] = value
 
@@ -1090,7 +1116,7 @@ class ScheduleDayHourly(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `hour_15`'.format(value))
         self._data["Hour 15"] = value
 
@@ -1120,7 +1146,7 @@ class ScheduleDayHourly(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `hour_16`'.format(value))
         self._data["Hour 16"] = value
 
@@ -1150,7 +1176,7 @@ class ScheduleDayHourly(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `hour_17`'.format(value))
         self._data["Hour 17"] = value
 
@@ -1180,7 +1206,7 @@ class ScheduleDayHourly(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `hour_18`'.format(value))
         self._data["Hour 18"] = value
 
@@ -1210,7 +1236,7 @@ class ScheduleDayHourly(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `hour_19`'.format(value))
         self._data["Hour 19"] = value
 
@@ -1240,7 +1266,7 @@ class ScheduleDayHourly(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `hour_20`'.format(value))
         self._data["Hour 20"] = value
 
@@ -1270,7 +1296,7 @@ class ScheduleDayHourly(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `hour_21`'.format(value))
         self._data["Hour 21"] = value
 
@@ -1300,7 +1326,7 @@ class ScheduleDayHourly(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `hour_22`'.format(value))
         self._data["Hour 22"] = value
 
@@ -1330,7 +1356,7 @@ class ScheduleDayHourly(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `hour_23`'.format(value))
         self._data["Hour 23"] = value
 
@@ -1360,7 +1386,7 @@ class ScheduleDayHourly(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `hour_24`'.format(value))
         self._data["Hour 24"] = value
 
@@ -1402,7 +1428,6 @@ class ScheduleDayInterval(object):
     """ Corresponds to IDD object `Schedule:Day:Interval`
         A Schedule:Day:Interval contains a full day of values with specified end times for each value
         Currently, is set up to allow for 10 minute intervals for an entire day.
-    
     """
     internal_name = "Schedule:Day:Interval"
     field_count = 291
@@ -1703,15 +1728,16 @@ class ScheduleDayInterval(object):
         self._data["Value Until Time 143"] = None
         self._data["Time 144"] = None
         self._data["Value Until Time 144"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -3750,6 +3776,7 @@ class ScheduleDayInterval(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -3776,7 +3803,7 @@ class ScheduleDayInterval(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3811,7 +3838,7 @@ class ScheduleDayInterval(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `schedule_type_limits_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3853,7 +3880,7 @@ class ScheduleDayInterval(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `interpolate_to_timestep`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3867,16 +3894,26 @@ class ScheduleDayInterval(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `interpolate_to_timestep`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `interpolate_to_timestep`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Interpolate to Timestep"] = value
 
@@ -3907,7 +3944,7 @@ class ScheduleDayInterval(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `time_1`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3942,7 +3979,7 @@ class ScheduleDayInterval(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `value_until_time_1`'.format(value))
         self._data["Value Until Time 1"] = value
 
@@ -3973,7 +4010,7 @@ class ScheduleDayInterval(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `time_2`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4008,7 +4045,7 @@ class ScheduleDayInterval(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `value_until_time_2`'.format(value))
         self._data["Value Until Time 2"] = value
 
@@ -4039,7 +4076,7 @@ class ScheduleDayInterval(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `time_3`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4074,7 +4111,7 @@ class ScheduleDayInterval(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `value_until_time_3`'.format(value))
         self._data["Value Until Time 3"] = value
 
@@ -4105,7 +4142,7 @@ class ScheduleDayInterval(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `time_4`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4140,7 +4177,7 @@ class ScheduleDayInterval(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `value_until_time_4`'.format(value))
         self._data["Value Until Time 4"] = value
 
@@ -4171,7 +4208,7 @@ class ScheduleDayInterval(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `time_5`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4206,7 +4243,7 @@ class ScheduleDayInterval(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `value_until_time_5`'.format(value))
         self._data["Value Until Time 5"] = value
 
@@ -4237,7 +4274,7 @@ class ScheduleDayInterval(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `time_6`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4272,7 +4309,7 @@ class ScheduleDayInterval(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `value_until_time_6`'.format(value))
         self._data["Value Until Time 6"] = value
 
@@ -4303,7 +4340,7 @@ class ScheduleDayInterval(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `time_7`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4338,7 +4375,7 @@ class ScheduleDayInterval(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `value_until_time_7`'.format(value))
         self._data["Value Until Time 7"] = value
 
@@ -4369,7 +4406,7 @@ class ScheduleDayInterval(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `time_8`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4404,7 +4441,7 @@ class ScheduleDayInterval(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `value_until_time_8`'.format(value))
         self._data["Value Until Time 8"] = value
 
@@ -4435,7 +4472,7 @@ class ScheduleDayInterval(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `time_9`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4470,7 +4507,7 @@ class ScheduleDayInterval(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `value_until_time_9`'.format(value))
         self._data["Value Until Time 9"] = value
 
@@ -4501,7 +4538,7 @@ class ScheduleDayInterval(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `time_10`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4536,7 +4573,7 @@ class ScheduleDayInterval(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `value_until_time_10`'.format(value))
         self._data["Value Until Time 10"] = value
 
@@ -4567,7 +4604,7 @@ class ScheduleDayInterval(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `time_11`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4602,7 +4639,7 @@ class ScheduleDayInterval(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `value_until_time_11`'.format(value))
         self._data["Value Until Time 11"] = value
 
@@ -4633,7 +4670,7 @@ class ScheduleDayInterval(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `time_12`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4668,7 +4705,7 @@ class ScheduleDayInterval(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `value_until_time_12`'.format(value))
         self._data["Value Until Time 12"] = value
 
@@ -4699,7 +4736,7 @@ class ScheduleDayInterval(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `time_13`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4734,7 +4771,7 @@ class ScheduleDayInterval(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `value_until_time_13`'.format(value))
         self._data["Value Until Time 13"] = value
 
@@ -4765,7 +4802,7 @@ class ScheduleDayInterval(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `time_14`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4800,7 +4837,7 @@ class ScheduleDayInterval(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `value_until_time_14`'.format(value))
         self._data["Value Until Time 14"] = value
 
@@ -4831,7 +4868,7 @@ class ScheduleDayInterval(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `time_15`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4866,7 +4903,7 @@ class ScheduleDayInterval(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `value_until_time_15`'.format(value))
         self._data["Value Until Time 15"] = value
 
@@ -4897,7 +4934,7 @@ class ScheduleDayInterval(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `time_16`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4932,7 +4969,7 @@ class ScheduleDayInterval(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `value_until_time_16`'.format(value))
         self._data["Value Until Time 16"] = value
 
@@ -4963,7 +5000,7 @@ class ScheduleDayInterval(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `time_17`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4998,7 +5035,7 @@ class ScheduleDayInterval(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `value_until_time_17`'.format(value))
         self._data["Value Until Time 17"] = value
 
@@ -5029,7 +5066,7 @@ class ScheduleDayInterval(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `time_18`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -5064,7 +5101,7 @@ class ScheduleDayInterval(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `value_until_time_18`'.format(value))
         self._data["Value Until Time 18"] = value
 
@@ -5095,7 +5132,7 @@ class ScheduleDayInterval(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `time_19`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -5130,7 +5167,7 @@ class ScheduleDayInterval(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `value_until_time_19`'.format(value))
         self._data["Value Until Time 19"] = value
 
@@ -5161,7 +5198,7 @@ class ScheduleDayInterval(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `time_20`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -5196,7 +5233,7 @@ class ScheduleDayInterval(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `value_until_time_20`'.format(value))
         self._data["Value Until Time 20"] = value
 
@@ -5227,7 +5264,7 @@ class ScheduleDayInterval(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `time_21`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -5262,7 +5299,7 @@ class ScheduleDayInterval(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `value_until_time_21`'.format(value))
         self._data["Value Until Time 21"] = value
 
@@ -5293,7 +5330,7 @@ class ScheduleDayInterval(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `time_22`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -5328,7 +5365,7 @@ class ScheduleDayInterval(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `value_until_time_22`'.format(value))
         self._data["Value Until Time 22"] = value
 
@@ -5359,7 +5396,7 @@ class ScheduleDayInterval(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `time_23`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -5394,7 +5431,7 @@ class ScheduleDayInterval(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `value_until_time_23`'.format(value))
         self._data["Value Until Time 23"] = value
 
@@ -5425,7 +5462,7 @@ class ScheduleDayInterval(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `time_24`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -5460,7 +5497,7 @@ class ScheduleDayInterval(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `value_until_time_24`'.format(value))
         self._data["Value Until Time 24"] = value
 
@@ -5491,7 +5528,7 @@ class ScheduleDayInterval(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `time_25`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -5526,7 +5563,7 @@ class ScheduleDayInterval(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `value_until_time_25`'.format(value))
         self._data["Value Until Time 25"] = value
 
@@ -5557,7 +5594,7 @@ class ScheduleDayInterval(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `time_26`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -5592,7 +5629,7 @@ class ScheduleDayInterval(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `value_until_time_26`'.format(value))
         self._data["Value Until Time 26"] = value
 
@@ -5623,7 +5660,7 @@ class ScheduleDayInterval(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `time_27`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -5658,7 +5695,7 @@ class ScheduleDayInterval(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `value_until_time_27`'.format(value))
         self._data["Value Until Time 27"] = value
 
@@ -5689,7 +5726,7 @@ class ScheduleDayInterval(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `time_28`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -5724,7 +5761,7 @@ class ScheduleDayInterval(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `value_until_time_28`'.format(value))
         self._data["Value Until Time 28"] = value
 
@@ -5755,7 +5792,7 @@ class ScheduleDayInterval(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `time_29`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -5790,7 +5827,7 @@ class ScheduleDayInterval(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `value_until_time_29`'.format(value))
         self._data["Value Until Time 29"] = value
 
@@ -5821,7 +5858,7 @@ class ScheduleDayInterval(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `time_30`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -5856,7 +5893,7 @@ class ScheduleDayInterval(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `value_until_time_30`'.format(value))
         self._data["Value Until Time 30"] = value
 
@@ -5887,7 +5924,7 @@ class ScheduleDayInterval(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `time_31`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -5922,7 +5959,7 @@ class ScheduleDayInterval(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `value_until_time_31`'.format(value))
         self._data["Value Until Time 31"] = value
 
@@ -5953,7 +5990,7 @@ class ScheduleDayInterval(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `time_32`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -5988,7 +6025,7 @@ class ScheduleDayInterval(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `value_until_time_32`'.format(value))
         self._data["Value Until Time 32"] = value
 
@@ -6019,7 +6056,7 @@ class ScheduleDayInterval(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `time_33`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -6054,7 +6091,7 @@ class ScheduleDayInterval(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `value_until_time_33`'.format(value))
         self._data["Value Until Time 33"] = value
 
@@ -6085,7 +6122,7 @@ class ScheduleDayInterval(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `time_34`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -6120,7 +6157,7 @@ class ScheduleDayInterval(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `value_until_time_34`'.format(value))
         self._data["Value Until Time 34"] = value
 
@@ -6151,7 +6188,7 @@ class ScheduleDayInterval(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `time_35`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -6186,7 +6223,7 @@ class ScheduleDayInterval(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `value_until_time_35`'.format(value))
         self._data["Value Until Time 35"] = value
 
@@ -6217,7 +6254,7 @@ class ScheduleDayInterval(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `time_36`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -6252,7 +6289,7 @@ class ScheduleDayInterval(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `value_until_time_36`'.format(value))
         self._data["Value Until Time 36"] = value
 
@@ -6283,7 +6320,7 @@ class ScheduleDayInterval(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `time_37`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -6318,7 +6355,7 @@ class ScheduleDayInterval(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `value_until_time_37`'.format(value))
         self._data["Value Until Time 37"] = value
 
@@ -6349,7 +6386,7 @@ class ScheduleDayInterval(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `time_38`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -6384,7 +6421,7 @@ class ScheduleDayInterval(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `value_until_time_38`'.format(value))
         self._data["Value Until Time 38"] = value
 
@@ -6415,7 +6452,7 @@ class ScheduleDayInterval(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `time_39`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -6450,7 +6487,7 @@ class ScheduleDayInterval(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `value_until_time_39`'.format(value))
         self._data["Value Until Time 39"] = value
 
@@ -6481,7 +6518,7 @@ class ScheduleDayInterval(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `time_40`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -6516,7 +6553,7 @@ class ScheduleDayInterval(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `value_until_time_40`'.format(value))
         self._data["Value Until Time 40"] = value
 
@@ -6547,7 +6584,7 @@ class ScheduleDayInterval(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `time_41`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -6582,7 +6619,7 @@ class ScheduleDayInterval(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `value_until_time_41`'.format(value))
         self._data["Value Until Time 41"] = value
 
@@ -6613,7 +6650,7 @@ class ScheduleDayInterval(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `time_42`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -6648,7 +6685,7 @@ class ScheduleDayInterval(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `value_until_time_42`'.format(value))
         self._data["Value Until Time 42"] = value
 
@@ -6679,7 +6716,7 @@ class ScheduleDayInterval(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `time_43`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -6714,7 +6751,7 @@ class ScheduleDayInterval(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `value_until_time_43`'.format(value))
         self._data["Value Until Time 43"] = value
 
@@ -6745,7 +6782,7 @@ class ScheduleDayInterval(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `time_44`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -6780,7 +6817,7 @@ class ScheduleDayInterval(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `value_until_time_44`'.format(value))
         self._data["Value Until Time 44"] = value
 
@@ -6811,7 +6848,7 @@ class ScheduleDayInterval(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `time_45`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -6846,7 +6883,7 @@ class ScheduleDayInterval(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `value_until_time_45`'.format(value))
         self._data["Value Until Time 45"] = value
 
@@ -6877,7 +6914,7 @@ class ScheduleDayInterval(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `time_46`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -6912,7 +6949,7 @@ class ScheduleDayInterval(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `value_until_time_46`'.format(value))
         self._data["Value Until Time 46"] = value
 
@@ -6943,7 +6980,7 @@ class ScheduleDayInterval(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `time_47`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -6978,7 +7015,7 @@ class ScheduleDayInterval(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `value_until_time_47`'.format(value))
         self._data["Value Until Time 47"] = value
 
@@ -7009,7 +7046,7 @@ class ScheduleDayInterval(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `time_48`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -7044,7 +7081,7 @@ class ScheduleDayInterval(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `value_until_time_48`'.format(value))
         self._data["Value Until Time 48"] = value
 
@@ -7075,7 +7112,7 @@ class ScheduleDayInterval(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `time_49`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -7110,7 +7147,7 @@ class ScheduleDayInterval(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `value_until_time_49`'.format(value))
         self._data["Value Until Time 49"] = value
 
@@ -7141,7 +7178,7 @@ class ScheduleDayInterval(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `time_50`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -7176,7 +7213,7 @@ class ScheduleDayInterval(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `value_until_time_50`'.format(value))
         self._data["Value Until Time 50"] = value
 
@@ -7207,7 +7244,7 @@ class ScheduleDayInterval(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `time_51`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -7242,7 +7279,7 @@ class ScheduleDayInterval(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `value_until_time_51`'.format(value))
         self._data["Value Until Time 51"] = value
 
@@ -7273,7 +7310,7 @@ class ScheduleDayInterval(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `time_52`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -7308,7 +7345,7 @@ class ScheduleDayInterval(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `value_until_time_52`'.format(value))
         self._data["Value Until Time 52"] = value
 
@@ -7339,7 +7376,7 @@ class ScheduleDayInterval(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `time_53`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -7374,7 +7411,7 @@ class ScheduleDayInterval(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `value_until_time_53`'.format(value))
         self._data["Value Until Time 53"] = value
 
@@ -7405,7 +7442,7 @@ class ScheduleDayInterval(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `time_54`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -7440,7 +7477,7 @@ class ScheduleDayInterval(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `value_until_time_54`'.format(value))
         self._data["Value Until Time 54"] = value
 
@@ -7471,7 +7508,7 @@ class ScheduleDayInterval(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `time_55`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -7506,7 +7543,7 @@ class ScheduleDayInterval(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `value_until_time_55`'.format(value))
         self._data["Value Until Time 55"] = value
 
@@ -7537,7 +7574,7 @@ class ScheduleDayInterval(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `time_56`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -7572,7 +7609,7 @@ class ScheduleDayInterval(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `value_until_time_56`'.format(value))
         self._data["Value Until Time 56"] = value
 
@@ -7603,7 +7640,7 @@ class ScheduleDayInterval(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `time_57`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -7638,7 +7675,7 @@ class ScheduleDayInterval(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `value_until_time_57`'.format(value))
         self._data["Value Until Time 57"] = value
 
@@ -7669,7 +7706,7 @@ class ScheduleDayInterval(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `time_58`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -7704,7 +7741,7 @@ class ScheduleDayInterval(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `value_until_time_58`'.format(value))
         self._data["Value Until Time 58"] = value
 
@@ -7735,7 +7772,7 @@ class ScheduleDayInterval(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `time_59`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -7770,7 +7807,7 @@ class ScheduleDayInterval(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `value_until_time_59`'.format(value))
         self._data["Value Until Time 59"] = value
 
@@ -7801,7 +7838,7 @@ class ScheduleDayInterval(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `time_60`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -7836,7 +7873,7 @@ class ScheduleDayInterval(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `value_until_time_60`'.format(value))
         self._data["Value Until Time 60"] = value
 
@@ -7867,7 +7904,7 @@ class ScheduleDayInterval(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `time_61`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -7902,7 +7939,7 @@ class ScheduleDayInterval(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `value_until_time_61`'.format(value))
         self._data["Value Until Time 61"] = value
 
@@ -7933,7 +7970,7 @@ class ScheduleDayInterval(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `time_62`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -7968,7 +8005,7 @@ class ScheduleDayInterval(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `value_until_time_62`'.format(value))
         self._data["Value Until Time 62"] = value
 
@@ -7999,7 +8036,7 @@ class ScheduleDayInterval(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `time_63`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -8034,7 +8071,7 @@ class ScheduleDayInterval(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `value_until_time_63`'.format(value))
         self._data["Value Until Time 63"] = value
 
@@ -8065,7 +8102,7 @@ class ScheduleDayInterval(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `time_64`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -8100,7 +8137,7 @@ class ScheduleDayInterval(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `value_until_time_64`'.format(value))
         self._data["Value Until Time 64"] = value
 
@@ -8131,7 +8168,7 @@ class ScheduleDayInterval(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `time_65`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -8166,7 +8203,7 @@ class ScheduleDayInterval(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `value_until_time_65`'.format(value))
         self._data["Value Until Time 65"] = value
 
@@ -8197,7 +8234,7 @@ class ScheduleDayInterval(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `time_66`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -8232,7 +8269,7 @@ class ScheduleDayInterval(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `value_until_time_66`'.format(value))
         self._data["Value Until Time 66"] = value
 
@@ -8263,7 +8300,7 @@ class ScheduleDayInterval(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `time_67`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -8298,7 +8335,7 @@ class ScheduleDayInterval(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `value_until_time_67`'.format(value))
         self._data["Value Until Time 67"] = value
 
@@ -8329,7 +8366,7 @@ class ScheduleDayInterval(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `time_68`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -8364,7 +8401,7 @@ class ScheduleDayInterval(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `value_until_time_68`'.format(value))
         self._data["Value Until Time 68"] = value
 
@@ -8395,7 +8432,7 @@ class ScheduleDayInterval(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `time_69`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -8430,7 +8467,7 @@ class ScheduleDayInterval(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `value_until_time_69`'.format(value))
         self._data["Value Until Time 69"] = value
 
@@ -8461,7 +8498,7 @@ class ScheduleDayInterval(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `time_70`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -8496,7 +8533,7 @@ class ScheduleDayInterval(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `value_until_time_70`'.format(value))
         self._data["Value Until Time 70"] = value
 
@@ -8527,7 +8564,7 @@ class ScheduleDayInterval(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `time_71`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -8562,7 +8599,7 @@ class ScheduleDayInterval(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `value_until_time_71`'.format(value))
         self._data["Value Until Time 71"] = value
 
@@ -8593,7 +8630,7 @@ class ScheduleDayInterval(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `time_72`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -8628,7 +8665,7 @@ class ScheduleDayInterval(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `value_until_time_72`'.format(value))
         self._data["Value Until Time 72"] = value
 
@@ -8659,7 +8696,7 @@ class ScheduleDayInterval(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `time_73`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -8694,7 +8731,7 @@ class ScheduleDayInterval(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `value_until_time_73`'.format(value))
         self._data["Value Until Time 73"] = value
 
@@ -8725,7 +8762,7 @@ class ScheduleDayInterval(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `time_74`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -8760,7 +8797,7 @@ class ScheduleDayInterval(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `value_until_time_74`'.format(value))
         self._data["Value Until Time 74"] = value
 
@@ -8791,7 +8828,7 @@ class ScheduleDayInterval(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `time_75`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -8826,7 +8863,7 @@ class ScheduleDayInterval(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `value_until_time_75`'.format(value))
         self._data["Value Until Time 75"] = value
 
@@ -8857,7 +8894,7 @@ class ScheduleDayInterval(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `time_76`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -8892,7 +8929,7 @@ class ScheduleDayInterval(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `value_until_time_76`'.format(value))
         self._data["Value Until Time 76"] = value
 
@@ -8923,7 +8960,7 @@ class ScheduleDayInterval(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `time_77`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -8958,7 +8995,7 @@ class ScheduleDayInterval(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `value_until_time_77`'.format(value))
         self._data["Value Until Time 77"] = value
 
@@ -8989,7 +9026,7 @@ class ScheduleDayInterval(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `time_78`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -9024,7 +9061,7 @@ class ScheduleDayInterval(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `value_until_time_78`'.format(value))
         self._data["Value Until Time 78"] = value
 
@@ -9055,7 +9092,7 @@ class ScheduleDayInterval(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `time_79`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -9090,7 +9127,7 @@ class ScheduleDayInterval(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `value_until_time_79`'.format(value))
         self._data["Value Until Time 79"] = value
 
@@ -9121,7 +9158,7 @@ class ScheduleDayInterval(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `time_80`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -9156,7 +9193,7 @@ class ScheduleDayInterval(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `value_until_time_80`'.format(value))
         self._data["Value Until Time 80"] = value
 
@@ -9187,7 +9224,7 @@ class ScheduleDayInterval(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `time_81`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -9222,7 +9259,7 @@ class ScheduleDayInterval(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `value_until_time_81`'.format(value))
         self._data["Value Until Time 81"] = value
 
@@ -9253,7 +9290,7 @@ class ScheduleDayInterval(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `time_82`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -9288,7 +9325,7 @@ class ScheduleDayInterval(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `value_until_time_82`'.format(value))
         self._data["Value Until Time 82"] = value
 
@@ -9319,7 +9356,7 @@ class ScheduleDayInterval(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `time_83`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -9354,7 +9391,7 @@ class ScheduleDayInterval(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `value_until_time_83`'.format(value))
         self._data["Value Until Time 83"] = value
 
@@ -9385,7 +9422,7 @@ class ScheduleDayInterval(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `time_84`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -9420,7 +9457,7 @@ class ScheduleDayInterval(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `value_until_time_84`'.format(value))
         self._data["Value Until Time 84"] = value
 
@@ -9451,7 +9488,7 @@ class ScheduleDayInterval(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `time_85`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -9486,7 +9523,7 @@ class ScheduleDayInterval(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `value_until_time_85`'.format(value))
         self._data["Value Until Time 85"] = value
 
@@ -9517,7 +9554,7 @@ class ScheduleDayInterval(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `time_86`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -9552,7 +9589,7 @@ class ScheduleDayInterval(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `value_until_time_86`'.format(value))
         self._data["Value Until Time 86"] = value
 
@@ -9583,7 +9620,7 @@ class ScheduleDayInterval(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `time_87`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -9618,7 +9655,7 @@ class ScheduleDayInterval(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `value_until_time_87`'.format(value))
         self._data["Value Until Time 87"] = value
 
@@ -9649,7 +9686,7 @@ class ScheduleDayInterval(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `time_88`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -9684,7 +9721,7 @@ class ScheduleDayInterval(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `value_until_time_88`'.format(value))
         self._data["Value Until Time 88"] = value
 
@@ -9715,7 +9752,7 @@ class ScheduleDayInterval(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `time_89`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -9750,7 +9787,7 @@ class ScheduleDayInterval(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `value_until_time_89`'.format(value))
         self._data["Value Until Time 89"] = value
 
@@ -9781,7 +9818,7 @@ class ScheduleDayInterval(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `time_90`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -9816,7 +9853,7 @@ class ScheduleDayInterval(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `value_until_time_90`'.format(value))
         self._data["Value Until Time 90"] = value
 
@@ -9847,7 +9884,7 @@ class ScheduleDayInterval(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `time_91`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -9882,7 +9919,7 @@ class ScheduleDayInterval(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `value_until_time_91`'.format(value))
         self._data["Value Until Time 91"] = value
 
@@ -9913,7 +9950,7 @@ class ScheduleDayInterval(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `time_92`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -9948,7 +9985,7 @@ class ScheduleDayInterval(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `value_until_time_92`'.format(value))
         self._data["Value Until Time 92"] = value
 
@@ -9979,7 +10016,7 @@ class ScheduleDayInterval(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `time_93`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -10014,7 +10051,7 @@ class ScheduleDayInterval(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `value_until_time_93`'.format(value))
         self._data["Value Until Time 93"] = value
 
@@ -10045,7 +10082,7 @@ class ScheduleDayInterval(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `time_94`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -10080,7 +10117,7 @@ class ScheduleDayInterval(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `value_until_time_94`'.format(value))
         self._data["Value Until Time 94"] = value
 
@@ -10111,7 +10148,7 @@ class ScheduleDayInterval(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `time_95`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -10146,7 +10183,7 @@ class ScheduleDayInterval(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `value_until_time_95`'.format(value))
         self._data["Value Until Time 95"] = value
 
@@ -10177,7 +10214,7 @@ class ScheduleDayInterval(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `time_96`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -10212,7 +10249,7 @@ class ScheduleDayInterval(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `value_until_time_96`'.format(value))
         self._data["Value Until Time 96"] = value
 
@@ -10243,7 +10280,7 @@ class ScheduleDayInterval(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `time_97`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -10278,7 +10315,7 @@ class ScheduleDayInterval(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `value_until_time_97`'.format(value))
         self._data["Value Until Time 97"] = value
 
@@ -10309,7 +10346,7 @@ class ScheduleDayInterval(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `time_98`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -10344,7 +10381,7 @@ class ScheduleDayInterval(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `value_until_time_98`'.format(value))
         self._data["Value Until Time 98"] = value
 
@@ -10375,7 +10412,7 @@ class ScheduleDayInterval(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `time_99`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -10410,7 +10447,7 @@ class ScheduleDayInterval(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `value_until_time_99`'.format(value))
         self._data["Value Until Time 99"] = value
 
@@ -10441,7 +10478,7 @@ class ScheduleDayInterval(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `time_100`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -10476,7 +10513,7 @@ class ScheduleDayInterval(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `value_until_time_100`'.format(value))
         self._data["Value Until Time 100"] = value
 
@@ -10507,7 +10544,7 @@ class ScheduleDayInterval(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `time_101`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -10542,7 +10579,7 @@ class ScheduleDayInterval(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `value_until_time_101`'.format(value))
         self._data["Value Until Time 101"] = value
 
@@ -10573,7 +10610,7 @@ class ScheduleDayInterval(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `time_102`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -10608,7 +10645,7 @@ class ScheduleDayInterval(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `value_until_time_102`'.format(value))
         self._data["Value Until Time 102"] = value
 
@@ -10639,7 +10676,7 @@ class ScheduleDayInterval(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `time_103`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -10674,7 +10711,7 @@ class ScheduleDayInterval(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `value_until_time_103`'.format(value))
         self._data["Value Until Time 103"] = value
 
@@ -10705,7 +10742,7 @@ class ScheduleDayInterval(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `time_104`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -10740,7 +10777,7 @@ class ScheduleDayInterval(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `value_until_time_104`'.format(value))
         self._data["Value Until Time 104"] = value
 
@@ -10771,7 +10808,7 @@ class ScheduleDayInterval(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `time_105`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -10806,7 +10843,7 @@ class ScheduleDayInterval(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `value_until_time_105`'.format(value))
         self._data["Value Until Time 105"] = value
 
@@ -10837,7 +10874,7 @@ class ScheduleDayInterval(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `time_106`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -10872,7 +10909,7 @@ class ScheduleDayInterval(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `value_until_time_106`'.format(value))
         self._data["Value Until Time 106"] = value
 
@@ -10903,7 +10940,7 @@ class ScheduleDayInterval(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `time_107`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -10938,7 +10975,7 @@ class ScheduleDayInterval(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `value_until_time_107`'.format(value))
         self._data["Value Until Time 107"] = value
 
@@ -10969,7 +11006,7 @@ class ScheduleDayInterval(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `time_108`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -11004,7 +11041,7 @@ class ScheduleDayInterval(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `value_until_time_108`'.format(value))
         self._data["Value Until Time 108"] = value
 
@@ -11035,7 +11072,7 @@ class ScheduleDayInterval(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `time_109`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -11070,7 +11107,7 @@ class ScheduleDayInterval(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `value_until_time_109`'.format(value))
         self._data["Value Until Time 109"] = value
 
@@ -11101,7 +11138,7 @@ class ScheduleDayInterval(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `time_110`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -11136,7 +11173,7 @@ class ScheduleDayInterval(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `value_until_time_110`'.format(value))
         self._data["Value Until Time 110"] = value
 
@@ -11167,7 +11204,7 @@ class ScheduleDayInterval(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `time_111`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -11202,7 +11239,7 @@ class ScheduleDayInterval(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `value_until_time_111`'.format(value))
         self._data["Value Until Time 111"] = value
 
@@ -11233,7 +11270,7 @@ class ScheduleDayInterval(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `time_112`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -11268,7 +11305,7 @@ class ScheduleDayInterval(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `value_until_time_112`'.format(value))
         self._data["Value Until Time 112"] = value
 
@@ -11299,7 +11336,7 @@ class ScheduleDayInterval(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `time_113`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -11334,7 +11371,7 @@ class ScheduleDayInterval(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `value_until_time_113`'.format(value))
         self._data["Value Until Time 113"] = value
 
@@ -11365,7 +11402,7 @@ class ScheduleDayInterval(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `time_114`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -11400,7 +11437,7 @@ class ScheduleDayInterval(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `value_until_time_114`'.format(value))
         self._data["Value Until Time 114"] = value
 
@@ -11431,7 +11468,7 @@ class ScheduleDayInterval(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `time_115`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -11466,7 +11503,7 @@ class ScheduleDayInterval(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `value_until_time_115`'.format(value))
         self._data["Value Until Time 115"] = value
 
@@ -11497,7 +11534,7 @@ class ScheduleDayInterval(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `time_116`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -11532,7 +11569,7 @@ class ScheduleDayInterval(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `value_until_time_116`'.format(value))
         self._data["Value Until Time 116"] = value
 
@@ -11563,7 +11600,7 @@ class ScheduleDayInterval(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `time_117`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -11598,7 +11635,7 @@ class ScheduleDayInterval(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `value_until_time_117`'.format(value))
         self._data["Value Until Time 117"] = value
 
@@ -11629,7 +11666,7 @@ class ScheduleDayInterval(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `time_118`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -11664,7 +11701,7 @@ class ScheduleDayInterval(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `value_until_time_118`'.format(value))
         self._data["Value Until Time 118"] = value
 
@@ -11695,7 +11732,7 @@ class ScheduleDayInterval(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `time_119`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -11730,7 +11767,7 @@ class ScheduleDayInterval(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `value_until_time_119`'.format(value))
         self._data["Value Until Time 119"] = value
 
@@ -11761,7 +11798,7 @@ class ScheduleDayInterval(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `time_120`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -11796,7 +11833,7 @@ class ScheduleDayInterval(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `value_until_time_120`'.format(value))
         self._data["Value Until Time 120"] = value
 
@@ -11827,7 +11864,7 @@ class ScheduleDayInterval(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `time_121`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -11862,7 +11899,7 @@ class ScheduleDayInterval(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `value_until_time_121`'.format(value))
         self._data["Value Until Time 121"] = value
 
@@ -11893,7 +11930,7 @@ class ScheduleDayInterval(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `time_122`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -11928,7 +11965,7 @@ class ScheduleDayInterval(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `value_until_time_122`'.format(value))
         self._data["Value Until Time 122"] = value
 
@@ -11959,7 +11996,7 @@ class ScheduleDayInterval(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `time_123`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -11994,7 +12031,7 @@ class ScheduleDayInterval(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `value_until_time_123`'.format(value))
         self._data["Value Until Time 123"] = value
 
@@ -12025,7 +12062,7 @@ class ScheduleDayInterval(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `time_124`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -12060,7 +12097,7 @@ class ScheduleDayInterval(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `value_until_time_124`'.format(value))
         self._data["Value Until Time 124"] = value
 
@@ -12091,7 +12128,7 @@ class ScheduleDayInterval(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `time_125`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -12126,7 +12163,7 @@ class ScheduleDayInterval(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `value_until_time_125`'.format(value))
         self._data["Value Until Time 125"] = value
 
@@ -12157,7 +12194,7 @@ class ScheduleDayInterval(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `time_126`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -12192,7 +12229,7 @@ class ScheduleDayInterval(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `value_until_time_126`'.format(value))
         self._data["Value Until Time 126"] = value
 
@@ -12223,7 +12260,7 @@ class ScheduleDayInterval(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `time_127`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -12258,7 +12295,7 @@ class ScheduleDayInterval(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `value_until_time_127`'.format(value))
         self._data["Value Until Time 127"] = value
 
@@ -12289,7 +12326,7 @@ class ScheduleDayInterval(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `time_128`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -12324,7 +12361,7 @@ class ScheduleDayInterval(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `value_until_time_128`'.format(value))
         self._data["Value Until Time 128"] = value
 
@@ -12355,7 +12392,7 @@ class ScheduleDayInterval(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `time_129`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -12390,7 +12427,7 @@ class ScheduleDayInterval(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `value_until_time_129`'.format(value))
         self._data["Value Until Time 129"] = value
 
@@ -12421,7 +12458,7 @@ class ScheduleDayInterval(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `time_130`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -12456,7 +12493,7 @@ class ScheduleDayInterval(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `value_until_time_130`'.format(value))
         self._data["Value Until Time 130"] = value
 
@@ -12487,7 +12524,7 @@ class ScheduleDayInterval(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `time_131`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -12522,7 +12559,7 @@ class ScheduleDayInterval(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `value_until_time_131`'.format(value))
         self._data["Value Until Time 131"] = value
 
@@ -12553,7 +12590,7 @@ class ScheduleDayInterval(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `time_132`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -12588,7 +12625,7 @@ class ScheduleDayInterval(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `value_until_time_132`'.format(value))
         self._data["Value Until Time 132"] = value
 
@@ -12619,7 +12656,7 @@ class ScheduleDayInterval(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `time_133`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -12654,7 +12691,7 @@ class ScheduleDayInterval(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `value_until_time_133`'.format(value))
         self._data["Value Until Time 133"] = value
 
@@ -12685,7 +12722,7 @@ class ScheduleDayInterval(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `time_134`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -12720,7 +12757,7 @@ class ScheduleDayInterval(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `value_until_time_134`'.format(value))
         self._data["Value Until Time 134"] = value
 
@@ -12751,7 +12788,7 @@ class ScheduleDayInterval(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `time_135`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -12786,7 +12823,7 @@ class ScheduleDayInterval(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `value_until_time_135`'.format(value))
         self._data["Value Until Time 135"] = value
 
@@ -12817,7 +12854,7 @@ class ScheduleDayInterval(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `time_136`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -12852,7 +12889,7 @@ class ScheduleDayInterval(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `value_until_time_136`'.format(value))
         self._data["Value Until Time 136"] = value
 
@@ -12883,7 +12920,7 @@ class ScheduleDayInterval(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `time_137`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -12918,7 +12955,7 @@ class ScheduleDayInterval(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `value_until_time_137`'.format(value))
         self._data["Value Until Time 137"] = value
 
@@ -12949,7 +12986,7 @@ class ScheduleDayInterval(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `time_138`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -12984,7 +13021,7 @@ class ScheduleDayInterval(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `value_until_time_138`'.format(value))
         self._data["Value Until Time 138"] = value
 
@@ -13015,7 +13052,7 @@ class ScheduleDayInterval(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `time_139`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -13050,7 +13087,7 @@ class ScheduleDayInterval(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `value_until_time_139`'.format(value))
         self._data["Value Until Time 139"] = value
 
@@ -13081,7 +13118,7 @@ class ScheduleDayInterval(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `time_140`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -13116,7 +13153,7 @@ class ScheduleDayInterval(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `value_until_time_140`'.format(value))
         self._data["Value Until Time 140"] = value
 
@@ -13147,7 +13184,7 @@ class ScheduleDayInterval(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `time_141`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -13182,7 +13219,7 @@ class ScheduleDayInterval(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `value_until_time_141`'.format(value))
         self._data["Value Until Time 141"] = value
 
@@ -13213,7 +13250,7 @@ class ScheduleDayInterval(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `time_142`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -13248,7 +13285,7 @@ class ScheduleDayInterval(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `value_until_time_142`'.format(value))
         self._data["Value Until Time 142"] = value
 
@@ -13279,7 +13316,7 @@ class ScheduleDayInterval(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `time_143`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -13314,7 +13351,7 @@ class ScheduleDayInterval(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `value_until_time_143`'.format(value))
         self._data["Value Until Time 143"] = value
 
@@ -13345,7 +13382,7 @@ class ScheduleDayInterval(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `time_144`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -13380,7 +13417,7 @@ class ScheduleDayInterval(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `value_until_time_144`'.format(value))
         self._data["Value Until Time 144"] = value
 
@@ -13421,7 +13458,6 @@ class ScheduleDayInterval(object):
 class ScheduleWeekDaily(object):
     """ Corresponds to IDD object `Schedule:Week:Daily`
         A Schedule:Week:Daily contains 12 Schedule:Day:Hourly objects, one for each day type.
-    
     """
     internal_name = "Schedule:Week:Daily"
     field_count = 13
@@ -13444,15 +13480,16 @@ class ScheduleWeekDaily(object):
         self._data["WinterDesignDay Schedule:Day Name"] = None
         self._data["CustomDay1 Schedule:Day Name"] = None
         self._data["CustomDay2 Schedule:Day Name"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -13545,6 +13582,7 @@ class ScheduleWeekDaily(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -13571,7 +13609,7 @@ class ScheduleWeekDaily(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -13606,7 +13644,7 @@ class ScheduleWeekDaily(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `sunday_scheduleday_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -13641,7 +13679,7 @@ class ScheduleWeekDaily(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `monday_scheduleday_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -13676,7 +13714,7 @@ class ScheduleWeekDaily(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `tuesday_scheduleday_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -13711,7 +13749,7 @@ class ScheduleWeekDaily(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `wednesday_scheduleday_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -13746,7 +13784,7 @@ class ScheduleWeekDaily(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `thursday_scheduleday_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -13781,7 +13819,7 @@ class ScheduleWeekDaily(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `friday_scheduleday_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -13816,7 +13854,7 @@ class ScheduleWeekDaily(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `saturday_scheduleday_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -13851,7 +13889,7 @@ class ScheduleWeekDaily(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `holiday_scheduleday_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -13886,7 +13924,7 @@ class ScheduleWeekDaily(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `summerdesignday_scheduleday_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -13921,7 +13959,7 @@ class ScheduleWeekDaily(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `winterdesignday_scheduleday_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -13956,7 +13994,7 @@ class ScheduleWeekDaily(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `customday1_scheduleday_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -13991,7 +14029,7 @@ class ScheduleWeekDaily(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `customday2_scheduleday_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -14038,7 +14076,6 @@ class ScheduleWeekDaily(object):
 class ScheduleWeekCompact(object):
     """ Corresponds to IDD object `Schedule:Week:Compact`
         Compact definition for Schedule:Day:List
-    
     """
     internal_name = "Schedule:Week:Compact"
     field_count = 11
@@ -14059,15 +14096,16 @@ class ScheduleWeekCompact(object):
         self._data["Schedule:Day Name 4"] = None
         self._data["DayType List 5"] = None
         self._data["Schedule:Day Name 5"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -14146,6 +14184,7 @@ class ScheduleWeekCompact(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -14172,7 +14211,7 @@ class ScheduleWeekCompact(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -14226,7 +14265,7 @@ class ScheduleWeekCompact(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `daytype_list_1`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -14253,16 +14292,26 @@ class ScheduleWeekCompact(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `daytype_list_1`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `daytype_list_1`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["DayType List 1"] = value
 
@@ -14291,7 +14340,7 @@ class ScheduleWeekCompact(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `scheduleday_name_1`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -14342,7 +14391,7 @@ class ScheduleWeekCompact(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `daytype_list_2`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -14369,16 +14418,26 @@ class ScheduleWeekCompact(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `daytype_list_2`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `daytype_list_2`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["DayType List 2"] = value
 
@@ -14407,7 +14466,7 @@ class ScheduleWeekCompact(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `scheduleday_name_2`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -14458,7 +14517,7 @@ class ScheduleWeekCompact(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `daytype_list_3`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -14485,16 +14544,26 @@ class ScheduleWeekCompact(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `daytype_list_3`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `daytype_list_3`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["DayType List 3"] = value
 
@@ -14523,7 +14592,7 @@ class ScheduleWeekCompact(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `scheduleday_name_3`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -14574,7 +14643,7 @@ class ScheduleWeekCompact(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `daytype_list_4`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -14601,16 +14670,26 @@ class ScheduleWeekCompact(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `daytype_list_4`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `daytype_list_4`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["DayType List 4"] = value
 
@@ -14639,7 +14718,7 @@ class ScheduleWeekCompact(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `scheduleday_name_4`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -14690,7 +14769,7 @@ class ScheduleWeekCompact(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `daytype_list_5`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -14717,16 +14796,26 @@ class ScheduleWeekCompact(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `daytype_list_5`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `daytype_list_5`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["DayType List 5"] = value
 
@@ -14755,7 +14844,7 @@ class ScheduleWeekCompact(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `scheduleday_name_5`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -14802,7 +14891,6 @@ class ScheduleWeekCompact(object):
 class ScheduleConstant(object):
     """ Corresponds to IDD object `Schedule:Constant`
         Constant hourly value for entire year.
-    
     """
     internal_name = "Schedule:Constant"
     field_count = 3
@@ -14815,15 +14903,16 @@ class ScheduleConstant(object):
         self._data["Name"] = None
         self._data["Schedule Type Limits Name"] = None
         self._data["Hourly Value"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -14846,6 +14935,7 @@ class ScheduleConstant(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -14872,7 +14962,7 @@ class ScheduleConstant(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -14907,7 +14997,7 @@ class ScheduleConstant(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `schedule_type_limits_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -14943,7 +15033,7 @@ class ScheduleConstant(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `hourly_value`'.format(value))
         self._data["Hourly Value"] = value
 
@@ -14984,7 +15074,6 @@ class ScheduleConstant(object):
 class ScheduleFile(object):
     """ Corresponds to IDD object `Schedule:File`
         A Schedule:File points to a text computer file that has 8760-8784 hours of data.
-    
     """
     internal_name = "Schedule:File"
     field_count = 9
@@ -15003,15 +15092,16 @@ class ScheduleFile(object):
         self._data["Column Separator"] = None
         self._data["Interpolate to Timestep"] = None
         self._data["Minutes per Item"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -15076,6 +15166,7 @@ class ScheduleFile(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -15102,7 +15193,7 @@ class ScheduleFile(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -15137,7 +15228,7 @@ class ScheduleFile(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `schedule_type_limits_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -15172,7 +15263,7 @@ class ScheduleFile(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `file_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -15208,8 +15299,15 @@ class ScheduleFile(object):
             try:
                 value = int(value)
             except ValueError:
-                raise ValueError('value {} need to be of type int '
-                                 'for field `column_number`'.format(value))
+                if not self.strict:
+                    try:
+                        conv_value = int(float(value))
+                        logging.warn('Cast float {} to int {}, precision may be lost '
+                                     'for field `column_number`'.format(value, conv_value))
+                        value = conv_value
+                    except ValueError:
+                        raise ValueError('value {} need to be of type int '
+                                         'for field `column_number`'.format(value))
             if value < 1:
                 raise ValueError('value need to be greater or equal 1 '
                                  'for field `column_number`')
@@ -15241,8 +15339,15 @@ class ScheduleFile(object):
             try:
                 value = int(value)
             except ValueError:
-                raise ValueError('value {} need to be of type int '
-                                 'for field `rows_to_skip_at_top`'.format(value))
+                if not self.strict:
+                    try:
+                        conv_value = int(float(value))
+                        logging.warn('Cast float {} to int {}, precision may be lost '
+                                     'for field `rows_to_skip_at_top`'.format(value, conv_value))
+                        value = conv_value
+                    except ValueError:
+                        raise ValueError('value {} need to be of type int '
+                                         'for field `rows_to_skip_at_top`'.format(value))
             if value < 0:
                 raise ValueError('value need to be greater or equal 0 '
                                  'for field `rows_to_skip_at_top`')
@@ -15278,7 +15383,7 @@ class ScheduleFile(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `number_of_hours_of_data`'.format(value))
             if value < 8760.0:
                 raise ValueError('value need to be greater or equal 8760.0 '
@@ -15319,7 +15424,7 @@ class ScheduleFile(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `column_separator`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -15335,16 +15440,26 @@ class ScheduleFile(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `column_separator`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `column_separator`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Column Separator"] = value
 
@@ -15380,7 +15495,7 @@ class ScheduleFile(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `interpolate_to_timestep`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -15394,16 +15509,26 @@ class ScheduleFile(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `interpolate_to_timestep`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `interpolate_to_timestep`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Interpolate to Timestep"] = value
 
@@ -15435,8 +15560,15 @@ class ScheduleFile(object):
             try:
                 value = int(value)
             except ValueError:
-                raise ValueError('value {} need to be of type int '
-                                 'for field `minutes_per_item`'.format(value))
+                if not self.strict:
+                    try:
+                        conv_value = int(float(value))
+                        logging.warn('Cast float {} to int {}, precision may be lost '
+                                     'for field `minutes_per_item`'.format(value, conv_value))
+                        value = conv_value
+                    except ValueError:
+                        raise ValueError('value {} need to be of type int '
+                                         'for field `minutes_per_item`'.format(value))
             if value < 1:
                 raise ValueError('value need to be greater or equal 1 '
                                  'for field `minutes_per_item`')

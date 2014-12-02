@@ -1,8 +1,9 @@
 from collections import OrderedDict
+import logging
+import re
 
 class LeadInput(object):
     """ Corresponds to IDD object `Lead Input`
-    
     """
     internal_name = "Lead Input"
     field_count = 0
@@ -12,16 +13,18 @@ class LeadInput(object):
         """ Init data dictionary object for IDD  `Lead Input`
         """
         self._data = OrderedDict()
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
+        self.strict = old_strict
 
     def check(self):
         """ Checks if all required fields are not None
@@ -59,7 +62,6 @@ class LeadInput(object):
 
 class SimulationData(object):
     """ Corresponds to IDD object `Simulation Data`
-    
     """
     internal_name = "Simulation Data"
     field_count = 0
@@ -69,16 +71,18 @@ class SimulationData(object):
         """ Init data dictionary object for IDD  `Simulation Data`
         """
         self._data = OrderedDict()
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
+        self.strict = old_strict
 
     def check(self):
         """ Checks if all required fields are not None

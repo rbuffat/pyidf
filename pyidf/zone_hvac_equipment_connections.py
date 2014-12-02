@@ -1,4 +1,6 @@
 from collections import OrderedDict
+import logging
+import re
 
 class ZoneHvacEquipmentList(object):
     """ Corresponds to IDD object `ZoneHVAC:EquipmentList`
@@ -14,7 +16,6 @@ class ZoneHvacEquipmentList(object):
         should be assigned Heating Sequence = 1 and Cooling Sequence = 1.  Any other equipment should
         be assigned sequence 2 or higher so that it will see the net load after the DOAS air is added
         to the zone.
-    
     """
     internal_name = "ZoneHVAC:EquipmentList"
     field_count = 73
@@ -97,15 +98,16 @@ class ZoneHvacEquipmentList(object):
         self._data["Zone Equipment 18 Name"] = None
         self._data["Zone Equipment 18 Cooling Sequence"] = None
         self._data["Zone Equipment 18 Heating or No-Load Sequence"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -618,6 +620,7 @@ class ZoneHvacEquipmentList(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -644,7 +647,7 @@ class ZoneHvacEquipmentList(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -707,7 +710,7 @@ class ZoneHvacEquipmentList(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `zone_equipment_1_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -746,16 +749,26 @@ class ZoneHvacEquipmentList(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `zone_equipment_1_object_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `zone_equipment_1_object_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Zone Equipment 1 Object Type"] = value
 
@@ -784,7 +797,7 @@ class ZoneHvacEquipmentList(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `zone_equipment_1_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -822,8 +835,15 @@ class ZoneHvacEquipmentList(object):
             try:
                 value = int(value)
             except ValueError:
-                raise ValueError('value {} need to be of type int '
-                                 'for field `zone_equipment_1_cooling_sequence`'.format(value))
+                if not self.strict:
+                    try:
+                        conv_value = int(float(value))
+                        logging.warn('Cast float {} to int {}, precision may be lost '
+                                     'for field `zone_equipment_1_cooling_sequence`'.format(value, conv_value))
+                        value = conv_value
+                    except ValueError:
+                        raise ValueError('value {} need to be of type int '
+                                         'for field `zone_equipment_1_cooling_sequence`'.format(value))
             if value < 1:
                 raise ValueError('value need to be greater or equal 1 '
                                  'for field `zone_equipment_1_cooling_sequence`')
@@ -857,8 +877,15 @@ class ZoneHvacEquipmentList(object):
             try:
                 value = int(value)
             except ValueError:
-                raise ValueError('value {} need to be of type int '
-                                 'for field `zone_equipment_1_heating_or_noload_sequence`'.format(value))
+                if not self.strict:
+                    try:
+                        conv_value = int(float(value))
+                        logging.warn('Cast float {} to int {}, precision may be lost '
+                                     'for field `zone_equipment_1_heating_or_noload_sequence`'.format(value, conv_value))
+                        value = conv_value
+                    except ValueError:
+                        raise ValueError('value {} need to be of type int '
+                                         'for field `zone_equipment_1_heating_or_noload_sequence`'.format(value))
             if value < 1:
                 raise ValueError('value need to be greater or equal 1 '
                                  'for field `zone_equipment_1_heating_or_noload_sequence`')
@@ -917,7 +944,7 @@ class ZoneHvacEquipmentList(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `zone_equipment_2_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -956,16 +983,26 @@ class ZoneHvacEquipmentList(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `zone_equipment_2_object_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `zone_equipment_2_object_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Zone Equipment 2 Object Type"] = value
 
@@ -994,7 +1031,7 @@ class ZoneHvacEquipmentList(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `zone_equipment_2_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1032,8 +1069,15 @@ class ZoneHvacEquipmentList(object):
             try:
                 value = int(value)
             except ValueError:
-                raise ValueError('value {} need to be of type int '
-                                 'for field `zone_equipment_2_cooling_sequence`'.format(value))
+                if not self.strict:
+                    try:
+                        conv_value = int(float(value))
+                        logging.warn('Cast float {} to int {}, precision may be lost '
+                                     'for field `zone_equipment_2_cooling_sequence`'.format(value, conv_value))
+                        value = conv_value
+                    except ValueError:
+                        raise ValueError('value {} need to be of type int '
+                                         'for field `zone_equipment_2_cooling_sequence`'.format(value))
             if value < 1:
                 raise ValueError('value need to be greater or equal 1 '
                                  'for field `zone_equipment_2_cooling_sequence`')
@@ -1067,8 +1111,15 @@ class ZoneHvacEquipmentList(object):
             try:
                 value = int(value)
             except ValueError:
-                raise ValueError('value {} need to be of type int '
-                                 'for field `zone_equipment_2_heating_or_noload_sequence`'.format(value))
+                if not self.strict:
+                    try:
+                        conv_value = int(float(value))
+                        logging.warn('Cast float {} to int {}, precision may be lost '
+                                     'for field `zone_equipment_2_heating_or_noload_sequence`'.format(value, conv_value))
+                        value = conv_value
+                    except ValueError:
+                        raise ValueError('value {} need to be of type int '
+                                         'for field `zone_equipment_2_heating_or_noload_sequence`'.format(value))
             if value < 1:
                 raise ValueError('value need to be greater or equal 1 '
                                  'for field `zone_equipment_2_heating_or_noload_sequence`')
@@ -1127,7 +1178,7 @@ class ZoneHvacEquipmentList(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `zone_equipment_3_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1166,16 +1217,26 @@ class ZoneHvacEquipmentList(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `zone_equipment_3_object_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `zone_equipment_3_object_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Zone Equipment 3 Object Type"] = value
 
@@ -1204,7 +1265,7 @@ class ZoneHvacEquipmentList(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `zone_equipment_3_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1242,8 +1303,15 @@ class ZoneHvacEquipmentList(object):
             try:
                 value = int(value)
             except ValueError:
-                raise ValueError('value {} need to be of type int '
-                                 'for field `zone_equipment_3_cooling_sequence`'.format(value))
+                if not self.strict:
+                    try:
+                        conv_value = int(float(value))
+                        logging.warn('Cast float {} to int {}, precision may be lost '
+                                     'for field `zone_equipment_3_cooling_sequence`'.format(value, conv_value))
+                        value = conv_value
+                    except ValueError:
+                        raise ValueError('value {} need to be of type int '
+                                         'for field `zone_equipment_3_cooling_sequence`'.format(value))
             if value < 1:
                 raise ValueError('value need to be greater or equal 1 '
                                  'for field `zone_equipment_3_cooling_sequence`')
@@ -1277,8 +1345,15 @@ class ZoneHvacEquipmentList(object):
             try:
                 value = int(value)
             except ValueError:
-                raise ValueError('value {} need to be of type int '
-                                 'for field `zone_equipment_3_heating_or_noload_sequence`'.format(value))
+                if not self.strict:
+                    try:
+                        conv_value = int(float(value))
+                        logging.warn('Cast float {} to int {}, precision may be lost '
+                                     'for field `zone_equipment_3_heating_or_noload_sequence`'.format(value, conv_value))
+                        value = conv_value
+                    except ValueError:
+                        raise ValueError('value {} need to be of type int '
+                                         'for field `zone_equipment_3_heating_or_noload_sequence`'.format(value))
             if value < 1:
                 raise ValueError('value need to be greater or equal 1 '
                                  'for field `zone_equipment_3_heating_or_noload_sequence`')
@@ -1337,7 +1412,7 @@ class ZoneHvacEquipmentList(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `zone_equipment_4_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1376,16 +1451,26 @@ class ZoneHvacEquipmentList(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `zone_equipment_4_object_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `zone_equipment_4_object_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Zone Equipment 4 Object Type"] = value
 
@@ -1414,7 +1499,7 @@ class ZoneHvacEquipmentList(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `zone_equipment_4_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1452,8 +1537,15 @@ class ZoneHvacEquipmentList(object):
             try:
                 value = int(value)
             except ValueError:
-                raise ValueError('value {} need to be of type int '
-                                 'for field `zone_equipment_4_cooling_sequence`'.format(value))
+                if not self.strict:
+                    try:
+                        conv_value = int(float(value))
+                        logging.warn('Cast float {} to int {}, precision may be lost '
+                                     'for field `zone_equipment_4_cooling_sequence`'.format(value, conv_value))
+                        value = conv_value
+                    except ValueError:
+                        raise ValueError('value {} need to be of type int '
+                                         'for field `zone_equipment_4_cooling_sequence`'.format(value))
             if value < 1:
                 raise ValueError('value need to be greater or equal 1 '
                                  'for field `zone_equipment_4_cooling_sequence`')
@@ -1487,8 +1579,15 @@ class ZoneHvacEquipmentList(object):
             try:
                 value = int(value)
             except ValueError:
-                raise ValueError('value {} need to be of type int '
-                                 'for field `zone_equipment_4_heating_or_noload_sequence`'.format(value))
+                if not self.strict:
+                    try:
+                        conv_value = int(float(value))
+                        logging.warn('Cast float {} to int {}, precision may be lost '
+                                     'for field `zone_equipment_4_heating_or_noload_sequence`'.format(value, conv_value))
+                        value = conv_value
+                    except ValueError:
+                        raise ValueError('value {} need to be of type int '
+                                         'for field `zone_equipment_4_heating_or_noload_sequence`'.format(value))
             if value < 1:
                 raise ValueError('value need to be greater or equal 1 '
                                  'for field `zone_equipment_4_heating_or_noload_sequence`')
@@ -1547,7 +1646,7 @@ class ZoneHvacEquipmentList(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `zone_equipment_5_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1586,16 +1685,26 @@ class ZoneHvacEquipmentList(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `zone_equipment_5_object_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `zone_equipment_5_object_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Zone Equipment 5 Object Type"] = value
 
@@ -1624,7 +1733,7 @@ class ZoneHvacEquipmentList(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `zone_equipment_5_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1662,8 +1771,15 @@ class ZoneHvacEquipmentList(object):
             try:
                 value = int(value)
             except ValueError:
-                raise ValueError('value {} need to be of type int '
-                                 'for field `zone_equipment_5_cooling_sequence`'.format(value))
+                if not self.strict:
+                    try:
+                        conv_value = int(float(value))
+                        logging.warn('Cast float {} to int {}, precision may be lost '
+                                     'for field `zone_equipment_5_cooling_sequence`'.format(value, conv_value))
+                        value = conv_value
+                    except ValueError:
+                        raise ValueError('value {} need to be of type int '
+                                         'for field `zone_equipment_5_cooling_sequence`'.format(value))
             if value < 1:
                 raise ValueError('value need to be greater or equal 1 '
                                  'for field `zone_equipment_5_cooling_sequence`')
@@ -1697,8 +1813,15 @@ class ZoneHvacEquipmentList(object):
             try:
                 value = int(value)
             except ValueError:
-                raise ValueError('value {} need to be of type int '
-                                 'for field `zone_equipment_5_heating_or_noload_sequence`'.format(value))
+                if not self.strict:
+                    try:
+                        conv_value = int(float(value))
+                        logging.warn('Cast float {} to int {}, precision may be lost '
+                                     'for field `zone_equipment_5_heating_or_noload_sequence`'.format(value, conv_value))
+                        value = conv_value
+                    except ValueError:
+                        raise ValueError('value {} need to be of type int '
+                                         'for field `zone_equipment_5_heating_or_noload_sequence`'.format(value))
             if value < 1:
                 raise ValueError('value need to be greater or equal 1 '
                                  'for field `zone_equipment_5_heating_or_noload_sequence`')
@@ -1757,7 +1880,7 @@ class ZoneHvacEquipmentList(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `zone_equipment_6_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1796,16 +1919,26 @@ class ZoneHvacEquipmentList(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `zone_equipment_6_object_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `zone_equipment_6_object_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Zone Equipment 6 Object Type"] = value
 
@@ -1834,7 +1967,7 @@ class ZoneHvacEquipmentList(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `zone_equipment_6_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1872,8 +2005,15 @@ class ZoneHvacEquipmentList(object):
             try:
                 value = int(value)
             except ValueError:
-                raise ValueError('value {} need to be of type int '
-                                 'for field `zone_equipment_6_cooling_sequence`'.format(value))
+                if not self.strict:
+                    try:
+                        conv_value = int(float(value))
+                        logging.warn('Cast float {} to int {}, precision may be lost '
+                                     'for field `zone_equipment_6_cooling_sequence`'.format(value, conv_value))
+                        value = conv_value
+                    except ValueError:
+                        raise ValueError('value {} need to be of type int '
+                                         'for field `zone_equipment_6_cooling_sequence`'.format(value))
             if value < 1:
                 raise ValueError('value need to be greater or equal 1 '
                                  'for field `zone_equipment_6_cooling_sequence`')
@@ -1907,8 +2047,15 @@ class ZoneHvacEquipmentList(object):
             try:
                 value = int(value)
             except ValueError:
-                raise ValueError('value {} need to be of type int '
-                                 'for field `zone_equipment_6_heating_or_noload_sequence`'.format(value))
+                if not self.strict:
+                    try:
+                        conv_value = int(float(value))
+                        logging.warn('Cast float {} to int {}, precision may be lost '
+                                     'for field `zone_equipment_6_heating_or_noload_sequence`'.format(value, conv_value))
+                        value = conv_value
+                    except ValueError:
+                        raise ValueError('value {} need to be of type int '
+                                         'for field `zone_equipment_6_heating_or_noload_sequence`'.format(value))
             if value < 1:
                 raise ValueError('value need to be greater or equal 1 '
                                  'for field `zone_equipment_6_heating_or_noload_sequence`')
@@ -1967,7 +2114,7 @@ class ZoneHvacEquipmentList(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `zone_equipment_7_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2006,16 +2153,26 @@ class ZoneHvacEquipmentList(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `zone_equipment_7_object_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `zone_equipment_7_object_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Zone Equipment 7 Object Type"] = value
 
@@ -2044,7 +2201,7 @@ class ZoneHvacEquipmentList(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `zone_equipment_7_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2082,8 +2239,15 @@ class ZoneHvacEquipmentList(object):
             try:
                 value = int(value)
             except ValueError:
-                raise ValueError('value {} need to be of type int '
-                                 'for field `zone_equipment_7_cooling_sequence`'.format(value))
+                if not self.strict:
+                    try:
+                        conv_value = int(float(value))
+                        logging.warn('Cast float {} to int {}, precision may be lost '
+                                     'for field `zone_equipment_7_cooling_sequence`'.format(value, conv_value))
+                        value = conv_value
+                    except ValueError:
+                        raise ValueError('value {} need to be of type int '
+                                         'for field `zone_equipment_7_cooling_sequence`'.format(value))
             if value < 1:
                 raise ValueError('value need to be greater or equal 1 '
                                  'for field `zone_equipment_7_cooling_sequence`')
@@ -2117,8 +2281,15 @@ class ZoneHvacEquipmentList(object):
             try:
                 value = int(value)
             except ValueError:
-                raise ValueError('value {} need to be of type int '
-                                 'for field `zone_equipment_7_heating_or_noload_sequence`'.format(value))
+                if not self.strict:
+                    try:
+                        conv_value = int(float(value))
+                        logging.warn('Cast float {} to int {}, precision may be lost '
+                                     'for field `zone_equipment_7_heating_or_noload_sequence`'.format(value, conv_value))
+                        value = conv_value
+                    except ValueError:
+                        raise ValueError('value {} need to be of type int '
+                                         'for field `zone_equipment_7_heating_or_noload_sequence`'.format(value))
             if value < 1:
                 raise ValueError('value need to be greater or equal 1 '
                                  'for field `zone_equipment_7_heating_or_noload_sequence`')
@@ -2177,7 +2348,7 @@ class ZoneHvacEquipmentList(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `zone_equipment_8_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2216,16 +2387,26 @@ class ZoneHvacEquipmentList(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `zone_equipment_8_object_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `zone_equipment_8_object_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Zone Equipment 8 Object Type"] = value
 
@@ -2254,7 +2435,7 @@ class ZoneHvacEquipmentList(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `zone_equipment_8_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2292,8 +2473,15 @@ class ZoneHvacEquipmentList(object):
             try:
                 value = int(value)
             except ValueError:
-                raise ValueError('value {} need to be of type int '
-                                 'for field `zone_equipment_8_cooling_sequence`'.format(value))
+                if not self.strict:
+                    try:
+                        conv_value = int(float(value))
+                        logging.warn('Cast float {} to int {}, precision may be lost '
+                                     'for field `zone_equipment_8_cooling_sequence`'.format(value, conv_value))
+                        value = conv_value
+                    except ValueError:
+                        raise ValueError('value {} need to be of type int '
+                                         'for field `zone_equipment_8_cooling_sequence`'.format(value))
             if value < 1:
                 raise ValueError('value need to be greater or equal 1 '
                                  'for field `zone_equipment_8_cooling_sequence`')
@@ -2327,8 +2515,15 @@ class ZoneHvacEquipmentList(object):
             try:
                 value = int(value)
             except ValueError:
-                raise ValueError('value {} need to be of type int '
-                                 'for field `zone_equipment_8_heating_or_noload_sequence`'.format(value))
+                if not self.strict:
+                    try:
+                        conv_value = int(float(value))
+                        logging.warn('Cast float {} to int {}, precision may be lost '
+                                     'for field `zone_equipment_8_heating_or_noload_sequence`'.format(value, conv_value))
+                        value = conv_value
+                    except ValueError:
+                        raise ValueError('value {} need to be of type int '
+                                         'for field `zone_equipment_8_heating_or_noload_sequence`'.format(value))
             if value < 1:
                 raise ValueError('value need to be greater or equal 1 '
                                  'for field `zone_equipment_8_heating_or_noload_sequence`')
@@ -2387,7 +2582,7 @@ class ZoneHvacEquipmentList(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `zone_equipment_9_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2426,16 +2621,26 @@ class ZoneHvacEquipmentList(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `zone_equipment_9_object_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `zone_equipment_9_object_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Zone Equipment 9 Object Type"] = value
 
@@ -2464,7 +2669,7 @@ class ZoneHvacEquipmentList(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `zone_equipment_9_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2502,8 +2707,15 @@ class ZoneHvacEquipmentList(object):
             try:
                 value = int(value)
             except ValueError:
-                raise ValueError('value {} need to be of type int '
-                                 'for field `zone_equipment_9_cooling_sequence`'.format(value))
+                if not self.strict:
+                    try:
+                        conv_value = int(float(value))
+                        logging.warn('Cast float {} to int {}, precision may be lost '
+                                     'for field `zone_equipment_9_cooling_sequence`'.format(value, conv_value))
+                        value = conv_value
+                    except ValueError:
+                        raise ValueError('value {} need to be of type int '
+                                         'for field `zone_equipment_9_cooling_sequence`'.format(value))
             if value < 1:
                 raise ValueError('value need to be greater or equal 1 '
                                  'for field `zone_equipment_9_cooling_sequence`')
@@ -2537,8 +2749,15 @@ class ZoneHvacEquipmentList(object):
             try:
                 value = int(value)
             except ValueError:
-                raise ValueError('value {} need to be of type int '
-                                 'for field `zone_equipment_9_heating_or_noload_sequence`'.format(value))
+                if not self.strict:
+                    try:
+                        conv_value = int(float(value))
+                        logging.warn('Cast float {} to int {}, precision may be lost '
+                                     'for field `zone_equipment_9_heating_or_noload_sequence`'.format(value, conv_value))
+                        value = conv_value
+                    except ValueError:
+                        raise ValueError('value {} need to be of type int '
+                                         'for field `zone_equipment_9_heating_or_noload_sequence`'.format(value))
             if value < 1:
                 raise ValueError('value need to be greater or equal 1 '
                                  'for field `zone_equipment_9_heating_or_noload_sequence`')
@@ -2597,7 +2816,7 @@ class ZoneHvacEquipmentList(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `zone_equipment_10_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2636,16 +2855,26 @@ class ZoneHvacEquipmentList(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `zone_equipment_10_object_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `zone_equipment_10_object_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Zone Equipment 10 Object Type"] = value
 
@@ -2674,7 +2903,7 @@ class ZoneHvacEquipmentList(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `zone_equipment_10_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2712,8 +2941,15 @@ class ZoneHvacEquipmentList(object):
             try:
                 value = int(value)
             except ValueError:
-                raise ValueError('value {} need to be of type int '
-                                 'for field `zone_equipment_10_cooling_sequence`'.format(value))
+                if not self.strict:
+                    try:
+                        conv_value = int(float(value))
+                        logging.warn('Cast float {} to int {}, precision may be lost '
+                                     'for field `zone_equipment_10_cooling_sequence`'.format(value, conv_value))
+                        value = conv_value
+                    except ValueError:
+                        raise ValueError('value {} need to be of type int '
+                                         'for field `zone_equipment_10_cooling_sequence`'.format(value))
             if value < 1:
                 raise ValueError('value need to be greater or equal 1 '
                                  'for field `zone_equipment_10_cooling_sequence`')
@@ -2747,8 +2983,15 @@ class ZoneHvacEquipmentList(object):
             try:
                 value = int(value)
             except ValueError:
-                raise ValueError('value {} need to be of type int '
-                                 'for field `zone_equipment_10_heating_or_noload_sequence`'.format(value))
+                if not self.strict:
+                    try:
+                        conv_value = int(float(value))
+                        logging.warn('Cast float {} to int {}, precision may be lost '
+                                     'for field `zone_equipment_10_heating_or_noload_sequence`'.format(value, conv_value))
+                        value = conv_value
+                    except ValueError:
+                        raise ValueError('value {} need to be of type int '
+                                         'for field `zone_equipment_10_heating_or_noload_sequence`'.format(value))
             if value < 1:
                 raise ValueError('value need to be greater or equal 1 '
                                  'for field `zone_equipment_10_heating_or_noload_sequence`')
@@ -2807,7 +3050,7 @@ class ZoneHvacEquipmentList(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `zone_equipment_11_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2846,16 +3089,26 @@ class ZoneHvacEquipmentList(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `zone_equipment_11_object_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `zone_equipment_11_object_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Zone Equipment 11 Object Type"] = value
 
@@ -2884,7 +3137,7 @@ class ZoneHvacEquipmentList(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `zone_equipment_11_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2922,8 +3175,15 @@ class ZoneHvacEquipmentList(object):
             try:
                 value = int(value)
             except ValueError:
-                raise ValueError('value {} need to be of type int '
-                                 'for field `zone_equipment_11_cooling_sequence`'.format(value))
+                if not self.strict:
+                    try:
+                        conv_value = int(float(value))
+                        logging.warn('Cast float {} to int {}, precision may be lost '
+                                     'for field `zone_equipment_11_cooling_sequence`'.format(value, conv_value))
+                        value = conv_value
+                    except ValueError:
+                        raise ValueError('value {} need to be of type int '
+                                         'for field `zone_equipment_11_cooling_sequence`'.format(value))
             if value < 1:
                 raise ValueError('value need to be greater or equal 1 '
                                  'for field `zone_equipment_11_cooling_sequence`')
@@ -2957,8 +3217,15 @@ class ZoneHvacEquipmentList(object):
             try:
                 value = int(value)
             except ValueError:
-                raise ValueError('value {} need to be of type int '
-                                 'for field `zone_equipment_11_heating_or_noload_sequence`'.format(value))
+                if not self.strict:
+                    try:
+                        conv_value = int(float(value))
+                        logging.warn('Cast float {} to int {}, precision may be lost '
+                                     'for field `zone_equipment_11_heating_or_noload_sequence`'.format(value, conv_value))
+                        value = conv_value
+                    except ValueError:
+                        raise ValueError('value {} need to be of type int '
+                                         'for field `zone_equipment_11_heating_or_noload_sequence`'.format(value))
             if value < 1:
                 raise ValueError('value need to be greater or equal 1 '
                                  'for field `zone_equipment_11_heating_or_noload_sequence`')
@@ -3017,7 +3284,7 @@ class ZoneHvacEquipmentList(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `zone_equipment_12_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3056,16 +3323,26 @@ class ZoneHvacEquipmentList(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `zone_equipment_12_object_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `zone_equipment_12_object_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Zone Equipment 12 Object Type"] = value
 
@@ -3094,7 +3371,7 @@ class ZoneHvacEquipmentList(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `zone_equipment_12_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3132,8 +3409,15 @@ class ZoneHvacEquipmentList(object):
             try:
                 value = int(value)
             except ValueError:
-                raise ValueError('value {} need to be of type int '
-                                 'for field `zone_equipment_12_cooling_sequence`'.format(value))
+                if not self.strict:
+                    try:
+                        conv_value = int(float(value))
+                        logging.warn('Cast float {} to int {}, precision may be lost '
+                                     'for field `zone_equipment_12_cooling_sequence`'.format(value, conv_value))
+                        value = conv_value
+                    except ValueError:
+                        raise ValueError('value {} need to be of type int '
+                                         'for field `zone_equipment_12_cooling_sequence`'.format(value))
             if value < 1:
                 raise ValueError('value need to be greater or equal 1 '
                                  'for field `zone_equipment_12_cooling_sequence`')
@@ -3167,8 +3451,15 @@ class ZoneHvacEquipmentList(object):
             try:
                 value = int(value)
             except ValueError:
-                raise ValueError('value {} need to be of type int '
-                                 'for field `zone_equipment_12_heating_or_noload_sequence`'.format(value))
+                if not self.strict:
+                    try:
+                        conv_value = int(float(value))
+                        logging.warn('Cast float {} to int {}, precision may be lost '
+                                     'for field `zone_equipment_12_heating_or_noload_sequence`'.format(value, conv_value))
+                        value = conv_value
+                    except ValueError:
+                        raise ValueError('value {} need to be of type int '
+                                         'for field `zone_equipment_12_heating_or_noload_sequence`'.format(value))
             if value < 1:
                 raise ValueError('value need to be greater or equal 1 '
                                  'for field `zone_equipment_12_heating_or_noload_sequence`')
@@ -3227,7 +3518,7 @@ class ZoneHvacEquipmentList(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `zone_equipment_13_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3266,16 +3557,26 @@ class ZoneHvacEquipmentList(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `zone_equipment_13_object_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `zone_equipment_13_object_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Zone Equipment 13 Object Type"] = value
 
@@ -3304,7 +3605,7 @@ class ZoneHvacEquipmentList(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `zone_equipment_13_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3342,8 +3643,15 @@ class ZoneHvacEquipmentList(object):
             try:
                 value = int(value)
             except ValueError:
-                raise ValueError('value {} need to be of type int '
-                                 'for field `zone_equipment_13_cooling_sequence`'.format(value))
+                if not self.strict:
+                    try:
+                        conv_value = int(float(value))
+                        logging.warn('Cast float {} to int {}, precision may be lost '
+                                     'for field `zone_equipment_13_cooling_sequence`'.format(value, conv_value))
+                        value = conv_value
+                    except ValueError:
+                        raise ValueError('value {} need to be of type int '
+                                         'for field `zone_equipment_13_cooling_sequence`'.format(value))
             if value < 1:
                 raise ValueError('value need to be greater or equal 1 '
                                  'for field `zone_equipment_13_cooling_sequence`')
@@ -3377,8 +3685,15 @@ class ZoneHvacEquipmentList(object):
             try:
                 value = int(value)
             except ValueError:
-                raise ValueError('value {} need to be of type int '
-                                 'for field `zone_equipment_13_heating_or_noload_sequence`'.format(value))
+                if not self.strict:
+                    try:
+                        conv_value = int(float(value))
+                        logging.warn('Cast float {} to int {}, precision may be lost '
+                                     'for field `zone_equipment_13_heating_or_noload_sequence`'.format(value, conv_value))
+                        value = conv_value
+                    except ValueError:
+                        raise ValueError('value {} need to be of type int '
+                                         'for field `zone_equipment_13_heating_or_noload_sequence`'.format(value))
             if value < 1:
                 raise ValueError('value need to be greater or equal 1 '
                                  'for field `zone_equipment_13_heating_or_noload_sequence`')
@@ -3437,7 +3752,7 @@ class ZoneHvacEquipmentList(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `zone_equipment_14_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3476,16 +3791,26 @@ class ZoneHvacEquipmentList(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `zone_equipment_14_object_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `zone_equipment_14_object_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Zone Equipment 14 Object Type"] = value
 
@@ -3514,7 +3839,7 @@ class ZoneHvacEquipmentList(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `zone_equipment_14_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3552,8 +3877,15 @@ class ZoneHvacEquipmentList(object):
             try:
                 value = int(value)
             except ValueError:
-                raise ValueError('value {} need to be of type int '
-                                 'for field `zone_equipment_14_cooling_sequence`'.format(value))
+                if not self.strict:
+                    try:
+                        conv_value = int(float(value))
+                        logging.warn('Cast float {} to int {}, precision may be lost '
+                                     'for field `zone_equipment_14_cooling_sequence`'.format(value, conv_value))
+                        value = conv_value
+                    except ValueError:
+                        raise ValueError('value {} need to be of type int '
+                                         'for field `zone_equipment_14_cooling_sequence`'.format(value))
             if value < 1:
                 raise ValueError('value need to be greater or equal 1 '
                                  'for field `zone_equipment_14_cooling_sequence`')
@@ -3587,8 +3919,15 @@ class ZoneHvacEquipmentList(object):
             try:
                 value = int(value)
             except ValueError:
-                raise ValueError('value {} need to be of type int '
-                                 'for field `zone_equipment_14_heating_or_noload_sequence`'.format(value))
+                if not self.strict:
+                    try:
+                        conv_value = int(float(value))
+                        logging.warn('Cast float {} to int {}, precision may be lost '
+                                     'for field `zone_equipment_14_heating_or_noload_sequence`'.format(value, conv_value))
+                        value = conv_value
+                    except ValueError:
+                        raise ValueError('value {} need to be of type int '
+                                         'for field `zone_equipment_14_heating_or_noload_sequence`'.format(value))
             if value < 1:
                 raise ValueError('value need to be greater or equal 1 '
                                  'for field `zone_equipment_14_heating_or_noload_sequence`')
@@ -3647,7 +3986,7 @@ class ZoneHvacEquipmentList(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `zone_equipment_15_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3686,16 +4025,26 @@ class ZoneHvacEquipmentList(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `zone_equipment_15_object_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `zone_equipment_15_object_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Zone Equipment 15 Object Type"] = value
 
@@ -3724,7 +4073,7 @@ class ZoneHvacEquipmentList(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `zone_equipment_15_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3762,8 +4111,15 @@ class ZoneHvacEquipmentList(object):
             try:
                 value = int(value)
             except ValueError:
-                raise ValueError('value {} need to be of type int '
-                                 'for field `zone_equipment_15_cooling_sequence`'.format(value))
+                if not self.strict:
+                    try:
+                        conv_value = int(float(value))
+                        logging.warn('Cast float {} to int {}, precision may be lost '
+                                     'for field `zone_equipment_15_cooling_sequence`'.format(value, conv_value))
+                        value = conv_value
+                    except ValueError:
+                        raise ValueError('value {} need to be of type int '
+                                         'for field `zone_equipment_15_cooling_sequence`'.format(value))
             if value < 1:
                 raise ValueError('value need to be greater or equal 1 '
                                  'for field `zone_equipment_15_cooling_sequence`')
@@ -3797,8 +4153,15 @@ class ZoneHvacEquipmentList(object):
             try:
                 value = int(value)
             except ValueError:
-                raise ValueError('value {} need to be of type int '
-                                 'for field `zone_equipment_15_heating_or_noload_sequence`'.format(value))
+                if not self.strict:
+                    try:
+                        conv_value = int(float(value))
+                        logging.warn('Cast float {} to int {}, precision may be lost '
+                                     'for field `zone_equipment_15_heating_or_noload_sequence`'.format(value, conv_value))
+                        value = conv_value
+                    except ValueError:
+                        raise ValueError('value {} need to be of type int '
+                                         'for field `zone_equipment_15_heating_or_noload_sequence`'.format(value))
             if value < 1:
                 raise ValueError('value need to be greater or equal 1 '
                                  'for field `zone_equipment_15_heating_or_noload_sequence`')
@@ -3857,7 +4220,7 @@ class ZoneHvacEquipmentList(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `zone_equipment_16_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3896,16 +4259,26 @@ class ZoneHvacEquipmentList(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `zone_equipment_16_object_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `zone_equipment_16_object_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Zone Equipment 16 Object Type"] = value
 
@@ -3934,7 +4307,7 @@ class ZoneHvacEquipmentList(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `zone_equipment_16_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3972,8 +4345,15 @@ class ZoneHvacEquipmentList(object):
             try:
                 value = int(value)
             except ValueError:
-                raise ValueError('value {} need to be of type int '
-                                 'for field `zone_equipment_16_cooling_sequence`'.format(value))
+                if not self.strict:
+                    try:
+                        conv_value = int(float(value))
+                        logging.warn('Cast float {} to int {}, precision may be lost '
+                                     'for field `zone_equipment_16_cooling_sequence`'.format(value, conv_value))
+                        value = conv_value
+                    except ValueError:
+                        raise ValueError('value {} need to be of type int '
+                                         'for field `zone_equipment_16_cooling_sequence`'.format(value))
             if value < 1:
                 raise ValueError('value need to be greater or equal 1 '
                                  'for field `zone_equipment_16_cooling_sequence`')
@@ -4007,8 +4387,15 @@ class ZoneHvacEquipmentList(object):
             try:
                 value = int(value)
             except ValueError:
-                raise ValueError('value {} need to be of type int '
-                                 'for field `zone_equipment_16_heating_or_noload_sequence`'.format(value))
+                if not self.strict:
+                    try:
+                        conv_value = int(float(value))
+                        logging.warn('Cast float {} to int {}, precision may be lost '
+                                     'for field `zone_equipment_16_heating_or_noload_sequence`'.format(value, conv_value))
+                        value = conv_value
+                    except ValueError:
+                        raise ValueError('value {} need to be of type int '
+                                         'for field `zone_equipment_16_heating_or_noload_sequence`'.format(value))
             if value < 1:
                 raise ValueError('value need to be greater or equal 1 '
                                  'for field `zone_equipment_16_heating_or_noload_sequence`')
@@ -4067,7 +4454,7 @@ class ZoneHvacEquipmentList(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `zone_equipment_17_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4106,16 +4493,26 @@ class ZoneHvacEquipmentList(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `zone_equipment_17_object_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `zone_equipment_17_object_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Zone Equipment 17 Object Type"] = value
 
@@ -4144,7 +4541,7 @@ class ZoneHvacEquipmentList(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `zone_equipment_17_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4182,8 +4579,15 @@ class ZoneHvacEquipmentList(object):
             try:
                 value = int(value)
             except ValueError:
-                raise ValueError('value {} need to be of type int '
-                                 'for field `zone_equipment_17_cooling_sequence`'.format(value))
+                if not self.strict:
+                    try:
+                        conv_value = int(float(value))
+                        logging.warn('Cast float {} to int {}, precision may be lost '
+                                     'for field `zone_equipment_17_cooling_sequence`'.format(value, conv_value))
+                        value = conv_value
+                    except ValueError:
+                        raise ValueError('value {} need to be of type int '
+                                         'for field `zone_equipment_17_cooling_sequence`'.format(value))
             if value < 1:
                 raise ValueError('value need to be greater or equal 1 '
                                  'for field `zone_equipment_17_cooling_sequence`')
@@ -4217,8 +4621,15 @@ class ZoneHvacEquipmentList(object):
             try:
                 value = int(value)
             except ValueError:
-                raise ValueError('value {} need to be of type int '
-                                 'for field `zone_equipment_17_heating_or_noload_sequence`'.format(value))
+                if not self.strict:
+                    try:
+                        conv_value = int(float(value))
+                        logging.warn('Cast float {} to int {}, precision may be lost '
+                                     'for field `zone_equipment_17_heating_or_noload_sequence`'.format(value, conv_value))
+                        value = conv_value
+                    except ValueError:
+                        raise ValueError('value {} need to be of type int '
+                                         'for field `zone_equipment_17_heating_or_noload_sequence`'.format(value))
             if value < 1:
                 raise ValueError('value need to be greater or equal 1 '
                                  'for field `zone_equipment_17_heating_or_noload_sequence`')
@@ -4277,7 +4688,7 @@ class ZoneHvacEquipmentList(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `zone_equipment_18_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4316,16 +4727,26 @@ class ZoneHvacEquipmentList(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `zone_equipment_18_object_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `zone_equipment_18_object_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Zone Equipment 18 Object Type"] = value
 
@@ -4354,7 +4775,7 @@ class ZoneHvacEquipmentList(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `zone_equipment_18_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4392,8 +4813,15 @@ class ZoneHvacEquipmentList(object):
             try:
                 value = int(value)
             except ValueError:
-                raise ValueError('value {} need to be of type int '
-                                 'for field `zone_equipment_18_cooling_sequence`'.format(value))
+                if not self.strict:
+                    try:
+                        conv_value = int(float(value))
+                        logging.warn('Cast float {} to int {}, precision may be lost '
+                                     'for field `zone_equipment_18_cooling_sequence`'.format(value, conv_value))
+                        value = conv_value
+                    except ValueError:
+                        raise ValueError('value {} need to be of type int '
+                                         'for field `zone_equipment_18_cooling_sequence`'.format(value))
             if value < 1:
                 raise ValueError('value need to be greater or equal 1 '
                                  'for field `zone_equipment_18_cooling_sequence`')
@@ -4427,8 +4855,15 @@ class ZoneHvacEquipmentList(object):
             try:
                 value = int(value)
             except ValueError:
-                raise ValueError('value {} need to be of type int '
-                                 'for field `zone_equipment_18_heating_or_noload_sequence`'.format(value))
+                if not self.strict:
+                    try:
+                        conv_value = int(float(value))
+                        logging.warn('Cast float {} to int {}, precision may be lost '
+                                     'for field `zone_equipment_18_heating_or_noload_sequence`'.format(value, conv_value))
+                        value = conv_value
+                    except ValueError:
+                        raise ValueError('value {} need to be of type int '
+                                         'for field `zone_equipment_18_heating_or_noload_sequence`'.format(value))
             if value < 1:
                 raise ValueError('value need to be greater or equal 1 '
                                  'for field `zone_equipment_18_heating_or_noload_sequence`')
@@ -4473,7 +4908,6 @@ class ZoneHvacEquipmentConnections(object):
         Specifies the HVAC equipment connections for a zone. Node names are specified for the
         zone air node, air inlet nodes, air exhaust nodes, and the air return node. A zone
         equipment list is referenced which lists all HVAC equipment connected to the zone.
-    
     """
     internal_name = "ZoneHVAC:EquipmentConnections"
     field_count = 6
@@ -4489,15 +4923,16 @@ class ZoneHvacEquipmentConnections(object):
         self._data["Zone Air Exhaust Node or NodeList Name"] = None
         self._data["Zone Air Node Name"] = None
         self._data["Zone Return Air Node Name"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.zone_name = None
@@ -4541,6 +4976,7 @@ class ZoneHvacEquipmentConnections(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def zone_name(self):
@@ -4567,7 +5003,7 @@ class ZoneHvacEquipmentConnections(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `zone_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4603,7 +5039,7 @@ class ZoneHvacEquipmentConnections(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `zone_conditioning_equipment_list_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4638,7 +5074,7 @@ class ZoneHvacEquipmentConnections(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `zone_air_inlet_node_or_nodelist_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4673,7 +5109,7 @@ class ZoneHvacEquipmentConnections(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `zone_air_exhaust_node_or_nodelist_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4708,7 +5144,7 @@ class ZoneHvacEquipmentConnections(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `zone_air_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4743,7 +5179,7 @@ class ZoneHvacEquipmentConnections(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `zone_return_air_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '

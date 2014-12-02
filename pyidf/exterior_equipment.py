@@ -1,9 +1,10 @@
 from collections import OrderedDict
+import logging
+import re
 
 class ExteriorLights(object):
     """ Corresponds to IDD object `Exterior:Lights`
         only used for Meter type reporting, does not affect building loads
-    
     """
     internal_name = "Exterior:Lights"
     field_count = 5
@@ -18,15 +19,16 @@ class ExteriorLights(object):
         self._data["Design Level"] = None
         self._data["Control Option"] = None
         self._data["End-Use Subcategory"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -63,6 +65,7 @@ class ExteriorLights(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -89,7 +92,7 @@ class ExteriorLights(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -125,7 +128,7 @@ class ExteriorLights(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -163,7 +166,7 @@ class ExteriorLights(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `design_level`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -199,7 +202,7 @@ class ExteriorLights(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `control_option`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -213,16 +216,26 @@ class ExteriorLights(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `control_option`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `control_option`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Control Option"] = value
 
@@ -252,7 +265,7 @@ class ExteriorLights(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `enduse_subcategory`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -299,7 +312,6 @@ class ExteriorLights(object):
 class ExteriorFuelEquipment(object):
     """ Corresponds to IDD object `Exterior:FuelEquipment`
         only used for Meter type reporting, does not affect building loads
-    
     """
     internal_name = "Exterior:FuelEquipment"
     field_count = 5
@@ -314,15 +326,16 @@ class ExteriorFuelEquipment(object):
         self._data["Schedule Name"] = None
         self._data["Design Level"] = None
         self._data["End-Use Subcategory"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -359,6 +372,7 @@ class ExteriorFuelEquipment(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -385,7 +399,7 @@ class ExteriorFuelEquipment(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -434,7 +448,7 @@ class ExteriorFuelEquipment(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `fuel_use_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -459,16 +473,26 @@ class ExteriorFuelEquipment(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `fuel_use_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `fuel_use_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Fuel Use Type"] = value
 
@@ -498,7 +522,7 @@ class ExteriorFuelEquipment(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -536,7 +560,7 @@ class ExteriorFuelEquipment(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `design_level`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -569,7 +593,7 @@ class ExteriorFuelEquipment(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `enduse_subcategory`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -616,7 +640,6 @@ class ExteriorFuelEquipment(object):
 class ExteriorWaterEquipment(object):
     """ Corresponds to IDD object `Exterior:WaterEquipment`
         only used for Meter type reporting, does not affect building loads
-    
     """
     internal_name = "Exterior:WaterEquipment"
     field_count = 5
@@ -631,15 +654,16 @@ class ExteriorWaterEquipment(object):
         self._data["Schedule Name"] = None
         self._data["Design Level"] = None
         self._data["End-Use Subcategory"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -676,6 +700,7 @@ class ExteriorWaterEquipment(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -702,7 +727,7 @@ class ExteriorWaterEquipment(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -740,7 +765,7 @@ class ExteriorWaterEquipment(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `fuel_use_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -753,16 +778,26 @@ class ExteriorWaterEquipment(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `fuel_use_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `fuel_use_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Fuel Use Type"] = value
 
@@ -792,7 +827,7 @@ class ExteriorWaterEquipment(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -829,7 +864,7 @@ class ExteriorWaterEquipment(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `design_level`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -862,7 +897,7 @@ class ExteriorWaterEquipment(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `enduse_subcategory`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '

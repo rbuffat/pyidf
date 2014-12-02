@@ -1,10 +1,11 @@
 from collections import OrderedDict
+import logging
+import re
 
 class FluidPropertiesName(object):
     """ Corresponds to IDD object `FluidProperties:Name`
         potential fluid name/type in the input file
         repeat this object for each fluid
-    
     """
     internal_name = "FluidProperties:Name"
     field_count = 2
@@ -16,15 +17,16 @@ class FluidPropertiesName(object):
         self._data = OrderedDict()
         self._data["Fluid Name"] = None
         self._data["Fluid Type"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.fluid_name = None
@@ -40,6 +42,7 @@ class FluidPropertiesName(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def fluid_name(self):
@@ -66,7 +69,7 @@ class FluidPropertiesName(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `fluid_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -104,7 +107,7 @@ class FluidPropertiesName(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `fluid_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -118,16 +121,26 @@ class FluidPropertiesName(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `fluid_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `fluid_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Fluid Type"] = value
 
@@ -168,7 +181,6 @@ class FluidPropertiesName(object):
 class FluidPropertiesGlycolConcentration(object):
     """ Corresponds to IDD object `FluidProperties:GlycolConcentration`
         glycol and what concentration it is
-    
     """
     internal_name = "FluidProperties:GlycolConcentration"
     field_count = 4
@@ -182,15 +194,16 @@ class FluidPropertiesGlycolConcentration(object):
         self._data["Glycol Type"] = None
         self._data["User Defined Glycol Name"] = None
         self._data["Glycol Concentration"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -220,6 +233,7 @@ class FluidPropertiesGlycolConcentration(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -246,7 +260,7 @@ class FluidPropertiesGlycolConcentration(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -286,7 +300,7 @@ class FluidPropertiesGlycolConcentration(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `glycol_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -301,16 +315,26 @@ class FluidPropertiesGlycolConcentration(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `glycol_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `glycol_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Glycol Type"] = value
 
@@ -339,7 +363,7 @@ class FluidPropertiesGlycolConcentration(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `user_defined_glycol_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -376,7 +400,7 @@ class FluidPropertiesGlycolConcentration(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `glycol_concentration`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -427,7 +451,6 @@ class FluidPropertiesTemperatures(object):
         in other words, there must be a one-to-one correspondence between the property values in this list and
         the actual properties list in other syntax
         degrees C (for all temperature inputs)
-    
     """
     internal_name = "FluidProperties:Temperatures"
     field_count = 251
@@ -688,15 +711,16 @@ class FluidPropertiesTemperatures(object):
         self._data["Temperature 248"] = None
         self._data["Temperature 249"] = None
         self._data["Temperature 250"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -2455,6 +2479,7 @@ class FluidPropertiesTemperatures(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -2481,7 +2506,7 @@ class FluidPropertiesTemperatures(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2517,7 +2542,7 @@ class FluidPropertiesTemperatures(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_1`'.format(value))
         self._data["Temperature 1"] = value
 
@@ -2547,7 +2572,7 @@ class FluidPropertiesTemperatures(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_2`'.format(value))
         self._data["Temperature 2"] = value
 
@@ -2577,7 +2602,7 @@ class FluidPropertiesTemperatures(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_3`'.format(value))
         self._data["Temperature 3"] = value
 
@@ -2607,7 +2632,7 @@ class FluidPropertiesTemperatures(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_4`'.format(value))
         self._data["Temperature 4"] = value
 
@@ -2637,7 +2662,7 @@ class FluidPropertiesTemperatures(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_5`'.format(value))
         self._data["Temperature 5"] = value
 
@@ -2667,7 +2692,7 @@ class FluidPropertiesTemperatures(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_6`'.format(value))
         self._data["Temperature 6"] = value
 
@@ -2697,7 +2722,7 @@ class FluidPropertiesTemperatures(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_7`'.format(value))
         self._data["Temperature 7"] = value
 
@@ -2727,7 +2752,7 @@ class FluidPropertiesTemperatures(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_8`'.format(value))
         self._data["Temperature 8"] = value
 
@@ -2757,7 +2782,7 @@ class FluidPropertiesTemperatures(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_9`'.format(value))
         self._data["Temperature 9"] = value
 
@@ -2787,7 +2812,7 @@ class FluidPropertiesTemperatures(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_10`'.format(value))
         self._data["Temperature 10"] = value
 
@@ -2817,7 +2842,7 @@ class FluidPropertiesTemperatures(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_11`'.format(value))
         self._data["Temperature 11"] = value
 
@@ -2847,7 +2872,7 @@ class FluidPropertiesTemperatures(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_12`'.format(value))
         self._data["Temperature 12"] = value
 
@@ -2877,7 +2902,7 @@ class FluidPropertiesTemperatures(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_13`'.format(value))
         self._data["Temperature 13"] = value
 
@@ -2907,7 +2932,7 @@ class FluidPropertiesTemperatures(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_14`'.format(value))
         self._data["Temperature 14"] = value
 
@@ -2937,7 +2962,7 @@ class FluidPropertiesTemperatures(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_15`'.format(value))
         self._data["Temperature 15"] = value
 
@@ -2967,7 +2992,7 @@ class FluidPropertiesTemperatures(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_16`'.format(value))
         self._data["Temperature 16"] = value
 
@@ -2997,7 +3022,7 @@ class FluidPropertiesTemperatures(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_17`'.format(value))
         self._data["Temperature 17"] = value
 
@@ -3027,7 +3052,7 @@ class FluidPropertiesTemperatures(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_18`'.format(value))
         self._data["Temperature 18"] = value
 
@@ -3057,7 +3082,7 @@ class FluidPropertiesTemperatures(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_19`'.format(value))
         self._data["Temperature 19"] = value
 
@@ -3087,7 +3112,7 @@ class FluidPropertiesTemperatures(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_20`'.format(value))
         self._data["Temperature 20"] = value
 
@@ -3117,7 +3142,7 @@ class FluidPropertiesTemperatures(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_21`'.format(value))
         self._data["Temperature 21"] = value
 
@@ -3147,7 +3172,7 @@ class FluidPropertiesTemperatures(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_22`'.format(value))
         self._data["Temperature 22"] = value
 
@@ -3177,7 +3202,7 @@ class FluidPropertiesTemperatures(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_23`'.format(value))
         self._data["Temperature 23"] = value
 
@@ -3207,7 +3232,7 @@ class FluidPropertiesTemperatures(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_24`'.format(value))
         self._data["Temperature 24"] = value
 
@@ -3237,7 +3262,7 @@ class FluidPropertiesTemperatures(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_25`'.format(value))
         self._data["Temperature 25"] = value
 
@@ -3267,7 +3292,7 @@ class FluidPropertiesTemperatures(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_26`'.format(value))
         self._data["Temperature 26"] = value
 
@@ -3297,7 +3322,7 @@ class FluidPropertiesTemperatures(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_27`'.format(value))
         self._data["Temperature 27"] = value
 
@@ -3327,7 +3352,7 @@ class FluidPropertiesTemperatures(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_28`'.format(value))
         self._data["Temperature 28"] = value
 
@@ -3357,7 +3382,7 @@ class FluidPropertiesTemperatures(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_29`'.format(value))
         self._data["Temperature 29"] = value
 
@@ -3387,7 +3412,7 @@ class FluidPropertiesTemperatures(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_30`'.format(value))
         self._data["Temperature 30"] = value
 
@@ -3417,7 +3442,7 @@ class FluidPropertiesTemperatures(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_31`'.format(value))
         self._data["Temperature 31"] = value
 
@@ -3447,7 +3472,7 @@ class FluidPropertiesTemperatures(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_32`'.format(value))
         self._data["Temperature 32"] = value
 
@@ -3477,7 +3502,7 @@ class FluidPropertiesTemperatures(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_33`'.format(value))
         self._data["Temperature 33"] = value
 
@@ -3507,7 +3532,7 @@ class FluidPropertiesTemperatures(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_34`'.format(value))
         self._data["Temperature 34"] = value
 
@@ -3537,7 +3562,7 @@ class FluidPropertiesTemperatures(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_35`'.format(value))
         self._data["Temperature 35"] = value
 
@@ -3567,7 +3592,7 @@ class FluidPropertiesTemperatures(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_36`'.format(value))
         self._data["Temperature 36"] = value
 
@@ -3597,7 +3622,7 @@ class FluidPropertiesTemperatures(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_37`'.format(value))
         self._data["Temperature 37"] = value
 
@@ -3627,7 +3652,7 @@ class FluidPropertiesTemperatures(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_38`'.format(value))
         self._data["Temperature 38"] = value
 
@@ -3657,7 +3682,7 @@ class FluidPropertiesTemperatures(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_39`'.format(value))
         self._data["Temperature 39"] = value
 
@@ -3687,7 +3712,7 @@ class FluidPropertiesTemperatures(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_40`'.format(value))
         self._data["Temperature 40"] = value
 
@@ -3717,7 +3742,7 @@ class FluidPropertiesTemperatures(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_41`'.format(value))
         self._data["Temperature 41"] = value
 
@@ -3747,7 +3772,7 @@ class FluidPropertiesTemperatures(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_42`'.format(value))
         self._data["Temperature 42"] = value
 
@@ -3777,7 +3802,7 @@ class FluidPropertiesTemperatures(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_43`'.format(value))
         self._data["Temperature 43"] = value
 
@@ -3807,7 +3832,7 @@ class FluidPropertiesTemperatures(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_44`'.format(value))
         self._data["Temperature 44"] = value
 
@@ -3837,7 +3862,7 @@ class FluidPropertiesTemperatures(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_45`'.format(value))
         self._data["Temperature 45"] = value
 
@@ -3867,7 +3892,7 @@ class FluidPropertiesTemperatures(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_46`'.format(value))
         self._data["Temperature 46"] = value
 
@@ -3897,7 +3922,7 @@ class FluidPropertiesTemperatures(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_47`'.format(value))
         self._data["Temperature 47"] = value
 
@@ -3927,7 +3952,7 @@ class FluidPropertiesTemperatures(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_48`'.format(value))
         self._data["Temperature 48"] = value
 
@@ -3957,7 +3982,7 @@ class FluidPropertiesTemperatures(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_49`'.format(value))
         self._data["Temperature 49"] = value
 
@@ -3987,7 +4012,7 @@ class FluidPropertiesTemperatures(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_50`'.format(value))
         self._data["Temperature 50"] = value
 
@@ -4017,7 +4042,7 @@ class FluidPropertiesTemperatures(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_51`'.format(value))
         self._data["Temperature 51"] = value
 
@@ -4047,7 +4072,7 @@ class FluidPropertiesTemperatures(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_52`'.format(value))
         self._data["Temperature 52"] = value
 
@@ -4077,7 +4102,7 @@ class FluidPropertiesTemperatures(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_53`'.format(value))
         self._data["Temperature 53"] = value
 
@@ -4107,7 +4132,7 @@ class FluidPropertiesTemperatures(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_54`'.format(value))
         self._data["Temperature 54"] = value
 
@@ -4137,7 +4162,7 @@ class FluidPropertiesTemperatures(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_55`'.format(value))
         self._data["Temperature 55"] = value
 
@@ -4167,7 +4192,7 @@ class FluidPropertiesTemperatures(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_56`'.format(value))
         self._data["Temperature 56"] = value
 
@@ -4197,7 +4222,7 @@ class FluidPropertiesTemperatures(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_57`'.format(value))
         self._data["Temperature 57"] = value
 
@@ -4227,7 +4252,7 @@ class FluidPropertiesTemperatures(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_58`'.format(value))
         self._data["Temperature 58"] = value
 
@@ -4257,7 +4282,7 @@ class FluidPropertiesTemperatures(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_59`'.format(value))
         self._data["Temperature 59"] = value
 
@@ -4287,7 +4312,7 @@ class FluidPropertiesTemperatures(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_60`'.format(value))
         self._data["Temperature 60"] = value
 
@@ -4317,7 +4342,7 @@ class FluidPropertiesTemperatures(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_61`'.format(value))
         self._data["Temperature 61"] = value
 
@@ -4347,7 +4372,7 @@ class FluidPropertiesTemperatures(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_62`'.format(value))
         self._data["Temperature 62"] = value
 
@@ -4377,7 +4402,7 @@ class FluidPropertiesTemperatures(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_63`'.format(value))
         self._data["Temperature 63"] = value
 
@@ -4407,7 +4432,7 @@ class FluidPropertiesTemperatures(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_64`'.format(value))
         self._data["Temperature 64"] = value
 
@@ -4437,7 +4462,7 @@ class FluidPropertiesTemperatures(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_65`'.format(value))
         self._data["Temperature 65"] = value
 
@@ -4467,7 +4492,7 @@ class FluidPropertiesTemperatures(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_66`'.format(value))
         self._data["Temperature 66"] = value
 
@@ -4497,7 +4522,7 @@ class FluidPropertiesTemperatures(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_67`'.format(value))
         self._data["Temperature 67"] = value
 
@@ -4527,7 +4552,7 @@ class FluidPropertiesTemperatures(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_68`'.format(value))
         self._data["Temperature 68"] = value
 
@@ -4557,7 +4582,7 @@ class FluidPropertiesTemperatures(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_69`'.format(value))
         self._data["Temperature 69"] = value
 
@@ -4587,7 +4612,7 @@ class FluidPropertiesTemperatures(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_70`'.format(value))
         self._data["Temperature 70"] = value
 
@@ -4617,7 +4642,7 @@ class FluidPropertiesTemperatures(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_71`'.format(value))
         self._data["Temperature 71"] = value
 
@@ -4647,7 +4672,7 @@ class FluidPropertiesTemperatures(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_72`'.format(value))
         self._data["Temperature 72"] = value
 
@@ -4677,7 +4702,7 @@ class FluidPropertiesTemperatures(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_73`'.format(value))
         self._data["Temperature 73"] = value
 
@@ -4707,7 +4732,7 @@ class FluidPropertiesTemperatures(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_74`'.format(value))
         self._data["Temperature 74"] = value
 
@@ -4737,7 +4762,7 @@ class FluidPropertiesTemperatures(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_75`'.format(value))
         self._data["Temperature 75"] = value
 
@@ -4767,7 +4792,7 @@ class FluidPropertiesTemperatures(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_76`'.format(value))
         self._data["Temperature 76"] = value
 
@@ -4797,7 +4822,7 @@ class FluidPropertiesTemperatures(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_77`'.format(value))
         self._data["Temperature 77"] = value
 
@@ -4827,7 +4852,7 @@ class FluidPropertiesTemperatures(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_78`'.format(value))
         self._data["Temperature 78"] = value
 
@@ -4857,7 +4882,7 @@ class FluidPropertiesTemperatures(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_79`'.format(value))
         self._data["Temperature 79"] = value
 
@@ -4887,7 +4912,7 @@ class FluidPropertiesTemperatures(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_80`'.format(value))
         self._data["Temperature 80"] = value
 
@@ -4917,7 +4942,7 @@ class FluidPropertiesTemperatures(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_81`'.format(value))
         self._data["Temperature 81"] = value
 
@@ -4947,7 +4972,7 @@ class FluidPropertiesTemperatures(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_82`'.format(value))
         self._data["Temperature 82"] = value
 
@@ -4977,7 +5002,7 @@ class FluidPropertiesTemperatures(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_83`'.format(value))
         self._data["Temperature 83"] = value
 
@@ -5007,7 +5032,7 @@ class FluidPropertiesTemperatures(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_84`'.format(value))
         self._data["Temperature 84"] = value
 
@@ -5037,7 +5062,7 @@ class FluidPropertiesTemperatures(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_85`'.format(value))
         self._data["Temperature 85"] = value
 
@@ -5067,7 +5092,7 @@ class FluidPropertiesTemperatures(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_86`'.format(value))
         self._data["Temperature 86"] = value
 
@@ -5097,7 +5122,7 @@ class FluidPropertiesTemperatures(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_87`'.format(value))
         self._data["Temperature 87"] = value
 
@@ -5127,7 +5152,7 @@ class FluidPropertiesTemperatures(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_88`'.format(value))
         self._data["Temperature 88"] = value
 
@@ -5157,7 +5182,7 @@ class FluidPropertiesTemperatures(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_89`'.format(value))
         self._data["Temperature 89"] = value
 
@@ -5187,7 +5212,7 @@ class FluidPropertiesTemperatures(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_90`'.format(value))
         self._data["Temperature 90"] = value
 
@@ -5217,7 +5242,7 @@ class FluidPropertiesTemperatures(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_91`'.format(value))
         self._data["Temperature 91"] = value
 
@@ -5247,7 +5272,7 @@ class FluidPropertiesTemperatures(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_92`'.format(value))
         self._data["Temperature 92"] = value
 
@@ -5277,7 +5302,7 @@ class FluidPropertiesTemperatures(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_93`'.format(value))
         self._data["Temperature 93"] = value
 
@@ -5307,7 +5332,7 @@ class FluidPropertiesTemperatures(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_94`'.format(value))
         self._data["Temperature 94"] = value
 
@@ -5337,7 +5362,7 @@ class FluidPropertiesTemperatures(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_95`'.format(value))
         self._data["Temperature 95"] = value
 
@@ -5367,7 +5392,7 @@ class FluidPropertiesTemperatures(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_96`'.format(value))
         self._data["Temperature 96"] = value
 
@@ -5397,7 +5422,7 @@ class FluidPropertiesTemperatures(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_97`'.format(value))
         self._data["Temperature 97"] = value
 
@@ -5427,7 +5452,7 @@ class FluidPropertiesTemperatures(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_98`'.format(value))
         self._data["Temperature 98"] = value
 
@@ -5457,7 +5482,7 @@ class FluidPropertiesTemperatures(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_99`'.format(value))
         self._data["Temperature 99"] = value
 
@@ -5487,7 +5512,7 @@ class FluidPropertiesTemperatures(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_100`'.format(value))
         self._data["Temperature 100"] = value
 
@@ -5517,7 +5542,7 @@ class FluidPropertiesTemperatures(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_101`'.format(value))
         self._data["Temperature 101"] = value
 
@@ -5547,7 +5572,7 @@ class FluidPropertiesTemperatures(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_102`'.format(value))
         self._data["Temperature 102"] = value
 
@@ -5577,7 +5602,7 @@ class FluidPropertiesTemperatures(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_103`'.format(value))
         self._data["Temperature 103"] = value
 
@@ -5607,7 +5632,7 @@ class FluidPropertiesTemperatures(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_104`'.format(value))
         self._data["Temperature 104"] = value
 
@@ -5637,7 +5662,7 @@ class FluidPropertiesTemperatures(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_105`'.format(value))
         self._data["Temperature 105"] = value
 
@@ -5667,7 +5692,7 @@ class FluidPropertiesTemperatures(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_106`'.format(value))
         self._data["Temperature 106"] = value
 
@@ -5697,7 +5722,7 @@ class FluidPropertiesTemperatures(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_107`'.format(value))
         self._data["Temperature 107"] = value
 
@@ -5727,7 +5752,7 @@ class FluidPropertiesTemperatures(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_108`'.format(value))
         self._data["Temperature 108"] = value
 
@@ -5757,7 +5782,7 @@ class FluidPropertiesTemperatures(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_109`'.format(value))
         self._data["Temperature 109"] = value
 
@@ -5787,7 +5812,7 @@ class FluidPropertiesTemperatures(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_110`'.format(value))
         self._data["Temperature 110"] = value
 
@@ -5817,7 +5842,7 @@ class FluidPropertiesTemperatures(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_111`'.format(value))
         self._data["Temperature 111"] = value
 
@@ -5847,7 +5872,7 @@ class FluidPropertiesTemperatures(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_112`'.format(value))
         self._data["Temperature 112"] = value
 
@@ -5877,7 +5902,7 @@ class FluidPropertiesTemperatures(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_113`'.format(value))
         self._data["Temperature 113"] = value
 
@@ -5907,7 +5932,7 @@ class FluidPropertiesTemperatures(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_114`'.format(value))
         self._data["Temperature 114"] = value
 
@@ -5937,7 +5962,7 @@ class FluidPropertiesTemperatures(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_115`'.format(value))
         self._data["Temperature 115"] = value
 
@@ -5967,7 +5992,7 @@ class FluidPropertiesTemperatures(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_116`'.format(value))
         self._data["Temperature 116"] = value
 
@@ -5997,7 +6022,7 @@ class FluidPropertiesTemperatures(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_117`'.format(value))
         self._data["Temperature 117"] = value
 
@@ -6027,7 +6052,7 @@ class FluidPropertiesTemperatures(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_118`'.format(value))
         self._data["Temperature 118"] = value
 
@@ -6057,7 +6082,7 @@ class FluidPropertiesTemperatures(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_119`'.format(value))
         self._data["Temperature 119"] = value
 
@@ -6087,7 +6112,7 @@ class FluidPropertiesTemperatures(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_120`'.format(value))
         self._data["Temperature 120"] = value
 
@@ -6117,7 +6142,7 @@ class FluidPropertiesTemperatures(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_121`'.format(value))
         self._data["Temperature 121"] = value
 
@@ -6147,7 +6172,7 @@ class FluidPropertiesTemperatures(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_122`'.format(value))
         self._data["Temperature 122"] = value
 
@@ -6177,7 +6202,7 @@ class FluidPropertiesTemperatures(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_123`'.format(value))
         self._data["Temperature 123"] = value
 
@@ -6207,7 +6232,7 @@ class FluidPropertiesTemperatures(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_124`'.format(value))
         self._data["Temperature 124"] = value
 
@@ -6237,7 +6262,7 @@ class FluidPropertiesTemperatures(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_125`'.format(value))
         self._data["Temperature 125"] = value
 
@@ -6267,7 +6292,7 @@ class FluidPropertiesTemperatures(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_126`'.format(value))
         self._data["Temperature 126"] = value
 
@@ -6297,7 +6322,7 @@ class FluidPropertiesTemperatures(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_127`'.format(value))
         self._data["Temperature 127"] = value
 
@@ -6327,7 +6352,7 @@ class FluidPropertiesTemperatures(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_128`'.format(value))
         self._data["Temperature 128"] = value
 
@@ -6357,7 +6382,7 @@ class FluidPropertiesTemperatures(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_129`'.format(value))
         self._data["Temperature 129"] = value
 
@@ -6387,7 +6412,7 @@ class FluidPropertiesTemperatures(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_130`'.format(value))
         self._data["Temperature 130"] = value
 
@@ -6417,7 +6442,7 @@ class FluidPropertiesTemperatures(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_131`'.format(value))
         self._data["Temperature 131"] = value
 
@@ -6447,7 +6472,7 @@ class FluidPropertiesTemperatures(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_132`'.format(value))
         self._data["Temperature 132"] = value
 
@@ -6477,7 +6502,7 @@ class FluidPropertiesTemperatures(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_133`'.format(value))
         self._data["Temperature 133"] = value
 
@@ -6507,7 +6532,7 @@ class FluidPropertiesTemperatures(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_134`'.format(value))
         self._data["Temperature 134"] = value
 
@@ -6537,7 +6562,7 @@ class FluidPropertiesTemperatures(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_135`'.format(value))
         self._data["Temperature 135"] = value
 
@@ -6567,7 +6592,7 @@ class FluidPropertiesTemperatures(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_136`'.format(value))
         self._data["Temperature 136"] = value
 
@@ -6597,7 +6622,7 @@ class FluidPropertiesTemperatures(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_137`'.format(value))
         self._data["Temperature 137"] = value
 
@@ -6627,7 +6652,7 @@ class FluidPropertiesTemperatures(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_138`'.format(value))
         self._data["Temperature 138"] = value
 
@@ -6657,7 +6682,7 @@ class FluidPropertiesTemperatures(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_139`'.format(value))
         self._data["Temperature 139"] = value
 
@@ -6687,7 +6712,7 @@ class FluidPropertiesTemperatures(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_140`'.format(value))
         self._data["Temperature 140"] = value
 
@@ -6717,7 +6742,7 @@ class FluidPropertiesTemperatures(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_141`'.format(value))
         self._data["Temperature 141"] = value
 
@@ -6747,7 +6772,7 @@ class FluidPropertiesTemperatures(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_142`'.format(value))
         self._data["Temperature 142"] = value
 
@@ -6777,7 +6802,7 @@ class FluidPropertiesTemperatures(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_143`'.format(value))
         self._data["Temperature 143"] = value
 
@@ -6807,7 +6832,7 @@ class FluidPropertiesTemperatures(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_144`'.format(value))
         self._data["Temperature 144"] = value
 
@@ -6837,7 +6862,7 @@ class FluidPropertiesTemperatures(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_145`'.format(value))
         self._data["Temperature 145"] = value
 
@@ -6867,7 +6892,7 @@ class FluidPropertiesTemperatures(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_146`'.format(value))
         self._data["Temperature 146"] = value
 
@@ -6897,7 +6922,7 @@ class FluidPropertiesTemperatures(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_147`'.format(value))
         self._data["Temperature 147"] = value
 
@@ -6927,7 +6952,7 @@ class FluidPropertiesTemperatures(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_148`'.format(value))
         self._data["Temperature 148"] = value
 
@@ -6957,7 +6982,7 @@ class FluidPropertiesTemperatures(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_149`'.format(value))
         self._data["Temperature 149"] = value
 
@@ -6987,7 +7012,7 @@ class FluidPropertiesTemperatures(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_150`'.format(value))
         self._data["Temperature 150"] = value
 
@@ -7017,7 +7042,7 @@ class FluidPropertiesTemperatures(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_151`'.format(value))
         self._data["Temperature 151"] = value
 
@@ -7047,7 +7072,7 @@ class FluidPropertiesTemperatures(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_152`'.format(value))
         self._data["Temperature 152"] = value
 
@@ -7077,7 +7102,7 @@ class FluidPropertiesTemperatures(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_153`'.format(value))
         self._data["Temperature 153"] = value
 
@@ -7107,7 +7132,7 @@ class FluidPropertiesTemperatures(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_154`'.format(value))
         self._data["Temperature 154"] = value
 
@@ -7137,7 +7162,7 @@ class FluidPropertiesTemperatures(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_155`'.format(value))
         self._data["Temperature 155"] = value
 
@@ -7167,7 +7192,7 @@ class FluidPropertiesTemperatures(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_156`'.format(value))
         self._data["Temperature 156"] = value
 
@@ -7197,7 +7222,7 @@ class FluidPropertiesTemperatures(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_157`'.format(value))
         self._data["Temperature 157"] = value
 
@@ -7227,7 +7252,7 @@ class FluidPropertiesTemperatures(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_158`'.format(value))
         self._data["Temperature 158"] = value
 
@@ -7257,7 +7282,7 @@ class FluidPropertiesTemperatures(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_159`'.format(value))
         self._data["Temperature 159"] = value
 
@@ -7287,7 +7312,7 @@ class FluidPropertiesTemperatures(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_160`'.format(value))
         self._data["Temperature 160"] = value
 
@@ -7317,7 +7342,7 @@ class FluidPropertiesTemperatures(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_161`'.format(value))
         self._data["Temperature 161"] = value
 
@@ -7347,7 +7372,7 @@ class FluidPropertiesTemperatures(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_162`'.format(value))
         self._data["Temperature 162"] = value
 
@@ -7377,7 +7402,7 @@ class FluidPropertiesTemperatures(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_163`'.format(value))
         self._data["Temperature 163"] = value
 
@@ -7407,7 +7432,7 @@ class FluidPropertiesTemperatures(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_164`'.format(value))
         self._data["Temperature 164"] = value
 
@@ -7437,7 +7462,7 @@ class FluidPropertiesTemperatures(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_165`'.format(value))
         self._data["Temperature 165"] = value
 
@@ -7467,7 +7492,7 @@ class FluidPropertiesTemperatures(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_166`'.format(value))
         self._data["Temperature 166"] = value
 
@@ -7497,7 +7522,7 @@ class FluidPropertiesTemperatures(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_167`'.format(value))
         self._data["Temperature 167"] = value
 
@@ -7527,7 +7552,7 @@ class FluidPropertiesTemperatures(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_168`'.format(value))
         self._data["Temperature 168"] = value
 
@@ -7557,7 +7582,7 @@ class FluidPropertiesTemperatures(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_169`'.format(value))
         self._data["Temperature 169"] = value
 
@@ -7587,7 +7612,7 @@ class FluidPropertiesTemperatures(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_170`'.format(value))
         self._data["Temperature 170"] = value
 
@@ -7617,7 +7642,7 @@ class FluidPropertiesTemperatures(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_171`'.format(value))
         self._data["Temperature 171"] = value
 
@@ -7647,7 +7672,7 @@ class FluidPropertiesTemperatures(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_172`'.format(value))
         self._data["Temperature 172"] = value
 
@@ -7677,7 +7702,7 @@ class FluidPropertiesTemperatures(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_173`'.format(value))
         self._data["Temperature 173"] = value
 
@@ -7707,7 +7732,7 @@ class FluidPropertiesTemperatures(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_174`'.format(value))
         self._data["Temperature 174"] = value
 
@@ -7737,7 +7762,7 @@ class FluidPropertiesTemperatures(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_175`'.format(value))
         self._data["Temperature 175"] = value
 
@@ -7767,7 +7792,7 @@ class FluidPropertiesTemperatures(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_176`'.format(value))
         self._data["Temperature 176"] = value
 
@@ -7797,7 +7822,7 @@ class FluidPropertiesTemperatures(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_177`'.format(value))
         self._data["Temperature 177"] = value
 
@@ -7827,7 +7852,7 @@ class FluidPropertiesTemperatures(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_178`'.format(value))
         self._data["Temperature 178"] = value
 
@@ -7857,7 +7882,7 @@ class FluidPropertiesTemperatures(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_179`'.format(value))
         self._data["Temperature 179"] = value
 
@@ -7887,7 +7912,7 @@ class FluidPropertiesTemperatures(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_180`'.format(value))
         self._data["Temperature 180"] = value
 
@@ -7917,7 +7942,7 @@ class FluidPropertiesTemperatures(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_181`'.format(value))
         self._data["Temperature 181"] = value
 
@@ -7947,7 +7972,7 @@ class FluidPropertiesTemperatures(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_182`'.format(value))
         self._data["Temperature 182"] = value
 
@@ -7977,7 +8002,7 @@ class FluidPropertiesTemperatures(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_183`'.format(value))
         self._data["Temperature 183"] = value
 
@@ -8007,7 +8032,7 @@ class FluidPropertiesTemperatures(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_184`'.format(value))
         self._data["Temperature 184"] = value
 
@@ -8037,7 +8062,7 @@ class FluidPropertiesTemperatures(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_185`'.format(value))
         self._data["Temperature 185"] = value
 
@@ -8067,7 +8092,7 @@ class FluidPropertiesTemperatures(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_186`'.format(value))
         self._data["Temperature 186"] = value
 
@@ -8097,7 +8122,7 @@ class FluidPropertiesTemperatures(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_187`'.format(value))
         self._data["Temperature 187"] = value
 
@@ -8127,7 +8152,7 @@ class FluidPropertiesTemperatures(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_188`'.format(value))
         self._data["Temperature 188"] = value
 
@@ -8157,7 +8182,7 @@ class FluidPropertiesTemperatures(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_189`'.format(value))
         self._data["Temperature 189"] = value
 
@@ -8187,7 +8212,7 @@ class FluidPropertiesTemperatures(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_190`'.format(value))
         self._data["Temperature 190"] = value
 
@@ -8217,7 +8242,7 @@ class FluidPropertiesTemperatures(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_191`'.format(value))
         self._data["Temperature 191"] = value
 
@@ -8247,7 +8272,7 @@ class FluidPropertiesTemperatures(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_192`'.format(value))
         self._data["Temperature 192"] = value
 
@@ -8277,7 +8302,7 @@ class FluidPropertiesTemperatures(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_193`'.format(value))
         self._data["Temperature 193"] = value
 
@@ -8307,7 +8332,7 @@ class FluidPropertiesTemperatures(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_194`'.format(value))
         self._data["Temperature 194"] = value
 
@@ -8337,7 +8362,7 @@ class FluidPropertiesTemperatures(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_195`'.format(value))
         self._data["Temperature 195"] = value
 
@@ -8367,7 +8392,7 @@ class FluidPropertiesTemperatures(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_196`'.format(value))
         self._data["Temperature 196"] = value
 
@@ -8397,7 +8422,7 @@ class FluidPropertiesTemperatures(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_197`'.format(value))
         self._data["Temperature 197"] = value
 
@@ -8427,7 +8452,7 @@ class FluidPropertiesTemperatures(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_198`'.format(value))
         self._data["Temperature 198"] = value
 
@@ -8457,7 +8482,7 @@ class FluidPropertiesTemperatures(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_199`'.format(value))
         self._data["Temperature 199"] = value
 
@@ -8487,7 +8512,7 @@ class FluidPropertiesTemperatures(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_200`'.format(value))
         self._data["Temperature 200"] = value
 
@@ -8517,7 +8542,7 @@ class FluidPropertiesTemperatures(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_201`'.format(value))
         self._data["Temperature 201"] = value
 
@@ -8547,7 +8572,7 @@ class FluidPropertiesTemperatures(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_202`'.format(value))
         self._data["Temperature 202"] = value
 
@@ -8577,7 +8602,7 @@ class FluidPropertiesTemperatures(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_203`'.format(value))
         self._data["Temperature 203"] = value
 
@@ -8607,7 +8632,7 @@ class FluidPropertiesTemperatures(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_204`'.format(value))
         self._data["Temperature 204"] = value
 
@@ -8637,7 +8662,7 @@ class FluidPropertiesTemperatures(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_205`'.format(value))
         self._data["Temperature 205"] = value
 
@@ -8667,7 +8692,7 @@ class FluidPropertiesTemperatures(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_206`'.format(value))
         self._data["Temperature 206"] = value
 
@@ -8697,7 +8722,7 @@ class FluidPropertiesTemperatures(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_207`'.format(value))
         self._data["Temperature 207"] = value
 
@@ -8727,7 +8752,7 @@ class FluidPropertiesTemperatures(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_208`'.format(value))
         self._data["Temperature 208"] = value
 
@@ -8757,7 +8782,7 @@ class FluidPropertiesTemperatures(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_209`'.format(value))
         self._data["Temperature 209"] = value
 
@@ -8787,7 +8812,7 @@ class FluidPropertiesTemperatures(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_210`'.format(value))
         self._data["Temperature 210"] = value
 
@@ -8817,7 +8842,7 @@ class FluidPropertiesTemperatures(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_211`'.format(value))
         self._data["Temperature 211"] = value
 
@@ -8847,7 +8872,7 @@ class FluidPropertiesTemperatures(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_212`'.format(value))
         self._data["Temperature 212"] = value
 
@@ -8877,7 +8902,7 @@ class FluidPropertiesTemperatures(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_213`'.format(value))
         self._data["Temperature 213"] = value
 
@@ -8907,7 +8932,7 @@ class FluidPropertiesTemperatures(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_214`'.format(value))
         self._data["Temperature 214"] = value
 
@@ -8937,7 +8962,7 @@ class FluidPropertiesTemperatures(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_215`'.format(value))
         self._data["Temperature 215"] = value
 
@@ -8967,7 +8992,7 @@ class FluidPropertiesTemperatures(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_216`'.format(value))
         self._data["Temperature 216"] = value
 
@@ -8997,7 +9022,7 @@ class FluidPropertiesTemperatures(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_217`'.format(value))
         self._data["Temperature 217"] = value
 
@@ -9027,7 +9052,7 @@ class FluidPropertiesTemperatures(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_218`'.format(value))
         self._data["Temperature 218"] = value
 
@@ -9057,7 +9082,7 @@ class FluidPropertiesTemperatures(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_219`'.format(value))
         self._data["Temperature 219"] = value
 
@@ -9087,7 +9112,7 @@ class FluidPropertiesTemperatures(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_220`'.format(value))
         self._data["Temperature 220"] = value
 
@@ -9117,7 +9142,7 @@ class FluidPropertiesTemperatures(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_221`'.format(value))
         self._data["Temperature 221"] = value
 
@@ -9147,7 +9172,7 @@ class FluidPropertiesTemperatures(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_222`'.format(value))
         self._data["Temperature 222"] = value
 
@@ -9177,7 +9202,7 @@ class FluidPropertiesTemperatures(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_223`'.format(value))
         self._data["Temperature 223"] = value
 
@@ -9207,7 +9232,7 @@ class FluidPropertiesTemperatures(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_224`'.format(value))
         self._data["Temperature 224"] = value
 
@@ -9237,7 +9262,7 @@ class FluidPropertiesTemperatures(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_225`'.format(value))
         self._data["Temperature 225"] = value
 
@@ -9267,7 +9292,7 @@ class FluidPropertiesTemperatures(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_226`'.format(value))
         self._data["Temperature 226"] = value
 
@@ -9297,7 +9322,7 @@ class FluidPropertiesTemperatures(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_227`'.format(value))
         self._data["Temperature 227"] = value
 
@@ -9327,7 +9352,7 @@ class FluidPropertiesTemperatures(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_228`'.format(value))
         self._data["Temperature 228"] = value
 
@@ -9357,7 +9382,7 @@ class FluidPropertiesTemperatures(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_229`'.format(value))
         self._data["Temperature 229"] = value
 
@@ -9387,7 +9412,7 @@ class FluidPropertiesTemperatures(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_230`'.format(value))
         self._data["Temperature 230"] = value
 
@@ -9417,7 +9442,7 @@ class FluidPropertiesTemperatures(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_231`'.format(value))
         self._data["Temperature 231"] = value
 
@@ -9447,7 +9472,7 @@ class FluidPropertiesTemperatures(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_232`'.format(value))
         self._data["Temperature 232"] = value
 
@@ -9477,7 +9502,7 @@ class FluidPropertiesTemperatures(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_233`'.format(value))
         self._data["Temperature 233"] = value
 
@@ -9507,7 +9532,7 @@ class FluidPropertiesTemperatures(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_234`'.format(value))
         self._data["Temperature 234"] = value
 
@@ -9537,7 +9562,7 @@ class FluidPropertiesTemperatures(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_235`'.format(value))
         self._data["Temperature 235"] = value
 
@@ -9567,7 +9592,7 @@ class FluidPropertiesTemperatures(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_236`'.format(value))
         self._data["Temperature 236"] = value
 
@@ -9597,7 +9622,7 @@ class FluidPropertiesTemperatures(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_237`'.format(value))
         self._data["Temperature 237"] = value
 
@@ -9627,7 +9652,7 @@ class FluidPropertiesTemperatures(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_238`'.format(value))
         self._data["Temperature 238"] = value
 
@@ -9657,7 +9682,7 @@ class FluidPropertiesTemperatures(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_239`'.format(value))
         self._data["Temperature 239"] = value
 
@@ -9687,7 +9712,7 @@ class FluidPropertiesTemperatures(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_240`'.format(value))
         self._data["Temperature 240"] = value
 
@@ -9717,7 +9742,7 @@ class FluidPropertiesTemperatures(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_241`'.format(value))
         self._data["Temperature 241"] = value
 
@@ -9747,7 +9772,7 @@ class FluidPropertiesTemperatures(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_242`'.format(value))
         self._data["Temperature 242"] = value
 
@@ -9777,7 +9802,7 @@ class FluidPropertiesTemperatures(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_243`'.format(value))
         self._data["Temperature 243"] = value
 
@@ -9807,7 +9832,7 @@ class FluidPropertiesTemperatures(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_244`'.format(value))
         self._data["Temperature 244"] = value
 
@@ -9837,7 +9862,7 @@ class FluidPropertiesTemperatures(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_245`'.format(value))
         self._data["Temperature 245"] = value
 
@@ -9867,7 +9892,7 @@ class FluidPropertiesTemperatures(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_246`'.format(value))
         self._data["Temperature 246"] = value
 
@@ -9897,7 +9922,7 @@ class FluidPropertiesTemperatures(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_247`'.format(value))
         self._data["Temperature 247"] = value
 
@@ -9927,7 +9952,7 @@ class FluidPropertiesTemperatures(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_248`'.format(value))
         self._data["Temperature 248"] = value
 
@@ -9957,7 +9982,7 @@ class FluidPropertiesTemperatures(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_249`'.format(value))
         self._data["Temperature 249"] = value
 
@@ -9987,7 +10012,7 @@ class FluidPropertiesTemperatures(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_250`'.format(value))
         self._data["Temperature 250"] = value
 
@@ -10028,7 +10053,6 @@ class FluidPropertiesTemperatures(object):
 class FluidPropertiesSaturated(object):
     """ Corresponds to IDD object `FluidProperties:Saturated`
         fluid properties for the saturated region
-    
     """
     internal_name = "FluidProperties:Saturated"
     field_count = 254
@@ -10292,15 +10316,16 @@ class FluidPropertiesSaturated(object):
         self._data["Property Value 248"] = None
         self._data["Property Value 249"] = None
         self._data["Property Value 250"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -12080,6 +12105,7 @@ class FluidPropertiesSaturated(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -12106,7 +12132,7 @@ class FluidPropertiesSaturated(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -12136,10 +12162,10 @@ class FluidPropertiesSaturated(object):
         Args:
             value (str): value for IDD Field `Fluid Property Type`
                 Accepted values are:
-                      - Enthalpy     ! Units are J/kg
-                      - Density      ! Units are kg/m3
-                      - SpecificHeat ! Units are J/kg-K
-                      - Pressure     ! Units are Pa
+                      - Enthalpy
+                      - Density
+                      - SpecificHeat
+                      - Pressure
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -12150,7 +12176,7 @@ class FluidPropertiesSaturated(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `fluid_property_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -12159,23 +12185,33 @@ class FluidPropertiesSaturated(object):
                 raise ValueError('value should not contain a ! '
                                  'for field `fluid_property_type`')
             vals = {}
-            vals["enthalpy     ! units are j/kg"] = "Enthalpy     ! Units are J/kg"
-            vals["density      ! units are kg/m3"] = "Density      ! Units are kg/m3"
-            vals["specificheat ! units are j/kg-k"] = "SpecificHeat ! Units are J/kg-K"
-            vals["pressure     ! units are pa"] = "Pressure     ! Units are Pa"
+            vals["enthalpy"] = "Enthalpy"
+            vals["density"] = "Density"
+            vals["specificheat"] = "SpecificHeat"
+            vals["pressure"] = "Pressure"
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `fluid_property_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `fluid_property_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Fluid Property Type"] = value
 
@@ -12197,8 +12233,8 @@ class FluidPropertiesSaturated(object):
         Args:
             value (str): value for IDD Field `Fluid Phase`
                 Accepted values are:
-                      - Fluid        ! saturated fluid
-                      - FluidGas     ! saturated vapor
+                      - Fluid
+                      - FluidGas
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -12209,7 +12245,7 @@ class FluidPropertiesSaturated(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `fluid_phase`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -12218,21 +12254,31 @@ class FluidPropertiesSaturated(object):
                 raise ValueError('value should not contain a ! '
                                  'for field `fluid_phase`')
             vals = {}
-            vals["fluid        ! saturated fluid"] = "Fluid        ! saturated fluid"
-            vals["fluidgas     ! saturated vapor"] = "FluidGas     ! saturated vapor"
+            vals["fluid"] = "Fluid"
+            vals["fluidgas"] = "FluidGas"
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `fluid_phase`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `fluid_phase`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Fluid Phase"] = value
 
@@ -12262,7 +12308,7 @@ class FluidPropertiesSaturated(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `temperature_values_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -12287,6 +12333,7 @@ class FluidPropertiesSaturated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 1`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -12297,7 +12344,7 @@ class FluidPropertiesSaturated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_1`'.format(value))
         self._data["Property Value 1"] = value
 
@@ -12316,6 +12363,7 @@ class FluidPropertiesSaturated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 2`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -12326,7 +12374,7 @@ class FluidPropertiesSaturated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_2`'.format(value))
         self._data["Property Value 2"] = value
 
@@ -12345,6 +12393,7 @@ class FluidPropertiesSaturated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 3`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -12355,7 +12404,7 @@ class FluidPropertiesSaturated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_3`'.format(value))
         self._data["Property Value 3"] = value
 
@@ -12374,6 +12423,7 @@ class FluidPropertiesSaturated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 4`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -12384,7 +12434,7 @@ class FluidPropertiesSaturated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_4`'.format(value))
         self._data["Property Value 4"] = value
 
@@ -12403,6 +12453,7 @@ class FluidPropertiesSaturated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 5`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -12413,7 +12464,7 @@ class FluidPropertiesSaturated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_5`'.format(value))
         self._data["Property Value 5"] = value
 
@@ -12432,6 +12483,7 @@ class FluidPropertiesSaturated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 6`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -12442,7 +12494,7 @@ class FluidPropertiesSaturated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_6`'.format(value))
         self._data["Property Value 6"] = value
 
@@ -12461,6 +12513,7 @@ class FluidPropertiesSaturated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 7`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -12471,7 +12524,7 @@ class FluidPropertiesSaturated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_7`'.format(value))
         self._data["Property Value 7"] = value
 
@@ -12490,6 +12543,7 @@ class FluidPropertiesSaturated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 8`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -12500,7 +12554,7 @@ class FluidPropertiesSaturated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_8`'.format(value))
         self._data["Property Value 8"] = value
 
@@ -12519,6 +12573,7 @@ class FluidPropertiesSaturated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 9`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -12529,7 +12584,7 @@ class FluidPropertiesSaturated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_9`'.format(value))
         self._data["Property Value 9"] = value
 
@@ -12548,6 +12603,7 @@ class FluidPropertiesSaturated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 10`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -12558,7 +12614,7 @@ class FluidPropertiesSaturated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_10`'.format(value))
         self._data["Property Value 10"] = value
 
@@ -12577,6 +12633,7 @@ class FluidPropertiesSaturated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 11`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -12587,7 +12644,7 @@ class FluidPropertiesSaturated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_11`'.format(value))
         self._data["Property Value 11"] = value
 
@@ -12606,6 +12663,7 @@ class FluidPropertiesSaturated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 12`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -12616,7 +12674,7 @@ class FluidPropertiesSaturated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_12`'.format(value))
         self._data["Property Value 12"] = value
 
@@ -12635,6 +12693,7 @@ class FluidPropertiesSaturated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 13`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -12645,7 +12704,7 @@ class FluidPropertiesSaturated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_13`'.format(value))
         self._data["Property Value 13"] = value
 
@@ -12664,6 +12723,7 @@ class FluidPropertiesSaturated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 14`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -12674,7 +12734,7 @@ class FluidPropertiesSaturated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_14`'.format(value))
         self._data["Property Value 14"] = value
 
@@ -12693,6 +12753,7 @@ class FluidPropertiesSaturated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 15`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -12703,7 +12764,7 @@ class FluidPropertiesSaturated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_15`'.format(value))
         self._data["Property Value 15"] = value
 
@@ -12722,6 +12783,7 @@ class FluidPropertiesSaturated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 16`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -12732,7 +12794,7 @@ class FluidPropertiesSaturated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_16`'.format(value))
         self._data["Property Value 16"] = value
 
@@ -12751,6 +12813,7 @@ class FluidPropertiesSaturated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 17`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -12761,7 +12824,7 @@ class FluidPropertiesSaturated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_17`'.format(value))
         self._data["Property Value 17"] = value
 
@@ -12780,6 +12843,7 @@ class FluidPropertiesSaturated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 18`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -12790,7 +12854,7 @@ class FluidPropertiesSaturated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_18`'.format(value))
         self._data["Property Value 18"] = value
 
@@ -12809,6 +12873,7 @@ class FluidPropertiesSaturated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 19`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -12819,7 +12884,7 @@ class FluidPropertiesSaturated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_19`'.format(value))
         self._data["Property Value 19"] = value
 
@@ -12838,6 +12903,7 @@ class FluidPropertiesSaturated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 20`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -12848,7 +12914,7 @@ class FluidPropertiesSaturated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_20`'.format(value))
         self._data["Property Value 20"] = value
 
@@ -12867,6 +12933,7 @@ class FluidPropertiesSaturated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 21`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -12877,7 +12944,7 @@ class FluidPropertiesSaturated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_21`'.format(value))
         self._data["Property Value 21"] = value
 
@@ -12896,6 +12963,7 @@ class FluidPropertiesSaturated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 22`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -12906,7 +12974,7 @@ class FluidPropertiesSaturated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_22`'.format(value))
         self._data["Property Value 22"] = value
 
@@ -12925,6 +12993,7 @@ class FluidPropertiesSaturated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 23`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -12935,7 +13004,7 @@ class FluidPropertiesSaturated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_23`'.format(value))
         self._data["Property Value 23"] = value
 
@@ -12954,6 +13023,7 @@ class FluidPropertiesSaturated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 24`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -12964,7 +13034,7 @@ class FluidPropertiesSaturated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_24`'.format(value))
         self._data["Property Value 24"] = value
 
@@ -12983,6 +13053,7 @@ class FluidPropertiesSaturated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 25`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -12993,7 +13064,7 @@ class FluidPropertiesSaturated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_25`'.format(value))
         self._data["Property Value 25"] = value
 
@@ -13012,6 +13083,7 @@ class FluidPropertiesSaturated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 26`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -13022,7 +13094,7 @@ class FluidPropertiesSaturated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_26`'.format(value))
         self._data["Property Value 26"] = value
 
@@ -13041,6 +13113,7 @@ class FluidPropertiesSaturated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 27`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -13051,7 +13124,7 @@ class FluidPropertiesSaturated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_27`'.format(value))
         self._data["Property Value 27"] = value
 
@@ -13070,6 +13143,7 @@ class FluidPropertiesSaturated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 28`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -13080,7 +13154,7 @@ class FluidPropertiesSaturated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_28`'.format(value))
         self._data["Property Value 28"] = value
 
@@ -13099,6 +13173,7 @@ class FluidPropertiesSaturated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 29`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -13109,7 +13184,7 @@ class FluidPropertiesSaturated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_29`'.format(value))
         self._data["Property Value 29"] = value
 
@@ -13128,6 +13203,7 @@ class FluidPropertiesSaturated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 30`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -13138,7 +13214,7 @@ class FluidPropertiesSaturated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_30`'.format(value))
         self._data["Property Value 30"] = value
 
@@ -13157,6 +13233,7 @@ class FluidPropertiesSaturated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 31`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -13167,7 +13244,7 @@ class FluidPropertiesSaturated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_31`'.format(value))
         self._data["Property Value 31"] = value
 
@@ -13186,6 +13263,7 @@ class FluidPropertiesSaturated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 32`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -13196,7 +13274,7 @@ class FluidPropertiesSaturated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_32`'.format(value))
         self._data["Property Value 32"] = value
 
@@ -13215,6 +13293,7 @@ class FluidPropertiesSaturated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 33`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -13225,7 +13304,7 @@ class FluidPropertiesSaturated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_33`'.format(value))
         self._data["Property Value 33"] = value
 
@@ -13244,6 +13323,7 @@ class FluidPropertiesSaturated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 34`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -13254,7 +13334,7 @@ class FluidPropertiesSaturated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_34`'.format(value))
         self._data["Property Value 34"] = value
 
@@ -13273,6 +13353,7 @@ class FluidPropertiesSaturated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 35`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -13283,7 +13364,7 @@ class FluidPropertiesSaturated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_35`'.format(value))
         self._data["Property Value 35"] = value
 
@@ -13302,6 +13383,7 @@ class FluidPropertiesSaturated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 36`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -13312,7 +13394,7 @@ class FluidPropertiesSaturated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_36`'.format(value))
         self._data["Property Value 36"] = value
 
@@ -13331,6 +13413,7 @@ class FluidPropertiesSaturated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 37`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -13341,7 +13424,7 @@ class FluidPropertiesSaturated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_37`'.format(value))
         self._data["Property Value 37"] = value
 
@@ -13360,6 +13443,7 @@ class FluidPropertiesSaturated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 38`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -13370,7 +13454,7 @@ class FluidPropertiesSaturated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_38`'.format(value))
         self._data["Property Value 38"] = value
 
@@ -13389,6 +13473,7 @@ class FluidPropertiesSaturated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 39`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -13399,7 +13484,7 @@ class FluidPropertiesSaturated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_39`'.format(value))
         self._data["Property Value 39"] = value
 
@@ -13418,6 +13503,7 @@ class FluidPropertiesSaturated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 40`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -13428,7 +13514,7 @@ class FluidPropertiesSaturated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_40`'.format(value))
         self._data["Property Value 40"] = value
 
@@ -13447,6 +13533,7 @@ class FluidPropertiesSaturated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 41`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -13457,7 +13544,7 @@ class FluidPropertiesSaturated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_41`'.format(value))
         self._data["Property Value 41"] = value
 
@@ -13476,6 +13563,7 @@ class FluidPropertiesSaturated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 42`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -13486,7 +13574,7 @@ class FluidPropertiesSaturated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_42`'.format(value))
         self._data["Property Value 42"] = value
 
@@ -13505,6 +13593,7 @@ class FluidPropertiesSaturated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 43`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -13515,7 +13604,7 @@ class FluidPropertiesSaturated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_43`'.format(value))
         self._data["Property Value 43"] = value
 
@@ -13534,6 +13623,7 @@ class FluidPropertiesSaturated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 44`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -13544,7 +13634,7 @@ class FluidPropertiesSaturated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_44`'.format(value))
         self._data["Property Value 44"] = value
 
@@ -13563,6 +13653,7 @@ class FluidPropertiesSaturated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 45`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -13573,7 +13664,7 @@ class FluidPropertiesSaturated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_45`'.format(value))
         self._data["Property Value 45"] = value
 
@@ -13592,6 +13683,7 @@ class FluidPropertiesSaturated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 46`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -13602,7 +13694,7 @@ class FluidPropertiesSaturated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_46`'.format(value))
         self._data["Property Value 46"] = value
 
@@ -13621,6 +13713,7 @@ class FluidPropertiesSaturated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 47`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -13631,7 +13724,7 @@ class FluidPropertiesSaturated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_47`'.format(value))
         self._data["Property Value 47"] = value
 
@@ -13650,6 +13743,7 @@ class FluidPropertiesSaturated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 48`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -13660,7 +13754,7 @@ class FluidPropertiesSaturated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_48`'.format(value))
         self._data["Property Value 48"] = value
 
@@ -13679,6 +13773,7 @@ class FluidPropertiesSaturated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 49`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -13689,7 +13784,7 @@ class FluidPropertiesSaturated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_49`'.format(value))
         self._data["Property Value 49"] = value
 
@@ -13708,6 +13803,7 @@ class FluidPropertiesSaturated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 50`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -13718,7 +13814,7 @@ class FluidPropertiesSaturated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_50`'.format(value))
         self._data["Property Value 50"] = value
 
@@ -13737,6 +13833,7 @@ class FluidPropertiesSaturated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 51`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -13747,7 +13844,7 @@ class FluidPropertiesSaturated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_51`'.format(value))
         self._data["Property Value 51"] = value
 
@@ -13766,6 +13863,7 @@ class FluidPropertiesSaturated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 52`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -13776,7 +13874,7 @@ class FluidPropertiesSaturated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_52`'.format(value))
         self._data["Property Value 52"] = value
 
@@ -13795,6 +13893,7 @@ class FluidPropertiesSaturated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 53`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -13805,7 +13904,7 @@ class FluidPropertiesSaturated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_53`'.format(value))
         self._data["Property Value 53"] = value
 
@@ -13824,6 +13923,7 @@ class FluidPropertiesSaturated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 54`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -13834,7 +13934,7 @@ class FluidPropertiesSaturated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_54`'.format(value))
         self._data["Property Value 54"] = value
 
@@ -13853,6 +13953,7 @@ class FluidPropertiesSaturated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 55`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -13863,7 +13964,7 @@ class FluidPropertiesSaturated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_55`'.format(value))
         self._data["Property Value 55"] = value
 
@@ -13882,6 +13983,7 @@ class FluidPropertiesSaturated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 56`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -13892,7 +13994,7 @@ class FluidPropertiesSaturated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_56`'.format(value))
         self._data["Property Value 56"] = value
 
@@ -13911,6 +14013,7 @@ class FluidPropertiesSaturated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 57`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -13921,7 +14024,7 @@ class FluidPropertiesSaturated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_57`'.format(value))
         self._data["Property Value 57"] = value
 
@@ -13940,6 +14043,7 @@ class FluidPropertiesSaturated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 58`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -13950,7 +14054,7 @@ class FluidPropertiesSaturated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_58`'.format(value))
         self._data["Property Value 58"] = value
 
@@ -13969,6 +14073,7 @@ class FluidPropertiesSaturated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 59`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -13979,7 +14084,7 @@ class FluidPropertiesSaturated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_59`'.format(value))
         self._data["Property Value 59"] = value
 
@@ -13998,6 +14103,7 @@ class FluidPropertiesSaturated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 60`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -14008,7 +14114,7 @@ class FluidPropertiesSaturated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_60`'.format(value))
         self._data["Property Value 60"] = value
 
@@ -14027,6 +14133,7 @@ class FluidPropertiesSaturated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 61`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -14037,7 +14144,7 @@ class FluidPropertiesSaturated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_61`'.format(value))
         self._data["Property Value 61"] = value
 
@@ -14056,6 +14163,7 @@ class FluidPropertiesSaturated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 62`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -14066,7 +14174,7 @@ class FluidPropertiesSaturated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_62`'.format(value))
         self._data["Property Value 62"] = value
 
@@ -14085,6 +14193,7 @@ class FluidPropertiesSaturated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 63`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -14095,7 +14204,7 @@ class FluidPropertiesSaturated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_63`'.format(value))
         self._data["Property Value 63"] = value
 
@@ -14114,6 +14223,7 @@ class FluidPropertiesSaturated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 64`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -14124,7 +14234,7 @@ class FluidPropertiesSaturated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_64`'.format(value))
         self._data["Property Value 64"] = value
 
@@ -14143,6 +14253,7 @@ class FluidPropertiesSaturated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 65`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -14153,7 +14264,7 @@ class FluidPropertiesSaturated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_65`'.format(value))
         self._data["Property Value 65"] = value
 
@@ -14172,6 +14283,7 @@ class FluidPropertiesSaturated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 66`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -14182,7 +14294,7 @@ class FluidPropertiesSaturated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_66`'.format(value))
         self._data["Property Value 66"] = value
 
@@ -14201,6 +14313,7 @@ class FluidPropertiesSaturated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 67`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -14211,7 +14324,7 @@ class FluidPropertiesSaturated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_67`'.format(value))
         self._data["Property Value 67"] = value
 
@@ -14230,6 +14343,7 @@ class FluidPropertiesSaturated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 68`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -14240,7 +14354,7 @@ class FluidPropertiesSaturated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_68`'.format(value))
         self._data["Property Value 68"] = value
 
@@ -14259,6 +14373,7 @@ class FluidPropertiesSaturated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 69`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -14269,7 +14384,7 @@ class FluidPropertiesSaturated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_69`'.format(value))
         self._data["Property Value 69"] = value
 
@@ -14288,6 +14403,7 @@ class FluidPropertiesSaturated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 70`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -14298,7 +14414,7 @@ class FluidPropertiesSaturated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_70`'.format(value))
         self._data["Property Value 70"] = value
 
@@ -14317,6 +14433,7 @@ class FluidPropertiesSaturated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 71`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -14327,7 +14444,7 @@ class FluidPropertiesSaturated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_71`'.format(value))
         self._data["Property Value 71"] = value
 
@@ -14346,6 +14463,7 @@ class FluidPropertiesSaturated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 72`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -14356,7 +14474,7 @@ class FluidPropertiesSaturated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_72`'.format(value))
         self._data["Property Value 72"] = value
 
@@ -14375,6 +14493,7 @@ class FluidPropertiesSaturated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 73`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -14385,7 +14504,7 @@ class FluidPropertiesSaturated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_73`'.format(value))
         self._data["Property Value 73"] = value
 
@@ -14404,6 +14523,7 @@ class FluidPropertiesSaturated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 74`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -14414,7 +14534,7 @@ class FluidPropertiesSaturated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_74`'.format(value))
         self._data["Property Value 74"] = value
 
@@ -14433,6 +14553,7 @@ class FluidPropertiesSaturated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 75`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -14443,7 +14564,7 @@ class FluidPropertiesSaturated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_75`'.format(value))
         self._data["Property Value 75"] = value
 
@@ -14462,6 +14583,7 @@ class FluidPropertiesSaturated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 76`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -14472,7 +14594,7 @@ class FluidPropertiesSaturated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_76`'.format(value))
         self._data["Property Value 76"] = value
 
@@ -14491,6 +14613,7 @@ class FluidPropertiesSaturated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 77`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -14501,7 +14624,7 @@ class FluidPropertiesSaturated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_77`'.format(value))
         self._data["Property Value 77"] = value
 
@@ -14520,6 +14643,7 @@ class FluidPropertiesSaturated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 78`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -14530,7 +14654,7 @@ class FluidPropertiesSaturated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_78`'.format(value))
         self._data["Property Value 78"] = value
 
@@ -14549,6 +14673,7 @@ class FluidPropertiesSaturated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 79`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -14559,7 +14684,7 @@ class FluidPropertiesSaturated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_79`'.format(value))
         self._data["Property Value 79"] = value
 
@@ -14578,6 +14703,7 @@ class FluidPropertiesSaturated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 80`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -14588,7 +14714,7 @@ class FluidPropertiesSaturated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_80`'.format(value))
         self._data["Property Value 80"] = value
 
@@ -14607,6 +14733,7 @@ class FluidPropertiesSaturated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 81`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -14617,7 +14744,7 @@ class FluidPropertiesSaturated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_81`'.format(value))
         self._data["Property Value 81"] = value
 
@@ -14636,6 +14763,7 @@ class FluidPropertiesSaturated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 82`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -14646,7 +14774,7 @@ class FluidPropertiesSaturated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_82`'.format(value))
         self._data["Property Value 82"] = value
 
@@ -14665,6 +14793,7 @@ class FluidPropertiesSaturated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 83`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -14675,7 +14804,7 @@ class FluidPropertiesSaturated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_83`'.format(value))
         self._data["Property Value 83"] = value
 
@@ -14694,6 +14823,7 @@ class FluidPropertiesSaturated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 84`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -14704,7 +14834,7 @@ class FluidPropertiesSaturated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_84`'.format(value))
         self._data["Property Value 84"] = value
 
@@ -14723,6 +14853,7 @@ class FluidPropertiesSaturated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 85`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -14733,7 +14864,7 @@ class FluidPropertiesSaturated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_85`'.format(value))
         self._data["Property Value 85"] = value
 
@@ -14752,6 +14883,7 @@ class FluidPropertiesSaturated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 86`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -14762,7 +14894,7 @@ class FluidPropertiesSaturated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_86`'.format(value))
         self._data["Property Value 86"] = value
 
@@ -14781,6 +14913,7 @@ class FluidPropertiesSaturated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 87`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -14791,7 +14924,7 @@ class FluidPropertiesSaturated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_87`'.format(value))
         self._data["Property Value 87"] = value
 
@@ -14810,6 +14943,7 @@ class FluidPropertiesSaturated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 88`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -14820,7 +14954,7 @@ class FluidPropertiesSaturated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_88`'.format(value))
         self._data["Property Value 88"] = value
 
@@ -14839,6 +14973,7 @@ class FluidPropertiesSaturated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 89`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -14849,7 +14984,7 @@ class FluidPropertiesSaturated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_89`'.format(value))
         self._data["Property Value 89"] = value
 
@@ -14868,6 +15003,7 @@ class FluidPropertiesSaturated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 90`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -14878,7 +15014,7 @@ class FluidPropertiesSaturated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_90`'.format(value))
         self._data["Property Value 90"] = value
 
@@ -14897,6 +15033,7 @@ class FluidPropertiesSaturated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 91`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -14907,7 +15044,7 @@ class FluidPropertiesSaturated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_91`'.format(value))
         self._data["Property Value 91"] = value
 
@@ -14926,6 +15063,7 @@ class FluidPropertiesSaturated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 92`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -14936,7 +15074,7 @@ class FluidPropertiesSaturated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_92`'.format(value))
         self._data["Property Value 92"] = value
 
@@ -14955,6 +15093,7 @@ class FluidPropertiesSaturated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 93`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -14965,7 +15104,7 @@ class FluidPropertiesSaturated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_93`'.format(value))
         self._data["Property Value 93"] = value
 
@@ -14984,6 +15123,7 @@ class FluidPropertiesSaturated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 94`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -14994,7 +15134,7 @@ class FluidPropertiesSaturated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_94`'.format(value))
         self._data["Property Value 94"] = value
 
@@ -15013,6 +15153,7 @@ class FluidPropertiesSaturated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 95`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -15023,7 +15164,7 @@ class FluidPropertiesSaturated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_95`'.format(value))
         self._data["Property Value 95"] = value
 
@@ -15042,6 +15183,7 @@ class FluidPropertiesSaturated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 96`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -15052,7 +15194,7 @@ class FluidPropertiesSaturated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_96`'.format(value))
         self._data["Property Value 96"] = value
 
@@ -15071,6 +15213,7 @@ class FluidPropertiesSaturated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 97`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -15081,7 +15224,7 @@ class FluidPropertiesSaturated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_97`'.format(value))
         self._data["Property Value 97"] = value
 
@@ -15100,6 +15243,7 @@ class FluidPropertiesSaturated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 98`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -15110,7 +15254,7 @@ class FluidPropertiesSaturated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_98`'.format(value))
         self._data["Property Value 98"] = value
 
@@ -15129,6 +15273,7 @@ class FluidPropertiesSaturated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 99`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -15139,7 +15284,7 @@ class FluidPropertiesSaturated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_99`'.format(value))
         self._data["Property Value 99"] = value
 
@@ -15158,6 +15303,7 @@ class FluidPropertiesSaturated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 100`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -15168,7 +15314,7 @@ class FluidPropertiesSaturated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_100`'.format(value))
         self._data["Property Value 100"] = value
 
@@ -15187,6 +15333,7 @@ class FluidPropertiesSaturated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 101`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -15197,7 +15344,7 @@ class FluidPropertiesSaturated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_101`'.format(value))
         self._data["Property Value 101"] = value
 
@@ -15216,6 +15363,7 @@ class FluidPropertiesSaturated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 102`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -15226,7 +15374,7 @@ class FluidPropertiesSaturated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_102`'.format(value))
         self._data["Property Value 102"] = value
 
@@ -15245,6 +15393,7 @@ class FluidPropertiesSaturated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 103`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -15255,7 +15404,7 @@ class FluidPropertiesSaturated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_103`'.format(value))
         self._data["Property Value 103"] = value
 
@@ -15274,6 +15423,7 @@ class FluidPropertiesSaturated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 104`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -15284,7 +15434,7 @@ class FluidPropertiesSaturated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_104`'.format(value))
         self._data["Property Value 104"] = value
 
@@ -15303,6 +15453,7 @@ class FluidPropertiesSaturated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 105`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -15313,7 +15464,7 @@ class FluidPropertiesSaturated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_105`'.format(value))
         self._data["Property Value 105"] = value
 
@@ -15332,6 +15483,7 @@ class FluidPropertiesSaturated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 106`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -15342,7 +15494,7 @@ class FluidPropertiesSaturated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_106`'.format(value))
         self._data["Property Value 106"] = value
 
@@ -15361,6 +15513,7 @@ class FluidPropertiesSaturated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 107`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -15371,7 +15524,7 @@ class FluidPropertiesSaturated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_107`'.format(value))
         self._data["Property Value 107"] = value
 
@@ -15390,6 +15543,7 @@ class FluidPropertiesSaturated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 108`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -15400,7 +15554,7 @@ class FluidPropertiesSaturated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_108`'.format(value))
         self._data["Property Value 108"] = value
 
@@ -15419,6 +15573,7 @@ class FluidPropertiesSaturated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 109`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -15429,7 +15584,7 @@ class FluidPropertiesSaturated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_109`'.format(value))
         self._data["Property Value 109"] = value
 
@@ -15448,6 +15603,7 @@ class FluidPropertiesSaturated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 110`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -15458,7 +15614,7 @@ class FluidPropertiesSaturated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_110`'.format(value))
         self._data["Property Value 110"] = value
 
@@ -15477,6 +15633,7 @@ class FluidPropertiesSaturated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 111`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -15487,7 +15644,7 @@ class FluidPropertiesSaturated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_111`'.format(value))
         self._data["Property Value 111"] = value
 
@@ -15506,6 +15663,7 @@ class FluidPropertiesSaturated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 112`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -15516,7 +15674,7 @@ class FluidPropertiesSaturated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_112`'.format(value))
         self._data["Property Value 112"] = value
 
@@ -15535,6 +15693,7 @@ class FluidPropertiesSaturated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 113`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -15545,7 +15704,7 @@ class FluidPropertiesSaturated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_113`'.format(value))
         self._data["Property Value 113"] = value
 
@@ -15564,6 +15723,7 @@ class FluidPropertiesSaturated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 114`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -15574,7 +15734,7 @@ class FluidPropertiesSaturated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_114`'.format(value))
         self._data["Property Value 114"] = value
 
@@ -15593,6 +15753,7 @@ class FluidPropertiesSaturated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 115`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -15603,7 +15764,7 @@ class FluidPropertiesSaturated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_115`'.format(value))
         self._data["Property Value 115"] = value
 
@@ -15622,6 +15783,7 @@ class FluidPropertiesSaturated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 116`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -15632,7 +15794,7 @@ class FluidPropertiesSaturated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_116`'.format(value))
         self._data["Property Value 116"] = value
 
@@ -15651,6 +15813,7 @@ class FluidPropertiesSaturated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 117`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -15661,7 +15824,7 @@ class FluidPropertiesSaturated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_117`'.format(value))
         self._data["Property Value 117"] = value
 
@@ -15680,6 +15843,7 @@ class FluidPropertiesSaturated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 118`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -15690,7 +15854,7 @@ class FluidPropertiesSaturated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_118`'.format(value))
         self._data["Property Value 118"] = value
 
@@ -15709,6 +15873,7 @@ class FluidPropertiesSaturated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 119`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -15719,7 +15884,7 @@ class FluidPropertiesSaturated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_119`'.format(value))
         self._data["Property Value 119"] = value
 
@@ -15738,6 +15903,7 @@ class FluidPropertiesSaturated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 120`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -15748,7 +15914,7 @@ class FluidPropertiesSaturated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_120`'.format(value))
         self._data["Property Value 120"] = value
 
@@ -15767,6 +15933,7 @@ class FluidPropertiesSaturated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 121`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -15777,7 +15944,7 @@ class FluidPropertiesSaturated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_121`'.format(value))
         self._data["Property Value 121"] = value
 
@@ -15796,6 +15963,7 @@ class FluidPropertiesSaturated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 122`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -15806,7 +15974,7 @@ class FluidPropertiesSaturated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_122`'.format(value))
         self._data["Property Value 122"] = value
 
@@ -15825,6 +15993,7 @@ class FluidPropertiesSaturated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 123`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -15835,7 +16004,7 @@ class FluidPropertiesSaturated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_123`'.format(value))
         self._data["Property Value 123"] = value
 
@@ -15854,6 +16023,7 @@ class FluidPropertiesSaturated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 124`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -15864,7 +16034,7 @@ class FluidPropertiesSaturated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_124`'.format(value))
         self._data["Property Value 124"] = value
 
@@ -15883,6 +16053,7 @@ class FluidPropertiesSaturated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 125`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -15893,7 +16064,7 @@ class FluidPropertiesSaturated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_125`'.format(value))
         self._data["Property Value 125"] = value
 
@@ -15912,6 +16083,7 @@ class FluidPropertiesSaturated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 126`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -15922,7 +16094,7 @@ class FluidPropertiesSaturated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_126`'.format(value))
         self._data["Property Value 126"] = value
 
@@ -15941,6 +16113,7 @@ class FluidPropertiesSaturated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 127`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -15951,7 +16124,7 @@ class FluidPropertiesSaturated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_127`'.format(value))
         self._data["Property Value 127"] = value
 
@@ -15970,6 +16143,7 @@ class FluidPropertiesSaturated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 128`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -15980,7 +16154,7 @@ class FluidPropertiesSaturated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_128`'.format(value))
         self._data["Property Value 128"] = value
 
@@ -15999,6 +16173,7 @@ class FluidPropertiesSaturated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 129`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -16009,7 +16184,7 @@ class FluidPropertiesSaturated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_129`'.format(value))
         self._data["Property Value 129"] = value
 
@@ -16028,6 +16203,7 @@ class FluidPropertiesSaturated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 130`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -16038,7 +16214,7 @@ class FluidPropertiesSaturated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_130`'.format(value))
         self._data["Property Value 130"] = value
 
@@ -16057,6 +16233,7 @@ class FluidPropertiesSaturated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 131`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -16067,7 +16244,7 @@ class FluidPropertiesSaturated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_131`'.format(value))
         self._data["Property Value 131"] = value
 
@@ -16086,6 +16263,7 @@ class FluidPropertiesSaturated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 132`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -16096,7 +16274,7 @@ class FluidPropertiesSaturated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_132`'.format(value))
         self._data["Property Value 132"] = value
 
@@ -16115,6 +16293,7 @@ class FluidPropertiesSaturated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 133`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -16125,7 +16304,7 @@ class FluidPropertiesSaturated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_133`'.format(value))
         self._data["Property Value 133"] = value
 
@@ -16144,6 +16323,7 @@ class FluidPropertiesSaturated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 134`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -16154,7 +16334,7 @@ class FluidPropertiesSaturated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_134`'.format(value))
         self._data["Property Value 134"] = value
 
@@ -16173,6 +16353,7 @@ class FluidPropertiesSaturated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 135`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -16183,7 +16364,7 @@ class FluidPropertiesSaturated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_135`'.format(value))
         self._data["Property Value 135"] = value
 
@@ -16202,6 +16383,7 @@ class FluidPropertiesSaturated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 136`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -16212,7 +16394,7 @@ class FluidPropertiesSaturated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_136`'.format(value))
         self._data["Property Value 136"] = value
 
@@ -16231,6 +16413,7 @@ class FluidPropertiesSaturated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 137`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -16241,7 +16424,7 @@ class FluidPropertiesSaturated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_137`'.format(value))
         self._data["Property Value 137"] = value
 
@@ -16260,6 +16443,7 @@ class FluidPropertiesSaturated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 138`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -16270,7 +16454,7 @@ class FluidPropertiesSaturated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_138`'.format(value))
         self._data["Property Value 138"] = value
 
@@ -16289,6 +16473,7 @@ class FluidPropertiesSaturated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 139`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -16299,7 +16484,7 @@ class FluidPropertiesSaturated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_139`'.format(value))
         self._data["Property Value 139"] = value
 
@@ -16318,6 +16503,7 @@ class FluidPropertiesSaturated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 140`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -16328,7 +16514,7 @@ class FluidPropertiesSaturated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_140`'.format(value))
         self._data["Property Value 140"] = value
 
@@ -16347,6 +16533,7 @@ class FluidPropertiesSaturated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 141`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -16357,7 +16544,7 @@ class FluidPropertiesSaturated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_141`'.format(value))
         self._data["Property Value 141"] = value
 
@@ -16376,6 +16563,7 @@ class FluidPropertiesSaturated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 142`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -16386,7 +16574,7 @@ class FluidPropertiesSaturated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_142`'.format(value))
         self._data["Property Value 142"] = value
 
@@ -16405,6 +16593,7 @@ class FluidPropertiesSaturated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 143`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -16415,7 +16604,7 @@ class FluidPropertiesSaturated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_143`'.format(value))
         self._data["Property Value 143"] = value
 
@@ -16434,6 +16623,7 @@ class FluidPropertiesSaturated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 144`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -16444,7 +16634,7 @@ class FluidPropertiesSaturated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_144`'.format(value))
         self._data["Property Value 144"] = value
 
@@ -16463,6 +16653,7 @@ class FluidPropertiesSaturated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 145`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -16473,7 +16664,7 @@ class FluidPropertiesSaturated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_145`'.format(value))
         self._data["Property Value 145"] = value
 
@@ -16492,6 +16683,7 @@ class FluidPropertiesSaturated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 146`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -16502,7 +16694,7 @@ class FluidPropertiesSaturated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_146`'.format(value))
         self._data["Property Value 146"] = value
 
@@ -16521,6 +16713,7 @@ class FluidPropertiesSaturated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 147`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -16531,7 +16724,7 @@ class FluidPropertiesSaturated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_147`'.format(value))
         self._data["Property Value 147"] = value
 
@@ -16550,6 +16743,7 @@ class FluidPropertiesSaturated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 148`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -16560,7 +16754,7 @@ class FluidPropertiesSaturated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_148`'.format(value))
         self._data["Property Value 148"] = value
 
@@ -16579,6 +16773,7 @@ class FluidPropertiesSaturated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 149`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -16589,7 +16784,7 @@ class FluidPropertiesSaturated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_149`'.format(value))
         self._data["Property Value 149"] = value
 
@@ -16608,6 +16803,7 @@ class FluidPropertiesSaturated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 150`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -16618,7 +16814,7 @@ class FluidPropertiesSaturated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_150`'.format(value))
         self._data["Property Value 150"] = value
 
@@ -16637,6 +16833,7 @@ class FluidPropertiesSaturated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 151`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -16647,7 +16844,7 @@ class FluidPropertiesSaturated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_151`'.format(value))
         self._data["Property Value 151"] = value
 
@@ -16666,6 +16863,7 @@ class FluidPropertiesSaturated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 152`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -16676,7 +16874,7 @@ class FluidPropertiesSaturated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_152`'.format(value))
         self._data["Property Value 152"] = value
 
@@ -16695,6 +16893,7 @@ class FluidPropertiesSaturated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 153`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -16705,7 +16904,7 @@ class FluidPropertiesSaturated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_153`'.format(value))
         self._data["Property Value 153"] = value
 
@@ -16724,6 +16923,7 @@ class FluidPropertiesSaturated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 154`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -16734,7 +16934,7 @@ class FluidPropertiesSaturated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_154`'.format(value))
         self._data["Property Value 154"] = value
 
@@ -16753,6 +16953,7 @@ class FluidPropertiesSaturated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 155`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -16763,7 +16964,7 @@ class FluidPropertiesSaturated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_155`'.format(value))
         self._data["Property Value 155"] = value
 
@@ -16782,6 +16983,7 @@ class FluidPropertiesSaturated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 156`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -16792,7 +16994,7 @@ class FluidPropertiesSaturated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_156`'.format(value))
         self._data["Property Value 156"] = value
 
@@ -16811,6 +17013,7 @@ class FluidPropertiesSaturated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 157`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -16821,7 +17024,7 @@ class FluidPropertiesSaturated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_157`'.format(value))
         self._data["Property Value 157"] = value
 
@@ -16840,6 +17043,7 @@ class FluidPropertiesSaturated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 158`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -16850,7 +17054,7 @@ class FluidPropertiesSaturated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_158`'.format(value))
         self._data["Property Value 158"] = value
 
@@ -16869,6 +17073,7 @@ class FluidPropertiesSaturated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 159`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -16879,7 +17084,7 @@ class FluidPropertiesSaturated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_159`'.format(value))
         self._data["Property Value 159"] = value
 
@@ -16898,6 +17103,7 @@ class FluidPropertiesSaturated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 160`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -16908,7 +17114,7 @@ class FluidPropertiesSaturated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_160`'.format(value))
         self._data["Property Value 160"] = value
 
@@ -16927,6 +17133,7 @@ class FluidPropertiesSaturated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 161`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -16937,7 +17144,7 @@ class FluidPropertiesSaturated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_161`'.format(value))
         self._data["Property Value 161"] = value
 
@@ -16956,6 +17163,7 @@ class FluidPropertiesSaturated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 162`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -16966,7 +17174,7 @@ class FluidPropertiesSaturated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_162`'.format(value))
         self._data["Property Value 162"] = value
 
@@ -16985,6 +17193,7 @@ class FluidPropertiesSaturated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 163`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -16995,7 +17204,7 @@ class FluidPropertiesSaturated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_163`'.format(value))
         self._data["Property Value 163"] = value
 
@@ -17014,6 +17223,7 @@ class FluidPropertiesSaturated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 164`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -17024,7 +17234,7 @@ class FluidPropertiesSaturated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_164`'.format(value))
         self._data["Property Value 164"] = value
 
@@ -17043,6 +17253,7 @@ class FluidPropertiesSaturated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 165`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -17053,7 +17264,7 @@ class FluidPropertiesSaturated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_165`'.format(value))
         self._data["Property Value 165"] = value
 
@@ -17072,6 +17283,7 @@ class FluidPropertiesSaturated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 166`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -17082,7 +17294,7 @@ class FluidPropertiesSaturated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_166`'.format(value))
         self._data["Property Value 166"] = value
 
@@ -17101,6 +17313,7 @@ class FluidPropertiesSaturated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 167`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -17111,7 +17324,7 @@ class FluidPropertiesSaturated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_167`'.format(value))
         self._data["Property Value 167"] = value
 
@@ -17130,6 +17343,7 @@ class FluidPropertiesSaturated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 168`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -17140,7 +17354,7 @@ class FluidPropertiesSaturated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_168`'.format(value))
         self._data["Property Value 168"] = value
 
@@ -17159,6 +17373,7 @@ class FluidPropertiesSaturated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 169`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -17169,7 +17384,7 @@ class FluidPropertiesSaturated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_169`'.format(value))
         self._data["Property Value 169"] = value
 
@@ -17188,6 +17403,7 @@ class FluidPropertiesSaturated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 170`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -17198,7 +17414,7 @@ class FluidPropertiesSaturated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_170`'.format(value))
         self._data["Property Value 170"] = value
 
@@ -17217,6 +17433,7 @@ class FluidPropertiesSaturated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 171`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -17227,7 +17444,7 @@ class FluidPropertiesSaturated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_171`'.format(value))
         self._data["Property Value 171"] = value
 
@@ -17246,6 +17463,7 @@ class FluidPropertiesSaturated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 172`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -17256,7 +17474,7 @@ class FluidPropertiesSaturated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_172`'.format(value))
         self._data["Property Value 172"] = value
 
@@ -17275,6 +17493,7 @@ class FluidPropertiesSaturated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 173`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -17285,7 +17504,7 @@ class FluidPropertiesSaturated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_173`'.format(value))
         self._data["Property Value 173"] = value
 
@@ -17304,6 +17523,7 @@ class FluidPropertiesSaturated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 174`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -17314,7 +17534,7 @@ class FluidPropertiesSaturated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_174`'.format(value))
         self._data["Property Value 174"] = value
 
@@ -17333,6 +17553,7 @@ class FluidPropertiesSaturated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 175`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -17343,7 +17564,7 @@ class FluidPropertiesSaturated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_175`'.format(value))
         self._data["Property Value 175"] = value
 
@@ -17362,6 +17583,7 @@ class FluidPropertiesSaturated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 176`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -17372,7 +17594,7 @@ class FluidPropertiesSaturated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_176`'.format(value))
         self._data["Property Value 176"] = value
 
@@ -17391,6 +17613,7 @@ class FluidPropertiesSaturated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 177`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -17401,7 +17624,7 @@ class FluidPropertiesSaturated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_177`'.format(value))
         self._data["Property Value 177"] = value
 
@@ -17420,6 +17643,7 @@ class FluidPropertiesSaturated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 178`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -17430,7 +17654,7 @@ class FluidPropertiesSaturated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_178`'.format(value))
         self._data["Property Value 178"] = value
 
@@ -17449,6 +17673,7 @@ class FluidPropertiesSaturated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 179`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -17459,7 +17684,7 @@ class FluidPropertiesSaturated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_179`'.format(value))
         self._data["Property Value 179"] = value
 
@@ -17478,6 +17703,7 @@ class FluidPropertiesSaturated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 180`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -17488,7 +17714,7 @@ class FluidPropertiesSaturated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_180`'.format(value))
         self._data["Property Value 180"] = value
 
@@ -17507,6 +17733,7 @@ class FluidPropertiesSaturated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 181`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -17517,7 +17744,7 @@ class FluidPropertiesSaturated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_181`'.format(value))
         self._data["Property Value 181"] = value
 
@@ -17536,6 +17763,7 @@ class FluidPropertiesSaturated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 182`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -17546,7 +17774,7 @@ class FluidPropertiesSaturated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_182`'.format(value))
         self._data["Property Value 182"] = value
 
@@ -17565,6 +17793,7 @@ class FluidPropertiesSaturated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 183`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -17575,7 +17804,7 @@ class FluidPropertiesSaturated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_183`'.format(value))
         self._data["Property Value 183"] = value
 
@@ -17594,6 +17823,7 @@ class FluidPropertiesSaturated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 184`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -17604,7 +17834,7 @@ class FluidPropertiesSaturated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_184`'.format(value))
         self._data["Property Value 184"] = value
 
@@ -17623,6 +17853,7 @@ class FluidPropertiesSaturated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 185`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -17633,7 +17864,7 @@ class FluidPropertiesSaturated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_185`'.format(value))
         self._data["Property Value 185"] = value
 
@@ -17652,6 +17883,7 @@ class FluidPropertiesSaturated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 186`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -17662,7 +17894,7 @@ class FluidPropertiesSaturated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_186`'.format(value))
         self._data["Property Value 186"] = value
 
@@ -17681,6 +17913,7 @@ class FluidPropertiesSaturated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 187`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -17691,7 +17924,7 @@ class FluidPropertiesSaturated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_187`'.format(value))
         self._data["Property Value 187"] = value
 
@@ -17710,6 +17943,7 @@ class FluidPropertiesSaturated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 188`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -17720,7 +17954,7 @@ class FluidPropertiesSaturated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_188`'.format(value))
         self._data["Property Value 188"] = value
 
@@ -17739,6 +17973,7 @@ class FluidPropertiesSaturated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 189`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -17749,7 +17984,7 @@ class FluidPropertiesSaturated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_189`'.format(value))
         self._data["Property Value 189"] = value
 
@@ -17768,6 +18003,7 @@ class FluidPropertiesSaturated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 190`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -17778,7 +18014,7 @@ class FluidPropertiesSaturated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_190`'.format(value))
         self._data["Property Value 190"] = value
 
@@ -17797,6 +18033,7 @@ class FluidPropertiesSaturated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 191`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -17807,7 +18044,7 @@ class FluidPropertiesSaturated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_191`'.format(value))
         self._data["Property Value 191"] = value
 
@@ -17826,6 +18063,7 @@ class FluidPropertiesSaturated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 192`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -17836,7 +18074,7 @@ class FluidPropertiesSaturated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_192`'.format(value))
         self._data["Property Value 192"] = value
 
@@ -17855,6 +18093,7 @@ class FluidPropertiesSaturated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 193`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -17865,7 +18104,7 @@ class FluidPropertiesSaturated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_193`'.format(value))
         self._data["Property Value 193"] = value
 
@@ -17884,6 +18123,7 @@ class FluidPropertiesSaturated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 194`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -17894,7 +18134,7 @@ class FluidPropertiesSaturated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_194`'.format(value))
         self._data["Property Value 194"] = value
 
@@ -17913,6 +18153,7 @@ class FluidPropertiesSaturated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 195`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -17923,7 +18164,7 @@ class FluidPropertiesSaturated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_195`'.format(value))
         self._data["Property Value 195"] = value
 
@@ -17942,6 +18183,7 @@ class FluidPropertiesSaturated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 196`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -17952,7 +18194,7 @@ class FluidPropertiesSaturated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_196`'.format(value))
         self._data["Property Value 196"] = value
 
@@ -17971,6 +18213,7 @@ class FluidPropertiesSaturated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 197`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -17981,7 +18224,7 @@ class FluidPropertiesSaturated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_197`'.format(value))
         self._data["Property Value 197"] = value
 
@@ -18000,6 +18243,7 @@ class FluidPropertiesSaturated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 198`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -18010,7 +18254,7 @@ class FluidPropertiesSaturated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_198`'.format(value))
         self._data["Property Value 198"] = value
 
@@ -18029,6 +18273,7 @@ class FluidPropertiesSaturated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 199`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -18039,7 +18284,7 @@ class FluidPropertiesSaturated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_199`'.format(value))
         self._data["Property Value 199"] = value
 
@@ -18058,6 +18303,7 @@ class FluidPropertiesSaturated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 200`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -18068,7 +18314,7 @@ class FluidPropertiesSaturated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_200`'.format(value))
         self._data["Property Value 200"] = value
 
@@ -18087,6 +18333,7 @@ class FluidPropertiesSaturated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 201`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -18097,7 +18344,7 @@ class FluidPropertiesSaturated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_201`'.format(value))
         self._data["Property Value 201"] = value
 
@@ -18116,6 +18363,7 @@ class FluidPropertiesSaturated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 202`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -18126,7 +18374,7 @@ class FluidPropertiesSaturated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_202`'.format(value))
         self._data["Property Value 202"] = value
 
@@ -18145,6 +18393,7 @@ class FluidPropertiesSaturated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 203`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -18155,7 +18404,7 @@ class FluidPropertiesSaturated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_203`'.format(value))
         self._data["Property Value 203"] = value
 
@@ -18174,6 +18423,7 @@ class FluidPropertiesSaturated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 204`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -18184,7 +18434,7 @@ class FluidPropertiesSaturated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_204`'.format(value))
         self._data["Property Value 204"] = value
 
@@ -18203,6 +18453,7 @@ class FluidPropertiesSaturated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 205`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -18213,7 +18464,7 @@ class FluidPropertiesSaturated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_205`'.format(value))
         self._data["Property Value 205"] = value
 
@@ -18232,6 +18483,7 @@ class FluidPropertiesSaturated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 206`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -18242,7 +18494,7 @@ class FluidPropertiesSaturated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_206`'.format(value))
         self._data["Property Value 206"] = value
 
@@ -18261,6 +18513,7 @@ class FluidPropertiesSaturated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 207`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -18271,7 +18524,7 @@ class FluidPropertiesSaturated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_207`'.format(value))
         self._data["Property Value 207"] = value
 
@@ -18290,6 +18543,7 @@ class FluidPropertiesSaturated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 208`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -18300,7 +18554,7 @@ class FluidPropertiesSaturated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_208`'.format(value))
         self._data["Property Value 208"] = value
 
@@ -18319,6 +18573,7 @@ class FluidPropertiesSaturated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 209`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -18329,7 +18584,7 @@ class FluidPropertiesSaturated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_209`'.format(value))
         self._data["Property Value 209"] = value
 
@@ -18348,6 +18603,7 @@ class FluidPropertiesSaturated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 210`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -18358,7 +18614,7 @@ class FluidPropertiesSaturated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_210`'.format(value))
         self._data["Property Value 210"] = value
 
@@ -18377,6 +18633,7 @@ class FluidPropertiesSaturated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 211`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -18387,7 +18644,7 @@ class FluidPropertiesSaturated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_211`'.format(value))
         self._data["Property Value 211"] = value
 
@@ -18406,6 +18663,7 @@ class FluidPropertiesSaturated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 212`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -18416,7 +18674,7 @@ class FluidPropertiesSaturated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_212`'.format(value))
         self._data["Property Value 212"] = value
 
@@ -18435,6 +18693,7 @@ class FluidPropertiesSaturated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 213`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -18445,7 +18704,7 @@ class FluidPropertiesSaturated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_213`'.format(value))
         self._data["Property Value 213"] = value
 
@@ -18464,6 +18723,7 @@ class FluidPropertiesSaturated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 214`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -18474,7 +18734,7 @@ class FluidPropertiesSaturated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_214`'.format(value))
         self._data["Property Value 214"] = value
 
@@ -18493,6 +18753,7 @@ class FluidPropertiesSaturated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 215`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -18503,7 +18764,7 @@ class FluidPropertiesSaturated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_215`'.format(value))
         self._data["Property Value 215"] = value
 
@@ -18522,6 +18783,7 @@ class FluidPropertiesSaturated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 216`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -18532,7 +18794,7 @@ class FluidPropertiesSaturated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_216`'.format(value))
         self._data["Property Value 216"] = value
 
@@ -18551,6 +18813,7 @@ class FluidPropertiesSaturated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 217`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -18561,7 +18824,7 @@ class FluidPropertiesSaturated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_217`'.format(value))
         self._data["Property Value 217"] = value
 
@@ -18580,6 +18843,7 @@ class FluidPropertiesSaturated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 218`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -18590,7 +18854,7 @@ class FluidPropertiesSaturated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_218`'.format(value))
         self._data["Property Value 218"] = value
 
@@ -18609,6 +18873,7 @@ class FluidPropertiesSaturated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 219`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -18619,7 +18884,7 @@ class FluidPropertiesSaturated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_219`'.format(value))
         self._data["Property Value 219"] = value
 
@@ -18638,6 +18903,7 @@ class FluidPropertiesSaturated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 220`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -18648,7 +18914,7 @@ class FluidPropertiesSaturated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_220`'.format(value))
         self._data["Property Value 220"] = value
 
@@ -18667,6 +18933,7 @@ class FluidPropertiesSaturated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 221`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -18677,7 +18944,7 @@ class FluidPropertiesSaturated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_221`'.format(value))
         self._data["Property Value 221"] = value
 
@@ -18696,6 +18963,7 @@ class FluidPropertiesSaturated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 222`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -18706,7 +18974,7 @@ class FluidPropertiesSaturated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_222`'.format(value))
         self._data["Property Value 222"] = value
 
@@ -18725,6 +18993,7 @@ class FluidPropertiesSaturated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 223`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -18735,7 +19004,7 @@ class FluidPropertiesSaturated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_223`'.format(value))
         self._data["Property Value 223"] = value
 
@@ -18754,6 +19023,7 @@ class FluidPropertiesSaturated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 224`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -18764,7 +19034,7 @@ class FluidPropertiesSaturated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_224`'.format(value))
         self._data["Property Value 224"] = value
 
@@ -18783,6 +19053,7 @@ class FluidPropertiesSaturated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 225`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -18793,7 +19064,7 @@ class FluidPropertiesSaturated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_225`'.format(value))
         self._data["Property Value 225"] = value
 
@@ -18812,6 +19083,7 @@ class FluidPropertiesSaturated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 226`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -18822,7 +19094,7 @@ class FluidPropertiesSaturated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_226`'.format(value))
         self._data["Property Value 226"] = value
 
@@ -18841,6 +19113,7 @@ class FluidPropertiesSaturated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 227`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -18851,7 +19124,7 @@ class FluidPropertiesSaturated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_227`'.format(value))
         self._data["Property Value 227"] = value
 
@@ -18870,6 +19143,7 @@ class FluidPropertiesSaturated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 228`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -18880,7 +19154,7 @@ class FluidPropertiesSaturated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_228`'.format(value))
         self._data["Property Value 228"] = value
 
@@ -18899,6 +19173,7 @@ class FluidPropertiesSaturated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 229`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -18909,7 +19184,7 @@ class FluidPropertiesSaturated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_229`'.format(value))
         self._data["Property Value 229"] = value
 
@@ -18928,6 +19203,7 @@ class FluidPropertiesSaturated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 230`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -18938,7 +19214,7 @@ class FluidPropertiesSaturated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_230`'.format(value))
         self._data["Property Value 230"] = value
 
@@ -18957,6 +19233,7 @@ class FluidPropertiesSaturated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 231`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -18967,7 +19244,7 @@ class FluidPropertiesSaturated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_231`'.format(value))
         self._data["Property Value 231"] = value
 
@@ -18986,6 +19263,7 @@ class FluidPropertiesSaturated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 232`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -18996,7 +19274,7 @@ class FluidPropertiesSaturated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_232`'.format(value))
         self._data["Property Value 232"] = value
 
@@ -19015,6 +19293,7 @@ class FluidPropertiesSaturated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 233`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -19025,7 +19304,7 @@ class FluidPropertiesSaturated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_233`'.format(value))
         self._data["Property Value 233"] = value
 
@@ -19044,6 +19323,7 @@ class FluidPropertiesSaturated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 234`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -19054,7 +19334,7 @@ class FluidPropertiesSaturated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_234`'.format(value))
         self._data["Property Value 234"] = value
 
@@ -19073,6 +19353,7 @@ class FluidPropertiesSaturated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 235`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -19083,7 +19364,7 @@ class FluidPropertiesSaturated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_235`'.format(value))
         self._data["Property Value 235"] = value
 
@@ -19102,6 +19383,7 @@ class FluidPropertiesSaturated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 236`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -19112,7 +19394,7 @@ class FluidPropertiesSaturated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_236`'.format(value))
         self._data["Property Value 236"] = value
 
@@ -19131,6 +19413,7 @@ class FluidPropertiesSaturated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 237`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -19141,7 +19424,7 @@ class FluidPropertiesSaturated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_237`'.format(value))
         self._data["Property Value 237"] = value
 
@@ -19160,6 +19443,7 @@ class FluidPropertiesSaturated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 238`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -19170,7 +19454,7 @@ class FluidPropertiesSaturated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_238`'.format(value))
         self._data["Property Value 238"] = value
 
@@ -19189,6 +19473,7 @@ class FluidPropertiesSaturated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 239`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -19199,7 +19484,7 @@ class FluidPropertiesSaturated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_239`'.format(value))
         self._data["Property Value 239"] = value
 
@@ -19218,6 +19503,7 @@ class FluidPropertiesSaturated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 240`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -19228,7 +19514,7 @@ class FluidPropertiesSaturated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_240`'.format(value))
         self._data["Property Value 240"] = value
 
@@ -19247,6 +19533,7 @@ class FluidPropertiesSaturated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 241`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -19257,7 +19544,7 @@ class FluidPropertiesSaturated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_241`'.format(value))
         self._data["Property Value 241"] = value
 
@@ -19276,6 +19563,7 @@ class FluidPropertiesSaturated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 242`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -19286,7 +19574,7 @@ class FluidPropertiesSaturated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_242`'.format(value))
         self._data["Property Value 242"] = value
 
@@ -19305,6 +19593,7 @@ class FluidPropertiesSaturated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 243`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -19315,7 +19604,7 @@ class FluidPropertiesSaturated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_243`'.format(value))
         self._data["Property Value 243"] = value
 
@@ -19334,6 +19623,7 @@ class FluidPropertiesSaturated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 244`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -19344,7 +19634,7 @@ class FluidPropertiesSaturated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_244`'.format(value))
         self._data["Property Value 244"] = value
 
@@ -19363,6 +19653,7 @@ class FluidPropertiesSaturated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 245`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -19373,7 +19664,7 @@ class FluidPropertiesSaturated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_245`'.format(value))
         self._data["Property Value 245"] = value
 
@@ -19392,6 +19683,7 @@ class FluidPropertiesSaturated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 246`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -19402,7 +19694,7 @@ class FluidPropertiesSaturated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_246`'.format(value))
         self._data["Property Value 246"] = value
 
@@ -19421,6 +19713,7 @@ class FluidPropertiesSaturated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 247`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -19431,7 +19724,7 @@ class FluidPropertiesSaturated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_247`'.format(value))
         self._data["Property Value 247"] = value
 
@@ -19450,6 +19743,7 @@ class FluidPropertiesSaturated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 248`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -19460,7 +19754,7 @@ class FluidPropertiesSaturated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_248`'.format(value))
         self._data["Property Value 248"] = value
 
@@ -19479,6 +19773,7 @@ class FluidPropertiesSaturated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 249`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -19489,7 +19784,7 @@ class FluidPropertiesSaturated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_249`'.format(value))
         self._data["Property Value 249"] = value
 
@@ -19508,6 +19803,7 @@ class FluidPropertiesSaturated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 250`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -19518,7 +19814,7 @@ class FluidPropertiesSaturated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_250`'.format(value))
         self._data["Property Value 250"] = value
 
@@ -19559,7 +19855,6 @@ class FluidPropertiesSaturated(object):
 class FluidPropertiesSuperheated(object):
     """ Corresponds to IDD object `FluidProperties:Superheated`
         fluid properties for the superheated region
-    
     """
     internal_name = "FluidProperties:Superheated"
     field_count = 254
@@ -19823,15 +20118,16 @@ class FluidPropertiesSuperheated(object):
         self._data["Property Value 248"] = None
         self._data["Property Value 249"] = None
         self._data["Property Value 250"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.fluid_name = None
@@ -21611,6 +21907,7 @@ class FluidPropertiesSuperheated(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def fluid_name(self):
@@ -21637,7 +21934,7 @@ class FluidPropertiesSuperheated(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `fluid_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -21665,8 +21962,8 @@ class FluidPropertiesSuperheated(object):
         Args:
             value (str): value for IDD Field `Fluid Property Type`
                 Accepted values are:
-                      - Enthalpy     ! Units are J/kg
-                      - Density      ! Units are kg/m3
+                      - Enthalpy
+                      - Density
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -21677,7 +21974,7 @@ class FluidPropertiesSuperheated(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `fluid_property_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -21686,21 +21983,31 @@ class FluidPropertiesSuperheated(object):
                 raise ValueError('value should not contain a ! '
                                  'for field `fluid_property_type`')
             vals = {}
-            vals["enthalpy     ! units are j/kg"] = "Enthalpy     ! Units are J/kg"
-            vals["density      ! units are kg/m3"] = "Density      ! Units are kg/m3"
+            vals["enthalpy"] = "Enthalpy"
+            vals["density"] = "Density"
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `fluid_property_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `fluid_property_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Fluid Property Type"] = value
 
@@ -21730,7 +22037,7 @@ class FluidPropertiesSuperheated(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `temperature_values_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -21768,7 +22075,7 @@ class FluidPropertiesSuperheated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `pressure`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -21790,6 +22097,7 @@ class FluidPropertiesSuperheated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 1`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -21800,7 +22108,7 @@ class FluidPropertiesSuperheated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_1`'.format(value))
         self._data["Property Value 1"] = value
 
@@ -21819,6 +22127,7 @@ class FluidPropertiesSuperheated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 2`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -21829,7 +22138,7 @@ class FluidPropertiesSuperheated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_2`'.format(value))
         self._data["Property Value 2"] = value
 
@@ -21848,6 +22157,7 @@ class FluidPropertiesSuperheated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 3`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -21858,7 +22168,7 @@ class FluidPropertiesSuperheated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_3`'.format(value))
         self._data["Property Value 3"] = value
 
@@ -21877,6 +22187,7 @@ class FluidPropertiesSuperheated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 4`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -21887,7 +22198,7 @@ class FluidPropertiesSuperheated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_4`'.format(value))
         self._data["Property Value 4"] = value
 
@@ -21906,6 +22217,7 @@ class FluidPropertiesSuperheated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 5`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -21916,7 +22228,7 @@ class FluidPropertiesSuperheated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_5`'.format(value))
         self._data["Property Value 5"] = value
 
@@ -21935,6 +22247,7 @@ class FluidPropertiesSuperheated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 6`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -21945,7 +22258,7 @@ class FluidPropertiesSuperheated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_6`'.format(value))
         self._data["Property Value 6"] = value
 
@@ -21964,6 +22277,7 @@ class FluidPropertiesSuperheated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 7`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -21974,7 +22288,7 @@ class FluidPropertiesSuperheated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_7`'.format(value))
         self._data["Property Value 7"] = value
 
@@ -21993,6 +22307,7 @@ class FluidPropertiesSuperheated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 8`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -22003,7 +22318,7 @@ class FluidPropertiesSuperheated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_8`'.format(value))
         self._data["Property Value 8"] = value
 
@@ -22022,6 +22337,7 @@ class FluidPropertiesSuperheated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 9`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -22032,7 +22348,7 @@ class FluidPropertiesSuperheated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_9`'.format(value))
         self._data["Property Value 9"] = value
 
@@ -22051,6 +22367,7 @@ class FluidPropertiesSuperheated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 10`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -22061,7 +22378,7 @@ class FluidPropertiesSuperheated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_10`'.format(value))
         self._data["Property Value 10"] = value
 
@@ -22080,6 +22397,7 @@ class FluidPropertiesSuperheated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 11`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -22090,7 +22408,7 @@ class FluidPropertiesSuperheated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_11`'.format(value))
         self._data["Property Value 11"] = value
 
@@ -22109,6 +22427,7 @@ class FluidPropertiesSuperheated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 12`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -22119,7 +22438,7 @@ class FluidPropertiesSuperheated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_12`'.format(value))
         self._data["Property Value 12"] = value
 
@@ -22138,6 +22457,7 @@ class FluidPropertiesSuperheated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 13`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -22148,7 +22468,7 @@ class FluidPropertiesSuperheated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_13`'.format(value))
         self._data["Property Value 13"] = value
 
@@ -22167,6 +22487,7 @@ class FluidPropertiesSuperheated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 14`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -22177,7 +22498,7 @@ class FluidPropertiesSuperheated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_14`'.format(value))
         self._data["Property Value 14"] = value
 
@@ -22196,6 +22517,7 @@ class FluidPropertiesSuperheated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 15`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -22206,7 +22528,7 @@ class FluidPropertiesSuperheated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_15`'.format(value))
         self._data["Property Value 15"] = value
 
@@ -22225,6 +22547,7 @@ class FluidPropertiesSuperheated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 16`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -22235,7 +22558,7 @@ class FluidPropertiesSuperheated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_16`'.format(value))
         self._data["Property Value 16"] = value
 
@@ -22254,6 +22577,7 @@ class FluidPropertiesSuperheated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 17`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -22264,7 +22588,7 @@ class FluidPropertiesSuperheated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_17`'.format(value))
         self._data["Property Value 17"] = value
 
@@ -22283,6 +22607,7 @@ class FluidPropertiesSuperheated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 18`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -22293,7 +22618,7 @@ class FluidPropertiesSuperheated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_18`'.format(value))
         self._data["Property Value 18"] = value
 
@@ -22312,6 +22637,7 @@ class FluidPropertiesSuperheated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 19`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -22322,7 +22648,7 @@ class FluidPropertiesSuperheated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_19`'.format(value))
         self._data["Property Value 19"] = value
 
@@ -22341,6 +22667,7 @@ class FluidPropertiesSuperheated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 20`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -22351,7 +22678,7 @@ class FluidPropertiesSuperheated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_20`'.format(value))
         self._data["Property Value 20"] = value
 
@@ -22370,6 +22697,7 @@ class FluidPropertiesSuperheated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 21`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -22380,7 +22708,7 @@ class FluidPropertiesSuperheated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_21`'.format(value))
         self._data["Property Value 21"] = value
 
@@ -22399,6 +22727,7 @@ class FluidPropertiesSuperheated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 22`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -22409,7 +22738,7 @@ class FluidPropertiesSuperheated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_22`'.format(value))
         self._data["Property Value 22"] = value
 
@@ -22428,6 +22757,7 @@ class FluidPropertiesSuperheated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 23`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -22438,7 +22768,7 @@ class FluidPropertiesSuperheated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_23`'.format(value))
         self._data["Property Value 23"] = value
 
@@ -22457,6 +22787,7 @@ class FluidPropertiesSuperheated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 24`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -22467,7 +22798,7 @@ class FluidPropertiesSuperheated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_24`'.format(value))
         self._data["Property Value 24"] = value
 
@@ -22486,6 +22817,7 @@ class FluidPropertiesSuperheated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 25`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -22496,7 +22828,7 @@ class FluidPropertiesSuperheated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_25`'.format(value))
         self._data["Property Value 25"] = value
 
@@ -22515,6 +22847,7 @@ class FluidPropertiesSuperheated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 26`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -22525,7 +22858,7 @@ class FluidPropertiesSuperheated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_26`'.format(value))
         self._data["Property Value 26"] = value
 
@@ -22544,6 +22877,7 @@ class FluidPropertiesSuperheated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 27`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -22554,7 +22888,7 @@ class FluidPropertiesSuperheated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_27`'.format(value))
         self._data["Property Value 27"] = value
 
@@ -22573,6 +22907,7 @@ class FluidPropertiesSuperheated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 28`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -22583,7 +22918,7 @@ class FluidPropertiesSuperheated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_28`'.format(value))
         self._data["Property Value 28"] = value
 
@@ -22602,6 +22937,7 @@ class FluidPropertiesSuperheated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 29`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -22612,7 +22948,7 @@ class FluidPropertiesSuperheated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_29`'.format(value))
         self._data["Property Value 29"] = value
 
@@ -22631,6 +22967,7 @@ class FluidPropertiesSuperheated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 30`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -22641,7 +22978,7 @@ class FluidPropertiesSuperheated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_30`'.format(value))
         self._data["Property Value 30"] = value
 
@@ -22660,6 +22997,7 @@ class FluidPropertiesSuperheated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 31`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -22670,7 +23008,7 @@ class FluidPropertiesSuperheated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_31`'.format(value))
         self._data["Property Value 31"] = value
 
@@ -22689,6 +23027,7 @@ class FluidPropertiesSuperheated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 32`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -22699,7 +23038,7 @@ class FluidPropertiesSuperheated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_32`'.format(value))
         self._data["Property Value 32"] = value
 
@@ -22718,6 +23057,7 @@ class FluidPropertiesSuperheated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 33`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -22728,7 +23068,7 @@ class FluidPropertiesSuperheated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_33`'.format(value))
         self._data["Property Value 33"] = value
 
@@ -22747,6 +23087,7 @@ class FluidPropertiesSuperheated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 34`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -22757,7 +23098,7 @@ class FluidPropertiesSuperheated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_34`'.format(value))
         self._data["Property Value 34"] = value
 
@@ -22776,6 +23117,7 @@ class FluidPropertiesSuperheated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 35`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -22786,7 +23128,7 @@ class FluidPropertiesSuperheated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_35`'.format(value))
         self._data["Property Value 35"] = value
 
@@ -22805,6 +23147,7 @@ class FluidPropertiesSuperheated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 36`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -22815,7 +23158,7 @@ class FluidPropertiesSuperheated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_36`'.format(value))
         self._data["Property Value 36"] = value
 
@@ -22834,6 +23177,7 @@ class FluidPropertiesSuperheated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 37`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -22844,7 +23188,7 @@ class FluidPropertiesSuperheated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_37`'.format(value))
         self._data["Property Value 37"] = value
 
@@ -22863,6 +23207,7 @@ class FluidPropertiesSuperheated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 38`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -22873,7 +23218,7 @@ class FluidPropertiesSuperheated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_38`'.format(value))
         self._data["Property Value 38"] = value
 
@@ -22892,6 +23237,7 @@ class FluidPropertiesSuperheated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 39`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -22902,7 +23248,7 @@ class FluidPropertiesSuperheated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_39`'.format(value))
         self._data["Property Value 39"] = value
 
@@ -22921,6 +23267,7 @@ class FluidPropertiesSuperheated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 40`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -22931,7 +23278,7 @@ class FluidPropertiesSuperheated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_40`'.format(value))
         self._data["Property Value 40"] = value
 
@@ -22950,6 +23297,7 @@ class FluidPropertiesSuperheated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 41`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -22960,7 +23308,7 @@ class FluidPropertiesSuperheated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_41`'.format(value))
         self._data["Property Value 41"] = value
 
@@ -22979,6 +23327,7 @@ class FluidPropertiesSuperheated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 42`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -22989,7 +23338,7 @@ class FluidPropertiesSuperheated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_42`'.format(value))
         self._data["Property Value 42"] = value
 
@@ -23008,6 +23357,7 @@ class FluidPropertiesSuperheated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 43`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -23018,7 +23368,7 @@ class FluidPropertiesSuperheated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_43`'.format(value))
         self._data["Property Value 43"] = value
 
@@ -23037,6 +23387,7 @@ class FluidPropertiesSuperheated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 44`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -23047,7 +23398,7 @@ class FluidPropertiesSuperheated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_44`'.format(value))
         self._data["Property Value 44"] = value
 
@@ -23066,6 +23417,7 @@ class FluidPropertiesSuperheated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 45`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -23076,7 +23428,7 @@ class FluidPropertiesSuperheated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_45`'.format(value))
         self._data["Property Value 45"] = value
 
@@ -23095,6 +23447,7 @@ class FluidPropertiesSuperheated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 46`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -23105,7 +23458,7 @@ class FluidPropertiesSuperheated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_46`'.format(value))
         self._data["Property Value 46"] = value
 
@@ -23124,6 +23477,7 @@ class FluidPropertiesSuperheated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 47`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -23134,7 +23488,7 @@ class FluidPropertiesSuperheated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_47`'.format(value))
         self._data["Property Value 47"] = value
 
@@ -23153,6 +23507,7 @@ class FluidPropertiesSuperheated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 48`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -23163,7 +23518,7 @@ class FluidPropertiesSuperheated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_48`'.format(value))
         self._data["Property Value 48"] = value
 
@@ -23182,6 +23537,7 @@ class FluidPropertiesSuperheated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 49`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -23192,7 +23548,7 @@ class FluidPropertiesSuperheated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_49`'.format(value))
         self._data["Property Value 49"] = value
 
@@ -23211,6 +23567,7 @@ class FluidPropertiesSuperheated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 50`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -23221,7 +23578,7 @@ class FluidPropertiesSuperheated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_50`'.format(value))
         self._data["Property Value 50"] = value
 
@@ -23240,6 +23597,7 @@ class FluidPropertiesSuperheated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 51`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -23250,7 +23608,7 @@ class FluidPropertiesSuperheated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_51`'.format(value))
         self._data["Property Value 51"] = value
 
@@ -23269,6 +23627,7 @@ class FluidPropertiesSuperheated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 52`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -23279,7 +23638,7 @@ class FluidPropertiesSuperheated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_52`'.format(value))
         self._data["Property Value 52"] = value
 
@@ -23298,6 +23657,7 @@ class FluidPropertiesSuperheated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 53`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -23308,7 +23668,7 @@ class FluidPropertiesSuperheated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_53`'.format(value))
         self._data["Property Value 53"] = value
 
@@ -23327,6 +23687,7 @@ class FluidPropertiesSuperheated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 54`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -23337,7 +23698,7 @@ class FluidPropertiesSuperheated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_54`'.format(value))
         self._data["Property Value 54"] = value
 
@@ -23356,6 +23717,7 @@ class FluidPropertiesSuperheated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 55`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -23366,7 +23728,7 @@ class FluidPropertiesSuperheated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_55`'.format(value))
         self._data["Property Value 55"] = value
 
@@ -23385,6 +23747,7 @@ class FluidPropertiesSuperheated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 56`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -23395,7 +23758,7 @@ class FluidPropertiesSuperheated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_56`'.format(value))
         self._data["Property Value 56"] = value
 
@@ -23414,6 +23777,7 @@ class FluidPropertiesSuperheated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 57`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -23424,7 +23788,7 @@ class FluidPropertiesSuperheated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_57`'.format(value))
         self._data["Property Value 57"] = value
 
@@ -23443,6 +23807,7 @@ class FluidPropertiesSuperheated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 58`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -23453,7 +23818,7 @@ class FluidPropertiesSuperheated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_58`'.format(value))
         self._data["Property Value 58"] = value
 
@@ -23472,6 +23837,7 @@ class FluidPropertiesSuperheated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 59`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -23482,7 +23848,7 @@ class FluidPropertiesSuperheated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_59`'.format(value))
         self._data["Property Value 59"] = value
 
@@ -23501,6 +23867,7 @@ class FluidPropertiesSuperheated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 60`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -23511,7 +23878,7 @@ class FluidPropertiesSuperheated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_60`'.format(value))
         self._data["Property Value 60"] = value
 
@@ -23530,6 +23897,7 @@ class FluidPropertiesSuperheated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 61`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -23540,7 +23908,7 @@ class FluidPropertiesSuperheated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_61`'.format(value))
         self._data["Property Value 61"] = value
 
@@ -23559,6 +23927,7 @@ class FluidPropertiesSuperheated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 62`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -23569,7 +23938,7 @@ class FluidPropertiesSuperheated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_62`'.format(value))
         self._data["Property Value 62"] = value
 
@@ -23588,6 +23957,7 @@ class FluidPropertiesSuperheated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 63`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -23598,7 +23968,7 @@ class FluidPropertiesSuperheated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_63`'.format(value))
         self._data["Property Value 63"] = value
 
@@ -23617,6 +23987,7 @@ class FluidPropertiesSuperheated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 64`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -23627,7 +23998,7 @@ class FluidPropertiesSuperheated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_64`'.format(value))
         self._data["Property Value 64"] = value
 
@@ -23646,6 +24017,7 @@ class FluidPropertiesSuperheated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 65`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -23656,7 +24028,7 @@ class FluidPropertiesSuperheated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_65`'.format(value))
         self._data["Property Value 65"] = value
 
@@ -23675,6 +24047,7 @@ class FluidPropertiesSuperheated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 66`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -23685,7 +24058,7 @@ class FluidPropertiesSuperheated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_66`'.format(value))
         self._data["Property Value 66"] = value
 
@@ -23704,6 +24077,7 @@ class FluidPropertiesSuperheated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 67`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -23714,7 +24088,7 @@ class FluidPropertiesSuperheated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_67`'.format(value))
         self._data["Property Value 67"] = value
 
@@ -23733,6 +24107,7 @@ class FluidPropertiesSuperheated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 68`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -23743,7 +24118,7 @@ class FluidPropertiesSuperheated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_68`'.format(value))
         self._data["Property Value 68"] = value
 
@@ -23762,6 +24137,7 @@ class FluidPropertiesSuperheated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 69`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -23772,7 +24148,7 @@ class FluidPropertiesSuperheated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_69`'.format(value))
         self._data["Property Value 69"] = value
 
@@ -23791,6 +24167,7 @@ class FluidPropertiesSuperheated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 70`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -23801,7 +24178,7 @@ class FluidPropertiesSuperheated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_70`'.format(value))
         self._data["Property Value 70"] = value
 
@@ -23820,6 +24197,7 @@ class FluidPropertiesSuperheated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 71`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -23830,7 +24208,7 @@ class FluidPropertiesSuperheated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_71`'.format(value))
         self._data["Property Value 71"] = value
 
@@ -23849,6 +24227,7 @@ class FluidPropertiesSuperheated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 72`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -23859,7 +24238,7 @@ class FluidPropertiesSuperheated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_72`'.format(value))
         self._data["Property Value 72"] = value
 
@@ -23878,6 +24257,7 @@ class FluidPropertiesSuperheated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 73`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -23888,7 +24268,7 @@ class FluidPropertiesSuperheated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_73`'.format(value))
         self._data["Property Value 73"] = value
 
@@ -23907,6 +24287,7 @@ class FluidPropertiesSuperheated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 74`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -23917,7 +24298,7 @@ class FluidPropertiesSuperheated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_74`'.format(value))
         self._data["Property Value 74"] = value
 
@@ -23936,6 +24317,7 @@ class FluidPropertiesSuperheated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 75`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -23946,7 +24328,7 @@ class FluidPropertiesSuperheated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_75`'.format(value))
         self._data["Property Value 75"] = value
 
@@ -23965,6 +24347,7 @@ class FluidPropertiesSuperheated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 76`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -23975,7 +24358,7 @@ class FluidPropertiesSuperheated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_76`'.format(value))
         self._data["Property Value 76"] = value
 
@@ -23994,6 +24377,7 @@ class FluidPropertiesSuperheated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 77`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -24004,7 +24388,7 @@ class FluidPropertiesSuperheated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_77`'.format(value))
         self._data["Property Value 77"] = value
 
@@ -24023,6 +24407,7 @@ class FluidPropertiesSuperheated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 78`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -24033,7 +24418,7 @@ class FluidPropertiesSuperheated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_78`'.format(value))
         self._data["Property Value 78"] = value
 
@@ -24052,6 +24437,7 @@ class FluidPropertiesSuperheated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 79`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -24062,7 +24448,7 @@ class FluidPropertiesSuperheated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_79`'.format(value))
         self._data["Property Value 79"] = value
 
@@ -24081,6 +24467,7 @@ class FluidPropertiesSuperheated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 80`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -24091,7 +24478,7 @@ class FluidPropertiesSuperheated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_80`'.format(value))
         self._data["Property Value 80"] = value
 
@@ -24110,6 +24497,7 @@ class FluidPropertiesSuperheated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 81`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -24120,7 +24508,7 @@ class FluidPropertiesSuperheated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_81`'.format(value))
         self._data["Property Value 81"] = value
 
@@ -24139,6 +24527,7 @@ class FluidPropertiesSuperheated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 82`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -24149,7 +24538,7 @@ class FluidPropertiesSuperheated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_82`'.format(value))
         self._data["Property Value 82"] = value
 
@@ -24168,6 +24557,7 @@ class FluidPropertiesSuperheated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 83`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -24178,7 +24568,7 @@ class FluidPropertiesSuperheated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_83`'.format(value))
         self._data["Property Value 83"] = value
 
@@ -24197,6 +24587,7 @@ class FluidPropertiesSuperheated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 84`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -24207,7 +24598,7 @@ class FluidPropertiesSuperheated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_84`'.format(value))
         self._data["Property Value 84"] = value
 
@@ -24226,6 +24617,7 @@ class FluidPropertiesSuperheated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 85`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -24236,7 +24628,7 @@ class FluidPropertiesSuperheated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_85`'.format(value))
         self._data["Property Value 85"] = value
 
@@ -24255,6 +24647,7 @@ class FluidPropertiesSuperheated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 86`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -24265,7 +24658,7 @@ class FluidPropertiesSuperheated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_86`'.format(value))
         self._data["Property Value 86"] = value
 
@@ -24284,6 +24677,7 @@ class FluidPropertiesSuperheated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 87`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -24294,7 +24688,7 @@ class FluidPropertiesSuperheated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_87`'.format(value))
         self._data["Property Value 87"] = value
 
@@ -24313,6 +24707,7 @@ class FluidPropertiesSuperheated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 88`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -24323,7 +24718,7 @@ class FluidPropertiesSuperheated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_88`'.format(value))
         self._data["Property Value 88"] = value
 
@@ -24342,6 +24737,7 @@ class FluidPropertiesSuperheated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 89`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -24352,7 +24748,7 @@ class FluidPropertiesSuperheated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_89`'.format(value))
         self._data["Property Value 89"] = value
 
@@ -24371,6 +24767,7 @@ class FluidPropertiesSuperheated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 90`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -24381,7 +24778,7 @@ class FluidPropertiesSuperheated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_90`'.format(value))
         self._data["Property Value 90"] = value
 
@@ -24400,6 +24797,7 @@ class FluidPropertiesSuperheated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 91`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -24410,7 +24808,7 @@ class FluidPropertiesSuperheated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_91`'.format(value))
         self._data["Property Value 91"] = value
 
@@ -24429,6 +24827,7 @@ class FluidPropertiesSuperheated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 92`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -24439,7 +24838,7 @@ class FluidPropertiesSuperheated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_92`'.format(value))
         self._data["Property Value 92"] = value
 
@@ -24458,6 +24857,7 @@ class FluidPropertiesSuperheated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 93`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -24468,7 +24868,7 @@ class FluidPropertiesSuperheated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_93`'.format(value))
         self._data["Property Value 93"] = value
 
@@ -24487,6 +24887,7 @@ class FluidPropertiesSuperheated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 94`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -24497,7 +24898,7 @@ class FluidPropertiesSuperheated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_94`'.format(value))
         self._data["Property Value 94"] = value
 
@@ -24516,6 +24917,7 @@ class FluidPropertiesSuperheated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 95`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -24526,7 +24928,7 @@ class FluidPropertiesSuperheated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_95`'.format(value))
         self._data["Property Value 95"] = value
 
@@ -24545,6 +24947,7 @@ class FluidPropertiesSuperheated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 96`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -24555,7 +24958,7 @@ class FluidPropertiesSuperheated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_96`'.format(value))
         self._data["Property Value 96"] = value
 
@@ -24574,6 +24977,7 @@ class FluidPropertiesSuperheated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 97`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -24584,7 +24988,7 @@ class FluidPropertiesSuperheated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_97`'.format(value))
         self._data["Property Value 97"] = value
 
@@ -24603,6 +25007,7 @@ class FluidPropertiesSuperheated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 98`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -24613,7 +25018,7 @@ class FluidPropertiesSuperheated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_98`'.format(value))
         self._data["Property Value 98"] = value
 
@@ -24632,6 +25037,7 @@ class FluidPropertiesSuperheated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 99`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -24642,7 +25048,7 @@ class FluidPropertiesSuperheated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_99`'.format(value))
         self._data["Property Value 99"] = value
 
@@ -24661,6 +25067,7 @@ class FluidPropertiesSuperheated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 100`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -24671,7 +25078,7 @@ class FluidPropertiesSuperheated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_100`'.format(value))
         self._data["Property Value 100"] = value
 
@@ -24690,6 +25097,7 @@ class FluidPropertiesSuperheated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 101`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -24700,7 +25108,7 @@ class FluidPropertiesSuperheated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_101`'.format(value))
         self._data["Property Value 101"] = value
 
@@ -24719,6 +25127,7 @@ class FluidPropertiesSuperheated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 102`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -24729,7 +25138,7 @@ class FluidPropertiesSuperheated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_102`'.format(value))
         self._data["Property Value 102"] = value
 
@@ -24748,6 +25157,7 @@ class FluidPropertiesSuperheated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 103`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -24758,7 +25168,7 @@ class FluidPropertiesSuperheated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_103`'.format(value))
         self._data["Property Value 103"] = value
 
@@ -24777,6 +25187,7 @@ class FluidPropertiesSuperheated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 104`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -24787,7 +25198,7 @@ class FluidPropertiesSuperheated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_104`'.format(value))
         self._data["Property Value 104"] = value
 
@@ -24806,6 +25217,7 @@ class FluidPropertiesSuperheated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 105`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -24816,7 +25228,7 @@ class FluidPropertiesSuperheated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_105`'.format(value))
         self._data["Property Value 105"] = value
 
@@ -24835,6 +25247,7 @@ class FluidPropertiesSuperheated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 106`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -24845,7 +25258,7 @@ class FluidPropertiesSuperheated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_106`'.format(value))
         self._data["Property Value 106"] = value
 
@@ -24864,6 +25277,7 @@ class FluidPropertiesSuperheated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 107`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -24874,7 +25288,7 @@ class FluidPropertiesSuperheated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_107`'.format(value))
         self._data["Property Value 107"] = value
 
@@ -24893,6 +25307,7 @@ class FluidPropertiesSuperheated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 108`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -24903,7 +25318,7 @@ class FluidPropertiesSuperheated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_108`'.format(value))
         self._data["Property Value 108"] = value
 
@@ -24922,6 +25337,7 @@ class FluidPropertiesSuperheated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 109`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -24932,7 +25348,7 @@ class FluidPropertiesSuperheated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_109`'.format(value))
         self._data["Property Value 109"] = value
 
@@ -24951,6 +25367,7 @@ class FluidPropertiesSuperheated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 110`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -24961,7 +25378,7 @@ class FluidPropertiesSuperheated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_110`'.format(value))
         self._data["Property Value 110"] = value
 
@@ -24980,6 +25397,7 @@ class FluidPropertiesSuperheated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 111`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -24990,7 +25408,7 @@ class FluidPropertiesSuperheated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_111`'.format(value))
         self._data["Property Value 111"] = value
 
@@ -25009,6 +25427,7 @@ class FluidPropertiesSuperheated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 112`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -25019,7 +25438,7 @@ class FluidPropertiesSuperheated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_112`'.format(value))
         self._data["Property Value 112"] = value
 
@@ -25038,6 +25457,7 @@ class FluidPropertiesSuperheated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 113`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -25048,7 +25468,7 @@ class FluidPropertiesSuperheated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_113`'.format(value))
         self._data["Property Value 113"] = value
 
@@ -25067,6 +25487,7 @@ class FluidPropertiesSuperheated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 114`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -25077,7 +25498,7 @@ class FluidPropertiesSuperheated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_114`'.format(value))
         self._data["Property Value 114"] = value
 
@@ -25096,6 +25517,7 @@ class FluidPropertiesSuperheated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 115`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -25106,7 +25528,7 @@ class FluidPropertiesSuperheated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_115`'.format(value))
         self._data["Property Value 115"] = value
 
@@ -25125,6 +25547,7 @@ class FluidPropertiesSuperheated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 116`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -25135,7 +25558,7 @@ class FluidPropertiesSuperheated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_116`'.format(value))
         self._data["Property Value 116"] = value
 
@@ -25154,6 +25577,7 @@ class FluidPropertiesSuperheated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 117`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -25164,7 +25588,7 @@ class FluidPropertiesSuperheated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_117`'.format(value))
         self._data["Property Value 117"] = value
 
@@ -25183,6 +25607,7 @@ class FluidPropertiesSuperheated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 118`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -25193,7 +25618,7 @@ class FluidPropertiesSuperheated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_118`'.format(value))
         self._data["Property Value 118"] = value
 
@@ -25212,6 +25637,7 @@ class FluidPropertiesSuperheated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 119`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -25222,7 +25648,7 @@ class FluidPropertiesSuperheated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_119`'.format(value))
         self._data["Property Value 119"] = value
 
@@ -25241,6 +25667,7 @@ class FluidPropertiesSuperheated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 120`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -25251,7 +25678,7 @@ class FluidPropertiesSuperheated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_120`'.format(value))
         self._data["Property Value 120"] = value
 
@@ -25270,6 +25697,7 @@ class FluidPropertiesSuperheated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 121`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -25280,7 +25708,7 @@ class FluidPropertiesSuperheated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_121`'.format(value))
         self._data["Property Value 121"] = value
 
@@ -25299,6 +25727,7 @@ class FluidPropertiesSuperheated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 122`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -25309,7 +25738,7 @@ class FluidPropertiesSuperheated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_122`'.format(value))
         self._data["Property Value 122"] = value
 
@@ -25328,6 +25757,7 @@ class FluidPropertiesSuperheated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 123`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -25338,7 +25768,7 @@ class FluidPropertiesSuperheated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_123`'.format(value))
         self._data["Property Value 123"] = value
 
@@ -25357,6 +25787,7 @@ class FluidPropertiesSuperheated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 124`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -25367,7 +25798,7 @@ class FluidPropertiesSuperheated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_124`'.format(value))
         self._data["Property Value 124"] = value
 
@@ -25386,6 +25817,7 @@ class FluidPropertiesSuperheated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 125`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -25396,7 +25828,7 @@ class FluidPropertiesSuperheated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_125`'.format(value))
         self._data["Property Value 125"] = value
 
@@ -25415,6 +25847,7 @@ class FluidPropertiesSuperheated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 126`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -25425,7 +25858,7 @@ class FluidPropertiesSuperheated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_126`'.format(value))
         self._data["Property Value 126"] = value
 
@@ -25444,6 +25877,7 @@ class FluidPropertiesSuperheated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 127`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -25454,7 +25888,7 @@ class FluidPropertiesSuperheated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_127`'.format(value))
         self._data["Property Value 127"] = value
 
@@ -25473,6 +25907,7 @@ class FluidPropertiesSuperheated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 128`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -25483,7 +25918,7 @@ class FluidPropertiesSuperheated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_128`'.format(value))
         self._data["Property Value 128"] = value
 
@@ -25502,6 +25937,7 @@ class FluidPropertiesSuperheated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 129`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -25512,7 +25948,7 @@ class FluidPropertiesSuperheated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_129`'.format(value))
         self._data["Property Value 129"] = value
 
@@ -25531,6 +25967,7 @@ class FluidPropertiesSuperheated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 130`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -25541,7 +25978,7 @@ class FluidPropertiesSuperheated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_130`'.format(value))
         self._data["Property Value 130"] = value
 
@@ -25560,6 +25997,7 @@ class FluidPropertiesSuperheated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 131`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -25570,7 +26008,7 @@ class FluidPropertiesSuperheated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_131`'.format(value))
         self._data["Property Value 131"] = value
 
@@ -25589,6 +26027,7 @@ class FluidPropertiesSuperheated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 132`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -25599,7 +26038,7 @@ class FluidPropertiesSuperheated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_132`'.format(value))
         self._data["Property Value 132"] = value
 
@@ -25618,6 +26057,7 @@ class FluidPropertiesSuperheated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 133`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -25628,7 +26068,7 @@ class FluidPropertiesSuperheated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_133`'.format(value))
         self._data["Property Value 133"] = value
 
@@ -25647,6 +26087,7 @@ class FluidPropertiesSuperheated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 134`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -25657,7 +26098,7 @@ class FluidPropertiesSuperheated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_134`'.format(value))
         self._data["Property Value 134"] = value
 
@@ -25676,6 +26117,7 @@ class FluidPropertiesSuperheated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 135`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -25686,7 +26128,7 @@ class FluidPropertiesSuperheated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_135`'.format(value))
         self._data["Property Value 135"] = value
 
@@ -25705,6 +26147,7 @@ class FluidPropertiesSuperheated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 136`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -25715,7 +26158,7 @@ class FluidPropertiesSuperheated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_136`'.format(value))
         self._data["Property Value 136"] = value
 
@@ -25734,6 +26177,7 @@ class FluidPropertiesSuperheated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 137`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -25744,7 +26188,7 @@ class FluidPropertiesSuperheated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_137`'.format(value))
         self._data["Property Value 137"] = value
 
@@ -25763,6 +26207,7 @@ class FluidPropertiesSuperheated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 138`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -25773,7 +26218,7 @@ class FluidPropertiesSuperheated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_138`'.format(value))
         self._data["Property Value 138"] = value
 
@@ -25792,6 +26237,7 @@ class FluidPropertiesSuperheated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 139`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -25802,7 +26248,7 @@ class FluidPropertiesSuperheated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_139`'.format(value))
         self._data["Property Value 139"] = value
 
@@ -25821,6 +26267,7 @@ class FluidPropertiesSuperheated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 140`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -25831,7 +26278,7 @@ class FluidPropertiesSuperheated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_140`'.format(value))
         self._data["Property Value 140"] = value
 
@@ -25850,6 +26297,7 @@ class FluidPropertiesSuperheated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 141`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -25860,7 +26308,7 @@ class FluidPropertiesSuperheated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_141`'.format(value))
         self._data["Property Value 141"] = value
 
@@ -25879,6 +26327,7 @@ class FluidPropertiesSuperheated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 142`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -25889,7 +26338,7 @@ class FluidPropertiesSuperheated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_142`'.format(value))
         self._data["Property Value 142"] = value
 
@@ -25908,6 +26357,7 @@ class FluidPropertiesSuperheated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 143`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -25918,7 +26368,7 @@ class FluidPropertiesSuperheated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_143`'.format(value))
         self._data["Property Value 143"] = value
 
@@ -25937,6 +26387,7 @@ class FluidPropertiesSuperheated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 144`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -25947,7 +26398,7 @@ class FluidPropertiesSuperheated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_144`'.format(value))
         self._data["Property Value 144"] = value
 
@@ -25966,6 +26417,7 @@ class FluidPropertiesSuperheated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 145`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -25976,7 +26428,7 @@ class FluidPropertiesSuperheated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_145`'.format(value))
         self._data["Property Value 145"] = value
 
@@ -25995,6 +26447,7 @@ class FluidPropertiesSuperheated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 146`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -26005,7 +26458,7 @@ class FluidPropertiesSuperheated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_146`'.format(value))
         self._data["Property Value 146"] = value
 
@@ -26024,6 +26477,7 @@ class FluidPropertiesSuperheated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 147`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -26034,7 +26488,7 @@ class FluidPropertiesSuperheated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_147`'.format(value))
         self._data["Property Value 147"] = value
 
@@ -26053,6 +26507,7 @@ class FluidPropertiesSuperheated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 148`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -26063,7 +26518,7 @@ class FluidPropertiesSuperheated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_148`'.format(value))
         self._data["Property Value 148"] = value
 
@@ -26082,6 +26537,7 @@ class FluidPropertiesSuperheated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 149`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -26092,7 +26548,7 @@ class FluidPropertiesSuperheated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_149`'.format(value))
         self._data["Property Value 149"] = value
 
@@ -26111,6 +26567,7 @@ class FluidPropertiesSuperheated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 150`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -26121,7 +26578,7 @@ class FluidPropertiesSuperheated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_150`'.format(value))
         self._data["Property Value 150"] = value
 
@@ -26140,6 +26597,7 @@ class FluidPropertiesSuperheated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 151`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -26150,7 +26608,7 @@ class FluidPropertiesSuperheated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_151`'.format(value))
         self._data["Property Value 151"] = value
 
@@ -26169,6 +26627,7 @@ class FluidPropertiesSuperheated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 152`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -26179,7 +26638,7 @@ class FluidPropertiesSuperheated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_152`'.format(value))
         self._data["Property Value 152"] = value
 
@@ -26198,6 +26657,7 @@ class FluidPropertiesSuperheated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 153`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -26208,7 +26668,7 @@ class FluidPropertiesSuperheated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_153`'.format(value))
         self._data["Property Value 153"] = value
 
@@ -26227,6 +26687,7 @@ class FluidPropertiesSuperheated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 154`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -26237,7 +26698,7 @@ class FluidPropertiesSuperheated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_154`'.format(value))
         self._data["Property Value 154"] = value
 
@@ -26256,6 +26717,7 @@ class FluidPropertiesSuperheated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 155`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -26266,7 +26728,7 @@ class FluidPropertiesSuperheated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_155`'.format(value))
         self._data["Property Value 155"] = value
 
@@ -26285,6 +26747,7 @@ class FluidPropertiesSuperheated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 156`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -26295,7 +26758,7 @@ class FluidPropertiesSuperheated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_156`'.format(value))
         self._data["Property Value 156"] = value
 
@@ -26314,6 +26777,7 @@ class FluidPropertiesSuperheated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 157`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -26324,7 +26788,7 @@ class FluidPropertiesSuperheated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_157`'.format(value))
         self._data["Property Value 157"] = value
 
@@ -26343,6 +26807,7 @@ class FluidPropertiesSuperheated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 158`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -26353,7 +26818,7 @@ class FluidPropertiesSuperheated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_158`'.format(value))
         self._data["Property Value 158"] = value
 
@@ -26372,6 +26837,7 @@ class FluidPropertiesSuperheated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 159`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -26382,7 +26848,7 @@ class FluidPropertiesSuperheated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_159`'.format(value))
         self._data["Property Value 159"] = value
 
@@ -26401,6 +26867,7 @@ class FluidPropertiesSuperheated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 160`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -26411,7 +26878,7 @@ class FluidPropertiesSuperheated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_160`'.format(value))
         self._data["Property Value 160"] = value
 
@@ -26430,6 +26897,7 @@ class FluidPropertiesSuperheated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 161`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -26440,7 +26908,7 @@ class FluidPropertiesSuperheated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_161`'.format(value))
         self._data["Property Value 161"] = value
 
@@ -26459,6 +26927,7 @@ class FluidPropertiesSuperheated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 162`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -26469,7 +26938,7 @@ class FluidPropertiesSuperheated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_162`'.format(value))
         self._data["Property Value 162"] = value
 
@@ -26488,6 +26957,7 @@ class FluidPropertiesSuperheated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 163`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -26498,7 +26968,7 @@ class FluidPropertiesSuperheated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_163`'.format(value))
         self._data["Property Value 163"] = value
 
@@ -26517,6 +26987,7 @@ class FluidPropertiesSuperheated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 164`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -26527,7 +26998,7 @@ class FluidPropertiesSuperheated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_164`'.format(value))
         self._data["Property Value 164"] = value
 
@@ -26546,6 +27017,7 @@ class FluidPropertiesSuperheated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 165`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -26556,7 +27028,7 @@ class FluidPropertiesSuperheated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_165`'.format(value))
         self._data["Property Value 165"] = value
 
@@ -26575,6 +27047,7 @@ class FluidPropertiesSuperheated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 166`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -26585,7 +27058,7 @@ class FluidPropertiesSuperheated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_166`'.format(value))
         self._data["Property Value 166"] = value
 
@@ -26604,6 +27077,7 @@ class FluidPropertiesSuperheated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 167`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -26614,7 +27088,7 @@ class FluidPropertiesSuperheated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_167`'.format(value))
         self._data["Property Value 167"] = value
 
@@ -26633,6 +27107,7 @@ class FluidPropertiesSuperheated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 168`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -26643,7 +27118,7 @@ class FluidPropertiesSuperheated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_168`'.format(value))
         self._data["Property Value 168"] = value
 
@@ -26662,6 +27137,7 @@ class FluidPropertiesSuperheated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 169`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -26672,7 +27148,7 @@ class FluidPropertiesSuperheated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_169`'.format(value))
         self._data["Property Value 169"] = value
 
@@ -26691,6 +27167,7 @@ class FluidPropertiesSuperheated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 170`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -26701,7 +27178,7 @@ class FluidPropertiesSuperheated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_170`'.format(value))
         self._data["Property Value 170"] = value
 
@@ -26720,6 +27197,7 @@ class FluidPropertiesSuperheated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 171`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -26730,7 +27208,7 @@ class FluidPropertiesSuperheated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_171`'.format(value))
         self._data["Property Value 171"] = value
 
@@ -26749,6 +27227,7 @@ class FluidPropertiesSuperheated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 172`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -26759,7 +27238,7 @@ class FluidPropertiesSuperheated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_172`'.format(value))
         self._data["Property Value 172"] = value
 
@@ -26778,6 +27257,7 @@ class FluidPropertiesSuperheated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 173`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -26788,7 +27268,7 @@ class FluidPropertiesSuperheated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_173`'.format(value))
         self._data["Property Value 173"] = value
 
@@ -26807,6 +27287,7 @@ class FluidPropertiesSuperheated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 174`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -26817,7 +27298,7 @@ class FluidPropertiesSuperheated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_174`'.format(value))
         self._data["Property Value 174"] = value
 
@@ -26836,6 +27317,7 @@ class FluidPropertiesSuperheated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 175`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -26846,7 +27328,7 @@ class FluidPropertiesSuperheated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_175`'.format(value))
         self._data["Property Value 175"] = value
 
@@ -26865,6 +27347,7 @@ class FluidPropertiesSuperheated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 176`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -26875,7 +27358,7 @@ class FluidPropertiesSuperheated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_176`'.format(value))
         self._data["Property Value 176"] = value
 
@@ -26894,6 +27377,7 @@ class FluidPropertiesSuperheated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 177`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -26904,7 +27388,7 @@ class FluidPropertiesSuperheated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_177`'.format(value))
         self._data["Property Value 177"] = value
 
@@ -26923,6 +27407,7 @@ class FluidPropertiesSuperheated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 178`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -26933,7 +27418,7 @@ class FluidPropertiesSuperheated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_178`'.format(value))
         self._data["Property Value 178"] = value
 
@@ -26952,6 +27437,7 @@ class FluidPropertiesSuperheated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 179`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -26962,7 +27448,7 @@ class FluidPropertiesSuperheated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_179`'.format(value))
         self._data["Property Value 179"] = value
 
@@ -26981,6 +27467,7 @@ class FluidPropertiesSuperheated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 180`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -26991,7 +27478,7 @@ class FluidPropertiesSuperheated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_180`'.format(value))
         self._data["Property Value 180"] = value
 
@@ -27010,6 +27497,7 @@ class FluidPropertiesSuperheated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 181`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -27020,7 +27508,7 @@ class FluidPropertiesSuperheated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_181`'.format(value))
         self._data["Property Value 181"] = value
 
@@ -27039,6 +27527,7 @@ class FluidPropertiesSuperheated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 182`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -27049,7 +27538,7 @@ class FluidPropertiesSuperheated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_182`'.format(value))
         self._data["Property Value 182"] = value
 
@@ -27068,6 +27557,7 @@ class FluidPropertiesSuperheated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 183`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -27078,7 +27568,7 @@ class FluidPropertiesSuperheated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_183`'.format(value))
         self._data["Property Value 183"] = value
 
@@ -27097,6 +27587,7 @@ class FluidPropertiesSuperheated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 184`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -27107,7 +27598,7 @@ class FluidPropertiesSuperheated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_184`'.format(value))
         self._data["Property Value 184"] = value
 
@@ -27126,6 +27617,7 @@ class FluidPropertiesSuperheated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 185`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -27136,7 +27628,7 @@ class FluidPropertiesSuperheated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_185`'.format(value))
         self._data["Property Value 185"] = value
 
@@ -27155,6 +27647,7 @@ class FluidPropertiesSuperheated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 186`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -27165,7 +27658,7 @@ class FluidPropertiesSuperheated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_186`'.format(value))
         self._data["Property Value 186"] = value
 
@@ -27184,6 +27677,7 @@ class FluidPropertiesSuperheated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 187`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -27194,7 +27688,7 @@ class FluidPropertiesSuperheated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_187`'.format(value))
         self._data["Property Value 187"] = value
 
@@ -27213,6 +27707,7 @@ class FluidPropertiesSuperheated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 188`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -27223,7 +27718,7 @@ class FluidPropertiesSuperheated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_188`'.format(value))
         self._data["Property Value 188"] = value
 
@@ -27242,6 +27737,7 @@ class FluidPropertiesSuperheated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 189`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -27252,7 +27748,7 @@ class FluidPropertiesSuperheated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_189`'.format(value))
         self._data["Property Value 189"] = value
 
@@ -27271,6 +27767,7 @@ class FluidPropertiesSuperheated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 190`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -27281,7 +27778,7 @@ class FluidPropertiesSuperheated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_190`'.format(value))
         self._data["Property Value 190"] = value
 
@@ -27300,6 +27797,7 @@ class FluidPropertiesSuperheated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 191`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -27310,7 +27808,7 @@ class FluidPropertiesSuperheated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_191`'.format(value))
         self._data["Property Value 191"] = value
 
@@ -27329,6 +27827,7 @@ class FluidPropertiesSuperheated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 192`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -27339,7 +27838,7 @@ class FluidPropertiesSuperheated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_192`'.format(value))
         self._data["Property Value 192"] = value
 
@@ -27358,6 +27857,7 @@ class FluidPropertiesSuperheated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 193`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -27368,7 +27868,7 @@ class FluidPropertiesSuperheated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_193`'.format(value))
         self._data["Property Value 193"] = value
 
@@ -27387,6 +27887,7 @@ class FluidPropertiesSuperheated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 194`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -27397,7 +27898,7 @@ class FluidPropertiesSuperheated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_194`'.format(value))
         self._data["Property Value 194"] = value
 
@@ -27416,6 +27917,7 @@ class FluidPropertiesSuperheated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 195`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -27426,7 +27928,7 @@ class FluidPropertiesSuperheated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_195`'.format(value))
         self._data["Property Value 195"] = value
 
@@ -27445,6 +27947,7 @@ class FluidPropertiesSuperheated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 196`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -27455,7 +27958,7 @@ class FluidPropertiesSuperheated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_196`'.format(value))
         self._data["Property Value 196"] = value
 
@@ -27474,6 +27977,7 @@ class FluidPropertiesSuperheated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 197`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -27484,7 +27988,7 @@ class FluidPropertiesSuperheated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_197`'.format(value))
         self._data["Property Value 197"] = value
 
@@ -27503,6 +28007,7 @@ class FluidPropertiesSuperheated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 198`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -27513,7 +28018,7 @@ class FluidPropertiesSuperheated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_198`'.format(value))
         self._data["Property Value 198"] = value
 
@@ -27532,6 +28037,7 @@ class FluidPropertiesSuperheated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 199`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -27542,7 +28048,7 @@ class FluidPropertiesSuperheated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_199`'.format(value))
         self._data["Property Value 199"] = value
 
@@ -27561,6 +28067,7 @@ class FluidPropertiesSuperheated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 200`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -27571,7 +28078,7 @@ class FluidPropertiesSuperheated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_200`'.format(value))
         self._data["Property Value 200"] = value
 
@@ -27590,6 +28097,7 @@ class FluidPropertiesSuperheated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 201`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -27600,7 +28108,7 @@ class FluidPropertiesSuperheated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_201`'.format(value))
         self._data["Property Value 201"] = value
 
@@ -27619,6 +28127,7 @@ class FluidPropertiesSuperheated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 202`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -27629,7 +28138,7 @@ class FluidPropertiesSuperheated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_202`'.format(value))
         self._data["Property Value 202"] = value
 
@@ -27648,6 +28157,7 @@ class FluidPropertiesSuperheated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 203`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -27658,7 +28168,7 @@ class FluidPropertiesSuperheated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_203`'.format(value))
         self._data["Property Value 203"] = value
 
@@ -27677,6 +28187,7 @@ class FluidPropertiesSuperheated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 204`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -27687,7 +28198,7 @@ class FluidPropertiesSuperheated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_204`'.format(value))
         self._data["Property Value 204"] = value
 
@@ -27706,6 +28217,7 @@ class FluidPropertiesSuperheated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 205`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -27716,7 +28228,7 @@ class FluidPropertiesSuperheated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_205`'.format(value))
         self._data["Property Value 205"] = value
 
@@ -27735,6 +28247,7 @@ class FluidPropertiesSuperheated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 206`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -27745,7 +28258,7 @@ class FluidPropertiesSuperheated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_206`'.format(value))
         self._data["Property Value 206"] = value
 
@@ -27764,6 +28277,7 @@ class FluidPropertiesSuperheated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 207`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -27774,7 +28288,7 @@ class FluidPropertiesSuperheated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_207`'.format(value))
         self._data["Property Value 207"] = value
 
@@ -27793,6 +28307,7 @@ class FluidPropertiesSuperheated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 208`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -27803,7 +28318,7 @@ class FluidPropertiesSuperheated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_208`'.format(value))
         self._data["Property Value 208"] = value
 
@@ -27822,6 +28337,7 @@ class FluidPropertiesSuperheated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 209`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -27832,7 +28348,7 @@ class FluidPropertiesSuperheated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_209`'.format(value))
         self._data["Property Value 209"] = value
 
@@ -27851,6 +28367,7 @@ class FluidPropertiesSuperheated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 210`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -27861,7 +28378,7 @@ class FluidPropertiesSuperheated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_210`'.format(value))
         self._data["Property Value 210"] = value
 
@@ -27880,6 +28397,7 @@ class FluidPropertiesSuperheated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 211`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -27890,7 +28408,7 @@ class FluidPropertiesSuperheated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_211`'.format(value))
         self._data["Property Value 211"] = value
 
@@ -27909,6 +28427,7 @@ class FluidPropertiesSuperheated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 212`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -27919,7 +28438,7 @@ class FluidPropertiesSuperheated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_212`'.format(value))
         self._data["Property Value 212"] = value
 
@@ -27938,6 +28457,7 @@ class FluidPropertiesSuperheated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 213`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -27948,7 +28468,7 @@ class FluidPropertiesSuperheated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_213`'.format(value))
         self._data["Property Value 213"] = value
 
@@ -27967,6 +28487,7 @@ class FluidPropertiesSuperheated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 214`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -27977,7 +28498,7 @@ class FluidPropertiesSuperheated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_214`'.format(value))
         self._data["Property Value 214"] = value
 
@@ -27996,6 +28517,7 @@ class FluidPropertiesSuperheated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 215`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -28006,7 +28528,7 @@ class FluidPropertiesSuperheated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_215`'.format(value))
         self._data["Property Value 215"] = value
 
@@ -28025,6 +28547,7 @@ class FluidPropertiesSuperheated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 216`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -28035,7 +28558,7 @@ class FluidPropertiesSuperheated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_216`'.format(value))
         self._data["Property Value 216"] = value
 
@@ -28054,6 +28577,7 @@ class FluidPropertiesSuperheated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 217`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -28064,7 +28588,7 @@ class FluidPropertiesSuperheated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_217`'.format(value))
         self._data["Property Value 217"] = value
 
@@ -28083,6 +28607,7 @@ class FluidPropertiesSuperheated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 218`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -28093,7 +28618,7 @@ class FluidPropertiesSuperheated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_218`'.format(value))
         self._data["Property Value 218"] = value
 
@@ -28112,6 +28637,7 @@ class FluidPropertiesSuperheated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 219`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -28122,7 +28648,7 @@ class FluidPropertiesSuperheated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_219`'.format(value))
         self._data["Property Value 219"] = value
 
@@ -28141,6 +28667,7 @@ class FluidPropertiesSuperheated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 220`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -28151,7 +28678,7 @@ class FluidPropertiesSuperheated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_220`'.format(value))
         self._data["Property Value 220"] = value
 
@@ -28170,6 +28697,7 @@ class FluidPropertiesSuperheated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 221`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -28180,7 +28708,7 @@ class FluidPropertiesSuperheated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_221`'.format(value))
         self._data["Property Value 221"] = value
 
@@ -28199,6 +28727,7 @@ class FluidPropertiesSuperheated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 222`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -28209,7 +28738,7 @@ class FluidPropertiesSuperheated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_222`'.format(value))
         self._data["Property Value 222"] = value
 
@@ -28228,6 +28757,7 @@ class FluidPropertiesSuperheated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 223`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -28238,7 +28768,7 @@ class FluidPropertiesSuperheated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_223`'.format(value))
         self._data["Property Value 223"] = value
 
@@ -28257,6 +28787,7 @@ class FluidPropertiesSuperheated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 224`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -28267,7 +28798,7 @@ class FluidPropertiesSuperheated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_224`'.format(value))
         self._data["Property Value 224"] = value
 
@@ -28286,6 +28817,7 @@ class FluidPropertiesSuperheated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 225`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -28296,7 +28828,7 @@ class FluidPropertiesSuperheated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_225`'.format(value))
         self._data["Property Value 225"] = value
 
@@ -28315,6 +28847,7 @@ class FluidPropertiesSuperheated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 226`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -28325,7 +28858,7 @@ class FluidPropertiesSuperheated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_226`'.format(value))
         self._data["Property Value 226"] = value
 
@@ -28344,6 +28877,7 @@ class FluidPropertiesSuperheated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 227`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -28354,7 +28888,7 @@ class FluidPropertiesSuperheated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_227`'.format(value))
         self._data["Property Value 227"] = value
 
@@ -28373,6 +28907,7 @@ class FluidPropertiesSuperheated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 228`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -28383,7 +28918,7 @@ class FluidPropertiesSuperheated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_228`'.format(value))
         self._data["Property Value 228"] = value
 
@@ -28402,6 +28937,7 @@ class FluidPropertiesSuperheated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 229`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -28412,7 +28948,7 @@ class FluidPropertiesSuperheated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_229`'.format(value))
         self._data["Property Value 229"] = value
 
@@ -28431,6 +28967,7 @@ class FluidPropertiesSuperheated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 230`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -28441,7 +28978,7 @@ class FluidPropertiesSuperheated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_230`'.format(value))
         self._data["Property Value 230"] = value
 
@@ -28460,6 +28997,7 @@ class FluidPropertiesSuperheated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 231`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -28470,7 +29008,7 @@ class FluidPropertiesSuperheated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_231`'.format(value))
         self._data["Property Value 231"] = value
 
@@ -28489,6 +29027,7 @@ class FluidPropertiesSuperheated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 232`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -28499,7 +29038,7 @@ class FluidPropertiesSuperheated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_232`'.format(value))
         self._data["Property Value 232"] = value
 
@@ -28518,6 +29057,7 @@ class FluidPropertiesSuperheated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 233`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -28528,7 +29068,7 @@ class FluidPropertiesSuperheated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_233`'.format(value))
         self._data["Property Value 233"] = value
 
@@ -28547,6 +29087,7 @@ class FluidPropertiesSuperheated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 234`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -28557,7 +29098,7 @@ class FluidPropertiesSuperheated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_234`'.format(value))
         self._data["Property Value 234"] = value
 
@@ -28576,6 +29117,7 @@ class FluidPropertiesSuperheated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 235`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -28586,7 +29128,7 @@ class FluidPropertiesSuperheated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_235`'.format(value))
         self._data["Property Value 235"] = value
 
@@ -28605,6 +29147,7 @@ class FluidPropertiesSuperheated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 236`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -28615,7 +29158,7 @@ class FluidPropertiesSuperheated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_236`'.format(value))
         self._data["Property Value 236"] = value
 
@@ -28634,6 +29177,7 @@ class FluidPropertiesSuperheated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 237`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -28644,7 +29188,7 @@ class FluidPropertiesSuperheated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_237`'.format(value))
         self._data["Property Value 237"] = value
 
@@ -28663,6 +29207,7 @@ class FluidPropertiesSuperheated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 238`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -28673,7 +29218,7 @@ class FluidPropertiesSuperheated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_238`'.format(value))
         self._data["Property Value 238"] = value
 
@@ -28692,6 +29237,7 @@ class FluidPropertiesSuperheated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 239`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -28702,7 +29248,7 @@ class FluidPropertiesSuperheated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_239`'.format(value))
         self._data["Property Value 239"] = value
 
@@ -28721,6 +29267,7 @@ class FluidPropertiesSuperheated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 240`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -28731,7 +29278,7 @@ class FluidPropertiesSuperheated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_240`'.format(value))
         self._data["Property Value 240"] = value
 
@@ -28750,6 +29297,7 @@ class FluidPropertiesSuperheated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 241`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -28760,7 +29308,7 @@ class FluidPropertiesSuperheated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_241`'.format(value))
         self._data["Property Value 241"] = value
 
@@ -28779,6 +29327,7 @@ class FluidPropertiesSuperheated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 242`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -28789,7 +29338,7 @@ class FluidPropertiesSuperheated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_242`'.format(value))
         self._data["Property Value 242"] = value
 
@@ -28808,6 +29357,7 @@ class FluidPropertiesSuperheated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 243`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -28818,7 +29368,7 @@ class FluidPropertiesSuperheated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_243`'.format(value))
         self._data["Property Value 243"] = value
 
@@ -28837,6 +29387,7 @@ class FluidPropertiesSuperheated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 244`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -28847,7 +29398,7 @@ class FluidPropertiesSuperheated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_244`'.format(value))
         self._data["Property Value 244"] = value
 
@@ -28866,6 +29417,7 @@ class FluidPropertiesSuperheated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 245`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -28876,7 +29428,7 @@ class FluidPropertiesSuperheated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_245`'.format(value))
         self._data["Property Value 245"] = value
 
@@ -28895,6 +29447,7 @@ class FluidPropertiesSuperheated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 246`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -28905,7 +29458,7 @@ class FluidPropertiesSuperheated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_246`'.format(value))
         self._data["Property Value 246"] = value
 
@@ -28924,6 +29477,7 @@ class FluidPropertiesSuperheated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 247`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -28934,7 +29488,7 @@ class FluidPropertiesSuperheated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_247`'.format(value))
         self._data["Property Value 247"] = value
 
@@ -28953,6 +29507,7 @@ class FluidPropertiesSuperheated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 248`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -28963,7 +29518,7 @@ class FluidPropertiesSuperheated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_248`'.format(value))
         self._data["Property Value 248"] = value
 
@@ -28982,6 +29537,7 @@ class FluidPropertiesSuperheated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 249`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -28992,7 +29548,7 @@ class FluidPropertiesSuperheated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_249`'.format(value))
         self._data["Property Value 249"] = value
 
@@ -29011,6 +29567,7 @@ class FluidPropertiesSuperheated(object):
 
         Args:
             value (float): value for IDD Field `Property Value 250`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -29021,7 +29578,7 @@ class FluidPropertiesSuperheated(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_250`'.format(value))
         self._data["Property Value 250"] = value
 
@@ -29062,7 +29619,6 @@ class FluidPropertiesSuperheated(object):
 class FluidPropertiesConcentration(object):
     """ Corresponds to IDD object `FluidProperties:Concentration`
         fluid properties for water/other fluid mixtures
-    
     """
     internal_name = "FluidProperties:Concentration"
     field_count = 254
@@ -29326,15 +29882,16 @@ class FluidPropertiesConcentration(object):
         self._data["Property Value 248"] = None
         self._data["Property Value 249"] = None
         self._data["Property Value 250"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.fluid_name = None
@@ -31114,6 +31671,7 @@ class FluidPropertiesConcentration(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def fluid_name(self):
@@ -31141,7 +31699,7 @@ class FluidPropertiesConcentration(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `fluid_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -31171,10 +31729,10 @@ class FluidPropertiesConcentration(object):
         Args:
             value (str): value for IDD Field `Fluid Property Type`
                 Accepted values are:
-                      - Density      ! Units are kg/m3
-                      - SpecificHeat ! Units are J/kg-K
-                      - Conductivity ! Units are W/m-K
-                      - Viscosity    ! Units are N-s/m2
+                      - Density
+                      - SpecificHeat
+                      - Conductivity
+                      - Viscosity
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -31185,7 +31743,7 @@ class FluidPropertiesConcentration(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `fluid_property_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -31194,23 +31752,33 @@ class FluidPropertiesConcentration(object):
                 raise ValueError('value should not contain a ! '
                                  'for field `fluid_property_type`')
             vals = {}
-            vals["density      ! units are kg/m3"] = "Density      ! Units are kg/m3"
-            vals["specificheat ! units are j/kg-k"] = "SpecificHeat ! Units are J/kg-K"
-            vals["conductivity ! units are w/m-k"] = "Conductivity ! Units are W/m-K"
-            vals["viscosity    ! units are n-s/m2"] = "Viscosity    ! Units are N-s/m2"
+            vals["density"] = "Density"
+            vals["specificheat"] = "SpecificHeat"
+            vals["conductivity"] = "Conductivity"
+            vals["viscosity"] = "Viscosity"
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `fluid_property_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `fluid_property_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Fluid Property Type"] = value
 
@@ -31240,7 +31808,7 @@ class FluidPropertiesConcentration(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `temperature_values_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -31279,7 +31847,7 @@ class FluidPropertiesConcentration(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `concentration`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -31304,6 +31872,7 @@ class FluidPropertiesConcentration(object):
 
         Args:
             value (float): value for IDD Field `Property Value 1`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -31314,7 +31883,7 @@ class FluidPropertiesConcentration(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_1`'.format(value))
         self._data["Property Value 1"] = value
 
@@ -31333,6 +31902,7 @@ class FluidPropertiesConcentration(object):
 
         Args:
             value (float): value for IDD Field `Property Value 2`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -31343,7 +31913,7 @@ class FluidPropertiesConcentration(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_2`'.format(value))
         self._data["Property Value 2"] = value
 
@@ -31362,6 +31932,7 @@ class FluidPropertiesConcentration(object):
 
         Args:
             value (float): value for IDD Field `Property Value 3`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -31372,7 +31943,7 @@ class FluidPropertiesConcentration(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_3`'.format(value))
         self._data["Property Value 3"] = value
 
@@ -31391,6 +31962,7 @@ class FluidPropertiesConcentration(object):
 
         Args:
             value (float): value for IDD Field `Property Value 4`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -31401,7 +31973,7 @@ class FluidPropertiesConcentration(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_4`'.format(value))
         self._data["Property Value 4"] = value
 
@@ -31420,6 +31992,7 @@ class FluidPropertiesConcentration(object):
 
         Args:
             value (float): value for IDD Field `Property Value 5`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -31430,7 +32003,7 @@ class FluidPropertiesConcentration(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_5`'.format(value))
         self._data["Property Value 5"] = value
 
@@ -31449,6 +32022,7 @@ class FluidPropertiesConcentration(object):
 
         Args:
             value (float): value for IDD Field `Property Value 6`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -31459,7 +32033,7 @@ class FluidPropertiesConcentration(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_6`'.format(value))
         self._data["Property Value 6"] = value
 
@@ -31478,6 +32052,7 @@ class FluidPropertiesConcentration(object):
 
         Args:
             value (float): value for IDD Field `Property Value 7`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -31488,7 +32063,7 @@ class FluidPropertiesConcentration(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_7`'.format(value))
         self._data["Property Value 7"] = value
 
@@ -31507,6 +32082,7 @@ class FluidPropertiesConcentration(object):
 
         Args:
             value (float): value for IDD Field `Property Value 8`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -31517,7 +32093,7 @@ class FluidPropertiesConcentration(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_8`'.format(value))
         self._data["Property Value 8"] = value
 
@@ -31536,6 +32112,7 @@ class FluidPropertiesConcentration(object):
 
         Args:
             value (float): value for IDD Field `Property Value 9`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -31546,7 +32123,7 @@ class FluidPropertiesConcentration(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_9`'.format(value))
         self._data["Property Value 9"] = value
 
@@ -31565,6 +32142,7 @@ class FluidPropertiesConcentration(object):
 
         Args:
             value (float): value for IDD Field `Property Value 10`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -31575,7 +32153,7 @@ class FluidPropertiesConcentration(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_10`'.format(value))
         self._data["Property Value 10"] = value
 
@@ -31594,6 +32172,7 @@ class FluidPropertiesConcentration(object):
 
         Args:
             value (float): value for IDD Field `Property Value 11`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -31604,7 +32183,7 @@ class FluidPropertiesConcentration(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_11`'.format(value))
         self._data["Property Value 11"] = value
 
@@ -31623,6 +32202,7 @@ class FluidPropertiesConcentration(object):
 
         Args:
             value (float): value for IDD Field `Property Value 12`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -31633,7 +32213,7 @@ class FluidPropertiesConcentration(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_12`'.format(value))
         self._data["Property Value 12"] = value
 
@@ -31652,6 +32232,7 @@ class FluidPropertiesConcentration(object):
 
         Args:
             value (float): value for IDD Field `Property Value 13`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -31662,7 +32243,7 @@ class FluidPropertiesConcentration(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_13`'.format(value))
         self._data["Property Value 13"] = value
 
@@ -31681,6 +32262,7 @@ class FluidPropertiesConcentration(object):
 
         Args:
             value (float): value for IDD Field `Property Value 14`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -31691,7 +32273,7 @@ class FluidPropertiesConcentration(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_14`'.format(value))
         self._data["Property Value 14"] = value
 
@@ -31710,6 +32292,7 @@ class FluidPropertiesConcentration(object):
 
         Args:
             value (float): value for IDD Field `Property Value 15`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -31720,7 +32303,7 @@ class FluidPropertiesConcentration(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_15`'.format(value))
         self._data["Property Value 15"] = value
 
@@ -31739,6 +32322,7 @@ class FluidPropertiesConcentration(object):
 
         Args:
             value (float): value for IDD Field `Property Value 16`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -31749,7 +32333,7 @@ class FluidPropertiesConcentration(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_16`'.format(value))
         self._data["Property Value 16"] = value
 
@@ -31768,6 +32352,7 @@ class FluidPropertiesConcentration(object):
 
         Args:
             value (float): value for IDD Field `Property Value 17`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -31778,7 +32363,7 @@ class FluidPropertiesConcentration(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_17`'.format(value))
         self._data["Property Value 17"] = value
 
@@ -31797,6 +32382,7 @@ class FluidPropertiesConcentration(object):
 
         Args:
             value (float): value for IDD Field `Property Value 18`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -31807,7 +32393,7 @@ class FluidPropertiesConcentration(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_18`'.format(value))
         self._data["Property Value 18"] = value
 
@@ -31826,6 +32412,7 @@ class FluidPropertiesConcentration(object):
 
         Args:
             value (float): value for IDD Field `Property Value 19`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -31836,7 +32423,7 @@ class FluidPropertiesConcentration(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_19`'.format(value))
         self._data["Property Value 19"] = value
 
@@ -31855,6 +32442,7 @@ class FluidPropertiesConcentration(object):
 
         Args:
             value (float): value for IDD Field `Property Value 20`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -31865,7 +32453,7 @@ class FluidPropertiesConcentration(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_20`'.format(value))
         self._data["Property Value 20"] = value
 
@@ -31884,6 +32472,7 @@ class FluidPropertiesConcentration(object):
 
         Args:
             value (float): value for IDD Field `Property Value 21`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -31894,7 +32483,7 @@ class FluidPropertiesConcentration(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_21`'.format(value))
         self._data["Property Value 21"] = value
 
@@ -31913,6 +32502,7 @@ class FluidPropertiesConcentration(object):
 
         Args:
             value (float): value for IDD Field `Property Value 22`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -31923,7 +32513,7 @@ class FluidPropertiesConcentration(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_22`'.format(value))
         self._data["Property Value 22"] = value
 
@@ -31942,6 +32532,7 @@ class FluidPropertiesConcentration(object):
 
         Args:
             value (float): value for IDD Field `Property Value 23`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -31952,7 +32543,7 @@ class FluidPropertiesConcentration(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_23`'.format(value))
         self._data["Property Value 23"] = value
 
@@ -31971,6 +32562,7 @@ class FluidPropertiesConcentration(object):
 
         Args:
             value (float): value for IDD Field `Property Value 24`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -31981,7 +32573,7 @@ class FluidPropertiesConcentration(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_24`'.format(value))
         self._data["Property Value 24"] = value
 
@@ -32000,6 +32592,7 @@ class FluidPropertiesConcentration(object):
 
         Args:
             value (float): value for IDD Field `Property Value 25`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -32010,7 +32603,7 @@ class FluidPropertiesConcentration(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_25`'.format(value))
         self._data["Property Value 25"] = value
 
@@ -32029,6 +32622,7 @@ class FluidPropertiesConcentration(object):
 
         Args:
             value (float): value for IDD Field `Property Value 26`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -32039,7 +32633,7 @@ class FluidPropertiesConcentration(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_26`'.format(value))
         self._data["Property Value 26"] = value
 
@@ -32058,6 +32652,7 @@ class FluidPropertiesConcentration(object):
 
         Args:
             value (float): value for IDD Field `Property Value 27`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -32068,7 +32663,7 @@ class FluidPropertiesConcentration(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_27`'.format(value))
         self._data["Property Value 27"] = value
 
@@ -32087,6 +32682,7 @@ class FluidPropertiesConcentration(object):
 
         Args:
             value (float): value for IDD Field `Property Value 28`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -32097,7 +32693,7 @@ class FluidPropertiesConcentration(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_28`'.format(value))
         self._data["Property Value 28"] = value
 
@@ -32116,6 +32712,7 @@ class FluidPropertiesConcentration(object):
 
         Args:
             value (float): value for IDD Field `Property Value 29`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -32126,7 +32723,7 @@ class FluidPropertiesConcentration(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_29`'.format(value))
         self._data["Property Value 29"] = value
 
@@ -32145,6 +32742,7 @@ class FluidPropertiesConcentration(object):
 
         Args:
             value (float): value for IDD Field `Property Value 30`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -32155,7 +32753,7 @@ class FluidPropertiesConcentration(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_30`'.format(value))
         self._data["Property Value 30"] = value
 
@@ -32174,6 +32772,7 @@ class FluidPropertiesConcentration(object):
 
         Args:
             value (float): value for IDD Field `Property Value 31`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -32184,7 +32783,7 @@ class FluidPropertiesConcentration(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_31`'.format(value))
         self._data["Property Value 31"] = value
 
@@ -32203,6 +32802,7 @@ class FluidPropertiesConcentration(object):
 
         Args:
             value (float): value for IDD Field `Property Value 32`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -32213,7 +32813,7 @@ class FluidPropertiesConcentration(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_32`'.format(value))
         self._data["Property Value 32"] = value
 
@@ -32232,6 +32832,7 @@ class FluidPropertiesConcentration(object):
 
         Args:
             value (float): value for IDD Field `Property Value 33`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -32242,7 +32843,7 @@ class FluidPropertiesConcentration(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_33`'.format(value))
         self._data["Property Value 33"] = value
 
@@ -32261,6 +32862,7 @@ class FluidPropertiesConcentration(object):
 
         Args:
             value (float): value for IDD Field `Property Value 34`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -32271,7 +32873,7 @@ class FluidPropertiesConcentration(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_34`'.format(value))
         self._data["Property Value 34"] = value
 
@@ -32290,6 +32892,7 @@ class FluidPropertiesConcentration(object):
 
         Args:
             value (float): value for IDD Field `Property Value 35`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -32300,7 +32903,7 @@ class FluidPropertiesConcentration(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_35`'.format(value))
         self._data["Property Value 35"] = value
 
@@ -32319,6 +32922,7 @@ class FluidPropertiesConcentration(object):
 
         Args:
             value (float): value for IDD Field `Property Value 36`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -32329,7 +32933,7 @@ class FluidPropertiesConcentration(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_36`'.format(value))
         self._data["Property Value 36"] = value
 
@@ -32348,6 +32952,7 @@ class FluidPropertiesConcentration(object):
 
         Args:
             value (float): value for IDD Field `Property Value 37`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -32358,7 +32963,7 @@ class FluidPropertiesConcentration(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_37`'.format(value))
         self._data["Property Value 37"] = value
 
@@ -32377,6 +32982,7 @@ class FluidPropertiesConcentration(object):
 
         Args:
             value (float): value for IDD Field `Property Value 38`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -32387,7 +32993,7 @@ class FluidPropertiesConcentration(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_38`'.format(value))
         self._data["Property Value 38"] = value
 
@@ -32406,6 +33012,7 @@ class FluidPropertiesConcentration(object):
 
         Args:
             value (float): value for IDD Field `Property Value 39`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -32416,7 +33023,7 @@ class FluidPropertiesConcentration(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_39`'.format(value))
         self._data["Property Value 39"] = value
 
@@ -32435,6 +33042,7 @@ class FluidPropertiesConcentration(object):
 
         Args:
             value (float): value for IDD Field `Property Value 40`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -32445,7 +33053,7 @@ class FluidPropertiesConcentration(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_40`'.format(value))
         self._data["Property Value 40"] = value
 
@@ -32464,6 +33072,7 @@ class FluidPropertiesConcentration(object):
 
         Args:
             value (float): value for IDD Field `Property Value 41`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -32474,7 +33083,7 @@ class FluidPropertiesConcentration(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_41`'.format(value))
         self._data["Property Value 41"] = value
 
@@ -32493,6 +33102,7 @@ class FluidPropertiesConcentration(object):
 
         Args:
             value (float): value for IDD Field `Property Value 42`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -32503,7 +33113,7 @@ class FluidPropertiesConcentration(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_42`'.format(value))
         self._data["Property Value 42"] = value
 
@@ -32522,6 +33132,7 @@ class FluidPropertiesConcentration(object):
 
         Args:
             value (float): value for IDD Field `Property Value 43`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -32532,7 +33143,7 @@ class FluidPropertiesConcentration(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_43`'.format(value))
         self._data["Property Value 43"] = value
 
@@ -32551,6 +33162,7 @@ class FluidPropertiesConcentration(object):
 
         Args:
             value (float): value for IDD Field `Property Value 44`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -32561,7 +33173,7 @@ class FluidPropertiesConcentration(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_44`'.format(value))
         self._data["Property Value 44"] = value
 
@@ -32580,6 +33192,7 @@ class FluidPropertiesConcentration(object):
 
         Args:
             value (float): value for IDD Field `Property Value 45`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -32590,7 +33203,7 @@ class FluidPropertiesConcentration(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_45`'.format(value))
         self._data["Property Value 45"] = value
 
@@ -32609,6 +33222,7 @@ class FluidPropertiesConcentration(object):
 
         Args:
             value (float): value for IDD Field `Property Value 46`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -32619,7 +33233,7 @@ class FluidPropertiesConcentration(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_46`'.format(value))
         self._data["Property Value 46"] = value
 
@@ -32638,6 +33252,7 @@ class FluidPropertiesConcentration(object):
 
         Args:
             value (float): value for IDD Field `Property Value 47`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -32648,7 +33263,7 @@ class FluidPropertiesConcentration(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_47`'.format(value))
         self._data["Property Value 47"] = value
 
@@ -32667,6 +33282,7 @@ class FluidPropertiesConcentration(object):
 
         Args:
             value (float): value for IDD Field `Property Value 48`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -32677,7 +33293,7 @@ class FluidPropertiesConcentration(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_48`'.format(value))
         self._data["Property Value 48"] = value
 
@@ -32696,6 +33312,7 @@ class FluidPropertiesConcentration(object):
 
         Args:
             value (float): value for IDD Field `Property Value 49`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -32706,7 +33323,7 @@ class FluidPropertiesConcentration(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_49`'.format(value))
         self._data["Property Value 49"] = value
 
@@ -32725,6 +33342,7 @@ class FluidPropertiesConcentration(object):
 
         Args:
             value (float): value for IDD Field `Property Value 50`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -32735,7 +33353,7 @@ class FluidPropertiesConcentration(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_50`'.format(value))
         self._data["Property Value 50"] = value
 
@@ -32754,6 +33372,7 @@ class FluidPropertiesConcentration(object):
 
         Args:
             value (float): value for IDD Field `Property Value 51`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -32764,7 +33383,7 @@ class FluidPropertiesConcentration(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_51`'.format(value))
         self._data["Property Value 51"] = value
 
@@ -32783,6 +33402,7 @@ class FluidPropertiesConcentration(object):
 
         Args:
             value (float): value for IDD Field `Property Value 52`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -32793,7 +33413,7 @@ class FluidPropertiesConcentration(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_52`'.format(value))
         self._data["Property Value 52"] = value
 
@@ -32812,6 +33432,7 @@ class FluidPropertiesConcentration(object):
 
         Args:
             value (float): value for IDD Field `Property Value 53`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -32822,7 +33443,7 @@ class FluidPropertiesConcentration(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_53`'.format(value))
         self._data["Property Value 53"] = value
 
@@ -32841,6 +33462,7 @@ class FluidPropertiesConcentration(object):
 
         Args:
             value (float): value for IDD Field `Property Value 54`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -32851,7 +33473,7 @@ class FluidPropertiesConcentration(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_54`'.format(value))
         self._data["Property Value 54"] = value
 
@@ -32870,6 +33492,7 @@ class FluidPropertiesConcentration(object):
 
         Args:
             value (float): value for IDD Field `Property Value 55`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -32880,7 +33503,7 @@ class FluidPropertiesConcentration(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_55`'.format(value))
         self._data["Property Value 55"] = value
 
@@ -32899,6 +33522,7 @@ class FluidPropertiesConcentration(object):
 
         Args:
             value (float): value for IDD Field `Property Value 56`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -32909,7 +33533,7 @@ class FluidPropertiesConcentration(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_56`'.format(value))
         self._data["Property Value 56"] = value
 
@@ -32928,6 +33552,7 @@ class FluidPropertiesConcentration(object):
 
         Args:
             value (float): value for IDD Field `Property Value 57`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -32938,7 +33563,7 @@ class FluidPropertiesConcentration(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_57`'.format(value))
         self._data["Property Value 57"] = value
 
@@ -32957,6 +33582,7 @@ class FluidPropertiesConcentration(object):
 
         Args:
             value (float): value for IDD Field `Property Value 58`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -32967,7 +33593,7 @@ class FluidPropertiesConcentration(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_58`'.format(value))
         self._data["Property Value 58"] = value
 
@@ -32986,6 +33612,7 @@ class FluidPropertiesConcentration(object):
 
         Args:
             value (float): value for IDD Field `Property Value 59`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -32996,7 +33623,7 @@ class FluidPropertiesConcentration(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_59`'.format(value))
         self._data["Property Value 59"] = value
 
@@ -33015,6 +33642,7 @@ class FluidPropertiesConcentration(object):
 
         Args:
             value (float): value for IDD Field `Property Value 60`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -33025,7 +33653,7 @@ class FluidPropertiesConcentration(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_60`'.format(value))
         self._data["Property Value 60"] = value
 
@@ -33044,6 +33672,7 @@ class FluidPropertiesConcentration(object):
 
         Args:
             value (float): value for IDD Field `Property Value 61`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -33054,7 +33683,7 @@ class FluidPropertiesConcentration(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_61`'.format(value))
         self._data["Property Value 61"] = value
 
@@ -33073,6 +33702,7 @@ class FluidPropertiesConcentration(object):
 
         Args:
             value (float): value for IDD Field `Property Value 62`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -33083,7 +33713,7 @@ class FluidPropertiesConcentration(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_62`'.format(value))
         self._data["Property Value 62"] = value
 
@@ -33102,6 +33732,7 @@ class FluidPropertiesConcentration(object):
 
         Args:
             value (float): value for IDD Field `Property Value 63`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -33112,7 +33743,7 @@ class FluidPropertiesConcentration(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_63`'.format(value))
         self._data["Property Value 63"] = value
 
@@ -33131,6 +33762,7 @@ class FluidPropertiesConcentration(object):
 
         Args:
             value (float): value for IDD Field `Property Value 64`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -33141,7 +33773,7 @@ class FluidPropertiesConcentration(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_64`'.format(value))
         self._data["Property Value 64"] = value
 
@@ -33160,6 +33792,7 @@ class FluidPropertiesConcentration(object):
 
         Args:
             value (float): value for IDD Field `Property Value 65`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -33170,7 +33803,7 @@ class FluidPropertiesConcentration(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_65`'.format(value))
         self._data["Property Value 65"] = value
 
@@ -33189,6 +33822,7 @@ class FluidPropertiesConcentration(object):
 
         Args:
             value (float): value for IDD Field `Property Value 66`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -33199,7 +33833,7 @@ class FluidPropertiesConcentration(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_66`'.format(value))
         self._data["Property Value 66"] = value
 
@@ -33218,6 +33852,7 @@ class FluidPropertiesConcentration(object):
 
         Args:
             value (float): value for IDD Field `Property Value 67`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -33228,7 +33863,7 @@ class FluidPropertiesConcentration(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_67`'.format(value))
         self._data["Property Value 67"] = value
 
@@ -33247,6 +33882,7 @@ class FluidPropertiesConcentration(object):
 
         Args:
             value (float): value for IDD Field `Property Value 68`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -33257,7 +33893,7 @@ class FluidPropertiesConcentration(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_68`'.format(value))
         self._data["Property Value 68"] = value
 
@@ -33276,6 +33912,7 @@ class FluidPropertiesConcentration(object):
 
         Args:
             value (float): value for IDD Field `Property Value 69`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -33286,7 +33923,7 @@ class FluidPropertiesConcentration(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_69`'.format(value))
         self._data["Property Value 69"] = value
 
@@ -33305,6 +33942,7 @@ class FluidPropertiesConcentration(object):
 
         Args:
             value (float): value for IDD Field `Property Value 70`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -33315,7 +33953,7 @@ class FluidPropertiesConcentration(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_70`'.format(value))
         self._data["Property Value 70"] = value
 
@@ -33334,6 +33972,7 @@ class FluidPropertiesConcentration(object):
 
         Args:
             value (float): value for IDD Field `Property Value 71`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -33344,7 +33983,7 @@ class FluidPropertiesConcentration(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_71`'.format(value))
         self._data["Property Value 71"] = value
 
@@ -33363,6 +34002,7 @@ class FluidPropertiesConcentration(object):
 
         Args:
             value (float): value for IDD Field `Property Value 72`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -33373,7 +34013,7 @@ class FluidPropertiesConcentration(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_72`'.format(value))
         self._data["Property Value 72"] = value
 
@@ -33392,6 +34032,7 @@ class FluidPropertiesConcentration(object):
 
         Args:
             value (float): value for IDD Field `Property Value 73`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -33402,7 +34043,7 @@ class FluidPropertiesConcentration(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_73`'.format(value))
         self._data["Property Value 73"] = value
 
@@ -33421,6 +34062,7 @@ class FluidPropertiesConcentration(object):
 
         Args:
             value (float): value for IDD Field `Property Value 74`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -33431,7 +34073,7 @@ class FluidPropertiesConcentration(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_74`'.format(value))
         self._data["Property Value 74"] = value
 
@@ -33450,6 +34092,7 @@ class FluidPropertiesConcentration(object):
 
         Args:
             value (float): value for IDD Field `Property Value 75`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -33460,7 +34103,7 @@ class FluidPropertiesConcentration(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_75`'.format(value))
         self._data["Property Value 75"] = value
 
@@ -33479,6 +34122,7 @@ class FluidPropertiesConcentration(object):
 
         Args:
             value (float): value for IDD Field `Property Value 76`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -33489,7 +34133,7 @@ class FluidPropertiesConcentration(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_76`'.format(value))
         self._data["Property Value 76"] = value
 
@@ -33508,6 +34152,7 @@ class FluidPropertiesConcentration(object):
 
         Args:
             value (float): value for IDD Field `Property Value 77`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -33518,7 +34163,7 @@ class FluidPropertiesConcentration(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_77`'.format(value))
         self._data["Property Value 77"] = value
 
@@ -33537,6 +34182,7 @@ class FluidPropertiesConcentration(object):
 
         Args:
             value (float): value for IDD Field `Property Value 78`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -33547,7 +34193,7 @@ class FluidPropertiesConcentration(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_78`'.format(value))
         self._data["Property Value 78"] = value
 
@@ -33566,6 +34212,7 @@ class FluidPropertiesConcentration(object):
 
         Args:
             value (float): value for IDD Field `Property Value 79`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -33576,7 +34223,7 @@ class FluidPropertiesConcentration(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_79`'.format(value))
         self._data["Property Value 79"] = value
 
@@ -33595,6 +34242,7 @@ class FluidPropertiesConcentration(object):
 
         Args:
             value (float): value for IDD Field `Property Value 80`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -33605,7 +34253,7 @@ class FluidPropertiesConcentration(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_80`'.format(value))
         self._data["Property Value 80"] = value
 
@@ -33624,6 +34272,7 @@ class FluidPropertiesConcentration(object):
 
         Args:
             value (float): value for IDD Field `Property Value 81`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -33634,7 +34283,7 @@ class FluidPropertiesConcentration(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_81`'.format(value))
         self._data["Property Value 81"] = value
 
@@ -33653,6 +34302,7 @@ class FluidPropertiesConcentration(object):
 
         Args:
             value (float): value for IDD Field `Property Value 82`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -33663,7 +34313,7 @@ class FluidPropertiesConcentration(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_82`'.format(value))
         self._data["Property Value 82"] = value
 
@@ -33682,6 +34332,7 @@ class FluidPropertiesConcentration(object):
 
         Args:
             value (float): value for IDD Field `Property Value 83`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -33692,7 +34343,7 @@ class FluidPropertiesConcentration(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_83`'.format(value))
         self._data["Property Value 83"] = value
 
@@ -33711,6 +34362,7 @@ class FluidPropertiesConcentration(object):
 
         Args:
             value (float): value for IDD Field `Property Value 84`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -33721,7 +34373,7 @@ class FluidPropertiesConcentration(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_84`'.format(value))
         self._data["Property Value 84"] = value
 
@@ -33740,6 +34392,7 @@ class FluidPropertiesConcentration(object):
 
         Args:
             value (float): value for IDD Field `Property Value 85`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -33750,7 +34403,7 @@ class FluidPropertiesConcentration(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_85`'.format(value))
         self._data["Property Value 85"] = value
 
@@ -33769,6 +34422,7 @@ class FluidPropertiesConcentration(object):
 
         Args:
             value (float): value for IDD Field `Property Value 86`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -33779,7 +34433,7 @@ class FluidPropertiesConcentration(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_86`'.format(value))
         self._data["Property Value 86"] = value
 
@@ -33798,6 +34452,7 @@ class FluidPropertiesConcentration(object):
 
         Args:
             value (float): value for IDD Field `Property Value 87`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -33808,7 +34463,7 @@ class FluidPropertiesConcentration(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_87`'.format(value))
         self._data["Property Value 87"] = value
 
@@ -33827,6 +34482,7 @@ class FluidPropertiesConcentration(object):
 
         Args:
             value (float): value for IDD Field `Property Value 88`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -33837,7 +34493,7 @@ class FluidPropertiesConcentration(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_88`'.format(value))
         self._data["Property Value 88"] = value
 
@@ -33856,6 +34512,7 @@ class FluidPropertiesConcentration(object):
 
         Args:
             value (float): value for IDD Field `Property Value 89`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -33866,7 +34523,7 @@ class FluidPropertiesConcentration(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_89`'.format(value))
         self._data["Property Value 89"] = value
 
@@ -33885,6 +34542,7 @@ class FluidPropertiesConcentration(object):
 
         Args:
             value (float): value for IDD Field `Property Value 90`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -33895,7 +34553,7 @@ class FluidPropertiesConcentration(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_90`'.format(value))
         self._data["Property Value 90"] = value
 
@@ -33914,6 +34572,7 @@ class FluidPropertiesConcentration(object):
 
         Args:
             value (float): value for IDD Field `Property Value 91`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -33924,7 +34583,7 @@ class FluidPropertiesConcentration(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_91`'.format(value))
         self._data["Property Value 91"] = value
 
@@ -33943,6 +34602,7 @@ class FluidPropertiesConcentration(object):
 
         Args:
             value (float): value for IDD Field `Property Value 92`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -33953,7 +34613,7 @@ class FluidPropertiesConcentration(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_92`'.format(value))
         self._data["Property Value 92"] = value
 
@@ -33972,6 +34632,7 @@ class FluidPropertiesConcentration(object):
 
         Args:
             value (float): value for IDD Field `Property Value 93`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -33982,7 +34643,7 @@ class FluidPropertiesConcentration(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_93`'.format(value))
         self._data["Property Value 93"] = value
 
@@ -34001,6 +34662,7 @@ class FluidPropertiesConcentration(object):
 
         Args:
             value (float): value for IDD Field `Property Value 94`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -34011,7 +34673,7 @@ class FluidPropertiesConcentration(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_94`'.format(value))
         self._data["Property Value 94"] = value
 
@@ -34030,6 +34692,7 @@ class FluidPropertiesConcentration(object):
 
         Args:
             value (float): value for IDD Field `Property Value 95`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -34040,7 +34703,7 @@ class FluidPropertiesConcentration(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_95`'.format(value))
         self._data["Property Value 95"] = value
 
@@ -34059,6 +34722,7 @@ class FluidPropertiesConcentration(object):
 
         Args:
             value (float): value for IDD Field `Property Value 96`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -34069,7 +34733,7 @@ class FluidPropertiesConcentration(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_96`'.format(value))
         self._data["Property Value 96"] = value
 
@@ -34088,6 +34752,7 @@ class FluidPropertiesConcentration(object):
 
         Args:
             value (float): value for IDD Field `Property Value 97`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -34098,7 +34763,7 @@ class FluidPropertiesConcentration(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_97`'.format(value))
         self._data["Property Value 97"] = value
 
@@ -34117,6 +34782,7 @@ class FluidPropertiesConcentration(object):
 
         Args:
             value (float): value for IDD Field `Property Value 98`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -34127,7 +34793,7 @@ class FluidPropertiesConcentration(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_98`'.format(value))
         self._data["Property Value 98"] = value
 
@@ -34146,6 +34812,7 @@ class FluidPropertiesConcentration(object):
 
         Args:
             value (float): value for IDD Field `Property Value 99`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -34156,7 +34823,7 @@ class FluidPropertiesConcentration(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_99`'.format(value))
         self._data["Property Value 99"] = value
 
@@ -34175,6 +34842,7 @@ class FluidPropertiesConcentration(object):
 
         Args:
             value (float): value for IDD Field `Property Value 100`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -34185,7 +34853,7 @@ class FluidPropertiesConcentration(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_100`'.format(value))
         self._data["Property Value 100"] = value
 
@@ -34204,6 +34872,7 @@ class FluidPropertiesConcentration(object):
 
         Args:
             value (float): value for IDD Field `Property Value 101`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -34214,7 +34883,7 @@ class FluidPropertiesConcentration(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_101`'.format(value))
         self._data["Property Value 101"] = value
 
@@ -34233,6 +34902,7 @@ class FluidPropertiesConcentration(object):
 
         Args:
             value (float): value for IDD Field `Property Value 102`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -34243,7 +34913,7 @@ class FluidPropertiesConcentration(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_102`'.format(value))
         self._data["Property Value 102"] = value
 
@@ -34262,6 +34932,7 @@ class FluidPropertiesConcentration(object):
 
         Args:
             value (float): value for IDD Field `Property Value 103`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -34272,7 +34943,7 @@ class FluidPropertiesConcentration(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_103`'.format(value))
         self._data["Property Value 103"] = value
 
@@ -34291,6 +34962,7 @@ class FluidPropertiesConcentration(object):
 
         Args:
             value (float): value for IDD Field `Property Value 104`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -34301,7 +34973,7 @@ class FluidPropertiesConcentration(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_104`'.format(value))
         self._data["Property Value 104"] = value
 
@@ -34320,6 +34992,7 @@ class FluidPropertiesConcentration(object):
 
         Args:
             value (float): value for IDD Field `Property Value 105`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -34330,7 +35003,7 @@ class FluidPropertiesConcentration(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_105`'.format(value))
         self._data["Property Value 105"] = value
 
@@ -34349,6 +35022,7 @@ class FluidPropertiesConcentration(object):
 
         Args:
             value (float): value for IDD Field `Property Value 106`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -34359,7 +35033,7 @@ class FluidPropertiesConcentration(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_106`'.format(value))
         self._data["Property Value 106"] = value
 
@@ -34378,6 +35052,7 @@ class FluidPropertiesConcentration(object):
 
         Args:
             value (float): value for IDD Field `Property Value 107`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -34388,7 +35063,7 @@ class FluidPropertiesConcentration(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_107`'.format(value))
         self._data["Property Value 107"] = value
 
@@ -34407,6 +35082,7 @@ class FluidPropertiesConcentration(object):
 
         Args:
             value (float): value for IDD Field `Property Value 108`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -34417,7 +35093,7 @@ class FluidPropertiesConcentration(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_108`'.format(value))
         self._data["Property Value 108"] = value
 
@@ -34436,6 +35112,7 @@ class FluidPropertiesConcentration(object):
 
         Args:
             value (float): value for IDD Field `Property Value 109`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -34446,7 +35123,7 @@ class FluidPropertiesConcentration(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_109`'.format(value))
         self._data["Property Value 109"] = value
 
@@ -34465,6 +35142,7 @@ class FluidPropertiesConcentration(object):
 
         Args:
             value (float): value for IDD Field `Property Value 110`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -34475,7 +35153,7 @@ class FluidPropertiesConcentration(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_110`'.format(value))
         self._data["Property Value 110"] = value
 
@@ -34494,6 +35172,7 @@ class FluidPropertiesConcentration(object):
 
         Args:
             value (float): value for IDD Field `Property Value 111`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -34504,7 +35183,7 @@ class FluidPropertiesConcentration(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_111`'.format(value))
         self._data["Property Value 111"] = value
 
@@ -34523,6 +35202,7 @@ class FluidPropertiesConcentration(object):
 
         Args:
             value (float): value for IDD Field `Property Value 112`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -34533,7 +35213,7 @@ class FluidPropertiesConcentration(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_112`'.format(value))
         self._data["Property Value 112"] = value
 
@@ -34552,6 +35232,7 @@ class FluidPropertiesConcentration(object):
 
         Args:
             value (float): value for IDD Field `Property Value 113`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -34562,7 +35243,7 @@ class FluidPropertiesConcentration(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_113`'.format(value))
         self._data["Property Value 113"] = value
 
@@ -34581,6 +35262,7 @@ class FluidPropertiesConcentration(object):
 
         Args:
             value (float): value for IDD Field `Property Value 114`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -34591,7 +35273,7 @@ class FluidPropertiesConcentration(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_114`'.format(value))
         self._data["Property Value 114"] = value
 
@@ -34610,6 +35292,7 @@ class FluidPropertiesConcentration(object):
 
         Args:
             value (float): value for IDD Field `Property Value 115`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -34620,7 +35303,7 @@ class FluidPropertiesConcentration(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_115`'.format(value))
         self._data["Property Value 115"] = value
 
@@ -34639,6 +35322,7 @@ class FluidPropertiesConcentration(object):
 
         Args:
             value (float): value for IDD Field `Property Value 116`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -34649,7 +35333,7 @@ class FluidPropertiesConcentration(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_116`'.format(value))
         self._data["Property Value 116"] = value
 
@@ -34668,6 +35352,7 @@ class FluidPropertiesConcentration(object):
 
         Args:
             value (float): value for IDD Field `Property Value 117`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -34678,7 +35363,7 @@ class FluidPropertiesConcentration(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_117`'.format(value))
         self._data["Property Value 117"] = value
 
@@ -34697,6 +35382,7 @@ class FluidPropertiesConcentration(object):
 
         Args:
             value (float): value for IDD Field `Property Value 118`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -34707,7 +35393,7 @@ class FluidPropertiesConcentration(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_118`'.format(value))
         self._data["Property Value 118"] = value
 
@@ -34726,6 +35412,7 @@ class FluidPropertiesConcentration(object):
 
         Args:
             value (float): value for IDD Field `Property Value 119`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -34736,7 +35423,7 @@ class FluidPropertiesConcentration(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_119`'.format(value))
         self._data["Property Value 119"] = value
 
@@ -34755,6 +35442,7 @@ class FluidPropertiesConcentration(object):
 
         Args:
             value (float): value for IDD Field `Property Value 120`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -34765,7 +35453,7 @@ class FluidPropertiesConcentration(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_120`'.format(value))
         self._data["Property Value 120"] = value
 
@@ -34784,6 +35472,7 @@ class FluidPropertiesConcentration(object):
 
         Args:
             value (float): value for IDD Field `Property Value 121`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -34794,7 +35483,7 @@ class FluidPropertiesConcentration(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_121`'.format(value))
         self._data["Property Value 121"] = value
 
@@ -34813,6 +35502,7 @@ class FluidPropertiesConcentration(object):
 
         Args:
             value (float): value for IDD Field `Property Value 122`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -34823,7 +35513,7 @@ class FluidPropertiesConcentration(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_122`'.format(value))
         self._data["Property Value 122"] = value
 
@@ -34842,6 +35532,7 @@ class FluidPropertiesConcentration(object):
 
         Args:
             value (float): value for IDD Field `Property Value 123`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -34852,7 +35543,7 @@ class FluidPropertiesConcentration(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_123`'.format(value))
         self._data["Property Value 123"] = value
 
@@ -34871,6 +35562,7 @@ class FluidPropertiesConcentration(object):
 
         Args:
             value (float): value for IDD Field `Property Value 124`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -34881,7 +35573,7 @@ class FluidPropertiesConcentration(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_124`'.format(value))
         self._data["Property Value 124"] = value
 
@@ -34900,6 +35592,7 @@ class FluidPropertiesConcentration(object):
 
         Args:
             value (float): value for IDD Field `Property Value 125`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -34910,7 +35603,7 @@ class FluidPropertiesConcentration(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_125`'.format(value))
         self._data["Property Value 125"] = value
 
@@ -34929,6 +35622,7 @@ class FluidPropertiesConcentration(object):
 
         Args:
             value (float): value for IDD Field `Property Value 126`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -34939,7 +35633,7 @@ class FluidPropertiesConcentration(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_126`'.format(value))
         self._data["Property Value 126"] = value
 
@@ -34958,6 +35652,7 @@ class FluidPropertiesConcentration(object):
 
         Args:
             value (float): value for IDD Field `Property Value 127`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -34968,7 +35663,7 @@ class FluidPropertiesConcentration(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_127`'.format(value))
         self._data["Property Value 127"] = value
 
@@ -34987,6 +35682,7 @@ class FluidPropertiesConcentration(object):
 
         Args:
             value (float): value for IDD Field `Property Value 128`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -34997,7 +35693,7 @@ class FluidPropertiesConcentration(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_128`'.format(value))
         self._data["Property Value 128"] = value
 
@@ -35016,6 +35712,7 @@ class FluidPropertiesConcentration(object):
 
         Args:
             value (float): value for IDD Field `Property Value 129`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -35026,7 +35723,7 @@ class FluidPropertiesConcentration(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_129`'.format(value))
         self._data["Property Value 129"] = value
 
@@ -35045,6 +35742,7 @@ class FluidPropertiesConcentration(object):
 
         Args:
             value (float): value for IDD Field `Property Value 130`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -35055,7 +35753,7 @@ class FluidPropertiesConcentration(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_130`'.format(value))
         self._data["Property Value 130"] = value
 
@@ -35074,6 +35772,7 @@ class FluidPropertiesConcentration(object):
 
         Args:
             value (float): value for IDD Field `Property Value 131`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -35084,7 +35783,7 @@ class FluidPropertiesConcentration(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_131`'.format(value))
         self._data["Property Value 131"] = value
 
@@ -35103,6 +35802,7 @@ class FluidPropertiesConcentration(object):
 
         Args:
             value (float): value for IDD Field `Property Value 132`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -35113,7 +35813,7 @@ class FluidPropertiesConcentration(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_132`'.format(value))
         self._data["Property Value 132"] = value
 
@@ -35132,6 +35832,7 @@ class FluidPropertiesConcentration(object):
 
         Args:
             value (float): value for IDD Field `Property Value 133`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -35142,7 +35843,7 @@ class FluidPropertiesConcentration(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_133`'.format(value))
         self._data["Property Value 133"] = value
 
@@ -35161,6 +35862,7 @@ class FluidPropertiesConcentration(object):
 
         Args:
             value (float): value for IDD Field `Property Value 134`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -35171,7 +35873,7 @@ class FluidPropertiesConcentration(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_134`'.format(value))
         self._data["Property Value 134"] = value
 
@@ -35190,6 +35892,7 @@ class FluidPropertiesConcentration(object):
 
         Args:
             value (float): value for IDD Field `Property Value 135`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -35200,7 +35903,7 @@ class FluidPropertiesConcentration(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_135`'.format(value))
         self._data["Property Value 135"] = value
 
@@ -35219,6 +35922,7 @@ class FluidPropertiesConcentration(object):
 
         Args:
             value (float): value for IDD Field `Property Value 136`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -35229,7 +35933,7 @@ class FluidPropertiesConcentration(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_136`'.format(value))
         self._data["Property Value 136"] = value
 
@@ -35248,6 +35952,7 @@ class FluidPropertiesConcentration(object):
 
         Args:
             value (float): value for IDD Field `Property Value 137`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -35258,7 +35963,7 @@ class FluidPropertiesConcentration(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_137`'.format(value))
         self._data["Property Value 137"] = value
 
@@ -35277,6 +35982,7 @@ class FluidPropertiesConcentration(object):
 
         Args:
             value (float): value for IDD Field `Property Value 138`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -35287,7 +35993,7 @@ class FluidPropertiesConcentration(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_138`'.format(value))
         self._data["Property Value 138"] = value
 
@@ -35306,6 +36012,7 @@ class FluidPropertiesConcentration(object):
 
         Args:
             value (float): value for IDD Field `Property Value 139`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -35316,7 +36023,7 @@ class FluidPropertiesConcentration(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_139`'.format(value))
         self._data["Property Value 139"] = value
 
@@ -35335,6 +36042,7 @@ class FluidPropertiesConcentration(object):
 
         Args:
             value (float): value for IDD Field `Property Value 140`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -35345,7 +36053,7 @@ class FluidPropertiesConcentration(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_140`'.format(value))
         self._data["Property Value 140"] = value
 
@@ -35364,6 +36072,7 @@ class FluidPropertiesConcentration(object):
 
         Args:
             value (float): value for IDD Field `Property Value 141`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -35374,7 +36083,7 @@ class FluidPropertiesConcentration(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_141`'.format(value))
         self._data["Property Value 141"] = value
 
@@ -35393,6 +36102,7 @@ class FluidPropertiesConcentration(object):
 
         Args:
             value (float): value for IDD Field `Property Value 142`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -35403,7 +36113,7 @@ class FluidPropertiesConcentration(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_142`'.format(value))
         self._data["Property Value 142"] = value
 
@@ -35422,6 +36132,7 @@ class FluidPropertiesConcentration(object):
 
         Args:
             value (float): value for IDD Field `Property Value 143`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -35432,7 +36143,7 @@ class FluidPropertiesConcentration(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_143`'.format(value))
         self._data["Property Value 143"] = value
 
@@ -35451,6 +36162,7 @@ class FluidPropertiesConcentration(object):
 
         Args:
             value (float): value for IDD Field `Property Value 144`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -35461,7 +36173,7 @@ class FluidPropertiesConcentration(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_144`'.format(value))
         self._data["Property Value 144"] = value
 
@@ -35480,6 +36192,7 @@ class FluidPropertiesConcentration(object):
 
         Args:
             value (float): value for IDD Field `Property Value 145`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -35490,7 +36203,7 @@ class FluidPropertiesConcentration(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_145`'.format(value))
         self._data["Property Value 145"] = value
 
@@ -35509,6 +36222,7 @@ class FluidPropertiesConcentration(object):
 
         Args:
             value (float): value for IDD Field `Property Value 146`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -35519,7 +36233,7 @@ class FluidPropertiesConcentration(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_146`'.format(value))
         self._data["Property Value 146"] = value
 
@@ -35538,6 +36252,7 @@ class FluidPropertiesConcentration(object):
 
         Args:
             value (float): value for IDD Field `Property Value 147`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -35548,7 +36263,7 @@ class FluidPropertiesConcentration(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_147`'.format(value))
         self._data["Property Value 147"] = value
 
@@ -35567,6 +36282,7 @@ class FluidPropertiesConcentration(object):
 
         Args:
             value (float): value for IDD Field `Property Value 148`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -35577,7 +36293,7 @@ class FluidPropertiesConcentration(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_148`'.format(value))
         self._data["Property Value 148"] = value
 
@@ -35596,6 +36312,7 @@ class FluidPropertiesConcentration(object):
 
         Args:
             value (float): value for IDD Field `Property Value 149`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -35606,7 +36323,7 @@ class FluidPropertiesConcentration(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_149`'.format(value))
         self._data["Property Value 149"] = value
 
@@ -35625,6 +36342,7 @@ class FluidPropertiesConcentration(object):
 
         Args:
             value (float): value for IDD Field `Property Value 150`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -35635,7 +36353,7 @@ class FluidPropertiesConcentration(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_150`'.format(value))
         self._data["Property Value 150"] = value
 
@@ -35654,6 +36372,7 @@ class FluidPropertiesConcentration(object):
 
         Args:
             value (float): value for IDD Field `Property Value 151`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -35664,7 +36383,7 @@ class FluidPropertiesConcentration(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_151`'.format(value))
         self._data["Property Value 151"] = value
 
@@ -35683,6 +36402,7 @@ class FluidPropertiesConcentration(object):
 
         Args:
             value (float): value for IDD Field `Property Value 152`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -35693,7 +36413,7 @@ class FluidPropertiesConcentration(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_152`'.format(value))
         self._data["Property Value 152"] = value
 
@@ -35712,6 +36432,7 @@ class FluidPropertiesConcentration(object):
 
         Args:
             value (float): value for IDD Field `Property Value 153`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -35722,7 +36443,7 @@ class FluidPropertiesConcentration(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_153`'.format(value))
         self._data["Property Value 153"] = value
 
@@ -35741,6 +36462,7 @@ class FluidPropertiesConcentration(object):
 
         Args:
             value (float): value for IDD Field `Property Value 154`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -35751,7 +36473,7 @@ class FluidPropertiesConcentration(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_154`'.format(value))
         self._data["Property Value 154"] = value
 
@@ -35770,6 +36492,7 @@ class FluidPropertiesConcentration(object):
 
         Args:
             value (float): value for IDD Field `Property Value 155`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -35780,7 +36503,7 @@ class FluidPropertiesConcentration(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_155`'.format(value))
         self._data["Property Value 155"] = value
 
@@ -35799,6 +36522,7 @@ class FluidPropertiesConcentration(object):
 
         Args:
             value (float): value for IDD Field `Property Value 156`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -35809,7 +36533,7 @@ class FluidPropertiesConcentration(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_156`'.format(value))
         self._data["Property Value 156"] = value
 
@@ -35828,6 +36552,7 @@ class FluidPropertiesConcentration(object):
 
         Args:
             value (float): value for IDD Field `Property Value 157`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -35838,7 +36563,7 @@ class FluidPropertiesConcentration(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_157`'.format(value))
         self._data["Property Value 157"] = value
 
@@ -35857,6 +36582,7 @@ class FluidPropertiesConcentration(object):
 
         Args:
             value (float): value for IDD Field `Property Value 158`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -35867,7 +36593,7 @@ class FluidPropertiesConcentration(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_158`'.format(value))
         self._data["Property Value 158"] = value
 
@@ -35886,6 +36612,7 @@ class FluidPropertiesConcentration(object):
 
         Args:
             value (float): value for IDD Field `Property Value 159`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -35896,7 +36623,7 @@ class FluidPropertiesConcentration(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_159`'.format(value))
         self._data["Property Value 159"] = value
 
@@ -35915,6 +36642,7 @@ class FluidPropertiesConcentration(object):
 
         Args:
             value (float): value for IDD Field `Property Value 160`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -35925,7 +36653,7 @@ class FluidPropertiesConcentration(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_160`'.format(value))
         self._data["Property Value 160"] = value
 
@@ -35944,6 +36672,7 @@ class FluidPropertiesConcentration(object):
 
         Args:
             value (float): value for IDD Field `Property Value 161`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -35954,7 +36683,7 @@ class FluidPropertiesConcentration(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_161`'.format(value))
         self._data["Property Value 161"] = value
 
@@ -35973,6 +36702,7 @@ class FluidPropertiesConcentration(object):
 
         Args:
             value (float): value for IDD Field `Property Value 162`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -35983,7 +36713,7 @@ class FluidPropertiesConcentration(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_162`'.format(value))
         self._data["Property Value 162"] = value
 
@@ -36002,6 +36732,7 @@ class FluidPropertiesConcentration(object):
 
         Args:
             value (float): value for IDD Field `Property Value 163`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -36012,7 +36743,7 @@ class FluidPropertiesConcentration(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_163`'.format(value))
         self._data["Property Value 163"] = value
 
@@ -36031,6 +36762,7 @@ class FluidPropertiesConcentration(object):
 
         Args:
             value (float): value for IDD Field `Property Value 164`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -36041,7 +36773,7 @@ class FluidPropertiesConcentration(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_164`'.format(value))
         self._data["Property Value 164"] = value
 
@@ -36060,6 +36792,7 @@ class FluidPropertiesConcentration(object):
 
         Args:
             value (float): value for IDD Field `Property Value 165`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -36070,7 +36803,7 @@ class FluidPropertiesConcentration(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_165`'.format(value))
         self._data["Property Value 165"] = value
 
@@ -36089,6 +36822,7 @@ class FluidPropertiesConcentration(object):
 
         Args:
             value (float): value for IDD Field `Property Value 166`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -36099,7 +36833,7 @@ class FluidPropertiesConcentration(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_166`'.format(value))
         self._data["Property Value 166"] = value
 
@@ -36118,6 +36852,7 @@ class FluidPropertiesConcentration(object):
 
         Args:
             value (float): value for IDD Field `Property Value 167`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -36128,7 +36863,7 @@ class FluidPropertiesConcentration(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_167`'.format(value))
         self._data["Property Value 167"] = value
 
@@ -36147,6 +36882,7 @@ class FluidPropertiesConcentration(object):
 
         Args:
             value (float): value for IDD Field `Property Value 168`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -36157,7 +36893,7 @@ class FluidPropertiesConcentration(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_168`'.format(value))
         self._data["Property Value 168"] = value
 
@@ -36176,6 +36912,7 @@ class FluidPropertiesConcentration(object):
 
         Args:
             value (float): value for IDD Field `Property Value 169`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -36186,7 +36923,7 @@ class FluidPropertiesConcentration(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_169`'.format(value))
         self._data["Property Value 169"] = value
 
@@ -36205,6 +36942,7 @@ class FluidPropertiesConcentration(object):
 
         Args:
             value (float): value for IDD Field `Property Value 170`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -36215,7 +36953,7 @@ class FluidPropertiesConcentration(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_170`'.format(value))
         self._data["Property Value 170"] = value
 
@@ -36234,6 +36972,7 @@ class FluidPropertiesConcentration(object):
 
         Args:
             value (float): value for IDD Field `Property Value 171`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -36244,7 +36983,7 @@ class FluidPropertiesConcentration(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_171`'.format(value))
         self._data["Property Value 171"] = value
 
@@ -36263,6 +37002,7 @@ class FluidPropertiesConcentration(object):
 
         Args:
             value (float): value for IDD Field `Property Value 172`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -36273,7 +37013,7 @@ class FluidPropertiesConcentration(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_172`'.format(value))
         self._data["Property Value 172"] = value
 
@@ -36292,6 +37032,7 @@ class FluidPropertiesConcentration(object):
 
         Args:
             value (float): value for IDD Field `Property Value 173`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -36302,7 +37043,7 @@ class FluidPropertiesConcentration(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_173`'.format(value))
         self._data["Property Value 173"] = value
 
@@ -36321,6 +37062,7 @@ class FluidPropertiesConcentration(object):
 
         Args:
             value (float): value for IDD Field `Property Value 174`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -36331,7 +37073,7 @@ class FluidPropertiesConcentration(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_174`'.format(value))
         self._data["Property Value 174"] = value
 
@@ -36350,6 +37092,7 @@ class FluidPropertiesConcentration(object):
 
         Args:
             value (float): value for IDD Field `Property Value 175`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -36360,7 +37103,7 @@ class FluidPropertiesConcentration(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_175`'.format(value))
         self._data["Property Value 175"] = value
 
@@ -36379,6 +37122,7 @@ class FluidPropertiesConcentration(object):
 
         Args:
             value (float): value for IDD Field `Property Value 176`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -36389,7 +37133,7 @@ class FluidPropertiesConcentration(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_176`'.format(value))
         self._data["Property Value 176"] = value
 
@@ -36408,6 +37152,7 @@ class FluidPropertiesConcentration(object):
 
         Args:
             value (float): value for IDD Field `Property Value 177`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -36418,7 +37163,7 @@ class FluidPropertiesConcentration(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_177`'.format(value))
         self._data["Property Value 177"] = value
 
@@ -36437,6 +37182,7 @@ class FluidPropertiesConcentration(object):
 
         Args:
             value (float): value for IDD Field `Property Value 178`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -36447,7 +37193,7 @@ class FluidPropertiesConcentration(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_178`'.format(value))
         self._data["Property Value 178"] = value
 
@@ -36466,6 +37212,7 @@ class FluidPropertiesConcentration(object):
 
         Args:
             value (float): value for IDD Field `Property Value 179`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -36476,7 +37223,7 @@ class FluidPropertiesConcentration(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_179`'.format(value))
         self._data["Property Value 179"] = value
 
@@ -36495,6 +37242,7 @@ class FluidPropertiesConcentration(object):
 
         Args:
             value (float): value for IDD Field `Property Value 180`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -36505,7 +37253,7 @@ class FluidPropertiesConcentration(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_180`'.format(value))
         self._data["Property Value 180"] = value
 
@@ -36524,6 +37272,7 @@ class FluidPropertiesConcentration(object):
 
         Args:
             value (float): value for IDD Field `Property Value 181`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -36534,7 +37283,7 @@ class FluidPropertiesConcentration(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_181`'.format(value))
         self._data["Property Value 181"] = value
 
@@ -36553,6 +37302,7 @@ class FluidPropertiesConcentration(object):
 
         Args:
             value (float): value for IDD Field `Property Value 182`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -36563,7 +37313,7 @@ class FluidPropertiesConcentration(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_182`'.format(value))
         self._data["Property Value 182"] = value
 
@@ -36582,6 +37332,7 @@ class FluidPropertiesConcentration(object):
 
         Args:
             value (float): value for IDD Field `Property Value 183`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -36592,7 +37343,7 @@ class FluidPropertiesConcentration(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_183`'.format(value))
         self._data["Property Value 183"] = value
 
@@ -36611,6 +37362,7 @@ class FluidPropertiesConcentration(object):
 
         Args:
             value (float): value for IDD Field `Property Value 184`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -36621,7 +37373,7 @@ class FluidPropertiesConcentration(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_184`'.format(value))
         self._data["Property Value 184"] = value
 
@@ -36640,6 +37392,7 @@ class FluidPropertiesConcentration(object):
 
         Args:
             value (float): value for IDD Field `Property Value 185`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -36650,7 +37403,7 @@ class FluidPropertiesConcentration(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_185`'.format(value))
         self._data["Property Value 185"] = value
 
@@ -36669,6 +37422,7 @@ class FluidPropertiesConcentration(object):
 
         Args:
             value (float): value for IDD Field `Property Value 186`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -36679,7 +37433,7 @@ class FluidPropertiesConcentration(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_186`'.format(value))
         self._data["Property Value 186"] = value
 
@@ -36698,6 +37452,7 @@ class FluidPropertiesConcentration(object):
 
         Args:
             value (float): value for IDD Field `Property Value 187`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -36708,7 +37463,7 @@ class FluidPropertiesConcentration(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_187`'.format(value))
         self._data["Property Value 187"] = value
 
@@ -36727,6 +37482,7 @@ class FluidPropertiesConcentration(object):
 
         Args:
             value (float): value for IDD Field `Property Value 188`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -36737,7 +37493,7 @@ class FluidPropertiesConcentration(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_188`'.format(value))
         self._data["Property Value 188"] = value
 
@@ -36756,6 +37512,7 @@ class FluidPropertiesConcentration(object):
 
         Args:
             value (float): value for IDD Field `Property Value 189`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -36766,7 +37523,7 @@ class FluidPropertiesConcentration(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_189`'.format(value))
         self._data["Property Value 189"] = value
 
@@ -36785,6 +37542,7 @@ class FluidPropertiesConcentration(object):
 
         Args:
             value (float): value for IDD Field `Property Value 190`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -36795,7 +37553,7 @@ class FluidPropertiesConcentration(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_190`'.format(value))
         self._data["Property Value 190"] = value
 
@@ -36814,6 +37572,7 @@ class FluidPropertiesConcentration(object):
 
         Args:
             value (float): value for IDD Field `Property Value 191`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -36824,7 +37583,7 @@ class FluidPropertiesConcentration(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_191`'.format(value))
         self._data["Property Value 191"] = value
 
@@ -36843,6 +37602,7 @@ class FluidPropertiesConcentration(object):
 
         Args:
             value (float): value for IDD Field `Property Value 192`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -36853,7 +37613,7 @@ class FluidPropertiesConcentration(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_192`'.format(value))
         self._data["Property Value 192"] = value
 
@@ -36872,6 +37632,7 @@ class FluidPropertiesConcentration(object):
 
         Args:
             value (float): value for IDD Field `Property Value 193`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -36882,7 +37643,7 @@ class FluidPropertiesConcentration(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_193`'.format(value))
         self._data["Property Value 193"] = value
 
@@ -36901,6 +37662,7 @@ class FluidPropertiesConcentration(object):
 
         Args:
             value (float): value for IDD Field `Property Value 194`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -36911,7 +37673,7 @@ class FluidPropertiesConcentration(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_194`'.format(value))
         self._data["Property Value 194"] = value
 
@@ -36930,6 +37692,7 @@ class FluidPropertiesConcentration(object):
 
         Args:
             value (float): value for IDD Field `Property Value 195`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -36940,7 +37703,7 @@ class FluidPropertiesConcentration(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_195`'.format(value))
         self._data["Property Value 195"] = value
 
@@ -36959,6 +37722,7 @@ class FluidPropertiesConcentration(object):
 
         Args:
             value (float): value for IDD Field `Property Value 196`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -36969,7 +37733,7 @@ class FluidPropertiesConcentration(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_196`'.format(value))
         self._data["Property Value 196"] = value
 
@@ -36988,6 +37752,7 @@ class FluidPropertiesConcentration(object):
 
         Args:
             value (float): value for IDD Field `Property Value 197`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -36998,7 +37763,7 @@ class FluidPropertiesConcentration(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_197`'.format(value))
         self._data["Property Value 197"] = value
 
@@ -37017,6 +37782,7 @@ class FluidPropertiesConcentration(object):
 
         Args:
             value (float): value for IDD Field `Property Value 198`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -37027,7 +37793,7 @@ class FluidPropertiesConcentration(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_198`'.format(value))
         self._data["Property Value 198"] = value
 
@@ -37046,6 +37812,7 @@ class FluidPropertiesConcentration(object):
 
         Args:
             value (float): value for IDD Field `Property Value 199`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -37056,7 +37823,7 @@ class FluidPropertiesConcentration(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_199`'.format(value))
         self._data["Property Value 199"] = value
 
@@ -37075,6 +37842,7 @@ class FluidPropertiesConcentration(object):
 
         Args:
             value (float): value for IDD Field `Property Value 200`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -37085,7 +37853,7 @@ class FluidPropertiesConcentration(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_200`'.format(value))
         self._data["Property Value 200"] = value
 
@@ -37104,6 +37872,7 @@ class FluidPropertiesConcentration(object):
 
         Args:
             value (float): value for IDD Field `Property Value 201`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -37114,7 +37883,7 @@ class FluidPropertiesConcentration(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_201`'.format(value))
         self._data["Property Value 201"] = value
 
@@ -37133,6 +37902,7 @@ class FluidPropertiesConcentration(object):
 
         Args:
             value (float): value for IDD Field `Property Value 202`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -37143,7 +37913,7 @@ class FluidPropertiesConcentration(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_202`'.format(value))
         self._data["Property Value 202"] = value
 
@@ -37162,6 +37932,7 @@ class FluidPropertiesConcentration(object):
 
         Args:
             value (float): value for IDD Field `Property Value 203`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -37172,7 +37943,7 @@ class FluidPropertiesConcentration(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_203`'.format(value))
         self._data["Property Value 203"] = value
 
@@ -37191,6 +37962,7 @@ class FluidPropertiesConcentration(object):
 
         Args:
             value (float): value for IDD Field `Property Value 204`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -37201,7 +37973,7 @@ class FluidPropertiesConcentration(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_204`'.format(value))
         self._data["Property Value 204"] = value
 
@@ -37220,6 +37992,7 @@ class FluidPropertiesConcentration(object):
 
         Args:
             value (float): value for IDD Field `Property Value 205`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -37230,7 +38003,7 @@ class FluidPropertiesConcentration(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_205`'.format(value))
         self._data["Property Value 205"] = value
 
@@ -37249,6 +38022,7 @@ class FluidPropertiesConcentration(object):
 
         Args:
             value (float): value for IDD Field `Property Value 206`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -37259,7 +38033,7 @@ class FluidPropertiesConcentration(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_206`'.format(value))
         self._data["Property Value 206"] = value
 
@@ -37278,6 +38052,7 @@ class FluidPropertiesConcentration(object):
 
         Args:
             value (float): value for IDD Field `Property Value 207`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -37288,7 +38063,7 @@ class FluidPropertiesConcentration(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_207`'.format(value))
         self._data["Property Value 207"] = value
 
@@ -37307,6 +38082,7 @@ class FluidPropertiesConcentration(object):
 
         Args:
             value (float): value for IDD Field `Property Value 208`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -37317,7 +38093,7 @@ class FluidPropertiesConcentration(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_208`'.format(value))
         self._data["Property Value 208"] = value
 
@@ -37336,6 +38112,7 @@ class FluidPropertiesConcentration(object):
 
         Args:
             value (float): value for IDD Field `Property Value 209`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -37346,7 +38123,7 @@ class FluidPropertiesConcentration(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_209`'.format(value))
         self._data["Property Value 209"] = value
 
@@ -37365,6 +38142,7 @@ class FluidPropertiesConcentration(object):
 
         Args:
             value (float): value for IDD Field `Property Value 210`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -37375,7 +38153,7 @@ class FluidPropertiesConcentration(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_210`'.format(value))
         self._data["Property Value 210"] = value
 
@@ -37394,6 +38172,7 @@ class FluidPropertiesConcentration(object):
 
         Args:
             value (float): value for IDD Field `Property Value 211`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -37404,7 +38183,7 @@ class FluidPropertiesConcentration(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_211`'.format(value))
         self._data["Property Value 211"] = value
 
@@ -37423,6 +38202,7 @@ class FluidPropertiesConcentration(object):
 
         Args:
             value (float): value for IDD Field `Property Value 212`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -37433,7 +38213,7 @@ class FluidPropertiesConcentration(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_212`'.format(value))
         self._data["Property Value 212"] = value
 
@@ -37452,6 +38232,7 @@ class FluidPropertiesConcentration(object):
 
         Args:
             value (float): value for IDD Field `Property Value 213`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -37462,7 +38243,7 @@ class FluidPropertiesConcentration(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_213`'.format(value))
         self._data["Property Value 213"] = value
 
@@ -37481,6 +38262,7 @@ class FluidPropertiesConcentration(object):
 
         Args:
             value (float): value for IDD Field `Property Value 214`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -37491,7 +38273,7 @@ class FluidPropertiesConcentration(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_214`'.format(value))
         self._data["Property Value 214"] = value
 
@@ -37510,6 +38292,7 @@ class FluidPropertiesConcentration(object):
 
         Args:
             value (float): value for IDD Field `Property Value 215`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -37520,7 +38303,7 @@ class FluidPropertiesConcentration(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_215`'.format(value))
         self._data["Property Value 215"] = value
 
@@ -37539,6 +38322,7 @@ class FluidPropertiesConcentration(object):
 
         Args:
             value (float): value for IDD Field `Property Value 216`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -37549,7 +38333,7 @@ class FluidPropertiesConcentration(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_216`'.format(value))
         self._data["Property Value 216"] = value
 
@@ -37568,6 +38352,7 @@ class FluidPropertiesConcentration(object):
 
         Args:
             value (float): value for IDD Field `Property Value 217`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -37578,7 +38363,7 @@ class FluidPropertiesConcentration(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_217`'.format(value))
         self._data["Property Value 217"] = value
 
@@ -37597,6 +38382,7 @@ class FluidPropertiesConcentration(object):
 
         Args:
             value (float): value for IDD Field `Property Value 218`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -37607,7 +38393,7 @@ class FluidPropertiesConcentration(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_218`'.format(value))
         self._data["Property Value 218"] = value
 
@@ -37626,6 +38412,7 @@ class FluidPropertiesConcentration(object):
 
         Args:
             value (float): value for IDD Field `Property Value 219`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -37636,7 +38423,7 @@ class FluidPropertiesConcentration(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_219`'.format(value))
         self._data["Property Value 219"] = value
 
@@ -37655,6 +38442,7 @@ class FluidPropertiesConcentration(object):
 
         Args:
             value (float): value for IDD Field `Property Value 220`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -37665,7 +38453,7 @@ class FluidPropertiesConcentration(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_220`'.format(value))
         self._data["Property Value 220"] = value
 
@@ -37684,6 +38472,7 @@ class FluidPropertiesConcentration(object):
 
         Args:
             value (float): value for IDD Field `Property Value 221`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -37694,7 +38483,7 @@ class FluidPropertiesConcentration(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_221`'.format(value))
         self._data["Property Value 221"] = value
 
@@ -37713,6 +38502,7 @@ class FluidPropertiesConcentration(object):
 
         Args:
             value (float): value for IDD Field `Property Value 222`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -37723,7 +38513,7 @@ class FluidPropertiesConcentration(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_222`'.format(value))
         self._data["Property Value 222"] = value
 
@@ -37742,6 +38532,7 @@ class FluidPropertiesConcentration(object):
 
         Args:
             value (float): value for IDD Field `Property Value 223`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -37752,7 +38543,7 @@ class FluidPropertiesConcentration(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_223`'.format(value))
         self._data["Property Value 223"] = value
 
@@ -37771,6 +38562,7 @@ class FluidPropertiesConcentration(object):
 
         Args:
             value (float): value for IDD Field `Property Value 224`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -37781,7 +38573,7 @@ class FluidPropertiesConcentration(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_224`'.format(value))
         self._data["Property Value 224"] = value
 
@@ -37800,6 +38592,7 @@ class FluidPropertiesConcentration(object):
 
         Args:
             value (float): value for IDD Field `Property Value 225`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -37810,7 +38603,7 @@ class FluidPropertiesConcentration(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_225`'.format(value))
         self._data["Property Value 225"] = value
 
@@ -37829,6 +38622,7 @@ class FluidPropertiesConcentration(object):
 
         Args:
             value (float): value for IDD Field `Property Value 226`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -37839,7 +38633,7 @@ class FluidPropertiesConcentration(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_226`'.format(value))
         self._data["Property Value 226"] = value
 
@@ -37858,6 +38652,7 @@ class FluidPropertiesConcentration(object):
 
         Args:
             value (float): value for IDD Field `Property Value 227`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -37868,7 +38663,7 @@ class FluidPropertiesConcentration(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_227`'.format(value))
         self._data["Property Value 227"] = value
 
@@ -37887,6 +38682,7 @@ class FluidPropertiesConcentration(object):
 
         Args:
             value (float): value for IDD Field `Property Value 228`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -37897,7 +38693,7 @@ class FluidPropertiesConcentration(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_228`'.format(value))
         self._data["Property Value 228"] = value
 
@@ -37916,6 +38712,7 @@ class FluidPropertiesConcentration(object):
 
         Args:
             value (float): value for IDD Field `Property Value 229`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -37926,7 +38723,7 @@ class FluidPropertiesConcentration(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_229`'.format(value))
         self._data["Property Value 229"] = value
 
@@ -37945,6 +38742,7 @@ class FluidPropertiesConcentration(object):
 
         Args:
             value (float): value for IDD Field `Property Value 230`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -37955,7 +38753,7 @@ class FluidPropertiesConcentration(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_230`'.format(value))
         self._data["Property Value 230"] = value
 
@@ -37974,6 +38772,7 @@ class FluidPropertiesConcentration(object):
 
         Args:
             value (float): value for IDD Field `Property Value 231`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -37984,7 +38783,7 @@ class FluidPropertiesConcentration(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_231`'.format(value))
         self._data["Property Value 231"] = value
 
@@ -38003,6 +38802,7 @@ class FluidPropertiesConcentration(object):
 
         Args:
             value (float): value for IDD Field `Property Value 232`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -38013,7 +38813,7 @@ class FluidPropertiesConcentration(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_232`'.format(value))
         self._data["Property Value 232"] = value
 
@@ -38032,6 +38832,7 @@ class FluidPropertiesConcentration(object):
 
         Args:
             value (float): value for IDD Field `Property Value 233`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -38042,7 +38843,7 @@ class FluidPropertiesConcentration(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_233`'.format(value))
         self._data["Property Value 233"] = value
 
@@ -38061,6 +38862,7 @@ class FluidPropertiesConcentration(object):
 
         Args:
             value (float): value for IDD Field `Property Value 234`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -38071,7 +38873,7 @@ class FluidPropertiesConcentration(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_234`'.format(value))
         self._data["Property Value 234"] = value
 
@@ -38090,6 +38892,7 @@ class FluidPropertiesConcentration(object):
 
         Args:
             value (float): value for IDD Field `Property Value 235`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -38100,7 +38903,7 @@ class FluidPropertiesConcentration(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_235`'.format(value))
         self._data["Property Value 235"] = value
 
@@ -38119,6 +38922,7 @@ class FluidPropertiesConcentration(object):
 
         Args:
             value (float): value for IDD Field `Property Value 236`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -38129,7 +38933,7 @@ class FluidPropertiesConcentration(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_236`'.format(value))
         self._data["Property Value 236"] = value
 
@@ -38148,6 +38952,7 @@ class FluidPropertiesConcentration(object):
 
         Args:
             value (float): value for IDD Field `Property Value 237`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -38158,7 +38963,7 @@ class FluidPropertiesConcentration(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_237`'.format(value))
         self._data["Property Value 237"] = value
 
@@ -38177,6 +38982,7 @@ class FluidPropertiesConcentration(object):
 
         Args:
             value (float): value for IDD Field `Property Value 238`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -38187,7 +38993,7 @@ class FluidPropertiesConcentration(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_238`'.format(value))
         self._data["Property Value 238"] = value
 
@@ -38206,6 +39012,7 @@ class FluidPropertiesConcentration(object):
 
         Args:
             value (float): value for IDD Field `Property Value 239`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -38216,7 +39023,7 @@ class FluidPropertiesConcentration(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_239`'.format(value))
         self._data["Property Value 239"] = value
 
@@ -38235,6 +39042,7 @@ class FluidPropertiesConcentration(object):
 
         Args:
             value (float): value for IDD Field `Property Value 240`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -38245,7 +39053,7 @@ class FluidPropertiesConcentration(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_240`'.format(value))
         self._data["Property Value 240"] = value
 
@@ -38264,6 +39072,7 @@ class FluidPropertiesConcentration(object):
 
         Args:
             value (float): value for IDD Field `Property Value 241`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -38274,7 +39083,7 @@ class FluidPropertiesConcentration(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_241`'.format(value))
         self._data["Property Value 241"] = value
 
@@ -38293,6 +39102,7 @@ class FluidPropertiesConcentration(object):
 
         Args:
             value (float): value for IDD Field `Property Value 242`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -38303,7 +39113,7 @@ class FluidPropertiesConcentration(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_242`'.format(value))
         self._data["Property Value 242"] = value
 
@@ -38322,6 +39132,7 @@ class FluidPropertiesConcentration(object):
 
         Args:
             value (float): value for IDD Field `Property Value 243`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -38332,7 +39143,7 @@ class FluidPropertiesConcentration(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_243`'.format(value))
         self._data["Property Value 243"] = value
 
@@ -38351,6 +39162,7 @@ class FluidPropertiesConcentration(object):
 
         Args:
             value (float): value for IDD Field `Property Value 244`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -38361,7 +39173,7 @@ class FluidPropertiesConcentration(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_244`'.format(value))
         self._data["Property Value 244"] = value
 
@@ -38380,6 +39192,7 @@ class FluidPropertiesConcentration(object):
 
         Args:
             value (float): value for IDD Field `Property Value 245`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -38390,7 +39203,7 @@ class FluidPropertiesConcentration(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_245`'.format(value))
         self._data["Property Value 245"] = value
 
@@ -38409,6 +39222,7 @@ class FluidPropertiesConcentration(object):
 
         Args:
             value (float): value for IDD Field `Property Value 246`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -38419,7 +39233,7 @@ class FluidPropertiesConcentration(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_246`'.format(value))
         self._data["Property Value 246"] = value
 
@@ -38438,6 +39252,7 @@ class FluidPropertiesConcentration(object):
 
         Args:
             value (float): value for IDD Field `Property Value 247`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -38448,7 +39263,7 @@ class FluidPropertiesConcentration(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_247`'.format(value))
         self._data["Property Value 247"] = value
 
@@ -38467,6 +39282,7 @@ class FluidPropertiesConcentration(object):
 
         Args:
             value (float): value for IDD Field `Property Value 248`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -38477,7 +39293,7 @@ class FluidPropertiesConcentration(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_248`'.format(value))
         self._data["Property Value 248"] = value
 
@@ -38496,6 +39312,7 @@ class FluidPropertiesConcentration(object):
 
         Args:
             value (float): value for IDD Field `Property Value 249`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -38506,7 +39323,7 @@ class FluidPropertiesConcentration(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_249`'.format(value))
         self._data["Property Value 249"] = value
 
@@ -38525,6 +39342,7 @@ class FluidPropertiesConcentration(object):
 
         Args:
             value (float): value for IDD Field `Property Value 250`
+                Units are based on field `A2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -38535,7 +39353,7 @@ class FluidPropertiesConcentration(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `property_value_250`'.format(value))
         self._data["Property Value 250"] = value
 

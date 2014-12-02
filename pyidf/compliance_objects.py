@@ -1,9 +1,10 @@
 from collections import OrderedDict
+import logging
+import re
 
 class ComplianceBuilding(object):
     """ Corresponds to IDD object `Compliance:Building`
         Building level inputs related to compliance to building standards, building codes, and beyond energy code programs.
-    
     """
     internal_name = "Compliance:Building"
     field_count = 1
@@ -14,15 +15,16 @@ class ComplianceBuilding(object):
         """
         self._data = OrderedDict()
         self._data["Building Rotation for Appendix G"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.building_rotation_for_appendix_g = None
@@ -31,6 +33,7 @@ class ComplianceBuilding(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def building_rotation_for_appendix_g(self):
@@ -61,7 +64,7 @@ class ComplianceBuilding(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `building_rotation_for_appendix_g`'.format(value))
         self._data["Building Rotation for Appendix G"] = value
 

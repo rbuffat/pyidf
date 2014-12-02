@@ -1,10 +1,11 @@
 from collections import OrderedDict
+import logging
+import re
 
 class GlobalGeometryRules(object):
     """ Corresponds to IDD object `GlobalGeometryRules`
         Specifes the geometric rules used to describe the input of surface vertices and
         daylighting reference points.
-    
     """
     internal_name = "GlobalGeometryRules"
     field_count = 5
@@ -19,15 +20,16 @@ class GlobalGeometryRules(object):
         self._data["Coordinate System"] = None
         self._data["Daylighting Reference Point Coordinate System"] = None
         self._data["Rectangular Surface Coordinate System"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.starting_vertex_position = None
@@ -64,6 +66,7 @@ class GlobalGeometryRules(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def starting_vertex_position(self):
@@ -98,7 +101,7 @@ class GlobalGeometryRules(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `starting_vertex_position`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -114,16 +117,26 @@ class GlobalGeometryRules(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `starting_vertex_position`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `starting_vertex_position`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Starting Vertex Position"] = value
 
@@ -155,7 +168,7 @@ class GlobalGeometryRules(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `vertex_entry_direction`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -169,16 +182,26 @@ class GlobalGeometryRules(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `vertex_entry_direction`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `vertex_entry_direction`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Vertex Entry Direction"] = value
 
@@ -214,7 +237,7 @@ class GlobalGeometryRules(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `coordinate_system`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -229,16 +252,26 @@ class GlobalGeometryRules(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `coordinate_system`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `coordinate_system`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Coordinate System"] = value
 
@@ -275,7 +308,7 @@ class GlobalGeometryRules(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `daylighting_reference_point_coordinate_system`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -290,16 +323,26 @@ class GlobalGeometryRules(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `daylighting_reference_point_coordinate_system`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `daylighting_reference_point_coordinate_system`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Daylighting Reference Point Coordinate System"] = value
 
@@ -336,7 +379,7 @@ class GlobalGeometryRules(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `rectangular_surface_coordinate_system`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -351,16 +394,26 @@ class GlobalGeometryRules(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `rectangular_surface_coordinate_system`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `rectangular_surface_coordinate_system`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Rectangular Surface Coordinate System"] = value
 
@@ -403,7 +456,6 @@ class GeometryTransform(object):
         Provides a simple method of altering the footprint geometry of a model. The intent
         is to provide a single parameter that can be used to reshape the building description
         contained in the rest of the input file.
-    
     """
     internal_name = "GeometryTransform"
     field_count = 3
@@ -416,15 +468,16 @@ class GeometryTransform(object):
         self._data["Plane of Transform"] = None
         self._data["Current Aspect Ratio"] = None
         self._data["New Aspect Ratio"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.plane_of_transform = None
@@ -447,6 +500,7 @@ class GeometryTransform(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def plane_of_transform(self):
@@ -477,7 +531,7 @@ class GeometryTransform(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `plane_of_transform`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -490,16 +544,26 @@ class GeometryTransform(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `plane_of_transform`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `plane_of_transform`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Plane of Transform"] = value
 
@@ -530,7 +594,7 @@ class GeometryTransform(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `current_aspect_ratio`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -564,7 +628,7 @@ class GeometryTransform(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `new_aspect_ratio`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -608,7 +672,6 @@ class GeometryTransform(object):
 class Zone(object):
     """ Corresponds to IDD object `Zone`
         Defines a thermal zone of the building.
-    
     """
     internal_name = "Zone"
     field_count = 13
@@ -631,15 +694,16 @@ class Zone(object):
         self._data["Zone Inside Convection Algorithm"] = None
         self._data["Zone Outside Convection Algorithm"] = None
         self._data["Part of Total Floor Area"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -732,6 +796,7 @@ class Zone(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -758,7 +823,7 @@ class Zone(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -795,7 +860,7 @@ class Zone(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `direction_of_relative_north`'.format(value))
         self._data["Direction of Relative North"] = value
 
@@ -826,7 +891,7 @@ class Zone(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `x_origin`'.format(value))
         self._data["X Origin"] = value
 
@@ -857,7 +922,7 @@ class Zone(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `y_origin`'.format(value))
         self._data["Y Origin"] = value
 
@@ -888,7 +953,7 @@ class Zone(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `z_origin`'.format(value))
         self._data["Z Origin"] = value
 
@@ -920,8 +985,15 @@ class Zone(object):
             try:
                 value = int(value)
             except ValueError:
-                raise ValueError('value {} need to be of type int '
-                                 'for field `type`'.format(value))
+                if not self.strict:
+                    try:
+                        conv_value = int(float(value))
+                        logging.warn('Cast float {} to int {}, precision may be lost '
+                                     'for field `type`'.format(value, conv_value))
+                        value = conv_value
+                    except ValueError:
+                        raise ValueError('value {} need to be of type int '
+                                         'for field `type`'.format(value))
             if value < 1:
                 raise ValueError('value need to be greater or equal 1 '
                                  'for field `type`')
@@ -957,8 +1029,15 @@ class Zone(object):
             try:
                 value = int(value)
             except ValueError:
-                raise ValueError('value {} need to be of type int '
-                                 'for field `multiplier`'.format(value))
+                if not self.strict:
+                    try:
+                        conv_value = int(float(value))
+                        logging.warn('Cast float {} to int {}, precision may be lost '
+                                     'for field `multiplier`'.format(value, conv_value))
+                        value = conv_value
+                    except ValueError:
+                        raise ValueError('value {} need to be of type int '
+                                         'for field `multiplier`'.format(value))
             if value < 1:
                 raise ValueError('value need to be greater or equal 1 '
                                  'for field `multiplier`')
@@ -998,12 +1077,17 @@ class Zone(object):
                 if value_lower == "autocalculate":
                     self._data["Ceiling Height"] = "Autocalculate"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autocalculate" '
+                                 'for field `ceiling_height`'.format(value))
+                    self._data["Ceiling Height"] = "Autocalculate"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autocalculate"'
                                  'for field `ceiling_height`'.format(value))
         self._data["Ceiling Height"] = value
 
@@ -1039,12 +1123,17 @@ class Zone(object):
                 if value_lower == "autocalculate":
                     self._data["Volume"] = "Autocalculate"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autocalculate" '
+                                 'for field `volume`'.format(value))
+                    self._data["Volume"] = "Autocalculate"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autocalculate"'
                                  'for field `volume`'.format(value))
         self._data["Volume"] = value
 
@@ -1080,12 +1169,17 @@ class Zone(object):
                 if value_lower == "autocalculate":
                     self._data["Floor Area"] = "Autocalculate"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autocalculate" '
+                                 'for field `floor_area`'.format(value))
+                    self._data["Floor Area"] = "Autocalculate"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autocalculate"'
                                  'for field `floor_area`'.format(value))
         self._data["Floor Area"] = value
 
@@ -1128,7 +1222,7 @@ class Zone(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `zone_inside_convection_algorithm`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1145,16 +1239,26 @@ class Zone(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `zone_inside_convection_algorithm`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `zone_inside_convection_algorithm`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Zone Inside Convection Algorithm"] = value
 
@@ -1196,7 +1300,7 @@ class Zone(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `zone_outside_convection_algorithm`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1213,16 +1317,26 @@ class Zone(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `zone_outside_convection_algorithm`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `zone_outside_convection_algorithm`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Zone Outside Convection Algorithm"] = value
 
@@ -1255,7 +1369,7 @@ class Zone(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `part_of_total_floor_area`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1269,16 +1383,26 @@ class Zone(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `part_of_total_floor_area`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `part_of_total_floor_area`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Part of Total Floor Area"] = value
 
@@ -1321,7 +1445,6 @@ class ZoneGroup(object):
         Adds a multiplier to a ZoneList. This can be used to reduce the amount of input
         necessary for simulating repetitive structures, such as the identical floors of a
         multi-story building.
-    
     """
     internal_name = "ZoneGroup"
     field_count = 3
@@ -1334,15 +1457,16 @@ class ZoneGroup(object):
         self._data["Name"] = None
         self._data["Zone List Name"] = None
         self._data["Zone List Multiplier"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -1365,6 +1489,7 @@ class ZoneGroup(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -1392,7 +1517,7 @@ class ZoneGroup(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1427,7 +1552,7 @@ class ZoneGroup(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `zone_list_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1464,8 +1589,15 @@ class ZoneGroup(object):
             try:
                 value = int(value)
             except ValueError:
-                raise ValueError('value {} need to be of type int '
-                                 'for field `zone_list_multiplier`'.format(value))
+                if not self.strict:
+                    try:
+                        conv_value = int(float(value))
+                        logging.warn('Cast float {} to int {}, precision may be lost '
+                                     'for field `zone_list_multiplier`'.format(value, conv_value))
+                        value = conv_value
+                    except ValueError:
+                        raise ValueError('value {} need to be of type int '
+                                         'for field `zone_list_multiplier`'.format(value))
             if value < 1:
                 raise ValueError('value need to be greater or equal 1 '
                                  'for field `zone_list_multiplier`')
@@ -1508,7 +1640,6 @@ class ZoneGroup(object):
 class BuildingSurfaceDetailed(object):
     """ Corresponds to IDD object `BuildingSurface:Detailed`
         Allows for detailed entry of building heat transfer surfaces.  Does not include subsurfaces such as windows or doors.
-    
     """
     internal_name = "BuildingSurface:Detailed"
     field_count = 370
@@ -1888,15 +2019,16 @@ class BuildingSurfaceDetailed(object):
         self._data["Vertex 120 X-coordinate"] = None
         self._data["Vertex 120 Y-coordinate"] = None
         self._data["Vertex 120 Z-coordinate"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -4488,6 +4620,7 @@ class BuildingSurfaceDetailed(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -4514,7 +4647,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4554,7 +4687,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4570,16 +4703,26 @@ class BuildingSurfaceDetailed(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `surface_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `surface_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Surface Type"] = value
 
@@ -4609,7 +4752,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `construction_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4645,7 +4788,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `zone_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4696,7 +4839,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `outside_boundary_condition`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4723,16 +4866,26 @@ class BuildingSurfaceDetailed(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `outside_boundary_condition`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `outside_boundary_condition`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Outside Boundary Condition"] = value
 
@@ -4769,7 +4922,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `outside_boundary_condition_object`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4808,7 +4961,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `sun_exposure`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4822,16 +4975,26 @@ class BuildingSurfaceDetailed(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `sun_exposure`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `sun_exposure`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Sun Exposure"] = value
 
@@ -4864,7 +5027,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `wind_exposure`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4878,16 +5041,26 @@ class BuildingSurfaceDetailed(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `wind_exposure`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `wind_exposure`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Wind Exposure"] = value
 
@@ -4925,12 +5098,17 @@ class BuildingSurfaceDetailed(object):
                 if value_lower == "autocalculate":
                     self._data["View Factor to Ground"] = "Autocalculate"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autocalculate" '
+                                 'for field `view_factor_to_ground`'.format(value))
+                    self._data["View Factor to Ground"] = "Autocalculate"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autocalculate"'
                                  'for field `view_factor_to_ground`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -4977,12 +5155,17 @@ class BuildingSurfaceDetailed(object):
                 if value_lower == "autocalculate":
                     self._data["Number of Vertices"] = "Autocalculate"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autocalculate" '
+                                 'for field `number_of_vertices`'.format(value))
+                    self._data["Number of Vertices"] = "Autocalculate"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autocalculate"'
                                  'for field `number_of_vertices`'.format(value))
             if value < 3.0:
                 raise ValueError('value need to be greater or equal 3.0 '
@@ -5015,7 +5198,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_1_xcoordinate`'.format(value))
         self._data["Vertex 1 X-coordinate"] = value
 
@@ -5045,7 +5228,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_1_ycoordinate`'.format(value))
         self._data["Vertex 1 Y-coordinate"] = value
 
@@ -5075,7 +5258,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_1_zcoordinate`'.format(value))
         self._data["Vertex 1 Z-coordinate"] = value
 
@@ -5105,7 +5288,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_2_xcoordinate`'.format(value))
         self._data["Vertex 2 X-coordinate"] = value
 
@@ -5135,7 +5318,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_2_ycoordinate`'.format(value))
         self._data["Vertex 2 Y-coordinate"] = value
 
@@ -5165,7 +5348,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_2_zcoordinate`'.format(value))
         self._data["Vertex 2 Z-coordinate"] = value
 
@@ -5195,7 +5378,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_3_xcoordinate`'.format(value))
         self._data["Vertex 3 X-coordinate"] = value
 
@@ -5225,7 +5408,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_3_ycoordinate`'.format(value))
         self._data["Vertex 3 Y-coordinate"] = value
 
@@ -5255,7 +5438,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_3_zcoordinate`'.format(value))
         self._data["Vertex 3 Z-coordinate"] = value
 
@@ -5285,7 +5468,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_4_xcoordinate`'.format(value))
         self._data["Vertex 4 X-coordinate"] = value
 
@@ -5315,7 +5498,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_4_ycoordinate`'.format(value))
         self._data["Vertex 4 Y-coordinate"] = value
 
@@ -5345,7 +5528,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_4_zcoordinate`'.format(value))
         self._data["Vertex 4 Z-coordinate"] = value
 
@@ -5375,7 +5558,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_5_xcoordinate`'.format(value))
         self._data["Vertex 5 X-coordinate"] = value
 
@@ -5405,7 +5588,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_5_ycoordinate`'.format(value))
         self._data["Vertex 5 Y-coordinate"] = value
 
@@ -5435,7 +5618,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_5_zcoordinate`'.format(value))
         self._data["Vertex 5 Z-coordinate"] = value
 
@@ -5465,7 +5648,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_6_xcoordinate`'.format(value))
         self._data["Vertex 6 X-coordinate"] = value
 
@@ -5495,7 +5678,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_6_ycoordinate`'.format(value))
         self._data["Vertex 6 Y-coordinate"] = value
 
@@ -5525,7 +5708,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_6_zcoordinate`'.format(value))
         self._data["Vertex 6 Z-coordinate"] = value
 
@@ -5555,7 +5738,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_7_xcoordinate`'.format(value))
         self._data["Vertex 7 X-coordinate"] = value
 
@@ -5585,7 +5768,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_7_ycoordinate`'.format(value))
         self._data["Vertex 7 Y-coordinate"] = value
 
@@ -5615,7 +5798,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_7_zcoordinate`'.format(value))
         self._data["Vertex 7 Z-coordinate"] = value
 
@@ -5645,7 +5828,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_8_xcoordinate`'.format(value))
         self._data["Vertex 8 X-coordinate"] = value
 
@@ -5675,7 +5858,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_8_ycoordinate`'.format(value))
         self._data["Vertex 8 Y-coordinate"] = value
 
@@ -5705,7 +5888,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_8_zcoordinate`'.format(value))
         self._data["Vertex 8 Z-coordinate"] = value
 
@@ -5735,7 +5918,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_9_xcoordinate`'.format(value))
         self._data["Vertex 9 X-coordinate"] = value
 
@@ -5765,7 +5948,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_9_ycoordinate`'.format(value))
         self._data["Vertex 9 Y-coordinate"] = value
 
@@ -5795,7 +5978,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_9_zcoordinate`'.format(value))
         self._data["Vertex 9 Z-coordinate"] = value
 
@@ -5825,7 +6008,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_10_xcoordinate`'.format(value))
         self._data["Vertex 10 X-coordinate"] = value
 
@@ -5855,7 +6038,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_10_ycoordinate`'.format(value))
         self._data["Vertex 10 Y-coordinate"] = value
 
@@ -5885,7 +6068,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_10_zcoordinate`'.format(value))
         self._data["Vertex 10 Z-coordinate"] = value
 
@@ -5915,7 +6098,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_11_xcoordinate`'.format(value))
         self._data["Vertex 11 X-coordinate"] = value
 
@@ -5945,7 +6128,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_11_ycoordinate`'.format(value))
         self._data["Vertex 11 Y-coordinate"] = value
 
@@ -5975,7 +6158,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_11_zcoordinate`'.format(value))
         self._data["Vertex 11 Z-coordinate"] = value
 
@@ -6005,7 +6188,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_12_xcoordinate`'.format(value))
         self._data["Vertex 12 X-coordinate"] = value
 
@@ -6035,7 +6218,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_12_ycoordinate`'.format(value))
         self._data["Vertex 12 Y-coordinate"] = value
 
@@ -6065,7 +6248,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_12_zcoordinate`'.format(value))
         self._data["Vertex 12 Z-coordinate"] = value
 
@@ -6095,7 +6278,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_13_xcoordinate`'.format(value))
         self._data["Vertex 13 X-coordinate"] = value
 
@@ -6125,7 +6308,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_13_ycoordinate`'.format(value))
         self._data["Vertex 13 Y-coordinate"] = value
 
@@ -6155,7 +6338,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_13_zcoordinate`'.format(value))
         self._data["Vertex 13 Z-coordinate"] = value
 
@@ -6185,7 +6368,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_14_xcoordinate`'.format(value))
         self._data["Vertex 14 X-coordinate"] = value
 
@@ -6215,7 +6398,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_14_ycoordinate`'.format(value))
         self._data["Vertex 14 Y-coordinate"] = value
 
@@ -6245,7 +6428,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_14_zcoordinate`'.format(value))
         self._data["Vertex 14 Z-coordinate"] = value
 
@@ -6275,7 +6458,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_15_xcoordinate`'.format(value))
         self._data["Vertex 15 X-coordinate"] = value
 
@@ -6305,7 +6488,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_15_ycoordinate`'.format(value))
         self._data["Vertex 15 Y-coordinate"] = value
 
@@ -6335,7 +6518,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_15_zcoordinate`'.format(value))
         self._data["Vertex 15 Z-coordinate"] = value
 
@@ -6365,7 +6548,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_16_xcoordinate`'.format(value))
         self._data["Vertex 16 X-coordinate"] = value
 
@@ -6395,7 +6578,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_16_ycoordinate`'.format(value))
         self._data["Vertex 16 Y-coordinate"] = value
 
@@ -6425,7 +6608,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_16_zcoordinate`'.format(value))
         self._data["Vertex 16 Z-coordinate"] = value
 
@@ -6455,7 +6638,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_17_xcoordinate`'.format(value))
         self._data["Vertex 17 X-coordinate"] = value
 
@@ -6485,7 +6668,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_17_ycoordinate`'.format(value))
         self._data["Vertex 17 Y-coordinate"] = value
 
@@ -6515,7 +6698,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_17_zcoordinate`'.format(value))
         self._data["Vertex 17 Z-coordinate"] = value
 
@@ -6545,7 +6728,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_18_xcoordinate`'.format(value))
         self._data["Vertex 18 X-coordinate"] = value
 
@@ -6575,7 +6758,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_18_ycoordinate`'.format(value))
         self._data["Vertex 18 Y-coordinate"] = value
 
@@ -6605,7 +6788,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_18_zcoordinate`'.format(value))
         self._data["Vertex 18 Z-coordinate"] = value
 
@@ -6635,7 +6818,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_19_xcoordinate`'.format(value))
         self._data["Vertex 19 X-coordinate"] = value
 
@@ -6665,7 +6848,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_19_ycoordinate`'.format(value))
         self._data["Vertex 19 Y-coordinate"] = value
 
@@ -6695,7 +6878,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_19_zcoordinate`'.format(value))
         self._data["Vertex 19 Z-coordinate"] = value
 
@@ -6725,7 +6908,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_20_xcoordinate`'.format(value))
         self._data["Vertex 20 X-coordinate"] = value
 
@@ -6755,7 +6938,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_20_ycoordinate`'.format(value))
         self._data["Vertex 20 Y-coordinate"] = value
 
@@ -6785,7 +6968,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_20_zcoordinate`'.format(value))
         self._data["Vertex 20 Z-coordinate"] = value
 
@@ -6815,7 +6998,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_21_xcoordinate`'.format(value))
         self._data["Vertex 21 X-coordinate"] = value
 
@@ -6845,7 +7028,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_21_ycoordinate`'.format(value))
         self._data["Vertex 21 Y-coordinate"] = value
 
@@ -6875,7 +7058,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_21_zcoordinate`'.format(value))
         self._data["Vertex 21 Z-coordinate"] = value
 
@@ -6905,7 +7088,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_22_xcoordinate`'.format(value))
         self._data["Vertex 22 X-coordinate"] = value
 
@@ -6935,7 +7118,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_22_ycoordinate`'.format(value))
         self._data["Vertex 22 Y-coordinate"] = value
 
@@ -6965,7 +7148,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_22_zcoordinate`'.format(value))
         self._data["Vertex 22 Z-coordinate"] = value
 
@@ -6995,7 +7178,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_23_xcoordinate`'.format(value))
         self._data["Vertex 23 X-coordinate"] = value
 
@@ -7025,7 +7208,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_23_ycoordinate`'.format(value))
         self._data["Vertex 23 Y-coordinate"] = value
 
@@ -7055,7 +7238,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_23_zcoordinate`'.format(value))
         self._data["Vertex 23 Z-coordinate"] = value
 
@@ -7085,7 +7268,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_24_xcoordinate`'.format(value))
         self._data["Vertex 24 X-coordinate"] = value
 
@@ -7115,7 +7298,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_24_ycoordinate`'.format(value))
         self._data["Vertex 24 Y-coordinate"] = value
 
@@ -7145,7 +7328,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_24_zcoordinate`'.format(value))
         self._data["Vertex 24 Z-coordinate"] = value
 
@@ -7175,7 +7358,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_25_xcoordinate`'.format(value))
         self._data["Vertex 25 X-coordinate"] = value
 
@@ -7205,7 +7388,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_25_ycoordinate`'.format(value))
         self._data["Vertex 25 Y-coordinate"] = value
 
@@ -7235,7 +7418,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_25_zcoordinate`'.format(value))
         self._data["Vertex 25 Z-coordinate"] = value
 
@@ -7265,7 +7448,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_26_xcoordinate`'.format(value))
         self._data["Vertex 26 X-coordinate"] = value
 
@@ -7295,7 +7478,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_26_ycoordinate`'.format(value))
         self._data["Vertex 26 Y-coordinate"] = value
 
@@ -7325,7 +7508,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_26_zcoordinate`'.format(value))
         self._data["Vertex 26 Z-coordinate"] = value
 
@@ -7355,7 +7538,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_27_xcoordinate`'.format(value))
         self._data["Vertex 27 X-coordinate"] = value
 
@@ -7385,7 +7568,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_27_ycoordinate`'.format(value))
         self._data["Vertex 27 Y-coordinate"] = value
 
@@ -7415,7 +7598,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_27_zcoordinate`'.format(value))
         self._data["Vertex 27 Z-coordinate"] = value
 
@@ -7445,7 +7628,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_28_xcoordinate`'.format(value))
         self._data["Vertex 28 X-coordinate"] = value
 
@@ -7475,7 +7658,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_28_ycoordinate`'.format(value))
         self._data["Vertex 28 Y-coordinate"] = value
 
@@ -7505,7 +7688,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_28_zcoordinate`'.format(value))
         self._data["Vertex 28 Z-coordinate"] = value
 
@@ -7535,7 +7718,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_29_xcoordinate`'.format(value))
         self._data["Vertex 29 X-coordinate"] = value
 
@@ -7565,7 +7748,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_29_ycoordinate`'.format(value))
         self._data["Vertex 29 Y-coordinate"] = value
 
@@ -7595,7 +7778,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_29_zcoordinate`'.format(value))
         self._data["Vertex 29 Z-coordinate"] = value
 
@@ -7625,7 +7808,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_30_xcoordinate`'.format(value))
         self._data["Vertex 30 X-coordinate"] = value
 
@@ -7655,7 +7838,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_30_ycoordinate`'.format(value))
         self._data["Vertex 30 Y-coordinate"] = value
 
@@ -7685,7 +7868,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_30_zcoordinate`'.format(value))
         self._data["Vertex 30 Z-coordinate"] = value
 
@@ -7715,7 +7898,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_31_xcoordinate`'.format(value))
         self._data["Vertex 31 X-coordinate"] = value
 
@@ -7745,7 +7928,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_31_ycoordinate`'.format(value))
         self._data["Vertex 31 Y-coordinate"] = value
 
@@ -7775,7 +7958,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_31_zcoordinate`'.format(value))
         self._data["Vertex 31 Z-coordinate"] = value
 
@@ -7805,7 +7988,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_32_xcoordinate`'.format(value))
         self._data["Vertex 32 X-coordinate"] = value
 
@@ -7835,7 +8018,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_32_ycoordinate`'.format(value))
         self._data["Vertex 32 Y-coordinate"] = value
 
@@ -7865,7 +8048,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_32_zcoordinate`'.format(value))
         self._data["Vertex 32 Z-coordinate"] = value
 
@@ -7895,7 +8078,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_33_xcoordinate`'.format(value))
         self._data["Vertex 33 X-coordinate"] = value
 
@@ -7925,7 +8108,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_33_ycoordinate`'.format(value))
         self._data["Vertex 33 Y-coordinate"] = value
 
@@ -7955,7 +8138,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_33_zcoordinate`'.format(value))
         self._data["Vertex 33 Z-coordinate"] = value
 
@@ -7985,7 +8168,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_34_xcoordinate`'.format(value))
         self._data["Vertex 34 X-coordinate"] = value
 
@@ -8015,7 +8198,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_34_ycoordinate`'.format(value))
         self._data["Vertex 34 Y-coordinate"] = value
 
@@ -8045,7 +8228,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_34_zcoordinate`'.format(value))
         self._data["Vertex 34 Z-coordinate"] = value
 
@@ -8075,7 +8258,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_35_xcoordinate`'.format(value))
         self._data["Vertex 35 X-coordinate"] = value
 
@@ -8105,7 +8288,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_35_ycoordinate`'.format(value))
         self._data["Vertex 35 Y-coordinate"] = value
 
@@ -8135,7 +8318,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_35_zcoordinate`'.format(value))
         self._data["Vertex 35 Z-coordinate"] = value
 
@@ -8165,7 +8348,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_36_xcoordinate`'.format(value))
         self._data["Vertex 36 X-coordinate"] = value
 
@@ -8195,7 +8378,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_36_ycoordinate`'.format(value))
         self._data["Vertex 36 Y-coordinate"] = value
 
@@ -8225,7 +8408,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_36_zcoordinate`'.format(value))
         self._data["Vertex 36 Z-coordinate"] = value
 
@@ -8255,7 +8438,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_37_xcoordinate`'.format(value))
         self._data["Vertex 37 X-coordinate"] = value
 
@@ -8285,7 +8468,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_37_ycoordinate`'.format(value))
         self._data["Vertex 37 Y-coordinate"] = value
 
@@ -8315,7 +8498,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_37_zcoordinate`'.format(value))
         self._data["Vertex 37 Z-coordinate"] = value
 
@@ -8345,7 +8528,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_38_xcoordinate`'.format(value))
         self._data["Vertex 38 X-coordinate"] = value
 
@@ -8375,7 +8558,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_38_ycoordinate`'.format(value))
         self._data["Vertex 38 Y-coordinate"] = value
 
@@ -8405,7 +8588,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_38_zcoordinate`'.format(value))
         self._data["Vertex 38 Z-coordinate"] = value
 
@@ -8435,7 +8618,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_39_xcoordinate`'.format(value))
         self._data["Vertex 39 X-coordinate"] = value
 
@@ -8465,7 +8648,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_39_ycoordinate`'.format(value))
         self._data["Vertex 39 Y-coordinate"] = value
 
@@ -8495,7 +8678,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_39_zcoordinate`'.format(value))
         self._data["Vertex 39 Z-coordinate"] = value
 
@@ -8525,7 +8708,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_40_xcoordinate`'.format(value))
         self._data["Vertex 40 X-coordinate"] = value
 
@@ -8555,7 +8738,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_40_ycoordinate`'.format(value))
         self._data["Vertex 40 Y-coordinate"] = value
 
@@ -8585,7 +8768,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_40_zcoordinate`'.format(value))
         self._data["Vertex 40 Z-coordinate"] = value
 
@@ -8615,7 +8798,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_41_xcoordinate`'.format(value))
         self._data["Vertex 41 X-coordinate"] = value
 
@@ -8645,7 +8828,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_41_ycoordinate`'.format(value))
         self._data["Vertex 41 Y-coordinate"] = value
 
@@ -8675,7 +8858,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_41_zcoordinate`'.format(value))
         self._data["Vertex 41 Z-coordinate"] = value
 
@@ -8705,7 +8888,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_42_xcoordinate`'.format(value))
         self._data["Vertex 42 X-coordinate"] = value
 
@@ -8735,7 +8918,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_42_ycoordinate`'.format(value))
         self._data["Vertex 42 Y-coordinate"] = value
 
@@ -8765,7 +8948,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_42_zcoordinate`'.format(value))
         self._data["Vertex 42 Z-coordinate"] = value
 
@@ -8795,7 +8978,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_43_xcoordinate`'.format(value))
         self._data["Vertex 43 X-coordinate"] = value
 
@@ -8825,7 +9008,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_43_ycoordinate`'.format(value))
         self._data["Vertex 43 Y-coordinate"] = value
 
@@ -8855,7 +9038,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_43_zcoordinate`'.format(value))
         self._data["Vertex 43 Z-coordinate"] = value
 
@@ -8885,7 +9068,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_44_xcoordinate`'.format(value))
         self._data["Vertex 44 X-coordinate"] = value
 
@@ -8915,7 +9098,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_44_ycoordinate`'.format(value))
         self._data["Vertex 44 Y-coordinate"] = value
 
@@ -8945,7 +9128,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_44_zcoordinate`'.format(value))
         self._data["Vertex 44 Z-coordinate"] = value
 
@@ -8975,7 +9158,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_45_xcoordinate`'.format(value))
         self._data["Vertex 45 X-coordinate"] = value
 
@@ -9005,7 +9188,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_45_ycoordinate`'.format(value))
         self._data["Vertex 45 Y-coordinate"] = value
 
@@ -9035,7 +9218,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_45_zcoordinate`'.format(value))
         self._data["Vertex 45 Z-coordinate"] = value
 
@@ -9065,7 +9248,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_46_xcoordinate`'.format(value))
         self._data["Vertex 46 X-coordinate"] = value
 
@@ -9095,7 +9278,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_46_ycoordinate`'.format(value))
         self._data["Vertex 46 Y-coordinate"] = value
 
@@ -9125,7 +9308,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_46_zcoordinate`'.format(value))
         self._data["Vertex 46 Z-coordinate"] = value
 
@@ -9155,7 +9338,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_47_xcoordinate`'.format(value))
         self._data["Vertex 47 X-coordinate"] = value
 
@@ -9185,7 +9368,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_47_ycoordinate`'.format(value))
         self._data["Vertex 47 Y-coordinate"] = value
 
@@ -9215,7 +9398,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_47_zcoordinate`'.format(value))
         self._data["Vertex 47 Z-coordinate"] = value
 
@@ -9245,7 +9428,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_48_xcoordinate`'.format(value))
         self._data["Vertex 48 X-coordinate"] = value
 
@@ -9275,7 +9458,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_48_ycoordinate`'.format(value))
         self._data["Vertex 48 Y-coordinate"] = value
 
@@ -9305,7 +9488,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_48_zcoordinate`'.format(value))
         self._data["Vertex 48 Z-coordinate"] = value
 
@@ -9335,7 +9518,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_49_xcoordinate`'.format(value))
         self._data["Vertex 49 X-coordinate"] = value
 
@@ -9365,7 +9548,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_49_ycoordinate`'.format(value))
         self._data["Vertex 49 Y-coordinate"] = value
 
@@ -9395,7 +9578,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_49_zcoordinate`'.format(value))
         self._data["Vertex 49 Z-coordinate"] = value
 
@@ -9425,7 +9608,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_50_xcoordinate`'.format(value))
         self._data["Vertex 50 X-coordinate"] = value
 
@@ -9455,7 +9638,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_50_ycoordinate`'.format(value))
         self._data["Vertex 50 Y-coordinate"] = value
 
@@ -9485,7 +9668,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_50_zcoordinate`'.format(value))
         self._data["Vertex 50 Z-coordinate"] = value
 
@@ -9515,7 +9698,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_51_xcoordinate`'.format(value))
         self._data["Vertex 51 X-coordinate"] = value
 
@@ -9545,7 +9728,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_51_ycoordinate`'.format(value))
         self._data["Vertex 51 Y-coordinate"] = value
 
@@ -9575,7 +9758,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_51_zcoordinate`'.format(value))
         self._data["Vertex 51 Z-coordinate"] = value
 
@@ -9605,7 +9788,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_52_xcoordinate`'.format(value))
         self._data["Vertex 52 X-coordinate"] = value
 
@@ -9635,7 +9818,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_52_ycoordinate`'.format(value))
         self._data["Vertex 52 Y-coordinate"] = value
 
@@ -9665,7 +9848,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_52_zcoordinate`'.format(value))
         self._data["Vertex 52 Z-coordinate"] = value
 
@@ -9695,7 +9878,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_53_xcoordinate`'.format(value))
         self._data["Vertex 53 X-coordinate"] = value
 
@@ -9725,7 +9908,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_53_ycoordinate`'.format(value))
         self._data["Vertex 53 Y-coordinate"] = value
 
@@ -9755,7 +9938,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_53_zcoordinate`'.format(value))
         self._data["Vertex 53 Z-coordinate"] = value
 
@@ -9785,7 +9968,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_54_xcoordinate`'.format(value))
         self._data["Vertex 54 X-coordinate"] = value
 
@@ -9815,7 +9998,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_54_ycoordinate`'.format(value))
         self._data["Vertex 54 Y-coordinate"] = value
 
@@ -9845,7 +10028,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_54_zcoordinate`'.format(value))
         self._data["Vertex 54 Z-coordinate"] = value
 
@@ -9875,7 +10058,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_55_xcoordinate`'.format(value))
         self._data["Vertex 55 X-coordinate"] = value
 
@@ -9905,7 +10088,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_55_ycoordinate`'.format(value))
         self._data["Vertex 55 Y-coordinate"] = value
 
@@ -9935,7 +10118,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_55_zcoordinate`'.format(value))
         self._data["Vertex 55 Z-coordinate"] = value
 
@@ -9965,7 +10148,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_56_xcoordinate`'.format(value))
         self._data["Vertex 56 X-coordinate"] = value
 
@@ -9995,7 +10178,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_56_ycoordinate`'.format(value))
         self._data["Vertex 56 Y-coordinate"] = value
 
@@ -10025,7 +10208,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_56_zcoordinate`'.format(value))
         self._data["Vertex 56 Z-coordinate"] = value
 
@@ -10055,7 +10238,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_57_xcoordinate`'.format(value))
         self._data["Vertex 57 X-coordinate"] = value
 
@@ -10085,7 +10268,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_57_ycoordinate`'.format(value))
         self._data["Vertex 57 Y-coordinate"] = value
 
@@ -10115,7 +10298,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_57_zcoordinate`'.format(value))
         self._data["Vertex 57 Z-coordinate"] = value
 
@@ -10145,7 +10328,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_58_xcoordinate`'.format(value))
         self._data["Vertex 58 X-coordinate"] = value
 
@@ -10175,7 +10358,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_58_ycoordinate`'.format(value))
         self._data["Vertex 58 Y-coordinate"] = value
 
@@ -10205,7 +10388,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_58_zcoordinate`'.format(value))
         self._data["Vertex 58 Z-coordinate"] = value
 
@@ -10235,7 +10418,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_59_xcoordinate`'.format(value))
         self._data["Vertex 59 X-coordinate"] = value
 
@@ -10265,7 +10448,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_59_ycoordinate`'.format(value))
         self._data["Vertex 59 Y-coordinate"] = value
 
@@ -10295,7 +10478,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_59_zcoordinate`'.format(value))
         self._data["Vertex 59 Z-coordinate"] = value
 
@@ -10325,7 +10508,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_60_xcoordinate`'.format(value))
         self._data["Vertex 60 X-coordinate"] = value
 
@@ -10355,7 +10538,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_60_ycoordinate`'.format(value))
         self._data["Vertex 60 Y-coordinate"] = value
 
@@ -10385,7 +10568,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_60_zcoordinate`'.format(value))
         self._data["Vertex 60 Z-coordinate"] = value
 
@@ -10415,7 +10598,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_61_xcoordinate`'.format(value))
         self._data["Vertex 61 X-coordinate"] = value
 
@@ -10445,7 +10628,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_61_ycoordinate`'.format(value))
         self._data["Vertex 61 Y-coordinate"] = value
 
@@ -10475,7 +10658,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_61_zcoordinate`'.format(value))
         self._data["Vertex 61 Z-coordinate"] = value
 
@@ -10505,7 +10688,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_62_xcoordinate`'.format(value))
         self._data["Vertex 62 X-coordinate"] = value
 
@@ -10535,7 +10718,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_62_ycoordinate`'.format(value))
         self._data["Vertex 62 Y-coordinate"] = value
 
@@ -10565,7 +10748,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_62_zcoordinate`'.format(value))
         self._data["Vertex 62 Z-coordinate"] = value
 
@@ -10595,7 +10778,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_63_xcoordinate`'.format(value))
         self._data["Vertex 63 X-coordinate"] = value
 
@@ -10625,7 +10808,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_63_ycoordinate`'.format(value))
         self._data["Vertex 63 Y-coordinate"] = value
 
@@ -10655,7 +10838,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_63_zcoordinate`'.format(value))
         self._data["Vertex 63 Z-coordinate"] = value
 
@@ -10685,7 +10868,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_64_xcoordinate`'.format(value))
         self._data["Vertex 64 X-coordinate"] = value
 
@@ -10715,7 +10898,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_64_ycoordinate`'.format(value))
         self._data["Vertex 64 Y-coordinate"] = value
 
@@ -10745,7 +10928,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_64_zcoordinate`'.format(value))
         self._data["Vertex 64 Z-coordinate"] = value
 
@@ -10775,7 +10958,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_65_xcoordinate`'.format(value))
         self._data["Vertex 65 X-coordinate"] = value
 
@@ -10805,7 +10988,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_65_ycoordinate`'.format(value))
         self._data["Vertex 65 Y-coordinate"] = value
 
@@ -10835,7 +11018,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_65_zcoordinate`'.format(value))
         self._data["Vertex 65 Z-coordinate"] = value
 
@@ -10865,7 +11048,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_66_xcoordinate`'.format(value))
         self._data["Vertex 66 X-coordinate"] = value
 
@@ -10895,7 +11078,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_66_ycoordinate`'.format(value))
         self._data["Vertex 66 Y-coordinate"] = value
 
@@ -10925,7 +11108,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_66_zcoordinate`'.format(value))
         self._data["Vertex 66 Z-coordinate"] = value
 
@@ -10955,7 +11138,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_67_xcoordinate`'.format(value))
         self._data["Vertex 67 X-coordinate"] = value
 
@@ -10985,7 +11168,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_67_ycoordinate`'.format(value))
         self._data["Vertex 67 Y-coordinate"] = value
 
@@ -11015,7 +11198,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_67_zcoordinate`'.format(value))
         self._data["Vertex 67 Z-coordinate"] = value
 
@@ -11045,7 +11228,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_68_xcoordinate`'.format(value))
         self._data["Vertex 68 X-coordinate"] = value
 
@@ -11075,7 +11258,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_68_ycoordinate`'.format(value))
         self._data["Vertex 68 Y-coordinate"] = value
 
@@ -11105,7 +11288,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_68_zcoordinate`'.format(value))
         self._data["Vertex 68 Z-coordinate"] = value
 
@@ -11135,7 +11318,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_69_xcoordinate`'.format(value))
         self._data["Vertex 69 X-coordinate"] = value
 
@@ -11165,7 +11348,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_69_ycoordinate`'.format(value))
         self._data["Vertex 69 Y-coordinate"] = value
 
@@ -11195,7 +11378,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_69_zcoordinate`'.format(value))
         self._data["Vertex 69 Z-coordinate"] = value
 
@@ -11225,7 +11408,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_70_xcoordinate`'.format(value))
         self._data["Vertex 70 X-coordinate"] = value
 
@@ -11255,7 +11438,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_70_ycoordinate`'.format(value))
         self._data["Vertex 70 Y-coordinate"] = value
 
@@ -11285,7 +11468,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_70_zcoordinate`'.format(value))
         self._data["Vertex 70 Z-coordinate"] = value
 
@@ -11315,7 +11498,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_71_xcoordinate`'.format(value))
         self._data["Vertex 71 X-coordinate"] = value
 
@@ -11345,7 +11528,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_71_ycoordinate`'.format(value))
         self._data["Vertex 71 Y-coordinate"] = value
 
@@ -11375,7 +11558,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_71_zcoordinate`'.format(value))
         self._data["Vertex 71 Z-coordinate"] = value
 
@@ -11405,7 +11588,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_72_xcoordinate`'.format(value))
         self._data["Vertex 72 X-coordinate"] = value
 
@@ -11435,7 +11618,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_72_ycoordinate`'.format(value))
         self._data["Vertex 72 Y-coordinate"] = value
 
@@ -11465,7 +11648,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_72_zcoordinate`'.format(value))
         self._data["Vertex 72 Z-coordinate"] = value
 
@@ -11495,7 +11678,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_73_xcoordinate`'.format(value))
         self._data["Vertex 73 X-coordinate"] = value
 
@@ -11525,7 +11708,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_73_ycoordinate`'.format(value))
         self._data["Vertex 73 Y-coordinate"] = value
 
@@ -11555,7 +11738,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_73_zcoordinate`'.format(value))
         self._data["Vertex 73 Z-coordinate"] = value
 
@@ -11585,7 +11768,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_74_xcoordinate`'.format(value))
         self._data["Vertex 74 X-coordinate"] = value
 
@@ -11615,7 +11798,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_74_ycoordinate`'.format(value))
         self._data["Vertex 74 Y-coordinate"] = value
 
@@ -11645,7 +11828,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_74_zcoordinate`'.format(value))
         self._data["Vertex 74 Z-coordinate"] = value
 
@@ -11675,7 +11858,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_75_xcoordinate`'.format(value))
         self._data["Vertex 75 X-coordinate"] = value
 
@@ -11705,7 +11888,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_75_ycoordinate`'.format(value))
         self._data["Vertex 75 Y-coordinate"] = value
 
@@ -11735,7 +11918,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_75_zcoordinate`'.format(value))
         self._data["Vertex 75 Z-coordinate"] = value
 
@@ -11765,7 +11948,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_76_xcoordinate`'.format(value))
         self._data["Vertex 76 X-coordinate"] = value
 
@@ -11795,7 +11978,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_76_ycoordinate`'.format(value))
         self._data["Vertex 76 Y-coordinate"] = value
 
@@ -11825,7 +12008,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_76_zcoordinate`'.format(value))
         self._data["Vertex 76 Z-coordinate"] = value
 
@@ -11855,7 +12038,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_77_xcoordinate`'.format(value))
         self._data["Vertex 77 X-coordinate"] = value
 
@@ -11885,7 +12068,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_77_ycoordinate`'.format(value))
         self._data["Vertex 77 Y-coordinate"] = value
 
@@ -11915,7 +12098,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_77_zcoordinate`'.format(value))
         self._data["Vertex 77 Z-coordinate"] = value
 
@@ -11945,7 +12128,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_78_xcoordinate`'.format(value))
         self._data["Vertex 78 X-coordinate"] = value
 
@@ -11975,7 +12158,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_78_ycoordinate`'.format(value))
         self._data["Vertex 78 Y-coordinate"] = value
 
@@ -12005,7 +12188,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_78_zcoordinate`'.format(value))
         self._data["Vertex 78 Z-coordinate"] = value
 
@@ -12035,7 +12218,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_79_xcoordinate`'.format(value))
         self._data["Vertex 79 X-coordinate"] = value
 
@@ -12065,7 +12248,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_79_ycoordinate`'.format(value))
         self._data["Vertex 79 Y-coordinate"] = value
 
@@ -12095,7 +12278,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_79_zcoordinate`'.format(value))
         self._data["Vertex 79 Z-coordinate"] = value
 
@@ -12125,7 +12308,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_80_xcoordinate`'.format(value))
         self._data["Vertex 80 X-coordinate"] = value
 
@@ -12155,7 +12338,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_80_ycoordinate`'.format(value))
         self._data["Vertex 80 Y-coordinate"] = value
 
@@ -12185,7 +12368,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_80_zcoordinate`'.format(value))
         self._data["Vertex 80 Z-coordinate"] = value
 
@@ -12215,7 +12398,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_81_xcoordinate`'.format(value))
         self._data["Vertex 81 X-coordinate"] = value
 
@@ -12245,7 +12428,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_81_ycoordinate`'.format(value))
         self._data["Vertex 81 Y-coordinate"] = value
 
@@ -12275,7 +12458,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_81_zcoordinate`'.format(value))
         self._data["Vertex 81 Z-coordinate"] = value
 
@@ -12305,7 +12488,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_82_xcoordinate`'.format(value))
         self._data["Vertex 82 X-coordinate"] = value
 
@@ -12335,7 +12518,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_82_ycoordinate`'.format(value))
         self._data["Vertex 82 Y-coordinate"] = value
 
@@ -12365,7 +12548,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_82_zcoordinate`'.format(value))
         self._data["Vertex 82 Z-coordinate"] = value
 
@@ -12395,7 +12578,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_83_xcoordinate`'.format(value))
         self._data["Vertex 83 X-coordinate"] = value
 
@@ -12425,7 +12608,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_83_ycoordinate`'.format(value))
         self._data["Vertex 83 Y-coordinate"] = value
 
@@ -12455,7 +12638,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_83_zcoordinate`'.format(value))
         self._data["Vertex 83 Z-coordinate"] = value
 
@@ -12485,7 +12668,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_84_xcoordinate`'.format(value))
         self._data["Vertex 84 X-coordinate"] = value
 
@@ -12515,7 +12698,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_84_ycoordinate`'.format(value))
         self._data["Vertex 84 Y-coordinate"] = value
 
@@ -12545,7 +12728,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_84_zcoordinate`'.format(value))
         self._data["Vertex 84 Z-coordinate"] = value
 
@@ -12575,7 +12758,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_85_xcoordinate`'.format(value))
         self._data["Vertex 85 X-coordinate"] = value
 
@@ -12605,7 +12788,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_85_ycoordinate`'.format(value))
         self._data["Vertex 85 Y-coordinate"] = value
 
@@ -12635,7 +12818,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_85_zcoordinate`'.format(value))
         self._data["Vertex 85 Z-coordinate"] = value
 
@@ -12665,7 +12848,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_86_xcoordinate`'.format(value))
         self._data["Vertex 86 X-coordinate"] = value
 
@@ -12695,7 +12878,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_86_ycoordinate`'.format(value))
         self._data["Vertex 86 Y-coordinate"] = value
 
@@ -12725,7 +12908,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_86_zcoordinate`'.format(value))
         self._data["Vertex 86 Z-coordinate"] = value
 
@@ -12755,7 +12938,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_87_xcoordinate`'.format(value))
         self._data["Vertex 87 X-coordinate"] = value
 
@@ -12785,7 +12968,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_87_ycoordinate`'.format(value))
         self._data["Vertex 87 Y-coordinate"] = value
 
@@ -12815,7 +12998,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_87_zcoordinate`'.format(value))
         self._data["Vertex 87 Z-coordinate"] = value
 
@@ -12845,7 +13028,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_88_xcoordinate`'.format(value))
         self._data["Vertex 88 X-coordinate"] = value
 
@@ -12875,7 +13058,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_88_ycoordinate`'.format(value))
         self._data["Vertex 88 Y-coordinate"] = value
 
@@ -12905,7 +13088,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_88_zcoordinate`'.format(value))
         self._data["Vertex 88 Z-coordinate"] = value
 
@@ -12935,7 +13118,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_89_xcoordinate`'.format(value))
         self._data["Vertex 89 X-coordinate"] = value
 
@@ -12965,7 +13148,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_89_ycoordinate`'.format(value))
         self._data["Vertex 89 Y-coordinate"] = value
 
@@ -12995,7 +13178,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_89_zcoordinate`'.format(value))
         self._data["Vertex 89 Z-coordinate"] = value
 
@@ -13025,7 +13208,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_90_xcoordinate`'.format(value))
         self._data["Vertex 90 X-coordinate"] = value
 
@@ -13055,7 +13238,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_90_ycoordinate`'.format(value))
         self._data["Vertex 90 Y-coordinate"] = value
 
@@ -13085,7 +13268,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_90_zcoordinate`'.format(value))
         self._data["Vertex 90 Z-coordinate"] = value
 
@@ -13115,7 +13298,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_91_xcoordinate`'.format(value))
         self._data["Vertex 91 X-coordinate"] = value
 
@@ -13145,7 +13328,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_91_ycoordinate`'.format(value))
         self._data["Vertex 91 Y-coordinate"] = value
 
@@ -13175,7 +13358,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_91_zcoordinate`'.format(value))
         self._data["Vertex 91 Z-coordinate"] = value
 
@@ -13205,7 +13388,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_92_xcoordinate`'.format(value))
         self._data["Vertex 92 X-coordinate"] = value
 
@@ -13235,7 +13418,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_92_ycoordinate`'.format(value))
         self._data["Vertex 92 Y-coordinate"] = value
 
@@ -13265,7 +13448,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_92_zcoordinate`'.format(value))
         self._data["Vertex 92 Z-coordinate"] = value
 
@@ -13295,7 +13478,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_93_xcoordinate`'.format(value))
         self._data["Vertex 93 X-coordinate"] = value
 
@@ -13325,7 +13508,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_93_ycoordinate`'.format(value))
         self._data["Vertex 93 Y-coordinate"] = value
 
@@ -13355,7 +13538,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_93_zcoordinate`'.format(value))
         self._data["Vertex 93 Z-coordinate"] = value
 
@@ -13385,7 +13568,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_94_xcoordinate`'.format(value))
         self._data["Vertex 94 X-coordinate"] = value
 
@@ -13415,7 +13598,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_94_ycoordinate`'.format(value))
         self._data["Vertex 94 Y-coordinate"] = value
 
@@ -13445,7 +13628,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_94_zcoordinate`'.format(value))
         self._data["Vertex 94 Z-coordinate"] = value
 
@@ -13475,7 +13658,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_95_xcoordinate`'.format(value))
         self._data["Vertex 95 X-coordinate"] = value
 
@@ -13505,7 +13688,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_95_ycoordinate`'.format(value))
         self._data["Vertex 95 Y-coordinate"] = value
 
@@ -13535,7 +13718,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_95_zcoordinate`'.format(value))
         self._data["Vertex 95 Z-coordinate"] = value
 
@@ -13565,7 +13748,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_96_xcoordinate`'.format(value))
         self._data["Vertex 96 X-coordinate"] = value
 
@@ -13595,7 +13778,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_96_ycoordinate`'.format(value))
         self._data["Vertex 96 Y-coordinate"] = value
 
@@ -13625,7 +13808,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_96_zcoordinate`'.format(value))
         self._data["Vertex 96 Z-coordinate"] = value
 
@@ -13655,7 +13838,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_97_xcoordinate`'.format(value))
         self._data["Vertex 97 X-coordinate"] = value
 
@@ -13685,7 +13868,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_97_ycoordinate`'.format(value))
         self._data["Vertex 97 Y-coordinate"] = value
 
@@ -13715,7 +13898,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_97_zcoordinate`'.format(value))
         self._data["Vertex 97 Z-coordinate"] = value
 
@@ -13745,7 +13928,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_98_xcoordinate`'.format(value))
         self._data["Vertex 98 X-coordinate"] = value
 
@@ -13775,7 +13958,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_98_ycoordinate`'.format(value))
         self._data["Vertex 98 Y-coordinate"] = value
 
@@ -13805,7 +13988,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_98_zcoordinate`'.format(value))
         self._data["Vertex 98 Z-coordinate"] = value
 
@@ -13835,7 +14018,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_99_xcoordinate`'.format(value))
         self._data["Vertex 99 X-coordinate"] = value
 
@@ -13865,7 +14048,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_99_ycoordinate`'.format(value))
         self._data["Vertex 99 Y-coordinate"] = value
 
@@ -13895,7 +14078,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_99_zcoordinate`'.format(value))
         self._data["Vertex 99 Z-coordinate"] = value
 
@@ -13925,7 +14108,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_100_xcoordinate`'.format(value))
         self._data["Vertex 100 X-coordinate"] = value
 
@@ -13955,7 +14138,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_100_ycoordinate`'.format(value))
         self._data["Vertex 100 Y-coordinate"] = value
 
@@ -13985,7 +14168,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_100_zcoordinate`'.format(value))
         self._data["Vertex 100 Z-coordinate"] = value
 
@@ -14015,7 +14198,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_101_xcoordinate`'.format(value))
         self._data["Vertex 101 X-coordinate"] = value
 
@@ -14045,7 +14228,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_101_ycoordinate`'.format(value))
         self._data["Vertex 101 Y-coordinate"] = value
 
@@ -14075,7 +14258,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_101_zcoordinate`'.format(value))
         self._data["Vertex 101 Z-coordinate"] = value
 
@@ -14105,7 +14288,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_102_xcoordinate`'.format(value))
         self._data["Vertex 102 X-coordinate"] = value
 
@@ -14135,7 +14318,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_102_ycoordinate`'.format(value))
         self._data["Vertex 102 Y-coordinate"] = value
 
@@ -14165,7 +14348,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_102_zcoordinate`'.format(value))
         self._data["Vertex 102 Z-coordinate"] = value
 
@@ -14195,7 +14378,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_103_xcoordinate`'.format(value))
         self._data["Vertex 103 X-coordinate"] = value
 
@@ -14225,7 +14408,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_103_ycoordinate`'.format(value))
         self._data["Vertex 103 Y-coordinate"] = value
 
@@ -14255,7 +14438,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_103_zcoordinate`'.format(value))
         self._data["Vertex 103 Z-coordinate"] = value
 
@@ -14285,7 +14468,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_104_xcoordinate`'.format(value))
         self._data["Vertex 104 X-coordinate"] = value
 
@@ -14315,7 +14498,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_104_ycoordinate`'.format(value))
         self._data["Vertex 104 Y-coordinate"] = value
 
@@ -14345,7 +14528,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_104_zcoordinate`'.format(value))
         self._data["Vertex 104 Z-coordinate"] = value
 
@@ -14375,7 +14558,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_105_xcoordinate`'.format(value))
         self._data["Vertex 105 X-coordinate"] = value
 
@@ -14405,7 +14588,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_105_ycoordinate`'.format(value))
         self._data["Vertex 105 Y-coordinate"] = value
 
@@ -14435,7 +14618,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_105_zcoordinate`'.format(value))
         self._data["Vertex 105 Z-coordinate"] = value
 
@@ -14465,7 +14648,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_106_xcoordinate`'.format(value))
         self._data["Vertex 106 X-coordinate"] = value
 
@@ -14495,7 +14678,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_106_ycoordinate`'.format(value))
         self._data["Vertex 106 Y-coordinate"] = value
 
@@ -14525,7 +14708,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_106_zcoordinate`'.format(value))
         self._data["Vertex 106 Z-coordinate"] = value
 
@@ -14555,7 +14738,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_107_xcoordinate`'.format(value))
         self._data["Vertex 107 X-coordinate"] = value
 
@@ -14585,7 +14768,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_107_ycoordinate`'.format(value))
         self._data["Vertex 107 Y-coordinate"] = value
 
@@ -14615,7 +14798,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_107_zcoordinate`'.format(value))
         self._data["Vertex 107 Z-coordinate"] = value
 
@@ -14645,7 +14828,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_108_xcoordinate`'.format(value))
         self._data["Vertex 108 X-coordinate"] = value
 
@@ -14675,7 +14858,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_108_ycoordinate`'.format(value))
         self._data["Vertex 108 Y-coordinate"] = value
 
@@ -14705,7 +14888,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_108_zcoordinate`'.format(value))
         self._data["Vertex 108 Z-coordinate"] = value
 
@@ -14735,7 +14918,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_109_xcoordinate`'.format(value))
         self._data["Vertex 109 X-coordinate"] = value
 
@@ -14765,7 +14948,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_109_ycoordinate`'.format(value))
         self._data["Vertex 109 Y-coordinate"] = value
 
@@ -14795,7 +14978,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_109_zcoordinate`'.format(value))
         self._data["Vertex 109 Z-coordinate"] = value
 
@@ -14825,7 +15008,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_110_xcoordinate`'.format(value))
         self._data["Vertex 110 X-coordinate"] = value
 
@@ -14855,7 +15038,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_110_ycoordinate`'.format(value))
         self._data["Vertex 110 Y-coordinate"] = value
 
@@ -14885,7 +15068,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_110_zcoordinate`'.format(value))
         self._data["Vertex 110 Z-coordinate"] = value
 
@@ -14915,7 +15098,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_111_xcoordinate`'.format(value))
         self._data["Vertex 111 X-coordinate"] = value
 
@@ -14945,7 +15128,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_111_ycoordinate`'.format(value))
         self._data["Vertex 111 Y-coordinate"] = value
 
@@ -14975,7 +15158,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_111_zcoordinate`'.format(value))
         self._data["Vertex 111 Z-coordinate"] = value
 
@@ -15005,7 +15188,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_112_xcoordinate`'.format(value))
         self._data["Vertex 112 X-coordinate"] = value
 
@@ -15035,7 +15218,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_112_ycoordinate`'.format(value))
         self._data["Vertex 112 Y-coordinate"] = value
 
@@ -15065,7 +15248,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_112_zcoordinate`'.format(value))
         self._data["Vertex 112 Z-coordinate"] = value
 
@@ -15095,7 +15278,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_113_xcoordinate`'.format(value))
         self._data["Vertex 113 X-coordinate"] = value
 
@@ -15125,7 +15308,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_113_ycoordinate`'.format(value))
         self._data["Vertex 113 Y-coordinate"] = value
 
@@ -15155,7 +15338,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_113_zcoordinate`'.format(value))
         self._data["Vertex 113 Z-coordinate"] = value
 
@@ -15185,7 +15368,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_114_xcoordinate`'.format(value))
         self._data["Vertex 114 X-coordinate"] = value
 
@@ -15215,7 +15398,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_114_ycoordinate`'.format(value))
         self._data["Vertex 114 Y-coordinate"] = value
 
@@ -15245,7 +15428,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_114_zcoordinate`'.format(value))
         self._data["Vertex 114 Z-coordinate"] = value
 
@@ -15275,7 +15458,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_115_xcoordinate`'.format(value))
         self._data["Vertex 115 X-coordinate"] = value
 
@@ -15305,7 +15488,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_115_ycoordinate`'.format(value))
         self._data["Vertex 115 Y-coordinate"] = value
 
@@ -15335,7 +15518,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_115_zcoordinate`'.format(value))
         self._data["Vertex 115 Z-coordinate"] = value
 
@@ -15365,7 +15548,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_116_xcoordinate`'.format(value))
         self._data["Vertex 116 X-coordinate"] = value
 
@@ -15395,7 +15578,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_116_ycoordinate`'.format(value))
         self._data["Vertex 116 Y-coordinate"] = value
 
@@ -15425,7 +15608,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_116_zcoordinate`'.format(value))
         self._data["Vertex 116 Z-coordinate"] = value
 
@@ -15455,7 +15638,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_117_xcoordinate`'.format(value))
         self._data["Vertex 117 X-coordinate"] = value
 
@@ -15485,7 +15668,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_117_ycoordinate`'.format(value))
         self._data["Vertex 117 Y-coordinate"] = value
 
@@ -15515,7 +15698,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_117_zcoordinate`'.format(value))
         self._data["Vertex 117 Z-coordinate"] = value
 
@@ -15545,7 +15728,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_118_xcoordinate`'.format(value))
         self._data["Vertex 118 X-coordinate"] = value
 
@@ -15575,7 +15758,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_118_ycoordinate`'.format(value))
         self._data["Vertex 118 Y-coordinate"] = value
 
@@ -15605,7 +15788,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_118_zcoordinate`'.format(value))
         self._data["Vertex 118 Z-coordinate"] = value
 
@@ -15635,7 +15818,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_119_xcoordinate`'.format(value))
         self._data["Vertex 119 X-coordinate"] = value
 
@@ -15665,7 +15848,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_119_ycoordinate`'.format(value))
         self._data["Vertex 119 Y-coordinate"] = value
 
@@ -15695,7 +15878,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_119_zcoordinate`'.format(value))
         self._data["Vertex 119 Z-coordinate"] = value
 
@@ -15725,7 +15908,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_120_xcoordinate`'.format(value))
         self._data["Vertex 120 X-coordinate"] = value
 
@@ -15755,7 +15938,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_120_ycoordinate`'.format(value))
         self._data["Vertex 120 Y-coordinate"] = value
 
@@ -15785,7 +15968,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_120_zcoordinate`'.format(value))
         self._data["Vertex 120 Z-coordinate"] = value
 
@@ -15826,7 +16009,6 @@ class BuildingSurfaceDetailed(object):
 class WallDetailed(object):
     """ Corresponds to IDD object `Wall:Detailed`
         Allows for detailed entry of wall heat transfer surfaces.
-    
     """
     internal_name = "Wall:Detailed"
     field_count = 39
@@ -15875,15 +16057,16 @@ class WallDetailed(object):
         self._data["Vertex 10 X-coordinate"] = None
         self._data["Vertex 10 Y-coordinate"] = None
         self._data["Vertex 10 Z-coordinate"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -16158,6 +16341,7 @@ class WallDetailed(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -16184,7 +16368,7 @@ class WallDetailed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -16220,7 +16404,7 @@ class WallDetailed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `construction_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -16256,7 +16440,7 @@ class WallDetailed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `zone_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -16307,7 +16491,7 @@ class WallDetailed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `outside_boundary_condition`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -16334,16 +16518,26 @@ class WallDetailed(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `outside_boundary_condition`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `outside_boundary_condition`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Outside Boundary Condition"] = value
 
@@ -16380,7 +16574,7 @@ class WallDetailed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `outside_boundary_condition_object`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -16419,7 +16613,7 @@ class WallDetailed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `sun_exposure`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -16433,16 +16627,26 @@ class WallDetailed(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `sun_exposure`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `sun_exposure`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Sun Exposure"] = value
 
@@ -16475,7 +16679,7 @@ class WallDetailed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `wind_exposure`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -16489,16 +16693,26 @@ class WallDetailed(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `wind_exposure`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `wind_exposure`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Wind Exposure"] = value
 
@@ -16536,12 +16750,17 @@ class WallDetailed(object):
                 if value_lower == "autocalculate":
                     self._data["View Factor to Ground"] = "Autocalculate"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autocalculate" '
+                                 'for field `view_factor_to_ground`'.format(value))
+                    self._data["View Factor to Ground"] = "Autocalculate"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autocalculate"'
                                  'for field `view_factor_to_ground`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -16586,12 +16805,17 @@ class WallDetailed(object):
                 if value_lower == "autocalculate":
                     self._data["Number of Vertices"] = "Autocalculate"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autocalculate" '
+                                 'for field `number_of_vertices`'.format(value))
+                    self._data["Number of Vertices"] = "Autocalculate"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autocalculate"'
                                  'for field `number_of_vertices`'.format(value))
             if value < 3.0:
                 raise ValueError('value need to be greater or equal 3.0 '
@@ -16624,7 +16848,7 @@ class WallDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_1_xcoordinate`'.format(value))
         self._data["Vertex 1 X-coordinate"] = value
 
@@ -16654,7 +16878,7 @@ class WallDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_1_ycoordinate`'.format(value))
         self._data["Vertex 1 Y-coordinate"] = value
 
@@ -16684,7 +16908,7 @@ class WallDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_1_zcoordinate`'.format(value))
         self._data["Vertex 1 Z-coordinate"] = value
 
@@ -16714,7 +16938,7 @@ class WallDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_2_xcoordinate`'.format(value))
         self._data["Vertex 2 X-coordinate"] = value
 
@@ -16744,7 +16968,7 @@ class WallDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_2_ycoordinate`'.format(value))
         self._data["Vertex 2 Y-coordinate"] = value
 
@@ -16774,7 +16998,7 @@ class WallDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_2_zcoordinate`'.format(value))
         self._data["Vertex 2 Z-coordinate"] = value
 
@@ -16804,7 +17028,7 @@ class WallDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_3_xcoordinate`'.format(value))
         self._data["Vertex 3 X-coordinate"] = value
 
@@ -16834,7 +17058,7 @@ class WallDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_3_ycoordinate`'.format(value))
         self._data["Vertex 3 Y-coordinate"] = value
 
@@ -16864,7 +17088,7 @@ class WallDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_3_zcoordinate`'.format(value))
         self._data["Vertex 3 Z-coordinate"] = value
 
@@ -16894,7 +17118,7 @@ class WallDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_4_xcoordinate`'.format(value))
         self._data["Vertex 4 X-coordinate"] = value
 
@@ -16924,7 +17148,7 @@ class WallDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_4_ycoordinate`'.format(value))
         self._data["Vertex 4 Y-coordinate"] = value
 
@@ -16954,7 +17178,7 @@ class WallDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_4_zcoordinate`'.format(value))
         self._data["Vertex 4 Z-coordinate"] = value
 
@@ -16984,7 +17208,7 @@ class WallDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_5_xcoordinate`'.format(value))
         self._data["Vertex 5 X-coordinate"] = value
 
@@ -17014,7 +17238,7 @@ class WallDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_5_ycoordinate`'.format(value))
         self._data["Vertex 5 Y-coordinate"] = value
 
@@ -17044,7 +17268,7 @@ class WallDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_5_zcoordinate`'.format(value))
         self._data["Vertex 5 Z-coordinate"] = value
 
@@ -17074,7 +17298,7 @@ class WallDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_6_xcoordinate`'.format(value))
         self._data["Vertex 6 X-coordinate"] = value
 
@@ -17104,7 +17328,7 @@ class WallDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_6_ycoordinate`'.format(value))
         self._data["Vertex 6 Y-coordinate"] = value
 
@@ -17134,7 +17358,7 @@ class WallDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_6_zcoordinate`'.format(value))
         self._data["Vertex 6 Z-coordinate"] = value
 
@@ -17164,7 +17388,7 @@ class WallDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_7_xcoordinate`'.format(value))
         self._data["Vertex 7 X-coordinate"] = value
 
@@ -17194,7 +17418,7 @@ class WallDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_7_ycoordinate`'.format(value))
         self._data["Vertex 7 Y-coordinate"] = value
 
@@ -17224,7 +17448,7 @@ class WallDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_7_zcoordinate`'.format(value))
         self._data["Vertex 7 Z-coordinate"] = value
 
@@ -17254,7 +17478,7 @@ class WallDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_8_xcoordinate`'.format(value))
         self._data["Vertex 8 X-coordinate"] = value
 
@@ -17284,7 +17508,7 @@ class WallDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_8_ycoordinate`'.format(value))
         self._data["Vertex 8 Y-coordinate"] = value
 
@@ -17314,7 +17538,7 @@ class WallDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_8_zcoordinate`'.format(value))
         self._data["Vertex 8 Z-coordinate"] = value
 
@@ -17344,7 +17568,7 @@ class WallDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_9_xcoordinate`'.format(value))
         self._data["Vertex 9 X-coordinate"] = value
 
@@ -17374,7 +17598,7 @@ class WallDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_9_ycoordinate`'.format(value))
         self._data["Vertex 9 Y-coordinate"] = value
 
@@ -17404,7 +17628,7 @@ class WallDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_9_zcoordinate`'.format(value))
         self._data["Vertex 9 Z-coordinate"] = value
 
@@ -17434,7 +17658,7 @@ class WallDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_10_xcoordinate`'.format(value))
         self._data["Vertex 10 X-coordinate"] = value
 
@@ -17464,7 +17688,7 @@ class WallDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_10_ycoordinate`'.format(value))
         self._data["Vertex 10 Y-coordinate"] = value
 
@@ -17494,7 +17718,7 @@ class WallDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_10_zcoordinate`'.format(value))
         self._data["Vertex 10 Z-coordinate"] = value
 
@@ -17535,7 +17759,6 @@ class WallDetailed(object):
 class RoofCeilingDetailed(object):
     """ Corresponds to IDD object `RoofCeiling:Detailed`
         Allows for detailed entry of roof/ceiling heat transfer surfaces.
-    
     """
     internal_name = "RoofCeiling:Detailed"
     field_count = 39
@@ -17584,15 +17807,16 @@ class RoofCeilingDetailed(object):
         self._data["Vertex 10 X-coordinate"] = None
         self._data["Vertex 10 Y-coordinate"] = None
         self._data["Vertex 10 Z-coordinate"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -17867,6 +18091,7 @@ class RoofCeilingDetailed(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -17893,7 +18118,7 @@ class RoofCeilingDetailed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -17929,7 +18154,7 @@ class RoofCeilingDetailed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `construction_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -17965,7 +18190,7 @@ class RoofCeilingDetailed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `zone_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -18015,7 +18240,7 @@ class RoofCeilingDetailed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `outside_boundary_condition`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -18041,16 +18266,26 @@ class RoofCeilingDetailed(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `outside_boundary_condition`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `outside_boundary_condition`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Outside Boundary Condition"] = value
 
@@ -18087,7 +18322,7 @@ class RoofCeilingDetailed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `outside_boundary_condition_object`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -18126,7 +18361,7 @@ class RoofCeilingDetailed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `sun_exposure`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -18140,16 +18375,26 @@ class RoofCeilingDetailed(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `sun_exposure`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `sun_exposure`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Sun Exposure"] = value
 
@@ -18182,7 +18427,7 @@ class RoofCeilingDetailed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `wind_exposure`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -18196,16 +18441,26 @@ class RoofCeilingDetailed(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `wind_exposure`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `wind_exposure`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Wind Exposure"] = value
 
@@ -18243,12 +18498,17 @@ class RoofCeilingDetailed(object):
                 if value_lower == "autocalculate":
                     self._data["View Factor to Ground"] = "Autocalculate"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autocalculate" '
+                                 'for field `view_factor_to_ground`'.format(value))
+                    self._data["View Factor to Ground"] = "Autocalculate"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autocalculate"'
                                  'for field `view_factor_to_ground`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -18293,12 +18553,17 @@ class RoofCeilingDetailed(object):
                 if value_lower == "autocalculate":
                     self._data["Number of Vertices"] = "Autocalculate"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autocalculate" '
+                                 'for field `number_of_vertices`'.format(value))
+                    self._data["Number of Vertices"] = "Autocalculate"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autocalculate"'
                                  'for field `number_of_vertices`'.format(value))
             if value < 3.0:
                 raise ValueError('value need to be greater or equal 3.0 '
@@ -18331,7 +18596,7 @@ class RoofCeilingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_1_xcoordinate`'.format(value))
         self._data["Vertex 1 X-coordinate"] = value
 
@@ -18361,7 +18626,7 @@ class RoofCeilingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_1_ycoordinate`'.format(value))
         self._data["Vertex 1 Y-coordinate"] = value
 
@@ -18391,7 +18656,7 @@ class RoofCeilingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_1_zcoordinate`'.format(value))
         self._data["Vertex 1 Z-coordinate"] = value
 
@@ -18421,7 +18686,7 @@ class RoofCeilingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_2_xcoordinate`'.format(value))
         self._data["Vertex 2 X-coordinate"] = value
 
@@ -18451,7 +18716,7 @@ class RoofCeilingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_2_ycoordinate`'.format(value))
         self._data["Vertex 2 Y-coordinate"] = value
 
@@ -18481,7 +18746,7 @@ class RoofCeilingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_2_zcoordinate`'.format(value))
         self._data["Vertex 2 Z-coordinate"] = value
 
@@ -18511,7 +18776,7 @@ class RoofCeilingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_3_xcoordinate`'.format(value))
         self._data["Vertex 3 X-coordinate"] = value
 
@@ -18541,7 +18806,7 @@ class RoofCeilingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_3_ycoordinate`'.format(value))
         self._data["Vertex 3 Y-coordinate"] = value
 
@@ -18571,7 +18836,7 @@ class RoofCeilingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_3_zcoordinate`'.format(value))
         self._data["Vertex 3 Z-coordinate"] = value
 
@@ -18601,7 +18866,7 @@ class RoofCeilingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_4_xcoordinate`'.format(value))
         self._data["Vertex 4 X-coordinate"] = value
 
@@ -18631,7 +18896,7 @@ class RoofCeilingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_4_ycoordinate`'.format(value))
         self._data["Vertex 4 Y-coordinate"] = value
 
@@ -18661,7 +18926,7 @@ class RoofCeilingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_4_zcoordinate`'.format(value))
         self._data["Vertex 4 Z-coordinate"] = value
 
@@ -18691,7 +18956,7 @@ class RoofCeilingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_5_xcoordinate`'.format(value))
         self._data["Vertex 5 X-coordinate"] = value
 
@@ -18721,7 +18986,7 @@ class RoofCeilingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_5_ycoordinate`'.format(value))
         self._data["Vertex 5 Y-coordinate"] = value
 
@@ -18751,7 +19016,7 @@ class RoofCeilingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_5_zcoordinate`'.format(value))
         self._data["Vertex 5 Z-coordinate"] = value
 
@@ -18781,7 +19046,7 @@ class RoofCeilingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_6_xcoordinate`'.format(value))
         self._data["Vertex 6 X-coordinate"] = value
 
@@ -18811,7 +19076,7 @@ class RoofCeilingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_6_ycoordinate`'.format(value))
         self._data["Vertex 6 Y-coordinate"] = value
 
@@ -18841,7 +19106,7 @@ class RoofCeilingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_6_zcoordinate`'.format(value))
         self._data["Vertex 6 Z-coordinate"] = value
 
@@ -18871,7 +19136,7 @@ class RoofCeilingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_7_xcoordinate`'.format(value))
         self._data["Vertex 7 X-coordinate"] = value
 
@@ -18901,7 +19166,7 @@ class RoofCeilingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_7_ycoordinate`'.format(value))
         self._data["Vertex 7 Y-coordinate"] = value
 
@@ -18931,7 +19196,7 @@ class RoofCeilingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_7_zcoordinate`'.format(value))
         self._data["Vertex 7 Z-coordinate"] = value
 
@@ -18961,7 +19226,7 @@ class RoofCeilingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_8_xcoordinate`'.format(value))
         self._data["Vertex 8 X-coordinate"] = value
 
@@ -18991,7 +19256,7 @@ class RoofCeilingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_8_ycoordinate`'.format(value))
         self._data["Vertex 8 Y-coordinate"] = value
 
@@ -19021,7 +19286,7 @@ class RoofCeilingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_8_zcoordinate`'.format(value))
         self._data["Vertex 8 Z-coordinate"] = value
 
@@ -19051,7 +19316,7 @@ class RoofCeilingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_9_xcoordinate`'.format(value))
         self._data["Vertex 9 X-coordinate"] = value
 
@@ -19081,7 +19346,7 @@ class RoofCeilingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_9_ycoordinate`'.format(value))
         self._data["Vertex 9 Y-coordinate"] = value
 
@@ -19111,7 +19376,7 @@ class RoofCeilingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_9_zcoordinate`'.format(value))
         self._data["Vertex 9 Z-coordinate"] = value
 
@@ -19141,7 +19406,7 @@ class RoofCeilingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_10_xcoordinate`'.format(value))
         self._data["Vertex 10 X-coordinate"] = value
 
@@ -19171,7 +19436,7 @@ class RoofCeilingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_10_ycoordinate`'.format(value))
         self._data["Vertex 10 Y-coordinate"] = value
 
@@ -19201,7 +19466,7 @@ class RoofCeilingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_10_zcoordinate`'.format(value))
         self._data["Vertex 10 Z-coordinate"] = value
 
@@ -19242,7 +19507,6 @@ class RoofCeilingDetailed(object):
 class FloorDetailed(object):
     """ Corresponds to IDD object `Floor:Detailed`
         Allows for detailed entry of floor heat transfer surfaces.
-    
     """
     internal_name = "Floor:Detailed"
     field_count = 39
@@ -19291,15 +19555,16 @@ class FloorDetailed(object):
         self._data["Vertex 10 X-coordinate"] = None
         self._data["Vertex 10 Y-coordinate"] = None
         self._data["Vertex 10 Z-coordinate"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -19574,6 +19839,7 @@ class FloorDetailed(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -19600,7 +19866,7 @@ class FloorDetailed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -19636,7 +19902,7 @@ class FloorDetailed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `construction_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -19672,7 +19938,7 @@ class FloorDetailed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `zone_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -19723,7 +19989,7 @@ class FloorDetailed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `outside_boundary_condition`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -19750,16 +20016,26 @@ class FloorDetailed(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `outside_boundary_condition`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `outside_boundary_condition`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Outside Boundary Condition"] = value
 
@@ -19796,7 +20072,7 @@ class FloorDetailed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `outside_boundary_condition_object`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -19835,7 +20111,7 @@ class FloorDetailed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `sun_exposure`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -19849,16 +20125,26 @@ class FloorDetailed(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `sun_exposure`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `sun_exposure`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Sun Exposure"] = value
 
@@ -19891,7 +20177,7 @@ class FloorDetailed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `wind_exposure`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -19905,16 +20191,26 @@ class FloorDetailed(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `wind_exposure`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `wind_exposure`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Wind Exposure"] = value
 
@@ -19952,12 +20248,17 @@ class FloorDetailed(object):
                 if value_lower == "autocalculate":
                     self._data["View Factor to Ground"] = "Autocalculate"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autocalculate" '
+                                 'for field `view_factor_to_ground`'.format(value))
+                    self._data["View Factor to Ground"] = "Autocalculate"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autocalculate"'
                                  'for field `view_factor_to_ground`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -20002,12 +20303,17 @@ class FloorDetailed(object):
                 if value_lower == "autocalculate":
                     self._data["Number of Vertices"] = "Autocalculate"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autocalculate" '
+                                 'for field `number_of_vertices`'.format(value))
+                    self._data["Number of Vertices"] = "Autocalculate"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autocalculate"'
                                  'for field `number_of_vertices`'.format(value))
             if value < 3.0:
                 raise ValueError('value need to be greater or equal 3.0 '
@@ -20040,7 +20346,7 @@ class FloorDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_1_xcoordinate`'.format(value))
         self._data["Vertex 1 X-coordinate"] = value
 
@@ -20070,7 +20376,7 @@ class FloorDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_1_ycoordinate`'.format(value))
         self._data["Vertex 1 Y-coordinate"] = value
 
@@ -20100,7 +20406,7 @@ class FloorDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_1_zcoordinate`'.format(value))
         self._data["Vertex 1 Z-coordinate"] = value
 
@@ -20130,7 +20436,7 @@ class FloorDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_2_xcoordinate`'.format(value))
         self._data["Vertex 2 X-coordinate"] = value
 
@@ -20160,7 +20466,7 @@ class FloorDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_2_ycoordinate`'.format(value))
         self._data["Vertex 2 Y-coordinate"] = value
 
@@ -20190,7 +20496,7 @@ class FloorDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_2_zcoordinate`'.format(value))
         self._data["Vertex 2 Z-coordinate"] = value
 
@@ -20220,7 +20526,7 @@ class FloorDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_3_xcoordinate`'.format(value))
         self._data["Vertex 3 X-coordinate"] = value
 
@@ -20250,7 +20556,7 @@ class FloorDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_3_ycoordinate`'.format(value))
         self._data["Vertex 3 Y-coordinate"] = value
 
@@ -20280,7 +20586,7 @@ class FloorDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_3_zcoordinate`'.format(value))
         self._data["Vertex 3 Z-coordinate"] = value
 
@@ -20310,7 +20616,7 @@ class FloorDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_4_xcoordinate`'.format(value))
         self._data["Vertex 4 X-coordinate"] = value
 
@@ -20340,7 +20646,7 @@ class FloorDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_4_ycoordinate`'.format(value))
         self._data["Vertex 4 Y-coordinate"] = value
 
@@ -20370,7 +20676,7 @@ class FloorDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_4_zcoordinate`'.format(value))
         self._data["Vertex 4 Z-coordinate"] = value
 
@@ -20400,7 +20706,7 @@ class FloorDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_5_xcoordinate`'.format(value))
         self._data["Vertex 5 X-coordinate"] = value
 
@@ -20430,7 +20736,7 @@ class FloorDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_5_ycoordinate`'.format(value))
         self._data["Vertex 5 Y-coordinate"] = value
 
@@ -20460,7 +20766,7 @@ class FloorDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_5_zcoordinate`'.format(value))
         self._data["Vertex 5 Z-coordinate"] = value
 
@@ -20490,7 +20796,7 @@ class FloorDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_6_xcoordinate`'.format(value))
         self._data["Vertex 6 X-coordinate"] = value
 
@@ -20520,7 +20826,7 @@ class FloorDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_6_ycoordinate`'.format(value))
         self._data["Vertex 6 Y-coordinate"] = value
 
@@ -20550,7 +20856,7 @@ class FloorDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_6_zcoordinate`'.format(value))
         self._data["Vertex 6 Z-coordinate"] = value
 
@@ -20580,7 +20886,7 @@ class FloorDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_7_xcoordinate`'.format(value))
         self._data["Vertex 7 X-coordinate"] = value
 
@@ -20610,7 +20916,7 @@ class FloorDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_7_ycoordinate`'.format(value))
         self._data["Vertex 7 Y-coordinate"] = value
 
@@ -20640,7 +20946,7 @@ class FloorDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_7_zcoordinate`'.format(value))
         self._data["Vertex 7 Z-coordinate"] = value
 
@@ -20670,7 +20976,7 @@ class FloorDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_8_xcoordinate`'.format(value))
         self._data["Vertex 8 X-coordinate"] = value
 
@@ -20700,7 +21006,7 @@ class FloorDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_8_ycoordinate`'.format(value))
         self._data["Vertex 8 Y-coordinate"] = value
 
@@ -20730,7 +21036,7 @@ class FloorDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_8_zcoordinate`'.format(value))
         self._data["Vertex 8 Z-coordinate"] = value
 
@@ -20760,7 +21066,7 @@ class FloorDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_9_xcoordinate`'.format(value))
         self._data["Vertex 9 X-coordinate"] = value
 
@@ -20790,7 +21096,7 @@ class FloorDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_9_ycoordinate`'.format(value))
         self._data["Vertex 9 Y-coordinate"] = value
 
@@ -20820,7 +21126,7 @@ class FloorDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_9_zcoordinate`'.format(value))
         self._data["Vertex 9 Z-coordinate"] = value
 
@@ -20850,7 +21156,7 @@ class FloorDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_10_xcoordinate`'.format(value))
         self._data["Vertex 10 X-coordinate"] = value
 
@@ -20880,7 +21186,7 @@ class FloorDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_10_ycoordinate`'.format(value))
         self._data["Vertex 10 Y-coordinate"] = value
 
@@ -20910,7 +21216,7 @@ class FloorDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_10_zcoordinate`'.format(value))
         self._data["Vertex 10 Z-coordinate"] = value
 
@@ -20952,7 +21258,6 @@ class WallExterior(object):
     """ Corresponds to IDD object `Wall:Exterior`
         Allows for simplified entry of exterior walls.
         View Factor to Ground is automatically calculated.
-    
     """
     internal_name = "Wall:Exterior"
     field_count = 10
@@ -20972,15 +21277,16 @@ class WallExterior(object):
         self._data["Starting Z Coordinate"] = None
         self._data["Length"] = None
         self._data["Height"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -21052,6 +21358,7 @@ class WallExterior(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -21078,7 +21385,7 @@ class WallExterior(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -21114,7 +21421,7 @@ class WallExterior(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `construction_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -21150,7 +21457,7 @@ class WallExterior(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `zone_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -21189,7 +21496,7 @@ class WallExterior(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `azimuth_angle`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -21229,7 +21536,7 @@ class WallExterior(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `tilt_angle`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -21266,7 +21573,7 @@ class WallExterior(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `starting_x_coordinate`'.format(value))
         self._data["Starting X Coordinate"] = value
 
@@ -21296,7 +21603,7 @@ class WallExterior(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `starting_y_coordinate`'.format(value))
         self._data["Starting Y Coordinate"] = value
 
@@ -21326,7 +21633,7 @@ class WallExterior(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `starting_z_coordinate`'.format(value))
         self._data["Starting Z Coordinate"] = value
 
@@ -21356,7 +21663,7 @@ class WallExterior(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `length`'.format(value))
         self._data["Length"] = value
 
@@ -21386,7 +21693,7 @@ class WallExterior(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `height`'.format(value))
         self._data["Height"] = value
 
@@ -21427,7 +21734,6 @@ class WallExterior(object):
 class WallAdiabatic(object):
     """ Corresponds to IDD object `Wall:Adiabatic`
         Allows for simplified entry of interior walls.
-    
     """
     internal_name = "Wall:Adiabatic"
     field_count = 10
@@ -21447,15 +21753,16 @@ class WallAdiabatic(object):
         self._data["Starting Z Coordinate"] = None
         self._data["Length"] = None
         self._data["Height"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -21527,6 +21834,7 @@ class WallAdiabatic(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -21553,7 +21861,7 @@ class WallAdiabatic(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -21589,7 +21897,7 @@ class WallAdiabatic(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `construction_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -21625,7 +21933,7 @@ class WallAdiabatic(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `zone_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -21664,7 +21972,7 @@ class WallAdiabatic(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `azimuth_angle`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -21704,7 +22012,7 @@ class WallAdiabatic(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `tilt_angle`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -21741,7 +22049,7 @@ class WallAdiabatic(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `starting_x_coordinate`'.format(value))
         self._data["Starting X Coordinate"] = value
 
@@ -21771,7 +22079,7 @@ class WallAdiabatic(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `starting_y_coordinate`'.format(value))
         self._data["Starting Y Coordinate"] = value
 
@@ -21801,7 +22109,7 @@ class WallAdiabatic(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `starting_z_coordinate`'.format(value))
         self._data["Starting Z Coordinate"] = value
 
@@ -21831,7 +22139,7 @@ class WallAdiabatic(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `length`'.format(value))
         self._data["Length"] = value
 
@@ -21861,7 +22169,7 @@ class WallAdiabatic(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `height`'.format(value))
         self._data["Height"] = value
 
@@ -21902,7 +22210,6 @@ class WallAdiabatic(object):
 class WallUnderground(object):
     """ Corresponds to IDD object `Wall:Underground`
         Allows for simplified entry of underground walls.
-    
     """
     internal_name = "Wall:Underground"
     field_count = 10
@@ -21922,15 +22229,16 @@ class WallUnderground(object):
         self._data["Starting Z Coordinate"] = None
         self._data["Length"] = None
         self._data["Height"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -22002,6 +22310,7 @@ class WallUnderground(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -22028,7 +22337,7 @@ class WallUnderground(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -22066,7 +22375,7 @@ class WallUnderground(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `construction_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -22102,7 +22411,7 @@ class WallUnderground(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `zone_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -22141,7 +22450,7 @@ class WallUnderground(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `azimuth_angle`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -22181,7 +22490,7 @@ class WallUnderground(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `tilt_angle`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -22218,7 +22527,7 @@ class WallUnderground(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `starting_x_coordinate`'.format(value))
         self._data["Starting X Coordinate"] = value
 
@@ -22248,7 +22557,7 @@ class WallUnderground(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `starting_y_coordinate`'.format(value))
         self._data["Starting Y Coordinate"] = value
 
@@ -22278,7 +22587,7 @@ class WallUnderground(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `starting_z_coordinate`'.format(value))
         self._data["Starting Z Coordinate"] = value
 
@@ -22308,7 +22617,7 @@ class WallUnderground(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `length`'.format(value))
         self._data["Length"] = value
 
@@ -22338,7 +22647,7 @@ class WallUnderground(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `height`'.format(value))
         self._data["Height"] = value
 
@@ -22379,7 +22688,6 @@ class WallUnderground(object):
 class WallInterzone(object):
     """ Corresponds to IDD object `Wall:Interzone`
         Allows for simplified entry of interzone walls (walls between zones).
-    
     """
     internal_name = "Wall:Interzone"
     field_count = 11
@@ -22400,15 +22708,16 @@ class WallInterzone(object):
         self._data["Starting Z Coordinate"] = None
         self._data["Length"] = None
         self._data["Height"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -22487,6 +22796,7 @@ class WallInterzone(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -22513,7 +22823,7 @@ class WallInterzone(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -22549,7 +22859,7 @@ class WallInterzone(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `construction_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -22585,7 +22895,7 @@ class WallInterzone(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `zone_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -22623,7 +22933,7 @@ class WallInterzone(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `outside_boundary_condition_object`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -22662,7 +22972,7 @@ class WallInterzone(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `azimuth_angle`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -22702,7 +23012,7 @@ class WallInterzone(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `tilt_angle`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -22739,7 +23049,7 @@ class WallInterzone(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `starting_x_coordinate`'.format(value))
         self._data["Starting X Coordinate"] = value
 
@@ -22769,7 +23079,7 @@ class WallInterzone(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `starting_y_coordinate`'.format(value))
         self._data["Starting Y Coordinate"] = value
 
@@ -22799,7 +23109,7 @@ class WallInterzone(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `starting_z_coordinate`'.format(value))
         self._data["Starting Z Coordinate"] = value
 
@@ -22829,7 +23139,7 @@ class WallInterzone(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `length`'.format(value))
         self._data["Length"] = value
 
@@ -22859,7 +23169,7 @@ class WallInterzone(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `height`'.format(value))
         self._data["Height"] = value
 
@@ -22901,7 +23211,6 @@ class Roof(object):
     """ Corresponds to IDD object `Roof`
         Allows for simplified entry of roofs (exterior).
         View Factor to Ground is automatically calculated.
-    
     """
     internal_name = "Roof"
     field_count = 10
@@ -22921,15 +23230,16 @@ class Roof(object):
         self._data["Starting Z Coordinate"] = None
         self._data["Length"] = None
         self._data["Width"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -23001,6 +23311,7 @@ class Roof(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -23027,7 +23338,7 @@ class Roof(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -23063,7 +23374,7 @@ class Roof(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `construction_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -23099,7 +23410,7 @@ class Roof(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `zone_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -23138,7 +23449,7 @@ class Roof(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `azimuth_angle`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -23178,7 +23489,7 @@ class Roof(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `tilt_angle`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -23215,7 +23526,7 @@ class Roof(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `starting_x_coordinate`'.format(value))
         self._data["Starting X Coordinate"] = value
 
@@ -23245,7 +23556,7 @@ class Roof(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `starting_y_coordinate`'.format(value))
         self._data["Starting Y Coordinate"] = value
 
@@ -23275,7 +23586,7 @@ class Roof(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `starting_z_coordinate`'.format(value))
         self._data["Starting Z Coordinate"] = value
 
@@ -23306,7 +23617,7 @@ class Roof(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `length`'.format(value))
         self._data["Length"] = value
 
@@ -23337,7 +23648,7 @@ class Roof(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `width`'.format(value))
         self._data["Width"] = value
 
@@ -23378,7 +23689,6 @@ class Roof(object):
 class CeilingAdiabatic(object):
     """ Corresponds to IDD object `Ceiling:Adiabatic`
         Allows for simplified entry of interior ceilings.
-    
     """
     internal_name = "Ceiling:Adiabatic"
     field_count = 10
@@ -23398,15 +23708,16 @@ class CeilingAdiabatic(object):
         self._data["Starting Z Coordinate"] = None
         self._data["Length"] = None
         self._data["Width"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -23478,6 +23789,7 @@ class CeilingAdiabatic(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -23504,7 +23816,7 @@ class CeilingAdiabatic(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -23540,7 +23852,7 @@ class CeilingAdiabatic(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `construction_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -23576,7 +23888,7 @@ class CeilingAdiabatic(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `zone_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -23615,7 +23927,7 @@ class CeilingAdiabatic(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `azimuth_angle`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -23655,7 +23967,7 @@ class CeilingAdiabatic(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `tilt_angle`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -23692,7 +24004,7 @@ class CeilingAdiabatic(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `starting_x_coordinate`'.format(value))
         self._data["Starting X Coordinate"] = value
 
@@ -23722,7 +24034,7 @@ class CeilingAdiabatic(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `starting_y_coordinate`'.format(value))
         self._data["Starting Y Coordinate"] = value
 
@@ -23752,7 +24064,7 @@ class CeilingAdiabatic(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `starting_z_coordinate`'.format(value))
         self._data["Starting Z Coordinate"] = value
 
@@ -23783,7 +24095,7 @@ class CeilingAdiabatic(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `length`'.format(value))
         self._data["Length"] = value
 
@@ -23814,7 +24126,7 @@ class CeilingAdiabatic(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `width`'.format(value))
         self._data["Width"] = value
 
@@ -23856,7 +24168,6 @@ class CeilingInterzone(object):
     """ Corresponds to IDD object `Ceiling:Interzone`
         Allows for simplified entry of ceilings using adjacent zone
         (interzone) heat transfer - adjacent surface should be a floor
-    
     """
     internal_name = "Ceiling:Interzone"
     field_count = 11
@@ -23877,15 +24188,16 @@ class CeilingInterzone(object):
         self._data["Starting Z Coordinate"] = None
         self._data["Length"] = None
         self._data["Width"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -23964,6 +24276,7 @@ class CeilingInterzone(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -23990,7 +24303,7 @@ class CeilingInterzone(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -24026,7 +24339,7 @@ class CeilingInterzone(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `construction_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -24062,7 +24375,7 @@ class CeilingInterzone(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `zone_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -24100,7 +24413,7 @@ class CeilingInterzone(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `outside_boundary_condition_object`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -24139,7 +24452,7 @@ class CeilingInterzone(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `azimuth_angle`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -24179,7 +24492,7 @@ class CeilingInterzone(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `tilt_angle`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -24216,7 +24529,7 @@ class CeilingInterzone(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `starting_x_coordinate`'.format(value))
         self._data["Starting X Coordinate"] = value
 
@@ -24246,7 +24559,7 @@ class CeilingInterzone(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `starting_y_coordinate`'.format(value))
         self._data["Starting Y Coordinate"] = value
 
@@ -24276,7 +24589,7 @@ class CeilingInterzone(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `starting_z_coordinate`'.format(value))
         self._data["Starting Z Coordinate"] = value
 
@@ -24307,7 +24620,7 @@ class CeilingInterzone(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `length`'.format(value))
         self._data["Length"] = value
 
@@ -24338,7 +24651,7 @@ class CeilingInterzone(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `width`'.format(value))
         self._data["Width"] = value
 
@@ -24380,7 +24693,6 @@ class FloorGroundContact(object):
     """ Corresponds to IDD object `Floor:GroundContact`
         Allows for simplified entry of exterior floors with ground contact.
         View Factors to Ground is automatically calculated.
-    
     """
     internal_name = "Floor:GroundContact"
     field_count = 10
@@ -24400,15 +24712,16 @@ class FloorGroundContact(object):
         self._data["Starting Z Coordinate"] = None
         self._data["Length"] = None
         self._data["Width"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -24480,6 +24793,7 @@ class FloorGroundContact(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -24506,7 +24820,7 @@ class FloorGroundContact(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -24544,7 +24858,7 @@ class FloorGroundContact(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `construction_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -24580,7 +24894,7 @@ class FloorGroundContact(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `zone_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -24618,7 +24932,7 @@ class FloorGroundContact(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `azimuth_angle`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -24658,7 +24972,7 @@ class FloorGroundContact(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `tilt_angle`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -24695,7 +25009,7 @@ class FloorGroundContact(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `starting_x_coordinate`'.format(value))
         self._data["Starting X Coordinate"] = value
 
@@ -24725,7 +25039,7 @@ class FloorGroundContact(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `starting_y_coordinate`'.format(value))
         self._data["Starting Y Coordinate"] = value
 
@@ -24755,7 +25069,7 @@ class FloorGroundContact(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `starting_z_coordinate`'.format(value))
         self._data["Starting Z Coordinate"] = value
 
@@ -24786,7 +25100,7 @@ class FloorGroundContact(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `length`'.format(value))
         self._data["Length"] = value
 
@@ -24817,7 +25131,7 @@ class FloorGroundContact(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `width`'.format(value))
         self._data["Width"] = value
 
@@ -24860,7 +25174,6 @@ class FloorAdiabatic(object):
         Allows for simplified entry of exterior floors
         ignoring ground contact or interior floors.
         View Factor to Ground is automatically calculated.
-    
     """
     internal_name = "Floor:Adiabatic"
     field_count = 10
@@ -24880,15 +25193,16 @@ class FloorAdiabatic(object):
         self._data["Starting Z Coordinate"] = None
         self._data["Length"] = None
         self._data["Width"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -24960,6 +25274,7 @@ class FloorAdiabatic(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -24986,7 +25301,7 @@ class FloorAdiabatic(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -25022,7 +25337,7 @@ class FloorAdiabatic(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `construction_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -25058,7 +25373,7 @@ class FloorAdiabatic(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `zone_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -25096,7 +25411,7 @@ class FloorAdiabatic(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `azimuth_angle`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -25136,7 +25451,7 @@ class FloorAdiabatic(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `tilt_angle`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -25173,7 +25488,7 @@ class FloorAdiabatic(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `starting_x_coordinate`'.format(value))
         self._data["Starting X Coordinate"] = value
 
@@ -25203,7 +25518,7 @@ class FloorAdiabatic(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `starting_y_coordinate`'.format(value))
         self._data["Starting Y Coordinate"] = value
 
@@ -25233,7 +25548,7 @@ class FloorAdiabatic(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `starting_z_coordinate`'.format(value))
         self._data["Starting Z Coordinate"] = value
 
@@ -25264,7 +25579,7 @@ class FloorAdiabatic(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `length`'.format(value))
         self._data["Length"] = value
 
@@ -25295,7 +25610,7 @@ class FloorAdiabatic(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `width`'.format(value))
         self._data["Width"] = value
 
@@ -25337,7 +25652,6 @@ class FloorInterzone(object):
     """ Corresponds to IDD object `Floor:Interzone`
         Allows for simplified entry of floors using adjacent zone
         (interzone) heat transfer - adjacent surface should be a ceiling.
-    
     """
     internal_name = "Floor:Interzone"
     field_count = 11
@@ -25358,15 +25672,16 @@ class FloorInterzone(object):
         self._data["Starting Z Coordinate"] = None
         self._data["Length"] = None
         self._data["Width"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -25445,6 +25760,7 @@ class FloorInterzone(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -25471,7 +25787,7 @@ class FloorInterzone(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -25507,7 +25823,7 @@ class FloorInterzone(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `construction_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -25543,7 +25859,7 @@ class FloorInterzone(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `zone_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -25581,7 +25897,7 @@ class FloorInterzone(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `outside_boundary_condition_object`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -25619,7 +25935,7 @@ class FloorInterzone(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `azimuth_angle`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -25659,7 +25975,7 @@ class FloorInterzone(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `tilt_angle`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -25696,7 +26012,7 @@ class FloorInterzone(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `starting_x_coordinate`'.format(value))
         self._data["Starting X Coordinate"] = value
 
@@ -25726,7 +26042,7 @@ class FloorInterzone(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `starting_y_coordinate`'.format(value))
         self._data["Starting Y Coordinate"] = value
 
@@ -25756,7 +26072,7 @@ class FloorInterzone(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `starting_z_coordinate`'.format(value))
         self._data["Starting Z Coordinate"] = value
 
@@ -25787,7 +26103,7 @@ class FloorInterzone(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `length`'.format(value))
         self._data["Length"] = value
 
@@ -25818,7 +26134,7 @@ class FloorInterzone(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `width`'.format(value))
         self._data["Width"] = value
 
@@ -25860,7 +26176,6 @@ class FenestrationSurfaceDetailed(object):
     """ Corresponds to IDD object `FenestrationSurface:Detailed`
         Allows for detailed entry of subsurfaces
         (windows, doors, glass doors, tubular daylighting devices).
-    
     """
     internal_name = "FenestrationSurface:Detailed"
     field_count = 22
@@ -25892,15 +26207,16 @@ class FenestrationSurfaceDetailed(object):
         self._data["Vertex 4 X-coordinate"] = None
         self._data["Vertex 4 Y-coordinate"] = None
         self._data["Vertex 4 Z-coordinate"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -26056,6 +26372,7 @@ class FenestrationSurfaceDetailed(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -26082,7 +26399,7 @@ class FenestrationSurfaceDetailed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -26123,7 +26440,7 @@ class FenestrationSurfaceDetailed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -26140,16 +26457,26 @@ class FenestrationSurfaceDetailed(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `surface_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `surface_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Surface Type"] = value
 
@@ -26179,7 +26506,7 @@ class FenestrationSurfaceDetailed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `construction_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -26214,7 +26541,7 @@ class FenestrationSurfaceDetailed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `building_surface_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -26255,7 +26582,7 @@ class FenestrationSurfaceDetailed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `outside_boundary_condition_object`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -26299,12 +26626,17 @@ class FenestrationSurfaceDetailed(object):
                 if value_lower == "autocalculate":
                     self._data["View Factor to Ground"] = "Autocalculate"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autocalculate" '
+                                 'for field `view_factor_to_ground`'.format(value))
+                    self._data["View Factor to Ground"] = "Autocalculate"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autocalculate"'
                                  'for field `view_factor_to_ground`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -26342,7 +26674,7 @@ class FenestrationSurfaceDetailed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `shading_control_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -26382,7 +26714,7 @@ class FenestrationSurfaceDetailed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `frame_and_divider_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -26421,7 +26753,7 @@ class FenestrationSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `multiplier`'.format(value))
             if value < 1.0:
                 raise ValueError('value need to be greater or equal 1.0 '
@@ -26461,12 +26793,17 @@ class FenestrationSurfaceDetailed(object):
                 if value_lower == "autocalculate":
                     self._data["Number of Vertices"] = "Autocalculate"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autocalculate" '
+                                 'for field `number_of_vertices`'.format(value))
+                    self._data["Number of Vertices"] = "Autocalculate"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autocalculate"'
                                  'for field `number_of_vertices`'.format(value))
             if value < 3.0:
                 raise ValueError('value need to be greater or equal 3.0 '
@@ -26502,7 +26839,7 @@ class FenestrationSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_1_xcoordinate`'.format(value))
         self._data["Vertex 1 X-coordinate"] = value
 
@@ -26532,7 +26869,7 @@ class FenestrationSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_1_ycoordinate`'.format(value))
         self._data["Vertex 1 Y-coordinate"] = value
 
@@ -26562,7 +26899,7 @@ class FenestrationSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_1_zcoordinate`'.format(value))
         self._data["Vertex 1 Z-coordinate"] = value
 
@@ -26592,7 +26929,7 @@ class FenestrationSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_2_xcoordinate`'.format(value))
         self._data["Vertex 2 X-coordinate"] = value
 
@@ -26622,7 +26959,7 @@ class FenestrationSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_2_ycoordinate`'.format(value))
         self._data["Vertex 2 Y-coordinate"] = value
 
@@ -26652,7 +26989,7 @@ class FenestrationSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_2_zcoordinate`'.format(value))
         self._data["Vertex 2 Z-coordinate"] = value
 
@@ -26682,7 +27019,7 @@ class FenestrationSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_3_xcoordinate`'.format(value))
         self._data["Vertex 3 X-coordinate"] = value
 
@@ -26712,7 +27049,7 @@ class FenestrationSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_3_ycoordinate`'.format(value))
         self._data["Vertex 3 Y-coordinate"] = value
 
@@ -26742,7 +27079,7 @@ class FenestrationSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_3_zcoordinate`'.format(value))
         self._data["Vertex 3 Z-coordinate"] = value
 
@@ -26773,7 +27110,7 @@ class FenestrationSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_4_xcoordinate`'.format(value))
         self._data["Vertex 4 X-coordinate"] = value
 
@@ -26804,7 +27141,7 @@ class FenestrationSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_4_ycoordinate`'.format(value))
         self._data["Vertex 4 Y-coordinate"] = value
 
@@ -26835,7 +27172,7 @@ class FenestrationSurfaceDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_4_zcoordinate`'.format(value))
         self._data["Vertex 4 Z-coordinate"] = value
 
@@ -26876,7 +27213,6 @@ class FenestrationSurfaceDetailed(object):
 class Window(object):
     """ Corresponds to IDD object `Window`
         Allows for simplified entry of Windows.
-    
     """
     internal_name = "Window"
     field_count = 10
@@ -26896,15 +27232,16 @@ class Window(object):
         self._data["Starting Z Coordinate"] = None
         self._data["Length"] = None
         self._data["Height"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -26976,6 +27313,7 @@ class Window(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -27002,7 +27340,7 @@ class Window(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -27038,7 +27376,7 @@ class Window(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `construction_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -27075,7 +27413,7 @@ class Window(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `building_surface_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -27113,7 +27451,7 @@ class Window(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `shading_control_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -27153,7 +27491,7 @@ class Window(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `frame_and_divider_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -27192,7 +27530,7 @@ class Window(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `multiplier`'.format(value))
             if value < 1.0:
                 raise ValueError('value need to be greater or equal 1.0 '
@@ -27226,7 +27564,7 @@ class Window(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `starting_x_coordinate`'.format(value))
         self._data["Starting X Coordinate"] = value
 
@@ -27257,7 +27595,7 @@ class Window(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `starting_z_coordinate`'.format(value))
         self._data["Starting Z Coordinate"] = value
 
@@ -27287,7 +27625,7 @@ class Window(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `length`'.format(value))
         self._data["Length"] = value
 
@@ -27317,7 +27655,7 @@ class Window(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `height`'.format(value))
         self._data["Height"] = value
 
@@ -27358,7 +27696,6 @@ class Window(object):
 class Door(object):
     """ Corresponds to IDD object `Door`
         Allows for simplified entry of opaque Doors.
-    
     """
     internal_name = "Door"
     field_count = 8
@@ -27376,15 +27713,16 @@ class Door(object):
         self._data["Starting Z Coordinate"] = None
         self._data["Length"] = None
         self._data["Height"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -27442,6 +27780,7 @@ class Door(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -27468,7 +27807,7 @@ class Door(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -27504,7 +27843,7 @@ class Door(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `construction_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -27541,7 +27880,7 @@ class Door(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `building_surface_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -27580,7 +27919,7 @@ class Door(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `multiplier`'.format(value))
             if value < 1.0:
                 raise ValueError('value need to be greater or equal 1.0 '
@@ -27614,7 +27953,7 @@ class Door(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `starting_x_coordinate`'.format(value))
         self._data["Starting X Coordinate"] = value
 
@@ -27645,7 +27984,7 @@ class Door(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `starting_z_coordinate`'.format(value))
         self._data["Starting Z Coordinate"] = value
 
@@ -27675,7 +28014,7 @@ class Door(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `length`'.format(value))
         self._data["Length"] = value
 
@@ -27705,7 +28044,7 @@ class Door(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `height`'.format(value))
         self._data["Height"] = value
 
@@ -27746,7 +28085,6 @@ class Door(object):
 class GlazedDoor(object):
     """ Corresponds to IDD object `GlazedDoor`
         Allows for simplified entry of glass Doors.
-    
     """
     internal_name = "GlazedDoor"
     field_count = 10
@@ -27766,15 +28104,16 @@ class GlazedDoor(object):
         self._data["Starting Z Coordinate"] = None
         self._data["Length"] = None
         self._data["Height"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -27846,6 +28185,7 @@ class GlazedDoor(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -27872,7 +28212,7 @@ class GlazedDoor(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -27908,7 +28248,7 @@ class GlazedDoor(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `construction_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -27945,7 +28285,7 @@ class GlazedDoor(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `building_surface_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -27983,7 +28323,7 @@ class GlazedDoor(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `shading_control_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -28023,7 +28363,7 @@ class GlazedDoor(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `frame_and_divider_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -28062,7 +28402,7 @@ class GlazedDoor(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `multiplier`'.format(value))
             if value < 1.0:
                 raise ValueError('value need to be greater or equal 1.0 '
@@ -28096,7 +28436,7 @@ class GlazedDoor(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `starting_x_coordinate`'.format(value))
         self._data["Starting X Coordinate"] = value
 
@@ -28127,7 +28467,7 @@ class GlazedDoor(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `starting_z_coordinate`'.format(value))
         self._data["Starting Z Coordinate"] = value
 
@@ -28157,7 +28497,7 @@ class GlazedDoor(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `length`'.format(value))
         self._data["Length"] = value
 
@@ -28187,7 +28527,7 @@ class GlazedDoor(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `height`'.format(value))
         self._data["Height"] = value
 
@@ -28229,7 +28569,6 @@ class WindowInterzone(object):
     """ Corresponds to IDD object `Window:Interzone`
         Allows for simplified entry of interzone windows (adjacent to
         other zones).
-    
     """
     internal_name = "Window:Interzone"
     field_count = 9
@@ -28248,15 +28587,16 @@ class WindowInterzone(object):
         self._data["Starting Z Coordinate"] = None
         self._data["Length"] = None
         self._data["Height"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -28321,6 +28661,7 @@ class WindowInterzone(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -28347,7 +28688,7 @@ class WindowInterzone(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -28383,7 +28724,7 @@ class WindowInterzone(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `construction_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -28420,7 +28761,7 @@ class WindowInterzone(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `building_surface_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -28460,7 +28801,7 @@ class WindowInterzone(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `outside_boundary_condition_object`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -28499,7 +28840,7 @@ class WindowInterzone(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `multiplier`'.format(value))
             if value < 1.0:
                 raise ValueError('value need to be greater or equal 1.0 '
@@ -28533,7 +28874,7 @@ class WindowInterzone(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `starting_x_coordinate`'.format(value))
         self._data["Starting X Coordinate"] = value
 
@@ -28564,7 +28905,7 @@ class WindowInterzone(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `starting_z_coordinate`'.format(value))
         self._data["Starting Z Coordinate"] = value
 
@@ -28594,7 +28935,7 @@ class WindowInterzone(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `length`'.format(value))
         self._data["Length"] = value
 
@@ -28624,7 +28965,7 @@ class WindowInterzone(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `height`'.format(value))
         self._data["Height"] = value
 
@@ -28666,7 +29007,6 @@ class DoorInterzone(object):
     """ Corresponds to IDD object `Door:Interzone`
         Allows for simplified entry of interzone (opaque interior) doors (adjacent to
         other zones).
-    
     """
     internal_name = "Door:Interzone"
     field_count = 9
@@ -28685,15 +29025,16 @@ class DoorInterzone(object):
         self._data["Starting Z Coordinate"] = None
         self._data["Length"] = None
         self._data["Height"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -28758,6 +29099,7 @@ class DoorInterzone(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -28784,7 +29126,7 @@ class DoorInterzone(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -28820,7 +29162,7 @@ class DoorInterzone(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `construction_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -28857,7 +29199,7 @@ class DoorInterzone(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `building_surface_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -28897,7 +29239,7 @@ class DoorInterzone(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `outside_boundary_condition_object`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -28936,7 +29278,7 @@ class DoorInterzone(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `multiplier`'.format(value))
             if value < 1.0:
                 raise ValueError('value need to be greater or equal 1.0 '
@@ -28970,7 +29312,7 @@ class DoorInterzone(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `starting_x_coordinate`'.format(value))
         self._data["Starting X Coordinate"] = value
 
@@ -29001,7 +29343,7 @@ class DoorInterzone(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `starting_z_coordinate`'.format(value))
         self._data["Starting Z Coordinate"] = value
 
@@ -29031,7 +29373,7 @@ class DoorInterzone(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `length`'.format(value))
         self._data["Length"] = value
 
@@ -29061,7 +29403,7 @@ class DoorInterzone(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `height`'.format(value))
         self._data["Height"] = value
 
@@ -29103,7 +29445,6 @@ class GlazedDoorInterzone(object):
     """ Corresponds to IDD object `GlazedDoor:Interzone`
         Allows for simplified entry of interzone (glass interior) doors (adjacent to
         other zones).
-    
     """
     internal_name = "GlazedDoor:Interzone"
     field_count = 9
@@ -29122,15 +29463,16 @@ class GlazedDoorInterzone(object):
         self._data["Starting Z Coordinate"] = None
         self._data["Length"] = None
         self._data["Height"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -29195,6 +29537,7 @@ class GlazedDoorInterzone(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -29221,7 +29564,7 @@ class GlazedDoorInterzone(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -29257,7 +29600,7 @@ class GlazedDoorInterzone(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `construction_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -29294,7 +29637,7 @@ class GlazedDoorInterzone(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `building_surface_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -29334,7 +29677,7 @@ class GlazedDoorInterzone(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `outside_boundary_condition_object`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -29373,7 +29716,7 @@ class GlazedDoorInterzone(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `multiplier`'.format(value))
             if value < 1.0:
                 raise ValueError('value need to be greater or equal 1.0 '
@@ -29407,7 +29750,7 @@ class GlazedDoorInterzone(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `starting_x_coordinate`'.format(value))
         self._data["Starting X Coordinate"] = value
 
@@ -29438,7 +29781,7 @@ class GlazedDoorInterzone(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `starting_z_coordinate`'.format(value))
         self._data["Starting Z Coordinate"] = value
 
@@ -29468,7 +29811,7 @@ class GlazedDoorInterzone(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `length`'.format(value))
         self._data["Length"] = value
 
@@ -29498,7 +29841,7 @@ class GlazedDoorInterzone(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `height`'.format(value))
         self._data["Height"] = value
 
@@ -29541,7 +29884,6 @@ class WindowPropertyShadingControl(object):
         Specifies the type, location, and controls for window shades, window blinds, and
         switchable glazing. Referenced by the surface objects for exterior windows and glass
         doors (ref: FenestrationSurface:Detailed, Window, and GlazedDoor).
-    
     """
     internal_name = "WindowProperty:ShadingControl"
     field_count = 12
@@ -29563,15 +29905,16 @@ class WindowPropertyShadingControl(object):
         self._data["Type of Slat Angle Control for Blinds"] = None
         self._data["Slat Angle Schedule Name"] = None
         self._data["Setpoint 2"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -29657,6 +30000,7 @@ class WindowPropertyShadingControl(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -29685,7 +30029,7 @@ class WindowPropertyShadingControl(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -29729,7 +30073,7 @@ class WindowPropertyShadingControl(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `shading_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -29749,16 +30093,26 @@ class WindowPropertyShadingControl(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `shading_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `shading_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Shading Type"] = value
 
@@ -29792,7 +30146,7 @@ class WindowPropertyShadingControl(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `construction_with_shading_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -29869,7 +30223,7 @@ class WindowPropertyShadingControl(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `shading_control_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -29902,16 +30256,26 @@ class WindowPropertyShadingControl(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `shading_control_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `shading_control_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Shading Control Type"] = value
 
@@ -29945,7 +30309,7 @@ class WindowPropertyShadingControl(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -29985,7 +30349,7 @@ class WindowPropertyShadingControl(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `setpoint`'.format(value))
         self._data["Setpoint"] = value
 
@@ -30020,7 +30384,7 @@ class WindowPropertyShadingControl(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `shading_control_is_scheduled`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -30034,16 +30398,26 @@ class WindowPropertyShadingControl(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `shading_control_is_scheduled`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `shading_control_is_scheduled`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Shading Control Is Scheduled"] = value
 
@@ -30080,7 +30454,7 @@ class WindowPropertyShadingControl(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `glare_control_is_active`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -30094,16 +30468,26 @@ class WindowPropertyShadingControl(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `glare_control_is_active`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `glare_control_is_active`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Glare Control Is Active"] = value
 
@@ -30137,7 +30521,7 @@ class WindowPropertyShadingControl(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `shading_device_material_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -30179,7 +30563,7 @@ class WindowPropertyShadingControl(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `type_of_slat_angle_control_for_blinds`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -30194,16 +30578,26 @@ class WindowPropertyShadingControl(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `type_of_slat_angle_control_for_blinds`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `type_of_slat_angle_control_for_blinds`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Type of Slat Angle Control for Blinds"] = value
 
@@ -30235,7 +30629,7 @@ class WindowPropertyShadingControl(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `slat_angle_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -30276,7 +30670,7 @@ class WindowPropertyShadingControl(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `setpoint_2`'.format(value))
         self._data["Setpoint 2"] = value
 
@@ -30319,7 +30713,6 @@ class WindowPropertyFrameAndDivider(object):
         Specifies the dimensions of a window frame, dividers, and inside reveal surfaces.
         Referenced by the surface objects for exterior windows and glass doors
         (ref: FenestrationSurface:Detailed, Window, and GlazedDoor).
-    
     """
     internal_name = "WindowProperty:FrameAndDivider"
     field_count = 25
@@ -30354,15 +30747,16 @@ class WindowPropertyFrameAndDivider(object):
         self._data["Inside Sill Solar Absorptance"] = None
         self._data["Inside Reveal Depth"] = None
         self._data["Inside Reveal Solar Absorptance"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -30539,6 +30933,7 @@ class WindowPropertyFrameAndDivider(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -30567,7 +30962,7 @@ class WindowPropertyFrameAndDivider(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -30608,7 +31003,7 @@ class WindowPropertyFrameAndDivider(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `frame_width`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -30648,7 +31043,7 @@ class WindowPropertyFrameAndDivider(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `frame_outside_projection`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -30688,7 +31083,7 @@ class WindowPropertyFrameAndDivider(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `frame_inside_projection`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -30728,7 +31123,7 @@ class WindowPropertyFrameAndDivider(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `frame_conductance`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -30765,7 +31160,7 @@ class WindowPropertyFrameAndDivider(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `ratio_of_frameedge_glass_conductance_to_centerofglass_conductance`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -30804,7 +31199,7 @@ class WindowPropertyFrameAndDivider(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `frame_solar_absorptance`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -30843,7 +31238,7 @@ class WindowPropertyFrameAndDivider(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `frame_visible_absorptance`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -30881,7 +31276,7 @@ class WindowPropertyFrameAndDivider(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `frame_thermal_hemispherical_emissivity`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -30917,7 +31312,7 @@ class WindowPropertyFrameAndDivider(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `divider_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -30931,16 +31326,26 @@ class WindowPropertyFrameAndDivider(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `divider_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `divider_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Divider Type"] = value
 
@@ -30975,7 +31380,7 @@ class WindowPropertyFrameAndDivider(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `divider_width`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -31013,7 +31418,7 @@ class WindowPropertyFrameAndDivider(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `number_of_horizontal_dividers`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -31048,7 +31453,7 @@ class WindowPropertyFrameAndDivider(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `number_of_vertical_dividers`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -31086,7 +31491,7 @@ class WindowPropertyFrameAndDivider(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `divider_outside_projection`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -31127,7 +31532,7 @@ class WindowPropertyFrameAndDivider(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `divider_inside_projection`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -31168,7 +31573,7 @@ class WindowPropertyFrameAndDivider(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `divider_conductance`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -31205,7 +31610,7 @@ class WindowPropertyFrameAndDivider(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `ratio_of_divideredge_glass_conductance_to_centerofglass_conductance`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -31244,7 +31649,7 @@ class WindowPropertyFrameAndDivider(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `divider_solar_absorptance`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -31283,7 +31688,7 @@ class WindowPropertyFrameAndDivider(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `divider_visible_absorptance`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -31322,7 +31727,7 @@ class WindowPropertyFrameAndDivider(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `divider_thermal_hemispherical_emissivity`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -31360,7 +31765,7 @@ class WindowPropertyFrameAndDivider(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `outside_reveal_solar_absorptance`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -31399,7 +31804,7 @@ class WindowPropertyFrameAndDivider(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `inside_sill_depth`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -31437,7 +31842,7 @@ class WindowPropertyFrameAndDivider(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `inside_sill_solar_absorptance`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -31482,7 +31887,7 @@ class WindowPropertyFrameAndDivider(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `inside_reveal_depth`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -31520,7 +31925,7 @@ class WindowPropertyFrameAndDivider(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `inside_reveal_solar_absorptance`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -31567,7 +31972,6 @@ class WindowPropertyFrameAndDivider(object):
 class WindowPropertyAirflowControl(object):
     """ Corresponds to IDD object `WindowProperty:AirflowControl`
         Used to control forced airflow through a gap between glass layers
-    
     """
     internal_name = "WindowProperty:AirflowControl"
     field_count = 7
@@ -31584,15 +31988,16 @@ class WindowPropertyAirflowControl(object):
         self._data["Airflow Control Type"] = None
         self._data["Airflow Is Scheduled"] = None
         self._data["Airflow Multiplier Schedule Name"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -31643,6 +32048,7 @@ class WindowPropertyAirflowControl(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -31670,7 +32076,7 @@ class WindowPropertyAirflowControl(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -31709,7 +32115,7 @@ class WindowPropertyAirflowControl(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `airflow_source`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -31723,16 +32129,26 @@ class WindowPropertyAirflowControl(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `airflow_source`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `airflow_source`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Airflow Source"] = value
 
@@ -31766,7 +32182,7 @@ class WindowPropertyAirflowControl(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `airflow_destination`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -31781,16 +32197,26 @@ class WindowPropertyAirflowControl(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `airflow_destination`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `airflow_destination`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Airflow Destination"] = value
 
@@ -31824,7 +32250,7 @@ class WindowPropertyAirflowControl(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `maximum_flow_rate`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -31863,7 +32289,7 @@ class WindowPropertyAirflowControl(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `airflow_control_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -31878,16 +32304,26 @@ class WindowPropertyAirflowControl(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `airflow_control_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `airflow_control_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Airflow Control Type"] = value
 
@@ -31921,7 +32357,7 @@ class WindowPropertyAirflowControl(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `airflow_is_scheduled`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -31935,16 +32371,26 @@ class WindowPropertyAirflowControl(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `airflow_is_scheduled`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `airflow_is_scheduled`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Airflow Is Scheduled"] = value
 
@@ -31975,7 +32421,7 @@ class WindowPropertyAirflowControl(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `airflow_multiplier_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -32023,7 +32469,6 @@ class WindowPropertyStormWindow(object):
     """ Corresponds to IDD object `WindowProperty:StormWindow`
         This is a movable exterior glass layer that is usually applied in the winter
         and removed in the summer.
-    
     """
     internal_name = "WindowProperty:StormWindow"
     field_count = 7
@@ -32040,15 +32485,16 @@ class WindowPropertyStormWindow(object):
         self._data["Day of Month that Storm Glass Layer is Put On"] = None
         self._data["Month that Storm Glass Layer is Taken Off"] = None
         self._data["Day of Month that Storm Glass Layer is Taken Off"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.window_name = None
@@ -32099,6 +32545,7 @@ class WindowPropertyStormWindow(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def window_name(self):
@@ -32127,7 +32574,7 @@ class WindowPropertyStormWindow(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `window_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -32165,7 +32612,7 @@ class WindowPropertyStormWindow(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `storm_glass_layer_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -32204,7 +32651,7 @@ class WindowPropertyStormWindow(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `distance_between_storm_glass_layer_and_adjacent_glass`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -32241,8 +32688,15 @@ class WindowPropertyStormWindow(object):
             try:
                 value = int(value)
             except ValueError:
-                raise ValueError('value {} need to be of type int '
-                                 'for field `month_that_storm_glass_layer_is_put_on`'.format(value))
+                if not self.strict:
+                    try:
+                        conv_value = int(float(value))
+                        logging.warn('Cast float {} to int {}, precision may be lost '
+                                     'for field `month_that_storm_glass_layer_is_put_on`'.format(value, conv_value))
+                        value = conv_value
+                    except ValueError:
+                        raise ValueError('value {} need to be of type int '
+                                         'for field `month_that_storm_glass_layer_is_put_on`'.format(value))
             if value < 1:
                 raise ValueError('value need to be greater or equal 1 '
                                  'for field `month_that_storm_glass_layer_is_put_on`')
@@ -32278,8 +32732,15 @@ class WindowPropertyStormWindow(object):
             try:
                 value = int(value)
             except ValueError:
-                raise ValueError('value {} need to be of type int '
-                                 'for field `day_of_month_that_storm_glass_layer_is_put_on`'.format(value))
+                if not self.strict:
+                    try:
+                        conv_value = int(float(value))
+                        logging.warn('Cast float {} to int {}, precision may be lost '
+                                     'for field `day_of_month_that_storm_glass_layer_is_put_on`'.format(value, conv_value))
+                        value = conv_value
+                    except ValueError:
+                        raise ValueError('value {} need to be of type int '
+                                         'for field `day_of_month_that_storm_glass_layer_is_put_on`'.format(value))
             if value < 1:
                 raise ValueError('value need to be greater or equal 1 '
                                  'for field `day_of_month_that_storm_glass_layer_is_put_on`')
@@ -32315,8 +32776,15 @@ class WindowPropertyStormWindow(object):
             try:
                 value = int(value)
             except ValueError:
-                raise ValueError('value {} need to be of type int '
-                                 'for field `month_that_storm_glass_layer_is_taken_off`'.format(value))
+                if not self.strict:
+                    try:
+                        conv_value = int(float(value))
+                        logging.warn('Cast float {} to int {}, precision may be lost '
+                                     'for field `month_that_storm_glass_layer_is_taken_off`'.format(value, conv_value))
+                        value = conv_value
+                    except ValueError:
+                        raise ValueError('value {} need to be of type int '
+                                         'for field `month_that_storm_glass_layer_is_taken_off`'.format(value))
             if value < 1:
                 raise ValueError('value need to be greater or equal 1 '
                                  'for field `month_that_storm_glass_layer_is_taken_off`')
@@ -32352,8 +32820,15 @@ class WindowPropertyStormWindow(object):
             try:
                 value = int(value)
             except ValueError:
-                raise ValueError('value {} need to be of type int '
-                                 'for field `day_of_month_that_storm_glass_layer_is_taken_off`'.format(value))
+                if not self.strict:
+                    try:
+                        conv_value = int(float(value))
+                        logging.warn('Cast float {} to int {}, precision may be lost '
+                                     'for field `day_of_month_that_storm_glass_layer_is_taken_off`'.format(value, conv_value))
+                        value = conv_value
+                    except ValueError:
+                        raise ValueError('value {} need to be of type int '
+                                         'for field `day_of_month_that_storm_glass_layer_is_taken_off`'.format(value))
             if value < 1:
                 raise ValueError('value need to be greater or equal 1 '
                                  'for field `day_of_month_that_storm_glass_layer_is_taken_off`')
@@ -32400,7 +32875,6 @@ class InternalMass(object):
     """ Corresponds to IDD object `InternalMass`
         Used to describe internal zone surface area that does not need to be part of geometric
         representation. This should be the total surface area exposed to the zone air.
-    
     """
     internal_name = "InternalMass"
     field_count = 4
@@ -32414,15 +32888,16 @@ class InternalMass(object):
         self._data["Construction Name"] = None
         self._data["Zone Name"] = None
         self._data["Surface Area"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -32452,6 +32927,7 @@ class InternalMass(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -32478,7 +32954,7 @@ class InternalMass(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -32514,7 +32990,7 @@ class InternalMass(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `construction_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -32551,7 +33027,7 @@ class InternalMass(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `zone_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -32588,7 +33064,7 @@ class InternalMass(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `surface_area`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -32633,7 +33109,6 @@ class ShadingSite(object):
     """ Corresponds to IDD object `Shading:Site`
         used for shading elements such as trees
         these items are fixed in space and would not move with relative geometry
-    
     """
     internal_name = "Shading:Site"
     field_count = 8
@@ -32651,15 +33126,16 @@ class ShadingSite(object):
         self._data["Starting Z Coordinate"] = None
         self._data["Length"] = None
         self._data["Height"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -32717,6 +33193,7 @@ class ShadingSite(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -32743,7 +33220,7 @@ class ShadingSite(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -32782,7 +33259,7 @@ class ShadingSite(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `azimuth_angle`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -32821,7 +33298,7 @@ class ShadingSite(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `tilt_angle`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -32858,7 +33335,7 @@ class ShadingSite(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `starting_x_coordinate`'.format(value))
         self._data["Starting X Coordinate"] = value
 
@@ -32888,7 +33365,7 @@ class ShadingSite(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `starting_y_coordinate`'.format(value))
         self._data["Starting Y Coordinate"] = value
 
@@ -32918,7 +33395,7 @@ class ShadingSite(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `starting_z_coordinate`'.format(value))
         self._data["Starting Z Coordinate"] = value
 
@@ -32948,7 +33425,7 @@ class ShadingSite(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `length`'.format(value))
         self._data["Length"] = value
 
@@ -32978,7 +33455,7 @@ class ShadingSite(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `height`'.format(value))
         self._data["Height"] = value
 
@@ -33020,7 +33497,6 @@ class ShadingBuilding(object):
     """ Corresponds to IDD object `Shading:Building`
         used for shading elements such as trees, other buildings, parts of this building not being modeled
         these items are relative to the current building and would move with relative geometry
-    
     """
     internal_name = "Shading:Building"
     field_count = 8
@@ -33038,15 +33514,16 @@ class ShadingBuilding(object):
         self._data["Starting Z Coordinate"] = None
         self._data["Length"] = None
         self._data["Height"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -33104,6 +33581,7 @@ class ShadingBuilding(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -33130,7 +33608,7 @@ class ShadingBuilding(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -33169,7 +33647,7 @@ class ShadingBuilding(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `azimuth_angle`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -33208,7 +33686,7 @@ class ShadingBuilding(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `tilt_angle`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -33245,7 +33723,7 @@ class ShadingBuilding(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `starting_x_coordinate`'.format(value))
         self._data["Starting X Coordinate"] = value
 
@@ -33275,7 +33753,7 @@ class ShadingBuilding(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `starting_y_coordinate`'.format(value))
         self._data["Starting Y Coordinate"] = value
 
@@ -33305,7 +33783,7 @@ class ShadingBuilding(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `starting_z_coordinate`'.format(value))
         self._data["Starting Z Coordinate"] = value
 
@@ -33335,7 +33813,7 @@ class ShadingBuilding(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `length`'.format(value))
         self._data["Length"] = value
 
@@ -33365,7 +33843,7 @@ class ShadingBuilding(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `height`'.format(value))
         self._data["Height"] = value
 
@@ -33407,7 +33885,6 @@ class ShadingSiteDetailed(object):
     """ Corresponds to IDD object `Shading:Site:Detailed`
         used for shading elements such as trees
         these items are fixed in space and would not move with relative geometry
-    
     """
     internal_name = "Shading:Site:Detailed"
     field_count = 363
@@ -33780,15 +34257,16 @@ class ShadingSiteDetailed(object):
         self._data["Vertex 120 X-coordinate"] = None
         self._data["Vertex 120 Y-coordinate"] = None
         self._data["Vertex 120 Z-coordinate"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -36331,6 +36809,7 @@ class ShadingSiteDetailed(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -36357,7 +36836,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -36393,7 +36872,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `transmittance_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -36435,12 +36914,17 @@ class ShadingSiteDetailed(object):
                 if value_lower == "autocalculate":
                     self._data["Number of Vertices"] = "Autocalculate"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autocalculate" '
+                                 'for field `number_of_vertices`'.format(value))
+                    self._data["Number of Vertices"] = "Autocalculate"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autocalculate"'
                                  'for field `number_of_vertices`'.format(value))
             if value < 3.0:
                 raise ValueError('value need to be greater or equal 3.0 '
@@ -36473,7 +36957,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_1_xcoordinate`'.format(value))
         self._data["Vertex 1 X-coordinate"] = value
 
@@ -36503,7 +36987,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_1_ycoordinate`'.format(value))
         self._data["Vertex 1 Y-coordinate"] = value
 
@@ -36533,7 +37017,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_1_zcoordinate`'.format(value))
         self._data["Vertex 1 Z-coordinate"] = value
 
@@ -36563,7 +37047,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_2_xcoordinate`'.format(value))
         self._data["Vertex 2 X-coordinate"] = value
 
@@ -36593,7 +37077,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_2_ycoordinate`'.format(value))
         self._data["Vertex 2 Y-coordinate"] = value
 
@@ -36623,7 +37107,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_2_zcoordinate`'.format(value))
         self._data["Vertex 2 Z-coordinate"] = value
 
@@ -36653,7 +37137,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_3_xcoordinate`'.format(value))
         self._data["Vertex 3 X-coordinate"] = value
 
@@ -36683,7 +37167,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_3_ycoordinate`'.format(value))
         self._data["Vertex 3 Y-coordinate"] = value
 
@@ -36713,7 +37197,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_3_zcoordinate`'.format(value))
         self._data["Vertex 3 Z-coordinate"] = value
 
@@ -36743,7 +37227,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_4_xcoordinate`'.format(value))
         self._data["Vertex 4 X-coordinate"] = value
 
@@ -36773,7 +37257,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_4_ycoordinate`'.format(value))
         self._data["Vertex 4 Y-coordinate"] = value
 
@@ -36803,7 +37287,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_4_zcoordinate`'.format(value))
         self._data["Vertex 4 Z-coordinate"] = value
 
@@ -36833,7 +37317,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_5_xcoordinate`'.format(value))
         self._data["Vertex 5 X-coordinate"] = value
 
@@ -36863,7 +37347,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_5_ycoordinate`'.format(value))
         self._data["Vertex 5 Y-coordinate"] = value
 
@@ -36893,7 +37377,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_5_zcoordinate`'.format(value))
         self._data["Vertex 5 Z-coordinate"] = value
 
@@ -36923,7 +37407,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_6_xcoordinate`'.format(value))
         self._data["Vertex 6 X-coordinate"] = value
 
@@ -36953,7 +37437,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_6_ycoordinate`'.format(value))
         self._data["Vertex 6 Y-coordinate"] = value
 
@@ -36983,7 +37467,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_6_zcoordinate`'.format(value))
         self._data["Vertex 6 Z-coordinate"] = value
 
@@ -37013,7 +37497,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_7_xcoordinate`'.format(value))
         self._data["Vertex 7 X-coordinate"] = value
 
@@ -37043,7 +37527,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_7_ycoordinate`'.format(value))
         self._data["Vertex 7 Y-coordinate"] = value
 
@@ -37073,7 +37557,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_7_zcoordinate`'.format(value))
         self._data["Vertex 7 Z-coordinate"] = value
 
@@ -37103,7 +37587,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_8_xcoordinate`'.format(value))
         self._data["Vertex 8 X-coordinate"] = value
 
@@ -37133,7 +37617,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_8_ycoordinate`'.format(value))
         self._data["Vertex 8 Y-coordinate"] = value
 
@@ -37163,7 +37647,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_8_zcoordinate`'.format(value))
         self._data["Vertex 8 Z-coordinate"] = value
 
@@ -37193,7 +37677,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_9_xcoordinate`'.format(value))
         self._data["Vertex 9 X-coordinate"] = value
 
@@ -37223,7 +37707,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_9_ycoordinate`'.format(value))
         self._data["Vertex 9 Y-coordinate"] = value
 
@@ -37253,7 +37737,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_9_zcoordinate`'.format(value))
         self._data["Vertex 9 Z-coordinate"] = value
 
@@ -37283,7 +37767,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_10_xcoordinate`'.format(value))
         self._data["Vertex 10 X-coordinate"] = value
 
@@ -37313,7 +37797,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_10_ycoordinate`'.format(value))
         self._data["Vertex 10 Y-coordinate"] = value
 
@@ -37343,7 +37827,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_10_zcoordinate`'.format(value))
         self._data["Vertex 10 Z-coordinate"] = value
 
@@ -37373,7 +37857,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_11_xcoordinate`'.format(value))
         self._data["Vertex 11 X-coordinate"] = value
 
@@ -37403,7 +37887,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_11_ycoordinate`'.format(value))
         self._data["Vertex 11 Y-coordinate"] = value
 
@@ -37433,7 +37917,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_11_zcoordinate`'.format(value))
         self._data["Vertex 11 Z-coordinate"] = value
 
@@ -37463,7 +37947,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_12_xcoordinate`'.format(value))
         self._data["Vertex 12 X-coordinate"] = value
 
@@ -37493,7 +37977,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_12_ycoordinate`'.format(value))
         self._data["Vertex 12 Y-coordinate"] = value
 
@@ -37523,7 +38007,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_12_zcoordinate`'.format(value))
         self._data["Vertex 12 Z-coordinate"] = value
 
@@ -37553,7 +38037,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_13_xcoordinate`'.format(value))
         self._data["Vertex 13 X-coordinate"] = value
 
@@ -37583,7 +38067,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_13_ycoordinate`'.format(value))
         self._data["Vertex 13 Y-coordinate"] = value
 
@@ -37613,7 +38097,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_13_zcoordinate`'.format(value))
         self._data["Vertex 13 Z-coordinate"] = value
 
@@ -37643,7 +38127,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_14_xcoordinate`'.format(value))
         self._data["Vertex 14 X-coordinate"] = value
 
@@ -37673,7 +38157,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_14_ycoordinate`'.format(value))
         self._data["Vertex 14 Y-coordinate"] = value
 
@@ -37703,7 +38187,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_14_zcoordinate`'.format(value))
         self._data["Vertex 14 Z-coordinate"] = value
 
@@ -37733,7 +38217,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_15_xcoordinate`'.format(value))
         self._data["Vertex 15 X-coordinate"] = value
 
@@ -37763,7 +38247,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_15_ycoordinate`'.format(value))
         self._data["Vertex 15 Y-coordinate"] = value
 
@@ -37793,7 +38277,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_15_zcoordinate`'.format(value))
         self._data["Vertex 15 Z-coordinate"] = value
 
@@ -37823,7 +38307,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_16_xcoordinate`'.format(value))
         self._data["Vertex 16 X-coordinate"] = value
 
@@ -37853,7 +38337,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_16_ycoordinate`'.format(value))
         self._data["Vertex 16 Y-coordinate"] = value
 
@@ -37883,7 +38367,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_16_zcoordinate`'.format(value))
         self._data["Vertex 16 Z-coordinate"] = value
 
@@ -37913,7 +38397,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_17_xcoordinate`'.format(value))
         self._data["Vertex 17 X-coordinate"] = value
 
@@ -37943,7 +38427,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_17_ycoordinate`'.format(value))
         self._data["Vertex 17 Y-coordinate"] = value
 
@@ -37973,7 +38457,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_17_zcoordinate`'.format(value))
         self._data["Vertex 17 Z-coordinate"] = value
 
@@ -38003,7 +38487,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_18_xcoordinate`'.format(value))
         self._data["Vertex 18 X-coordinate"] = value
 
@@ -38033,7 +38517,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_18_ycoordinate`'.format(value))
         self._data["Vertex 18 Y-coordinate"] = value
 
@@ -38063,7 +38547,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_18_zcoordinate`'.format(value))
         self._data["Vertex 18 Z-coordinate"] = value
 
@@ -38093,7 +38577,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_19_xcoordinate`'.format(value))
         self._data["Vertex 19 X-coordinate"] = value
 
@@ -38123,7 +38607,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_19_ycoordinate`'.format(value))
         self._data["Vertex 19 Y-coordinate"] = value
 
@@ -38153,7 +38637,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_19_zcoordinate`'.format(value))
         self._data["Vertex 19 Z-coordinate"] = value
 
@@ -38183,7 +38667,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_20_xcoordinate`'.format(value))
         self._data["Vertex 20 X-coordinate"] = value
 
@@ -38213,7 +38697,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_20_ycoordinate`'.format(value))
         self._data["Vertex 20 Y-coordinate"] = value
 
@@ -38243,7 +38727,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_20_zcoordinate`'.format(value))
         self._data["Vertex 20 Z-coordinate"] = value
 
@@ -38273,7 +38757,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_21_xcoordinate`'.format(value))
         self._data["Vertex 21 X-coordinate"] = value
 
@@ -38303,7 +38787,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_21_ycoordinate`'.format(value))
         self._data["Vertex 21 Y-coordinate"] = value
 
@@ -38333,7 +38817,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_21_zcoordinate`'.format(value))
         self._data["Vertex 21 Z-coordinate"] = value
 
@@ -38363,7 +38847,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_22_xcoordinate`'.format(value))
         self._data["Vertex 22 X-coordinate"] = value
 
@@ -38393,7 +38877,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_22_ycoordinate`'.format(value))
         self._data["Vertex 22 Y-coordinate"] = value
 
@@ -38423,7 +38907,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_22_zcoordinate`'.format(value))
         self._data["Vertex 22 Z-coordinate"] = value
 
@@ -38453,7 +38937,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_23_xcoordinate`'.format(value))
         self._data["Vertex 23 X-coordinate"] = value
 
@@ -38483,7 +38967,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_23_ycoordinate`'.format(value))
         self._data["Vertex 23 Y-coordinate"] = value
 
@@ -38513,7 +38997,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_23_zcoordinate`'.format(value))
         self._data["Vertex 23 Z-coordinate"] = value
 
@@ -38543,7 +39027,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_24_xcoordinate`'.format(value))
         self._data["Vertex 24 X-coordinate"] = value
 
@@ -38573,7 +39057,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_24_ycoordinate`'.format(value))
         self._data["Vertex 24 Y-coordinate"] = value
 
@@ -38603,7 +39087,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_24_zcoordinate`'.format(value))
         self._data["Vertex 24 Z-coordinate"] = value
 
@@ -38633,7 +39117,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_25_xcoordinate`'.format(value))
         self._data["Vertex 25 X-coordinate"] = value
 
@@ -38663,7 +39147,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_25_ycoordinate`'.format(value))
         self._data["Vertex 25 Y-coordinate"] = value
 
@@ -38693,7 +39177,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_25_zcoordinate`'.format(value))
         self._data["Vertex 25 Z-coordinate"] = value
 
@@ -38723,7 +39207,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_26_xcoordinate`'.format(value))
         self._data["Vertex 26 X-coordinate"] = value
 
@@ -38753,7 +39237,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_26_ycoordinate`'.format(value))
         self._data["Vertex 26 Y-coordinate"] = value
 
@@ -38783,7 +39267,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_26_zcoordinate`'.format(value))
         self._data["Vertex 26 Z-coordinate"] = value
 
@@ -38813,7 +39297,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_27_xcoordinate`'.format(value))
         self._data["Vertex 27 X-coordinate"] = value
 
@@ -38843,7 +39327,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_27_ycoordinate`'.format(value))
         self._data["Vertex 27 Y-coordinate"] = value
 
@@ -38873,7 +39357,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_27_zcoordinate`'.format(value))
         self._data["Vertex 27 Z-coordinate"] = value
 
@@ -38903,7 +39387,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_28_xcoordinate`'.format(value))
         self._data["Vertex 28 X-coordinate"] = value
 
@@ -38933,7 +39417,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_28_ycoordinate`'.format(value))
         self._data["Vertex 28 Y-coordinate"] = value
 
@@ -38963,7 +39447,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_28_zcoordinate`'.format(value))
         self._data["Vertex 28 Z-coordinate"] = value
 
@@ -38993,7 +39477,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_29_xcoordinate`'.format(value))
         self._data["Vertex 29 X-coordinate"] = value
 
@@ -39023,7 +39507,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_29_ycoordinate`'.format(value))
         self._data["Vertex 29 Y-coordinate"] = value
 
@@ -39053,7 +39537,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_29_zcoordinate`'.format(value))
         self._data["Vertex 29 Z-coordinate"] = value
 
@@ -39083,7 +39567,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_30_xcoordinate`'.format(value))
         self._data["Vertex 30 X-coordinate"] = value
 
@@ -39113,7 +39597,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_30_ycoordinate`'.format(value))
         self._data["Vertex 30 Y-coordinate"] = value
 
@@ -39143,7 +39627,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_30_zcoordinate`'.format(value))
         self._data["Vertex 30 Z-coordinate"] = value
 
@@ -39173,7 +39657,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_31_xcoordinate`'.format(value))
         self._data["Vertex 31 X-coordinate"] = value
 
@@ -39203,7 +39687,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_31_ycoordinate`'.format(value))
         self._data["Vertex 31 Y-coordinate"] = value
 
@@ -39233,7 +39717,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_31_zcoordinate`'.format(value))
         self._data["Vertex 31 Z-coordinate"] = value
 
@@ -39263,7 +39747,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_32_xcoordinate`'.format(value))
         self._data["Vertex 32 X-coordinate"] = value
 
@@ -39293,7 +39777,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_32_ycoordinate`'.format(value))
         self._data["Vertex 32 Y-coordinate"] = value
 
@@ -39323,7 +39807,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_32_zcoordinate`'.format(value))
         self._data["Vertex 32 Z-coordinate"] = value
 
@@ -39353,7 +39837,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_33_xcoordinate`'.format(value))
         self._data["Vertex 33 X-coordinate"] = value
 
@@ -39383,7 +39867,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_33_ycoordinate`'.format(value))
         self._data["Vertex 33 Y-coordinate"] = value
 
@@ -39413,7 +39897,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_33_zcoordinate`'.format(value))
         self._data["Vertex 33 Z-coordinate"] = value
 
@@ -39443,7 +39927,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_34_xcoordinate`'.format(value))
         self._data["Vertex 34 X-coordinate"] = value
 
@@ -39473,7 +39957,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_34_ycoordinate`'.format(value))
         self._data["Vertex 34 Y-coordinate"] = value
 
@@ -39503,7 +39987,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_34_zcoordinate`'.format(value))
         self._data["Vertex 34 Z-coordinate"] = value
 
@@ -39533,7 +40017,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_35_xcoordinate`'.format(value))
         self._data["Vertex 35 X-coordinate"] = value
 
@@ -39563,7 +40047,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_35_ycoordinate`'.format(value))
         self._data["Vertex 35 Y-coordinate"] = value
 
@@ -39593,7 +40077,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_35_zcoordinate`'.format(value))
         self._data["Vertex 35 Z-coordinate"] = value
 
@@ -39623,7 +40107,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_36_xcoordinate`'.format(value))
         self._data["Vertex 36 X-coordinate"] = value
 
@@ -39653,7 +40137,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_36_ycoordinate`'.format(value))
         self._data["Vertex 36 Y-coordinate"] = value
 
@@ -39683,7 +40167,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_36_zcoordinate`'.format(value))
         self._data["Vertex 36 Z-coordinate"] = value
 
@@ -39713,7 +40197,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_37_xcoordinate`'.format(value))
         self._data["Vertex 37 X-coordinate"] = value
 
@@ -39743,7 +40227,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_37_ycoordinate`'.format(value))
         self._data["Vertex 37 Y-coordinate"] = value
 
@@ -39773,7 +40257,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_37_zcoordinate`'.format(value))
         self._data["Vertex 37 Z-coordinate"] = value
 
@@ -39803,7 +40287,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_38_xcoordinate`'.format(value))
         self._data["Vertex 38 X-coordinate"] = value
 
@@ -39833,7 +40317,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_38_ycoordinate`'.format(value))
         self._data["Vertex 38 Y-coordinate"] = value
 
@@ -39863,7 +40347,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_38_zcoordinate`'.format(value))
         self._data["Vertex 38 Z-coordinate"] = value
 
@@ -39893,7 +40377,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_39_xcoordinate`'.format(value))
         self._data["Vertex 39 X-coordinate"] = value
 
@@ -39923,7 +40407,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_39_ycoordinate`'.format(value))
         self._data["Vertex 39 Y-coordinate"] = value
 
@@ -39953,7 +40437,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_39_zcoordinate`'.format(value))
         self._data["Vertex 39 Z-coordinate"] = value
 
@@ -39983,7 +40467,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_40_xcoordinate`'.format(value))
         self._data["Vertex 40 X-coordinate"] = value
 
@@ -40013,7 +40497,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_40_ycoordinate`'.format(value))
         self._data["Vertex 40 Y-coordinate"] = value
 
@@ -40043,7 +40527,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_40_zcoordinate`'.format(value))
         self._data["Vertex 40 Z-coordinate"] = value
 
@@ -40073,7 +40557,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_41_xcoordinate`'.format(value))
         self._data["Vertex 41 X-coordinate"] = value
 
@@ -40103,7 +40587,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_41_ycoordinate`'.format(value))
         self._data["Vertex 41 Y-coordinate"] = value
 
@@ -40133,7 +40617,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_41_zcoordinate`'.format(value))
         self._data["Vertex 41 Z-coordinate"] = value
 
@@ -40163,7 +40647,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_42_xcoordinate`'.format(value))
         self._data["Vertex 42 X-coordinate"] = value
 
@@ -40193,7 +40677,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_42_ycoordinate`'.format(value))
         self._data["Vertex 42 Y-coordinate"] = value
 
@@ -40223,7 +40707,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_42_zcoordinate`'.format(value))
         self._data["Vertex 42 Z-coordinate"] = value
 
@@ -40253,7 +40737,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_43_xcoordinate`'.format(value))
         self._data["Vertex 43 X-coordinate"] = value
 
@@ -40283,7 +40767,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_43_ycoordinate`'.format(value))
         self._data["Vertex 43 Y-coordinate"] = value
 
@@ -40313,7 +40797,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_43_zcoordinate`'.format(value))
         self._data["Vertex 43 Z-coordinate"] = value
 
@@ -40343,7 +40827,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_44_xcoordinate`'.format(value))
         self._data["Vertex 44 X-coordinate"] = value
 
@@ -40373,7 +40857,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_44_ycoordinate`'.format(value))
         self._data["Vertex 44 Y-coordinate"] = value
 
@@ -40403,7 +40887,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_44_zcoordinate`'.format(value))
         self._data["Vertex 44 Z-coordinate"] = value
 
@@ -40433,7 +40917,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_45_xcoordinate`'.format(value))
         self._data["Vertex 45 X-coordinate"] = value
 
@@ -40463,7 +40947,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_45_ycoordinate`'.format(value))
         self._data["Vertex 45 Y-coordinate"] = value
 
@@ -40493,7 +40977,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_45_zcoordinate`'.format(value))
         self._data["Vertex 45 Z-coordinate"] = value
 
@@ -40523,7 +41007,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_46_xcoordinate`'.format(value))
         self._data["Vertex 46 X-coordinate"] = value
 
@@ -40553,7 +41037,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_46_ycoordinate`'.format(value))
         self._data["Vertex 46 Y-coordinate"] = value
 
@@ -40583,7 +41067,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_46_zcoordinate`'.format(value))
         self._data["Vertex 46 Z-coordinate"] = value
 
@@ -40613,7 +41097,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_47_xcoordinate`'.format(value))
         self._data["Vertex 47 X-coordinate"] = value
 
@@ -40643,7 +41127,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_47_ycoordinate`'.format(value))
         self._data["Vertex 47 Y-coordinate"] = value
 
@@ -40673,7 +41157,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_47_zcoordinate`'.format(value))
         self._data["Vertex 47 Z-coordinate"] = value
 
@@ -40703,7 +41187,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_48_xcoordinate`'.format(value))
         self._data["Vertex 48 X-coordinate"] = value
 
@@ -40733,7 +41217,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_48_ycoordinate`'.format(value))
         self._data["Vertex 48 Y-coordinate"] = value
 
@@ -40763,7 +41247,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_48_zcoordinate`'.format(value))
         self._data["Vertex 48 Z-coordinate"] = value
 
@@ -40793,7 +41277,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_49_xcoordinate`'.format(value))
         self._data["Vertex 49 X-coordinate"] = value
 
@@ -40823,7 +41307,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_49_ycoordinate`'.format(value))
         self._data["Vertex 49 Y-coordinate"] = value
 
@@ -40853,7 +41337,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_49_zcoordinate`'.format(value))
         self._data["Vertex 49 Z-coordinate"] = value
 
@@ -40883,7 +41367,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_50_xcoordinate`'.format(value))
         self._data["Vertex 50 X-coordinate"] = value
 
@@ -40913,7 +41397,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_50_ycoordinate`'.format(value))
         self._data["Vertex 50 Y-coordinate"] = value
 
@@ -40943,7 +41427,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_50_zcoordinate`'.format(value))
         self._data["Vertex 50 Z-coordinate"] = value
 
@@ -40973,7 +41457,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_51_xcoordinate`'.format(value))
         self._data["Vertex 51 X-coordinate"] = value
 
@@ -41003,7 +41487,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_51_ycoordinate`'.format(value))
         self._data["Vertex 51 Y-coordinate"] = value
 
@@ -41033,7 +41517,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_51_zcoordinate`'.format(value))
         self._data["Vertex 51 Z-coordinate"] = value
 
@@ -41063,7 +41547,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_52_xcoordinate`'.format(value))
         self._data["Vertex 52 X-coordinate"] = value
 
@@ -41093,7 +41577,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_52_ycoordinate`'.format(value))
         self._data["Vertex 52 Y-coordinate"] = value
 
@@ -41123,7 +41607,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_52_zcoordinate`'.format(value))
         self._data["Vertex 52 Z-coordinate"] = value
 
@@ -41153,7 +41637,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_53_xcoordinate`'.format(value))
         self._data["Vertex 53 X-coordinate"] = value
 
@@ -41183,7 +41667,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_53_ycoordinate`'.format(value))
         self._data["Vertex 53 Y-coordinate"] = value
 
@@ -41213,7 +41697,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_53_zcoordinate`'.format(value))
         self._data["Vertex 53 Z-coordinate"] = value
 
@@ -41243,7 +41727,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_54_xcoordinate`'.format(value))
         self._data["Vertex 54 X-coordinate"] = value
 
@@ -41273,7 +41757,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_54_ycoordinate`'.format(value))
         self._data["Vertex 54 Y-coordinate"] = value
 
@@ -41303,7 +41787,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_54_zcoordinate`'.format(value))
         self._data["Vertex 54 Z-coordinate"] = value
 
@@ -41333,7 +41817,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_55_xcoordinate`'.format(value))
         self._data["Vertex 55 X-coordinate"] = value
 
@@ -41363,7 +41847,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_55_ycoordinate`'.format(value))
         self._data["Vertex 55 Y-coordinate"] = value
 
@@ -41393,7 +41877,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_55_zcoordinate`'.format(value))
         self._data["Vertex 55 Z-coordinate"] = value
 
@@ -41423,7 +41907,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_56_xcoordinate`'.format(value))
         self._data["Vertex 56 X-coordinate"] = value
 
@@ -41453,7 +41937,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_56_ycoordinate`'.format(value))
         self._data["Vertex 56 Y-coordinate"] = value
 
@@ -41483,7 +41967,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_56_zcoordinate`'.format(value))
         self._data["Vertex 56 Z-coordinate"] = value
 
@@ -41513,7 +41997,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_57_xcoordinate`'.format(value))
         self._data["Vertex 57 X-coordinate"] = value
 
@@ -41543,7 +42027,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_57_ycoordinate`'.format(value))
         self._data["Vertex 57 Y-coordinate"] = value
 
@@ -41573,7 +42057,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_57_zcoordinate`'.format(value))
         self._data["Vertex 57 Z-coordinate"] = value
 
@@ -41603,7 +42087,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_58_xcoordinate`'.format(value))
         self._data["Vertex 58 X-coordinate"] = value
 
@@ -41633,7 +42117,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_58_ycoordinate`'.format(value))
         self._data["Vertex 58 Y-coordinate"] = value
 
@@ -41663,7 +42147,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_58_zcoordinate`'.format(value))
         self._data["Vertex 58 Z-coordinate"] = value
 
@@ -41693,7 +42177,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_59_xcoordinate`'.format(value))
         self._data["Vertex 59 X-coordinate"] = value
 
@@ -41723,7 +42207,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_59_ycoordinate`'.format(value))
         self._data["Vertex 59 Y-coordinate"] = value
 
@@ -41753,7 +42237,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_59_zcoordinate`'.format(value))
         self._data["Vertex 59 Z-coordinate"] = value
 
@@ -41783,7 +42267,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_60_xcoordinate`'.format(value))
         self._data["Vertex 60 X-coordinate"] = value
 
@@ -41813,7 +42297,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_60_ycoordinate`'.format(value))
         self._data["Vertex 60 Y-coordinate"] = value
 
@@ -41843,7 +42327,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_60_zcoordinate`'.format(value))
         self._data["Vertex 60 Z-coordinate"] = value
 
@@ -41873,7 +42357,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_61_xcoordinate`'.format(value))
         self._data["Vertex 61 X-coordinate"] = value
 
@@ -41903,7 +42387,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_61_ycoordinate`'.format(value))
         self._data["Vertex 61 Y-coordinate"] = value
 
@@ -41933,7 +42417,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_61_zcoordinate`'.format(value))
         self._data["Vertex 61 Z-coordinate"] = value
 
@@ -41963,7 +42447,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_62_xcoordinate`'.format(value))
         self._data["Vertex 62 X-coordinate"] = value
 
@@ -41993,7 +42477,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_62_ycoordinate`'.format(value))
         self._data["Vertex 62 Y-coordinate"] = value
 
@@ -42023,7 +42507,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_62_zcoordinate`'.format(value))
         self._data["Vertex 62 Z-coordinate"] = value
 
@@ -42053,7 +42537,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_63_xcoordinate`'.format(value))
         self._data["Vertex 63 X-coordinate"] = value
 
@@ -42083,7 +42567,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_63_ycoordinate`'.format(value))
         self._data["Vertex 63 Y-coordinate"] = value
 
@@ -42113,7 +42597,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_63_zcoordinate`'.format(value))
         self._data["Vertex 63 Z-coordinate"] = value
 
@@ -42143,7 +42627,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_64_xcoordinate`'.format(value))
         self._data["Vertex 64 X-coordinate"] = value
 
@@ -42173,7 +42657,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_64_ycoordinate`'.format(value))
         self._data["Vertex 64 Y-coordinate"] = value
 
@@ -42203,7 +42687,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_64_zcoordinate`'.format(value))
         self._data["Vertex 64 Z-coordinate"] = value
 
@@ -42233,7 +42717,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_65_xcoordinate`'.format(value))
         self._data["Vertex 65 X-coordinate"] = value
 
@@ -42263,7 +42747,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_65_ycoordinate`'.format(value))
         self._data["Vertex 65 Y-coordinate"] = value
 
@@ -42293,7 +42777,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_65_zcoordinate`'.format(value))
         self._data["Vertex 65 Z-coordinate"] = value
 
@@ -42323,7 +42807,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_66_xcoordinate`'.format(value))
         self._data["Vertex 66 X-coordinate"] = value
 
@@ -42353,7 +42837,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_66_ycoordinate`'.format(value))
         self._data["Vertex 66 Y-coordinate"] = value
 
@@ -42383,7 +42867,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_66_zcoordinate`'.format(value))
         self._data["Vertex 66 Z-coordinate"] = value
 
@@ -42413,7 +42897,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_67_xcoordinate`'.format(value))
         self._data["Vertex 67 X-coordinate"] = value
 
@@ -42443,7 +42927,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_67_ycoordinate`'.format(value))
         self._data["Vertex 67 Y-coordinate"] = value
 
@@ -42473,7 +42957,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_67_zcoordinate`'.format(value))
         self._data["Vertex 67 Z-coordinate"] = value
 
@@ -42503,7 +42987,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_68_xcoordinate`'.format(value))
         self._data["Vertex 68 X-coordinate"] = value
 
@@ -42533,7 +43017,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_68_ycoordinate`'.format(value))
         self._data["Vertex 68 Y-coordinate"] = value
 
@@ -42563,7 +43047,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_68_zcoordinate`'.format(value))
         self._data["Vertex 68 Z-coordinate"] = value
 
@@ -42593,7 +43077,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_69_xcoordinate`'.format(value))
         self._data["Vertex 69 X-coordinate"] = value
 
@@ -42623,7 +43107,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_69_ycoordinate`'.format(value))
         self._data["Vertex 69 Y-coordinate"] = value
 
@@ -42653,7 +43137,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_69_zcoordinate`'.format(value))
         self._data["Vertex 69 Z-coordinate"] = value
 
@@ -42683,7 +43167,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_70_xcoordinate`'.format(value))
         self._data["Vertex 70 X-coordinate"] = value
 
@@ -42713,7 +43197,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_70_ycoordinate`'.format(value))
         self._data["Vertex 70 Y-coordinate"] = value
 
@@ -42743,7 +43227,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_70_zcoordinate`'.format(value))
         self._data["Vertex 70 Z-coordinate"] = value
 
@@ -42773,7 +43257,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_71_xcoordinate`'.format(value))
         self._data["Vertex 71 X-coordinate"] = value
 
@@ -42803,7 +43287,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_71_ycoordinate`'.format(value))
         self._data["Vertex 71 Y-coordinate"] = value
 
@@ -42833,7 +43317,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_71_zcoordinate`'.format(value))
         self._data["Vertex 71 Z-coordinate"] = value
 
@@ -42863,7 +43347,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_72_xcoordinate`'.format(value))
         self._data["Vertex 72 X-coordinate"] = value
 
@@ -42893,7 +43377,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_72_ycoordinate`'.format(value))
         self._data["Vertex 72 Y-coordinate"] = value
 
@@ -42923,7 +43407,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_72_zcoordinate`'.format(value))
         self._data["Vertex 72 Z-coordinate"] = value
 
@@ -42953,7 +43437,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_73_xcoordinate`'.format(value))
         self._data["Vertex 73 X-coordinate"] = value
 
@@ -42983,7 +43467,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_73_ycoordinate`'.format(value))
         self._data["Vertex 73 Y-coordinate"] = value
 
@@ -43013,7 +43497,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_73_zcoordinate`'.format(value))
         self._data["Vertex 73 Z-coordinate"] = value
 
@@ -43043,7 +43527,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_74_xcoordinate`'.format(value))
         self._data["Vertex 74 X-coordinate"] = value
 
@@ -43073,7 +43557,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_74_ycoordinate`'.format(value))
         self._data["Vertex 74 Y-coordinate"] = value
 
@@ -43103,7 +43587,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_74_zcoordinate`'.format(value))
         self._data["Vertex 74 Z-coordinate"] = value
 
@@ -43133,7 +43617,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_75_xcoordinate`'.format(value))
         self._data["Vertex 75 X-coordinate"] = value
 
@@ -43163,7 +43647,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_75_ycoordinate`'.format(value))
         self._data["Vertex 75 Y-coordinate"] = value
 
@@ -43193,7 +43677,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_75_zcoordinate`'.format(value))
         self._data["Vertex 75 Z-coordinate"] = value
 
@@ -43223,7 +43707,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_76_xcoordinate`'.format(value))
         self._data["Vertex 76 X-coordinate"] = value
 
@@ -43253,7 +43737,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_76_ycoordinate`'.format(value))
         self._data["Vertex 76 Y-coordinate"] = value
 
@@ -43283,7 +43767,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_76_zcoordinate`'.format(value))
         self._data["Vertex 76 Z-coordinate"] = value
 
@@ -43313,7 +43797,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_77_xcoordinate`'.format(value))
         self._data["Vertex 77 X-coordinate"] = value
 
@@ -43343,7 +43827,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_77_ycoordinate`'.format(value))
         self._data["Vertex 77 Y-coordinate"] = value
 
@@ -43373,7 +43857,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_77_zcoordinate`'.format(value))
         self._data["Vertex 77 Z-coordinate"] = value
 
@@ -43403,7 +43887,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_78_xcoordinate`'.format(value))
         self._data["Vertex 78 X-coordinate"] = value
 
@@ -43433,7 +43917,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_78_ycoordinate`'.format(value))
         self._data["Vertex 78 Y-coordinate"] = value
 
@@ -43463,7 +43947,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_78_zcoordinate`'.format(value))
         self._data["Vertex 78 Z-coordinate"] = value
 
@@ -43493,7 +43977,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_79_xcoordinate`'.format(value))
         self._data["Vertex 79 X-coordinate"] = value
 
@@ -43523,7 +44007,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_79_ycoordinate`'.format(value))
         self._data["Vertex 79 Y-coordinate"] = value
 
@@ -43553,7 +44037,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_79_zcoordinate`'.format(value))
         self._data["Vertex 79 Z-coordinate"] = value
 
@@ -43583,7 +44067,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_80_xcoordinate`'.format(value))
         self._data["Vertex 80 X-coordinate"] = value
 
@@ -43613,7 +44097,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_80_ycoordinate`'.format(value))
         self._data["Vertex 80 Y-coordinate"] = value
 
@@ -43643,7 +44127,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_80_zcoordinate`'.format(value))
         self._data["Vertex 80 Z-coordinate"] = value
 
@@ -43673,7 +44157,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_81_xcoordinate`'.format(value))
         self._data["Vertex 81 X-coordinate"] = value
 
@@ -43703,7 +44187,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_81_ycoordinate`'.format(value))
         self._data["Vertex 81 Y-coordinate"] = value
 
@@ -43733,7 +44217,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_81_zcoordinate`'.format(value))
         self._data["Vertex 81 Z-coordinate"] = value
 
@@ -43763,7 +44247,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_82_xcoordinate`'.format(value))
         self._data["Vertex 82 X-coordinate"] = value
 
@@ -43793,7 +44277,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_82_ycoordinate`'.format(value))
         self._data["Vertex 82 Y-coordinate"] = value
 
@@ -43823,7 +44307,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_82_zcoordinate`'.format(value))
         self._data["Vertex 82 Z-coordinate"] = value
 
@@ -43853,7 +44337,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_83_xcoordinate`'.format(value))
         self._data["Vertex 83 X-coordinate"] = value
 
@@ -43883,7 +44367,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_83_ycoordinate`'.format(value))
         self._data["Vertex 83 Y-coordinate"] = value
 
@@ -43913,7 +44397,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_83_zcoordinate`'.format(value))
         self._data["Vertex 83 Z-coordinate"] = value
 
@@ -43943,7 +44427,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_84_xcoordinate`'.format(value))
         self._data["Vertex 84 X-coordinate"] = value
 
@@ -43973,7 +44457,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_84_ycoordinate`'.format(value))
         self._data["Vertex 84 Y-coordinate"] = value
 
@@ -44003,7 +44487,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_84_zcoordinate`'.format(value))
         self._data["Vertex 84 Z-coordinate"] = value
 
@@ -44033,7 +44517,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_85_xcoordinate`'.format(value))
         self._data["Vertex 85 X-coordinate"] = value
 
@@ -44063,7 +44547,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_85_ycoordinate`'.format(value))
         self._data["Vertex 85 Y-coordinate"] = value
 
@@ -44093,7 +44577,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_85_zcoordinate`'.format(value))
         self._data["Vertex 85 Z-coordinate"] = value
 
@@ -44123,7 +44607,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_86_xcoordinate`'.format(value))
         self._data["Vertex 86 X-coordinate"] = value
 
@@ -44153,7 +44637,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_86_ycoordinate`'.format(value))
         self._data["Vertex 86 Y-coordinate"] = value
 
@@ -44183,7 +44667,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_86_zcoordinate`'.format(value))
         self._data["Vertex 86 Z-coordinate"] = value
 
@@ -44213,7 +44697,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_87_xcoordinate`'.format(value))
         self._data["Vertex 87 X-coordinate"] = value
 
@@ -44243,7 +44727,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_87_ycoordinate`'.format(value))
         self._data["Vertex 87 Y-coordinate"] = value
 
@@ -44273,7 +44757,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_87_zcoordinate`'.format(value))
         self._data["Vertex 87 Z-coordinate"] = value
 
@@ -44303,7 +44787,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_88_xcoordinate`'.format(value))
         self._data["Vertex 88 X-coordinate"] = value
 
@@ -44333,7 +44817,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_88_ycoordinate`'.format(value))
         self._data["Vertex 88 Y-coordinate"] = value
 
@@ -44363,7 +44847,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_88_zcoordinate`'.format(value))
         self._data["Vertex 88 Z-coordinate"] = value
 
@@ -44393,7 +44877,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_89_xcoordinate`'.format(value))
         self._data["Vertex 89 X-coordinate"] = value
 
@@ -44423,7 +44907,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_89_ycoordinate`'.format(value))
         self._data["Vertex 89 Y-coordinate"] = value
 
@@ -44453,7 +44937,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_89_zcoordinate`'.format(value))
         self._data["Vertex 89 Z-coordinate"] = value
 
@@ -44483,7 +44967,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_90_xcoordinate`'.format(value))
         self._data["Vertex 90 X-coordinate"] = value
 
@@ -44513,7 +44997,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_90_ycoordinate`'.format(value))
         self._data["Vertex 90 Y-coordinate"] = value
 
@@ -44543,7 +45027,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_90_zcoordinate`'.format(value))
         self._data["Vertex 90 Z-coordinate"] = value
 
@@ -44573,7 +45057,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_91_xcoordinate`'.format(value))
         self._data["Vertex 91 X-coordinate"] = value
 
@@ -44603,7 +45087,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_91_ycoordinate`'.format(value))
         self._data["Vertex 91 Y-coordinate"] = value
 
@@ -44633,7 +45117,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_91_zcoordinate`'.format(value))
         self._data["Vertex 91 Z-coordinate"] = value
 
@@ -44663,7 +45147,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_92_xcoordinate`'.format(value))
         self._data["Vertex 92 X-coordinate"] = value
 
@@ -44693,7 +45177,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_92_ycoordinate`'.format(value))
         self._data["Vertex 92 Y-coordinate"] = value
 
@@ -44723,7 +45207,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_92_zcoordinate`'.format(value))
         self._data["Vertex 92 Z-coordinate"] = value
 
@@ -44753,7 +45237,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_93_xcoordinate`'.format(value))
         self._data["Vertex 93 X-coordinate"] = value
 
@@ -44783,7 +45267,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_93_ycoordinate`'.format(value))
         self._data["Vertex 93 Y-coordinate"] = value
 
@@ -44813,7 +45297,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_93_zcoordinate`'.format(value))
         self._data["Vertex 93 Z-coordinate"] = value
 
@@ -44843,7 +45327,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_94_xcoordinate`'.format(value))
         self._data["Vertex 94 X-coordinate"] = value
 
@@ -44873,7 +45357,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_94_ycoordinate`'.format(value))
         self._data["Vertex 94 Y-coordinate"] = value
 
@@ -44903,7 +45387,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_94_zcoordinate`'.format(value))
         self._data["Vertex 94 Z-coordinate"] = value
 
@@ -44933,7 +45417,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_95_xcoordinate`'.format(value))
         self._data["Vertex 95 X-coordinate"] = value
 
@@ -44963,7 +45447,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_95_ycoordinate`'.format(value))
         self._data["Vertex 95 Y-coordinate"] = value
 
@@ -44993,7 +45477,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_95_zcoordinate`'.format(value))
         self._data["Vertex 95 Z-coordinate"] = value
 
@@ -45023,7 +45507,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_96_xcoordinate`'.format(value))
         self._data["Vertex 96 X-coordinate"] = value
 
@@ -45053,7 +45537,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_96_ycoordinate`'.format(value))
         self._data["Vertex 96 Y-coordinate"] = value
 
@@ -45083,7 +45567,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_96_zcoordinate`'.format(value))
         self._data["Vertex 96 Z-coordinate"] = value
 
@@ -45113,7 +45597,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_97_xcoordinate`'.format(value))
         self._data["Vertex 97 X-coordinate"] = value
 
@@ -45143,7 +45627,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_97_ycoordinate`'.format(value))
         self._data["Vertex 97 Y-coordinate"] = value
 
@@ -45173,7 +45657,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_97_zcoordinate`'.format(value))
         self._data["Vertex 97 Z-coordinate"] = value
 
@@ -45203,7 +45687,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_98_xcoordinate`'.format(value))
         self._data["Vertex 98 X-coordinate"] = value
 
@@ -45233,7 +45717,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_98_ycoordinate`'.format(value))
         self._data["Vertex 98 Y-coordinate"] = value
 
@@ -45263,7 +45747,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_98_zcoordinate`'.format(value))
         self._data["Vertex 98 Z-coordinate"] = value
 
@@ -45293,7 +45777,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_99_xcoordinate`'.format(value))
         self._data["Vertex 99 X-coordinate"] = value
 
@@ -45323,7 +45807,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_99_ycoordinate`'.format(value))
         self._data["Vertex 99 Y-coordinate"] = value
 
@@ -45353,7 +45837,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_99_zcoordinate`'.format(value))
         self._data["Vertex 99 Z-coordinate"] = value
 
@@ -45383,7 +45867,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_100_xcoordinate`'.format(value))
         self._data["Vertex 100 X-coordinate"] = value
 
@@ -45413,7 +45897,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_100_ycoordinate`'.format(value))
         self._data["Vertex 100 Y-coordinate"] = value
 
@@ -45443,7 +45927,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_100_zcoordinate`'.format(value))
         self._data["Vertex 100 Z-coordinate"] = value
 
@@ -45473,7 +45957,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_101_xcoordinate`'.format(value))
         self._data["Vertex 101 X-coordinate"] = value
 
@@ -45503,7 +45987,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_101_ycoordinate`'.format(value))
         self._data["Vertex 101 Y-coordinate"] = value
 
@@ -45533,7 +46017,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_101_zcoordinate`'.format(value))
         self._data["Vertex 101 Z-coordinate"] = value
 
@@ -45563,7 +46047,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_102_xcoordinate`'.format(value))
         self._data["Vertex 102 X-coordinate"] = value
 
@@ -45593,7 +46077,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_102_ycoordinate`'.format(value))
         self._data["Vertex 102 Y-coordinate"] = value
 
@@ -45623,7 +46107,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_102_zcoordinate`'.format(value))
         self._data["Vertex 102 Z-coordinate"] = value
 
@@ -45653,7 +46137,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_103_xcoordinate`'.format(value))
         self._data["Vertex 103 X-coordinate"] = value
 
@@ -45683,7 +46167,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_103_ycoordinate`'.format(value))
         self._data["Vertex 103 Y-coordinate"] = value
 
@@ -45713,7 +46197,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_103_zcoordinate`'.format(value))
         self._data["Vertex 103 Z-coordinate"] = value
 
@@ -45743,7 +46227,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_104_xcoordinate`'.format(value))
         self._data["Vertex 104 X-coordinate"] = value
 
@@ -45773,7 +46257,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_104_ycoordinate`'.format(value))
         self._data["Vertex 104 Y-coordinate"] = value
 
@@ -45803,7 +46287,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_104_zcoordinate`'.format(value))
         self._data["Vertex 104 Z-coordinate"] = value
 
@@ -45833,7 +46317,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_105_xcoordinate`'.format(value))
         self._data["Vertex 105 X-coordinate"] = value
 
@@ -45863,7 +46347,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_105_ycoordinate`'.format(value))
         self._data["Vertex 105 Y-coordinate"] = value
 
@@ -45893,7 +46377,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_105_zcoordinate`'.format(value))
         self._data["Vertex 105 Z-coordinate"] = value
 
@@ -45923,7 +46407,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_106_xcoordinate`'.format(value))
         self._data["Vertex 106 X-coordinate"] = value
 
@@ -45953,7 +46437,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_106_ycoordinate`'.format(value))
         self._data["Vertex 106 Y-coordinate"] = value
 
@@ -45983,7 +46467,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_106_zcoordinate`'.format(value))
         self._data["Vertex 106 Z-coordinate"] = value
 
@@ -46013,7 +46497,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_107_xcoordinate`'.format(value))
         self._data["Vertex 107 X-coordinate"] = value
 
@@ -46043,7 +46527,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_107_ycoordinate`'.format(value))
         self._data["Vertex 107 Y-coordinate"] = value
 
@@ -46073,7 +46557,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_107_zcoordinate`'.format(value))
         self._data["Vertex 107 Z-coordinate"] = value
 
@@ -46103,7 +46587,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_108_xcoordinate`'.format(value))
         self._data["Vertex 108 X-coordinate"] = value
 
@@ -46133,7 +46617,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_108_ycoordinate`'.format(value))
         self._data["Vertex 108 Y-coordinate"] = value
 
@@ -46163,7 +46647,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_108_zcoordinate`'.format(value))
         self._data["Vertex 108 Z-coordinate"] = value
 
@@ -46193,7 +46677,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_109_xcoordinate`'.format(value))
         self._data["Vertex 109 X-coordinate"] = value
 
@@ -46223,7 +46707,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_109_ycoordinate`'.format(value))
         self._data["Vertex 109 Y-coordinate"] = value
 
@@ -46253,7 +46737,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_109_zcoordinate`'.format(value))
         self._data["Vertex 109 Z-coordinate"] = value
 
@@ -46283,7 +46767,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_110_xcoordinate`'.format(value))
         self._data["Vertex 110 X-coordinate"] = value
 
@@ -46313,7 +46797,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_110_ycoordinate`'.format(value))
         self._data["Vertex 110 Y-coordinate"] = value
 
@@ -46343,7 +46827,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_110_zcoordinate`'.format(value))
         self._data["Vertex 110 Z-coordinate"] = value
 
@@ -46373,7 +46857,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_111_xcoordinate`'.format(value))
         self._data["Vertex 111 X-coordinate"] = value
 
@@ -46403,7 +46887,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_111_ycoordinate`'.format(value))
         self._data["Vertex 111 Y-coordinate"] = value
 
@@ -46433,7 +46917,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_111_zcoordinate`'.format(value))
         self._data["Vertex 111 Z-coordinate"] = value
 
@@ -46463,7 +46947,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_112_xcoordinate`'.format(value))
         self._data["Vertex 112 X-coordinate"] = value
 
@@ -46493,7 +46977,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_112_ycoordinate`'.format(value))
         self._data["Vertex 112 Y-coordinate"] = value
 
@@ -46523,7 +47007,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_112_zcoordinate`'.format(value))
         self._data["Vertex 112 Z-coordinate"] = value
 
@@ -46553,7 +47037,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_113_xcoordinate`'.format(value))
         self._data["Vertex 113 X-coordinate"] = value
 
@@ -46583,7 +47067,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_113_ycoordinate`'.format(value))
         self._data["Vertex 113 Y-coordinate"] = value
 
@@ -46613,7 +47097,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_113_zcoordinate`'.format(value))
         self._data["Vertex 113 Z-coordinate"] = value
 
@@ -46643,7 +47127,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_114_xcoordinate`'.format(value))
         self._data["Vertex 114 X-coordinate"] = value
 
@@ -46673,7 +47157,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_114_ycoordinate`'.format(value))
         self._data["Vertex 114 Y-coordinate"] = value
 
@@ -46703,7 +47187,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_114_zcoordinate`'.format(value))
         self._data["Vertex 114 Z-coordinate"] = value
 
@@ -46733,7 +47217,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_115_xcoordinate`'.format(value))
         self._data["Vertex 115 X-coordinate"] = value
 
@@ -46763,7 +47247,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_115_ycoordinate`'.format(value))
         self._data["Vertex 115 Y-coordinate"] = value
 
@@ -46793,7 +47277,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_115_zcoordinate`'.format(value))
         self._data["Vertex 115 Z-coordinate"] = value
 
@@ -46823,7 +47307,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_116_xcoordinate`'.format(value))
         self._data["Vertex 116 X-coordinate"] = value
 
@@ -46853,7 +47337,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_116_ycoordinate`'.format(value))
         self._data["Vertex 116 Y-coordinate"] = value
 
@@ -46883,7 +47367,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_116_zcoordinate`'.format(value))
         self._data["Vertex 116 Z-coordinate"] = value
 
@@ -46913,7 +47397,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_117_xcoordinate`'.format(value))
         self._data["Vertex 117 X-coordinate"] = value
 
@@ -46943,7 +47427,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_117_ycoordinate`'.format(value))
         self._data["Vertex 117 Y-coordinate"] = value
 
@@ -46973,7 +47457,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_117_zcoordinate`'.format(value))
         self._data["Vertex 117 Z-coordinate"] = value
 
@@ -47003,7 +47487,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_118_xcoordinate`'.format(value))
         self._data["Vertex 118 X-coordinate"] = value
 
@@ -47033,7 +47517,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_118_ycoordinate`'.format(value))
         self._data["Vertex 118 Y-coordinate"] = value
 
@@ -47063,7 +47547,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_118_zcoordinate`'.format(value))
         self._data["Vertex 118 Z-coordinate"] = value
 
@@ -47093,7 +47577,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_119_xcoordinate`'.format(value))
         self._data["Vertex 119 X-coordinate"] = value
 
@@ -47123,7 +47607,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_119_ycoordinate`'.format(value))
         self._data["Vertex 119 Y-coordinate"] = value
 
@@ -47153,7 +47637,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_119_zcoordinate`'.format(value))
         self._data["Vertex 119 Z-coordinate"] = value
 
@@ -47183,7 +47667,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_120_xcoordinate`'.format(value))
         self._data["Vertex 120 X-coordinate"] = value
 
@@ -47213,7 +47697,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_120_ycoordinate`'.format(value))
         self._data["Vertex 120 Y-coordinate"] = value
 
@@ -47243,7 +47727,7 @@ class ShadingSiteDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_120_zcoordinate`'.format(value))
         self._data["Vertex 120 Z-coordinate"] = value
 
@@ -47285,7 +47769,6 @@ class ShadingBuildingDetailed(object):
     """ Corresponds to IDD object `Shading:Building:Detailed`
         used for shading elements such as trees, other buildings, parts of this building not being modeled
         these items are relative to the current building and would move with relative geometry
-    
     """
     internal_name = "Shading:Building:Detailed"
     field_count = 363
@@ -47658,15 +48141,16 @@ class ShadingBuildingDetailed(object):
         self._data["Vertex 120 X-coordinate"] = None
         self._data["Vertex 120 Y-coordinate"] = None
         self._data["Vertex 120 Z-coordinate"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -50209,6 +50693,7 @@ class ShadingBuildingDetailed(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -50235,7 +50720,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -50271,7 +50756,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `transmittance_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -50314,12 +50799,17 @@ class ShadingBuildingDetailed(object):
                 if value_lower == "autocalculate":
                     self._data["Number of Vertices"] = "Autocalculate"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autocalculate" '
+                                 'for field `number_of_vertices`'.format(value))
+                    self._data["Number of Vertices"] = "Autocalculate"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autocalculate"'
                                  'for field `number_of_vertices`'.format(value))
             if value < 3.0:
                 raise ValueError('value need to be greater or equal 3.0 '
@@ -50352,7 +50842,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_1_xcoordinate`'.format(value))
         self._data["Vertex 1 X-coordinate"] = value
 
@@ -50382,7 +50872,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_1_ycoordinate`'.format(value))
         self._data["Vertex 1 Y-coordinate"] = value
 
@@ -50412,7 +50902,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_1_zcoordinate`'.format(value))
         self._data["Vertex 1 Z-coordinate"] = value
 
@@ -50442,7 +50932,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_2_xcoordinate`'.format(value))
         self._data["Vertex 2 X-coordinate"] = value
 
@@ -50472,7 +50962,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_2_ycoordinate`'.format(value))
         self._data["Vertex 2 Y-coordinate"] = value
 
@@ -50502,7 +50992,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_2_zcoordinate`'.format(value))
         self._data["Vertex 2 Z-coordinate"] = value
 
@@ -50532,7 +51022,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_3_xcoordinate`'.format(value))
         self._data["Vertex 3 X-coordinate"] = value
 
@@ -50562,7 +51052,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_3_ycoordinate`'.format(value))
         self._data["Vertex 3 Y-coordinate"] = value
 
@@ -50592,7 +51082,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_3_zcoordinate`'.format(value))
         self._data["Vertex 3 Z-coordinate"] = value
 
@@ -50622,7 +51112,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_4_xcoordinate`'.format(value))
         self._data["Vertex 4 X-coordinate"] = value
 
@@ -50652,7 +51142,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_4_ycoordinate`'.format(value))
         self._data["Vertex 4 Y-coordinate"] = value
 
@@ -50682,7 +51172,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_4_zcoordinate`'.format(value))
         self._data["Vertex 4 Z-coordinate"] = value
 
@@ -50712,7 +51202,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_5_xcoordinate`'.format(value))
         self._data["Vertex 5 X-coordinate"] = value
 
@@ -50742,7 +51232,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_5_ycoordinate`'.format(value))
         self._data["Vertex 5 Y-coordinate"] = value
 
@@ -50772,7 +51262,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_5_zcoordinate`'.format(value))
         self._data["Vertex 5 Z-coordinate"] = value
 
@@ -50802,7 +51292,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_6_xcoordinate`'.format(value))
         self._data["Vertex 6 X-coordinate"] = value
 
@@ -50832,7 +51322,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_6_ycoordinate`'.format(value))
         self._data["Vertex 6 Y-coordinate"] = value
 
@@ -50862,7 +51352,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_6_zcoordinate`'.format(value))
         self._data["Vertex 6 Z-coordinate"] = value
 
@@ -50892,7 +51382,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_7_xcoordinate`'.format(value))
         self._data["Vertex 7 X-coordinate"] = value
 
@@ -50922,7 +51412,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_7_ycoordinate`'.format(value))
         self._data["Vertex 7 Y-coordinate"] = value
 
@@ -50952,7 +51442,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_7_zcoordinate`'.format(value))
         self._data["Vertex 7 Z-coordinate"] = value
 
@@ -50982,7 +51472,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_8_xcoordinate`'.format(value))
         self._data["Vertex 8 X-coordinate"] = value
 
@@ -51012,7 +51502,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_8_ycoordinate`'.format(value))
         self._data["Vertex 8 Y-coordinate"] = value
 
@@ -51042,7 +51532,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_8_zcoordinate`'.format(value))
         self._data["Vertex 8 Z-coordinate"] = value
 
@@ -51072,7 +51562,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_9_xcoordinate`'.format(value))
         self._data["Vertex 9 X-coordinate"] = value
 
@@ -51102,7 +51592,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_9_ycoordinate`'.format(value))
         self._data["Vertex 9 Y-coordinate"] = value
 
@@ -51132,7 +51622,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_9_zcoordinate`'.format(value))
         self._data["Vertex 9 Z-coordinate"] = value
 
@@ -51162,7 +51652,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_10_xcoordinate`'.format(value))
         self._data["Vertex 10 X-coordinate"] = value
 
@@ -51192,7 +51682,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_10_ycoordinate`'.format(value))
         self._data["Vertex 10 Y-coordinate"] = value
 
@@ -51222,7 +51712,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_10_zcoordinate`'.format(value))
         self._data["Vertex 10 Z-coordinate"] = value
 
@@ -51252,7 +51742,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_11_xcoordinate`'.format(value))
         self._data["Vertex 11 X-coordinate"] = value
 
@@ -51282,7 +51772,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_11_ycoordinate`'.format(value))
         self._data["Vertex 11 Y-coordinate"] = value
 
@@ -51312,7 +51802,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_11_zcoordinate`'.format(value))
         self._data["Vertex 11 Z-coordinate"] = value
 
@@ -51342,7 +51832,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_12_xcoordinate`'.format(value))
         self._data["Vertex 12 X-coordinate"] = value
 
@@ -51372,7 +51862,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_12_ycoordinate`'.format(value))
         self._data["Vertex 12 Y-coordinate"] = value
 
@@ -51402,7 +51892,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_12_zcoordinate`'.format(value))
         self._data["Vertex 12 Z-coordinate"] = value
 
@@ -51432,7 +51922,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_13_xcoordinate`'.format(value))
         self._data["Vertex 13 X-coordinate"] = value
 
@@ -51462,7 +51952,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_13_ycoordinate`'.format(value))
         self._data["Vertex 13 Y-coordinate"] = value
 
@@ -51492,7 +51982,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_13_zcoordinate`'.format(value))
         self._data["Vertex 13 Z-coordinate"] = value
 
@@ -51522,7 +52012,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_14_xcoordinate`'.format(value))
         self._data["Vertex 14 X-coordinate"] = value
 
@@ -51552,7 +52042,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_14_ycoordinate`'.format(value))
         self._data["Vertex 14 Y-coordinate"] = value
 
@@ -51582,7 +52072,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_14_zcoordinate`'.format(value))
         self._data["Vertex 14 Z-coordinate"] = value
 
@@ -51612,7 +52102,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_15_xcoordinate`'.format(value))
         self._data["Vertex 15 X-coordinate"] = value
 
@@ -51642,7 +52132,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_15_ycoordinate`'.format(value))
         self._data["Vertex 15 Y-coordinate"] = value
 
@@ -51672,7 +52162,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_15_zcoordinate`'.format(value))
         self._data["Vertex 15 Z-coordinate"] = value
 
@@ -51702,7 +52192,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_16_xcoordinate`'.format(value))
         self._data["Vertex 16 X-coordinate"] = value
 
@@ -51732,7 +52222,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_16_ycoordinate`'.format(value))
         self._data["Vertex 16 Y-coordinate"] = value
 
@@ -51762,7 +52252,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_16_zcoordinate`'.format(value))
         self._data["Vertex 16 Z-coordinate"] = value
 
@@ -51792,7 +52282,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_17_xcoordinate`'.format(value))
         self._data["Vertex 17 X-coordinate"] = value
 
@@ -51822,7 +52312,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_17_ycoordinate`'.format(value))
         self._data["Vertex 17 Y-coordinate"] = value
 
@@ -51852,7 +52342,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_17_zcoordinate`'.format(value))
         self._data["Vertex 17 Z-coordinate"] = value
 
@@ -51882,7 +52372,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_18_xcoordinate`'.format(value))
         self._data["Vertex 18 X-coordinate"] = value
 
@@ -51912,7 +52402,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_18_ycoordinate`'.format(value))
         self._data["Vertex 18 Y-coordinate"] = value
 
@@ -51942,7 +52432,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_18_zcoordinate`'.format(value))
         self._data["Vertex 18 Z-coordinate"] = value
 
@@ -51972,7 +52462,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_19_xcoordinate`'.format(value))
         self._data["Vertex 19 X-coordinate"] = value
 
@@ -52002,7 +52492,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_19_ycoordinate`'.format(value))
         self._data["Vertex 19 Y-coordinate"] = value
 
@@ -52032,7 +52522,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_19_zcoordinate`'.format(value))
         self._data["Vertex 19 Z-coordinate"] = value
 
@@ -52062,7 +52552,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_20_xcoordinate`'.format(value))
         self._data["Vertex 20 X-coordinate"] = value
 
@@ -52092,7 +52582,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_20_ycoordinate`'.format(value))
         self._data["Vertex 20 Y-coordinate"] = value
 
@@ -52122,7 +52612,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_20_zcoordinate`'.format(value))
         self._data["Vertex 20 Z-coordinate"] = value
 
@@ -52152,7 +52642,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_21_xcoordinate`'.format(value))
         self._data["Vertex 21 X-coordinate"] = value
 
@@ -52182,7 +52672,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_21_ycoordinate`'.format(value))
         self._data["Vertex 21 Y-coordinate"] = value
 
@@ -52212,7 +52702,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_21_zcoordinate`'.format(value))
         self._data["Vertex 21 Z-coordinate"] = value
 
@@ -52242,7 +52732,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_22_xcoordinate`'.format(value))
         self._data["Vertex 22 X-coordinate"] = value
 
@@ -52272,7 +52762,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_22_ycoordinate`'.format(value))
         self._data["Vertex 22 Y-coordinate"] = value
 
@@ -52302,7 +52792,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_22_zcoordinate`'.format(value))
         self._data["Vertex 22 Z-coordinate"] = value
 
@@ -52332,7 +52822,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_23_xcoordinate`'.format(value))
         self._data["Vertex 23 X-coordinate"] = value
 
@@ -52362,7 +52852,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_23_ycoordinate`'.format(value))
         self._data["Vertex 23 Y-coordinate"] = value
 
@@ -52392,7 +52882,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_23_zcoordinate`'.format(value))
         self._data["Vertex 23 Z-coordinate"] = value
 
@@ -52422,7 +52912,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_24_xcoordinate`'.format(value))
         self._data["Vertex 24 X-coordinate"] = value
 
@@ -52452,7 +52942,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_24_ycoordinate`'.format(value))
         self._data["Vertex 24 Y-coordinate"] = value
 
@@ -52482,7 +52972,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_24_zcoordinate`'.format(value))
         self._data["Vertex 24 Z-coordinate"] = value
 
@@ -52512,7 +53002,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_25_xcoordinate`'.format(value))
         self._data["Vertex 25 X-coordinate"] = value
 
@@ -52542,7 +53032,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_25_ycoordinate`'.format(value))
         self._data["Vertex 25 Y-coordinate"] = value
 
@@ -52572,7 +53062,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_25_zcoordinate`'.format(value))
         self._data["Vertex 25 Z-coordinate"] = value
 
@@ -52602,7 +53092,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_26_xcoordinate`'.format(value))
         self._data["Vertex 26 X-coordinate"] = value
 
@@ -52632,7 +53122,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_26_ycoordinate`'.format(value))
         self._data["Vertex 26 Y-coordinate"] = value
 
@@ -52662,7 +53152,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_26_zcoordinate`'.format(value))
         self._data["Vertex 26 Z-coordinate"] = value
 
@@ -52692,7 +53182,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_27_xcoordinate`'.format(value))
         self._data["Vertex 27 X-coordinate"] = value
 
@@ -52722,7 +53212,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_27_ycoordinate`'.format(value))
         self._data["Vertex 27 Y-coordinate"] = value
 
@@ -52752,7 +53242,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_27_zcoordinate`'.format(value))
         self._data["Vertex 27 Z-coordinate"] = value
 
@@ -52782,7 +53272,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_28_xcoordinate`'.format(value))
         self._data["Vertex 28 X-coordinate"] = value
 
@@ -52812,7 +53302,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_28_ycoordinate`'.format(value))
         self._data["Vertex 28 Y-coordinate"] = value
 
@@ -52842,7 +53332,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_28_zcoordinate`'.format(value))
         self._data["Vertex 28 Z-coordinate"] = value
 
@@ -52872,7 +53362,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_29_xcoordinate`'.format(value))
         self._data["Vertex 29 X-coordinate"] = value
 
@@ -52902,7 +53392,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_29_ycoordinate`'.format(value))
         self._data["Vertex 29 Y-coordinate"] = value
 
@@ -52932,7 +53422,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_29_zcoordinate`'.format(value))
         self._data["Vertex 29 Z-coordinate"] = value
 
@@ -52962,7 +53452,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_30_xcoordinate`'.format(value))
         self._data["Vertex 30 X-coordinate"] = value
 
@@ -52992,7 +53482,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_30_ycoordinate`'.format(value))
         self._data["Vertex 30 Y-coordinate"] = value
 
@@ -53022,7 +53512,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_30_zcoordinate`'.format(value))
         self._data["Vertex 30 Z-coordinate"] = value
 
@@ -53052,7 +53542,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_31_xcoordinate`'.format(value))
         self._data["Vertex 31 X-coordinate"] = value
 
@@ -53082,7 +53572,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_31_ycoordinate`'.format(value))
         self._data["Vertex 31 Y-coordinate"] = value
 
@@ -53112,7 +53602,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_31_zcoordinate`'.format(value))
         self._data["Vertex 31 Z-coordinate"] = value
 
@@ -53142,7 +53632,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_32_xcoordinate`'.format(value))
         self._data["Vertex 32 X-coordinate"] = value
 
@@ -53172,7 +53662,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_32_ycoordinate`'.format(value))
         self._data["Vertex 32 Y-coordinate"] = value
 
@@ -53202,7 +53692,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_32_zcoordinate`'.format(value))
         self._data["Vertex 32 Z-coordinate"] = value
 
@@ -53232,7 +53722,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_33_xcoordinate`'.format(value))
         self._data["Vertex 33 X-coordinate"] = value
 
@@ -53262,7 +53752,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_33_ycoordinate`'.format(value))
         self._data["Vertex 33 Y-coordinate"] = value
 
@@ -53292,7 +53782,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_33_zcoordinate`'.format(value))
         self._data["Vertex 33 Z-coordinate"] = value
 
@@ -53322,7 +53812,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_34_xcoordinate`'.format(value))
         self._data["Vertex 34 X-coordinate"] = value
 
@@ -53352,7 +53842,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_34_ycoordinate`'.format(value))
         self._data["Vertex 34 Y-coordinate"] = value
 
@@ -53382,7 +53872,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_34_zcoordinate`'.format(value))
         self._data["Vertex 34 Z-coordinate"] = value
 
@@ -53412,7 +53902,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_35_xcoordinate`'.format(value))
         self._data["Vertex 35 X-coordinate"] = value
 
@@ -53442,7 +53932,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_35_ycoordinate`'.format(value))
         self._data["Vertex 35 Y-coordinate"] = value
 
@@ -53472,7 +53962,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_35_zcoordinate`'.format(value))
         self._data["Vertex 35 Z-coordinate"] = value
 
@@ -53502,7 +53992,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_36_xcoordinate`'.format(value))
         self._data["Vertex 36 X-coordinate"] = value
 
@@ -53532,7 +54022,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_36_ycoordinate`'.format(value))
         self._data["Vertex 36 Y-coordinate"] = value
 
@@ -53562,7 +54052,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_36_zcoordinate`'.format(value))
         self._data["Vertex 36 Z-coordinate"] = value
 
@@ -53592,7 +54082,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_37_xcoordinate`'.format(value))
         self._data["Vertex 37 X-coordinate"] = value
 
@@ -53622,7 +54112,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_37_ycoordinate`'.format(value))
         self._data["Vertex 37 Y-coordinate"] = value
 
@@ -53652,7 +54142,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_37_zcoordinate`'.format(value))
         self._data["Vertex 37 Z-coordinate"] = value
 
@@ -53682,7 +54172,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_38_xcoordinate`'.format(value))
         self._data["Vertex 38 X-coordinate"] = value
 
@@ -53712,7 +54202,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_38_ycoordinate`'.format(value))
         self._data["Vertex 38 Y-coordinate"] = value
 
@@ -53742,7 +54232,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_38_zcoordinate`'.format(value))
         self._data["Vertex 38 Z-coordinate"] = value
 
@@ -53772,7 +54262,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_39_xcoordinate`'.format(value))
         self._data["Vertex 39 X-coordinate"] = value
 
@@ -53802,7 +54292,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_39_ycoordinate`'.format(value))
         self._data["Vertex 39 Y-coordinate"] = value
 
@@ -53832,7 +54322,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_39_zcoordinate`'.format(value))
         self._data["Vertex 39 Z-coordinate"] = value
 
@@ -53862,7 +54352,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_40_xcoordinate`'.format(value))
         self._data["Vertex 40 X-coordinate"] = value
 
@@ -53892,7 +54382,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_40_ycoordinate`'.format(value))
         self._data["Vertex 40 Y-coordinate"] = value
 
@@ -53922,7 +54412,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_40_zcoordinate`'.format(value))
         self._data["Vertex 40 Z-coordinate"] = value
 
@@ -53952,7 +54442,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_41_xcoordinate`'.format(value))
         self._data["Vertex 41 X-coordinate"] = value
 
@@ -53982,7 +54472,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_41_ycoordinate`'.format(value))
         self._data["Vertex 41 Y-coordinate"] = value
 
@@ -54012,7 +54502,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_41_zcoordinate`'.format(value))
         self._data["Vertex 41 Z-coordinate"] = value
 
@@ -54042,7 +54532,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_42_xcoordinate`'.format(value))
         self._data["Vertex 42 X-coordinate"] = value
 
@@ -54072,7 +54562,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_42_ycoordinate`'.format(value))
         self._data["Vertex 42 Y-coordinate"] = value
 
@@ -54102,7 +54592,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_42_zcoordinate`'.format(value))
         self._data["Vertex 42 Z-coordinate"] = value
 
@@ -54132,7 +54622,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_43_xcoordinate`'.format(value))
         self._data["Vertex 43 X-coordinate"] = value
 
@@ -54162,7 +54652,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_43_ycoordinate`'.format(value))
         self._data["Vertex 43 Y-coordinate"] = value
 
@@ -54192,7 +54682,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_43_zcoordinate`'.format(value))
         self._data["Vertex 43 Z-coordinate"] = value
 
@@ -54222,7 +54712,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_44_xcoordinate`'.format(value))
         self._data["Vertex 44 X-coordinate"] = value
 
@@ -54252,7 +54742,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_44_ycoordinate`'.format(value))
         self._data["Vertex 44 Y-coordinate"] = value
 
@@ -54282,7 +54772,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_44_zcoordinate`'.format(value))
         self._data["Vertex 44 Z-coordinate"] = value
 
@@ -54312,7 +54802,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_45_xcoordinate`'.format(value))
         self._data["Vertex 45 X-coordinate"] = value
 
@@ -54342,7 +54832,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_45_ycoordinate`'.format(value))
         self._data["Vertex 45 Y-coordinate"] = value
 
@@ -54372,7 +54862,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_45_zcoordinate`'.format(value))
         self._data["Vertex 45 Z-coordinate"] = value
 
@@ -54402,7 +54892,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_46_xcoordinate`'.format(value))
         self._data["Vertex 46 X-coordinate"] = value
 
@@ -54432,7 +54922,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_46_ycoordinate`'.format(value))
         self._data["Vertex 46 Y-coordinate"] = value
 
@@ -54462,7 +54952,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_46_zcoordinate`'.format(value))
         self._data["Vertex 46 Z-coordinate"] = value
 
@@ -54492,7 +54982,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_47_xcoordinate`'.format(value))
         self._data["Vertex 47 X-coordinate"] = value
 
@@ -54522,7 +55012,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_47_ycoordinate`'.format(value))
         self._data["Vertex 47 Y-coordinate"] = value
 
@@ -54552,7 +55042,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_47_zcoordinate`'.format(value))
         self._data["Vertex 47 Z-coordinate"] = value
 
@@ -54582,7 +55072,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_48_xcoordinate`'.format(value))
         self._data["Vertex 48 X-coordinate"] = value
 
@@ -54612,7 +55102,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_48_ycoordinate`'.format(value))
         self._data["Vertex 48 Y-coordinate"] = value
 
@@ -54642,7 +55132,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_48_zcoordinate`'.format(value))
         self._data["Vertex 48 Z-coordinate"] = value
 
@@ -54672,7 +55162,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_49_xcoordinate`'.format(value))
         self._data["Vertex 49 X-coordinate"] = value
 
@@ -54702,7 +55192,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_49_ycoordinate`'.format(value))
         self._data["Vertex 49 Y-coordinate"] = value
 
@@ -54732,7 +55222,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_49_zcoordinate`'.format(value))
         self._data["Vertex 49 Z-coordinate"] = value
 
@@ -54762,7 +55252,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_50_xcoordinate`'.format(value))
         self._data["Vertex 50 X-coordinate"] = value
 
@@ -54792,7 +55282,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_50_ycoordinate`'.format(value))
         self._data["Vertex 50 Y-coordinate"] = value
 
@@ -54822,7 +55312,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_50_zcoordinate`'.format(value))
         self._data["Vertex 50 Z-coordinate"] = value
 
@@ -54852,7 +55342,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_51_xcoordinate`'.format(value))
         self._data["Vertex 51 X-coordinate"] = value
 
@@ -54882,7 +55372,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_51_ycoordinate`'.format(value))
         self._data["Vertex 51 Y-coordinate"] = value
 
@@ -54912,7 +55402,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_51_zcoordinate`'.format(value))
         self._data["Vertex 51 Z-coordinate"] = value
 
@@ -54942,7 +55432,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_52_xcoordinate`'.format(value))
         self._data["Vertex 52 X-coordinate"] = value
 
@@ -54972,7 +55462,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_52_ycoordinate`'.format(value))
         self._data["Vertex 52 Y-coordinate"] = value
 
@@ -55002,7 +55492,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_52_zcoordinate`'.format(value))
         self._data["Vertex 52 Z-coordinate"] = value
 
@@ -55032,7 +55522,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_53_xcoordinate`'.format(value))
         self._data["Vertex 53 X-coordinate"] = value
 
@@ -55062,7 +55552,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_53_ycoordinate`'.format(value))
         self._data["Vertex 53 Y-coordinate"] = value
 
@@ -55092,7 +55582,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_53_zcoordinate`'.format(value))
         self._data["Vertex 53 Z-coordinate"] = value
 
@@ -55122,7 +55612,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_54_xcoordinate`'.format(value))
         self._data["Vertex 54 X-coordinate"] = value
 
@@ -55152,7 +55642,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_54_ycoordinate`'.format(value))
         self._data["Vertex 54 Y-coordinate"] = value
 
@@ -55182,7 +55672,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_54_zcoordinate`'.format(value))
         self._data["Vertex 54 Z-coordinate"] = value
 
@@ -55212,7 +55702,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_55_xcoordinate`'.format(value))
         self._data["Vertex 55 X-coordinate"] = value
 
@@ -55242,7 +55732,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_55_ycoordinate`'.format(value))
         self._data["Vertex 55 Y-coordinate"] = value
 
@@ -55272,7 +55762,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_55_zcoordinate`'.format(value))
         self._data["Vertex 55 Z-coordinate"] = value
 
@@ -55302,7 +55792,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_56_xcoordinate`'.format(value))
         self._data["Vertex 56 X-coordinate"] = value
 
@@ -55332,7 +55822,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_56_ycoordinate`'.format(value))
         self._data["Vertex 56 Y-coordinate"] = value
 
@@ -55362,7 +55852,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_56_zcoordinate`'.format(value))
         self._data["Vertex 56 Z-coordinate"] = value
 
@@ -55392,7 +55882,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_57_xcoordinate`'.format(value))
         self._data["Vertex 57 X-coordinate"] = value
 
@@ -55422,7 +55912,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_57_ycoordinate`'.format(value))
         self._data["Vertex 57 Y-coordinate"] = value
 
@@ -55452,7 +55942,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_57_zcoordinate`'.format(value))
         self._data["Vertex 57 Z-coordinate"] = value
 
@@ -55482,7 +55972,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_58_xcoordinate`'.format(value))
         self._data["Vertex 58 X-coordinate"] = value
 
@@ -55512,7 +56002,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_58_ycoordinate`'.format(value))
         self._data["Vertex 58 Y-coordinate"] = value
 
@@ -55542,7 +56032,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_58_zcoordinate`'.format(value))
         self._data["Vertex 58 Z-coordinate"] = value
 
@@ -55572,7 +56062,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_59_xcoordinate`'.format(value))
         self._data["Vertex 59 X-coordinate"] = value
 
@@ -55602,7 +56092,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_59_ycoordinate`'.format(value))
         self._data["Vertex 59 Y-coordinate"] = value
 
@@ -55632,7 +56122,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_59_zcoordinate`'.format(value))
         self._data["Vertex 59 Z-coordinate"] = value
 
@@ -55662,7 +56152,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_60_xcoordinate`'.format(value))
         self._data["Vertex 60 X-coordinate"] = value
 
@@ -55692,7 +56182,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_60_ycoordinate`'.format(value))
         self._data["Vertex 60 Y-coordinate"] = value
 
@@ -55722,7 +56212,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_60_zcoordinate`'.format(value))
         self._data["Vertex 60 Z-coordinate"] = value
 
@@ -55752,7 +56242,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_61_xcoordinate`'.format(value))
         self._data["Vertex 61 X-coordinate"] = value
 
@@ -55782,7 +56272,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_61_ycoordinate`'.format(value))
         self._data["Vertex 61 Y-coordinate"] = value
 
@@ -55812,7 +56302,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_61_zcoordinate`'.format(value))
         self._data["Vertex 61 Z-coordinate"] = value
 
@@ -55842,7 +56332,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_62_xcoordinate`'.format(value))
         self._data["Vertex 62 X-coordinate"] = value
 
@@ -55872,7 +56362,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_62_ycoordinate`'.format(value))
         self._data["Vertex 62 Y-coordinate"] = value
 
@@ -55902,7 +56392,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_62_zcoordinate`'.format(value))
         self._data["Vertex 62 Z-coordinate"] = value
 
@@ -55932,7 +56422,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_63_xcoordinate`'.format(value))
         self._data["Vertex 63 X-coordinate"] = value
 
@@ -55962,7 +56452,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_63_ycoordinate`'.format(value))
         self._data["Vertex 63 Y-coordinate"] = value
 
@@ -55992,7 +56482,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_63_zcoordinate`'.format(value))
         self._data["Vertex 63 Z-coordinate"] = value
 
@@ -56022,7 +56512,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_64_xcoordinate`'.format(value))
         self._data["Vertex 64 X-coordinate"] = value
 
@@ -56052,7 +56542,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_64_ycoordinate`'.format(value))
         self._data["Vertex 64 Y-coordinate"] = value
 
@@ -56082,7 +56572,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_64_zcoordinate`'.format(value))
         self._data["Vertex 64 Z-coordinate"] = value
 
@@ -56112,7 +56602,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_65_xcoordinate`'.format(value))
         self._data["Vertex 65 X-coordinate"] = value
 
@@ -56142,7 +56632,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_65_ycoordinate`'.format(value))
         self._data["Vertex 65 Y-coordinate"] = value
 
@@ -56172,7 +56662,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_65_zcoordinate`'.format(value))
         self._data["Vertex 65 Z-coordinate"] = value
 
@@ -56202,7 +56692,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_66_xcoordinate`'.format(value))
         self._data["Vertex 66 X-coordinate"] = value
 
@@ -56232,7 +56722,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_66_ycoordinate`'.format(value))
         self._data["Vertex 66 Y-coordinate"] = value
 
@@ -56262,7 +56752,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_66_zcoordinate`'.format(value))
         self._data["Vertex 66 Z-coordinate"] = value
 
@@ -56292,7 +56782,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_67_xcoordinate`'.format(value))
         self._data["Vertex 67 X-coordinate"] = value
 
@@ -56322,7 +56812,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_67_ycoordinate`'.format(value))
         self._data["Vertex 67 Y-coordinate"] = value
 
@@ -56352,7 +56842,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_67_zcoordinate`'.format(value))
         self._data["Vertex 67 Z-coordinate"] = value
 
@@ -56382,7 +56872,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_68_xcoordinate`'.format(value))
         self._data["Vertex 68 X-coordinate"] = value
 
@@ -56412,7 +56902,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_68_ycoordinate`'.format(value))
         self._data["Vertex 68 Y-coordinate"] = value
 
@@ -56442,7 +56932,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_68_zcoordinate`'.format(value))
         self._data["Vertex 68 Z-coordinate"] = value
 
@@ -56472,7 +56962,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_69_xcoordinate`'.format(value))
         self._data["Vertex 69 X-coordinate"] = value
 
@@ -56502,7 +56992,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_69_ycoordinate`'.format(value))
         self._data["Vertex 69 Y-coordinate"] = value
 
@@ -56532,7 +57022,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_69_zcoordinate`'.format(value))
         self._data["Vertex 69 Z-coordinate"] = value
 
@@ -56562,7 +57052,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_70_xcoordinate`'.format(value))
         self._data["Vertex 70 X-coordinate"] = value
 
@@ -56592,7 +57082,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_70_ycoordinate`'.format(value))
         self._data["Vertex 70 Y-coordinate"] = value
 
@@ -56622,7 +57112,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_70_zcoordinate`'.format(value))
         self._data["Vertex 70 Z-coordinate"] = value
 
@@ -56652,7 +57142,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_71_xcoordinate`'.format(value))
         self._data["Vertex 71 X-coordinate"] = value
 
@@ -56682,7 +57172,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_71_ycoordinate`'.format(value))
         self._data["Vertex 71 Y-coordinate"] = value
 
@@ -56712,7 +57202,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_71_zcoordinate`'.format(value))
         self._data["Vertex 71 Z-coordinate"] = value
 
@@ -56742,7 +57232,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_72_xcoordinate`'.format(value))
         self._data["Vertex 72 X-coordinate"] = value
 
@@ -56772,7 +57262,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_72_ycoordinate`'.format(value))
         self._data["Vertex 72 Y-coordinate"] = value
 
@@ -56802,7 +57292,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_72_zcoordinate`'.format(value))
         self._data["Vertex 72 Z-coordinate"] = value
 
@@ -56832,7 +57322,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_73_xcoordinate`'.format(value))
         self._data["Vertex 73 X-coordinate"] = value
 
@@ -56862,7 +57352,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_73_ycoordinate`'.format(value))
         self._data["Vertex 73 Y-coordinate"] = value
 
@@ -56892,7 +57382,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_73_zcoordinate`'.format(value))
         self._data["Vertex 73 Z-coordinate"] = value
 
@@ -56922,7 +57412,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_74_xcoordinate`'.format(value))
         self._data["Vertex 74 X-coordinate"] = value
 
@@ -56952,7 +57442,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_74_ycoordinate`'.format(value))
         self._data["Vertex 74 Y-coordinate"] = value
 
@@ -56982,7 +57472,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_74_zcoordinate`'.format(value))
         self._data["Vertex 74 Z-coordinate"] = value
 
@@ -57012,7 +57502,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_75_xcoordinate`'.format(value))
         self._data["Vertex 75 X-coordinate"] = value
 
@@ -57042,7 +57532,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_75_ycoordinate`'.format(value))
         self._data["Vertex 75 Y-coordinate"] = value
 
@@ -57072,7 +57562,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_75_zcoordinate`'.format(value))
         self._data["Vertex 75 Z-coordinate"] = value
 
@@ -57102,7 +57592,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_76_xcoordinate`'.format(value))
         self._data["Vertex 76 X-coordinate"] = value
 
@@ -57132,7 +57622,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_76_ycoordinate`'.format(value))
         self._data["Vertex 76 Y-coordinate"] = value
 
@@ -57162,7 +57652,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_76_zcoordinate`'.format(value))
         self._data["Vertex 76 Z-coordinate"] = value
 
@@ -57192,7 +57682,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_77_xcoordinate`'.format(value))
         self._data["Vertex 77 X-coordinate"] = value
 
@@ -57222,7 +57712,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_77_ycoordinate`'.format(value))
         self._data["Vertex 77 Y-coordinate"] = value
 
@@ -57252,7 +57742,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_77_zcoordinate`'.format(value))
         self._data["Vertex 77 Z-coordinate"] = value
 
@@ -57282,7 +57772,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_78_xcoordinate`'.format(value))
         self._data["Vertex 78 X-coordinate"] = value
 
@@ -57312,7 +57802,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_78_ycoordinate`'.format(value))
         self._data["Vertex 78 Y-coordinate"] = value
 
@@ -57342,7 +57832,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_78_zcoordinate`'.format(value))
         self._data["Vertex 78 Z-coordinate"] = value
 
@@ -57372,7 +57862,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_79_xcoordinate`'.format(value))
         self._data["Vertex 79 X-coordinate"] = value
 
@@ -57402,7 +57892,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_79_ycoordinate`'.format(value))
         self._data["Vertex 79 Y-coordinate"] = value
 
@@ -57432,7 +57922,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_79_zcoordinate`'.format(value))
         self._data["Vertex 79 Z-coordinate"] = value
 
@@ -57462,7 +57952,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_80_xcoordinate`'.format(value))
         self._data["Vertex 80 X-coordinate"] = value
 
@@ -57492,7 +57982,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_80_ycoordinate`'.format(value))
         self._data["Vertex 80 Y-coordinate"] = value
 
@@ -57522,7 +58012,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_80_zcoordinate`'.format(value))
         self._data["Vertex 80 Z-coordinate"] = value
 
@@ -57552,7 +58042,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_81_xcoordinate`'.format(value))
         self._data["Vertex 81 X-coordinate"] = value
 
@@ -57582,7 +58072,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_81_ycoordinate`'.format(value))
         self._data["Vertex 81 Y-coordinate"] = value
 
@@ -57612,7 +58102,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_81_zcoordinate`'.format(value))
         self._data["Vertex 81 Z-coordinate"] = value
 
@@ -57642,7 +58132,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_82_xcoordinate`'.format(value))
         self._data["Vertex 82 X-coordinate"] = value
 
@@ -57672,7 +58162,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_82_ycoordinate`'.format(value))
         self._data["Vertex 82 Y-coordinate"] = value
 
@@ -57702,7 +58192,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_82_zcoordinate`'.format(value))
         self._data["Vertex 82 Z-coordinate"] = value
 
@@ -57732,7 +58222,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_83_xcoordinate`'.format(value))
         self._data["Vertex 83 X-coordinate"] = value
 
@@ -57762,7 +58252,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_83_ycoordinate`'.format(value))
         self._data["Vertex 83 Y-coordinate"] = value
 
@@ -57792,7 +58282,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_83_zcoordinate`'.format(value))
         self._data["Vertex 83 Z-coordinate"] = value
 
@@ -57822,7 +58312,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_84_xcoordinate`'.format(value))
         self._data["Vertex 84 X-coordinate"] = value
 
@@ -57852,7 +58342,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_84_ycoordinate`'.format(value))
         self._data["Vertex 84 Y-coordinate"] = value
 
@@ -57882,7 +58372,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_84_zcoordinate`'.format(value))
         self._data["Vertex 84 Z-coordinate"] = value
 
@@ -57912,7 +58402,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_85_xcoordinate`'.format(value))
         self._data["Vertex 85 X-coordinate"] = value
 
@@ -57942,7 +58432,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_85_ycoordinate`'.format(value))
         self._data["Vertex 85 Y-coordinate"] = value
 
@@ -57972,7 +58462,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_85_zcoordinate`'.format(value))
         self._data["Vertex 85 Z-coordinate"] = value
 
@@ -58002,7 +58492,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_86_xcoordinate`'.format(value))
         self._data["Vertex 86 X-coordinate"] = value
 
@@ -58032,7 +58522,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_86_ycoordinate`'.format(value))
         self._data["Vertex 86 Y-coordinate"] = value
 
@@ -58062,7 +58552,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_86_zcoordinate`'.format(value))
         self._data["Vertex 86 Z-coordinate"] = value
 
@@ -58092,7 +58582,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_87_xcoordinate`'.format(value))
         self._data["Vertex 87 X-coordinate"] = value
 
@@ -58122,7 +58612,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_87_ycoordinate`'.format(value))
         self._data["Vertex 87 Y-coordinate"] = value
 
@@ -58152,7 +58642,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_87_zcoordinate`'.format(value))
         self._data["Vertex 87 Z-coordinate"] = value
 
@@ -58182,7 +58672,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_88_xcoordinate`'.format(value))
         self._data["Vertex 88 X-coordinate"] = value
 
@@ -58212,7 +58702,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_88_ycoordinate`'.format(value))
         self._data["Vertex 88 Y-coordinate"] = value
 
@@ -58242,7 +58732,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_88_zcoordinate`'.format(value))
         self._data["Vertex 88 Z-coordinate"] = value
 
@@ -58272,7 +58762,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_89_xcoordinate`'.format(value))
         self._data["Vertex 89 X-coordinate"] = value
 
@@ -58302,7 +58792,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_89_ycoordinate`'.format(value))
         self._data["Vertex 89 Y-coordinate"] = value
 
@@ -58332,7 +58822,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_89_zcoordinate`'.format(value))
         self._data["Vertex 89 Z-coordinate"] = value
 
@@ -58362,7 +58852,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_90_xcoordinate`'.format(value))
         self._data["Vertex 90 X-coordinate"] = value
 
@@ -58392,7 +58882,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_90_ycoordinate`'.format(value))
         self._data["Vertex 90 Y-coordinate"] = value
 
@@ -58422,7 +58912,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_90_zcoordinate`'.format(value))
         self._data["Vertex 90 Z-coordinate"] = value
 
@@ -58452,7 +58942,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_91_xcoordinate`'.format(value))
         self._data["Vertex 91 X-coordinate"] = value
 
@@ -58482,7 +58972,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_91_ycoordinate`'.format(value))
         self._data["Vertex 91 Y-coordinate"] = value
 
@@ -58512,7 +59002,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_91_zcoordinate`'.format(value))
         self._data["Vertex 91 Z-coordinate"] = value
 
@@ -58542,7 +59032,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_92_xcoordinate`'.format(value))
         self._data["Vertex 92 X-coordinate"] = value
 
@@ -58572,7 +59062,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_92_ycoordinate`'.format(value))
         self._data["Vertex 92 Y-coordinate"] = value
 
@@ -58602,7 +59092,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_92_zcoordinate`'.format(value))
         self._data["Vertex 92 Z-coordinate"] = value
 
@@ -58632,7 +59122,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_93_xcoordinate`'.format(value))
         self._data["Vertex 93 X-coordinate"] = value
 
@@ -58662,7 +59152,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_93_ycoordinate`'.format(value))
         self._data["Vertex 93 Y-coordinate"] = value
 
@@ -58692,7 +59182,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_93_zcoordinate`'.format(value))
         self._data["Vertex 93 Z-coordinate"] = value
 
@@ -58722,7 +59212,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_94_xcoordinate`'.format(value))
         self._data["Vertex 94 X-coordinate"] = value
 
@@ -58752,7 +59242,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_94_ycoordinate`'.format(value))
         self._data["Vertex 94 Y-coordinate"] = value
 
@@ -58782,7 +59272,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_94_zcoordinate`'.format(value))
         self._data["Vertex 94 Z-coordinate"] = value
 
@@ -58812,7 +59302,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_95_xcoordinate`'.format(value))
         self._data["Vertex 95 X-coordinate"] = value
 
@@ -58842,7 +59332,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_95_ycoordinate`'.format(value))
         self._data["Vertex 95 Y-coordinate"] = value
 
@@ -58872,7 +59362,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_95_zcoordinate`'.format(value))
         self._data["Vertex 95 Z-coordinate"] = value
 
@@ -58902,7 +59392,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_96_xcoordinate`'.format(value))
         self._data["Vertex 96 X-coordinate"] = value
 
@@ -58932,7 +59422,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_96_ycoordinate`'.format(value))
         self._data["Vertex 96 Y-coordinate"] = value
 
@@ -58962,7 +59452,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_96_zcoordinate`'.format(value))
         self._data["Vertex 96 Z-coordinate"] = value
 
@@ -58992,7 +59482,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_97_xcoordinate`'.format(value))
         self._data["Vertex 97 X-coordinate"] = value
 
@@ -59022,7 +59512,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_97_ycoordinate`'.format(value))
         self._data["Vertex 97 Y-coordinate"] = value
 
@@ -59052,7 +59542,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_97_zcoordinate`'.format(value))
         self._data["Vertex 97 Z-coordinate"] = value
 
@@ -59082,7 +59572,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_98_xcoordinate`'.format(value))
         self._data["Vertex 98 X-coordinate"] = value
 
@@ -59112,7 +59602,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_98_ycoordinate`'.format(value))
         self._data["Vertex 98 Y-coordinate"] = value
 
@@ -59142,7 +59632,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_98_zcoordinate`'.format(value))
         self._data["Vertex 98 Z-coordinate"] = value
 
@@ -59172,7 +59662,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_99_xcoordinate`'.format(value))
         self._data["Vertex 99 X-coordinate"] = value
 
@@ -59202,7 +59692,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_99_ycoordinate`'.format(value))
         self._data["Vertex 99 Y-coordinate"] = value
 
@@ -59232,7 +59722,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_99_zcoordinate`'.format(value))
         self._data["Vertex 99 Z-coordinate"] = value
 
@@ -59262,7 +59752,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_100_xcoordinate`'.format(value))
         self._data["Vertex 100 X-coordinate"] = value
 
@@ -59292,7 +59782,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_100_ycoordinate`'.format(value))
         self._data["Vertex 100 Y-coordinate"] = value
 
@@ -59322,7 +59812,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_100_zcoordinate`'.format(value))
         self._data["Vertex 100 Z-coordinate"] = value
 
@@ -59352,7 +59842,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_101_xcoordinate`'.format(value))
         self._data["Vertex 101 X-coordinate"] = value
 
@@ -59382,7 +59872,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_101_ycoordinate`'.format(value))
         self._data["Vertex 101 Y-coordinate"] = value
 
@@ -59412,7 +59902,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_101_zcoordinate`'.format(value))
         self._data["Vertex 101 Z-coordinate"] = value
 
@@ -59442,7 +59932,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_102_xcoordinate`'.format(value))
         self._data["Vertex 102 X-coordinate"] = value
 
@@ -59472,7 +59962,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_102_ycoordinate`'.format(value))
         self._data["Vertex 102 Y-coordinate"] = value
 
@@ -59502,7 +59992,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_102_zcoordinate`'.format(value))
         self._data["Vertex 102 Z-coordinate"] = value
 
@@ -59532,7 +60022,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_103_xcoordinate`'.format(value))
         self._data["Vertex 103 X-coordinate"] = value
 
@@ -59562,7 +60052,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_103_ycoordinate`'.format(value))
         self._data["Vertex 103 Y-coordinate"] = value
 
@@ -59592,7 +60082,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_103_zcoordinate`'.format(value))
         self._data["Vertex 103 Z-coordinate"] = value
 
@@ -59622,7 +60112,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_104_xcoordinate`'.format(value))
         self._data["Vertex 104 X-coordinate"] = value
 
@@ -59652,7 +60142,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_104_ycoordinate`'.format(value))
         self._data["Vertex 104 Y-coordinate"] = value
 
@@ -59682,7 +60172,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_104_zcoordinate`'.format(value))
         self._data["Vertex 104 Z-coordinate"] = value
 
@@ -59712,7 +60202,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_105_xcoordinate`'.format(value))
         self._data["Vertex 105 X-coordinate"] = value
 
@@ -59742,7 +60232,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_105_ycoordinate`'.format(value))
         self._data["Vertex 105 Y-coordinate"] = value
 
@@ -59772,7 +60262,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_105_zcoordinate`'.format(value))
         self._data["Vertex 105 Z-coordinate"] = value
 
@@ -59802,7 +60292,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_106_xcoordinate`'.format(value))
         self._data["Vertex 106 X-coordinate"] = value
 
@@ -59832,7 +60322,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_106_ycoordinate`'.format(value))
         self._data["Vertex 106 Y-coordinate"] = value
 
@@ -59862,7 +60352,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_106_zcoordinate`'.format(value))
         self._data["Vertex 106 Z-coordinate"] = value
 
@@ -59892,7 +60382,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_107_xcoordinate`'.format(value))
         self._data["Vertex 107 X-coordinate"] = value
 
@@ -59922,7 +60412,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_107_ycoordinate`'.format(value))
         self._data["Vertex 107 Y-coordinate"] = value
 
@@ -59952,7 +60442,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_107_zcoordinate`'.format(value))
         self._data["Vertex 107 Z-coordinate"] = value
 
@@ -59982,7 +60472,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_108_xcoordinate`'.format(value))
         self._data["Vertex 108 X-coordinate"] = value
 
@@ -60012,7 +60502,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_108_ycoordinate`'.format(value))
         self._data["Vertex 108 Y-coordinate"] = value
 
@@ -60042,7 +60532,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_108_zcoordinate`'.format(value))
         self._data["Vertex 108 Z-coordinate"] = value
 
@@ -60072,7 +60562,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_109_xcoordinate`'.format(value))
         self._data["Vertex 109 X-coordinate"] = value
 
@@ -60102,7 +60592,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_109_ycoordinate`'.format(value))
         self._data["Vertex 109 Y-coordinate"] = value
 
@@ -60132,7 +60622,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_109_zcoordinate`'.format(value))
         self._data["Vertex 109 Z-coordinate"] = value
 
@@ -60162,7 +60652,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_110_xcoordinate`'.format(value))
         self._data["Vertex 110 X-coordinate"] = value
 
@@ -60192,7 +60682,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_110_ycoordinate`'.format(value))
         self._data["Vertex 110 Y-coordinate"] = value
 
@@ -60222,7 +60712,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_110_zcoordinate`'.format(value))
         self._data["Vertex 110 Z-coordinate"] = value
 
@@ -60252,7 +60742,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_111_xcoordinate`'.format(value))
         self._data["Vertex 111 X-coordinate"] = value
 
@@ -60282,7 +60772,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_111_ycoordinate`'.format(value))
         self._data["Vertex 111 Y-coordinate"] = value
 
@@ -60312,7 +60802,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_111_zcoordinate`'.format(value))
         self._data["Vertex 111 Z-coordinate"] = value
 
@@ -60342,7 +60832,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_112_xcoordinate`'.format(value))
         self._data["Vertex 112 X-coordinate"] = value
 
@@ -60372,7 +60862,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_112_ycoordinate`'.format(value))
         self._data["Vertex 112 Y-coordinate"] = value
 
@@ -60402,7 +60892,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_112_zcoordinate`'.format(value))
         self._data["Vertex 112 Z-coordinate"] = value
 
@@ -60432,7 +60922,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_113_xcoordinate`'.format(value))
         self._data["Vertex 113 X-coordinate"] = value
 
@@ -60462,7 +60952,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_113_ycoordinate`'.format(value))
         self._data["Vertex 113 Y-coordinate"] = value
 
@@ -60492,7 +60982,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_113_zcoordinate`'.format(value))
         self._data["Vertex 113 Z-coordinate"] = value
 
@@ -60522,7 +61012,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_114_xcoordinate`'.format(value))
         self._data["Vertex 114 X-coordinate"] = value
 
@@ -60552,7 +61042,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_114_ycoordinate`'.format(value))
         self._data["Vertex 114 Y-coordinate"] = value
 
@@ -60582,7 +61072,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_114_zcoordinate`'.format(value))
         self._data["Vertex 114 Z-coordinate"] = value
 
@@ -60612,7 +61102,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_115_xcoordinate`'.format(value))
         self._data["Vertex 115 X-coordinate"] = value
 
@@ -60642,7 +61132,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_115_ycoordinate`'.format(value))
         self._data["Vertex 115 Y-coordinate"] = value
 
@@ -60672,7 +61162,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_115_zcoordinate`'.format(value))
         self._data["Vertex 115 Z-coordinate"] = value
 
@@ -60702,7 +61192,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_116_xcoordinate`'.format(value))
         self._data["Vertex 116 X-coordinate"] = value
 
@@ -60732,7 +61222,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_116_ycoordinate`'.format(value))
         self._data["Vertex 116 Y-coordinate"] = value
 
@@ -60762,7 +61252,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_116_zcoordinate`'.format(value))
         self._data["Vertex 116 Z-coordinate"] = value
 
@@ -60792,7 +61282,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_117_xcoordinate`'.format(value))
         self._data["Vertex 117 X-coordinate"] = value
 
@@ -60822,7 +61312,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_117_ycoordinate`'.format(value))
         self._data["Vertex 117 Y-coordinate"] = value
 
@@ -60852,7 +61342,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_117_zcoordinate`'.format(value))
         self._data["Vertex 117 Z-coordinate"] = value
 
@@ -60882,7 +61372,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_118_xcoordinate`'.format(value))
         self._data["Vertex 118 X-coordinate"] = value
 
@@ -60912,7 +61402,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_118_ycoordinate`'.format(value))
         self._data["Vertex 118 Y-coordinate"] = value
 
@@ -60942,7 +61432,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_118_zcoordinate`'.format(value))
         self._data["Vertex 118 Z-coordinate"] = value
 
@@ -60972,7 +61462,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_119_xcoordinate`'.format(value))
         self._data["Vertex 119 X-coordinate"] = value
 
@@ -61002,7 +61492,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_119_ycoordinate`'.format(value))
         self._data["Vertex 119 Y-coordinate"] = value
 
@@ -61032,7 +61522,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_119_zcoordinate`'.format(value))
         self._data["Vertex 119 Z-coordinate"] = value
 
@@ -61062,7 +61552,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_120_xcoordinate`'.format(value))
         self._data["Vertex 120 X-coordinate"] = value
 
@@ -61092,7 +61582,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_120_ycoordinate`'.format(value))
         self._data["Vertex 120 Y-coordinate"] = value
 
@@ -61122,7 +61612,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_120_zcoordinate`'.format(value))
         self._data["Vertex 120 Z-coordinate"] = value
 
@@ -61163,7 +61653,6 @@ class ShadingBuildingDetailed(object):
 class ShadingOverhang(object):
     """ Corresponds to IDD object `Shading:Overhang`
         Overhangs are usually flat shading surfaces that reference a window or door.
-    
     """
     internal_name = "Shading:Overhang"
     field_count = 7
@@ -61180,15 +61669,16 @@ class ShadingOverhang(object):
         self._data["Left extension from Window/Door Width"] = None
         self._data["Right extension from Window/Door Width"] = None
         self._data["Depth"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -61239,6 +61729,7 @@ class ShadingOverhang(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -61265,7 +61756,7 @@ class ShadingOverhang(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -61300,7 +61791,7 @@ class ShadingOverhang(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `window_or_door_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -61336,7 +61827,7 @@ class ShadingOverhang(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `height_above_window_or_door`'.format(value))
         self._data["Height above Window or Door"] = value
 
@@ -61369,7 +61860,7 @@ class ShadingOverhang(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `tilt_angle_from_window_or_door`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -61405,7 +61896,7 @@ class ShadingOverhang(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `left_extension_from_window_or_door_width`'.format(value))
         self._data["Left extension from Window/Door Width"] = value
 
@@ -61436,7 +61927,7 @@ class ShadingOverhang(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `right_extension_from_window_or_door_width`'.format(value))
         self._data["Right extension from Window/Door Width"] = value
 
@@ -61467,7 +61958,7 @@ class ShadingOverhang(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `depth`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -61511,7 +62002,6 @@ class ShadingOverhang(object):
 class ShadingOverhangProjection(object):
     """ Corresponds to IDD object `Shading:Overhang:Projection`
         Overhangs are typically flat shading surfaces that reference a window or door.
-    
     """
     internal_name = "Shading:Overhang:Projection"
     field_count = 7
@@ -61528,15 +62018,16 @@ class ShadingOverhangProjection(object):
         self._data["Left extension from Window/Door Width"] = None
         self._data["Right extension from Window/Door Width"] = None
         self._data["Depth as Fraction of Window/Door Height"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -61587,6 +62078,7 @@ class ShadingOverhangProjection(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -61613,7 +62105,7 @@ class ShadingOverhangProjection(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -61648,7 +62140,7 @@ class ShadingOverhangProjection(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `window_or_door_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -61684,7 +62176,7 @@ class ShadingOverhangProjection(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `height_above_window_or_door`'.format(value))
         self._data["Height above Window or Door"] = value
 
@@ -61717,7 +62209,7 @@ class ShadingOverhangProjection(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `tilt_angle_from_window_or_door`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -61753,7 +62245,7 @@ class ShadingOverhangProjection(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `left_extension_from_window_or_door_width`'.format(value))
         self._data["Left extension from Window/Door Width"] = value
 
@@ -61784,7 +62276,7 @@ class ShadingOverhangProjection(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `right_extension_from_window_or_door_width`'.format(value))
         self._data["Right extension from Window/Door Width"] = value
 
@@ -61815,7 +62307,7 @@ class ShadingOverhangProjection(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `depth_as_fraction_of_window_or_door_height`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -61859,7 +62351,6 @@ class ShadingOverhangProjection(object):
 class ShadingFin(object):
     """ Corresponds to IDD object `Shading:Fin`
         Fins are usually shading surfaces that are perpendicular to a window or door.
-    
     """
     internal_name = "Shading:Fin"
     field_count = 12
@@ -61881,15 +62372,16 @@ class ShadingFin(object):
         self._data["Right Distance Below Bottom of Window"] = None
         self._data["Right Tilt Angle from Window/Door"] = None
         self._data["Right Depth"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -61975,6 +62467,7 @@ class ShadingFin(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -62001,7 +62494,7 @@ class ShadingFin(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -62036,7 +62529,7 @@ class ShadingFin(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `window_or_door_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -62072,7 +62565,7 @@ class ShadingFin(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `left_extension_from_window_or_door`'.format(value))
         self._data["Left Extension from Window/Door"] = value
 
@@ -62102,7 +62595,7 @@ class ShadingFin(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `left_distance_above_top_of_window`'.format(value))
         self._data["Left Distance Above Top of Window"] = value
 
@@ -62133,7 +62626,7 @@ class ShadingFin(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `left_distance_below_bottom_of_window`'.format(value))
         self._data["Left Distance Below Bottom of Window"] = value
 
@@ -62166,7 +62659,7 @@ class ShadingFin(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `left_tilt_angle_from_window_or_door`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -62203,7 +62696,7 @@ class ShadingFin(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `left_depth`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -62236,7 +62729,7 @@ class ShadingFin(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `right_extension_from_window_or_door`'.format(value))
         self._data["Right Extension from Window/Door"] = value
 
@@ -62266,7 +62759,7 @@ class ShadingFin(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `right_distance_above_top_of_window`'.format(value))
         self._data["Right Distance Above Top of Window"] = value
 
@@ -62297,7 +62790,7 @@ class ShadingFin(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `right_distance_below_bottom_of_window`'.format(value))
         self._data["Right Distance Below Bottom of Window"] = value
 
@@ -62330,7 +62823,7 @@ class ShadingFin(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `right_tilt_angle_from_window_or_door`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -62367,7 +62860,7 @@ class ShadingFin(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `right_depth`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -62411,7 +62904,6 @@ class ShadingFin(object):
 class ShadingFinProjection(object):
     """ Corresponds to IDD object `Shading:Fin:Projection`
         Fins are usually shading surfaces that are perpendicular to a window or door.
-    
     """
     internal_name = "Shading:Fin:Projection"
     field_count = 12
@@ -62433,15 +62925,16 @@ class ShadingFinProjection(object):
         self._data["Right Distance Below Bottom of Window"] = None
         self._data["Right Tilt Angle from Window/Door"] = None
         self._data["Right Depth as Fraction of Window/Door Width"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -62527,6 +63020,7 @@ class ShadingFinProjection(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -62553,7 +63047,7 @@ class ShadingFinProjection(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -62588,7 +63082,7 @@ class ShadingFinProjection(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `window_or_door_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -62624,7 +63118,7 @@ class ShadingFinProjection(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `left_extension_from_window_or_door`'.format(value))
         self._data["Left Extension from Window/Door"] = value
 
@@ -62654,7 +63148,7 @@ class ShadingFinProjection(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `left_distance_above_top_of_window`'.format(value))
         self._data["Left Distance Above Top of Window"] = value
 
@@ -62685,7 +63179,7 @@ class ShadingFinProjection(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `left_distance_below_bottom_of_window`'.format(value))
         self._data["Left Distance Below Bottom of Window"] = value
 
@@ -62718,7 +63212,7 @@ class ShadingFinProjection(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `left_tilt_angle_from_window_or_door`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -62755,7 +63249,7 @@ class ShadingFinProjection(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `left_depth_as_fraction_of_window_or_door_width`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -62788,7 +63282,7 @@ class ShadingFinProjection(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `right_extension_from_window_or_door`'.format(value))
         self._data["Right Extension from Window/Door"] = value
 
@@ -62818,7 +63312,7 @@ class ShadingFinProjection(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `right_distance_above_top_of_window`'.format(value))
         self._data["Right Distance Above Top of Window"] = value
 
@@ -62849,7 +63343,7 @@ class ShadingFinProjection(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `right_distance_below_bottom_of_window`'.format(value))
         self._data["Right Distance Below Bottom of Window"] = value
 
@@ -62882,7 +63376,7 @@ class ShadingFinProjection(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `right_tilt_angle_from_window_or_door`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -62919,7 +63413,7 @@ class ShadingFinProjection(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `right_depth_as_fraction_of_window_or_door_width`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -62964,7 +63458,6 @@ class ShadingZoneDetailed(object):
     """ Corresponds to IDD object `Shading:Zone:Detailed`
         used For fins, overhangs, elements that shade the building, are attached to the building
         but are not part of the heat transfer calculations
-    
     """
     internal_name = "Shading:Zone:Detailed"
     field_count = 364
@@ -63338,15 +63831,16 @@ class ShadingZoneDetailed(object):
         self._data["Vertex 120 X-coordinate"] = None
         self._data["Vertex 120 Y-coordinate"] = None
         self._data["Vertex 120 Z-coordinate"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -65896,6 +66390,7 @@ class ShadingZoneDetailed(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -65922,7 +66417,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -65957,7 +66452,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `base_surface_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -65993,7 +66488,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `transmittance_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -66036,12 +66531,17 @@ class ShadingZoneDetailed(object):
                 if value_lower == "autocalculate":
                     self._data["Number of Vertices"] = "Autocalculate"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autocalculate" '
+                                 'for field `number_of_vertices`'.format(value))
+                    self._data["Number of Vertices"] = "Autocalculate"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autocalculate"'
                                  'for field `number_of_vertices`'.format(value))
             if value < 3.0:
                 raise ValueError('value need to be greater or equal 3.0 '
@@ -66074,7 +66574,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_1_xcoordinate`'.format(value))
         self._data["Vertex 1 X-coordinate"] = value
 
@@ -66104,7 +66604,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_1_ycoordinate`'.format(value))
         self._data["Vertex 1 Y-coordinate"] = value
 
@@ -66134,7 +66634,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_1_zcoordinate`'.format(value))
         self._data["Vertex 1 Z-coordinate"] = value
 
@@ -66164,7 +66664,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_2_xcoordinate`'.format(value))
         self._data["Vertex 2 X-coordinate"] = value
 
@@ -66194,7 +66694,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_2_ycoordinate`'.format(value))
         self._data["Vertex 2 Y-coordinate"] = value
 
@@ -66224,7 +66724,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_2_zcoordinate`'.format(value))
         self._data["Vertex 2 Z-coordinate"] = value
 
@@ -66254,7 +66754,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_3_xcoordinate`'.format(value))
         self._data["Vertex 3 X-coordinate"] = value
 
@@ -66284,7 +66784,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_3_ycoordinate`'.format(value))
         self._data["Vertex 3 Y-coordinate"] = value
 
@@ -66314,7 +66814,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_3_zcoordinate`'.format(value))
         self._data["Vertex 3 Z-coordinate"] = value
 
@@ -66344,7 +66844,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_4_xcoordinate`'.format(value))
         self._data["Vertex 4 X-coordinate"] = value
 
@@ -66374,7 +66874,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_4_ycoordinate`'.format(value))
         self._data["Vertex 4 Y-coordinate"] = value
 
@@ -66404,7 +66904,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_4_zcoordinate`'.format(value))
         self._data["Vertex 4 Z-coordinate"] = value
 
@@ -66434,7 +66934,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_5_xcoordinate`'.format(value))
         self._data["Vertex 5 X-coordinate"] = value
 
@@ -66464,7 +66964,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_5_ycoordinate`'.format(value))
         self._data["Vertex 5 Y-coordinate"] = value
 
@@ -66494,7 +66994,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_5_zcoordinate`'.format(value))
         self._data["Vertex 5 Z-coordinate"] = value
 
@@ -66524,7 +67024,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_6_xcoordinate`'.format(value))
         self._data["Vertex 6 X-coordinate"] = value
 
@@ -66554,7 +67054,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_6_ycoordinate`'.format(value))
         self._data["Vertex 6 Y-coordinate"] = value
 
@@ -66584,7 +67084,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_6_zcoordinate`'.format(value))
         self._data["Vertex 6 Z-coordinate"] = value
 
@@ -66614,7 +67114,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_7_xcoordinate`'.format(value))
         self._data["Vertex 7 X-coordinate"] = value
 
@@ -66644,7 +67144,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_7_ycoordinate`'.format(value))
         self._data["Vertex 7 Y-coordinate"] = value
 
@@ -66674,7 +67174,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_7_zcoordinate`'.format(value))
         self._data["Vertex 7 Z-coordinate"] = value
 
@@ -66704,7 +67204,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_8_xcoordinate`'.format(value))
         self._data["Vertex 8 X-coordinate"] = value
 
@@ -66734,7 +67234,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_8_ycoordinate`'.format(value))
         self._data["Vertex 8 Y-coordinate"] = value
 
@@ -66764,7 +67264,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_8_zcoordinate`'.format(value))
         self._data["Vertex 8 Z-coordinate"] = value
 
@@ -66794,7 +67294,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_9_xcoordinate`'.format(value))
         self._data["Vertex 9 X-coordinate"] = value
 
@@ -66824,7 +67324,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_9_ycoordinate`'.format(value))
         self._data["Vertex 9 Y-coordinate"] = value
 
@@ -66854,7 +67354,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_9_zcoordinate`'.format(value))
         self._data["Vertex 9 Z-coordinate"] = value
 
@@ -66884,7 +67384,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_10_xcoordinate`'.format(value))
         self._data["Vertex 10 X-coordinate"] = value
 
@@ -66914,7 +67414,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_10_ycoordinate`'.format(value))
         self._data["Vertex 10 Y-coordinate"] = value
 
@@ -66944,7 +67444,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_10_zcoordinate`'.format(value))
         self._data["Vertex 10 Z-coordinate"] = value
 
@@ -66974,7 +67474,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_11_xcoordinate`'.format(value))
         self._data["Vertex 11 X-coordinate"] = value
 
@@ -67004,7 +67504,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_11_ycoordinate`'.format(value))
         self._data["Vertex 11 Y-coordinate"] = value
 
@@ -67034,7 +67534,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_11_zcoordinate`'.format(value))
         self._data["Vertex 11 Z-coordinate"] = value
 
@@ -67064,7 +67564,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_12_xcoordinate`'.format(value))
         self._data["Vertex 12 X-coordinate"] = value
 
@@ -67094,7 +67594,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_12_ycoordinate`'.format(value))
         self._data["Vertex 12 Y-coordinate"] = value
 
@@ -67124,7 +67624,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_12_zcoordinate`'.format(value))
         self._data["Vertex 12 Z-coordinate"] = value
 
@@ -67154,7 +67654,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_13_xcoordinate`'.format(value))
         self._data["Vertex 13 X-coordinate"] = value
 
@@ -67184,7 +67684,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_13_ycoordinate`'.format(value))
         self._data["Vertex 13 Y-coordinate"] = value
 
@@ -67214,7 +67714,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_13_zcoordinate`'.format(value))
         self._data["Vertex 13 Z-coordinate"] = value
 
@@ -67244,7 +67744,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_14_xcoordinate`'.format(value))
         self._data["Vertex 14 X-coordinate"] = value
 
@@ -67274,7 +67774,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_14_ycoordinate`'.format(value))
         self._data["Vertex 14 Y-coordinate"] = value
 
@@ -67304,7 +67804,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_14_zcoordinate`'.format(value))
         self._data["Vertex 14 Z-coordinate"] = value
 
@@ -67334,7 +67834,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_15_xcoordinate`'.format(value))
         self._data["Vertex 15 X-coordinate"] = value
 
@@ -67364,7 +67864,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_15_ycoordinate`'.format(value))
         self._data["Vertex 15 Y-coordinate"] = value
 
@@ -67394,7 +67894,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_15_zcoordinate`'.format(value))
         self._data["Vertex 15 Z-coordinate"] = value
 
@@ -67424,7 +67924,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_16_xcoordinate`'.format(value))
         self._data["Vertex 16 X-coordinate"] = value
 
@@ -67454,7 +67954,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_16_ycoordinate`'.format(value))
         self._data["Vertex 16 Y-coordinate"] = value
 
@@ -67484,7 +67984,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_16_zcoordinate`'.format(value))
         self._data["Vertex 16 Z-coordinate"] = value
 
@@ -67514,7 +68014,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_17_xcoordinate`'.format(value))
         self._data["Vertex 17 X-coordinate"] = value
 
@@ -67544,7 +68044,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_17_ycoordinate`'.format(value))
         self._data["Vertex 17 Y-coordinate"] = value
 
@@ -67574,7 +68074,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_17_zcoordinate`'.format(value))
         self._data["Vertex 17 Z-coordinate"] = value
 
@@ -67604,7 +68104,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_18_xcoordinate`'.format(value))
         self._data["Vertex 18 X-coordinate"] = value
 
@@ -67634,7 +68134,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_18_ycoordinate`'.format(value))
         self._data["Vertex 18 Y-coordinate"] = value
 
@@ -67664,7 +68164,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_18_zcoordinate`'.format(value))
         self._data["Vertex 18 Z-coordinate"] = value
 
@@ -67694,7 +68194,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_19_xcoordinate`'.format(value))
         self._data["Vertex 19 X-coordinate"] = value
 
@@ -67724,7 +68224,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_19_ycoordinate`'.format(value))
         self._data["Vertex 19 Y-coordinate"] = value
 
@@ -67754,7 +68254,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_19_zcoordinate`'.format(value))
         self._data["Vertex 19 Z-coordinate"] = value
 
@@ -67784,7 +68284,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_20_xcoordinate`'.format(value))
         self._data["Vertex 20 X-coordinate"] = value
 
@@ -67814,7 +68314,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_20_ycoordinate`'.format(value))
         self._data["Vertex 20 Y-coordinate"] = value
 
@@ -67844,7 +68344,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_20_zcoordinate`'.format(value))
         self._data["Vertex 20 Z-coordinate"] = value
 
@@ -67874,7 +68374,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_21_xcoordinate`'.format(value))
         self._data["Vertex 21 X-coordinate"] = value
 
@@ -67904,7 +68404,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_21_ycoordinate`'.format(value))
         self._data["Vertex 21 Y-coordinate"] = value
 
@@ -67934,7 +68434,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_21_zcoordinate`'.format(value))
         self._data["Vertex 21 Z-coordinate"] = value
 
@@ -67964,7 +68464,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_22_xcoordinate`'.format(value))
         self._data["Vertex 22 X-coordinate"] = value
 
@@ -67994,7 +68494,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_22_ycoordinate`'.format(value))
         self._data["Vertex 22 Y-coordinate"] = value
 
@@ -68024,7 +68524,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_22_zcoordinate`'.format(value))
         self._data["Vertex 22 Z-coordinate"] = value
 
@@ -68054,7 +68554,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_23_xcoordinate`'.format(value))
         self._data["Vertex 23 X-coordinate"] = value
 
@@ -68084,7 +68584,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_23_ycoordinate`'.format(value))
         self._data["Vertex 23 Y-coordinate"] = value
 
@@ -68114,7 +68614,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_23_zcoordinate`'.format(value))
         self._data["Vertex 23 Z-coordinate"] = value
 
@@ -68144,7 +68644,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_24_xcoordinate`'.format(value))
         self._data["Vertex 24 X-coordinate"] = value
 
@@ -68174,7 +68674,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_24_ycoordinate`'.format(value))
         self._data["Vertex 24 Y-coordinate"] = value
 
@@ -68204,7 +68704,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_24_zcoordinate`'.format(value))
         self._data["Vertex 24 Z-coordinate"] = value
 
@@ -68234,7 +68734,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_25_xcoordinate`'.format(value))
         self._data["Vertex 25 X-coordinate"] = value
 
@@ -68264,7 +68764,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_25_ycoordinate`'.format(value))
         self._data["Vertex 25 Y-coordinate"] = value
 
@@ -68294,7 +68794,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_25_zcoordinate`'.format(value))
         self._data["Vertex 25 Z-coordinate"] = value
 
@@ -68324,7 +68824,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_26_xcoordinate`'.format(value))
         self._data["Vertex 26 X-coordinate"] = value
 
@@ -68354,7 +68854,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_26_ycoordinate`'.format(value))
         self._data["Vertex 26 Y-coordinate"] = value
 
@@ -68384,7 +68884,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_26_zcoordinate`'.format(value))
         self._data["Vertex 26 Z-coordinate"] = value
 
@@ -68414,7 +68914,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_27_xcoordinate`'.format(value))
         self._data["Vertex 27 X-coordinate"] = value
 
@@ -68444,7 +68944,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_27_ycoordinate`'.format(value))
         self._data["Vertex 27 Y-coordinate"] = value
 
@@ -68474,7 +68974,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_27_zcoordinate`'.format(value))
         self._data["Vertex 27 Z-coordinate"] = value
 
@@ -68504,7 +69004,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_28_xcoordinate`'.format(value))
         self._data["Vertex 28 X-coordinate"] = value
 
@@ -68534,7 +69034,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_28_ycoordinate`'.format(value))
         self._data["Vertex 28 Y-coordinate"] = value
 
@@ -68564,7 +69064,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_28_zcoordinate`'.format(value))
         self._data["Vertex 28 Z-coordinate"] = value
 
@@ -68594,7 +69094,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_29_xcoordinate`'.format(value))
         self._data["Vertex 29 X-coordinate"] = value
 
@@ -68624,7 +69124,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_29_ycoordinate`'.format(value))
         self._data["Vertex 29 Y-coordinate"] = value
 
@@ -68654,7 +69154,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_29_zcoordinate`'.format(value))
         self._data["Vertex 29 Z-coordinate"] = value
 
@@ -68684,7 +69184,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_30_xcoordinate`'.format(value))
         self._data["Vertex 30 X-coordinate"] = value
 
@@ -68714,7 +69214,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_30_ycoordinate`'.format(value))
         self._data["Vertex 30 Y-coordinate"] = value
 
@@ -68744,7 +69244,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_30_zcoordinate`'.format(value))
         self._data["Vertex 30 Z-coordinate"] = value
 
@@ -68774,7 +69274,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_31_xcoordinate`'.format(value))
         self._data["Vertex 31 X-coordinate"] = value
 
@@ -68804,7 +69304,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_31_ycoordinate`'.format(value))
         self._data["Vertex 31 Y-coordinate"] = value
 
@@ -68834,7 +69334,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_31_zcoordinate`'.format(value))
         self._data["Vertex 31 Z-coordinate"] = value
 
@@ -68864,7 +69364,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_32_xcoordinate`'.format(value))
         self._data["Vertex 32 X-coordinate"] = value
 
@@ -68894,7 +69394,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_32_ycoordinate`'.format(value))
         self._data["Vertex 32 Y-coordinate"] = value
 
@@ -68924,7 +69424,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_32_zcoordinate`'.format(value))
         self._data["Vertex 32 Z-coordinate"] = value
 
@@ -68954,7 +69454,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_33_xcoordinate`'.format(value))
         self._data["Vertex 33 X-coordinate"] = value
 
@@ -68984,7 +69484,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_33_ycoordinate`'.format(value))
         self._data["Vertex 33 Y-coordinate"] = value
 
@@ -69014,7 +69514,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_33_zcoordinate`'.format(value))
         self._data["Vertex 33 Z-coordinate"] = value
 
@@ -69044,7 +69544,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_34_xcoordinate`'.format(value))
         self._data["Vertex 34 X-coordinate"] = value
 
@@ -69074,7 +69574,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_34_ycoordinate`'.format(value))
         self._data["Vertex 34 Y-coordinate"] = value
 
@@ -69104,7 +69604,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_34_zcoordinate`'.format(value))
         self._data["Vertex 34 Z-coordinate"] = value
 
@@ -69134,7 +69634,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_35_xcoordinate`'.format(value))
         self._data["Vertex 35 X-coordinate"] = value
 
@@ -69164,7 +69664,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_35_ycoordinate`'.format(value))
         self._data["Vertex 35 Y-coordinate"] = value
 
@@ -69194,7 +69694,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_35_zcoordinate`'.format(value))
         self._data["Vertex 35 Z-coordinate"] = value
 
@@ -69224,7 +69724,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_36_xcoordinate`'.format(value))
         self._data["Vertex 36 X-coordinate"] = value
 
@@ -69254,7 +69754,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_36_ycoordinate`'.format(value))
         self._data["Vertex 36 Y-coordinate"] = value
 
@@ -69284,7 +69784,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_36_zcoordinate`'.format(value))
         self._data["Vertex 36 Z-coordinate"] = value
 
@@ -69314,7 +69814,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_37_xcoordinate`'.format(value))
         self._data["Vertex 37 X-coordinate"] = value
 
@@ -69344,7 +69844,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_37_ycoordinate`'.format(value))
         self._data["Vertex 37 Y-coordinate"] = value
 
@@ -69374,7 +69874,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_37_zcoordinate`'.format(value))
         self._data["Vertex 37 Z-coordinate"] = value
 
@@ -69404,7 +69904,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_38_xcoordinate`'.format(value))
         self._data["Vertex 38 X-coordinate"] = value
 
@@ -69434,7 +69934,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_38_ycoordinate`'.format(value))
         self._data["Vertex 38 Y-coordinate"] = value
 
@@ -69464,7 +69964,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_38_zcoordinate`'.format(value))
         self._data["Vertex 38 Z-coordinate"] = value
 
@@ -69494,7 +69994,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_39_xcoordinate`'.format(value))
         self._data["Vertex 39 X-coordinate"] = value
 
@@ -69524,7 +70024,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_39_ycoordinate`'.format(value))
         self._data["Vertex 39 Y-coordinate"] = value
 
@@ -69554,7 +70054,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_39_zcoordinate`'.format(value))
         self._data["Vertex 39 Z-coordinate"] = value
 
@@ -69584,7 +70084,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_40_xcoordinate`'.format(value))
         self._data["Vertex 40 X-coordinate"] = value
 
@@ -69614,7 +70114,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_40_ycoordinate`'.format(value))
         self._data["Vertex 40 Y-coordinate"] = value
 
@@ -69644,7 +70144,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_40_zcoordinate`'.format(value))
         self._data["Vertex 40 Z-coordinate"] = value
 
@@ -69674,7 +70174,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_41_xcoordinate`'.format(value))
         self._data["Vertex 41 X-coordinate"] = value
 
@@ -69704,7 +70204,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_41_ycoordinate`'.format(value))
         self._data["Vertex 41 Y-coordinate"] = value
 
@@ -69734,7 +70234,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_41_zcoordinate`'.format(value))
         self._data["Vertex 41 Z-coordinate"] = value
 
@@ -69764,7 +70264,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_42_xcoordinate`'.format(value))
         self._data["Vertex 42 X-coordinate"] = value
 
@@ -69794,7 +70294,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_42_ycoordinate`'.format(value))
         self._data["Vertex 42 Y-coordinate"] = value
 
@@ -69824,7 +70324,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_42_zcoordinate`'.format(value))
         self._data["Vertex 42 Z-coordinate"] = value
 
@@ -69854,7 +70354,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_43_xcoordinate`'.format(value))
         self._data["Vertex 43 X-coordinate"] = value
 
@@ -69884,7 +70384,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_43_ycoordinate`'.format(value))
         self._data["Vertex 43 Y-coordinate"] = value
 
@@ -69914,7 +70414,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_43_zcoordinate`'.format(value))
         self._data["Vertex 43 Z-coordinate"] = value
 
@@ -69944,7 +70444,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_44_xcoordinate`'.format(value))
         self._data["Vertex 44 X-coordinate"] = value
 
@@ -69974,7 +70474,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_44_ycoordinate`'.format(value))
         self._data["Vertex 44 Y-coordinate"] = value
 
@@ -70004,7 +70504,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_44_zcoordinate`'.format(value))
         self._data["Vertex 44 Z-coordinate"] = value
 
@@ -70034,7 +70534,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_45_xcoordinate`'.format(value))
         self._data["Vertex 45 X-coordinate"] = value
 
@@ -70064,7 +70564,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_45_ycoordinate`'.format(value))
         self._data["Vertex 45 Y-coordinate"] = value
 
@@ -70094,7 +70594,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_45_zcoordinate`'.format(value))
         self._data["Vertex 45 Z-coordinate"] = value
 
@@ -70124,7 +70624,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_46_xcoordinate`'.format(value))
         self._data["Vertex 46 X-coordinate"] = value
 
@@ -70154,7 +70654,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_46_ycoordinate`'.format(value))
         self._data["Vertex 46 Y-coordinate"] = value
 
@@ -70184,7 +70684,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_46_zcoordinate`'.format(value))
         self._data["Vertex 46 Z-coordinate"] = value
 
@@ -70214,7 +70714,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_47_xcoordinate`'.format(value))
         self._data["Vertex 47 X-coordinate"] = value
 
@@ -70244,7 +70744,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_47_ycoordinate`'.format(value))
         self._data["Vertex 47 Y-coordinate"] = value
 
@@ -70274,7 +70774,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_47_zcoordinate`'.format(value))
         self._data["Vertex 47 Z-coordinate"] = value
 
@@ -70304,7 +70804,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_48_xcoordinate`'.format(value))
         self._data["Vertex 48 X-coordinate"] = value
 
@@ -70334,7 +70834,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_48_ycoordinate`'.format(value))
         self._data["Vertex 48 Y-coordinate"] = value
 
@@ -70364,7 +70864,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_48_zcoordinate`'.format(value))
         self._data["Vertex 48 Z-coordinate"] = value
 
@@ -70394,7 +70894,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_49_xcoordinate`'.format(value))
         self._data["Vertex 49 X-coordinate"] = value
 
@@ -70424,7 +70924,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_49_ycoordinate`'.format(value))
         self._data["Vertex 49 Y-coordinate"] = value
 
@@ -70454,7 +70954,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_49_zcoordinate`'.format(value))
         self._data["Vertex 49 Z-coordinate"] = value
 
@@ -70484,7 +70984,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_50_xcoordinate`'.format(value))
         self._data["Vertex 50 X-coordinate"] = value
 
@@ -70514,7 +71014,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_50_ycoordinate`'.format(value))
         self._data["Vertex 50 Y-coordinate"] = value
 
@@ -70544,7 +71044,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_50_zcoordinate`'.format(value))
         self._data["Vertex 50 Z-coordinate"] = value
 
@@ -70574,7 +71074,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_51_xcoordinate`'.format(value))
         self._data["Vertex 51 X-coordinate"] = value
 
@@ -70604,7 +71104,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_51_ycoordinate`'.format(value))
         self._data["Vertex 51 Y-coordinate"] = value
 
@@ -70634,7 +71134,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_51_zcoordinate`'.format(value))
         self._data["Vertex 51 Z-coordinate"] = value
 
@@ -70664,7 +71164,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_52_xcoordinate`'.format(value))
         self._data["Vertex 52 X-coordinate"] = value
 
@@ -70694,7 +71194,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_52_ycoordinate`'.format(value))
         self._data["Vertex 52 Y-coordinate"] = value
 
@@ -70724,7 +71224,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_52_zcoordinate`'.format(value))
         self._data["Vertex 52 Z-coordinate"] = value
 
@@ -70754,7 +71254,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_53_xcoordinate`'.format(value))
         self._data["Vertex 53 X-coordinate"] = value
 
@@ -70784,7 +71284,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_53_ycoordinate`'.format(value))
         self._data["Vertex 53 Y-coordinate"] = value
 
@@ -70814,7 +71314,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_53_zcoordinate`'.format(value))
         self._data["Vertex 53 Z-coordinate"] = value
 
@@ -70844,7 +71344,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_54_xcoordinate`'.format(value))
         self._data["Vertex 54 X-coordinate"] = value
 
@@ -70874,7 +71374,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_54_ycoordinate`'.format(value))
         self._data["Vertex 54 Y-coordinate"] = value
 
@@ -70904,7 +71404,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_54_zcoordinate`'.format(value))
         self._data["Vertex 54 Z-coordinate"] = value
 
@@ -70934,7 +71434,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_55_xcoordinate`'.format(value))
         self._data["Vertex 55 X-coordinate"] = value
 
@@ -70964,7 +71464,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_55_ycoordinate`'.format(value))
         self._data["Vertex 55 Y-coordinate"] = value
 
@@ -70994,7 +71494,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_55_zcoordinate`'.format(value))
         self._data["Vertex 55 Z-coordinate"] = value
 
@@ -71024,7 +71524,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_56_xcoordinate`'.format(value))
         self._data["Vertex 56 X-coordinate"] = value
 
@@ -71054,7 +71554,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_56_ycoordinate`'.format(value))
         self._data["Vertex 56 Y-coordinate"] = value
 
@@ -71084,7 +71584,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_56_zcoordinate`'.format(value))
         self._data["Vertex 56 Z-coordinate"] = value
 
@@ -71114,7 +71614,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_57_xcoordinate`'.format(value))
         self._data["Vertex 57 X-coordinate"] = value
 
@@ -71144,7 +71644,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_57_ycoordinate`'.format(value))
         self._data["Vertex 57 Y-coordinate"] = value
 
@@ -71174,7 +71674,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_57_zcoordinate`'.format(value))
         self._data["Vertex 57 Z-coordinate"] = value
 
@@ -71204,7 +71704,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_58_xcoordinate`'.format(value))
         self._data["Vertex 58 X-coordinate"] = value
 
@@ -71234,7 +71734,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_58_ycoordinate`'.format(value))
         self._data["Vertex 58 Y-coordinate"] = value
 
@@ -71264,7 +71764,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_58_zcoordinate`'.format(value))
         self._data["Vertex 58 Z-coordinate"] = value
 
@@ -71294,7 +71794,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_59_xcoordinate`'.format(value))
         self._data["Vertex 59 X-coordinate"] = value
 
@@ -71324,7 +71824,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_59_ycoordinate`'.format(value))
         self._data["Vertex 59 Y-coordinate"] = value
 
@@ -71354,7 +71854,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_59_zcoordinate`'.format(value))
         self._data["Vertex 59 Z-coordinate"] = value
 
@@ -71384,7 +71884,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_60_xcoordinate`'.format(value))
         self._data["Vertex 60 X-coordinate"] = value
 
@@ -71414,7 +71914,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_60_ycoordinate`'.format(value))
         self._data["Vertex 60 Y-coordinate"] = value
 
@@ -71444,7 +71944,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_60_zcoordinate`'.format(value))
         self._data["Vertex 60 Z-coordinate"] = value
 
@@ -71474,7 +71974,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_61_xcoordinate`'.format(value))
         self._data["Vertex 61 X-coordinate"] = value
 
@@ -71504,7 +72004,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_61_ycoordinate`'.format(value))
         self._data["Vertex 61 Y-coordinate"] = value
 
@@ -71534,7 +72034,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_61_zcoordinate`'.format(value))
         self._data["Vertex 61 Z-coordinate"] = value
 
@@ -71564,7 +72064,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_62_xcoordinate`'.format(value))
         self._data["Vertex 62 X-coordinate"] = value
 
@@ -71594,7 +72094,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_62_ycoordinate`'.format(value))
         self._data["Vertex 62 Y-coordinate"] = value
 
@@ -71624,7 +72124,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_62_zcoordinate`'.format(value))
         self._data["Vertex 62 Z-coordinate"] = value
 
@@ -71654,7 +72154,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_63_xcoordinate`'.format(value))
         self._data["Vertex 63 X-coordinate"] = value
 
@@ -71684,7 +72184,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_63_ycoordinate`'.format(value))
         self._data["Vertex 63 Y-coordinate"] = value
 
@@ -71714,7 +72214,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_63_zcoordinate`'.format(value))
         self._data["Vertex 63 Z-coordinate"] = value
 
@@ -71744,7 +72244,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_64_xcoordinate`'.format(value))
         self._data["Vertex 64 X-coordinate"] = value
 
@@ -71774,7 +72274,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_64_ycoordinate`'.format(value))
         self._data["Vertex 64 Y-coordinate"] = value
 
@@ -71804,7 +72304,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_64_zcoordinate`'.format(value))
         self._data["Vertex 64 Z-coordinate"] = value
 
@@ -71834,7 +72334,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_65_xcoordinate`'.format(value))
         self._data["Vertex 65 X-coordinate"] = value
 
@@ -71864,7 +72364,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_65_ycoordinate`'.format(value))
         self._data["Vertex 65 Y-coordinate"] = value
 
@@ -71894,7 +72394,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_65_zcoordinate`'.format(value))
         self._data["Vertex 65 Z-coordinate"] = value
 
@@ -71924,7 +72424,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_66_xcoordinate`'.format(value))
         self._data["Vertex 66 X-coordinate"] = value
 
@@ -71954,7 +72454,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_66_ycoordinate`'.format(value))
         self._data["Vertex 66 Y-coordinate"] = value
 
@@ -71984,7 +72484,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_66_zcoordinate`'.format(value))
         self._data["Vertex 66 Z-coordinate"] = value
 
@@ -72014,7 +72514,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_67_xcoordinate`'.format(value))
         self._data["Vertex 67 X-coordinate"] = value
 
@@ -72044,7 +72544,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_67_ycoordinate`'.format(value))
         self._data["Vertex 67 Y-coordinate"] = value
 
@@ -72074,7 +72574,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_67_zcoordinate`'.format(value))
         self._data["Vertex 67 Z-coordinate"] = value
 
@@ -72104,7 +72604,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_68_xcoordinate`'.format(value))
         self._data["Vertex 68 X-coordinate"] = value
 
@@ -72134,7 +72634,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_68_ycoordinate`'.format(value))
         self._data["Vertex 68 Y-coordinate"] = value
 
@@ -72164,7 +72664,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_68_zcoordinate`'.format(value))
         self._data["Vertex 68 Z-coordinate"] = value
 
@@ -72194,7 +72694,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_69_xcoordinate`'.format(value))
         self._data["Vertex 69 X-coordinate"] = value
 
@@ -72224,7 +72724,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_69_ycoordinate`'.format(value))
         self._data["Vertex 69 Y-coordinate"] = value
 
@@ -72254,7 +72754,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_69_zcoordinate`'.format(value))
         self._data["Vertex 69 Z-coordinate"] = value
 
@@ -72284,7 +72784,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_70_xcoordinate`'.format(value))
         self._data["Vertex 70 X-coordinate"] = value
 
@@ -72314,7 +72814,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_70_ycoordinate`'.format(value))
         self._data["Vertex 70 Y-coordinate"] = value
 
@@ -72344,7 +72844,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_70_zcoordinate`'.format(value))
         self._data["Vertex 70 Z-coordinate"] = value
 
@@ -72374,7 +72874,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_71_xcoordinate`'.format(value))
         self._data["Vertex 71 X-coordinate"] = value
 
@@ -72404,7 +72904,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_71_ycoordinate`'.format(value))
         self._data["Vertex 71 Y-coordinate"] = value
 
@@ -72434,7 +72934,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_71_zcoordinate`'.format(value))
         self._data["Vertex 71 Z-coordinate"] = value
 
@@ -72464,7 +72964,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_72_xcoordinate`'.format(value))
         self._data["Vertex 72 X-coordinate"] = value
 
@@ -72494,7 +72994,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_72_ycoordinate`'.format(value))
         self._data["Vertex 72 Y-coordinate"] = value
 
@@ -72524,7 +73024,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_72_zcoordinate`'.format(value))
         self._data["Vertex 72 Z-coordinate"] = value
 
@@ -72554,7 +73054,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_73_xcoordinate`'.format(value))
         self._data["Vertex 73 X-coordinate"] = value
 
@@ -72584,7 +73084,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_73_ycoordinate`'.format(value))
         self._data["Vertex 73 Y-coordinate"] = value
 
@@ -72614,7 +73114,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_73_zcoordinate`'.format(value))
         self._data["Vertex 73 Z-coordinate"] = value
 
@@ -72644,7 +73144,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_74_xcoordinate`'.format(value))
         self._data["Vertex 74 X-coordinate"] = value
 
@@ -72674,7 +73174,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_74_ycoordinate`'.format(value))
         self._data["Vertex 74 Y-coordinate"] = value
 
@@ -72704,7 +73204,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_74_zcoordinate`'.format(value))
         self._data["Vertex 74 Z-coordinate"] = value
 
@@ -72734,7 +73234,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_75_xcoordinate`'.format(value))
         self._data["Vertex 75 X-coordinate"] = value
 
@@ -72764,7 +73264,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_75_ycoordinate`'.format(value))
         self._data["Vertex 75 Y-coordinate"] = value
 
@@ -72794,7 +73294,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_75_zcoordinate`'.format(value))
         self._data["Vertex 75 Z-coordinate"] = value
 
@@ -72824,7 +73324,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_76_xcoordinate`'.format(value))
         self._data["Vertex 76 X-coordinate"] = value
 
@@ -72854,7 +73354,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_76_ycoordinate`'.format(value))
         self._data["Vertex 76 Y-coordinate"] = value
 
@@ -72884,7 +73384,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_76_zcoordinate`'.format(value))
         self._data["Vertex 76 Z-coordinate"] = value
 
@@ -72914,7 +73414,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_77_xcoordinate`'.format(value))
         self._data["Vertex 77 X-coordinate"] = value
 
@@ -72944,7 +73444,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_77_ycoordinate`'.format(value))
         self._data["Vertex 77 Y-coordinate"] = value
 
@@ -72974,7 +73474,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_77_zcoordinate`'.format(value))
         self._data["Vertex 77 Z-coordinate"] = value
 
@@ -73004,7 +73504,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_78_xcoordinate`'.format(value))
         self._data["Vertex 78 X-coordinate"] = value
 
@@ -73034,7 +73534,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_78_ycoordinate`'.format(value))
         self._data["Vertex 78 Y-coordinate"] = value
 
@@ -73064,7 +73564,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_78_zcoordinate`'.format(value))
         self._data["Vertex 78 Z-coordinate"] = value
 
@@ -73094,7 +73594,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_79_xcoordinate`'.format(value))
         self._data["Vertex 79 X-coordinate"] = value
 
@@ -73124,7 +73624,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_79_ycoordinate`'.format(value))
         self._data["Vertex 79 Y-coordinate"] = value
 
@@ -73154,7 +73654,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_79_zcoordinate`'.format(value))
         self._data["Vertex 79 Z-coordinate"] = value
 
@@ -73184,7 +73684,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_80_xcoordinate`'.format(value))
         self._data["Vertex 80 X-coordinate"] = value
 
@@ -73214,7 +73714,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_80_ycoordinate`'.format(value))
         self._data["Vertex 80 Y-coordinate"] = value
 
@@ -73244,7 +73744,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_80_zcoordinate`'.format(value))
         self._data["Vertex 80 Z-coordinate"] = value
 
@@ -73274,7 +73774,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_81_xcoordinate`'.format(value))
         self._data["Vertex 81 X-coordinate"] = value
 
@@ -73304,7 +73804,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_81_ycoordinate`'.format(value))
         self._data["Vertex 81 Y-coordinate"] = value
 
@@ -73334,7 +73834,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_81_zcoordinate`'.format(value))
         self._data["Vertex 81 Z-coordinate"] = value
 
@@ -73364,7 +73864,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_82_xcoordinate`'.format(value))
         self._data["Vertex 82 X-coordinate"] = value
 
@@ -73394,7 +73894,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_82_ycoordinate`'.format(value))
         self._data["Vertex 82 Y-coordinate"] = value
 
@@ -73424,7 +73924,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_82_zcoordinate`'.format(value))
         self._data["Vertex 82 Z-coordinate"] = value
 
@@ -73454,7 +73954,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_83_xcoordinate`'.format(value))
         self._data["Vertex 83 X-coordinate"] = value
 
@@ -73484,7 +73984,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_83_ycoordinate`'.format(value))
         self._data["Vertex 83 Y-coordinate"] = value
 
@@ -73514,7 +74014,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_83_zcoordinate`'.format(value))
         self._data["Vertex 83 Z-coordinate"] = value
 
@@ -73544,7 +74044,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_84_xcoordinate`'.format(value))
         self._data["Vertex 84 X-coordinate"] = value
 
@@ -73574,7 +74074,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_84_ycoordinate`'.format(value))
         self._data["Vertex 84 Y-coordinate"] = value
 
@@ -73604,7 +74104,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_84_zcoordinate`'.format(value))
         self._data["Vertex 84 Z-coordinate"] = value
 
@@ -73634,7 +74134,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_85_xcoordinate`'.format(value))
         self._data["Vertex 85 X-coordinate"] = value
 
@@ -73664,7 +74164,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_85_ycoordinate`'.format(value))
         self._data["Vertex 85 Y-coordinate"] = value
 
@@ -73694,7 +74194,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_85_zcoordinate`'.format(value))
         self._data["Vertex 85 Z-coordinate"] = value
 
@@ -73724,7 +74224,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_86_xcoordinate`'.format(value))
         self._data["Vertex 86 X-coordinate"] = value
 
@@ -73754,7 +74254,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_86_ycoordinate`'.format(value))
         self._data["Vertex 86 Y-coordinate"] = value
 
@@ -73784,7 +74284,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_86_zcoordinate`'.format(value))
         self._data["Vertex 86 Z-coordinate"] = value
 
@@ -73814,7 +74314,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_87_xcoordinate`'.format(value))
         self._data["Vertex 87 X-coordinate"] = value
 
@@ -73844,7 +74344,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_87_ycoordinate`'.format(value))
         self._data["Vertex 87 Y-coordinate"] = value
 
@@ -73874,7 +74374,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_87_zcoordinate`'.format(value))
         self._data["Vertex 87 Z-coordinate"] = value
 
@@ -73904,7 +74404,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_88_xcoordinate`'.format(value))
         self._data["Vertex 88 X-coordinate"] = value
 
@@ -73934,7 +74434,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_88_ycoordinate`'.format(value))
         self._data["Vertex 88 Y-coordinate"] = value
 
@@ -73964,7 +74464,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_88_zcoordinate`'.format(value))
         self._data["Vertex 88 Z-coordinate"] = value
 
@@ -73994,7 +74494,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_89_xcoordinate`'.format(value))
         self._data["Vertex 89 X-coordinate"] = value
 
@@ -74024,7 +74524,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_89_ycoordinate`'.format(value))
         self._data["Vertex 89 Y-coordinate"] = value
 
@@ -74054,7 +74554,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_89_zcoordinate`'.format(value))
         self._data["Vertex 89 Z-coordinate"] = value
 
@@ -74084,7 +74584,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_90_xcoordinate`'.format(value))
         self._data["Vertex 90 X-coordinate"] = value
 
@@ -74114,7 +74614,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_90_ycoordinate`'.format(value))
         self._data["Vertex 90 Y-coordinate"] = value
 
@@ -74144,7 +74644,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_90_zcoordinate`'.format(value))
         self._data["Vertex 90 Z-coordinate"] = value
 
@@ -74174,7 +74674,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_91_xcoordinate`'.format(value))
         self._data["Vertex 91 X-coordinate"] = value
 
@@ -74204,7 +74704,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_91_ycoordinate`'.format(value))
         self._data["Vertex 91 Y-coordinate"] = value
 
@@ -74234,7 +74734,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_91_zcoordinate`'.format(value))
         self._data["Vertex 91 Z-coordinate"] = value
 
@@ -74264,7 +74764,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_92_xcoordinate`'.format(value))
         self._data["Vertex 92 X-coordinate"] = value
 
@@ -74294,7 +74794,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_92_ycoordinate`'.format(value))
         self._data["Vertex 92 Y-coordinate"] = value
 
@@ -74324,7 +74824,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_92_zcoordinate`'.format(value))
         self._data["Vertex 92 Z-coordinate"] = value
 
@@ -74354,7 +74854,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_93_xcoordinate`'.format(value))
         self._data["Vertex 93 X-coordinate"] = value
 
@@ -74384,7 +74884,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_93_ycoordinate`'.format(value))
         self._data["Vertex 93 Y-coordinate"] = value
 
@@ -74414,7 +74914,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_93_zcoordinate`'.format(value))
         self._data["Vertex 93 Z-coordinate"] = value
 
@@ -74444,7 +74944,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_94_xcoordinate`'.format(value))
         self._data["Vertex 94 X-coordinate"] = value
 
@@ -74474,7 +74974,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_94_ycoordinate`'.format(value))
         self._data["Vertex 94 Y-coordinate"] = value
 
@@ -74504,7 +75004,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_94_zcoordinate`'.format(value))
         self._data["Vertex 94 Z-coordinate"] = value
 
@@ -74534,7 +75034,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_95_xcoordinate`'.format(value))
         self._data["Vertex 95 X-coordinate"] = value
 
@@ -74564,7 +75064,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_95_ycoordinate`'.format(value))
         self._data["Vertex 95 Y-coordinate"] = value
 
@@ -74594,7 +75094,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_95_zcoordinate`'.format(value))
         self._data["Vertex 95 Z-coordinate"] = value
 
@@ -74624,7 +75124,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_96_xcoordinate`'.format(value))
         self._data["Vertex 96 X-coordinate"] = value
 
@@ -74654,7 +75154,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_96_ycoordinate`'.format(value))
         self._data["Vertex 96 Y-coordinate"] = value
 
@@ -74684,7 +75184,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_96_zcoordinate`'.format(value))
         self._data["Vertex 96 Z-coordinate"] = value
 
@@ -74714,7 +75214,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_97_xcoordinate`'.format(value))
         self._data["Vertex 97 X-coordinate"] = value
 
@@ -74744,7 +75244,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_97_ycoordinate`'.format(value))
         self._data["Vertex 97 Y-coordinate"] = value
 
@@ -74774,7 +75274,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_97_zcoordinate`'.format(value))
         self._data["Vertex 97 Z-coordinate"] = value
 
@@ -74804,7 +75304,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_98_xcoordinate`'.format(value))
         self._data["Vertex 98 X-coordinate"] = value
 
@@ -74834,7 +75334,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_98_ycoordinate`'.format(value))
         self._data["Vertex 98 Y-coordinate"] = value
 
@@ -74864,7 +75364,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_98_zcoordinate`'.format(value))
         self._data["Vertex 98 Z-coordinate"] = value
 
@@ -74894,7 +75394,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_99_xcoordinate`'.format(value))
         self._data["Vertex 99 X-coordinate"] = value
 
@@ -74924,7 +75424,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_99_ycoordinate`'.format(value))
         self._data["Vertex 99 Y-coordinate"] = value
 
@@ -74954,7 +75454,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_99_zcoordinate`'.format(value))
         self._data["Vertex 99 Z-coordinate"] = value
 
@@ -74984,7 +75484,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_100_xcoordinate`'.format(value))
         self._data["Vertex 100 X-coordinate"] = value
 
@@ -75014,7 +75514,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_100_ycoordinate`'.format(value))
         self._data["Vertex 100 Y-coordinate"] = value
 
@@ -75044,7 +75544,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_100_zcoordinate`'.format(value))
         self._data["Vertex 100 Z-coordinate"] = value
 
@@ -75074,7 +75574,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_101_xcoordinate`'.format(value))
         self._data["Vertex 101 X-coordinate"] = value
 
@@ -75104,7 +75604,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_101_ycoordinate`'.format(value))
         self._data["Vertex 101 Y-coordinate"] = value
 
@@ -75134,7 +75634,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_101_zcoordinate`'.format(value))
         self._data["Vertex 101 Z-coordinate"] = value
 
@@ -75164,7 +75664,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_102_xcoordinate`'.format(value))
         self._data["Vertex 102 X-coordinate"] = value
 
@@ -75194,7 +75694,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_102_ycoordinate`'.format(value))
         self._data["Vertex 102 Y-coordinate"] = value
 
@@ -75224,7 +75724,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_102_zcoordinate`'.format(value))
         self._data["Vertex 102 Z-coordinate"] = value
 
@@ -75254,7 +75754,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_103_xcoordinate`'.format(value))
         self._data["Vertex 103 X-coordinate"] = value
 
@@ -75284,7 +75784,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_103_ycoordinate`'.format(value))
         self._data["Vertex 103 Y-coordinate"] = value
 
@@ -75314,7 +75814,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_103_zcoordinate`'.format(value))
         self._data["Vertex 103 Z-coordinate"] = value
 
@@ -75344,7 +75844,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_104_xcoordinate`'.format(value))
         self._data["Vertex 104 X-coordinate"] = value
 
@@ -75374,7 +75874,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_104_ycoordinate`'.format(value))
         self._data["Vertex 104 Y-coordinate"] = value
 
@@ -75404,7 +75904,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_104_zcoordinate`'.format(value))
         self._data["Vertex 104 Z-coordinate"] = value
 
@@ -75434,7 +75934,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_105_xcoordinate`'.format(value))
         self._data["Vertex 105 X-coordinate"] = value
 
@@ -75464,7 +75964,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_105_ycoordinate`'.format(value))
         self._data["Vertex 105 Y-coordinate"] = value
 
@@ -75494,7 +75994,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_105_zcoordinate`'.format(value))
         self._data["Vertex 105 Z-coordinate"] = value
 
@@ -75524,7 +76024,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_106_xcoordinate`'.format(value))
         self._data["Vertex 106 X-coordinate"] = value
 
@@ -75554,7 +76054,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_106_ycoordinate`'.format(value))
         self._data["Vertex 106 Y-coordinate"] = value
 
@@ -75584,7 +76084,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_106_zcoordinate`'.format(value))
         self._data["Vertex 106 Z-coordinate"] = value
 
@@ -75614,7 +76114,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_107_xcoordinate`'.format(value))
         self._data["Vertex 107 X-coordinate"] = value
 
@@ -75644,7 +76144,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_107_ycoordinate`'.format(value))
         self._data["Vertex 107 Y-coordinate"] = value
 
@@ -75674,7 +76174,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_107_zcoordinate`'.format(value))
         self._data["Vertex 107 Z-coordinate"] = value
 
@@ -75704,7 +76204,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_108_xcoordinate`'.format(value))
         self._data["Vertex 108 X-coordinate"] = value
 
@@ -75734,7 +76234,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_108_ycoordinate`'.format(value))
         self._data["Vertex 108 Y-coordinate"] = value
 
@@ -75764,7 +76264,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_108_zcoordinate`'.format(value))
         self._data["Vertex 108 Z-coordinate"] = value
 
@@ -75794,7 +76294,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_109_xcoordinate`'.format(value))
         self._data["Vertex 109 X-coordinate"] = value
 
@@ -75824,7 +76324,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_109_ycoordinate`'.format(value))
         self._data["Vertex 109 Y-coordinate"] = value
 
@@ -75854,7 +76354,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_109_zcoordinate`'.format(value))
         self._data["Vertex 109 Z-coordinate"] = value
 
@@ -75884,7 +76384,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_110_xcoordinate`'.format(value))
         self._data["Vertex 110 X-coordinate"] = value
 
@@ -75914,7 +76414,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_110_ycoordinate`'.format(value))
         self._data["Vertex 110 Y-coordinate"] = value
 
@@ -75944,7 +76444,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_110_zcoordinate`'.format(value))
         self._data["Vertex 110 Z-coordinate"] = value
 
@@ -75974,7 +76474,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_111_xcoordinate`'.format(value))
         self._data["Vertex 111 X-coordinate"] = value
 
@@ -76004,7 +76504,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_111_ycoordinate`'.format(value))
         self._data["Vertex 111 Y-coordinate"] = value
 
@@ -76034,7 +76534,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_111_zcoordinate`'.format(value))
         self._data["Vertex 111 Z-coordinate"] = value
 
@@ -76064,7 +76564,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_112_xcoordinate`'.format(value))
         self._data["Vertex 112 X-coordinate"] = value
 
@@ -76094,7 +76594,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_112_ycoordinate`'.format(value))
         self._data["Vertex 112 Y-coordinate"] = value
 
@@ -76124,7 +76624,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_112_zcoordinate`'.format(value))
         self._data["Vertex 112 Z-coordinate"] = value
 
@@ -76154,7 +76654,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_113_xcoordinate`'.format(value))
         self._data["Vertex 113 X-coordinate"] = value
 
@@ -76184,7 +76684,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_113_ycoordinate`'.format(value))
         self._data["Vertex 113 Y-coordinate"] = value
 
@@ -76214,7 +76714,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_113_zcoordinate`'.format(value))
         self._data["Vertex 113 Z-coordinate"] = value
 
@@ -76244,7 +76744,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_114_xcoordinate`'.format(value))
         self._data["Vertex 114 X-coordinate"] = value
 
@@ -76274,7 +76774,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_114_ycoordinate`'.format(value))
         self._data["Vertex 114 Y-coordinate"] = value
 
@@ -76304,7 +76804,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_114_zcoordinate`'.format(value))
         self._data["Vertex 114 Z-coordinate"] = value
 
@@ -76334,7 +76834,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_115_xcoordinate`'.format(value))
         self._data["Vertex 115 X-coordinate"] = value
 
@@ -76364,7 +76864,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_115_ycoordinate`'.format(value))
         self._data["Vertex 115 Y-coordinate"] = value
 
@@ -76394,7 +76894,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_115_zcoordinate`'.format(value))
         self._data["Vertex 115 Z-coordinate"] = value
 
@@ -76424,7 +76924,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_116_xcoordinate`'.format(value))
         self._data["Vertex 116 X-coordinate"] = value
 
@@ -76454,7 +76954,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_116_ycoordinate`'.format(value))
         self._data["Vertex 116 Y-coordinate"] = value
 
@@ -76484,7 +76984,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_116_zcoordinate`'.format(value))
         self._data["Vertex 116 Z-coordinate"] = value
 
@@ -76514,7 +77014,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_117_xcoordinate`'.format(value))
         self._data["Vertex 117 X-coordinate"] = value
 
@@ -76544,7 +77044,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_117_ycoordinate`'.format(value))
         self._data["Vertex 117 Y-coordinate"] = value
 
@@ -76574,7 +77074,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_117_zcoordinate`'.format(value))
         self._data["Vertex 117 Z-coordinate"] = value
 
@@ -76604,7 +77104,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_118_xcoordinate`'.format(value))
         self._data["Vertex 118 X-coordinate"] = value
 
@@ -76634,7 +77134,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_118_ycoordinate`'.format(value))
         self._data["Vertex 118 Y-coordinate"] = value
 
@@ -76664,7 +77164,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_118_zcoordinate`'.format(value))
         self._data["Vertex 118 Z-coordinate"] = value
 
@@ -76694,7 +77194,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_119_xcoordinate`'.format(value))
         self._data["Vertex 119 X-coordinate"] = value
 
@@ -76724,7 +77224,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_119_ycoordinate`'.format(value))
         self._data["Vertex 119 Y-coordinate"] = value
 
@@ -76754,7 +77254,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_119_zcoordinate`'.format(value))
         self._data["Vertex 119 Z-coordinate"] = value
 
@@ -76784,7 +77284,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_120_xcoordinate`'.format(value))
         self._data["Vertex 120 X-coordinate"] = value
 
@@ -76814,7 +77314,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_120_ycoordinate`'.format(value))
         self._data["Vertex 120 Y-coordinate"] = value
 
@@ -76844,7 +77344,7 @@ class ShadingZoneDetailed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertex_120_zcoordinate`'.format(value))
         self._data["Vertex 120 Z-coordinate"] = value
 
@@ -76886,7 +77386,6 @@ class ShadingPropertyReflectance(object):
     """ Corresponds to IDD object `ShadingProperty:Reflectance`
         If this object is not defined for a shading surface the default values
         listed in following fields will be used in the solar reflection calculation.
-    
     """
     internal_name = "ShadingProperty:Reflectance"
     field_count = 5
@@ -76901,15 +77400,16 @@ class ShadingPropertyReflectance(object):
         self._data["Diffuse Visible Reflectance of Unglazed Part of Shading Surface"] = None
         self._data["Fraction of Shading Surface That Is Glazed"] = None
         self._data["Glazing Construction Name"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.shading_surface_name = None
@@ -76946,6 +77446,7 @@ class ShadingPropertyReflectance(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def shading_surface_name(self):
@@ -76972,7 +77473,7 @@ class ShadingPropertyReflectance(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `shading_surface_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -77010,7 +77511,7 @@ class ShadingPropertyReflectance(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `diffuse_solar_reflectance_of_unglazed_part_of_shading_surface`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -77048,7 +77549,7 @@ class ShadingPropertyReflectance(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `diffuse_visible_reflectance_of_unglazed_part_of_shading_surface`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -77086,7 +77587,7 @@ class ShadingPropertyReflectance(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_shading_surface_that_is_glazed`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -77122,7 +77623,7 @@ class ShadingPropertyReflectance(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `glazing_construction_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '

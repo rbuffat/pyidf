@@ -1,4 +1,6 @@
 from collections import OrderedDict
+import logging
+import re
 
 class WaterUseEquipment(object):
     """ Corresponds to IDD object `WaterUse:Equipment`
@@ -8,7 +10,6 @@ class WaterUseEquipment(object):
         the WaterUse:Connections object (see below). The WaterUse:Connections object allows
         water uses to be linked to WaterUse:Storage objects to store and draw reclaimed water.
         The object can also simulate drainwater heat recovery.
-    
     """
     internal_name = "WaterUse:Equipment"
     field_count = 10
@@ -28,15 +29,16 @@ class WaterUseEquipment(object):
         self._data["Zone Name"] = None
         self._data["Sensible Fraction Schedule Name"] = None
         self._data["Latent Fraction Schedule Name"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -108,6 +110,7 @@ class WaterUseEquipment(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -134,7 +137,7 @@ class WaterUseEquipment(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -170,7 +173,7 @@ class WaterUseEquipment(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `enduse_subcategory`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -207,7 +210,7 @@ class WaterUseEquipment(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `peak_flow_rate`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -240,7 +243,7 @@ class WaterUseEquipment(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `flow_rate_fraction_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -276,7 +279,7 @@ class WaterUseEquipment(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `target_temperature_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -312,7 +315,7 @@ class WaterUseEquipment(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `hot_water_supply_temperature_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -348,7 +351,7 @@ class WaterUseEquipment(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `cold_water_supply_temperature_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -383,7 +386,7 @@ class WaterUseEquipment(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `zone_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -419,7 +422,7 @@ class WaterUseEquipment(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `sensible_fraction_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -455,7 +458,7 @@ class WaterUseEquipment(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `latent_fraction_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -506,7 +509,6 @@ class WaterUseConnections(object):
         components, including: 1. Inlet node and outlet node connections to a plant loop
         2. Connections to WaterUse:Storage objects to store and draw reclaimed water
         3. Internal connections to simulate drainwater heat recovery.
-    
     """
     internal_name = "WaterUse:Connections"
     field_count = 20
@@ -536,15 +538,16 @@ class WaterUseConnections(object):
         self._data["Water Use Equipment 8 Name"] = None
         self._data["Water Use Equipment 9 Name"] = None
         self._data["Water Use Equipment 10 Name"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -686,6 +689,7 @@ class WaterUseConnections(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -712,7 +716,7 @@ class WaterUseConnections(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -747,7 +751,7 @@ class WaterUseConnections(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `inlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -782,7 +786,7 @@ class WaterUseConnections(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `outlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -818,7 +822,7 @@ class WaterUseConnections(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `supply_water_storage_tank_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -853,7 +857,7 @@ class WaterUseConnections(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `reclamation_water_storage_tank_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -889,7 +893,7 @@ class WaterUseConnections(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `hot_water_supply_temperature_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -925,7 +929,7 @@ class WaterUseConnections(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `cold_water_supply_temperature_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -966,7 +970,7 @@ class WaterUseConnections(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `drain_water_heat_exchanger_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -982,16 +986,26 @@ class WaterUseConnections(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `drain_water_heat_exchanger_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `drain_water_heat_exchanger_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Drain Water Heat Exchanger Type"] = value
 
@@ -1025,7 +1039,7 @@ class WaterUseConnections(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `drain_water_heat_exchanger_destination`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1040,16 +1054,26 @@ class WaterUseConnections(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `drain_water_heat_exchanger_destination`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `drain_water_heat_exchanger_destination`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Drain Water Heat Exchanger Destination"] = value
 
@@ -1080,7 +1104,7 @@ class WaterUseConnections(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `drain_water_heat_exchanger_ufactor_times_area`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -1113,7 +1137,7 @@ class WaterUseConnections(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `water_use_equipment_1_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1149,7 +1173,7 @@ class WaterUseConnections(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `water_use_equipment_2_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1185,7 +1209,7 @@ class WaterUseConnections(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `water_use_equipment_3_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1221,7 +1245,7 @@ class WaterUseConnections(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `water_use_equipment_4_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1257,7 +1281,7 @@ class WaterUseConnections(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `water_use_equipment_5_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1292,7 +1316,7 @@ class WaterUseConnections(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `water_use_equipment_6_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1327,7 +1351,7 @@ class WaterUseConnections(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `water_use_equipment_7_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1362,7 +1386,7 @@ class WaterUseConnections(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `water_use_equipment_8_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1397,7 +1421,7 @@ class WaterUseConnections(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `water_use_equipment_9_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1432,7 +1456,7 @@ class WaterUseConnections(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `water_use_equipment_10_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1483,7 +1507,6 @@ class WaterUseStorage(object):
         object is needed. Each WaterUse:Storage can serve as a central node and make
         connections to numerous sources of supply or numerous components with demand. If a
         maximum capacity is not specified, the tank is assumed to have unlimited capacity.
-    
     """
     internal_name = "WaterUse:Storage"
     field_count = 20
@@ -1513,15 +1536,16 @@ class WaterUseStorage(object):
         self._data["Tank Surface Area"] = None
         self._data["Tank U Value"] = None
         self._data["Tank Outside Surface Material Name"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -1663,6 +1687,7 @@ class WaterUseStorage(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -1689,7 +1714,7 @@ class WaterUseStorage(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1724,7 +1749,7 @@ class WaterUseStorage(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `water_quality_subcategory`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1761,7 +1786,7 @@ class WaterUseStorage(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `maximum_capacity`'.format(value))
         self._data["Maximum Capacity"] = value
 
@@ -1791,7 +1816,7 @@ class WaterUseStorage(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `initial_volume`'.format(value))
         self._data["Initial Volume"] = value
 
@@ -1822,7 +1847,7 @@ class WaterUseStorage(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `design_in_flow_rate`'.format(value))
         self._data["Design In Flow Rate"] = value
 
@@ -1853,7 +1878,7 @@ class WaterUseStorage(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `design_out_flow_rate`'.format(value))
         self._data["Design Out Flow Rate"] = value
 
@@ -1883,7 +1908,7 @@ class WaterUseStorage(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `overflow_destination`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1923,7 +1948,7 @@ class WaterUseStorage(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `type_of_supply_controlled_by_float_valve`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1939,16 +1964,26 @@ class WaterUseStorage(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `type_of_supply_controlled_by_float_valve`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `type_of_supply_controlled_by_float_valve`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Type of Supply Controlled by Float Valve"] = value
 
@@ -1979,7 +2014,7 @@ class WaterUseStorage(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `float_valve_on_capacity`'.format(value))
         self._data["Float Valve On Capacity"] = value
 
@@ -2010,7 +2045,7 @@ class WaterUseStorage(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `float_valve_off_capacity`'.format(value))
         self._data["Float Valve Off Capacity"] = value
 
@@ -2043,7 +2078,7 @@ class WaterUseStorage(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `backup_mains_capacity`'.format(value))
         self._data["Backup Mains Capacity"] = value
 
@@ -2072,7 +2107,7 @@ class WaterUseStorage(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `other_tank_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2110,7 +2145,7 @@ class WaterUseStorage(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `water_thermal_mode`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2124,16 +2159,26 @@ class WaterUseStorage(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `water_thermal_mode`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `water_thermal_mode`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Water Thermal Mode"] = value
 
@@ -2162,7 +2207,7 @@ class WaterUseStorage(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `water_temperature_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2201,7 +2246,7 @@ class WaterUseStorage(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `ambient_temperature_indicator`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2216,16 +2261,26 @@ class WaterUseStorage(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `ambient_temperature_indicator`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `ambient_temperature_indicator`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Ambient Temperature Indicator"] = value
 
@@ -2254,7 +2309,7 @@ class WaterUseStorage(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `ambient_temperature_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2289,7 +2344,7 @@ class WaterUseStorage(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `zone_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2325,7 +2380,7 @@ class WaterUseStorage(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `tank_surface_area`'.format(value))
         self._data["Tank Surface Area"] = value
 
@@ -2355,7 +2410,7 @@ class WaterUseStorage(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `tank_u_value`'.format(value))
         self._data["Tank U Value"] = value
 
@@ -2384,7 +2439,7 @@ class WaterUseStorage(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `tank_outside_surface_material_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2434,7 +2489,6 @@ class WaterUseWell(object):
         into a WaterUse:Storage. The operation of the ground water well is controlled by the
         associated WaterUse:Storage which is assumed to be operated as a vented cistern with
         no pressure tank.
-    
     """
     internal_name = "WaterUse:Well"
     field_count = 12
@@ -2456,15 +2510,16 @@ class WaterUseWell(object):
         self._data["Water Table Depth Mode"] = None
         self._data["Water Table Depth"] = None
         self._data["Water Table Depth Schedule Name"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -2550,6 +2605,7 @@ class WaterUseWell(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -2576,7 +2632,7 @@ class WaterUseWell(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2611,7 +2667,7 @@ class WaterUseWell(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `storage_tank_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2647,7 +2703,7 @@ class WaterUseWell(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `pump_depth`'.format(value))
         self._data["Pump Depth"] = value
 
@@ -2677,7 +2733,7 @@ class WaterUseWell(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `pump_rated_flow_rate`'.format(value))
         self._data["Pump Rated Flow Rate"] = value
 
@@ -2707,7 +2763,7 @@ class WaterUseWell(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `pump_rated_head`'.format(value))
         self._data["Pump Rated Head"] = value
 
@@ -2737,7 +2793,7 @@ class WaterUseWell(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `pump_rated_power_consumption`'.format(value))
         self._data["Pump Rated Power Consumption"] = value
 
@@ -2766,7 +2822,7 @@ class WaterUseWell(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `pump_efficiency`'.format(value))
         self._data["Pump Efficiency"] = value
 
@@ -2796,7 +2852,7 @@ class WaterUseWell(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `well_recovery_rate`'.format(value))
         self._data["Well Recovery Rate"] = value
 
@@ -2826,7 +2882,7 @@ class WaterUseWell(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `nominal_well_storage_volume`'.format(value))
         self._data["Nominal Well Storage Volume"] = value
 
@@ -2858,7 +2914,7 @@ class WaterUseWell(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `water_table_depth_mode`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2872,16 +2928,26 @@ class WaterUseWell(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `water_table_depth_mode`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `water_table_depth_mode`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Water Table Depth Mode"] = value
 
@@ -2911,7 +2977,7 @@ class WaterUseWell(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `water_table_depth`'.format(value))
         self._data["Water Table Depth"] = value
 
@@ -2940,7 +3006,7 @@ class WaterUseWell(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `water_table_depth_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2989,7 +3055,6 @@ class WaterUseRainCollector(object):
         Used for harvesting rainwater falling on building surfaces. The rainwater is sent to a
         WaterUse:Storage object. In order to use this object it is necessary to also include
         a Site:Precipitation object to describe the rates of rainfall.
-    
     """
     internal_name = "WaterUse:RainCollector"
     field_count = 16
@@ -3015,15 +3080,16 @@ class WaterUseRainCollector(object):
         self._data["Collection Surface 8 Name"] = None
         self._data["Collection Surface 9 Name"] = None
         self._data["Collection Surface 10 Name"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -3137,6 +3203,7 @@ class WaterUseRainCollector(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -3163,7 +3230,7 @@ class WaterUseRainCollector(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3198,7 +3265,7 @@ class WaterUseRainCollector(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `storage_tank_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3236,7 +3303,7 @@ class WaterUseRainCollector(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `loss_factor_mode`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3250,16 +3317,26 @@ class WaterUseRainCollector(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `loss_factor_mode`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `loss_factor_mode`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Loss Factor Mode"] = value
 
@@ -3291,7 +3368,7 @@ class WaterUseRainCollector(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `collection_loss_factor`'.format(value))
         self._data["Collection Loss Factor"] = value
 
@@ -3320,7 +3397,7 @@ class WaterUseRainCollector(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `collection_loss_factor_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3357,7 +3434,7 @@ class WaterUseRainCollector(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `maximum_collection_rate`'.format(value))
         self._data["Maximum Collection Rate"] = value
 
@@ -3386,7 +3463,7 @@ class WaterUseRainCollector(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `collection_surface_1_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3421,7 +3498,7 @@ class WaterUseRainCollector(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `collection_surface_2_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3456,7 +3533,7 @@ class WaterUseRainCollector(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `collection_surface_3_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3491,7 +3568,7 @@ class WaterUseRainCollector(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `collection_surface_4_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3526,7 +3603,7 @@ class WaterUseRainCollector(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `collection_surface_5_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3561,7 +3638,7 @@ class WaterUseRainCollector(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `collection_surface_6_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3596,7 +3673,7 @@ class WaterUseRainCollector(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `collection_surface_7_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3631,7 +3708,7 @@ class WaterUseRainCollector(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `collection_surface_8_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3666,7 +3743,7 @@ class WaterUseRainCollector(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `collection_surface_9_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3701,7 +3778,7 @@ class WaterUseRainCollector(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `collection_surface_10_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '

@@ -1,10 +1,11 @@
 from collections import OrderedDict
+import logging
+import re
 
 class CoilCoolingWater(object):
     """ Corresponds to IDD object `Coil:Cooling:Water`
         Chilled water cooling coil, NTU-effectiveness model, with inputs for design entering
         and leaving conditionss.
-    
     """
     internal_name = "Coil:Cooling:Water"
     field_count = 16
@@ -30,15 +31,16 @@ class CoilCoolingWater(object):
         self._data["Type of Analysis"] = None
         self._data["Heat Exchanger Configuration"] = None
         self._data["Condensate Collection Water Storage Tank Name"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -152,6 +154,7 @@ class CoilCoolingWater(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -178,7 +181,7 @@ class CoilCoolingWater(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -215,7 +218,7 @@ class CoilCoolingWater(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `availability_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -256,12 +259,17 @@ class CoilCoolingWater(object):
                 if value_lower == "autosize":
                     self._data["Design Water Flow Rate"] = "Autosize"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autosize" '
+                                 'for field `design_water_flow_rate`'.format(value))
+                    self._data["Design Water Flow Rate"] = "Autosize"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autosize"'
                                  'for field `design_water_flow_rate`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -298,12 +306,17 @@ class CoilCoolingWater(object):
                 if value_lower == "autosize":
                     self._data["Design Air Flow Rate"] = "Autosize"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autosize" '
+                                 'for field `design_air_flow_rate`'.format(value))
+                    self._data["Design Air Flow Rate"] = "Autosize"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autosize"'
                                  'for field `design_air_flow_rate`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -340,12 +353,17 @@ class CoilCoolingWater(object):
                 if value_lower == "autosize":
                     self._data["Design Inlet Water Temperature"] = "Autosize"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autosize" '
+                                 'for field `design_inlet_water_temperature`'.format(value))
+                    self._data["Design Inlet Water Temperature"] = "Autosize"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autosize"'
                                  'for field `design_inlet_water_temperature`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -382,12 +400,17 @@ class CoilCoolingWater(object):
                 if value_lower == "autosize":
                     self._data["Design Inlet Air Temperature"] = "Autosize"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autosize" '
+                                 'for field `design_inlet_air_temperature`'.format(value))
+                    self._data["Design Inlet Air Temperature"] = "Autosize"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autosize"'
                                  'for field `design_inlet_air_temperature`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -424,12 +447,17 @@ class CoilCoolingWater(object):
                 if value_lower == "autosize":
                     self._data["Design Outlet Air Temperature"] = "Autosize"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autosize" '
+                                 'for field `design_outlet_air_temperature`'.format(value))
+                    self._data["Design Outlet Air Temperature"] = "Autosize"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autosize"'
                                  'for field `design_outlet_air_temperature`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -466,12 +494,17 @@ class CoilCoolingWater(object):
                 if value_lower == "autosize":
                     self._data["Design Inlet Air Humidity Ratio"] = "Autosize"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autosize" '
+                                 'for field `design_inlet_air_humidity_ratio`'.format(value))
+                    self._data["Design Inlet Air Humidity Ratio"] = "Autosize"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autosize"'
                                  'for field `design_inlet_air_humidity_ratio`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -508,12 +541,17 @@ class CoilCoolingWater(object):
                 if value_lower == "autosize":
                     self._data["Design Outlet Air Humidity Ratio"] = "Autosize"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autosize" '
+                                 'for field `design_outlet_air_humidity_ratio`'.format(value))
+                    self._data["Design Outlet Air Humidity Ratio"] = "Autosize"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autosize"'
                                  'for field `design_outlet_air_humidity_ratio`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -545,7 +583,7 @@ class CoilCoolingWater(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `water_inlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -580,7 +618,7 @@ class CoilCoolingWater(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `water_outlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -615,7 +653,7 @@ class CoilCoolingWater(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `air_inlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -650,7 +688,7 @@ class CoilCoolingWater(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `air_outlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -689,7 +727,7 @@ class CoilCoolingWater(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `type_of_analysis`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -703,16 +741,26 @@ class CoilCoolingWater(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `type_of_analysis`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `type_of_analysis`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Type of Analysis"] = value
 
@@ -745,7 +793,7 @@ class CoilCoolingWater(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `heat_exchanger_configuration`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -759,16 +807,26 @@ class CoilCoolingWater(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `heat_exchanger_configuration`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `heat_exchanger_configuration`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Heat Exchanger Configuration"] = value
 
@@ -797,7 +855,7 @@ class CoilCoolingWater(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `condensate_collection_water_storage_tank_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -845,7 +903,6 @@ class CoilCoolingWaterDetailedGeometry(object):
     """ Corresponds to IDD object `Coil:Cooling:Water:DetailedGeometry`
         Chilled water cooling coil, detailed flat fin coil model for continuous plate fins,
         with inputs for detailed coil geometry specificatons.
-    
     """
     internal_name = "Coil:Cooling:Water:DetailedGeometry"
     field_count = 23
@@ -878,15 +935,16 @@ class CoilCoolingWaterDetailedGeometry(object):
         self._data["Air Inlet Node Name"] = None
         self._data["Air Outlet Node Name"] = None
         self._data["Condensate Collection Water Storage Tank Name"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -1049,6 +1107,7 @@ class CoilCoolingWaterDetailedGeometry(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -1075,7 +1134,7 @@ class CoilCoolingWaterDetailedGeometry(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1112,7 +1171,7 @@ class CoilCoolingWaterDetailedGeometry(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `availability_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1152,12 +1211,17 @@ class CoilCoolingWaterDetailedGeometry(object):
                 if value_lower == "autosize":
                     self._data["Maximum Water Flow Rate"] = "Autosize"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autosize" '
+                                 'for field `maximum_water_flow_rate`'.format(value))
+                    self._data["Maximum Water Flow Rate"] = "Autosize"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autosize"'
                                  'for field `maximum_water_flow_rate`'.format(value))
         self._data["Maximum Water Flow Rate"] = value
 
@@ -1191,12 +1255,17 @@ class CoilCoolingWaterDetailedGeometry(object):
                 if value_lower == "autosize":
                     self._data["Tube Outside Surface Area"] = "Autosize"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autosize" '
+                                 'for field `tube_outside_surface_area`'.format(value))
+                    self._data["Tube Outside Surface Area"] = "Autosize"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autosize"'
                                  'for field `tube_outside_surface_area`'.format(value))
         self._data["Tube Outside Surface Area"] = value
 
@@ -1231,12 +1300,17 @@ class CoilCoolingWaterDetailedGeometry(object):
                 if value_lower == "autosize":
                     self._data["Total Tube Inside Area"] = "Autosize"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autosize" '
+                                 'for field `total_tube_inside_area`'.format(value))
+                    self._data["Total Tube Inside Area"] = "Autosize"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autosize"'
                                  'for field `total_tube_inside_area`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -1272,12 +1346,17 @@ class CoilCoolingWaterDetailedGeometry(object):
                 if value_lower == "autosize":
                     self._data["Fin Surface Area"] = "Autosize"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autosize" '
+                                 'for field `fin_surface_area`'.format(value))
+                    self._data["Fin Surface Area"] = "Autosize"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autosize"'
                                  'for field `fin_surface_area`'.format(value))
         self._data["Fin Surface Area"] = value
 
@@ -1311,12 +1390,17 @@ class CoilCoolingWaterDetailedGeometry(object):
                 if value_lower == "autosize":
                     self._data["Minimum Airflow Area"] = "Autosize"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autosize" '
+                                 'for field `minimum_airflow_area`'.format(value))
+                    self._data["Minimum Airflow Area"] = "Autosize"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autosize"'
                                  'for field `minimum_airflow_area`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -1354,12 +1438,17 @@ class CoilCoolingWaterDetailedGeometry(object):
                 if value_lower == "autosize":
                     self._data["Coil Depth"] = "Autosize"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autosize" '
+                                 'for field `coil_depth`'.format(value))
+                    self._data["Coil Depth"] = "Autosize"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autosize"'
                                  'for field `coil_depth`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -1398,12 +1487,17 @@ class CoilCoolingWaterDetailedGeometry(object):
                 if value_lower == "autosize":
                     self._data["Fin Diameter"] = "Autosize"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autosize" '
+                                 'for field `fin_diameter`'.format(value))
+                    self._data["Fin Diameter"] = "Autosize"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autosize"'
                                  'for field `fin_diameter`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -1439,7 +1533,7 @@ class CoilCoolingWaterDetailedGeometry(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fin_thickness`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -1476,7 +1570,7 @@ class CoilCoolingWaterDetailedGeometry(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `tube_inside_diameter`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -1513,7 +1607,7 @@ class CoilCoolingWaterDetailedGeometry(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `tube_outside_diameter`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -1548,7 +1642,7 @@ class CoilCoolingWaterDetailedGeometry(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `tube_thermal_conductivity`'.format(value))
             if value < 1.0:
                 raise ValueError('value need to be greater or equal 1.0 '
@@ -1583,7 +1677,7 @@ class CoilCoolingWaterDetailedGeometry(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fin_thermal_conductivity`'.format(value))
             if value < 1.0:
                 raise ValueError('value need to be greater or equal 1.0 '
@@ -1620,7 +1714,7 @@ class CoilCoolingWaterDetailedGeometry(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fin_spacing`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -1656,7 +1750,7 @@ class CoilCoolingWaterDetailedGeometry(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `tube_depth_spacing`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -1690,7 +1784,7 @@ class CoilCoolingWaterDetailedGeometry(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `number_of_tube_rows`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -1726,12 +1820,17 @@ class CoilCoolingWaterDetailedGeometry(object):
                 if value_lower == "autosize":
                     self._data["Number of Tubes per Row"] = "Autosize"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autosize" '
+                                 'for field `number_of_tubes_per_row`'.format(value))
+                    self._data["Number of Tubes per Row"] = "Autosize"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autosize"'
                                  'for field `number_of_tubes_per_row`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -1763,7 +1862,7 @@ class CoilCoolingWaterDetailedGeometry(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `water_inlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1798,7 +1897,7 @@ class CoilCoolingWaterDetailedGeometry(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `water_outlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1833,7 +1932,7 @@ class CoilCoolingWaterDetailedGeometry(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `air_inlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1868,7 +1967,7 @@ class CoilCoolingWaterDetailedGeometry(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `air_outlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1903,7 +2002,7 @@ class CoilCoolingWaterDetailedGeometry(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `condensate_collection_water_storage_tank_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1952,7 +2051,6 @@ class CoilCoolingDxSingleSpeed(object):
         Direct expansion (DX) cooling coil and condensing unit (includes electric compressor
         and condenser fan), single-speed. Optional inputs for moisture evaporation from wet
         coil when compressor cycles off with continuous fan operation.
-    
     """
     internal_name = "Coil:Cooling:DX:SingleSpeed"
     field_count = 32
@@ -1994,15 +2092,16 @@ class CoilCoolingDxSingleSpeed(object):
         self._data["Basin Heater Operating Schedule Name"] = None
         self._data["Sensible Heat Ratio Function of Temperature Curve Name"] = None
         self._data["Sensible Heat Ratio Function of Flow Fraction Curve Name"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -2228,6 +2327,7 @@ class CoilCoolingDxSingleSpeed(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -2254,7 +2354,7 @@ class CoilCoolingDxSingleSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2291,7 +2391,7 @@ class CoilCoolingDxSingleSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `availability_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2334,12 +2434,17 @@ class CoilCoolingDxSingleSpeed(object):
                 if value_lower == "autosize":
                     self._data["Gross Rated Total Cooling Capacity"] = "Autosize"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autosize" '
+                                 'for field `gross_rated_total_cooling_capacity`'.format(value))
+                    self._data["Gross Rated Total Cooling Capacity"] = "Autosize"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autosize"'
                                  'for field `gross_rated_total_cooling_capacity`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -2377,12 +2482,17 @@ class CoilCoolingDxSingleSpeed(object):
                 if value_lower == "autosize":
                     self._data["Gross Rated Sensible Heat Ratio"] = "Autosize"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autosize" '
+                                 'for field `gross_rated_sensible_heat_ratio`'.format(value))
+                    self._data["Gross Rated Sensible Heat Ratio"] = "Autosize"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autosize"'
                                  'for field `gross_rated_sensible_heat_ratio`'.format(value))
             if value < 0.5:
                 raise ValueError('value need to be greater or equal 0.5 '
@@ -2422,7 +2532,7 @@ class CoilCoolingDxSingleSpeed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `gross_rated_cooling_cop`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -2460,12 +2570,17 @@ class CoilCoolingDxSingleSpeed(object):
                 if value_lower == "autosize":
                     self._data["Rated Air Flow Rate"] = "Autosize"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autosize" '
+                                 'for field `rated_air_flow_rate`'.format(value))
+                    self._data["Rated Air Flow Rate"] = "Autosize"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autosize"'
                                  'for field `rated_air_flow_rate`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -2507,7 +2622,7 @@ class CoilCoolingDxSingleSpeed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `rated_evaporator_fan_power_per_volume_flow_rate`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -2542,7 +2657,7 @@ class CoilCoolingDxSingleSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `air_inlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2577,7 +2692,7 @@ class CoilCoolingDxSingleSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `air_outlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2616,7 +2731,7 @@ class CoilCoolingDxSingleSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `total_cooling_capacity_function_of_temperature_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2655,7 +2770,7 @@ class CoilCoolingDxSingleSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `total_cooling_capacity_function_of_flow_fraction_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2694,7 +2809,7 @@ class CoilCoolingDxSingleSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `energy_input_ratio_function_of_temperature_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2733,7 +2848,7 @@ class CoilCoolingDxSingleSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `energy_input_ratio_function_of_flow_fraction_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2772,7 +2887,7 @@ class CoilCoolingDxSingleSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `part_load_fraction_correlation_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2816,7 +2931,7 @@ class CoilCoolingDxSingleSpeed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `nominal_time_for_condensate_removal_to_begin`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -2859,7 +2974,7 @@ class CoilCoolingDxSingleSpeed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `ratio_of_initial_moisture_evaporation_rate_and_steady_state_latent_capacity`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -2900,7 +3015,7 @@ class CoilCoolingDxSingleSpeed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `maximum_cycling_rate`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -2941,7 +3056,7 @@ class CoilCoolingDxSingleSpeed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `latent_capacity_time_constant`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -2978,7 +3093,7 @@ class CoilCoolingDxSingleSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `condenser_air_inlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3017,7 +3132,7 @@ class CoilCoolingDxSingleSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `condenser_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3031,16 +3146,26 @@ class CoilCoolingDxSingleSpeed(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `condenser_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `condenser_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Condenser Type"] = value
 
@@ -3073,7 +3198,7 @@ class CoilCoolingDxSingleSpeed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `evaporative_condenser_effectiveness`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -3113,12 +3238,17 @@ class CoilCoolingDxSingleSpeed(object):
                 if value_lower == "autosize":
                     self._data["Evaporative Condenser Air Flow Rate"] = "Autosize"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autosize" '
+                                 'for field `evaporative_condenser_air_flow_rate`'.format(value))
+                    self._data["Evaporative Condenser Air Flow Rate"] = "Autosize"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autosize"'
                                  'for field `evaporative_condenser_air_flow_rate`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -3156,12 +3286,17 @@ class CoilCoolingDxSingleSpeed(object):
                 if value_lower == "autosize":
                     self._data["Evaporative Condenser Pump Rated Power Consumption"] = "Autosize"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autosize" '
+                                 'for field `evaporative_condenser_pump_rated_power_consumption`'.format(value))
+                    self._data["Evaporative Condenser Pump Rated Power Consumption"] = "Autosize"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autosize"'
                                  'for field `evaporative_condenser_pump_rated_power_consumption`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -3197,7 +3332,7 @@ class CoilCoolingDxSingleSpeed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `crankcase_heater_capacity`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -3232,7 +3367,7 @@ class CoilCoolingDxSingleSpeed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `maximum_outdoor_drybulb_temperature_for_crankcase_heater_operation`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -3264,7 +3399,7 @@ class CoilCoolingDxSingleSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `supply_water_storage_tank_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3299,7 +3434,7 @@ class CoilCoolingDxSingleSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `condensate_collection_water_storage_tank_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3342,7 +3477,7 @@ class CoilCoolingDxSingleSpeed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `basin_heater_capacity`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -3379,7 +3514,7 @@ class CoilCoolingDxSingleSpeed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `basin_heater_setpoint_temperature`'.format(value))
             if value < 2.0:
                 raise ValueError('value need to be greater or equal 2.0 '
@@ -3416,7 +3551,7 @@ class CoilCoolingDxSingleSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `basin_heater_operating_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3456,7 +3591,7 @@ class CoilCoolingDxSingleSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `sensible_heat_ratio_function_of_temperature_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3495,7 +3630,7 @@ class CoilCoolingDxSingleSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `sensible_heat_ratio_function_of_flow_fraction_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3545,7 +3680,6 @@ class CoilCoolingDxTwoSpeed(object):
         and condenser fan), two-speed (or variable-speed). Requires two sets of performance
         data and will interpolate between speeds. Modelled as a single coil (multi-speed
         compressor or multiple compressors with row split or intertwined coil).
-    
     """
     internal_name = "Coil:Cooling:DX:TwoSpeed"
     field_count = 37
@@ -3592,15 +3726,16 @@ class CoilCoolingDxTwoSpeed(object):
         self._data["Sensible Heat Ratio Function of Flow Fraction Curve Name"] = None
         self._data["Low Speed Sensible Heat Ratio Function of Temperature Curve Name"] = None
         self._data["Low Speed Sensible Heat Ratio Function of Flow Fraction Curve Name"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -3861,6 +3996,7 @@ class CoilCoolingDxTwoSpeed(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -3887,7 +4023,7 @@ class CoilCoolingDxTwoSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3924,7 +4060,7 @@ class CoilCoolingDxTwoSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `availability_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3967,12 +4103,17 @@ class CoilCoolingDxTwoSpeed(object):
                 if value_lower == "autosize":
                     self._data["High Speed Gross Rated Total Cooling Capacity"] = "Autosize"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autosize" '
+                                 'for field `high_speed_gross_rated_total_cooling_capacity`'.format(value))
+                    self._data["High Speed Gross Rated Total Cooling Capacity"] = "Autosize"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autosize"'
                                  'for field `high_speed_gross_rated_total_cooling_capacity`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -4010,12 +4151,17 @@ class CoilCoolingDxTwoSpeed(object):
                 if value_lower == "autosize":
                     self._data["High Speed Rated Sensible Heat Ratio"] = "Autosize"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autosize" '
+                                 'for field `high_speed_rated_sensible_heat_ratio`'.format(value))
+                    self._data["High Speed Rated Sensible Heat Ratio"] = "Autosize"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autosize"'
                                  'for field `high_speed_rated_sensible_heat_ratio`'.format(value))
             if value < 0.5:
                 raise ValueError('value need to be greater or equal 0.5 '
@@ -4055,7 +4201,7 @@ class CoilCoolingDxTwoSpeed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `high_speed_gross_rated_cooling_cop`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -4094,12 +4240,17 @@ class CoilCoolingDxTwoSpeed(object):
                 if value_lower == "autosize":
                     self._data["High Speed Rated Air Flow Rate"] = "Autosize"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autosize" '
+                                 'for field `high_speed_rated_air_flow_rate`'.format(value))
+                    self._data["High Speed Rated Air Flow Rate"] = "Autosize"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autosize"'
                                  'for field `high_speed_rated_air_flow_rate`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -4138,7 +4289,7 @@ class CoilCoolingDxTwoSpeed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `unit_internal_static_air_pressure`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -4170,7 +4321,7 @@ class CoilCoolingDxTwoSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `air_inlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4205,7 +4356,7 @@ class CoilCoolingDxTwoSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `air_outlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4244,7 +4395,7 @@ class CoilCoolingDxTwoSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `total_cooling_capacity_function_of_temperature_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4283,7 +4434,7 @@ class CoilCoolingDxTwoSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `total_cooling_capacity_function_of_flow_fraction_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4322,7 +4473,7 @@ class CoilCoolingDxTwoSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `energy_input_ratio_function_of_temperature_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4361,7 +4512,7 @@ class CoilCoolingDxTwoSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `energy_input_ratio_function_of_flow_fraction_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4400,7 +4551,7 @@ class CoilCoolingDxTwoSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `part_load_fraction_correlation_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4443,12 +4594,17 @@ class CoilCoolingDxTwoSpeed(object):
                 if value_lower == "autosize":
                     self._data["Low Speed Gross Rated Total Cooling Capacity"] = "Autosize"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autosize" '
+                                 'for field `low_speed_gross_rated_total_cooling_capacity`'.format(value))
+                    self._data["Low Speed Gross Rated Total Cooling Capacity"] = "Autosize"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autosize"'
                                  'for field `low_speed_gross_rated_total_cooling_capacity`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -4486,12 +4642,17 @@ class CoilCoolingDxTwoSpeed(object):
                 if value_lower == "autosize":
                     self._data["Low Speed Gross Rated Sensible Heat Ratio"] = "Autosize"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autosize" '
+                                 'for field `low_speed_gross_rated_sensible_heat_ratio`'.format(value))
+                    self._data["Low Speed Gross Rated Sensible Heat Ratio"] = "Autosize"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autosize"'
                                  'for field `low_speed_gross_rated_sensible_heat_ratio`'.format(value))
             if value < 0.5:
                 raise ValueError('value need to be greater or equal 0.5 '
@@ -4531,7 +4692,7 @@ class CoilCoolingDxTwoSpeed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `low_speed_gross_rated_cooling_cop`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -4570,12 +4731,17 @@ class CoilCoolingDxTwoSpeed(object):
                 if value_lower == "autosize":
                     self._data["Low Speed Rated Air Flow Rate"] = "Autosize"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autosize" '
+                                 'for field `low_speed_rated_air_flow_rate`'.format(value))
+                    self._data["Low Speed Rated Air Flow Rate"] = "Autosize"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autosize"'
                                  'for field `low_speed_rated_air_flow_rate`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -4611,7 +4777,7 @@ class CoilCoolingDxTwoSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `low_speed_total_cooling_capacity_function_of_temperature_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4650,7 +4816,7 @@ class CoilCoolingDxTwoSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `low_speed_energy_input_ratio_function_of_temperature_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4687,7 +4853,7 @@ class CoilCoolingDxTwoSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `condenser_air_inlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4726,7 +4892,7 @@ class CoilCoolingDxTwoSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `condenser_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4740,16 +4906,26 @@ class CoilCoolingDxTwoSpeed(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `condenser_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `condenser_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Condenser Type"] = value
 
@@ -4782,7 +4958,7 @@ class CoilCoolingDxTwoSpeed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `high_speed_evaporative_condenser_effectiveness`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -4822,12 +4998,17 @@ class CoilCoolingDxTwoSpeed(object):
                 if value_lower == "autosize":
                     self._data["High Speed Evaporative Condenser Air Flow Rate"] = "Autosize"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autosize" '
+                                 'for field `high_speed_evaporative_condenser_air_flow_rate`'.format(value))
+                    self._data["High Speed Evaporative Condenser Air Flow Rate"] = "Autosize"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autosize"'
                                  'for field `high_speed_evaporative_condenser_air_flow_rate`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -4864,12 +5045,17 @@ class CoilCoolingDxTwoSpeed(object):
                 if value_lower == "autosize":
                     self._data["High Speed Evaporative Condenser Pump Rated Power Consumption"] = "Autosize"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autosize" '
+                                 'for field `high_speed_evaporative_condenser_pump_rated_power_consumption`'.format(value))
+                    self._data["High Speed Evaporative Condenser Pump Rated Power Consumption"] = "Autosize"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autosize"'
                                  'for field `high_speed_evaporative_condenser_pump_rated_power_consumption`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -4905,7 +5091,7 @@ class CoilCoolingDxTwoSpeed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `low_speed_evaporative_condenser_effectiveness`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -4945,12 +5131,17 @@ class CoilCoolingDxTwoSpeed(object):
                 if value_lower == "autosize":
                     self._data["Low Speed Evaporative Condenser Air Flow Rate"] = "Autosize"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autosize" '
+                                 'for field `low_speed_evaporative_condenser_air_flow_rate`'.format(value))
+                    self._data["Low Speed Evaporative Condenser Air Flow Rate"] = "Autosize"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autosize"'
                                  'for field `low_speed_evaporative_condenser_air_flow_rate`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -4987,12 +5178,17 @@ class CoilCoolingDxTwoSpeed(object):
                 if value_lower == "autosize":
                     self._data["Low Speed Evaporative Condenser Pump Rated Power Consumption"] = "Autosize"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autosize" '
+                                 'for field `low_speed_evaporative_condenser_pump_rated_power_consumption`'.format(value))
+                    self._data["Low Speed Evaporative Condenser Pump Rated Power Consumption"] = "Autosize"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autosize"'
                                  'for field `low_speed_evaporative_condenser_pump_rated_power_consumption`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -5024,7 +5220,7 @@ class CoilCoolingDxTwoSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `supply_water_storage_tank_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -5059,7 +5255,7 @@ class CoilCoolingDxTwoSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `condensate_collection_water_storage_tank_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -5102,7 +5298,7 @@ class CoilCoolingDxTwoSpeed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `basin_heater_capacity`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -5139,7 +5335,7 @@ class CoilCoolingDxTwoSpeed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `basin_heater_setpoint_temperature`'.format(value))
             if value < 2.0:
                 raise ValueError('value need to be greater or equal 2.0 '
@@ -5176,7 +5372,7 @@ class CoilCoolingDxTwoSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `basin_heater_operating_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -5216,7 +5412,7 @@ class CoilCoolingDxTwoSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `sensible_heat_ratio_function_of_temperature_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -5255,7 +5451,7 @@ class CoilCoolingDxTwoSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `sensible_heat_ratio_function_of_flow_fraction_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -5295,7 +5491,7 @@ class CoilCoolingDxTwoSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `low_speed_sensible_heat_ratio_function_of_temperature_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -5334,7 +5530,7 @@ class CoilCoolingDxTwoSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `low_speed_sensible_heat_ratio_function_of_flow_fraction_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -5386,7 +5582,6 @@ class CoilCoolingDxMultiSpeed(object):
         fan operation. Requires two to four sets of performance data and will interpolate
         between speeds. Modeled as a single coil (multi-speed compressor or multiple
         compressors with row split or intertwined coil).
-    
     """
     internal_name = "Coil:Cooling:DX:MultiSpeed"
     field_count = 93
@@ -5489,15 +5684,16 @@ class CoilCoolingDxMultiSpeed(object):
         self._data["Speed 4 Evaporative Condenser Effectiveness"] = None
         self._data["Speed 4 Evaporative Condenser Air Flow Rate"] = None
         self._data["Speed 4 Rated Evaporative Condenser Pump Power Consumption"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -6150,6 +6346,7 @@ class CoilCoolingDxMultiSpeed(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -6176,7 +6373,7 @@ class CoilCoolingDxMultiSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -6213,7 +6410,7 @@ class CoilCoolingDxMultiSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `availability_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -6248,7 +6445,7 @@ class CoilCoolingDxMultiSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `air_inlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -6283,7 +6480,7 @@ class CoilCoolingDxMultiSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `air_outlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -6320,7 +6517,7 @@ class CoilCoolingDxMultiSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `condenser_air_inlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -6359,7 +6556,7 @@ class CoilCoolingDxMultiSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `condenser_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -6373,16 +6570,26 @@ class CoilCoolingDxMultiSpeed(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `condenser_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `condenser_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Condenser Type"] = value
 
@@ -6411,7 +6618,7 @@ class CoilCoolingDxMultiSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `supply_water_storage_tank_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -6446,7 +6653,7 @@ class CoilCoolingDxMultiSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `condensate_collection_water_storage_tank_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -6485,7 +6692,7 @@ class CoilCoolingDxMultiSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `apply_part_load_fraction_to_speeds_greater_than_1`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -6499,16 +6706,26 @@ class CoilCoolingDxMultiSpeed(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `apply_part_load_fraction_to_speeds_greater_than_1`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `apply_part_load_fraction_to_speeds_greater_than_1`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Apply Part Load Fraction to Speeds Greater than 1"] = value
 
@@ -6541,7 +6758,7 @@ class CoilCoolingDxMultiSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `apply_latent_degradation_to_speeds_greater_than_1`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -6555,16 +6772,26 @@ class CoilCoolingDxMultiSpeed(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `apply_latent_degradation_to_speeds_greater_than_1`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `apply_latent_degradation_to_speeds_greater_than_1`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Apply Latent Degradation to Speeds Greater than 1"] = value
 
@@ -6597,7 +6824,7 @@ class CoilCoolingDxMultiSpeed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `crankcase_heater_capacity`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -6632,7 +6859,7 @@ class CoilCoolingDxMultiSpeed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `maximum_outdoor_drybulb_temperature_for_crankcase_heater_operation`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -6672,7 +6899,7 @@ class CoilCoolingDxMultiSpeed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `basin_heater_capacity`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -6709,7 +6936,7 @@ class CoilCoolingDxMultiSpeed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `basin_heater_setpoint_temperature`'.format(value))
             if value < 2.0:
                 raise ValueError('value need to be greater or equal 2.0 '
@@ -6746,7 +6973,7 @@ class CoilCoolingDxMultiSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `basin_heater_operating_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -6792,7 +7019,7 @@ class CoilCoolingDxMultiSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `fuel_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -6813,16 +7040,26 @@ class CoilCoolingDxMultiSpeed(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `fuel_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `fuel_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Fuel Type"] = value
 
@@ -6855,8 +7092,15 @@ class CoilCoolingDxMultiSpeed(object):
             try:
                 value = int(value)
             except ValueError:
-                raise ValueError('value {} need to be of type int '
-                                 'for field `number_of_speeds`'.format(value))
+                if not self.strict:
+                    try:
+                        conv_value = int(float(value))
+                        logging.warn('Cast float {} to int {}, precision may be lost '
+                                     'for field `number_of_speeds`'.format(value, conv_value))
+                        value = conv_value
+                    except ValueError:
+                        raise ValueError('value {} need to be of type int '
+                                         'for field `number_of_speeds`'.format(value))
             if value < 2:
                 raise ValueError('value need to be greater or equal 2 '
                                  'for field `number_of_speeds`')
@@ -6899,12 +7143,17 @@ class CoilCoolingDxMultiSpeed(object):
                 if value_lower == "autosize":
                     self._data["Speed 1 Gross Rated Total Cooling Capacity"] = "Autosize"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autosize" '
+                                 'for field `speed_1_gross_rated_total_cooling_capacity`'.format(value))
+                    self._data["Speed 1 Gross Rated Total Cooling Capacity"] = "Autosize"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autosize"'
                                  'for field `speed_1_gross_rated_total_cooling_capacity`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -6942,12 +7191,17 @@ class CoilCoolingDxMultiSpeed(object):
                 if value_lower == "autosize":
                     self._data["Speed 1 Gross Rated Sensible Heat Ratio"] = "Autosize"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autosize" '
+                                 'for field `speed_1_gross_rated_sensible_heat_ratio`'.format(value))
+                    self._data["Speed 1 Gross Rated Sensible Heat Ratio"] = "Autosize"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autosize"'
                                  'for field `speed_1_gross_rated_sensible_heat_ratio`'.format(value))
             if value < 0.5:
                 raise ValueError('value need to be greater or equal 0.5 '
@@ -6987,7 +7241,7 @@ class CoilCoolingDxMultiSpeed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `speed_1_gross_rated_cooling_cop`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -7026,12 +7280,17 @@ class CoilCoolingDxMultiSpeed(object):
                 if value_lower == "autosize":
                     self._data["Speed 1 Rated Air Flow Rate"] = "Autosize"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autosize" '
+                                 'for field `speed_1_rated_air_flow_rate`'.format(value))
+                    self._data["Speed 1 Rated Air Flow Rate"] = "Autosize"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autosize"'
                                  'for field `speed_1_rated_air_flow_rate`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -7072,7 +7331,7 @@ class CoilCoolingDxMultiSpeed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `rated_evaporator_fan_power_per_volume_flow_rate`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -7111,7 +7370,7 @@ class CoilCoolingDxMultiSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `speed_1_total_cooling_capacity_function_of_temperature_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -7150,7 +7409,7 @@ class CoilCoolingDxMultiSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `speed_1_total_cooling_capacity_function_of_flow_fraction_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -7189,7 +7448,7 @@ class CoilCoolingDxMultiSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `speed_1_energy_input_ratio_function_of_temperature_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -7228,7 +7487,7 @@ class CoilCoolingDxMultiSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `speed_1_energy_input_ratio_function_of_flow_fraction_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -7267,7 +7526,7 @@ class CoilCoolingDxMultiSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `speed_1_part_load_fraction_correlation_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -7311,7 +7570,7 @@ class CoilCoolingDxMultiSpeed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `speed_1_nominal_time_for_condensate_removal_to_begin`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -7354,7 +7613,7 @@ class CoilCoolingDxMultiSpeed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `speed_1_ratio_of_initial_moisture_evaporation_rate_and_steady_state_latent_capacity`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -7396,7 +7655,7 @@ class CoilCoolingDxMultiSpeed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `speed_1_maximum_cycling_rate`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -7438,7 +7697,7 @@ class CoilCoolingDxMultiSpeed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `speed_1_latent_capacity_time_constant`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -7477,7 +7736,7 @@ class CoilCoolingDxMultiSpeed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `speed_1_rated_waste_heat_fraction_of_power_input`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -7516,7 +7775,7 @@ class CoilCoolingDxMultiSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `speed_1_waste_heat_function_of_temperature_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -7555,7 +7814,7 @@ class CoilCoolingDxMultiSpeed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `speed_1_evaporative_condenser_effectiveness`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -7595,12 +7854,17 @@ class CoilCoolingDxMultiSpeed(object):
                 if value_lower == "autosize":
                     self._data["Speed 1 Evaporative Condenser Air Flow Rate"] = "Autosize"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autosize" '
+                                 'for field `speed_1_evaporative_condenser_air_flow_rate`'.format(value))
+                    self._data["Speed 1 Evaporative Condenser Air Flow Rate"] = "Autosize"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autosize"'
                                  'for field `speed_1_evaporative_condenser_air_flow_rate`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -7637,12 +7901,17 @@ class CoilCoolingDxMultiSpeed(object):
                 if value_lower == "autosize":
                     self._data["Speed 1 Rated Evaporative Condenser Pump Power Consumption"] = "Autosize"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autosize" '
+                                 'for field `speed_1_rated_evaporative_condenser_pump_power_consumption`'.format(value))
+                    self._data["Speed 1 Rated Evaporative Condenser Pump Power Consumption"] = "Autosize"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autosize"'
                                  'for field `speed_1_rated_evaporative_condenser_pump_power_consumption`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -7682,12 +7951,17 @@ class CoilCoolingDxMultiSpeed(object):
                 if value_lower == "autosize":
                     self._data["Speed 2 Gross Rated Total Cooling Capacity"] = "Autosize"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autosize" '
+                                 'for field `speed_2_gross_rated_total_cooling_capacity`'.format(value))
+                    self._data["Speed 2 Gross Rated Total Cooling Capacity"] = "Autosize"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autosize"'
                                  'for field `speed_2_gross_rated_total_cooling_capacity`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -7725,12 +7999,17 @@ class CoilCoolingDxMultiSpeed(object):
                 if value_lower == "autosize":
                     self._data["Speed 2 Gross Rated Sensible Heat Ratio"] = "Autosize"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autosize" '
+                                 'for field `speed_2_gross_rated_sensible_heat_ratio`'.format(value))
+                    self._data["Speed 2 Gross Rated Sensible Heat Ratio"] = "Autosize"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autosize"'
                                  'for field `speed_2_gross_rated_sensible_heat_ratio`'.format(value))
             if value < 0.5:
                 raise ValueError('value need to be greater or equal 0.5 '
@@ -7770,7 +8049,7 @@ class CoilCoolingDxMultiSpeed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `speed_2_gross_rated_cooling_cop`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -7809,12 +8088,17 @@ class CoilCoolingDxMultiSpeed(object):
                 if value_lower == "autosize":
                     self._data["Speed 2 Rated Air Flow Rate"] = "Autosize"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autosize" '
+                                 'for field `speed_2_rated_air_flow_rate`'.format(value))
+                    self._data["Speed 2 Rated Air Flow Rate"] = "Autosize"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autosize"'
                                  'for field `speed_2_rated_air_flow_rate`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -7855,7 +8139,7 @@ class CoilCoolingDxMultiSpeed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `rated_evaporator_fan_power_per_volume_flow_rate_v3`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -7894,7 +8178,7 @@ class CoilCoolingDxMultiSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `speed_2_total_cooling_capacity_function_of_temperature_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -7933,7 +8217,7 @@ class CoilCoolingDxMultiSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `speed_2_total_cooling_capacity_function_of_flow_fraction_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -7972,7 +8256,7 @@ class CoilCoolingDxMultiSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `speed_2_energy_input_ratio_function_of_temperature_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -8011,7 +8295,7 @@ class CoilCoolingDxMultiSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `speed_2_energy_input_ratio_function_of_flow_fraction_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -8050,7 +8334,7 @@ class CoilCoolingDxMultiSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `speed_2_part_load_fraction_correlation_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -8094,7 +8378,7 @@ class CoilCoolingDxMultiSpeed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `speed_2_nominal_time_for_condensate_removal_to_begin`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -8137,7 +8421,7 @@ class CoilCoolingDxMultiSpeed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `speed_2_ratio_of_initial_moisture_evaporation_rate_and_steady_state_latent_capacity`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -8179,7 +8463,7 @@ class CoilCoolingDxMultiSpeed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `speed_2_maximum_cycling_rate`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -8221,7 +8505,7 @@ class CoilCoolingDxMultiSpeed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `speed_2_latent_capacity_time_constant`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -8260,7 +8544,7 @@ class CoilCoolingDxMultiSpeed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `speed_2_rated_waste_heat_fraction_of_power_input`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -8299,7 +8583,7 @@ class CoilCoolingDxMultiSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `speed_2_waste_heat_function_of_temperature_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -8338,7 +8622,7 @@ class CoilCoolingDxMultiSpeed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `speed_2_evaporative_condenser_effectiveness`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -8378,12 +8662,17 @@ class CoilCoolingDxMultiSpeed(object):
                 if value_lower == "autosize":
                     self._data["Speed 2 Evaporative Condenser Air Flow Rate"] = "Autosize"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autosize" '
+                                 'for field `speed_2_evaporative_condenser_air_flow_rate`'.format(value))
+                    self._data["Speed 2 Evaporative Condenser Air Flow Rate"] = "Autosize"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autosize"'
                                  'for field `speed_2_evaporative_condenser_air_flow_rate`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -8420,12 +8709,17 @@ class CoilCoolingDxMultiSpeed(object):
                 if value_lower == "autosize":
                     self._data["Speed 2 Rated Evaporative Condenser Pump Power Consumption"] = "Autosize"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autosize" '
+                                 'for field `speed_2_rated_evaporative_condenser_pump_power_consumption`'.format(value))
+                    self._data["Speed 2 Rated Evaporative Condenser Pump Power Consumption"] = "Autosize"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autosize"'
                                  'for field `speed_2_rated_evaporative_condenser_pump_power_consumption`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -8465,12 +8759,17 @@ class CoilCoolingDxMultiSpeed(object):
                 if value_lower == "autosize":
                     self._data["Speed 3 Gross Rated Total Cooling Capacity"] = "Autosize"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autosize" '
+                                 'for field `speed_3_gross_rated_total_cooling_capacity`'.format(value))
+                    self._data["Speed 3 Gross Rated Total Cooling Capacity"] = "Autosize"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autosize"'
                                  'for field `speed_3_gross_rated_total_cooling_capacity`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -8508,12 +8807,17 @@ class CoilCoolingDxMultiSpeed(object):
                 if value_lower == "autosize":
                     self._data["Speed 3 Gross Rated Sensible Heat Ratio"] = "Autosize"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autosize" '
+                                 'for field `speed_3_gross_rated_sensible_heat_ratio`'.format(value))
+                    self._data["Speed 3 Gross Rated Sensible Heat Ratio"] = "Autosize"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autosize"'
                                  'for field `speed_3_gross_rated_sensible_heat_ratio`'.format(value))
             if value < 0.5:
                 raise ValueError('value need to be greater or equal 0.5 '
@@ -8553,7 +8857,7 @@ class CoilCoolingDxMultiSpeed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `speed_3_gross_rated_cooling_cop`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -8592,12 +8896,17 @@ class CoilCoolingDxMultiSpeed(object):
                 if value_lower == "autosize":
                     self._data["Speed 3 Rated Air Flow Rate"] = "Autosize"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autosize" '
+                                 'for field `speed_3_rated_air_flow_rate`'.format(value))
+                    self._data["Speed 3 Rated Air Flow Rate"] = "Autosize"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autosize"'
                                  'for field `speed_3_rated_air_flow_rate`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -8638,7 +8947,7 @@ class CoilCoolingDxMultiSpeed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `rated_evaporator_fan_power_per_volume_flow_rate_v4`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -8677,7 +8986,7 @@ class CoilCoolingDxMultiSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `speed_3_total_cooling_capacity_function_of_temperature_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -8716,7 +9025,7 @@ class CoilCoolingDxMultiSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `speed_3_total_cooling_capacity_function_of_flow_fraction_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -8755,7 +9064,7 @@ class CoilCoolingDxMultiSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `speed_3_energy_input_ratio_function_of_temperature_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -8794,7 +9103,7 @@ class CoilCoolingDxMultiSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `speed_3_energy_input_ratio_function_of_flow_fraction_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -8833,7 +9142,7 @@ class CoilCoolingDxMultiSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `speed_3_part_load_fraction_correlation_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -8877,7 +9186,7 @@ class CoilCoolingDxMultiSpeed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `speed_3_nominal_time_for_condensate_removal_to_begin`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -8920,7 +9229,7 @@ class CoilCoolingDxMultiSpeed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `speed_3_ratio_of_initial_moisture_evaporation_rate_and_steady_state_latent_capacity`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -8962,7 +9271,7 @@ class CoilCoolingDxMultiSpeed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `speed_3_maximum_cycling_rate`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -9004,7 +9313,7 @@ class CoilCoolingDxMultiSpeed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `speed_3_latent_capacity_time_constant`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -9043,7 +9352,7 @@ class CoilCoolingDxMultiSpeed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `speed_3_rated_waste_heat_fraction_of_power_input`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -9082,7 +9391,7 @@ class CoilCoolingDxMultiSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `speed_3_waste_heat_function_of_temperature_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -9121,7 +9430,7 @@ class CoilCoolingDxMultiSpeed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `speed_3_evaporative_condenser_effectiveness`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -9161,12 +9470,17 @@ class CoilCoolingDxMultiSpeed(object):
                 if value_lower == "autosize":
                     self._data["Speed 3 Evaporative Condenser Air Flow Rate"] = "Autosize"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autosize" '
+                                 'for field `speed_3_evaporative_condenser_air_flow_rate`'.format(value))
+                    self._data["Speed 3 Evaporative Condenser Air Flow Rate"] = "Autosize"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autosize"'
                                  'for field `speed_3_evaporative_condenser_air_flow_rate`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -9203,12 +9517,17 @@ class CoilCoolingDxMultiSpeed(object):
                 if value_lower == "autosize":
                     self._data["Speed 3 Rated Evaporative Condenser Pump Power Consumption"] = "Autosize"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autosize" '
+                                 'for field `speed_3_rated_evaporative_condenser_pump_power_consumption`'.format(value))
+                    self._data["Speed 3 Rated Evaporative Condenser Pump Power Consumption"] = "Autosize"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autosize"'
                                  'for field `speed_3_rated_evaporative_condenser_pump_power_consumption`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -9248,12 +9567,17 @@ class CoilCoolingDxMultiSpeed(object):
                 if value_lower == "autosize":
                     self._data["Speed 4 Gross Rated Total Cooling Capacity"] = "Autosize"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autosize" '
+                                 'for field `speed_4_gross_rated_total_cooling_capacity`'.format(value))
+                    self._data["Speed 4 Gross Rated Total Cooling Capacity"] = "Autosize"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autosize"'
                                  'for field `speed_4_gross_rated_total_cooling_capacity`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -9291,12 +9615,17 @@ class CoilCoolingDxMultiSpeed(object):
                 if value_lower == "autosize":
                     self._data["Speed 4 Gross Rated Sensible Heat Ratio"] = "Autosize"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autosize" '
+                                 'for field `speed_4_gross_rated_sensible_heat_ratio`'.format(value))
+                    self._data["Speed 4 Gross Rated Sensible Heat Ratio"] = "Autosize"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autosize"'
                                  'for field `speed_4_gross_rated_sensible_heat_ratio`'.format(value))
             if value < 0.5:
                 raise ValueError('value need to be greater or equal 0.5 '
@@ -9336,7 +9665,7 @@ class CoilCoolingDxMultiSpeed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `speed_4_gross_rated_cooling_cop`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -9375,12 +9704,17 @@ class CoilCoolingDxMultiSpeed(object):
                 if value_lower == "autosize":
                     self._data["Speed 4 Rated Air Flow Rate"] = "Autosize"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autosize" '
+                                 'for field `speed_4_rated_air_flow_rate`'.format(value))
+                    self._data["Speed 4 Rated Air Flow Rate"] = "Autosize"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autosize"'
                                  'for field `speed_4_rated_air_flow_rate`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -9421,7 +9755,7 @@ class CoilCoolingDxMultiSpeed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `rated_evaporator_fan_power_per_volume_flow_rate_v5`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -9460,7 +9794,7 @@ class CoilCoolingDxMultiSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `speed_4_total_cooling_capacity_function_of_temperature_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -9499,7 +9833,7 @@ class CoilCoolingDxMultiSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `speed_4_total_cooling_capacity_function_of_flow_fraction_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -9538,7 +9872,7 @@ class CoilCoolingDxMultiSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `speed_4_energy_input_ratio_function_of_temperature_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -9577,7 +9911,7 @@ class CoilCoolingDxMultiSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `speed_4_energy_input_ratio_function_of_flow_fraction_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -9616,7 +9950,7 @@ class CoilCoolingDxMultiSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `speed_4_part_load_fraction_correlation_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -9660,7 +9994,7 @@ class CoilCoolingDxMultiSpeed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `speed_4_nominal_time_for_condensate_removal_to_begin`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -9703,7 +10037,7 @@ class CoilCoolingDxMultiSpeed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `speed_4_ratio_of_initial_moisture_evaporation_rate_and_steady_state_latent_capacity`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -9745,7 +10079,7 @@ class CoilCoolingDxMultiSpeed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `speed_4_maximum_cycling_rate`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -9787,7 +10121,7 @@ class CoilCoolingDxMultiSpeed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `speed_4_latent_capacity_time_constant`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -9826,7 +10160,7 @@ class CoilCoolingDxMultiSpeed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `speed_4_rated_waste_heat_fraction_of_power_input`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -9865,7 +10199,7 @@ class CoilCoolingDxMultiSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `speed_4_waste_heat_function_of_temperature_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -9904,7 +10238,7 @@ class CoilCoolingDxMultiSpeed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `speed_4_evaporative_condenser_effectiveness`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -9944,12 +10278,17 @@ class CoilCoolingDxMultiSpeed(object):
                 if value_lower == "autosize":
                     self._data["Speed 4 Evaporative Condenser Air Flow Rate"] = "Autosize"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autosize" '
+                                 'for field `speed_4_evaporative_condenser_air_flow_rate`'.format(value))
+                    self._data["Speed 4 Evaporative Condenser Air Flow Rate"] = "Autosize"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autosize"'
                                  'for field `speed_4_evaporative_condenser_air_flow_rate`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -9986,12 +10325,17 @@ class CoilCoolingDxMultiSpeed(object):
                 if value_lower == "autosize":
                     self._data["Speed 4 Rated Evaporative Condenser Pump Power Consumption"] = "Autosize"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autosize" '
+                                 'for field `speed_4_rated_evaporative_condenser_pump_power_consumption`'.format(value))
+                    self._data["Speed 4 Rated Evaporative Condenser Pump Power Consumption"] = "Autosize"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autosize"'
                                  'for field `speed_4_rated_evaporative_condenser_pump_power_consumption`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -10039,7 +10383,6 @@ class CoilCoolingDxVariableSpeed(object):
         wet coil when compressor cycles off with continuous fan operation. Requires two to
         ten sets of performance data and will interpolate between speeds. Modeled as a
         single coil with variable-speed compressor.
-    
     """
     internal_name = "Coil:Cooling:DX:VariableSpeed"
     field_count = 120
@@ -10169,15 +10512,16 @@ class CoilCoolingDxVariableSpeed(object):
         self._data["Speed 10 Total Cooling Capacity Function of Air Flow Fraction Curve Name"] = None
         self._data["Speed 10 Energy Input Ratio Function of Temperature Curve Name"] = None
         self._data["Speed 10 Energy Input Ratio Function of Air Flow Fraction Curve Name"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -11019,6 +11363,7 @@ class CoilCoolingDxVariableSpeed(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -11045,7 +11390,7 @@ class CoilCoolingDxVariableSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -11080,7 +11425,7 @@ class CoilCoolingDxVariableSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `indoor_air_inlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -11115,7 +11460,7 @@ class CoilCoolingDxVariableSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `indoor_air_outlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -11154,8 +11499,15 @@ class CoilCoolingDxVariableSpeed(object):
             try:
                 value = int(value)
             except ValueError:
-                raise ValueError('value {} need to be of type int '
-                                 'for field `number_of_speeds`'.format(value))
+                if not self.strict:
+                    try:
+                        conv_value = int(float(value))
+                        logging.warn('Cast float {} to int {}, precision may be lost '
+                                     'for field `number_of_speeds`'.format(value, conv_value))
+                        value = conv_value
+                    except ValueError:
+                        raise ValueError('value {} need to be of type int '
+                                         'for field `number_of_speeds`'.format(value))
             if value < 1:
                 raise ValueError('value need to be greater or equal 1 '
                                  'for field `number_of_speeds`')
@@ -11192,8 +11544,15 @@ class CoilCoolingDxVariableSpeed(object):
             try:
                 value = int(value)
             except ValueError:
-                raise ValueError('value {} need to be of type int '
-                                 'for field `nominal_speed_level`'.format(value))
+                if not self.strict:
+                    try:
+                        conv_value = int(float(value))
+                        logging.warn('Cast float {} to int {}, precision may be lost '
+                                     'for field `nominal_speed_level`'.format(value, conv_value))
+                        value = conv_value
+                    except ValueError:
+                        raise ValueError('value {} need to be of type int '
+                                         'for field `nominal_speed_level`'.format(value))
         self._data["Nominal Speed Level"] = value
 
     @property
@@ -11226,12 +11585,17 @@ class CoilCoolingDxVariableSpeed(object):
                 if value_lower == "autosize":
                     self._data["Gross Rated Total Cooling Capacity At Selected Nominal Speed Level"] = "Autosize"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autosize" '
+                                 'for field `gross_rated_total_cooling_capacity_at_selected_nominal_speed_level`'.format(value))
+                    self._data["Gross Rated Total Cooling Capacity At Selected Nominal Speed Level"] = "Autosize"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autosize"'
                                  'for field `gross_rated_total_cooling_capacity_at_selected_nominal_speed_level`'.format(value))
         self._data["Gross Rated Total Cooling Capacity At Selected Nominal Speed Level"] = value
 
@@ -11264,12 +11628,17 @@ class CoilCoolingDxVariableSpeed(object):
                 if value_lower == "autosize":
                     self._data["Rated Air Flow Rate At Selected Nominal Speed Level"] = "Autosize"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autosize" '
+                                 'for field `rated_air_flow_rate_at_selected_nominal_speed_level`'.format(value))
+                    self._data["Rated Air Flow Rate At Selected Nominal Speed Level"] = "Autosize"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autosize"'
                                  'for field `rated_air_flow_rate_at_selected_nominal_speed_level`'.format(value))
         self._data["Rated Air Flow Rate At Selected Nominal Speed Level"] = value
 
@@ -11301,7 +11670,7 @@ class CoilCoolingDxVariableSpeed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `nominal_time_for_condensate_to_begin_leaving_the_coil`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -11336,7 +11705,7 @@ class CoilCoolingDxVariableSpeed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `initial_moisture_evaporation_rate_divided_by_steadystate_ac_latent_capacity`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -11372,7 +11741,7 @@ class CoilCoolingDxVariableSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `energy_part_load_fraction_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -11409,7 +11778,7 @@ class CoilCoolingDxVariableSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `condenser_air_inlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -11448,7 +11817,7 @@ class CoilCoolingDxVariableSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `condenser_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -11462,16 +11831,26 @@ class CoilCoolingDxVariableSpeed(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `condenser_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `condenser_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Condenser Type"] = value
 
@@ -11506,12 +11885,17 @@ class CoilCoolingDxVariableSpeed(object):
                 if value_lower == "autosize":
                     self._data["Evaporative Condenser Pump Rated Power Consumption"] = "Autosize"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autosize" '
+                                 'for field `evaporative_condenser_pump_rated_power_consumption`'.format(value))
+                    self._data["Evaporative Condenser Pump Rated Power Consumption"] = "Autosize"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autosize"'
                                  'for field `evaporative_condenser_pump_rated_power_consumption`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -11547,7 +11931,7 @@ class CoilCoolingDxVariableSpeed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `crankcase_heater_capacity`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -11582,7 +11966,7 @@ class CoilCoolingDxVariableSpeed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `maximum_outdoor_drybulb_temperature_for_crankcase_heater_operation`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -11614,7 +11998,7 @@ class CoilCoolingDxVariableSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `supply_water_storage_tank_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -11649,7 +12033,7 @@ class CoilCoolingDxVariableSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `condensate_collection_water_storage_tank_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -11692,7 +12076,7 @@ class CoilCoolingDxVariableSpeed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `basin_heater_capacity`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -11729,7 +12113,7 @@ class CoilCoolingDxVariableSpeed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `basin_heater_setpoint_temperature`'.format(value))
             if value < 2.0:
                 raise ValueError('value need to be greater or equal 2.0 '
@@ -11766,7 +12150,7 @@ class CoilCoolingDxVariableSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `basin_heater_operating_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -11804,7 +12188,7 @@ class CoilCoolingDxVariableSpeed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `speed_1_reference_unit_gross_rated_total_cooling_capacity`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -11828,6 +12212,7 @@ class CoilCoolingDxVariableSpeed(object):
             value (float): value for IDD Field `Speed 1 Reference Unit Gross Rated Sensible Heat Ratio`
                 Units: dimensionless
                 value >= 0.0
+                value <= 1.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -11838,10 +12223,13 @@ class CoilCoolingDxVariableSpeed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `speed_1_reference_unit_gross_rated_sensible_heat_ratio`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
+                                 'for field `speed_1_reference_unit_gross_rated_sensible_heat_ratio`')
+            if value > 1.0:
+                raise ValueError('value need to be smaller 1.0 '
                                  'for field `speed_1_reference_unit_gross_rated_sensible_heat_ratio`')
         self._data["Speed 1 Reference Unit Gross Rated Sensible Heat Ratio"] = value
 
@@ -11872,7 +12260,7 @@ class CoilCoolingDxVariableSpeed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `speed_1_reference_unit_gross_rated_cooling_cop`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -11906,7 +12294,7 @@ class CoilCoolingDxVariableSpeed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `speed_1_reference_unit_rated_air_flow_rate`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -11941,7 +12329,7 @@ class CoilCoolingDxVariableSpeed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `speed_1_reference_unit_rated_condenser_air_flow_rate`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -11977,7 +12365,7 @@ class CoilCoolingDxVariableSpeed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `speed_1_reference_unit_rated_pad_effectiveness_of_evap_precooling`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -12016,7 +12404,7 @@ class CoilCoolingDxVariableSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `speed_1_total_cooling_capacity_function_of_temperature_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -12055,7 +12443,7 @@ class CoilCoolingDxVariableSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `speed_1_total_cooling_capacity_function_of_air_flow_fraction_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -12094,7 +12482,7 @@ class CoilCoolingDxVariableSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `speed_1_energy_input_ratio_function_of_temperature_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -12133,7 +12521,7 @@ class CoilCoolingDxVariableSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `speed_1_energy_input_ratio_function_of_air_flow_fraction_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -12171,7 +12559,7 @@ class CoilCoolingDxVariableSpeed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `speed_2_reference_unit_gross_rated_total_cooling_capacity`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -12195,6 +12583,7 @@ class CoilCoolingDxVariableSpeed(object):
             value (float): value for IDD Field `Speed 2 Reference Unit Gross Rated Sensible Heat Ratio`
                 Units: dimensionless
                 value >= 0.0
+                value <= 1.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -12205,10 +12594,13 @@ class CoilCoolingDxVariableSpeed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `speed_2_reference_unit_gross_rated_sensible_heat_ratio`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
+                                 'for field `speed_2_reference_unit_gross_rated_sensible_heat_ratio`')
+            if value > 1.0:
+                raise ValueError('value need to be smaller 1.0 '
                                  'for field `speed_2_reference_unit_gross_rated_sensible_heat_ratio`')
         self._data["Speed 2 Reference Unit Gross Rated Sensible Heat Ratio"] = value
 
@@ -12239,7 +12631,7 @@ class CoilCoolingDxVariableSpeed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `speed_2_reference_unit_gross_rated_cooling_cop`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -12273,7 +12665,7 @@ class CoilCoolingDxVariableSpeed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `speed_2_reference_unit_rated_air_flow_rate`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -12307,7 +12699,7 @@ class CoilCoolingDxVariableSpeed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `speed_2_reference_unit_rated_condenser_air_flow_rate`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -12342,7 +12734,7 @@ class CoilCoolingDxVariableSpeed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `speed_2_reference_unit_rated_pad_effectiveness_of_evap_precooling`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -12381,7 +12773,7 @@ class CoilCoolingDxVariableSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `speed_2_total_cooling_capacity_function_of_temperature_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -12420,7 +12812,7 @@ class CoilCoolingDxVariableSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `speed_2_total_cooling_capacity_function_of_air_flow_fraction_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -12459,7 +12851,7 @@ class CoilCoolingDxVariableSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `speed_2_energy_input_ratio_function_of_temperature_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -12498,7 +12890,7 @@ class CoilCoolingDxVariableSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `speed_2_energy_input_ratio_function_of_air_flow_fraction_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -12536,7 +12928,7 @@ class CoilCoolingDxVariableSpeed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `speed_3_reference_unit_gross_rated_total_cooling_capacity`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -12560,6 +12952,7 @@ class CoilCoolingDxVariableSpeed(object):
             value (float): value for IDD Field `Speed 3 Reference Unit Gross Rated Sensible Heat Ratio`
                 Units: dimensionless
                 value >= 0.0
+                value <= 1.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -12570,10 +12963,13 @@ class CoilCoolingDxVariableSpeed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `speed_3_reference_unit_gross_rated_sensible_heat_ratio`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
+                                 'for field `speed_3_reference_unit_gross_rated_sensible_heat_ratio`')
+            if value > 1.0:
+                raise ValueError('value need to be smaller 1.0 '
                                  'for field `speed_3_reference_unit_gross_rated_sensible_heat_ratio`')
         self._data["Speed 3 Reference Unit Gross Rated Sensible Heat Ratio"] = value
 
@@ -12604,7 +13000,7 @@ class CoilCoolingDxVariableSpeed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `speed_3_reference_unit_gross_rated_cooling_cop`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -12638,7 +13034,7 @@ class CoilCoolingDxVariableSpeed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `speed_3_reference_unit_rated_air_flow_rate`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -12672,7 +13068,7 @@ class CoilCoolingDxVariableSpeed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `speed_3_reference_unit_rated_condenser_air_flow_rate`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -12707,7 +13103,7 @@ class CoilCoolingDxVariableSpeed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `speed_3_reference_unit_rated_pad_effectiveness_of_evap_precooling`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -12746,7 +13142,7 @@ class CoilCoolingDxVariableSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `speed_3_total_cooling_capacity_function_of_temperature_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -12785,7 +13181,7 @@ class CoilCoolingDxVariableSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `speed_3_total_cooling_capacity_function_of_air_flow_fraction_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -12824,7 +13220,7 @@ class CoilCoolingDxVariableSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `speed_3_energy_input_ratio_function_of_temperature_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -12863,7 +13259,7 @@ class CoilCoolingDxVariableSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `speed_3_energy_input_ratio_function_of_air_flow_fraction_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -12901,7 +13297,7 @@ class CoilCoolingDxVariableSpeed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `speed_4_reference_unit_gross_rated_total_cooling_capacity`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -12925,6 +13321,7 @@ class CoilCoolingDxVariableSpeed(object):
             value (float): value for IDD Field `Speed 4 Reference Unit Gross Rated Sensible Heat Ratio`
                 Units: dimensionless
                 value >= 0.0
+                value <= 1.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -12935,10 +13332,13 @@ class CoilCoolingDxVariableSpeed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `speed_4_reference_unit_gross_rated_sensible_heat_ratio`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
+                                 'for field `speed_4_reference_unit_gross_rated_sensible_heat_ratio`')
+            if value > 1.0:
+                raise ValueError('value need to be smaller 1.0 '
                                  'for field `speed_4_reference_unit_gross_rated_sensible_heat_ratio`')
         self._data["Speed 4 Reference Unit Gross Rated Sensible Heat Ratio"] = value
 
@@ -12969,7 +13369,7 @@ class CoilCoolingDxVariableSpeed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `speed_4_reference_unit_gross_rated_cooling_cop`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -13003,7 +13403,7 @@ class CoilCoolingDxVariableSpeed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `speed_4_reference_unit_rated_air_flow_rate`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -13037,7 +13437,7 @@ class CoilCoolingDxVariableSpeed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `speed_4_reference_unit_rated_condenser_air_flow_rate`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -13072,7 +13472,7 @@ class CoilCoolingDxVariableSpeed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `speed_4_reference_unit_rated_pad_effectiveness_of_evap_precooling`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -13111,7 +13511,7 @@ class CoilCoolingDxVariableSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `speed_4_total_cooling_capacity_function_of_temperature_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -13150,7 +13550,7 @@ class CoilCoolingDxVariableSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `speed_4_total_cooling_capacity_function_of_air_flow_fraction_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -13189,7 +13589,7 @@ class CoilCoolingDxVariableSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `speed_4_energy_input_ratio_function_of_temperature_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -13228,7 +13628,7 @@ class CoilCoolingDxVariableSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `speed_4_energy_input_ratio_function_of_air_flow_fraction_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -13266,7 +13666,7 @@ class CoilCoolingDxVariableSpeed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `speed_5_reference_unit_gross_rated_total_cooling_capacity`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -13290,6 +13690,7 @@ class CoilCoolingDxVariableSpeed(object):
             value (float): value for IDD Field `Speed 5 Reference Unit Gross Rated Sensible Heat Ratio`
                 Units: dimensionless
                 value >= 0.0
+                value <= 1.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -13300,10 +13701,13 @@ class CoilCoolingDxVariableSpeed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `speed_5_reference_unit_gross_rated_sensible_heat_ratio`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
+                                 'for field `speed_5_reference_unit_gross_rated_sensible_heat_ratio`')
+            if value > 1.0:
+                raise ValueError('value need to be smaller 1.0 '
                                  'for field `speed_5_reference_unit_gross_rated_sensible_heat_ratio`')
         self._data["Speed 5 Reference Unit Gross Rated Sensible Heat Ratio"] = value
 
@@ -13334,7 +13738,7 @@ class CoilCoolingDxVariableSpeed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `speed_5_reference_unit_gross_rated_cooling_cop`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -13368,7 +13772,7 @@ class CoilCoolingDxVariableSpeed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `speed_5_reference_unit_rated_air_flow_rate`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -13402,7 +13806,7 @@ class CoilCoolingDxVariableSpeed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `speed_5_reference_unit_rated_condenser_air_flow_rate`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -13437,7 +13841,7 @@ class CoilCoolingDxVariableSpeed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `speed_5_reference_unit_rated_pad_effectiveness_of_evap_precooling`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -13476,7 +13880,7 @@ class CoilCoolingDxVariableSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `speed_5_total_cooling_capacity_function_of_temperature_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -13515,7 +13919,7 @@ class CoilCoolingDxVariableSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `speed_5_total_cooling_capacity_function_of_air_flow_fraction_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -13554,7 +13958,7 @@ class CoilCoolingDxVariableSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `speed_5_energy_input_ratio_function_of_temperature_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -13593,7 +13997,7 @@ class CoilCoolingDxVariableSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `speed_5_energy_input_ratio_function_of_air_flow_fraction_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -13631,7 +14035,7 @@ class CoilCoolingDxVariableSpeed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `speed_6_reference_unit_gross_rated_total_cooling_capacity`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -13655,6 +14059,7 @@ class CoilCoolingDxVariableSpeed(object):
             value (float): value for IDD Field `Speed 6 Reference Unit Gross Rated Sensible Heat Ratio`
                 Units: dimensionless
                 value >= 0.0
+                value <= 1.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -13665,10 +14070,13 @@ class CoilCoolingDxVariableSpeed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `speed_6_reference_unit_gross_rated_sensible_heat_ratio`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
+                                 'for field `speed_6_reference_unit_gross_rated_sensible_heat_ratio`')
+            if value > 1.0:
+                raise ValueError('value need to be smaller 1.0 '
                                  'for field `speed_6_reference_unit_gross_rated_sensible_heat_ratio`')
         self._data["Speed 6 Reference Unit Gross Rated Sensible Heat Ratio"] = value
 
@@ -13699,7 +14107,7 @@ class CoilCoolingDxVariableSpeed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `speed_6_reference_unit_gross_rated_cooling_cop`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -13733,7 +14141,7 @@ class CoilCoolingDxVariableSpeed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `speed_6_reference_unit_rated_air_flow_rate`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -13767,7 +14175,7 @@ class CoilCoolingDxVariableSpeed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `speed_6_reference_unit_condenser_air_flow_rate`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -13802,7 +14210,7 @@ class CoilCoolingDxVariableSpeed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `speed_6_reference_unit_rated_pad_effectiveness_of_evap_precooling`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -13841,7 +14249,7 @@ class CoilCoolingDxVariableSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `speed_6_total_cooling_capacity_function_of_temperature_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -13880,7 +14288,7 @@ class CoilCoolingDxVariableSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `speed_6_total_cooling_capacity_function_of_air_flow_fraction_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -13919,7 +14327,7 @@ class CoilCoolingDxVariableSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `speed_6_energy_input_ratio_function_of_temperature_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -13958,7 +14366,7 @@ class CoilCoolingDxVariableSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `speed_6_energy_input_ratio_function_of_air_flow_fraction_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -13996,7 +14404,7 @@ class CoilCoolingDxVariableSpeed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `speed_7_reference_unit_gross_rated_total_cooling_capacity`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -14020,6 +14428,7 @@ class CoilCoolingDxVariableSpeed(object):
             value (float): value for IDD Field `Speed 7 Reference Unit Gross Rated Sensible Heat Ratio`
                 Units: dimensionless
                 value >= 0.0
+                value <= 1.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -14030,10 +14439,13 @@ class CoilCoolingDxVariableSpeed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `speed_7_reference_unit_gross_rated_sensible_heat_ratio`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
+                                 'for field `speed_7_reference_unit_gross_rated_sensible_heat_ratio`')
+            if value > 1.0:
+                raise ValueError('value need to be smaller 1.0 '
                                  'for field `speed_7_reference_unit_gross_rated_sensible_heat_ratio`')
         self._data["Speed 7 Reference Unit Gross Rated Sensible Heat Ratio"] = value
 
@@ -14064,7 +14476,7 @@ class CoilCoolingDxVariableSpeed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `speed_7_reference_unit_gross_rated_cooling_cop`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -14098,7 +14510,7 @@ class CoilCoolingDxVariableSpeed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `speed_7_reference_unit_rated_air_flow_rate`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -14132,7 +14544,7 @@ class CoilCoolingDxVariableSpeed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `speed_7_reference_unit_condenser_flow_rate`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -14167,7 +14579,7 @@ class CoilCoolingDxVariableSpeed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `speed_7_reference_unit_rated_pad_effectiveness_of_evap_precooling`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -14206,7 +14618,7 @@ class CoilCoolingDxVariableSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `speed_7_total_cooling_capacity_function_of_temperature_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -14245,7 +14657,7 @@ class CoilCoolingDxVariableSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `speed_7_total_cooling_capacity_function_of_air_flow_fraction_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -14284,7 +14696,7 @@ class CoilCoolingDxVariableSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `speed_7_energy_input_ratio_function_of_temperature_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -14323,7 +14735,7 @@ class CoilCoolingDxVariableSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `speed_7_energy_input_ratio_function_of_air_flow_fraction_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -14361,7 +14773,7 @@ class CoilCoolingDxVariableSpeed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `speed_8_reference_unit_gross_rated_total_cooling_capacity`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -14385,6 +14797,7 @@ class CoilCoolingDxVariableSpeed(object):
             value (float): value for IDD Field `Speed 8 Reference Unit Gross Rated Sensible Heat Ratio`
                 Units: dimensionless
                 value >= 0.0
+                value <= 1.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -14395,10 +14808,13 @@ class CoilCoolingDxVariableSpeed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `speed_8_reference_unit_gross_rated_sensible_heat_ratio`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
+                                 'for field `speed_8_reference_unit_gross_rated_sensible_heat_ratio`')
+            if value > 1.0:
+                raise ValueError('value need to be smaller 1.0 '
                                  'for field `speed_8_reference_unit_gross_rated_sensible_heat_ratio`')
         self._data["Speed 8 Reference Unit Gross Rated Sensible Heat Ratio"] = value
 
@@ -14429,7 +14845,7 @@ class CoilCoolingDxVariableSpeed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `speed_8_reference_unit_gross_rated_cooling_cop`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -14463,7 +14879,7 @@ class CoilCoolingDxVariableSpeed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `speed_8_reference_unit_rated_air_flow_rate`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -14497,7 +14913,7 @@ class CoilCoolingDxVariableSpeed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `speed_8_reference_unit_condenser_air_flow_rate`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -14532,7 +14948,7 @@ class CoilCoolingDxVariableSpeed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `speed_8_reference_unit_rated_pad_effectiveness_of_evap_precooling`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -14571,7 +14987,7 @@ class CoilCoolingDxVariableSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `speed_8_total_cooling_capacity_function_of_temperature_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -14610,7 +15026,7 @@ class CoilCoolingDxVariableSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `speed_8_total_cooling_capacity_function_of_air_flow_fraction_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -14649,7 +15065,7 @@ class CoilCoolingDxVariableSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `speed_8_energy_input_ratio_function_of_temperature_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -14688,7 +15104,7 @@ class CoilCoolingDxVariableSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `speed_8_energy_input_ratio_function_of_air_flow_fraction_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -14726,7 +15142,7 @@ class CoilCoolingDxVariableSpeed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `speed_9_reference_unit_gross_rated_total_cooling_capacity`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -14750,6 +15166,7 @@ class CoilCoolingDxVariableSpeed(object):
             value (float): value for IDD Field `Speed 9 Reference Unit Gross Rated Sensible Heat Ratio`
                 Units: dimensionless
                 value >= 0.0
+                value <= 1.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -14760,10 +15177,13 @@ class CoilCoolingDxVariableSpeed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `speed_9_reference_unit_gross_rated_sensible_heat_ratio`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
+                                 'for field `speed_9_reference_unit_gross_rated_sensible_heat_ratio`')
+            if value > 1.0:
+                raise ValueError('value need to be smaller 1.0 '
                                  'for field `speed_9_reference_unit_gross_rated_sensible_heat_ratio`')
         self._data["Speed 9 Reference Unit Gross Rated Sensible Heat Ratio"] = value
 
@@ -14794,7 +15214,7 @@ class CoilCoolingDxVariableSpeed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `speed_9_reference_unit_gross_rated_cooling_cop`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -14828,7 +15248,7 @@ class CoilCoolingDxVariableSpeed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `speed_9_reference_unit_rated_air_flow_rate`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -14863,7 +15283,7 @@ class CoilCoolingDxVariableSpeed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `speed_9_reference_unit_condenser_air_flow_rate`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -14899,7 +15319,7 @@ class CoilCoolingDxVariableSpeed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `speed_9_reference_unit_rated_pad_effectiveness_of_evap_precooling`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -14938,7 +15358,7 @@ class CoilCoolingDxVariableSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `speed_9_total_cooling_capacity_function_of_temperature_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -14977,7 +15397,7 @@ class CoilCoolingDxVariableSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `speed_9_total_cooling_capacity_function_of_air_flow_fraction_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -15016,7 +15436,7 @@ class CoilCoolingDxVariableSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `speed_9_energy_input_ratio_function_of_temperature_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -15055,7 +15475,7 @@ class CoilCoolingDxVariableSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `speed_9_energy_input_ratio_function_of_air_flow_fraction_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -15093,7 +15513,7 @@ class CoilCoolingDxVariableSpeed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `speed_10_reference_unit_gross_rated_total_cooling_capacity`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -15117,6 +15537,7 @@ class CoilCoolingDxVariableSpeed(object):
             value (float): value for IDD Field `Speed 10 Reference Unit Gross Rated Sensible Heat Ratio`
                 Units: dimensionless
                 value >= 0.0
+                value <= 1.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -15127,10 +15548,13 @@ class CoilCoolingDxVariableSpeed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `speed_10_reference_unit_gross_rated_sensible_heat_ratio`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
+                                 'for field `speed_10_reference_unit_gross_rated_sensible_heat_ratio`')
+            if value > 1.0:
+                raise ValueError('value need to be smaller 1.0 '
                                  'for field `speed_10_reference_unit_gross_rated_sensible_heat_ratio`')
         self._data["Speed 10 Reference Unit Gross Rated Sensible Heat Ratio"] = value
 
@@ -15161,7 +15585,7 @@ class CoilCoolingDxVariableSpeed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `speed_10_reference_unit_gross_rated_cooling_cop`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -15195,7 +15619,7 @@ class CoilCoolingDxVariableSpeed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `speed_10_reference_unit_rated_air_flow_rate`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -15230,7 +15654,7 @@ class CoilCoolingDxVariableSpeed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `speed_10_reference_unit_condenser_air_flow_rate`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -15266,7 +15690,7 @@ class CoilCoolingDxVariableSpeed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `speed_10_reference_unit_rated_pad_effectiveness_of_evap_precooling`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -15305,7 +15729,7 @@ class CoilCoolingDxVariableSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `speed_10_total_cooling_capacity_function_of_temperature_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -15345,7 +15769,7 @@ class CoilCoolingDxVariableSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `speed_10_total_cooling_capacity_function_of_air_flow_fraction_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -15384,7 +15808,7 @@ class CoilCoolingDxVariableSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `speed_10_energy_input_ratio_function_of_temperature_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -15423,7 +15847,7 @@ class CoilCoolingDxVariableSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `speed_10_energy_input_ratio_function_of_air_flow_fraction_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -15474,7 +15898,6 @@ class CoilCoolingDxTwoStageWithHumidityControlMode(object):
         reheat). Optional inputs for moisture evaporation from wet coil when compressor
         cycles off with continuous fan operation. Requires two to four sets of performance
         data, see CoilPerformance:DX:Cooling. Stages are modeled as a face-split coil.
-    
     """
     internal_name = "Coil:Cooling:DX:TwoStageWithHumidityControlMode"
     field_count = 21
@@ -15505,15 +15928,16 @@ class CoilCoolingDxTwoStageWithHumidityControlMode(object):
         self._data["Basin Heater Capacity"] = None
         self._data["Basin Heater Setpoint Temperature"] = None
         self._data["Basin Heater Operating Schedule Name"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -15662,6 +16086,7 @@ class CoilCoolingDxTwoStageWithHumidityControlMode(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -15688,7 +16113,7 @@ class CoilCoolingDxTwoStageWithHumidityControlMode(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -15725,7 +16150,7 @@ class CoilCoolingDxTwoStageWithHumidityControlMode(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `availability_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -15760,7 +16185,7 @@ class CoilCoolingDxTwoStageWithHumidityControlMode(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `air_inlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -15795,7 +16220,7 @@ class CoilCoolingDxTwoStageWithHumidityControlMode(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `air_outlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -15834,7 +16259,7 @@ class CoilCoolingDxTwoStageWithHumidityControlMode(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `crankcase_heater_capacity`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -15869,7 +16294,7 @@ class CoilCoolingDxTwoStageWithHumidityControlMode(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `maximum_outdoor_drybulb_temperature_for_crankcase_heater_operation`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -15904,8 +16329,15 @@ class CoilCoolingDxTwoStageWithHumidityControlMode(object):
             try:
                 value = int(value)
             except ValueError:
-                raise ValueError('value {} need to be of type int '
-                                 'for field `number_of_capacity_stages`'.format(value))
+                if not self.strict:
+                    try:
+                        conv_value = int(float(value))
+                        logging.warn('Cast float {} to int {}, precision may be lost '
+                                     'for field `number_of_capacity_stages`'.format(value, conv_value))
+                        value = conv_value
+                    except ValueError:
+                        raise ValueError('value {} need to be of type int '
+                                         'for field `number_of_capacity_stages`'.format(value))
             if value < 1:
                 raise ValueError('value need to be greater or equal 1 '
                                  'for field `number_of_capacity_stages`')
@@ -15942,8 +16374,15 @@ class CoilCoolingDxTwoStageWithHumidityControlMode(object):
             try:
                 value = int(value)
             except ValueError:
-                raise ValueError('value {} need to be of type int '
-                                 'for field `number_of_enhanced_dehumidification_modes`'.format(value))
+                if not self.strict:
+                    try:
+                        conv_value = int(float(value))
+                        logging.warn('Cast float {} to int {}, precision may be lost '
+                                     'for field `number_of_enhanced_dehumidification_modes`'.format(value, conv_value))
+                        value = conv_value
+                    except ValueError:
+                        raise ValueError('value {} need to be of type int '
+                                         'for field `number_of_enhanced_dehumidification_modes`'.format(value))
             if value < 0:
                 raise ValueError('value need to be greater or equal 0 '
                                  'for field `number_of_enhanced_dehumidification_modes`')
@@ -15979,7 +16418,7 @@ class CoilCoolingDxTwoStageWithHumidityControlMode(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `normal_mode_stage_1_coil_performance_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -15992,16 +16431,26 @@ class CoilCoolingDxTwoStageWithHumidityControlMode(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `normal_mode_stage_1_coil_performance_object_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `normal_mode_stage_1_coil_performance_object_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Normal Mode Stage 1 Coil Performance Object Type"] = value
 
@@ -16030,7 +16479,7 @@ class CoilCoolingDxTwoStageWithHumidityControlMode(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `normal_mode_stage_1_coil_performance_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -16067,7 +16516,7 @@ class CoilCoolingDxTwoStageWithHumidityControlMode(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `normal_mode_stage_12_coil_performance_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -16080,16 +16529,26 @@ class CoilCoolingDxTwoStageWithHumidityControlMode(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `normal_mode_stage_12_coil_performance_object_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `normal_mode_stage_12_coil_performance_object_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Normal Mode Stage 1+2 Coil Performance Object Type"] = value
 
@@ -16118,7 +16577,7 @@ class CoilCoolingDxTwoStageWithHumidityControlMode(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `normal_mode_stage_12_coil_performance_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -16155,7 +16614,7 @@ class CoilCoolingDxTwoStageWithHumidityControlMode(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `dehumidification_mode_1_stage_1_coil_performance_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -16168,16 +16627,26 @@ class CoilCoolingDxTwoStageWithHumidityControlMode(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `dehumidification_mode_1_stage_1_coil_performance_object_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `dehumidification_mode_1_stage_1_coil_performance_object_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Dehumidification Mode 1 Stage 1 Coil Performance Object Type"] = value
 
@@ -16206,7 +16675,7 @@ class CoilCoolingDxTwoStageWithHumidityControlMode(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `dehumidification_mode_1_stage_1_coil_performance_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -16243,7 +16712,7 @@ class CoilCoolingDxTwoStageWithHumidityControlMode(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `dehumidification_mode_1_stage_12_coil_performance_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -16256,16 +16725,26 @@ class CoilCoolingDxTwoStageWithHumidityControlMode(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `dehumidification_mode_1_stage_12_coil_performance_object_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `dehumidification_mode_1_stage_12_coil_performance_object_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Dehumidification Mode 1 Stage 1+2 Coil Performance Object Type"] = value
 
@@ -16294,7 +16773,7 @@ class CoilCoolingDxTwoStageWithHumidityControlMode(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `dehumidification_mode_1_stage_12_coil_performance_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -16329,7 +16808,7 @@ class CoilCoolingDxTwoStageWithHumidityControlMode(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `supply_water_storage_tank_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -16364,7 +16843,7 @@ class CoilCoolingDxTwoStageWithHumidityControlMode(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `condensate_collection_water_storage_tank_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -16407,7 +16886,7 @@ class CoilCoolingDxTwoStageWithHumidityControlMode(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `basin_heater_capacity`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -16444,7 +16923,7 @@ class CoilCoolingDxTwoStageWithHumidityControlMode(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `basin_heater_setpoint_temperature`'.format(value))
             if value < 2.0:
                 raise ValueError('value need to be greater or equal 2.0 '
@@ -16481,7 +16960,7 @@ class CoilCoolingDxTwoStageWithHumidityControlMode(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `basin_heater_operating_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -16534,7 +17013,6 @@ class CoilPerformanceDxCooling(object):
         for all performance objects associated with a given coil. If bypass is specified,
         the Rated Air Flow Rate includes both the bypassed flow and the flow through the
         active part of the coil.
-    
     """
     internal_name = "CoilPerformance:DX:Cooling"
     field_count = 22
@@ -16566,15 +17044,16 @@ class CoilPerformanceDxCooling(object):
         self._data["Evaporative Condenser Pump Rated Power Consumption"] = None
         self._data["Sensible Heat Ratio Function of Temperature Curve Name"] = None
         self._data["Sensible Heat Ratio Function of Flow Fraction Curve Name"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -16730,6 +17209,7 @@ class CoilPerformanceDxCooling(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -16756,7 +17236,7 @@ class CoilPerformanceDxCooling(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -16799,12 +17279,17 @@ class CoilPerformanceDxCooling(object):
                 if value_lower == "autosize":
                     self._data["Gross Rated Total Cooling Capacity"] = "Autosize"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autosize" '
+                                 'for field `gross_rated_total_cooling_capacity`'.format(value))
+                    self._data["Gross Rated Total Cooling Capacity"] = "Autosize"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autosize"'
                                  'for field `gross_rated_total_cooling_capacity`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -16842,12 +17327,17 @@ class CoilPerformanceDxCooling(object):
                 if value_lower == "autosize":
                     self._data["Gross Rated Sensible Heat Ratio"] = "Autosize"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autosize" '
+                                 'for field `gross_rated_sensible_heat_ratio`'.format(value))
+                    self._data["Gross Rated Sensible Heat Ratio"] = "Autosize"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autosize"'
                                  'for field `gross_rated_sensible_heat_ratio`'.format(value))
             if value < 0.5:
                 raise ValueError('value need to be greater or equal 0.5 '
@@ -16887,7 +17377,7 @@ class CoilPerformanceDxCooling(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `gross_rated_cooling_cop`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -16924,12 +17414,17 @@ class CoilPerformanceDxCooling(object):
                 if value_lower == "autosize":
                     self._data["Rated Air Flow Rate"] = "Autosize"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autosize" '
+                                 'for field `rated_air_flow_rate`'.format(value))
+                    self._data["Rated Air Flow Rate"] = "Autosize"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autosize"'
                                  'for field `rated_air_flow_rate`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -16969,7 +17464,7 @@ class CoilPerformanceDxCooling(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_air_flow_bypassed_around_coil`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -17008,7 +17503,7 @@ class CoilPerformanceDxCooling(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `total_cooling_capacity_function_of_temperature_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -17047,7 +17542,7 @@ class CoilPerformanceDxCooling(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `total_cooling_capacity_function_of_flow_fraction_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -17086,7 +17581,7 @@ class CoilPerformanceDxCooling(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `energy_input_ratio_function_of_temperature_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -17125,7 +17620,7 @@ class CoilPerformanceDxCooling(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `energy_input_ratio_function_of_flow_fraction_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -17164,7 +17659,7 @@ class CoilPerformanceDxCooling(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `part_load_fraction_correlation_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -17208,7 +17703,7 @@ class CoilPerformanceDxCooling(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `nominal_time_for_condensate_removal_to_begin`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -17251,7 +17746,7 @@ class CoilPerformanceDxCooling(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `ratio_of_initial_moisture_evaporation_rate_and_steady_state_latent_capacity`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -17292,7 +17787,7 @@ class CoilPerformanceDxCooling(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `maximum_cycling_rate`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -17333,7 +17828,7 @@ class CoilPerformanceDxCooling(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `latent_capacity_time_constant`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -17370,7 +17865,7 @@ class CoilPerformanceDxCooling(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `condenser_air_inlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -17409,7 +17904,7 @@ class CoilPerformanceDxCooling(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `condenser_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -17423,16 +17918,26 @@ class CoilPerformanceDxCooling(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `condenser_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `condenser_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Condenser Type"] = value
 
@@ -17465,7 +17970,7 @@ class CoilPerformanceDxCooling(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `evaporative_condenser_effectiveness`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -17505,12 +18010,17 @@ class CoilPerformanceDxCooling(object):
                 if value_lower == "autosize":
                     self._data["Evaporative Condenser Air Flow Rate"] = "Autosize"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autosize" '
+                                 'for field `evaporative_condenser_air_flow_rate`'.format(value))
+                    self._data["Evaporative Condenser Air Flow Rate"] = "Autosize"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autosize"'
                                  'for field `evaporative_condenser_air_flow_rate`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -17548,12 +18058,17 @@ class CoilPerformanceDxCooling(object):
                 if value_lower == "autosize":
                     self._data["Evaporative Condenser Pump Rated Power Consumption"] = "Autosize"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autosize" '
+                                 'for field `evaporative_condenser_pump_rated_power_consumption`'.format(value))
+                    self._data["Evaporative Condenser Pump Rated Power Consumption"] = "Autosize"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autosize"'
                                  'for field `evaporative_condenser_pump_rated_power_consumption`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -17590,7 +18105,7 @@ class CoilPerformanceDxCooling(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `sensible_heat_ratio_function_of_temperature_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -17629,7 +18144,7 @@ class CoilPerformanceDxCooling(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `sensible_heat_ratio_function_of_flow_fraction_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -17678,7 +18193,6 @@ class CoilCoolingDxVariableRefrigerantFlow(object):
         Variable refrigerant flow (VRF) direct expansion (DX) cooling coil. Used with
         ZoneHVAC:TerminalUnit:VariableRefrigerantFlow. Condensing unit is modeled separately,
         see AirConditioner:VariableRefrigerantFlow.
-    
     """
     internal_name = "Coil:Cooling:DX:VariableRefrigerantFlow"
     field_count = 10
@@ -17698,15 +18212,16 @@ class CoilCoolingDxVariableRefrigerantFlow(object):
         self._data["Coil Air Inlet Node"] = None
         self._data["Coil Air Outlet Node"] = None
         self._data["Name of Water Storage Tank for Condensate Collection"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -17778,6 +18293,7 @@ class CoilCoolingDxVariableRefrigerantFlow(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -17804,7 +18320,7 @@ class CoilCoolingDxVariableRefrigerantFlow(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -17841,7 +18357,7 @@ class CoilCoolingDxVariableRefrigerantFlow(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `availability_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -17882,12 +18398,17 @@ class CoilCoolingDxVariableRefrigerantFlow(object):
                 if value_lower == "autosize":
                     self._data["Gross Rated Total Cooling Capacity"] = "Autosize"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autosize" '
+                                 'for field `gross_rated_total_cooling_capacity`'.format(value))
+                    self._data["Gross Rated Total Cooling Capacity"] = "Autosize"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autosize"'
                                  'for field `gross_rated_total_cooling_capacity`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -17923,12 +18444,17 @@ class CoilCoolingDxVariableRefrigerantFlow(object):
                 if value_lower == "autosize":
                     self._data["Gross Rated Sensible Heat Ratio"] = "Autosize"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autosize" '
+                                 'for field `gross_rated_sensible_heat_ratio`'.format(value))
+                    self._data["Gross Rated Sensible Heat Ratio"] = "Autosize"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autosize"'
                                  'for field `gross_rated_sensible_heat_ratio`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -17966,12 +18492,17 @@ class CoilCoolingDxVariableRefrigerantFlow(object):
                 if value_lower == "autosize":
                     self._data["Rated Air Flow Rate"] = "Autosize"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autosize" '
+                                 'for field `rated_air_flow_rate`'.format(value))
+                    self._data["Rated Air Flow Rate"] = "Autosize"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autosize"'
                                  'for field `rated_air_flow_rate`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -18005,7 +18536,7 @@ class CoilCoolingDxVariableRefrigerantFlow(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `cooling_capacity_ratio_modifier_function_of_temperature_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -18044,7 +18575,7 @@ class CoilCoolingDxVariableRefrigerantFlow(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `cooling_capacity_modifier_curve_function_of_flow_fraction_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -18079,7 +18610,7 @@ class CoilCoolingDxVariableRefrigerantFlow(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `coil_air_inlet_node`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -18114,7 +18645,7 @@ class CoilCoolingDxVariableRefrigerantFlow(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `coil_air_outlet_node`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -18149,7 +18680,7 @@ class CoilCoolingDxVariableRefrigerantFlow(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name_of_water_storage_tank_for_condensate_collection`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -18198,7 +18729,6 @@ class CoilHeatingDxVariableRefrigerantFlow(object):
         Variable refrigerant flow (VRF) direct expansion (DX) heating coil (air-to-air heat
         pump). Used with ZoneHVAC:TerminalUnit:VariableRefrigerantFlow. Condensing unit is
         modeled separately, see AirConditioner:VariableRefrigerantFlow.
-    
     """
     internal_name = "Coil:Heating:DX:VariableRefrigerantFlow"
     field_count = 8
@@ -18216,15 +18746,16 @@ class CoilHeatingDxVariableRefrigerantFlow(object):
         self._data["Coil Air Outlet Node"] = None
         self._data["Heating Capacity Ratio Modifier Function of Temperature Curve Name"] = None
         self._data["Heating Capacity Modifier Function of Flow Fraction Curve Name"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -18282,6 +18813,7 @@ class CoilHeatingDxVariableRefrigerantFlow(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -18308,7 +18840,7 @@ class CoilHeatingDxVariableRefrigerantFlow(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -18345,7 +18877,7 @@ class CoilHeatingDxVariableRefrigerantFlow(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `availability_schedule`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -18388,12 +18920,17 @@ class CoilHeatingDxVariableRefrigerantFlow(object):
                 if value_lower == "autosize":
                     self._data["Gross Rated Heating Capacity"] = "Autosize"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autosize" '
+                                 'for field `gross_rated_heating_capacity`'.format(value))
+                    self._data["Gross Rated Heating Capacity"] = "Autosize"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autosize"'
                                  'for field `gross_rated_heating_capacity`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -18431,12 +18968,17 @@ class CoilHeatingDxVariableRefrigerantFlow(object):
                 if value_lower == "autosize":
                     self._data["Rated Air Flow Rate"] = "Autosize"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autosize" '
+                                 'for field `rated_air_flow_rate`'.format(value))
+                    self._data["Rated Air Flow Rate"] = "Autosize"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autosize"'
                                  'for field `rated_air_flow_rate`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -18468,7 +19010,7 @@ class CoilHeatingDxVariableRefrigerantFlow(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `coil_air_inlet_node`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -18503,7 +19045,7 @@ class CoilHeatingDxVariableRefrigerantFlow(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `coil_air_outlet_node`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -18540,7 +19082,7 @@ class CoilHeatingDxVariableRefrigerantFlow(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `heating_capacity_ratio_modifier_function_of_temperature_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -18579,7 +19121,7 @@ class CoilHeatingDxVariableRefrigerantFlow(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `heating_capacity_modifier_function_of_flow_fraction_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -18628,7 +19170,6 @@ class CoilHeatingWater(object):
         Hot water heating coil, NTU-effectiveness model, assumes a cross-flow heat exchanger.
         Two options for capacity inputs: UA and water flow rate or capacity and design
         temperatures.
-    
     """
     internal_name = "Coil:Heating:Water"
     field_count = 15
@@ -18653,15 +19194,16 @@ class CoilHeatingWater(object):
         self._data["Rated Outlet Water Temperature"] = None
         self._data["Rated Outlet Air Temperature"] = None
         self._data["Rated Ratio for Air and Water Convection"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -18768,6 +19310,7 @@ class CoilHeatingWater(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -18794,7 +19337,7 @@ class CoilHeatingWater(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -18831,7 +19374,7 @@ class CoilHeatingWater(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `availability_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -18871,12 +19414,17 @@ class CoilHeatingWater(object):
                 if value_lower == "autosize":
                     self._data["U-Factor Times Area Value"] = "Autosize"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autosize" '
+                                 'for field `ufactor_times_area_value`'.format(value))
+                    self._data["U-Factor Times Area Value"] = "Autosize"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autosize"'
                                  'for field `ufactor_times_area_value`'.format(value))
         self._data["U-Factor Times Area Value"] = value
 
@@ -18910,12 +19458,17 @@ class CoilHeatingWater(object):
                 if value_lower == "autosize":
                     self._data["Maximum Water Flow Rate"] = "Autosize"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autosize" '
+                                 'for field `maximum_water_flow_rate`'.format(value))
+                    self._data["Maximum Water Flow Rate"] = "Autosize"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autosize"'
                                  'for field `maximum_water_flow_rate`'.format(value))
         self._data["Maximum Water Flow Rate"] = value
 
@@ -18944,7 +19497,7 @@ class CoilHeatingWater(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `water_inlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -18979,7 +19532,7 @@ class CoilHeatingWater(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `water_outlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -19014,7 +19567,7 @@ class CoilHeatingWater(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `air_inlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -19049,7 +19602,7 @@ class CoilHeatingWater(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `air_outlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -19085,7 +19638,7 @@ class CoilHeatingWater(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `performance_input_method`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -19125,12 +19678,17 @@ class CoilHeatingWater(object):
                 if value_lower == "autosize":
                     self._data["Rated Capacity"] = "Autosize"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autosize" '
+                                 'for field `rated_capacity`'.format(value))
+                    self._data["Rated Capacity"] = "Autosize"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autosize"'
                                  'for field `rated_capacity`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -19164,7 +19722,7 @@ class CoilHeatingWater(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `rated_inlet_water_temperature`'.format(value))
         self._data["Rated Inlet Water Temperature"] = value
 
@@ -19195,7 +19753,7 @@ class CoilHeatingWater(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `rated_inlet_air_temperature`'.format(value))
         self._data["Rated Inlet Air Temperature"] = value
 
@@ -19226,7 +19784,7 @@ class CoilHeatingWater(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `rated_outlet_water_temperature`'.format(value))
         self._data["Rated Outlet Water Temperature"] = value
 
@@ -19257,7 +19815,7 @@ class CoilHeatingWater(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `rated_outlet_air_temperature`'.format(value))
         self._data["Rated Outlet Air Temperature"] = value
 
@@ -19288,7 +19846,7 @@ class CoilHeatingWater(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `rated_ratio_for_air_and_water_convection`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -19333,7 +19891,6 @@ class CoilHeatingSteam(object):
     """ Corresponds to IDD object `Coil:Heating:Steam`
         Steam heating coil. Condenses and sub-cools steam at loop pressure and discharges
         condensate through steam traps to low pressure condensate line.
-    
     """
     internal_name = "Coil:Heating:Steam"
     field_count = 11
@@ -19354,15 +19911,16 @@ class CoilHeatingSteam(object):
         self._data["Air Outlet Node Name"] = None
         self._data["Coil Control Type"] = None
         self._data["Temperature Setpoint Node Name"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -19441,6 +19999,7 @@ class CoilHeatingSteam(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -19467,7 +20026,7 @@ class CoilHeatingSteam(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -19504,7 +20063,7 @@ class CoilHeatingSteam(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `availability_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -19543,12 +20102,17 @@ class CoilHeatingSteam(object):
                 if value_lower == "autosize":
                     self._data["Maximum Steam Flow Rate"] = "Autosize"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autosize" '
+                                 'for field `maximum_steam_flow_rate`'.format(value))
+                    self._data["Maximum Steam Flow Rate"] = "Autosize"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autosize"'
                                  'for field `maximum_steam_flow_rate`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -19583,7 +20147,7 @@ class CoilHeatingSteam(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `degree_of_subcooling`'.format(value))
             if value < 1.0:
                 raise ValueError('value need to be greater or equal 1.0 '
@@ -19621,7 +20185,7 @@ class CoilHeatingSteam(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `degree_of_loop_subcooling`'.format(value))
             if value < 10.0:
                 raise ValueError('value need to be greater or equal 10.0 '
@@ -19653,7 +20217,7 @@ class CoilHeatingSteam(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `water_inlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -19688,7 +20252,7 @@ class CoilHeatingSteam(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `water_outlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -19723,7 +20287,7 @@ class CoilHeatingSteam(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `air_inlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -19758,7 +20322,7 @@ class CoilHeatingSteam(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `air_outlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -19799,7 +20363,7 @@ class CoilHeatingSteam(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `coil_control_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -19813,16 +20377,26 @@ class CoilHeatingSteam(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `coil_control_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `coil_control_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Coil Control Type"] = value
 
@@ -19852,7 +20426,7 @@ class CoilHeatingSteam(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `temperature_setpoint_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -19904,7 +20478,6 @@ class CoilHeatingElectric(object):
         another component such as an air terminal unit, zone HVAC equipment, or unitary
         system, then the coil is controlled by the parent component and the setpoint node name
         is not entered.
-    
     """
     internal_name = "Coil:Heating:Electric"
     field_count = 7
@@ -19921,15 +20494,16 @@ class CoilHeatingElectric(object):
         self._data["Air Inlet Node Name"] = None
         self._data["Air Outlet Node Name"] = None
         self._data["Temperature Setpoint Node Name"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -19980,6 +20554,7 @@ class CoilHeatingElectric(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -20006,7 +20581,7 @@ class CoilHeatingElectric(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -20043,7 +20618,7 @@ class CoilHeatingElectric(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `availability_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -20081,7 +20656,7 @@ class CoilHeatingElectric(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `efficiency`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -20119,12 +20694,17 @@ class CoilHeatingElectric(object):
                 if value_lower == "autosize":
                     self._data["Nominal Capacity"] = "Autosize"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autosize" '
+                                 'for field `nominal_capacity`'.format(value))
+                    self._data["Nominal Capacity"] = "Autosize"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autosize"'
                                  'for field `nominal_capacity`'.format(value))
         self._data["Nominal Capacity"] = value
 
@@ -20153,7 +20733,7 @@ class CoilHeatingElectric(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `air_inlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -20188,7 +20768,7 @@ class CoilHeatingElectric(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `air_outlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -20224,7 +20804,7 @@ class CoilHeatingElectric(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `temperature_setpoint_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -20276,7 +20856,6 @@ class CoilHeatingElectricMultiStage(object):
         within another component such as an air terminal unit, zone HVAC equipment, or unitary
         system, then the coil is controlled by the parent component and the setpoint node name
         is not entered.
-    
     """
     internal_name = "Coil:Heating:Electric:MultiStage"
     field_count = 14
@@ -20300,15 +20879,16 @@ class CoilHeatingElectricMultiStage(object):
         self._data["Stage 3 Nominal Capacity"] = None
         self._data["Stage 4 Efficiency"] = None
         self._data["Stage 4 Nominal Capacity"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -20408,6 +20988,7 @@ class CoilHeatingElectricMultiStage(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -20434,7 +21015,7 @@ class CoilHeatingElectricMultiStage(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -20471,7 +21052,7 @@ class CoilHeatingElectricMultiStage(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `availability_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -20506,7 +21087,7 @@ class CoilHeatingElectricMultiStage(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `air_inlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -20541,7 +21122,7 @@ class CoilHeatingElectricMultiStage(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `air_outlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -20578,7 +21159,7 @@ class CoilHeatingElectricMultiStage(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `temperature_setpoint_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -20617,8 +21198,15 @@ class CoilHeatingElectricMultiStage(object):
             try:
                 value = int(value)
             except ValueError:
-                raise ValueError('value {} need to be of type int '
-                                 'for field `number_of_stages`'.format(value))
+                if not self.strict:
+                    try:
+                        conv_value = int(float(value))
+                        logging.warn('Cast float {} to int {}, precision may be lost '
+                                     'for field `number_of_stages`'.format(value, conv_value))
+                        value = conv_value
+                    except ValueError:
+                        raise ValueError('value {} need to be of type int '
+                                         'for field `number_of_stages`'.format(value))
             if value < 1:
                 raise ValueError('value need to be greater or equal 1 '
                                  'for field `number_of_stages`')
@@ -20654,7 +21242,7 @@ class CoilHeatingElectricMultiStage(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `stage_1_efficiency`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -20690,12 +21278,17 @@ class CoilHeatingElectricMultiStage(object):
                 if value_lower == "autosize":
                     self._data["Stage 1 Nominal Capacity"] = "Autosize"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autosize" '
+                                 'for field `stage_1_nominal_capacity`'.format(value))
+                    self._data["Stage 1 Nominal Capacity"] = "Autosize"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autosize"'
                                  'for field `stage_1_nominal_capacity`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -20729,7 +21322,7 @@ class CoilHeatingElectricMultiStage(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `stage_2_efficiency`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -20765,12 +21358,17 @@ class CoilHeatingElectricMultiStage(object):
                 if value_lower == "autosize":
                     self._data["Stage 2 Nominal Capacity"] = "Autosize"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autosize" '
+                                 'for field `stage_2_nominal_capacity`'.format(value))
+                    self._data["Stage 2 Nominal Capacity"] = "Autosize"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autosize"'
                                  'for field `stage_2_nominal_capacity`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -20804,7 +21402,7 @@ class CoilHeatingElectricMultiStage(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `stage_3_efficiency`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -20840,12 +21438,17 @@ class CoilHeatingElectricMultiStage(object):
                 if value_lower == "autosize":
                     self._data["Stage 3 Nominal Capacity"] = "Autosize"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autosize" '
+                                 'for field `stage_3_nominal_capacity`'.format(value))
+                    self._data["Stage 3 Nominal Capacity"] = "Autosize"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autosize"'
                                  'for field `stage_3_nominal_capacity`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -20879,7 +21482,7 @@ class CoilHeatingElectricMultiStage(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `stage_4_efficiency`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -20915,12 +21518,17 @@ class CoilHeatingElectricMultiStage(object):
                 if value_lower == "autosize":
                     self._data["Stage 4 Nominal Capacity"] = "Autosize"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autosize" '
+                                 'for field `stage_4_nominal_capacity`'.format(value))
+                    self._data["Stage 4 Nominal Capacity"] = "Autosize"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autosize"'
                                  'for field `stage_4_nominal_capacity`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -20969,7 +21577,6 @@ class CoilHeatingGas(object):
         another component such as an air terminal unit, zone HVAC equipment, or unitary
         system, then the coil is controlled by the parent component and the setpoint node name
         is not entered.
-    
     """
     internal_name = "Coil:Heating:Gas"
     field_count = 10
@@ -20989,15 +21596,16 @@ class CoilHeatingGas(object):
         self._data["Parasitic Electric Load"] = None
         self._data["Part Load Fraction Correlation Curve Name"] = None
         self._data["Parasitic Gas Load"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -21069,6 +21677,7 @@ class CoilHeatingGas(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -21095,7 +21704,7 @@ class CoilHeatingGas(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -21132,7 +21741,7 @@ class CoilHeatingGas(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `availability_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -21170,7 +21779,7 @@ class CoilHeatingGas(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `gas_burner_efficiency`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -21208,12 +21817,17 @@ class CoilHeatingGas(object):
                 if value_lower == "autosize":
                     self._data["Nominal Capacity"] = "Autosize"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autosize" '
+                                 'for field `nominal_capacity`'.format(value))
+                    self._data["Nominal Capacity"] = "Autosize"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autosize"'
                                  'for field `nominal_capacity`'.format(value))
         self._data["Nominal Capacity"] = value
 
@@ -21242,7 +21856,7 @@ class CoilHeatingGas(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `air_inlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -21277,7 +21891,7 @@ class CoilHeatingGas(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `air_outlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -21313,7 +21927,7 @@ class CoilHeatingGas(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `temperature_setpoint_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -21353,7 +21967,7 @@ class CoilHeatingGas(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `parasitic_electric_load`'.format(value))
         self._data["Parasitic Electric Load"] = value
 
@@ -21390,7 +22004,7 @@ class CoilHeatingGas(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `part_load_fraction_correlation_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -21427,7 +22041,7 @@ class CoilHeatingGas(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `parasitic_gas_load`'.format(value))
         self._data["Parasitic Gas Load"] = value
 
@@ -21473,7 +22087,6 @@ class CoilHeatingGasMultiStage(object):
         within another component such as an air terminal unit, zone HVAC equipment, or unitary
         system, then the coil is controlled by the parent component and the setpoint node name
         is not entered.
-    
     """
     internal_name = "Coil:Heating:Gas:MultiStage"
     field_count = 20
@@ -21503,15 +22116,16 @@ class CoilHeatingGasMultiStage(object):
         self._data["Stage 4 Gas Burner Efficiency"] = None
         self._data["Stage 4 Nominal Capacity"] = None
         self._data["Stage 4 Parasitic Electric Load"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -21653,6 +22267,7 @@ class CoilHeatingGasMultiStage(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -21679,7 +22294,7 @@ class CoilHeatingGasMultiStage(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -21716,7 +22331,7 @@ class CoilHeatingGasMultiStage(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `availability_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -21751,7 +22366,7 @@ class CoilHeatingGasMultiStage(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `air_inlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -21786,7 +22401,7 @@ class CoilHeatingGasMultiStage(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `air_outlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -21823,7 +22438,7 @@ class CoilHeatingGasMultiStage(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `temperature_setpoint_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -21868,7 +22483,7 @@ class CoilHeatingGasMultiStage(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `part_load_fraction_correlation_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -21906,7 +22521,7 @@ class CoilHeatingGasMultiStage(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `parasitic_gas_load`'.format(value))
         self._data["Parasitic Gas Load"] = value
 
@@ -21939,8 +22554,15 @@ class CoilHeatingGasMultiStage(object):
             try:
                 value = int(value)
             except ValueError:
-                raise ValueError('value {} need to be of type int '
-                                 'for field `number_of_stages`'.format(value))
+                if not self.strict:
+                    try:
+                        conv_value = int(float(value))
+                        logging.warn('Cast float {} to int {}, precision may be lost '
+                                     'for field `number_of_stages`'.format(value, conv_value))
+                        value = conv_value
+                    except ValueError:
+                        raise ValueError('value {} need to be of type int '
+                                         'for field `number_of_stages`'.format(value))
             if value < 1:
                 raise ValueError('value need to be greater or equal 1 '
                                  'for field `number_of_stages`')
@@ -21976,7 +22598,7 @@ class CoilHeatingGasMultiStage(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `stage_1_gas_burner_efficiency`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -22012,12 +22634,17 @@ class CoilHeatingGasMultiStage(object):
                 if value_lower == "autosize":
                     self._data["Stage 1 Nominal Capacity"] = "Autosize"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autosize" '
+                                 'for field `stage_1_nominal_capacity`'.format(value))
+                    self._data["Stage 1 Nominal Capacity"] = "Autosize"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autosize"'
                                  'for field `stage_1_nominal_capacity`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -22054,7 +22681,7 @@ class CoilHeatingGasMultiStage(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `stage_1_parasitic_electric_load`'.format(value))
         self._data["Stage 1 Parasitic Electric Load"] = value
 
@@ -22085,7 +22712,7 @@ class CoilHeatingGasMultiStage(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `stage_2_gas_burner_efficiency`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -22121,12 +22748,17 @@ class CoilHeatingGasMultiStage(object):
                 if value_lower == "autosize":
                     self._data["Stage 2 Nominal Capacity"] = "Autosize"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autosize" '
+                                 'for field `stage_2_nominal_capacity`'.format(value))
+                    self._data["Stage 2 Nominal Capacity"] = "Autosize"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autosize"'
                                  'for field `stage_2_nominal_capacity`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -22163,7 +22795,7 @@ class CoilHeatingGasMultiStage(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `stage_2_parasitic_electric_load`'.format(value))
         self._data["Stage 2 Parasitic Electric Load"] = value
 
@@ -22194,7 +22826,7 @@ class CoilHeatingGasMultiStage(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `stage_3_gas_burner_efficiency`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -22230,12 +22862,17 @@ class CoilHeatingGasMultiStage(object):
                 if value_lower == "autosize":
                     self._data["Stage 3 Nominal Capacity"] = "Autosize"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autosize" '
+                                 'for field `stage_3_nominal_capacity`'.format(value))
+                    self._data["Stage 3 Nominal Capacity"] = "Autosize"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autosize"'
                                  'for field `stage_3_nominal_capacity`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -22272,7 +22909,7 @@ class CoilHeatingGasMultiStage(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `stage_3_parasitic_electric_load`'.format(value))
         self._data["Stage 3 Parasitic Electric Load"] = value
 
@@ -22303,7 +22940,7 @@ class CoilHeatingGasMultiStage(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `stage_4_gas_burner_efficiency`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -22339,12 +22976,17 @@ class CoilHeatingGasMultiStage(object):
                 if value_lower == "autosize":
                     self._data["Stage 4 Nominal Capacity"] = "Autosize"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autosize" '
+                                 'for field `stage_4_nominal_capacity`'.format(value))
+                    self._data["Stage 4 Nominal Capacity"] = "Autosize"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autosize"'
                                  'for field `stage_4_nominal_capacity`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -22381,7 +23023,7 @@ class CoilHeatingGasMultiStage(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `stage_4_parasitic_electric_load`'.format(value))
         self._data["Stage 4 Parasitic Electric Load"] = value
 
@@ -22428,7 +23070,6 @@ class CoilHeatingDesuperheater(object):
         and the Temperature Setpoint Node Name must be specified. If the coil is contained
         within another component such as a unitary system, then the coil is controlled by the
         parent component and the setpoint node name is not entered.
-    
     """
     internal_name = "Coil:Heating:Desuperheater"
     field_count = 9
@@ -22447,15 +23088,16 @@ class CoilHeatingDesuperheater(object):
         self._data["Heating Source Name"] = None
         self._data["Temperature Setpoint Node Name"] = None
         self._data["Parasitic Electric Load"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -22520,6 +23162,7 @@ class CoilHeatingDesuperheater(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -22546,7 +23189,7 @@ class CoilHeatingDesuperheater(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -22583,7 +23226,7 @@ class CoilHeatingDesuperheater(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `availability_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -22619,7 +23262,7 @@ class CoilHeatingDesuperheater(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `heat_reclaim_recovery_efficiency`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -22651,7 +23294,7 @@ class CoilHeatingDesuperheater(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `air_inlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -22686,7 +23329,7 @@ class CoilHeatingDesuperheater(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `air_outlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -22729,7 +23372,7 @@ class CoilHeatingDesuperheater(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `heating_source_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -22748,16 +23391,26 @@ class CoilHeatingDesuperheater(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `heating_source_object_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `heating_source_object_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Heating Source Object Type"] = value
 
@@ -22786,7 +23439,7 @@ class CoilHeatingDesuperheater(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `heating_source_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -22823,7 +23476,7 @@ class CoilHeatingDesuperheater(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `temperature_setpoint_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -22863,7 +23516,7 @@ class CoilHeatingDesuperheater(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `parasitic_electric_load`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -22908,7 +23561,6 @@ class CoilHeatingDxSingleSpeed(object):
     """ Corresponds to IDD object `Coil:Heating:DX:SingleSpeed`
         Direct expansion (DX) heating coil (air-to-air heat pump) and compressor unit
         (includes electric compressor and outdoor fan), single-speed, with defrost controls.
-    
     """
     internal_name = "Coil:Heating:DX:SingleSpeed"
     field_count = 25
@@ -22943,15 +23595,16 @@ class CoilHeatingDxSingleSpeed(object):
         self._data["Resistive Defrost Heater Capacity"] = None
         self._data["Region number for calculating HSPF"] = None
         self._data["Evaporator Air Inlet Node Name"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -23128,6 +23781,7 @@ class CoilHeatingDxSingleSpeed(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -23154,7 +23808,7 @@ class CoilHeatingDxSingleSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -23191,7 +23845,7 @@ class CoilHeatingDxSingleSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `availability_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -23234,12 +23888,17 @@ class CoilHeatingDxSingleSpeed(object):
                 if value_lower == "autosize":
                     self._data["Gross Rated Heating Capacity"] = "Autosize"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autosize" '
+                                 'for field `gross_rated_heating_capacity`'.format(value))
+                    self._data["Gross Rated Heating Capacity"] = "Autosize"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autosize"'
                                  'for field `gross_rated_heating_capacity`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -23276,7 +23935,7 @@ class CoilHeatingDxSingleSpeed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `gross_rated_heating_cop`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -23314,12 +23973,17 @@ class CoilHeatingDxSingleSpeed(object):
                 if value_lower == "autosize":
                     self._data["Rated Air Flow Rate"] = "Autosize"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autosize" '
+                                 'for field `rated_air_flow_rate`'.format(value))
+                    self._data["Rated Air Flow Rate"] = "Autosize"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autosize"'
                                  'for field `rated_air_flow_rate`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -23359,7 +24023,7 @@ class CoilHeatingDxSingleSpeed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `rated_supply_fan_power_per_volume_flow_rate`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -23394,7 +24058,7 @@ class CoilHeatingDxSingleSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `air_inlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -23429,7 +24093,7 @@ class CoilHeatingDxSingleSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `air_outlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -23472,7 +24136,7 @@ class CoilHeatingDxSingleSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `heating_capacity_function_of_temperature_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -23511,7 +24175,7 @@ class CoilHeatingDxSingleSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `heating_capacity_function_of_flow_fraction_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -23554,7 +24218,7 @@ class CoilHeatingDxSingleSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `energy_input_ratio_function_of_temperature_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -23593,7 +24257,7 @@ class CoilHeatingDxSingleSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `energy_input_ratio_function_of_flow_fraction_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -23632,7 +24296,7 @@ class CoilHeatingDxSingleSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `part_load_fraction_correlation_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -23672,7 +24336,7 @@ class CoilHeatingDxSingleSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `defrost_energy_input_ratio_function_of_temperature_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -23710,7 +24374,7 @@ class CoilHeatingDxSingleSpeed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `minimum_outdoor_drybulb_temperature_for_compressor_operation`'.format(value))
             if value < -20.0:
                 raise ValueError('value need to be greater or equal -20.0 '
@@ -23750,7 +24414,7 @@ class CoilHeatingDxSingleSpeed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `outdoor_drybulb_temperature_to_turn_on_compressor`'.format(value))
         self._data["Outdoor Dry-Bulb Temperature to Turn On Compressor"] = value
 
@@ -23783,7 +24447,7 @@ class CoilHeatingDxSingleSpeed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `maximum_outdoor_drybulb_temperature_for_defrost_operation`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -23822,7 +24486,7 @@ class CoilHeatingDxSingleSpeed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `crankcase_heater_capacity`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -23857,7 +24521,7 @@ class CoilHeatingDxSingleSpeed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `maximum_outdoor_drybulb_temperature_for_crankcase_heater_operation`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -23893,7 +24557,7 @@ class CoilHeatingDxSingleSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `defrost_strategy`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -23907,16 +24571,26 @@ class CoilHeatingDxSingleSpeed(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `defrost_strategy`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `defrost_strategy`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Defrost Strategy"] = value
 
@@ -23949,7 +24623,7 @@ class CoilHeatingDxSingleSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `defrost_control`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -23963,16 +24637,26 @@ class CoilHeatingDxSingleSpeed(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `defrost_control`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `defrost_control`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Defrost Control"] = value
 
@@ -24005,7 +24689,7 @@ class CoilHeatingDxSingleSpeed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `defrost_time_period_fraction`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -24044,12 +24728,17 @@ class CoilHeatingDxSingleSpeed(object):
                 if value_lower == "autosize":
                     self._data["Resistive Defrost Heater Capacity"] = "Autosize"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autosize" '
+                                 'for field `resistive_defrost_heater_capacity`'.format(value))
+                    self._data["Resistive Defrost Heater Capacity"] = "Autosize"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autosize"'
                                  'for field `resistive_defrost_heater_capacity`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -24085,8 +24774,15 @@ class CoilHeatingDxSingleSpeed(object):
             try:
                 value = int(value)
             except ValueError:
-                raise ValueError('value {} need to be of type int '
-                                 'for field `region_number_for_calculating_hspf`'.format(value))
+                if not self.strict:
+                    try:
+                        conv_value = int(float(value))
+                        logging.warn('Cast float {} to int {}, precision may be lost '
+                                     'for field `region_number_for_calculating_hspf`'.format(value, conv_value))
+                        value = conv_value
+                    except ValueError:
+                        raise ValueError('value {} need to be of type int '
+                                         'for field `region_number_for_calculating_hspf`'.format(value))
             if value < 1:
                 raise ValueError('value need to be greater or equal 1 '
                                  'for field `region_number_for_calculating_hspf`')
@@ -24122,7 +24818,7 @@ class CoilHeatingDxSingleSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `evaporator_air_inlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -24172,7 +24868,6 @@ class CoilHeatingDxMultiSpeed(object):
         (includes electric or engine-driven compressor and outdoor fan), multi-speed
         (or variable-speed), with defrost controls. Requires two to four sets
         of performance data and will interpolate between speeds.
-    
     """
     internal_name = "Coil:Heating:DX:MultiSpeed"
     field_count = 62
@@ -24244,15 +24939,16 @@ class CoilHeatingDxMultiSpeed(object):
         self._data["Speed 4 Part Load Fraction Correlation Curve Name"] = None
         self._data["Speed 4 Rated Waste Heat Fraction of Power Input"] = None
         self._data["Speed 4 Waste Heat Function of Temperature Curve Name"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -24688,6 +25384,7 @@ class CoilHeatingDxMultiSpeed(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -24714,7 +25411,7 @@ class CoilHeatingDxMultiSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -24751,7 +25448,7 @@ class CoilHeatingDxMultiSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `availability_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -24786,7 +25483,7 @@ class CoilHeatingDxMultiSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `air_inlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -24821,7 +25518,7 @@ class CoilHeatingDxMultiSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `air_outlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -24858,7 +25555,7 @@ class CoilHeatingDxMultiSpeed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `minimum_outdoor_drybulb_temperature_for_compressor_operation`'.format(value))
         self._data["Minimum Outdoor Dry-Bulb Temperature for Compressor Operation"] = value
 
@@ -24895,7 +25592,7 @@ class CoilHeatingDxMultiSpeed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `outdoor_drybulb_temperature_to_turn_on_compressor`'.format(value))
         self._data["Outdoor Dry-Bulb Temperature to Turn On Compressor"] = value
 
@@ -24928,7 +25625,7 @@ class CoilHeatingDxMultiSpeed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `crankcase_heater_capacity`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -24963,7 +25660,7 @@ class CoilHeatingDxMultiSpeed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `maximum_outdoor_drybulb_temperature_for_crankcase_heater_operation`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -25000,7 +25697,7 @@ class CoilHeatingDxMultiSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `defrost_energy_input_ratio_function_of_temperature_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -25039,7 +25736,7 @@ class CoilHeatingDxMultiSpeed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `maximum_outdoor_drybulb_temperature_for_defrost_operation`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -25078,7 +25775,7 @@ class CoilHeatingDxMultiSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `defrost_strategy`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -25092,16 +25789,26 @@ class CoilHeatingDxMultiSpeed(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `defrost_strategy`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `defrost_strategy`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Defrost Strategy"] = value
 
@@ -25134,7 +25841,7 @@ class CoilHeatingDxMultiSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `defrost_control`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -25148,16 +25855,26 @@ class CoilHeatingDxMultiSpeed(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `defrost_control`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `defrost_control`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Defrost Control"] = value
 
@@ -25190,7 +25907,7 @@ class CoilHeatingDxMultiSpeed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `defrost_time_period_fraction`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -25229,12 +25946,17 @@ class CoilHeatingDxMultiSpeed(object):
                 if value_lower == "autosize":
                     self._data["Resistive Defrost Heater Capacity"] = "Autosize"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autosize" '
+                                 'for field `resistive_defrost_heater_capacity`'.format(value))
+                    self._data["Resistive Defrost Heater Capacity"] = "Autosize"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autosize"'
                                  'for field `resistive_defrost_heater_capacity`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -25270,7 +25992,7 @@ class CoilHeatingDxMultiSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `apply_part_load_fraction_to_speeds_greater_than_1`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -25284,16 +26006,26 @@ class CoilHeatingDxMultiSpeed(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `apply_part_load_fraction_to_speeds_greater_than_1`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `apply_part_load_fraction_to_speeds_greater_than_1`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Apply Part Load Fraction to Speeds Greater than 1"] = value
 
@@ -25333,7 +26065,7 @@ class CoilHeatingDxMultiSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `fuel_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -25354,16 +26086,26 @@ class CoilHeatingDxMultiSpeed(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `fuel_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `fuel_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Fuel Type"] = value
 
@@ -25396,8 +26138,15 @@ class CoilHeatingDxMultiSpeed(object):
             try:
                 value = int(value)
             except ValueError:
-                raise ValueError('value {} need to be of type int '
-                                 'for field `region_number_for_calculating_hspf`'.format(value))
+                if not self.strict:
+                    try:
+                        conv_value = int(float(value))
+                        logging.warn('Cast float {} to int {}, precision may be lost '
+                                     'for field `region_number_for_calculating_hspf`'.format(value, conv_value))
+                        value = conv_value
+                    except ValueError:
+                        raise ValueError('value {} need to be of type int '
+                                         'for field `region_number_for_calculating_hspf`'.format(value))
             if value < 1:
                 raise ValueError('value need to be greater or equal 1 '
                                  'for field `region_number_for_calculating_hspf`')
@@ -25435,8 +26184,15 @@ class CoilHeatingDxMultiSpeed(object):
             try:
                 value = int(value)
             except ValueError:
-                raise ValueError('value {} need to be of type int '
-                                 'for field `number_of_speeds`'.format(value))
+                if not self.strict:
+                    try:
+                        conv_value = int(float(value))
+                        logging.warn('Cast float {} to int {}, precision may be lost '
+                                     'for field `number_of_speeds`'.format(value, conv_value))
+                        value = conv_value
+                    except ValueError:
+                        raise ValueError('value {} need to be of type int '
+                                         'for field `number_of_speeds`'.format(value))
             if value < 2:
                 raise ValueError('value need to be greater or equal 2 '
                                  'for field `number_of_speeds`')
@@ -25479,12 +26235,17 @@ class CoilHeatingDxMultiSpeed(object):
                 if value_lower == "autosize":
                     self._data["Speed 1 Gross Rated Heating Capacity"] = "Autosize"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autosize" '
+                                 'for field `speed_1_gross_rated_heating_capacity`'.format(value))
+                    self._data["Speed 1 Gross Rated Heating Capacity"] = "Autosize"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autosize"'
                                  'for field `speed_1_gross_rated_heating_capacity`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -25520,7 +26281,7 @@ class CoilHeatingDxMultiSpeed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `speed_1_gross_rated_heating_cop`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -25559,12 +26320,17 @@ class CoilHeatingDxMultiSpeed(object):
                 if value_lower == "autosize":
                     self._data["Speed 1 Rated Air Flow Rate"] = "Autosize"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autosize" '
+                                 'for field `speed_1_rated_air_flow_rate`'.format(value))
+                    self._data["Speed 1 Rated Air Flow Rate"] = "Autosize"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autosize"'
                                  'for field `speed_1_rated_air_flow_rate`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -25604,7 +26370,7 @@ class CoilHeatingDxMultiSpeed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `speed_1_rated_supply_air_fan_power_per_volume_flow_rate`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -25647,7 +26413,7 @@ class CoilHeatingDxMultiSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `speed_1_heating_capacity_function_of_temperature_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -25686,7 +26452,7 @@ class CoilHeatingDxMultiSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `speed_1_heating_capacity_function_of_flow_fraction_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -25729,7 +26495,7 @@ class CoilHeatingDxMultiSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `speed_1_energy_input_ratio_function_of_temperature_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -25768,7 +26534,7 @@ class CoilHeatingDxMultiSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `speed_1_energy_input_ratio_function_of_flow_fraction_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -25807,7 +26573,7 @@ class CoilHeatingDxMultiSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `speed_1_part_load_fraction_correlation_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -25846,7 +26612,7 @@ class CoilHeatingDxMultiSpeed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `speed_1_rated_waste_heat_fraction_of_power_input`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -25885,7 +26651,7 @@ class CoilHeatingDxMultiSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `speed_1_waste_heat_function_of_temperature_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -25929,12 +26695,17 @@ class CoilHeatingDxMultiSpeed(object):
                 if value_lower == "autosize":
                     self._data["Speed 2 Gross Rated Heating Capacity"] = "Autosize"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autosize" '
+                                 'for field `speed_2_gross_rated_heating_capacity`'.format(value))
+                    self._data["Speed 2 Gross Rated Heating Capacity"] = "Autosize"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autosize"'
                                  'for field `speed_2_gross_rated_heating_capacity`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -25970,7 +26741,7 @@ class CoilHeatingDxMultiSpeed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `speed_2_gross_rated_heating_cop`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -26009,12 +26780,17 @@ class CoilHeatingDxMultiSpeed(object):
                 if value_lower == "autosize":
                     self._data["Speed 2 Rated Air Flow Rate"] = "Autosize"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autosize" '
+                                 'for field `speed_2_rated_air_flow_rate`'.format(value))
+                    self._data["Speed 2 Rated Air Flow Rate"] = "Autosize"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autosize"'
                                  'for field `speed_2_rated_air_flow_rate`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -26054,7 +26830,7 @@ class CoilHeatingDxMultiSpeed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `speed_2_rated_supply_air_fan_power_per_volume_flow_rate`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -26097,7 +26873,7 @@ class CoilHeatingDxMultiSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `speed_2_heating_capacity_function_of_temperature_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -26136,7 +26912,7 @@ class CoilHeatingDxMultiSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `speed_2_heating_capacity_function_of_flow_fraction_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -26179,7 +26955,7 @@ class CoilHeatingDxMultiSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `speed_2_energy_input_ratio_function_of_temperature_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -26218,7 +26994,7 @@ class CoilHeatingDxMultiSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `speed_2_energy_input_ratio_function_of_flow_fraction_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -26257,7 +27033,7 @@ class CoilHeatingDxMultiSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `speed_2_part_load_fraction_correlation_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -26296,7 +27072,7 @@ class CoilHeatingDxMultiSpeed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `speed_2_rated_waste_heat_fraction_of_power_input`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -26335,7 +27111,7 @@ class CoilHeatingDxMultiSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `speed_2_waste_heat_function_of_temperature_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -26379,12 +27155,17 @@ class CoilHeatingDxMultiSpeed(object):
                 if value_lower == "autosize":
                     self._data["Speed 3 Gross Rated Heating Capacity"] = "Autosize"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autosize" '
+                                 'for field `speed_3_gross_rated_heating_capacity`'.format(value))
+                    self._data["Speed 3 Gross Rated Heating Capacity"] = "Autosize"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autosize"'
                                  'for field `speed_3_gross_rated_heating_capacity`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -26420,7 +27201,7 @@ class CoilHeatingDxMultiSpeed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `speed_3_gross_rated_heating_cop`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -26459,12 +27240,17 @@ class CoilHeatingDxMultiSpeed(object):
                 if value_lower == "autosize":
                     self._data["Speed 3 Rated Air Flow Rate"] = "Autosize"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autosize" '
+                                 'for field `speed_3_rated_air_flow_rate`'.format(value))
+                    self._data["Speed 3 Rated Air Flow Rate"] = "Autosize"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autosize"'
                                  'for field `speed_3_rated_air_flow_rate`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -26504,7 +27290,7 @@ class CoilHeatingDxMultiSpeed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `speed_3_rated_supply_air_fan_power_per_volume_flow_rate`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -26547,7 +27333,7 @@ class CoilHeatingDxMultiSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `speed_3_heating_capacity_function_of_temperature_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -26586,7 +27372,7 @@ class CoilHeatingDxMultiSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `speed_3_heating_capacity_function_of_flow_fraction_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -26629,7 +27415,7 @@ class CoilHeatingDxMultiSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `speed_3_energy_input_ratio_function_of_temperature_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -26668,7 +27454,7 @@ class CoilHeatingDxMultiSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `speed_3_energy_input_ratio_function_of_flow_fraction_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -26707,7 +27493,7 @@ class CoilHeatingDxMultiSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `speed_3_part_load_fraction_correlation_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -26746,7 +27532,7 @@ class CoilHeatingDxMultiSpeed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `speed_3_rated_waste_heat_fraction_of_power_input`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -26785,7 +27571,7 @@ class CoilHeatingDxMultiSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `speed_3_waste_heat_function_of_temperature_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -26829,12 +27615,17 @@ class CoilHeatingDxMultiSpeed(object):
                 if value_lower == "autosize":
                     self._data["Speed 4 Gross Rated Heating Capacity"] = "Autosize"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autosize" '
+                                 'for field `speed_4_gross_rated_heating_capacity`'.format(value))
+                    self._data["Speed 4 Gross Rated Heating Capacity"] = "Autosize"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autosize"'
                                  'for field `speed_4_gross_rated_heating_capacity`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -26870,7 +27661,7 @@ class CoilHeatingDxMultiSpeed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `speed_4_gross_rated_heating_cop`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -26909,12 +27700,17 @@ class CoilHeatingDxMultiSpeed(object):
                 if value_lower == "autosize":
                     self._data["Speed 4 Rated Air Flow Rate"] = "Autosize"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autosize" '
+                                 'for field `speed_4_rated_air_flow_rate`'.format(value))
+                    self._data["Speed 4 Rated Air Flow Rate"] = "Autosize"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autosize"'
                                  'for field `speed_4_rated_air_flow_rate`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -26954,7 +27750,7 @@ class CoilHeatingDxMultiSpeed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `speed_4_rated_supply_air_fan_power_per_volume_flow_rate`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -26997,7 +27793,7 @@ class CoilHeatingDxMultiSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `speed_4_heating_capacity_function_of_temperature_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -27036,7 +27832,7 @@ class CoilHeatingDxMultiSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `speed_4_heating_capacity_function_of_flow_fraction_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -27079,7 +27875,7 @@ class CoilHeatingDxMultiSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `speed_4_energy_input_ratio_function_of_temperature_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -27118,7 +27914,7 @@ class CoilHeatingDxMultiSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `speed_4_energy_input_ratio_function_of_flow_fraction_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -27157,7 +27953,7 @@ class CoilHeatingDxMultiSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `speed_4_part_load_fraction_correlation_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -27196,7 +27992,7 @@ class CoilHeatingDxMultiSpeed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `speed_4_rated_waste_heat_fraction_of_power_input`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -27235,7 +28031,7 @@ class CoilHeatingDxMultiSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `speed_4_waste_heat_function_of_temperature_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -27285,7 +28081,6 @@ class CoilHeatingDxVariableSpeed(object):
         (includes electric compressor and outdoor fan), variable-speed, with defrost
         controls. Requires two to ten sets of performance data and will interpolate between
         speeds.
-    
     """
     internal_name = "Coil:Heating:DX:VariableSpeed"
     field_count = 88
@@ -27383,15 +28178,16 @@ class CoilHeatingDxVariableSpeed(object):
         self._data["Speed 10 Heating Capacity Function of Air Flow Fraction Curve Name"] = None
         self._data["Speed 10 Energy Input Ratio Function of Temperature Curve Name"] = None
         self._data["Speed 10 Energy Input Ratio Function of Air Flow Fraction Curve Name"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -28009,6 +28805,7 @@ class CoilHeatingDxVariableSpeed(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -28035,7 +28832,7 @@ class CoilHeatingDxVariableSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -28070,7 +28867,7 @@ class CoilHeatingDxVariableSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `indoor_air_inlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -28105,7 +28902,7 @@ class CoilHeatingDxVariableSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `indoor_air_outlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -28144,8 +28941,15 @@ class CoilHeatingDxVariableSpeed(object):
             try:
                 value = int(value)
             except ValueError:
-                raise ValueError('value {} need to be of type int '
-                                 'for field `number_of_speeds`'.format(value))
+                if not self.strict:
+                    try:
+                        conv_value = int(float(value))
+                        logging.warn('Cast float {} to int {}, precision may be lost '
+                                     'for field `number_of_speeds`'.format(value, conv_value))
+                        value = conv_value
+                    except ValueError:
+                        raise ValueError('value {} need to be of type int '
+                                         'for field `number_of_speeds`'.format(value))
             if value < 1:
                 raise ValueError('value need to be greater or equal 1 '
                                  'for field `number_of_speeds`')
@@ -28182,8 +28986,15 @@ class CoilHeatingDxVariableSpeed(object):
             try:
                 value = int(value)
             except ValueError:
-                raise ValueError('value {} need to be of type int '
-                                 'for field `nominal_speed_level`'.format(value))
+                if not self.strict:
+                    try:
+                        conv_value = int(float(value))
+                        logging.warn('Cast float {} to int {}, precision may be lost '
+                                     'for field `nominal_speed_level`'.format(value, conv_value))
+                        value = conv_value
+                    except ValueError:
+                        raise ValueError('value {} need to be of type int '
+                                         'for field `nominal_speed_level`'.format(value))
         self._data["Nominal Speed Level"] = value
 
     @property
@@ -28215,12 +29026,17 @@ class CoilHeatingDxVariableSpeed(object):
                 if value_lower == "autosize":
                     self._data["Rated Heating Capacity At Selected Nominal Speed Level"] = "Autosize"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autosize" '
+                                 'for field `rated_heating_capacity_at_selected_nominal_speed_level`'.format(value))
+                    self._data["Rated Heating Capacity At Selected Nominal Speed Level"] = "Autosize"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autosize"'
                                  'for field `rated_heating_capacity_at_selected_nominal_speed_level`'.format(value))
         self._data["Rated Heating Capacity At Selected Nominal Speed Level"] = value
 
@@ -28253,12 +29069,17 @@ class CoilHeatingDxVariableSpeed(object):
                 if value_lower == "autosize":
                     self._data["Rated Air Flow Rate At Selected Nominal Speed Level"] = "Autosize"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autosize" '
+                                 'for field `rated_air_flow_rate_at_selected_nominal_speed_level`'.format(value))
+                    self._data["Rated Air Flow Rate At Selected Nominal Speed Level"] = "Autosize"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autosize"'
                                  'for field `rated_air_flow_rate_at_selected_nominal_speed_level`'.format(value))
         self._data["Rated Air Flow Rate At Selected Nominal Speed Level"] = value
 
@@ -28291,7 +29112,7 @@ class CoilHeatingDxVariableSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `energy_part_load_fraction_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -28331,7 +29152,7 @@ class CoilHeatingDxVariableSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `defrost_energy_input_ratio_function_of_temperature_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -28369,7 +29190,7 @@ class CoilHeatingDxVariableSpeed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `minimum_outdoor_drybulb_temperature_for_compressor_operation`'.format(value))
             if value < -50.0:
                 raise ValueError('value need to be greater or equal -50.0 '
@@ -28409,7 +29230,7 @@ class CoilHeatingDxVariableSpeed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `outdoor_drybulb_temperature_to_turn_on_compressor`'.format(value))
         self._data["Outdoor Dry-Bulb Temperature to Turn On Compressor"] = value
 
@@ -28442,7 +29263,7 @@ class CoilHeatingDxVariableSpeed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `maximum_outdoor_drybulb_temperature_for_defrost_operation`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -28481,7 +29302,7 @@ class CoilHeatingDxVariableSpeed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `crankcase_heater_capacity`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -28516,7 +29337,7 @@ class CoilHeatingDxVariableSpeed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `maximum_outdoor_drybulb_temperature_for_crankcase_heater_operation`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -28552,7 +29373,7 @@ class CoilHeatingDxVariableSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `defrost_strategy`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -28566,16 +29387,26 @@ class CoilHeatingDxVariableSpeed(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `defrost_strategy`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `defrost_strategy`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Defrost Strategy"] = value
 
@@ -28608,7 +29439,7 @@ class CoilHeatingDxVariableSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `defrost_control`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -28622,16 +29453,26 @@ class CoilHeatingDxVariableSpeed(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `defrost_control`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `defrost_control`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Defrost Control"] = value
 
@@ -28664,7 +29505,7 @@ class CoilHeatingDxVariableSpeed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `defrost_time_period_fraction`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -28703,12 +29544,17 @@ class CoilHeatingDxVariableSpeed(object):
                 if value_lower == "autosize":
                     self._data["Resistive Defrost Heater Capacity"] = "Autosize"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autosize" '
+                                 'for field `resistive_defrost_heater_capacity`'.format(value))
+                    self._data["Resistive Defrost Heater Capacity"] = "Autosize"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autosize"'
                                  'for field `resistive_defrost_heater_capacity`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -28743,7 +29589,7 @@ class CoilHeatingDxVariableSpeed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `speed_1_reference_unit_gross_rated_heating_capacity`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -28777,7 +29623,7 @@ class CoilHeatingDxVariableSpeed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `speed_1_reference_unit_gross_rated_heating_cop`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -28811,7 +29657,7 @@ class CoilHeatingDxVariableSpeed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `speed_1_reference_unit_rated_air_flow_rate`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -28847,7 +29693,7 @@ class CoilHeatingDxVariableSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `speed_1_heating_capacity_function_of_temperature_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -28886,7 +29732,7 @@ class CoilHeatingDxVariableSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `speed_1_total_heating_capacity_function_of_air_flow_fraction_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -28925,7 +29771,7 @@ class CoilHeatingDxVariableSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `speed_1_energy_input_ratio_function_of_temperature_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -28964,7 +29810,7 @@ class CoilHeatingDxVariableSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `speed_1_energy_input_ratio_function_of_air_flow_fraction_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -29002,7 +29848,7 @@ class CoilHeatingDxVariableSpeed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `speed_2_reference_unit_gross_rated_heating_capacity`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -29036,7 +29882,7 @@ class CoilHeatingDxVariableSpeed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `speed_2_reference_unit_gross_rated_heating_cop`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -29070,7 +29916,7 @@ class CoilHeatingDxVariableSpeed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `speed_2_reference_unit_rated_air_flow_rate`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -29106,7 +29952,7 @@ class CoilHeatingDxVariableSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `speed_2_heating_capacity_function_of_temperature_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -29145,7 +29991,7 @@ class CoilHeatingDxVariableSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `speed_2_total_heating_capacity_function_of_air_flow_fraction_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -29184,7 +30030,7 @@ class CoilHeatingDxVariableSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `speed_2_energy_input_ratio_function_of_temperature_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -29223,7 +30069,7 @@ class CoilHeatingDxVariableSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `speed_2_energy_input_ratio_function_of_air_flow_fraction_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -29261,7 +30107,7 @@ class CoilHeatingDxVariableSpeed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `speed_3_reference_unit_gross_rated_heating_capacity`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -29295,7 +30141,7 @@ class CoilHeatingDxVariableSpeed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `speed_3_reference_unit_gross_rated_heating_cop`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -29329,7 +30175,7 @@ class CoilHeatingDxVariableSpeed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `speed_3_reference_unit_rated_air_flow_rate`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -29365,7 +30211,7 @@ class CoilHeatingDxVariableSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `speed_3_heating_capacity_function_of_temperature_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -29404,7 +30250,7 @@ class CoilHeatingDxVariableSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `speed_3_total_heating_capacity_function_of_air_flow_fraction_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -29443,7 +30289,7 @@ class CoilHeatingDxVariableSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `speed_3_energy_input_ratio_function_of_temperature_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -29482,7 +30328,7 @@ class CoilHeatingDxVariableSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `speed_3_energy_input_ratio_function_of_air_flow_fraction_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -29520,7 +30366,7 @@ class CoilHeatingDxVariableSpeed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `speed_4_reference_unit_gross_rated_heating_capacity`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -29554,7 +30400,7 @@ class CoilHeatingDxVariableSpeed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `speed_4_reference_unit_gross_rated_heating_cop`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -29588,7 +30434,7 @@ class CoilHeatingDxVariableSpeed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `speed_4_reference_unit_rated_air_flow_rate`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -29624,7 +30470,7 @@ class CoilHeatingDxVariableSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `speed_4_heating_capacity_function_of_temperature_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -29663,7 +30509,7 @@ class CoilHeatingDxVariableSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `speed_4_heating_capacity_function_of_air_flow_fraction_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -29702,7 +30548,7 @@ class CoilHeatingDxVariableSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `speed_4_energy_input_ratio_function_of_temperature_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -29741,7 +30587,7 @@ class CoilHeatingDxVariableSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `speed_4_energy_input_ratio_function_of_air_flow_fraction_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -29779,7 +30625,7 @@ class CoilHeatingDxVariableSpeed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `speed_5_reference_unit_gross_rated_heating_capacity`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -29813,7 +30659,7 @@ class CoilHeatingDxVariableSpeed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `speed_5_reference_unit_gross_rated_heating_cop`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -29847,7 +30693,7 @@ class CoilHeatingDxVariableSpeed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `speed_5_reference_unit_rated_air_flow_rate`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -29883,7 +30729,7 @@ class CoilHeatingDxVariableSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `speed_5_heating_capacity_function_of_temperature_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -29922,7 +30768,7 @@ class CoilHeatingDxVariableSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `speed_5_heating_capacity_function_of_air_flow_fraction_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -29961,7 +30807,7 @@ class CoilHeatingDxVariableSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `speed_5_energy_input_ratio_function_of_temperature_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -30000,7 +30846,7 @@ class CoilHeatingDxVariableSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `speed_5_energy_input_ratio_function_of_air_flow_fraction_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -30038,7 +30884,7 @@ class CoilHeatingDxVariableSpeed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `speed_6_reference_unit_gross_rated_heating_capacity`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -30072,7 +30918,7 @@ class CoilHeatingDxVariableSpeed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `speed_6_reference_unit_gross_rated_heating_cop`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -30106,7 +30952,7 @@ class CoilHeatingDxVariableSpeed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `speed_6_reference_unit_rated_air_flow_rate`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -30142,7 +30988,7 @@ class CoilHeatingDxVariableSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `speed_6_heating_capacity_function_of_temperature_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -30181,7 +31027,7 @@ class CoilHeatingDxVariableSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `speed_6_heating_capacity_function_of_air_flow_fraction_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -30220,7 +31066,7 @@ class CoilHeatingDxVariableSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `speed_6_energy_input_ratio_function_of_temperature_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -30259,7 +31105,7 @@ class CoilHeatingDxVariableSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `speed_6_energy_input_ratio_function_of_air_flow_fraction_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -30297,7 +31143,7 @@ class CoilHeatingDxVariableSpeed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `speed_7_reference_unit_gross_rated_heating_capacity`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -30331,7 +31177,7 @@ class CoilHeatingDxVariableSpeed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `speed_7_reference_unit_gross_rated_heating_cop`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -30365,7 +31211,7 @@ class CoilHeatingDxVariableSpeed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `speed_7_reference_unit_rated_air_flow_rate`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -30401,7 +31247,7 @@ class CoilHeatingDxVariableSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `speed_7_heating_capacity_function_of_temperature_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -30440,7 +31286,7 @@ class CoilHeatingDxVariableSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `speed_7_heating_capacity_function_of_air_flow_fraction_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -30479,7 +31325,7 @@ class CoilHeatingDxVariableSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `speed_7_energy_input_ratio_function_of_temperature_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -30518,7 +31364,7 @@ class CoilHeatingDxVariableSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `speed_7_energy_input_ratio_function_of_air_flow_fraction_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -30556,7 +31402,7 @@ class CoilHeatingDxVariableSpeed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `speed_8_reference_unit_gross_rated_heating_capacity`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -30590,7 +31436,7 @@ class CoilHeatingDxVariableSpeed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `speed_8_reference_unit_gross_rated_heating_cop`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -30624,7 +31470,7 @@ class CoilHeatingDxVariableSpeed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `speed_8_reference_unit_rated_air_flow_rate`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -30660,7 +31506,7 @@ class CoilHeatingDxVariableSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `speed_8_heating_capacity_function_of_temperature_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -30699,7 +31545,7 @@ class CoilHeatingDxVariableSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `speed_8_heating_capacity_function_of_air_flow_fraction_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -30738,7 +31584,7 @@ class CoilHeatingDxVariableSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `speed_8_energy_input_ratio_function_of_temperature_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -30777,7 +31623,7 @@ class CoilHeatingDxVariableSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `speed_8_energy_input_ratio_function_of_air_flow_fraction_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -30815,7 +31661,7 @@ class CoilHeatingDxVariableSpeed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `speed_9_reference_unit_gross_rated_heating_capacity`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -30849,7 +31695,7 @@ class CoilHeatingDxVariableSpeed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `speed_9_reference_unit_gross_rated_heating_cop`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -30883,7 +31729,7 @@ class CoilHeatingDxVariableSpeed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `speed_9_reference_unit_rated_air_flow_rate`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -30919,7 +31765,7 @@ class CoilHeatingDxVariableSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `speed_9_heating_capacity_function_of_temperature_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -30958,7 +31804,7 @@ class CoilHeatingDxVariableSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `speed_9_heating_capacity_function_of_air_flow_fraction_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -30997,7 +31843,7 @@ class CoilHeatingDxVariableSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `speed_9_energy_input_ratio_function_of_temperature_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -31036,7 +31882,7 @@ class CoilHeatingDxVariableSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `speed_9_energy_input_ratio_function_of_air_flow_fraction_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -31074,7 +31920,7 @@ class CoilHeatingDxVariableSpeed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `speed_10_reference_unit_gross_rated_heating_capacity`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -31108,7 +31954,7 @@ class CoilHeatingDxVariableSpeed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `speed_10_reference_unit_gross_rated_heating_cop`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -31142,7 +31988,7 @@ class CoilHeatingDxVariableSpeed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `speed_10_reference_unit_rated_air_flow_rate`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -31178,7 +32024,7 @@ class CoilHeatingDxVariableSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `speed_10_heating_capacity_function_of_temperature_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -31217,7 +32063,7 @@ class CoilHeatingDxVariableSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `speed_10_heating_capacity_function_of_air_flow_fraction_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -31256,7 +32102,7 @@ class CoilHeatingDxVariableSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `speed_10_energy_input_ratio_function_of_temperature_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -31295,7 +32141,7 @@ class CoilHeatingDxVariableSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `speed_10_energy_input_ratio_function_of_air_flow_fraction_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -31346,7 +32192,6 @@ class CoilCoolingWaterToAirHeatPumpParameterEstimation(object):
         evaporation from wet coil when compressor cycles off with continuous fan operation.
         Parameter estimation model is a deterministic model that requires a consistent set of
         parameters to describe the operating conditions of the heat pump components.
-    
     """
     internal_name = "Coil:Cooling:WaterToAirHeatPump:ParameterEstimation"
     field_count = 27
@@ -31383,15 +32228,16 @@ class CoilCoolingWaterToAirHeatPumpParameterEstimation(object):
         self._data["Source Side Heat Transfer Coefficient"] = None
         self._data["Source Side Heat Transfer Resistance1"] = None
         self._data["Source Side Heat Transfer Resistance2"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -31582,6 +32428,7 @@ class CoilCoolingWaterToAirHeatPumpParameterEstimation(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -31608,7 +32455,7 @@ class CoilCoolingWaterToAirHeatPumpParameterEstimation(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -31650,7 +32497,7 @@ class CoilCoolingWaterToAirHeatPumpParameterEstimation(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `compressor_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -31665,16 +32512,26 @@ class CoilCoolingWaterToAirHeatPumpParameterEstimation(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `compressor_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `compressor_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Compressor Type"] = value
 
@@ -31704,7 +32561,7 @@ class CoilCoolingWaterToAirHeatPumpParameterEstimation(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `refrigerant_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -31741,7 +32598,7 @@ class CoilCoolingWaterToAirHeatPumpParameterEstimation(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `design_source_side_flow_rate`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -31775,7 +32632,7 @@ class CoilCoolingWaterToAirHeatPumpParameterEstimation(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `nominal_cooling_coil_capacity`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -31816,7 +32673,7 @@ class CoilCoolingWaterToAirHeatPumpParameterEstimation(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `nominal_time_for_condensate_removal_to_begin`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -31859,7 +32716,7 @@ class CoilCoolingWaterToAirHeatPumpParameterEstimation(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `ratio_of_initial_moisture_evaporation_rate_and_steady_state_latent_capacity`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -31896,7 +32753,7 @@ class CoilCoolingWaterToAirHeatPumpParameterEstimation(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `high_pressure_cutoff`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -31930,7 +32787,7 @@ class CoilCoolingWaterToAirHeatPumpParameterEstimation(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `low_pressure_cutoff`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -31962,7 +32819,7 @@ class CoilCoolingWaterToAirHeatPumpParameterEstimation(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `water_inlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -31997,7 +32854,7 @@ class CoilCoolingWaterToAirHeatPumpParameterEstimation(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `water_outlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -32032,7 +32889,7 @@ class CoilCoolingWaterToAirHeatPumpParameterEstimation(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `air_inlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -32067,7 +32924,7 @@ class CoilCoolingWaterToAirHeatPumpParameterEstimation(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `air_outlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -32105,7 +32962,7 @@ class CoilCoolingWaterToAirHeatPumpParameterEstimation(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `load_side_total_heat_transfer_coefficient`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -32140,7 +32997,7 @@ class CoilCoolingWaterToAirHeatPumpParameterEstimation(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `load_side_outside_surface_heat_transfer_coefficient`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -32175,7 +33032,7 @@ class CoilCoolingWaterToAirHeatPumpParameterEstimation(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `superheat_temperature_at_the_evaporator_outlet`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -32211,7 +33068,7 @@ class CoilCoolingWaterToAirHeatPumpParameterEstimation(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `compressor_power_losses`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -32245,7 +33102,7 @@ class CoilCoolingWaterToAirHeatPumpParameterEstimation(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `compressor_efficiency`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -32282,7 +33139,7 @@ class CoilCoolingWaterToAirHeatPumpParameterEstimation(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `compressor_piston_displacement`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -32319,7 +33176,7 @@ class CoilCoolingWaterToAirHeatPumpParameterEstimation(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `compressor_suction_or_discharge_pressure_drop`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -32356,7 +33213,7 @@ class CoilCoolingWaterToAirHeatPumpParameterEstimation(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `compressor_clearance_factor`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -32393,7 +33250,7 @@ class CoilCoolingWaterToAirHeatPumpParameterEstimation(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `refrigerant_volume_flow_rate`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -32430,7 +33287,7 @@ class CoilCoolingWaterToAirHeatPumpParameterEstimation(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `volume_ratio`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -32466,7 +33323,7 @@ class CoilCoolingWaterToAirHeatPumpParameterEstimation(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `leak_rate_coefficient`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -32503,7 +33360,7 @@ class CoilCoolingWaterToAirHeatPumpParameterEstimation(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `source_side_heat_transfer_coefficient`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -32540,7 +33397,7 @@ class CoilCoolingWaterToAirHeatPumpParameterEstimation(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `source_side_heat_transfer_resistance1`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -32577,7 +33434,7 @@ class CoilCoolingWaterToAirHeatPumpParameterEstimation(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `source_side_heat_transfer_resistance2`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -32624,7 +33481,6 @@ class CoilHeatingWaterToAirHeatPumpParameterEstimation(object):
         compressor), single-speed, parameter estimation model. Parameter estimation model is
         a deterministic model that requires a consistent set of parameters to describe
         the operating conditions of the heat pump components.
-    
     """
     internal_name = "Coil:Heating:WaterToAirHeatPump:ParameterEstimation"
     field_count = 24
@@ -32658,15 +33514,16 @@ class CoilHeatingWaterToAirHeatPumpParameterEstimation(object):
         self._data["Source Side Heat Transfer Coefficient"] = None
         self._data["Source Side Heat Transfer Resistance1"] = None
         self._data["Source Side Heat Transfer Resistance2"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -32836,6 +33693,7 @@ class CoilHeatingWaterToAirHeatPumpParameterEstimation(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -32862,7 +33720,7 @@ class CoilHeatingWaterToAirHeatPumpParameterEstimation(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -32904,7 +33762,7 @@ class CoilHeatingWaterToAirHeatPumpParameterEstimation(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `compressor_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -32919,16 +33777,26 @@ class CoilHeatingWaterToAirHeatPumpParameterEstimation(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `compressor_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `compressor_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Compressor Type"] = value
 
@@ -32958,7 +33826,7 @@ class CoilHeatingWaterToAirHeatPumpParameterEstimation(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `refrigerant_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -32995,7 +33863,7 @@ class CoilHeatingWaterToAirHeatPumpParameterEstimation(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `design_source_side_flow_rate`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -33030,7 +33898,7 @@ class CoilHeatingWaterToAirHeatPumpParameterEstimation(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `gross_rated_heating_capacity`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -33063,7 +33931,7 @@ class CoilHeatingWaterToAirHeatPumpParameterEstimation(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `high_pressure_cutoff`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -33097,7 +33965,7 @@ class CoilHeatingWaterToAirHeatPumpParameterEstimation(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `low_pressure_cutoff`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -33129,7 +33997,7 @@ class CoilHeatingWaterToAirHeatPumpParameterEstimation(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `water_inlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -33164,7 +34032,7 @@ class CoilHeatingWaterToAirHeatPumpParameterEstimation(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `water_outlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -33199,7 +34067,7 @@ class CoilHeatingWaterToAirHeatPumpParameterEstimation(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `air_inlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -33234,7 +34102,7 @@ class CoilHeatingWaterToAirHeatPumpParameterEstimation(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `air_outlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -33272,7 +34140,7 @@ class CoilHeatingWaterToAirHeatPumpParameterEstimation(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `load_side_total_heat_transfer_coefficient`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -33307,7 +34175,7 @@ class CoilHeatingWaterToAirHeatPumpParameterEstimation(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `superheat_temperature_at_the_evaporator_outlet`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -33343,7 +34211,7 @@ class CoilHeatingWaterToAirHeatPumpParameterEstimation(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `compressor_power_losses`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -33377,7 +34245,7 @@ class CoilHeatingWaterToAirHeatPumpParameterEstimation(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `compressor_efficiency`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -33414,7 +34282,7 @@ class CoilHeatingWaterToAirHeatPumpParameterEstimation(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `compressor_piston_displacement`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -33451,7 +34319,7 @@ class CoilHeatingWaterToAirHeatPumpParameterEstimation(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `compressor_suction_or_discharge_pressure_drop`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -33488,7 +34356,7 @@ class CoilHeatingWaterToAirHeatPumpParameterEstimation(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `compressor_clearance_factor`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -33525,7 +34393,7 @@ class CoilHeatingWaterToAirHeatPumpParameterEstimation(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `refrigerant_volume_flow_rate`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -33562,7 +34430,7 @@ class CoilHeatingWaterToAirHeatPumpParameterEstimation(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `volume_ratio`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -33599,7 +34467,7 @@ class CoilHeatingWaterToAirHeatPumpParameterEstimation(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `leak_rate_coefficient`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -33636,7 +34504,7 @@ class CoilHeatingWaterToAirHeatPumpParameterEstimation(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `source_side_heat_transfer_coefficient`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -33673,7 +34541,7 @@ class CoilHeatingWaterToAirHeatPumpParameterEstimation(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `source_side_heat_transfer_resistance1`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -33710,7 +34578,7 @@ class CoilHeatingWaterToAirHeatPumpParameterEstimation(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `source_side_heat_transfer_resistance2`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -33757,7 +34625,6 @@ class CoilCoolingWaterToAirHeatPumpEquationFit(object):
         compressor), single-speed, equation-fit model. Optional inputs for moisture
         evaporation from wet coil when compressor cycles off with continuous fan operation.
         Equation-fit model uses normalized curves to describe the heat pump performance.
-    
     """
     internal_name = "Coil:Cooling:WaterToAirHeatPump:EquationFit"
     field_count = 28
@@ -33795,15 +34662,16 @@ class CoilCoolingWaterToAirHeatPumpEquationFit(object):
         self._data["Cooling Power Consumption Coefficient 5"] = None
         self._data["Nominal Time for Condensate Removal to Begin"] = None
         self._data["Ratio of Initial Moisture Evaporation Rate and Steady State Latent Capacity"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -34001,6 +34869,7 @@ class CoilCoolingWaterToAirHeatPumpEquationFit(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -34027,7 +34896,7 @@ class CoilCoolingWaterToAirHeatPumpEquationFit(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -34062,7 +34931,7 @@ class CoilCoolingWaterToAirHeatPumpEquationFit(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `water_inlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -34097,7 +34966,7 @@ class CoilCoolingWaterToAirHeatPumpEquationFit(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `water_outlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -34132,7 +35001,7 @@ class CoilCoolingWaterToAirHeatPumpEquationFit(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `air_inlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -34167,7 +35036,7 @@ class CoilCoolingWaterToAirHeatPumpEquationFit(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `air_outlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -34206,12 +35075,17 @@ class CoilCoolingWaterToAirHeatPumpEquationFit(object):
                 if value_lower == "autosize":
                     self._data["Rated Air Flow Rate"] = "Autosize"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autosize" '
+                                 'for field `rated_air_flow_rate`'.format(value))
+                    self._data["Rated Air Flow Rate"] = "Autosize"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autosize"'
                                  'for field `rated_air_flow_rate`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -34247,12 +35121,17 @@ class CoilCoolingWaterToAirHeatPumpEquationFit(object):
                 if value_lower == "autosize":
                     self._data["Rated Water Flow Rate"] = "Autosize"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autosize" '
+                                 'for field `rated_water_flow_rate`'.format(value))
+                    self._data["Rated Water Flow Rate"] = "Autosize"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autosize"'
                                  'for field `rated_water_flow_rate`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -34289,12 +35168,17 @@ class CoilCoolingWaterToAirHeatPumpEquationFit(object):
                 if value_lower == "autosize":
                     self._data["Gross Rated Total Cooling Capacity"] = "Autosize"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autosize" '
+                                 'for field `gross_rated_total_cooling_capacity`'.format(value))
+                    self._data["Gross Rated Total Cooling Capacity"] = "Autosize"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autosize"'
                                  'for field `gross_rated_total_cooling_capacity`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -34330,12 +35214,17 @@ class CoilCoolingWaterToAirHeatPumpEquationFit(object):
                 if value_lower == "autosize":
                     self._data["Gross Rated Sensible Cooling Capacity"] = "Autosize"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autosize" '
+                                 'for field `gross_rated_sensible_cooling_capacity`'.format(value))
+                    self._data["Gross Rated Sensible Cooling Capacity"] = "Autosize"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autosize"'
                                  'for field `gross_rated_sensible_cooling_capacity`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -34368,7 +35257,7 @@ class CoilCoolingWaterToAirHeatPumpEquationFit(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `gross_rated_cooling_cop`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -34400,7 +35289,7 @@ class CoilCoolingWaterToAirHeatPumpEquationFit(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `total_cooling_capacity_coefficient_1`'.format(value))
         self._data["Total Cooling Capacity Coefficient 1"] = value
 
@@ -34429,7 +35318,7 @@ class CoilCoolingWaterToAirHeatPumpEquationFit(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `total_cooling_capacity_coefficient_2`'.format(value))
         self._data["Total Cooling Capacity Coefficient 2"] = value
 
@@ -34458,7 +35347,7 @@ class CoilCoolingWaterToAirHeatPumpEquationFit(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `total_cooling_capacity_coefficient_3`'.format(value))
         self._data["Total Cooling Capacity Coefficient 3"] = value
 
@@ -34487,7 +35376,7 @@ class CoilCoolingWaterToAirHeatPumpEquationFit(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `total_cooling_capacity_coefficient_4`'.format(value))
         self._data["Total Cooling Capacity Coefficient 4"] = value
 
@@ -34516,7 +35405,7 @@ class CoilCoolingWaterToAirHeatPumpEquationFit(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `total_cooling_capacity_coefficient_5`'.format(value))
         self._data["Total Cooling Capacity Coefficient 5"] = value
 
@@ -34545,7 +35434,7 @@ class CoilCoolingWaterToAirHeatPumpEquationFit(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `sensible_cooling_capacity_coefficient_1`'.format(value))
         self._data["Sensible Cooling Capacity Coefficient 1"] = value
 
@@ -34574,7 +35463,7 @@ class CoilCoolingWaterToAirHeatPumpEquationFit(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `sensible_cooling_capacity_coefficient_2`'.format(value))
         self._data["Sensible Cooling Capacity Coefficient 2"] = value
 
@@ -34603,7 +35492,7 @@ class CoilCoolingWaterToAirHeatPumpEquationFit(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `sensible_cooling_capacity_coefficient_3`'.format(value))
         self._data["Sensible Cooling Capacity Coefficient 3"] = value
 
@@ -34632,7 +35521,7 @@ class CoilCoolingWaterToAirHeatPumpEquationFit(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `sensible_cooling_capacity_coefficient_4`'.format(value))
         self._data["Sensible Cooling Capacity Coefficient 4"] = value
 
@@ -34661,7 +35550,7 @@ class CoilCoolingWaterToAirHeatPumpEquationFit(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `sensible_cooling_capacity_coefficient_5`'.format(value))
         self._data["Sensible Cooling Capacity Coefficient 5"] = value
 
@@ -34690,7 +35579,7 @@ class CoilCoolingWaterToAirHeatPumpEquationFit(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `sensible_cooling_capacity_coefficient_6`'.format(value))
         self._data["Sensible Cooling Capacity Coefficient 6"] = value
 
@@ -34719,7 +35608,7 @@ class CoilCoolingWaterToAirHeatPumpEquationFit(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `cooling_power_consumption_coefficient_1`'.format(value))
         self._data["Cooling Power Consumption Coefficient 1"] = value
 
@@ -34748,7 +35637,7 @@ class CoilCoolingWaterToAirHeatPumpEquationFit(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `cooling_power_consumption_coefficient_2`'.format(value))
         self._data["Cooling Power Consumption Coefficient 2"] = value
 
@@ -34777,7 +35666,7 @@ class CoilCoolingWaterToAirHeatPumpEquationFit(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `cooling_power_consumption_coefficient_3`'.format(value))
         self._data["Cooling Power Consumption Coefficient 3"] = value
 
@@ -34806,7 +35695,7 @@ class CoilCoolingWaterToAirHeatPumpEquationFit(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `cooling_power_consumption_coefficient_4`'.format(value))
         self._data["Cooling Power Consumption Coefficient 4"] = value
 
@@ -34835,7 +35724,7 @@ class CoilCoolingWaterToAirHeatPumpEquationFit(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `cooling_power_consumption_coefficient_5`'.format(value))
         self._data["Cooling Power Consumption Coefficient 5"] = value
 
@@ -34873,7 +35762,7 @@ class CoilCoolingWaterToAirHeatPumpEquationFit(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `nominal_time_for_condensate_removal_to_begin`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -34916,7 +35805,7 @@ class CoilCoolingWaterToAirHeatPumpEquationFit(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `ratio_of_initial_moisture_evaporation_rate_and_steady_state_latent_capacity`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -34968,7 +35857,6 @@ class CoilCoolingWaterToAirHeatPumpVariableSpeedEquationFit(object):
         Equation-fit model uses normalized curves to describe the heat pump performance.
         Requires two to ten sets of performance data and will interpolate between speeds.
         Modeled as a single coil with variable-speed compressor.
-    
     """
     internal_name = "Coil:Cooling:WaterToAirHeatPump:VariableSpeedEquationFit"
     field_count = 144
@@ -35122,15 +36010,16 @@ class CoilCoolingWaterToAirHeatPumpVariableSpeedEquationFit(object):
         self._data["Speed 10 Energy Input Ratio Function of Water Flow Fraction Curve Name"] = None
         self._data["Speed 10 Reference Unit Waste Heat Fraction of Input Power At Rated Conditions"] = None
         self._data["Speed 10 Waste Heat Function of Temperature Curve Name"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -36140,6 +37029,7 @@ class CoilCoolingWaterToAirHeatPumpVariableSpeedEquationFit(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -36166,7 +37056,7 @@ class CoilCoolingWaterToAirHeatPumpVariableSpeedEquationFit(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -36201,7 +37091,7 @@ class CoilCoolingWaterToAirHeatPumpVariableSpeedEquationFit(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `watertorefrigerant_hx_water_inlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -36236,7 +37126,7 @@ class CoilCoolingWaterToAirHeatPumpVariableSpeedEquationFit(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `watertorefrigerant_hx_water_outlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -36271,7 +37161,7 @@ class CoilCoolingWaterToAirHeatPumpVariableSpeedEquationFit(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `indoor_air_inlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -36306,7 +37196,7 @@ class CoilCoolingWaterToAirHeatPumpVariableSpeedEquationFit(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `indoor_air_outlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -36345,8 +37235,15 @@ class CoilCoolingWaterToAirHeatPumpVariableSpeedEquationFit(object):
             try:
                 value = int(value)
             except ValueError:
-                raise ValueError('value {} need to be of type int '
-                                 'for field `number_of_speeds`'.format(value))
+                if not self.strict:
+                    try:
+                        conv_value = int(float(value))
+                        logging.warn('Cast float {} to int {}, precision may be lost '
+                                     'for field `number_of_speeds`'.format(value, conv_value))
+                        value = conv_value
+                    except ValueError:
+                        raise ValueError('value {} need to be of type int '
+                                         'for field `number_of_speeds`'.format(value))
             if value < 1:
                 raise ValueError('value need to be greater or equal 1 '
                                  'for field `number_of_speeds`')
@@ -36383,8 +37280,15 @@ class CoilCoolingWaterToAirHeatPumpVariableSpeedEquationFit(object):
             try:
                 value = int(value)
             except ValueError:
-                raise ValueError('value {} need to be of type int '
-                                 'for field `nominal_speed_level`'.format(value))
+                if not self.strict:
+                    try:
+                        conv_value = int(float(value))
+                        logging.warn('Cast float {} to int {}, precision may be lost '
+                                     'for field `nominal_speed_level`'.format(value, conv_value))
+                        value = conv_value
+                    except ValueError:
+                        raise ValueError('value {} need to be of type int '
+                                         'for field `nominal_speed_level`'.format(value))
         self._data["Nominal Speed Level"] = value
 
     @property
@@ -36417,12 +37321,17 @@ class CoilCoolingWaterToAirHeatPumpVariableSpeedEquationFit(object):
                 if value_lower == "autosize":
                     self._data["Gross Rated Total Cooling Capacity At Selected Nominal Speed Level"] = "Autosize"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autosize" '
+                                 'for field `gross_rated_total_cooling_capacity_at_selected_nominal_speed_level`'.format(value))
+                    self._data["Gross Rated Total Cooling Capacity At Selected Nominal Speed Level"] = "Autosize"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autosize"'
                                  'for field `gross_rated_total_cooling_capacity_at_selected_nominal_speed_level`'.format(value))
         self._data["Gross Rated Total Cooling Capacity At Selected Nominal Speed Level"] = value
 
@@ -36455,12 +37364,17 @@ class CoilCoolingWaterToAirHeatPumpVariableSpeedEquationFit(object):
                 if value_lower == "autosize":
                     self._data["Rated Air Flow Rate At Selected Nominal Speed Level"] = "Autosize"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autosize" '
+                                 'for field `rated_air_flow_rate_at_selected_nominal_speed_level`'.format(value))
+                    self._data["Rated Air Flow Rate At Selected Nominal Speed Level"] = "Autosize"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autosize"'
                                  'for field `rated_air_flow_rate_at_selected_nominal_speed_level`'.format(value))
         self._data["Rated Air Flow Rate At Selected Nominal Speed Level"] = value
 
@@ -36493,12 +37407,17 @@ class CoilCoolingWaterToAirHeatPumpVariableSpeedEquationFit(object):
                 if value_lower == "autosize":
                     self._data["Rated Water Flow Rate At Selected Nominal Speed Level"] = "Autosize"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autosize" '
+                                 'for field `rated_water_flow_rate_at_selected_nominal_speed_level`'.format(value))
+                    self._data["Rated Water Flow Rate At Selected Nominal Speed Level"] = "Autosize"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autosize"'
                                  'for field `rated_water_flow_rate_at_selected_nominal_speed_level`'.format(value))
         self._data["Rated Water Flow Rate At Selected Nominal Speed Level"] = value
 
@@ -36530,7 +37449,7 @@ class CoilCoolingWaterToAirHeatPumpVariableSpeedEquationFit(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `nominal_time_for_condensate_to_begin_leaving_the_coil`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -36565,7 +37484,7 @@ class CoilCoolingWaterToAirHeatPumpVariableSpeedEquationFit(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `initial_moisture_evaporation_rate_divided_by_steadystate_ac_latent_capacity`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -36601,7 +37520,7 @@ class CoilCoolingWaterToAirHeatPumpVariableSpeedEquationFit(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `flag_for_using_hot_gas_reheat_0_or_1`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -36637,7 +37556,7 @@ class CoilCoolingWaterToAirHeatPumpVariableSpeedEquationFit(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `energy_part_load_fraction_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -36675,7 +37594,7 @@ class CoilCoolingWaterToAirHeatPumpVariableSpeedEquationFit(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `speed_1_reference_unit_gross_rated_total_cooling_capacity`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -36699,6 +37618,7 @@ class CoilCoolingWaterToAirHeatPumpVariableSpeedEquationFit(object):
             value (float): value for IDD Field `Speed 1 Reference Unit Gross Rated Sensible Heat Ratio`
                 Units: dimensionless
                 value >= 0.0
+                value <= 1.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -36709,10 +37629,13 @@ class CoilCoolingWaterToAirHeatPumpVariableSpeedEquationFit(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `speed_1_reference_unit_gross_rated_sensible_heat_ratio`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
+                                 'for field `speed_1_reference_unit_gross_rated_sensible_heat_ratio`')
+            if value > 1.0:
+                raise ValueError('value need to be smaller 1.0 '
                                  'for field `speed_1_reference_unit_gross_rated_sensible_heat_ratio`')
         self._data["Speed 1 Reference Unit Gross Rated Sensible Heat Ratio"] = value
 
@@ -36743,7 +37666,7 @@ class CoilCoolingWaterToAirHeatPumpVariableSpeedEquationFit(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `speed_1_reference_unit_gross_rated_cooling_cop`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -36777,7 +37700,7 @@ class CoilCoolingWaterToAirHeatPumpVariableSpeedEquationFit(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `speed_1_reference_unit_rated_air_flow_rate`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -36811,7 +37734,7 @@ class CoilCoolingWaterToAirHeatPumpVariableSpeedEquationFit(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `speed_1_reference_unit_rated_water_flow_rate`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -36847,7 +37770,7 @@ class CoilCoolingWaterToAirHeatPumpVariableSpeedEquationFit(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `speed_1_total_cooling_capacity_function_of_temperature_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -36886,7 +37809,7 @@ class CoilCoolingWaterToAirHeatPumpVariableSpeedEquationFit(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `speed_1_total_cooling_capacity_function_of_air_flow_fraction_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -36925,7 +37848,7 @@ class CoilCoolingWaterToAirHeatPumpVariableSpeedEquationFit(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `speed_1_total_cooling_capacity_function_of_water_flow_fraction_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -36964,7 +37887,7 @@ class CoilCoolingWaterToAirHeatPumpVariableSpeedEquationFit(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `speed_1_energy_input_ratio_function_of_temperature_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -37003,7 +37926,7 @@ class CoilCoolingWaterToAirHeatPumpVariableSpeedEquationFit(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `speed_1_energy_input_ratio_function_of_air_flow_fraction_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -37042,7 +37965,7 @@ class CoilCoolingWaterToAirHeatPumpVariableSpeedEquationFit(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `speed_1_energy_input_ratio_function_of_water_flow_fraction_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -37079,7 +38002,7 @@ class CoilCoolingWaterToAirHeatPumpVariableSpeedEquationFit(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `speed_1_reference_unit_waste_heat_fraction_of_input_power_at_rated_conditions`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -37115,7 +38038,7 @@ class CoilCoolingWaterToAirHeatPumpVariableSpeedEquationFit(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `speed_1_waste_heat_function_of_temperature_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -37153,7 +38076,7 @@ class CoilCoolingWaterToAirHeatPumpVariableSpeedEquationFit(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `speed_2_reference_unit_gross_rated_total_cooling_capacity`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -37177,6 +38100,7 @@ class CoilCoolingWaterToAirHeatPumpVariableSpeedEquationFit(object):
             value (float): value for IDD Field `Speed 2 Reference Unit Gross Rated Sensible Heat Ratio`
                 Units: dimensionless
                 value >= 0.0
+                value <= 1.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -37187,10 +38111,13 @@ class CoilCoolingWaterToAirHeatPumpVariableSpeedEquationFit(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `speed_2_reference_unit_gross_rated_sensible_heat_ratio`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
+                                 'for field `speed_2_reference_unit_gross_rated_sensible_heat_ratio`')
+            if value > 1.0:
+                raise ValueError('value need to be smaller 1.0 '
                                  'for field `speed_2_reference_unit_gross_rated_sensible_heat_ratio`')
         self._data["Speed 2 Reference Unit Gross Rated Sensible Heat Ratio"] = value
 
@@ -37221,7 +38148,7 @@ class CoilCoolingWaterToAirHeatPumpVariableSpeedEquationFit(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `speed_2_reference_unit_gross_rated_cooling_cop`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -37255,7 +38182,7 @@ class CoilCoolingWaterToAirHeatPumpVariableSpeedEquationFit(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `speed_2_reference_unit_rated_air_flow_rate`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -37289,7 +38216,7 @@ class CoilCoolingWaterToAirHeatPumpVariableSpeedEquationFit(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `speed_2_reference_unit_rated_water_flow_rate`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -37325,7 +38252,7 @@ class CoilCoolingWaterToAirHeatPumpVariableSpeedEquationFit(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `speed_2_total_cooling_capacity_function_of_temperature_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -37364,7 +38291,7 @@ class CoilCoolingWaterToAirHeatPumpVariableSpeedEquationFit(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `speed_2_total_cooling_capacity_function_of_air_flow_fraction_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -37403,7 +38330,7 @@ class CoilCoolingWaterToAirHeatPumpVariableSpeedEquationFit(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `speed_2_total_cooling_capacity_function_of_water_flow_fraction_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -37442,7 +38369,7 @@ class CoilCoolingWaterToAirHeatPumpVariableSpeedEquationFit(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `speed_2_energy_input_ratio_function_of_temperature_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -37481,7 +38408,7 @@ class CoilCoolingWaterToAirHeatPumpVariableSpeedEquationFit(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `speed_2_energy_input_ratio_function_of_air_flow_fraction_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -37520,7 +38447,7 @@ class CoilCoolingWaterToAirHeatPumpVariableSpeedEquationFit(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `speed_2_energy_input_ratio_function_of_water_flow_fraction_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -37557,7 +38484,7 @@ class CoilCoolingWaterToAirHeatPumpVariableSpeedEquationFit(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `speed_2_reference_unit_waste_heat_fraction_of_input_power_at_rated_conditions`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -37593,7 +38520,7 @@ class CoilCoolingWaterToAirHeatPumpVariableSpeedEquationFit(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `speed_2_waste_heat_function_of_temperature_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -37631,7 +38558,7 @@ class CoilCoolingWaterToAirHeatPumpVariableSpeedEquationFit(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `speed_3_reference_unit_gross_rated_total_cooling_capacity`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -37655,6 +38582,7 @@ class CoilCoolingWaterToAirHeatPumpVariableSpeedEquationFit(object):
             value (float): value for IDD Field `Speed 3 Reference Unit Gross Rated Sensible Heat Ratio`
                 Units: dimensionless
                 value >= 0.0
+                value <= 1.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -37665,10 +38593,13 @@ class CoilCoolingWaterToAirHeatPumpVariableSpeedEquationFit(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `speed_3_reference_unit_gross_rated_sensible_heat_ratio`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
+                                 'for field `speed_3_reference_unit_gross_rated_sensible_heat_ratio`')
+            if value > 1.0:
+                raise ValueError('value need to be smaller 1.0 '
                                  'for field `speed_3_reference_unit_gross_rated_sensible_heat_ratio`')
         self._data["Speed 3 Reference Unit Gross Rated Sensible Heat Ratio"] = value
 
@@ -37699,7 +38630,7 @@ class CoilCoolingWaterToAirHeatPumpVariableSpeedEquationFit(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `speed_3_reference_unit_gross_rated_cooling_cop`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -37733,7 +38664,7 @@ class CoilCoolingWaterToAirHeatPumpVariableSpeedEquationFit(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `speed_3_reference_unit_rated_air_flow_rate`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -37767,7 +38698,7 @@ class CoilCoolingWaterToAirHeatPumpVariableSpeedEquationFit(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `speed_3_reference_unit_rated_water_flow_rate`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -37804,7 +38735,7 @@ class CoilCoolingWaterToAirHeatPumpVariableSpeedEquationFit(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `speed_3_total_cooling_capacity_function_of_temperature_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -37844,7 +38775,7 @@ class CoilCoolingWaterToAirHeatPumpVariableSpeedEquationFit(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `speed_3_total_cooling_capacity_function_of_air_flow_fraction_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -37884,7 +38815,7 @@ class CoilCoolingWaterToAirHeatPumpVariableSpeedEquationFit(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `speed_3_total_cooling_capacity_function_of_water_flow_fraction_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -37924,7 +38855,7 @@ class CoilCoolingWaterToAirHeatPumpVariableSpeedEquationFit(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `speed_3_energy_input_ratio_function_of_temperature_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -37964,7 +38895,7 @@ class CoilCoolingWaterToAirHeatPumpVariableSpeedEquationFit(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `speed_3_energy_input_ratio_function_of_air_flow_fraction_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -38004,7 +38935,7 @@ class CoilCoolingWaterToAirHeatPumpVariableSpeedEquationFit(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `speed_3_energy_input_ratio_function_of_water_flow_fraction_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -38041,7 +38972,7 @@ class CoilCoolingWaterToAirHeatPumpVariableSpeedEquationFit(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `speed_3_reference_unit_waste_heat_fraction_of_input_power_at_rated_conditions`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -38078,7 +39009,7 @@ class CoilCoolingWaterToAirHeatPumpVariableSpeedEquationFit(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `speed_3_waste_heat_function_of_temperature_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -38116,7 +39047,7 @@ class CoilCoolingWaterToAirHeatPumpVariableSpeedEquationFit(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `speed_4_reference_unit_gross_rated_total_cooling_capacity`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -38140,6 +39071,7 @@ class CoilCoolingWaterToAirHeatPumpVariableSpeedEquationFit(object):
             value (float): value for IDD Field `Speed 4 Reference Unit Gross Rated Sensible Heat Ratio`
                 Units: dimensionless
                 value >= 0.0
+                value <= 1.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -38150,10 +39082,13 @@ class CoilCoolingWaterToAirHeatPumpVariableSpeedEquationFit(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `speed_4_reference_unit_gross_rated_sensible_heat_ratio`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
+                                 'for field `speed_4_reference_unit_gross_rated_sensible_heat_ratio`')
+            if value > 1.0:
+                raise ValueError('value need to be smaller 1.0 '
                                  'for field `speed_4_reference_unit_gross_rated_sensible_heat_ratio`')
         self._data["Speed 4 Reference Unit Gross Rated Sensible Heat Ratio"] = value
 
@@ -38184,7 +39119,7 @@ class CoilCoolingWaterToAirHeatPumpVariableSpeedEquationFit(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `speed_4_reference_unit_gross_rated_cooling_cop`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -38218,7 +39153,7 @@ class CoilCoolingWaterToAirHeatPumpVariableSpeedEquationFit(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `speed_4_reference_unit_rated_air_flow_rate`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -38252,7 +39187,7 @@ class CoilCoolingWaterToAirHeatPumpVariableSpeedEquationFit(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `speed_4_reference_unit_rated_water_flow_rate`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -38289,7 +39224,7 @@ class CoilCoolingWaterToAirHeatPumpVariableSpeedEquationFit(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `speed_4_total_cooling_capacity_function_of_temperature_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -38329,7 +39264,7 @@ class CoilCoolingWaterToAirHeatPumpVariableSpeedEquationFit(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `speed_4_total_cooling_capacity_function_of_air_flow_fraction_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -38369,7 +39304,7 @@ class CoilCoolingWaterToAirHeatPumpVariableSpeedEquationFit(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `speed_4_total_cooling_capacity_function_of_water_flow_fraction_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -38409,7 +39344,7 @@ class CoilCoolingWaterToAirHeatPumpVariableSpeedEquationFit(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `speed_4_energy_input_ratio_function_of_temperature_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -38449,7 +39384,7 @@ class CoilCoolingWaterToAirHeatPumpVariableSpeedEquationFit(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `speed_4_energy_input_ratio_function_of_air_flow_fraction_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -38489,7 +39424,7 @@ class CoilCoolingWaterToAirHeatPumpVariableSpeedEquationFit(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `speed_4_energy_input_ratio_function_of_water_flow_fraction_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -38526,7 +39461,7 @@ class CoilCoolingWaterToAirHeatPumpVariableSpeedEquationFit(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `speed_4_reference_unit_waste_heat_fraction_of_input_power_at_rated_conditions`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -38563,7 +39498,7 @@ class CoilCoolingWaterToAirHeatPumpVariableSpeedEquationFit(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `speed_4_waste_heat_function_of_temperature_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -38601,7 +39536,7 @@ class CoilCoolingWaterToAirHeatPumpVariableSpeedEquationFit(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `speed_5_reference_unit_gross_rated_total_cooling_capacity`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -38625,6 +39560,7 @@ class CoilCoolingWaterToAirHeatPumpVariableSpeedEquationFit(object):
             value (float): value for IDD Field `Speed 5 Reference Unit Gross Rated Sensible Heat Ratio`
                 Units: dimensionless
                 value >= 0.0
+                value <= 1.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -38635,10 +39571,13 @@ class CoilCoolingWaterToAirHeatPumpVariableSpeedEquationFit(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `speed_5_reference_unit_gross_rated_sensible_heat_ratio`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
+                                 'for field `speed_5_reference_unit_gross_rated_sensible_heat_ratio`')
+            if value > 1.0:
+                raise ValueError('value need to be smaller 1.0 '
                                  'for field `speed_5_reference_unit_gross_rated_sensible_heat_ratio`')
         self._data["Speed 5 Reference Unit Gross Rated Sensible Heat Ratio"] = value
 
@@ -38669,7 +39608,7 @@ class CoilCoolingWaterToAirHeatPumpVariableSpeedEquationFit(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `speed_5_reference_unit_gross_rated_cooling_cop`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -38703,7 +39642,7 @@ class CoilCoolingWaterToAirHeatPumpVariableSpeedEquationFit(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `speed_5_reference_unit_rated_air_flow_rate`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -38737,7 +39676,7 @@ class CoilCoolingWaterToAirHeatPumpVariableSpeedEquationFit(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `speed_5_reference_unit_rated_water_flow_rate`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -38774,7 +39713,7 @@ class CoilCoolingWaterToAirHeatPumpVariableSpeedEquationFit(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `speed_5_total_cooling_capacity_function_of_temperature_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -38814,7 +39753,7 @@ class CoilCoolingWaterToAirHeatPumpVariableSpeedEquationFit(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `speed_5_total_cooling_capacity_function_of_air_flow_fraction_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -38854,7 +39793,7 @@ class CoilCoolingWaterToAirHeatPumpVariableSpeedEquationFit(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `speed_5_total_cooling_capacity_function_of_water_flow_fraction_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -38894,7 +39833,7 @@ class CoilCoolingWaterToAirHeatPumpVariableSpeedEquationFit(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `speed_5_energy_input_ratio_function_of_temperature_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -38934,7 +39873,7 @@ class CoilCoolingWaterToAirHeatPumpVariableSpeedEquationFit(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `speed_5_energy_input_ratio_function_of_air_flow_fraction_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -38974,7 +39913,7 @@ class CoilCoolingWaterToAirHeatPumpVariableSpeedEquationFit(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `speed_5_energy_input_ratio_function_of_water_flow_fraction_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -39011,7 +39950,7 @@ class CoilCoolingWaterToAirHeatPumpVariableSpeedEquationFit(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `speed_5_reference_unit_waste_heat_fraction_of_input_power_at_rated_conditions`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -39048,7 +39987,7 @@ class CoilCoolingWaterToAirHeatPumpVariableSpeedEquationFit(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `speed_5_waste_heat_function_of_temperature_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -39086,7 +40025,7 @@ class CoilCoolingWaterToAirHeatPumpVariableSpeedEquationFit(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `speed_6_reference_unit_gross_rated_total_cooling_capacity`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -39110,6 +40049,7 @@ class CoilCoolingWaterToAirHeatPumpVariableSpeedEquationFit(object):
             value (float): value for IDD Field `Speed 6 Reference Unit Gross Rated Sensible Heat Ratio`
                 Units: dimensionless
                 value >= 0.0
+                value <= 1.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -39120,10 +40060,13 @@ class CoilCoolingWaterToAirHeatPumpVariableSpeedEquationFit(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `speed_6_reference_unit_gross_rated_sensible_heat_ratio`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
+                                 'for field `speed_6_reference_unit_gross_rated_sensible_heat_ratio`')
+            if value > 1.0:
+                raise ValueError('value need to be smaller 1.0 '
                                  'for field `speed_6_reference_unit_gross_rated_sensible_heat_ratio`')
         self._data["Speed 6 Reference Unit Gross Rated Sensible Heat Ratio"] = value
 
@@ -39154,7 +40097,7 @@ class CoilCoolingWaterToAirHeatPumpVariableSpeedEquationFit(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `speed_6_reference_unit_gross_rated_cooling_cop`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -39188,7 +40131,7 @@ class CoilCoolingWaterToAirHeatPumpVariableSpeedEquationFit(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `speed_6_reference_unit_rated_air_flow_rate`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -39222,7 +40165,7 @@ class CoilCoolingWaterToAirHeatPumpVariableSpeedEquationFit(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `speed_6_reference_unit_rated_water_flow_rate`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -39259,7 +40202,7 @@ class CoilCoolingWaterToAirHeatPumpVariableSpeedEquationFit(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `speed_6_total_cooling_capacity_function_of_temperature_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -39299,7 +40242,7 @@ class CoilCoolingWaterToAirHeatPumpVariableSpeedEquationFit(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `speed_6_total_cooling_capacity_function_of_air_flow_fraction_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -39339,7 +40282,7 @@ class CoilCoolingWaterToAirHeatPumpVariableSpeedEquationFit(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `speed_6_total_cooling_capacity_function_of_water_flow_fraction_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -39379,7 +40322,7 @@ class CoilCoolingWaterToAirHeatPumpVariableSpeedEquationFit(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `speed_6_energy_input_ratio_function_of_temperature_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -39419,7 +40362,7 @@ class CoilCoolingWaterToAirHeatPumpVariableSpeedEquationFit(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `speed_6_energy_input_ratio_function_of_air_flow_fraction_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -39459,7 +40402,7 @@ class CoilCoolingWaterToAirHeatPumpVariableSpeedEquationFit(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `speed_6_energy_input_ratio_function_of_water_flow_fraction_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -39496,7 +40439,7 @@ class CoilCoolingWaterToAirHeatPumpVariableSpeedEquationFit(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `speed_6_reference_unit_waste_heat_fraction_of_input_power_at_rated_conditions`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -39533,7 +40476,7 @@ class CoilCoolingWaterToAirHeatPumpVariableSpeedEquationFit(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `speed_6_waste_heat_function_of_temperature_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -39571,7 +40514,7 @@ class CoilCoolingWaterToAirHeatPumpVariableSpeedEquationFit(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `speed_7_reference_unit_gross_rated_total_cooling_capacity`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -39595,6 +40538,7 @@ class CoilCoolingWaterToAirHeatPumpVariableSpeedEquationFit(object):
             value (float): value for IDD Field `Speed 7 Reference Unit Gross Rated Sensible Heat Ratio`
                 Units: dimensionless
                 value >= 0.0
+                value <= 1.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -39605,10 +40549,13 @@ class CoilCoolingWaterToAirHeatPumpVariableSpeedEquationFit(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `speed_7_reference_unit_gross_rated_sensible_heat_ratio`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
+                                 'for field `speed_7_reference_unit_gross_rated_sensible_heat_ratio`')
+            if value > 1.0:
+                raise ValueError('value need to be smaller 1.0 '
                                  'for field `speed_7_reference_unit_gross_rated_sensible_heat_ratio`')
         self._data["Speed 7 Reference Unit Gross Rated Sensible Heat Ratio"] = value
 
@@ -39639,7 +40586,7 @@ class CoilCoolingWaterToAirHeatPumpVariableSpeedEquationFit(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `speed_7_reference_unit_gross_rated_cooling_cop`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -39673,7 +40620,7 @@ class CoilCoolingWaterToAirHeatPumpVariableSpeedEquationFit(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `speed_7_reference_unit_rated_air_flow_rate`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -39707,7 +40654,7 @@ class CoilCoolingWaterToAirHeatPumpVariableSpeedEquationFit(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `speed_7_reference_unit_rated_water_flow_rate`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -39744,7 +40691,7 @@ class CoilCoolingWaterToAirHeatPumpVariableSpeedEquationFit(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `speed_7_total_cooling_capacity_function_of_temperature_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -39784,7 +40731,7 @@ class CoilCoolingWaterToAirHeatPumpVariableSpeedEquationFit(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `speed_7_total_cooling_capacity_function_of_air_flow_fraction_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -39824,7 +40771,7 @@ class CoilCoolingWaterToAirHeatPumpVariableSpeedEquationFit(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `speed_7_total_cooling_capacity_function_of_water_flow_fraction_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -39864,7 +40811,7 @@ class CoilCoolingWaterToAirHeatPumpVariableSpeedEquationFit(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `speed_7_energy_input_ratio_function_of_temperature_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -39904,7 +40851,7 @@ class CoilCoolingWaterToAirHeatPumpVariableSpeedEquationFit(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `speed_7_energy_input_ratio_function_of_air_flow_fraction_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -39944,7 +40891,7 @@ class CoilCoolingWaterToAirHeatPumpVariableSpeedEquationFit(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `speed_7_energy_input_ratio_function_of_water_flow_fraction_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -39981,7 +40928,7 @@ class CoilCoolingWaterToAirHeatPumpVariableSpeedEquationFit(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `speed_7_reference_unit_waste_heat_fraction_of_input_power_at_rated_conditions`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -40018,7 +40965,7 @@ class CoilCoolingWaterToAirHeatPumpVariableSpeedEquationFit(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `speed_7_waste_heat_function_of_temperature_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -40056,7 +41003,7 @@ class CoilCoolingWaterToAirHeatPumpVariableSpeedEquationFit(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `speed_8_reference_unit_gross_rated_total_cooling_capacity`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -40080,6 +41027,7 @@ class CoilCoolingWaterToAirHeatPumpVariableSpeedEquationFit(object):
             value (float): value for IDD Field `Speed 8 Reference Unit Gross Rated Sensible Heat Ratio`
                 Units: dimensionless
                 value >= 0.0
+                value <= 1.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -40090,10 +41038,13 @@ class CoilCoolingWaterToAirHeatPumpVariableSpeedEquationFit(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `speed_8_reference_unit_gross_rated_sensible_heat_ratio`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
+                                 'for field `speed_8_reference_unit_gross_rated_sensible_heat_ratio`')
+            if value > 1.0:
+                raise ValueError('value need to be smaller 1.0 '
                                  'for field `speed_8_reference_unit_gross_rated_sensible_heat_ratio`')
         self._data["Speed 8 Reference Unit Gross Rated Sensible Heat Ratio"] = value
 
@@ -40124,7 +41075,7 @@ class CoilCoolingWaterToAirHeatPumpVariableSpeedEquationFit(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `speed_8_reference_unit_gross_rated_cooling_cop`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -40158,7 +41109,7 @@ class CoilCoolingWaterToAirHeatPumpVariableSpeedEquationFit(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `speed_8_reference_unit_rated_air_flow_rate`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -40192,7 +41143,7 @@ class CoilCoolingWaterToAirHeatPumpVariableSpeedEquationFit(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `speed_8_reference_unit_rated_water_flow_rate`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -40229,7 +41180,7 @@ class CoilCoolingWaterToAirHeatPumpVariableSpeedEquationFit(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `speed_8_total_cooling_capacity_function_of_temperature_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -40269,7 +41220,7 @@ class CoilCoolingWaterToAirHeatPumpVariableSpeedEquationFit(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `speed_8_total_cooling_capacity_function_of_air_flow_fraction_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -40309,7 +41260,7 @@ class CoilCoolingWaterToAirHeatPumpVariableSpeedEquationFit(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `speed_8_total_cooling_capacity_function_of_water_flow_fraction_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -40349,7 +41300,7 @@ class CoilCoolingWaterToAirHeatPumpVariableSpeedEquationFit(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `speed_8_energy_input_ratio_function_of_temperature_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -40389,7 +41340,7 @@ class CoilCoolingWaterToAirHeatPumpVariableSpeedEquationFit(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `speed_8_energy_input_ratio_function_of_air_flow_fraction_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -40429,7 +41380,7 @@ class CoilCoolingWaterToAirHeatPumpVariableSpeedEquationFit(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `speed_8_energy_input_ratio_function_of_water_flow_fraction_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -40466,7 +41417,7 @@ class CoilCoolingWaterToAirHeatPumpVariableSpeedEquationFit(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `speed_8_reference_unit_waste_heat_fraction_of_input_power_at_rated_conditions`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -40503,7 +41454,7 @@ class CoilCoolingWaterToAirHeatPumpVariableSpeedEquationFit(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `speed_8_waste_heat_function_of_temperature_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -40541,7 +41492,7 @@ class CoilCoolingWaterToAirHeatPumpVariableSpeedEquationFit(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `speed_9_reference_unit_gross_rated_total_cooling_capacity`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -40565,6 +41516,7 @@ class CoilCoolingWaterToAirHeatPumpVariableSpeedEquationFit(object):
             value (float): value for IDD Field `Speed 9 Reference Unit Gross Rated Sensible Heat Ratio`
                 Units: dimensionless
                 value >= 0.0
+                value <= 1.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -40575,10 +41527,13 @@ class CoilCoolingWaterToAirHeatPumpVariableSpeedEquationFit(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `speed_9_reference_unit_gross_rated_sensible_heat_ratio`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
+                                 'for field `speed_9_reference_unit_gross_rated_sensible_heat_ratio`')
+            if value > 1.0:
+                raise ValueError('value need to be smaller 1.0 '
                                  'for field `speed_9_reference_unit_gross_rated_sensible_heat_ratio`')
         self._data["Speed 9 Reference Unit Gross Rated Sensible Heat Ratio"] = value
 
@@ -40609,7 +41564,7 @@ class CoilCoolingWaterToAirHeatPumpVariableSpeedEquationFit(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `speed_9_reference_unit_gross_rated_cooling_cop`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -40643,7 +41598,7 @@ class CoilCoolingWaterToAirHeatPumpVariableSpeedEquationFit(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `speed_9_reference_unit_rated_air_flow_rate`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -40677,7 +41632,7 @@ class CoilCoolingWaterToAirHeatPumpVariableSpeedEquationFit(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `speed_9_reference_unit_rated_water_flow_rate`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -40714,7 +41669,7 @@ class CoilCoolingWaterToAirHeatPumpVariableSpeedEquationFit(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `speed_9_total_cooling_capacity_function_of_temperature_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -40754,7 +41709,7 @@ class CoilCoolingWaterToAirHeatPumpVariableSpeedEquationFit(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `speed_9_total_cooling_capacity_function_of_air_flow_fraction_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -40794,7 +41749,7 @@ class CoilCoolingWaterToAirHeatPumpVariableSpeedEquationFit(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `speed_9_total_cooling_capacity_function_of_water_flow_fraction_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -40834,7 +41789,7 @@ class CoilCoolingWaterToAirHeatPumpVariableSpeedEquationFit(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `speed_9_energy_input_ratio_function_of_temperature_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -40874,7 +41829,7 @@ class CoilCoolingWaterToAirHeatPumpVariableSpeedEquationFit(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `speed_9_energy_input_ratio_function_of_air_flow_fraction_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -40914,7 +41869,7 @@ class CoilCoolingWaterToAirHeatPumpVariableSpeedEquationFit(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `speed_9_energy_input_ratio_function_of_water_flow_fraction_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -40951,7 +41906,7 @@ class CoilCoolingWaterToAirHeatPumpVariableSpeedEquationFit(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `speed_9_reference_unit_waste_heat_fraction_of_input_power_at_rated_conditions`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -40988,7 +41943,7 @@ class CoilCoolingWaterToAirHeatPumpVariableSpeedEquationFit(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `speed_9_waste_heat_function_of_temperature_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -41026,7 +41981,7 @@ class CoilCoolingWaterToAirHeatPumpVariableSpeedEquationFit(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `speed_10_reference_unit_gross_rated_total_cooling_capacity`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -41050,6 +42005,7 @@ class CoilCoolingWaterToAirHeatPumpVariableSpeedEquationFit(object):
             value (float): value for IDD Field `Speed 10 Reference Unit Gross Rated Sensible Heat Ratio`
                 Units: dimensionless
                 value >= 0.0
+                value <= 1.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -41060,10 +42016,13 @@ class CoilCoolingWaterToAirHeatPumpVariableSpeedEquationFit(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `speed_10_reference_unit_gross_rated_sensible_heat_ratio`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
+                                 'for field `speed_10_reference_unit_gross_rated_sensible_heat_ratio`')
+            if value > 1.0:
+                raise ValueError('value need to be smaller 1.0 '
                                  'for field `speed_10_reference_unit_gross_rated_sensible_heat_ratio`')
         self._data["Speed 10 Reference Unit Gross Rated Sensible Heat Ratio"] = value
 
@@ -41094,7 +42053,7 @@ class CoilCoolingWaterToAirHeatPumpVariableSpeedEquationFit(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `speed_10_reference_unit_gross_rated_cooling_cop`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -41128,7 +42087,7 @@ class CoilCoolingWaterToAirHeatPumpVariableSpeedEquationFit(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `speed_10_reference_unit_rated_air_flow_rate`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -41162,7 +42121,7 @@ class CoilCoolingWaterToAirHeatPumpVariableSpeedEquationFit(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `speed_10_reference_unit_rated_water_flow_rate`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -41199,7 +42158,7 @@ class CoilCoolingWaterToAirHeatPumpVariableSpeedEquationFit(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `speed_10_total_cooling_capacity_function_of_temperature_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -41239,7 +42198,7 @@ class CoilCoolingWaterToAirHeatPumpVariableSpeedEquationFit(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `speed_10_total_cooling_capacity_function_of_air_flow_fraction_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -41279,7 +42238,7 @@ class CoilCoolingWaterToAirHeatPumpVariableSpeedEquationFit(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `speed_10_total_cooling_capacity_function_of_water_flow_fraction_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -41319,7 +42278,7 @@ class CoilCoolingWaterToAirHeatPumpVariableSpeedEquationFit(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `speed_10_energy_input_ratio_function_of_temperature_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -41359,7 +42318,7 @@ class CoilCoolingWaterToAirHeatPumpVariableSpeedEquationFit(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `speed_10_energy_input_ratio_function_of_air_flow_fraction_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -41399,7 +42358,7 @@ class CoilCoolingWaterToAirHeatPumpVariableSpeedEquationFit(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `speed_10_energy_input_ratio_function_of_water_flow_fraction_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -41436,7 +42395,7 @@ class CoilCoolingWaterToAirHeatPumpVariableSpeedEquationFit(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `speed_10_reference_unit_waste_heat_fraction_of_input_power_at_rated_conditions`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -41473,7 +42432,7 @@ class CoilCoolingWaterToAirHeatPumpVariableSpeedEquationFit(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `speed_10_waste_heat_function_of_temperature_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -41522,7 +42481,6 @@ class CoilHeatingWaterToAirHeatPumpEquationFit(object):
         Direct expansion (DX) heating coil for water-to-air heat pump (includes electric
         compressor), single-speed, equation-fit model. Equation-fit model uses normalized
         curves to describe the heat pump performance.
-    
     """
     internal_name = "Coil:Heating:WaterToAirHeatPump:EquationFit"
     field_count = 19
@@ -41551,15 +42509,16 @@ class CoilHeatingWaterToAirHeatPumpEquationFit(object):
         self._data["Heating Power Consumption Coefficient 3"] = None
         self._data["Heating Power Consumption Coefficient 4"] = None
         self._data["Heating Power Consumption Coefficient 5"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -41694,6 +42653,7 @@ class CoilHeatingWaterToAirHeatPumpEquationFit(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -41720,7 +42680,7 @@ class CoilHeatingWaterToAirHeatPumpEquationFit(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -41755,7 +42715,7 @@ class CoilHeatingWaterToAirHeatPumpEquationFit(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `water_inlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -41790,7 +42750,7 @@ class CoilHeatingWaterToAirHeatPumpEquationFit(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `water_outlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -41825,7 +42785,7 @@ class CoilHeatingWaterToAirHeatPumpEquationFit(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `air_inlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -41860,7 +42820,7 @@ class CoilHeatingWaterToAirHeatPumpEquationFit(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `air_outlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -41899,12 +42859,17 @@ class CoilHeatingWaterToAirHeatPumpEquationFit(object):
                 if value_lower == "autosize":
                     self._data["Rated Air Flow Rate"] = "Autosize"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autosize" '
+                                 'for field `rated_air_flow_rate`'.format(value))
+                    self._data["Rated Air Flow Rate"] = "Autosize"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autosize"'
                                  'for field `rated_air_flow_rate`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -41940,12 +42905,17 @@ class CoilHeatingWaterToAirHeatPumpEquationFit(object):
                 if value_lower == "autosize":
                     self._data["Rated Water Flow Rate"] = "Autosize"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autosize" '
+                                 'for field `rated_water_flow_rate`'.format(value))
+                    self._data["Rated Water Flow Rate"] = "Autosize"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autosize"'
                                  'for field `rated_water_flow_rate`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -41982,12 +42952,17 @@ class CoilHeatingWaterToAirHeatPumpEquationFit(object):
                 if value_lower == "autosize":
                     self._data["Gross Rated Heating Capacity"] = "Autosize"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autosize" '
+                                 'for field `gross_rated_heating_capacity`'.format(value))
+                    self._data["Gross Rated Heating Capacity"] = "Autosize"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autosize"'
                                  'for field `gross_rated_heating_capacity`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -42020,7 +42995,7 @@ class CoilHeatingWaterToAirHeatPumpEquationFit(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `gross_rated_heating_cop`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -42052,7 +43027,7 @@ class CoilHeatingWaterToAirHeatPumpEquationFit(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `heating_capacity_coefficient_1`'.format(value))
         self._data["Heating Capacity Coefficient 1"] = value
 
@@ -42081,7 +43056,7 @@ class CoilHeatingWaterToAirHeatPumpEquationFit(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `heating_capacity_coefficient_2`'.format(value))
         self._data["Heating Capacity Coefficient 2"] = value
 
@@ -42110,7 +43085,7 @@ class CoilHeatingWaterToAirHeatPumpEquationFit(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `heating_capacity_coefficient_3`'.format(value))
         self._data["Heating Capacity Coefficient 3"] = value
 
@@ -42139,7 +43114,7 @@ class CoilHeatingWaterToAirHeatPumpEquationFit(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `heating_capacity_coefficient_4`'.format(value))
         self._data["Heating Capacity Coefficient 4"] = value
 
@@ -42168,7 +43143,7 @@ class CoilHeatingWaterToAirHeatPumpEquationFit(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `heating_capacity_coefficient_5`'.format(value))
         self._data["Heating Capacity Coefficient 5"] = value
 
@@ -42197,7 +43172,7 @@ class CoilHeatingWaterToAirHeatPumpEquationFit(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `heating_power_consumption_coefficient_1`'.format(value))
         self._data["Heating Power Consumption Coefficient 1"] = value
 
@@ -42226,7 +43201,7 @@ class CoilHeatingWaterToAirHeatPumpEquationFit(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `heating_power_consumption_coefficient_2`'.format(value))
         self._data["Heating Power Consumption Coefficient 2"] = value
 
@@ -42255,7 +43230,7 @@ class CoilHeatingWaterToAirHeatPumpEquationFit(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `heating_power_consumption_coefficient_3`'.format(value))
         self._data["Heating Power Consumption Coefficient 3"] = value
 
@@ -42284,7 +43259,7 @@ class CoilHeatingWaterToAirHeatPumpEquationFit(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `heating_power_consumption_coefficient_4`'.format(value))
         self._data["Heating Power Consumption Coefficient 4"] = value
 
@@ -42313,7 +43288,7 @@ class CoilHeatingWaterToAirHeatPumpEquationFit(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `heating_power_consumption_coefficient_5`'.format(value))
         self._data["Heating Power Consumption Coefficient 5"] = value
 
@@ -42357,7 +43332,6 @@ class CoilHeatingWaterToAirHeatPumpVariableSpeedEquationFit(object):
         compressor), variable-speed, equation-fit model. Equation-fit model uses normalized
         curves to describe the heat pump performance. Requires two to ten sets of performance
         data and will interpolate between speeds.
-    
     """
     internal_name = "Coil:Heating:WaterToAirHeatPump:VariableSpeedEquationFit"
     field_count = 131
@@ -42498,15 +43472,16 @@ class CoilHeatingWaterToAirHeatPumpVariableSpeedEquationFit(object):
         self._data["Speed 10 Energy Input Ratio Function of Water Flow Fraction Curve Name"] = None
         self._data["Speed 10 Reference Unit Waste Heat Fraction of Input Power At Rated Conditions"] = None
         self._data["Speed 10 Waste Heat Function of Temperature Curve Name"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -43425,6 +44400,7 @@ class CoilHeatingWaterToAirHeatPumpVariableSpeedEquationFit(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -43451,7 +44427,7 @@ class CoilHeatingWaterToAirHeatPumpVariableSpeedEquationFit(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -43486,7 +44462,7 @@ class CoilHeatingWaterToAirHeatPumpVariableSpeedEquationFit(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `watertorefrigerant_hx_water_inlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -43521,7 +44497,7 @@ class CoilHeatingWaterToAirHeatPumpVariableSpeedEquationFit(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `watertorefrigerant_hx_water_outlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -43556,7 +44532,7 @@ class CoilHeatingWaterToAirHeatPumpVariableSpeedEquationFit(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `indoor_air_inlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -43591,7 +44567,7 @@ class CoilHeatingWaterToAirHeatPumpVariableSpeedEquationFit(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `indoor_air_outlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -43630,8 +44606,15 @@ class CoilHeatingWaterToAirHeatPumpVariableSpeedEquationFit(object):
             try:
                 value = int(value)
             except ValueError:
-                raise ValueError('value {} need to be of type int '
-                                 'for field `number_of_speeds`'.format(value))
+                if not self.strict:
+                    try:
+                        conv_value = int(float(value))
+                        logging.warn('Cast float {} to int {}, precision may be lost '
+                                     'for field `number_of_speeds`'.format(value, conv_value))
+                        value = conv_value
+                    except ValueError:
+                        raise ValueError('value {} need to be of type int '
+                                         'for field `number_of_speeds`'.format(value))
             if value < 1:
                 raise ValueError('value need to be greater or equal 1 '
                                  'for field `number_of_speeds`')
@@ -43668,8 +44651,15 @@ class CoilHeatingWaterToAirHeatPumpVariableSpeedEquationFit(object):
             try:
                 value = int(value)
             except ValueError:
-                raise ValueError('value {} need to be of type int '
-                                 'for field `nominal_speed_level`'.format(value))
+                if not self.strict:
+                    try:
+                        conv_value = int(float(value))
+                        logging.warn('Cast float {} to int {}, precision may be lost '
+                                     'for field `nominal_speed_level`'.format(value, conv_value))
+                        value = conv_value
+                    except ValueError:
+                        raise ValueError('value {} need to be of type int '
+                                         'for field `nominal_speed_level`'.format(value))
         self._data["Nominal Speed Level"] = value
 
     @property
@@ -43701,12 +44691,17 @@ class CoilHeatingWaterToAirHeatPumpVariableSpeedEquationFit(object):
                 if value_lower == "autosize":
                     self._data["Rated Heating Capacity At Selected Nominal Speed Level"] = "Autosize"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autosize" '
+                                 'for field `rated_heating_capacity_at_selected_nominal_speed_level`'.format(value))
+                    self._data["Rated Heating Capacity At Selected Nominal Speed Level"] = "Autosize"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autosize"'
                                  'for field `rated_heating_capacity_at_selected_nominal_speed_level`'.format(value))
         self._data["Rated Heating Capacity At Selected Nominal Speed Level"] = value
 
@@ -43739,12 +44734,17 @@ class CoilHeatingWaterToAirHeatPumpVariableSpeedEquationFit(object):
                 if value_lower == "autosize":
                     self._data["Rated Air Flow Rate At Selected Nominal Speed Level"] = "Autosize"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autosize" '
+                                 'for field `rated_air_flow_rate_at_selected_nominal_speed_level`'.format(value))
+                    self._data["Rated Air Flow Rate At Selected Nominal Speed Level"] = "Autosize"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autosize"'
                                  'for field `rated_air_flow_rate_at_selected_nominal_speed_level`'.format(value))
         self._data["Rated Air Flow Rate At Selected Nominal Speed Level"] = value
 
@@ -43777,12 +44777,17 @@ class CoilHeatingWaterToAirHeatPumpVariableSpeedEquationFit(object):
                 if value_lower == "autosize":
                     self._data["Rated Water Flow Rate At Selected Nominal Speed Level"] = "Autosize"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autosize" '
+                                 'for field `rated_water_flow_rate_at_selected_nominal_speed_level`'.format(value))
+                    self._data["Rated Water Flow Rate At Selected Nominal Speed Level"] = "Autosize"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autosize"'
                                  'for field `rated_water_flow_rate_at_selected_nominal_speed_level`'.format(value))
         self._data["Rated Water Flow Rate At Selected Nominal Speed Level"] = value
 
@@ -43815,7 +44820,7 @@ class CoilHeatingWaterToAirHeatPumpVariableSpeedEquationFit(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `energy_part_load_fraction_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -43853,7 +44858,7 @@ class CoilHeatingWaterToAirHeatPumpVariableSpeedEquationFit(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `speed_1_reference_unit_gross_rated_heating_capacity`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -43887,7 +44892,7 @@ class CoilHeatingWaterToAirHeatPumpVariableSpeedEquationFit(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `speed_1_reference_unit_gross_rated_heating_cop`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -43921,7 +44926,7 @@ class CoilHeatingWaterToAirHeatPumpVariableSpeedEquationFit(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `speed_1_reference_unit_rated_air_flow`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -43955,7 +44960,7 @@ class CoilHeatingWaterToAirHeatPumpVariableSpeedEquationFit(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `speed_1_reference_unit_rated_water_flow_rate`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -43991,7 +44996,7 @@ class CoilHeatingWaterToAirHeatPumpVariableSpeedEquationFit(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `speed_1_heating_capacity_function_of_temperature_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -44030,7 +45035,7 @@ class CoilHeatingWaterToAirHeatPumpVariableSpeedEquationFit(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `speed_1_total_heating_capacity_function_of_air_flow_fraction_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -44069,7 +45074,7 @@ class CoilHeatingWaterToAirHeatPumpVariableSpeedEquationFit(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `speed_1_heating_capacity_function_of_water_flow_fraction_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -44108,7 +45113,7 @@ class CoilHeatingWaterToAirHeatPumpVariableSpeedEquationFit(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `speed_1_energy_input_ratio_function_of_temperature_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -44147,7 +45152,7 @@ class CoilHeatingWaterToAirHeatPumpVariableSpeedEquationFit(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `speed_1_energy_input_ratio_function_of_air_flow_fraction_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -44186,7 +45191,7 @@ class CoilHeatingWaterToAirHeatPumpVariableSpeedEquationFit(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `speed_1_energy_input_ratio_function_of_water_flow_fraction_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -44223,7 +45228,7 @@ class CoilHeatingWaterToAirHeatPumpVariableSpeedEquationFit(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `speed_1_reference_unit_waste_heat_fraction_of_input_power_at_rated_conditions`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -44259,7 +45264,7 @@ class CoilHeatingWaterToAirHeatPumpVariableSpeedEquationFit(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `speed_1_waste_heat_function_of_temperature_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -44297,7 +45302,7 @@ class CoilHeatingWaterToAirHeatPumpVariableSpeedEquationFit(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `speed_2_reference_unit_gross_rated_heating_capacity`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -44331,7 +45336,7 @@ class CoilHeatingWaterToAirHeatPumpVariableSpeedEquationFit(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `speed_2_reference_unit_gross_rated_heating_cop`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -44365,7 +45370,7 @@ class CoilHeatingWaterToAirHeatPumpVariableSpeedEquationFit(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `speed_2_reference_unit_rated_air_flow_rate`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -44399,7 +45404,7 @@ class CoilHeatingWaterToAirHeatPumpVariableSpeedEquationFit(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `speed_2_reference_unit_rated_water_flow_rate`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -44435,7 +45440,7 @@ class CoilHeatingWaterToAirHeatPumpVariableSpeedEquationFit(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `speed_2_heating_capacity_function_of_temperature_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -44474,7 +45479,7 @@ class CoilHeatingWaterToAirHeatPumpVariableSpeedEquationFit(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `speed_2_total_heating_capacity_function_of_air_flow_fraction_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -44513,7 +45518,7 @@ class CoilHeatingWaterToAirHeatPumpVariableSpeedEquationFit(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `speed_2_heating_capacity_function_of_water_flow_fraction_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -44552,7 +45557,7 @@ class CoilHeatingWaterToAirHeatPumpVariableSpeedEquationFit(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `speed_2_energy_input_ratio_function_of_temperature_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -44591,7 +45596,7 @@ class CoilHeatingWaterToAirHeatPumpVariableSpeedEquationFit(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `speed_2_energy_input_ratio_function_of_air_flow_fraction_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -44631,7 +45636,7 @@ class CoilHeatingWaterToAirHeatPumpVariableSpeedEquationFit(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `speed_2_energy_input_ratio_function_of_water_flow_fraction_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -44668,7 +45673,7 @@ class CoilHeatingWaterToAirHeatPumpVariableSpeedEquationFit(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `speed_2_reference_unit_waste_heat_fraction_of_input_power_at_rated_conditions`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -44704,7 +45709,7 @@ class CoilHeatingWaterToAirHeatPumpVariableSpeedEquationFit(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `speed_2_waste_heat_function_of_temperature_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -44742,7 +45747,7 @@ class CoilHeatingWaterToAirHeatPumpVariableSpeedEquationFit(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `speed_3_reference_unit_gross_rated_heating_capacity`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -44776,7 +45781,7 @@ class CoilHeatingWaterToAirHeatPumpVariableSpeedEquationFit(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `speed_3_reference_unit_gross_rated_heating_cop`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -44810,7 +45815,7 @@ class CoilHeatingWaterToAirHeatPumpVariableSpeedEquationFit(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `speed_3_reference_unit_rated_air_flow_rate`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -44844,7 +45849,7 @@ class CoilHeatingWaterToAirHeatPumpVariableSpeedEquationFit(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `speed_3_reference_unit_rated_water_flow_rate`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -44881,7 +45886,7 @@ class CoilHeatingWaterToAirHeatPumpVariableSpeedEquationFit(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `speed_3_heating_capacity_function_of_temperature_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -44921,7 +45926,7 @@ class CoilHeatingWaterToAirHeatPumpVariableSpeedEquationFit(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `speed_3_total_heating_capacity_function_of_air_flow_fraction_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -44961,7 +45966,7 @@ class CoilHeatingWaterToAirHeatPumpVariableSpeedEquationFit(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `speed_3_heating_capacity_function_of_water_flow_fraction_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -45001,7 +46006,7 @@ class CoilHeatingWaterToAirHeatPumpVariableSpeedEquationFit(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `speed_3_energy_input_ratio_function_of_temperature_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -45041,7 +46046,7 @@ class CoilHeatingWaterToAirHeatPumpVariableSpeedEquationFit(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `speed_3_energy_input_ratio_function_of_air_flow_fraction_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -45081,7 +46086,7 @@ class CoilHeatingWaterToAirHeatPumpVariableSpeedEquationFit(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `speed_3_energy_input_ratio_function_of_water_flow_fraction_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -45118,7 +46123,7 @@ class CoilHeatingWaterToAirHeatPumpVariableSpeedEquationFit(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `speed_3_reference_unit_waste_heat_fraction_of_input_power_at_rated_conditions`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -45155,7 +46160,7 @@ class CoilHeatingWaterToAirHeatPumpVariableSpeedEquationFit(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `speed_3_waste_heat_function_of_temperature_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -45193,7 +46198,7 @@ class CoilHeatingWaterToAirHeatPumpVariableSpeedEquationFit(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `speed_4_reference_unit_gross_rated_heating_capacity`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -45227,7 +46232,7 @@ class CoilHeatingWaterToAirHeatPumpVariableSpeedEquationFit(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `speed_4_reference_unit_gross_rated_heating_cop`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -45261,7 +46266,7 @@ class CoilHeatingWaterToAirHeatPumpVariableSpeedEquationFit(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `speed_4_reference_unit_rated_air_flow_rate`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -45295,7 +46300,7 @@ class CoilHeatingWaterToAirHeatPumpVariableSpeedEquationFit(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `speed_4_reference_unit_rated_water_flow_rate`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -45332,7 +46337,7 @@ class CoilHeatingWaterToAirHeatPumpVariableSpeedEquationFit(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `speed_4_heating_capacity_function_of_temperature_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -45372,7 +46377,7 @@ class CoilHeatingWaterToAirHeatPumpVariableSpeedEquationFit(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `speed_4_total_heating_capacity_function_of_air_flow_fraction_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -45412,7 +46417,7 @@ class CoilHeatingWaterToAirHeatPumpVariableSpeedEquationFit(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `speed_4_heating_capacity_function_of_water_flow_fraction_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -45452,7 +46457,7 @@ class CoilHeatingWaterToAirHeatPumpVariableSpeedEquationFit(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `speed_4_energy_input_ratio_function_of_temperature_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -45492,7 +46497,7 @@ class CoilHeatingWaterToAirHeatPumpVariableSpeedEquationFit(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `speed_4_energy_input_ratio_function_of_air_flow_fraction_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -45532,7 +46537,7 @@ class CoilHeatingWaterToAirHeatPumpVariableSpeedEquationFit(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `speed_4_energy_input_ratio_function_of_water_flow_fraction_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -45569,7 +46574,7 @@ class CoilHeatingWaterToAirHeatPumpVariableSpeedEquationFit(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `speed_4_reference_unit_waste_heat_fraction_of_input_power_at_rated_conditions`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -45606,7 +46611,7 @@ class CoilHeatingWaterToAirHeatPumpVariableSpeedEquationFit(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `speed_4_waste_heat_function_of_temperature_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -45644,7 +46649,7 @@ class CoilHeatingWaterToAirHeatPumpVariableSpeedEquationFit(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `speed_5_reference_unit_gross_rated_heating_capacity`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -45678,7 +46683,7 @@ class CoilHeatingWaterToAirHeatPumpVariableSpeedEquationFit(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `speed_5_reference_unit_gross_rated_heating_cop`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -45712,7 +46717,7 @@ class CoilHeatingWaterToAirHeatPumpVariableSpeedEquationFit(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `speed_5_reference_unit_rated_air_flow_rate`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -45746,7 +46751,7 @@ class CoilHeatingWaterToAirHeatPumpVariableSpeedEquationFit(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `speed_5_reference_unit_rated_water_flow_rate`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -45783,7 +46788,7 @@ class CoilHeatingWaterToAirHeatPumpVariableSpeedEquationFit(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `speed_5_heating_capacity_function_of_temperature_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -45823,7 +46828,7 @@ class CoilHeatingWaterToAirHeatPumpVariableSpeedEquationFit(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `speed_5_total_heating_capacity_function_of_air_flow_fraction_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -45863,7 +46868,7 @@ class CoilHeatingWaterToAirHeatPumpVariableSpeedEquationFit(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `speed_5_heating_capacity_function_of_water_flow_fraction_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -45903,7 +46908,7 @@ class CoilHeatingWaterToAirHeatPumpVariableSpeedEquationFit(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `speed_5_energy_input_ratio_function_of_temperature_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -45943,7 +46948,7 @@ class CoilHeatingWaterToAirHeatPumpVariableSpeedEquationFit(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `speed_5_energy_input_ratio_function_of_air_flow_fraction_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -45983,7 +46988,7 @@ class CoilHeatingWaterToAirHeatPumpVariableSpeedEquationFit(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `speed_5_energy_input_ratio_function_of_water_flow_fraction_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -46020,7 +47025,7 @@ class CoilHeatingWaterToAirHeatPumpVariableSpeedEquationFit(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `speed_5_reference_unit_waste_heat_fraction_of_input_power_at_rated_conditions`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -46057,7 +47062,7 @@ class CoilHeatingWaterToAirHeatPumpVariableSpeedEquationFit(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `speed_5_waste_heat_function_of_temperature_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -46095,7 +47100,7 @@ class CoilHeatingWaterToAirHeatPumpVariableSpeedEquationFit(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `speed_6_reference_unit_gross_rated_heating_capacity`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -46129,7 +47134,7 @@ class CoilHeatingWaterToAirHeatPumpVariableSpeedEquationFit(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `speed_6_reference_unit_gross_rated_heating_cop`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -46163,7 +47168,7 @@ class CoilHeatingWaterToAirHeatPumpVariableSpeedEquationFit(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `speed_6_reference_unit_rated_air_flow_rate`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -46197,7 +47202,7 @@ class CoilHeatingWaterToAirHeatPumpVariableSpeedEquationFit(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `speed_6_reference_unit_rated_water_flow_rate`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -46234,7 +47239,7 @@ class CoilHeatingWaterToAirHeatPumpVariableSpeedEquationFit(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `speed_6_heating_capacity_function_of_temperature_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -46274,7 +47279,7 @@ class CoilHeatingWaterToAirHeatPumpVariableSpeedEquationFit(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `speed_6_total_heating_capacity_function_of_air_flow_fraction_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -46314,7 +47319,7 @@ class CoilHeatingWaterToAirHeatPumpVariableSpeedEquationFit(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `speed_6_heating_capacity_function_of_water_flow_fraction_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -46354,7 +47359,7 @@ class CoilHeatingWaterToAirHeatPumpVariableSpeedEquationFit(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `speed_6_energy_input_ratio_function_of_temperature_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -46394,7 +47399,7 @@ class CoilHeatingWaterToAirHeatPumpVariableSpeedEquationFit(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `speed_6_energy_input_ratio_function_of_air_flow_fraction_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -46434,7 +47439,7 @@ class CoilHeatingWaterToAirHeatPumpVariableSpeedEquationFit(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `speed_6_energy_input_ratio_function_of_water_flow_fraction_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -46471,7 +47476,7 @@ class CoilHeatingWaterToAirHeatPumpVariableSpeedEquationFit(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `speed_6_reference_unit_waste_heat_fraction_of_input_power_at_rated_conditions`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -46508,7 +47513,7 @@ class CoilHeatingWaterToAirHeatPumpVariableSpeedEquationFit(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `speed_6_waste_heat_function_of_temperature_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -46546,7 +47551,7 @@ class CoilHeatingWaterToAirHeatPumpVariableSpeedEquationFit(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `speed_7_reference_unit_gross_rated_heating_capacity`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -46580,7 +47585,7 @@ class CoilHeatingWaterToAirHeatPumpVariableSpeedEquationFit(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `speed_7_reference_unit_gross_rated_heating_cop`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -46614,7 +47619,7 @@ class CoilHeatingWaterToAirHeatPumpVariableSpeedEquationFit(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `speed_7_reference_unit_rated_air_flow_rate`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -46648,7 +47653,7 @@ class CoilHeatingWaterToAirHeatPumpVariableSpeedEquationFit(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `speed_7_reference_unit_rated_water_flow_rate`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -46685,7 +47690,7 @@ class CoilHeatingWaterToAirHeatPumpVariableSpeedEquationFit(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `speed_7_heating_capacity_function_of_temperature_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -46725,7 +47730,7 @@ class CoilHeatingWaterToAirHeatPumpVariableSpeedEquationFit(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `speed_7_total_heating_capacity_function_of_air_flow_fraction_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -46765,7 +47770,7 @@ class CoilHeatingWaterToAirHeatPumpVariableSpeedEquationFit(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `speed_7_heating_capacity_function_of_water_flow_fraction_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -46805,7 +47810,7 @@ class CoilHeatingWaterToAirHeatPumpVariableSpeedEquationFit(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `speed_7_energy_input_ratio_function_of_temperature_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -46845,7 +47850,7 @@ class CoilHeatingWaterToAirHeatPumpVariableSpeedEquationFit(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `speed_7_energy_input_ratio_function_of_air_flow_fraction_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -46885,7 +47890,7 @@ class CoilHeatingWaterToAirHeatPumpVariableSpeedEquationFit(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `speed_7_energy_input_ratio_function_of_water_flow_fraction_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -46922,7 +47927,7 @@ class CoilHeatingWaterToAirHeatPumpVariableSpeedEquationFit(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `speed_7_reference_unit_waste_heat_fraction_of_input_power_at_rated_conditions`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -46959,7 +47964,7 @@ class CoilHeatingWaterToAirHeatPumpVariableSpeedEquationFit(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `speed_7_waste_heat_function_of_temperature_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -46997,7 +48002,7 @@ class CoilHeatingWaterToAirHeatPumpVariableSpeedEquationFit(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `speed_8_reference_unit_gross_rated_heating_capacity`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -47031,7 +48036,7 @@ class CoilHeatingWaterToAirHeatPumpVariableSpeedEquationFit(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `speed_8_reference_unit_gross_rated_heating_cop`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -47065,7 +48070,7 @@ class CoilHeatingWaterToAirHeatPumpVariableSpeedEquationFit(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `speed_8_reference_unit_rated_air_flow_rate`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -47099,7 +48104,7 @@ class CoilHeatingWaterToAirHeatPumpVariableSpeedEquationFit(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `speed_8_reference_unit_rated_water_flow_rate`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -47136,7 +48141,7 @@ class CoilHeatingWaterToAirHeatPumpVariableSpeedEquationFit(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `speed_8_heating_capacity_function_of_temperature_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -47176,7 +48181,7 @@ class CoilHeatingWaterToAirHeatPumpVariableSpeedEquationFit(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `speed_8_total_heating_capacity_function_of_air_flow_fraction_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -47216,7 +48221,7 @@ class CoilHeatingWaterToAirHeatPumpVariableSpeedEquationFit(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `speed_8_heating_capacity_function_of_water_flow_fraction_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -47256,7 +48261,7 @@ class CoilHeatingWaterToAirHeatPumpVariableSpeedEquationFit(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `speed_8_energy_input_ratio_function_of_temperature_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -47296,7 +48301,7 @@ class CoilHeatingWaterToAirHeatPumpVariableSpeedEquationFit(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `speed_8_energy_input_ratio_function_of_air_flow_fraction_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -47336,7 +48341,7 @@ class CoilHeatingWaterToAirHeatPumpVariableSpeedEquationFit(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `speed_8_energy_input_ratio_function_of_water_flow_fraction_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -47373,7 +48378,7 @@ class CoilHeatingWaterToAirHeatPumpVariableSpeedEquationFit(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `speed_8_reference_unit_waste_heat_fraction_of_input_power_at_rated_conditions`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -47410,7 +48415,7 @@ class CoilHeatingWaterToAirHeatPumpVariableSpeedEquationFit(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `speed_8_waste_heat_function_of_temperature_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -47448,7 +48453,7 @@ class CoilHeatingWaterToAirHeatPumpVariableSpeedEquationFit(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `speed_9_reference_unit_gross_rated_heating_capacity`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -47482,7 +48487,7 @@ class CoilHeatingWaterToAirHeatPumpVariableSpeedEquationFit(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `speed_9_reference_unit_gross_rated_heating_cop`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -47516,7 +48521,7 @@ class CoilHeatingWaterToAirHeatPumpVariableSpeedEquationFit(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `speed_9_reference_unit_rated_air_flow_rate`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -47550,7 +48555,7 @@ class CoilHeatingWaterToAirHeatPumpVariableSpeedEquationFit(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `speed_9_reference_unit_rated_water_flow_rate`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -47587,7 +48592,7 @@ class CoilHeatingWaterToAirHeatPumpVariableSpeedEquationFit(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `speed_9_heating_capacity_function_of_temperature_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -47627,7 +48632,7 @@ class CoilHeatingWaterToAirHeatPumpVariableSpeedEquationFit(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `speed_9_total_heating_capacity_function_of_air_flow_fraction_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -47667,7 +48672,7 @@ class CoilHeatingWaterToAirHeatPumpVariableSpeedEquationFit(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `speed_9_heating_capacity_function_of_water_flow_fraction_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -47707,7 +48712,7 @@ class CoilHeatingWaterToAirHeatPumpVariableSpeedEquationFit(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `speed_9_energy_input_ratio_function_of_temperature_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -47747,7 +48752,7 @@ class CoilHeatingWaterToAirHeatPumpVariableSpeedEquationFit(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `speed_9_energy_input_ratio_function_of_air_flow_fraction_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -47787,7 +48792,7 @@ class CoilHeatingWaterToAirHeatPumpVariableSpeedEquationFit(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `speed_9_energy_input_ratio_function_of_water_flow_fraction_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -47824,7 +48829,7 @@ class CoilHeatingWaterToAirHeatPumpVariableSpeedEquationFit(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `speed_9_reference_unit_waste_heat_fraction_of_input_power_at_rated_conditions`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -47861,7 +48866,7 @@ class CoilHeatingWaterToAirHeatPumpVariableSpeedEquationFit(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `speed_9_waste_heat_function_of_temperature_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -47899,7 +48904,7 @@ class CoilHeatingWaterToAirHeatPumpVariableSpeedEquationFit(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `speed_10_reference_unit_gross_rated_heating_capacity`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -47933,7 +48938,7 @@ class CoilHeatingWaterToAirHeatPumpVariableSpeedEquationFit(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `speed_10_reference_unit_gross_rated_heating_cop`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -47967,7 +48972,7 @@ class CoilHeatingWaterToAirHeatPumpVariableSpeedEquationFit(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `speed_10_reference_unit_rated_air_flow_rate`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -48001,7 +49006,7 @@ class CoilHeatingWaterToAirHeatPumpVariableSpeedEquationFit(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `speed_10_reference_unit_rated_water_flow_rate`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -48038,7 +49043,7 @@ class CoilHeatingWaterToAirHeatPumpVariableSpeedEquationFit(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `speed_10_heating_capacity_function_of_temperature_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -48078,7 +49083,7 @@ class CoilHeatingWaterToAirHeatPumpVariableSpeedEquationFit(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `speed_10_total_heating_capacity_function_of_air_flow_fraction_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -48118,7 +49123,7 @@ class CoilHeatingWaterToAirHeatPumpVariableSpeedEquationFit(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `speed_10_heating_capacity_function_of_water_flow_fraction_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -48158,7 +49163,7 @@ class CoilHeatingWaterToAirHeatPumpVariableSpeedEquationFit(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `speed_10_energy_input_ratio_function_of_temperature_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -48198,7 +49203,7 @@ class CoilHeatingWaterToAirHeatPumpVariableSpeedEquationFit(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `speed_10_energy_input_ratio_function_of_air_flow_fraction_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -48238,7 +49243,7 @@ class CoilHeatingWaterToAirHeatPumpVariableSpeedEquationFit(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `speed_10_energy_input_ratio_function_of_water_flow_fraction_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -48275,7 +49280,7 @@ class CoilHeatingWaterToAirHeatPumpVariableSpeedEquationFit(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `speed_10_reference_unit_waste_heat_fraction_of_input_power_at_rated_conditions`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -48312,7 +49317,7 @@ class CoilHeatingWaterToAirHeatPumpVariableSpeedEquationFit(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `speed_10_waste_heat_function_of_temperature_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -48361,7 +49366,6 @@ class CoilWaterHeatingAirToWaterHeatPump(object):
         Heat pump water heater (HPWH) heating coil, air-to-water direct-expansion (DX)
         system which includes a water heating coil, evaporator air coil, evaporator
         fan, electric compressor, and water pump. Part of a WaterHeater:HeatPump system.
-    
     """
     internal_name = "Coil:WaterHeating:AirToWaterHeatPump"
     field_count = 28
@@ -48399,15 +49403,16 @@ class CoilWaterHeatingAirToWaterHeatPump(object):
         self._data["Heating COP Function of Air Flow Fraction Curve Name"] = None
         self._data["Heating COP Function of Water Flow Fraction Curve Name"] = None
         self._data["Part Load Fraction Correlation Curve Name"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -48605,6 +49610,7 @@ class CoilWaterHeatingAirToWaterHeatPump(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -48632,7 +49638,7 @@ class CoilWaterHeatingAirToWaterHeatPump(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -48672,7 +49678,7 @@ class CoilWaterHeatingAirToWaterHeatPump(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `rated_heating_capacity`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -48710,7 +49716,7 @@ class CoilWaterHeatingAirToWaterHeatPump(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `rated_cop`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -48750,7 +49756,7 @@ class CoilWaterHeatingAirToWaterHeatPump(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `rated_sensible_heat_ratio`'.format(value))
             if value < 0.5:
                 raise ValueError('value need to be greater or equal 0.5 '
@@ -48790,7 +49796,7 @@ class CoilWaterHeatingAirToWaterHeatPump(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `rated_evaporator_inlet_air_drybulb_temperature`'.format(value))
             if value <= 5.0:
                 raise ValueError('value need to be greater 5.0 '
@@ -48827,7 +49833,7 @@ class CoilWaterHeatingAirToWaterHeatPump(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `rated_evaporator_inlet_air_wetbulb_temperature`'.format(value))
             if value <= 5.0:
                 raise ValueError('value need to be greater 5.0 '
@@ -48864,7 +49870,7 @@ class CoilWaterHeatingAirToWaterHeatPump(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `rated_condenser_inlet_water_temperature`'.format(value))
             if value <= 25.0:
                 raise ValueError('value need to be greater 25.0 '
@@ -48903,12 +49909,17 @@ class CoilWaterHeatingAirToWaterHeatPump(object):
                 if value_lower == "autocalculate":
                     self._data["Rated Evaporator Air Flow Rate"] = "Autocalculate"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autocalculate" '
+                                 'for field `rated_evaporator_air_flow_rate`'.format(value))
+                    self._data["Rated Evaporator Air Flow Rate"] = "Autocalculate"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autocalculate"'
                                  'for field `rated_evaporator_air_flow_rate`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -48950,12 +49961,17 @@ class CoilWaterHeatingAirToWaterHeatPump(object):
                 if value_lower == "autocalculate":
                     self._data["Rated Condenser Water Flow Rate"] = "Autocalculate"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autocalculate" '
+                                 'for field `rated_condenser_water_flow_rate`'.format(value))
+                    self._data["Rated Condenser Water Flow Rate"] = "Autocalculate"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autocalculate"'
                                  'for field `rated_condenser_water_flow_rate`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -48993,7 +50009,7 @@ class CoilWaterHeatingAirToWaterHeatPump(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `evaporator_fan_power_included_in_rated_cop`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -49007,16 +50023,26 @@ class CoilWaterHeatingAirToWaterHeatPump(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `evaporator_fan_power_included_in_rated_cop`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `evaporator_fan_power_included_in_rated_cop`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Evaporator Fan Power Included in Rated COP"] = value
 
@@ -49051,7 +50077,7 @@ class CoilWaterHeatingAirToWaterHeatPump(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `condenser_pump_power_included_in_rated_cop`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -49065,16 +50091,26 @@ class CoilWaterHeatingAirToWaterHeatPump(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `condenser_pump_power_included_in_rated_cop`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `condenser_pump_power_included_in_rated_cop`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Condenser Pump Power Included in Rated COP"] = value
 
@@ -49109,7 +50145,7 @@ class CoilWaterHeatingAirToWaterHeatPump(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `condenser_pump_heat_included_in_rated_heating_capacity_and_rated_cop`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -49123,16 +50159,26 @@ class CoilWaterHeatingAirToWaterHeatPump(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `condenser_pump_heat_included_in_rated_heating_capacity_and_rated_cop`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `condenser_pump_heat_included_in_rated_heating_capacity_and_rated_cop`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Condenser Pump Heat Included in Rated Heating Capacity and Rated COP"] = value
 
@@ -49166,7 +50212,7 @@ class CoilWaterHeatingAirToWaterHeatPump(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `condenser_water_pump_power`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -49203,7 +50249,7 @@ class CoilWaterHeatingAirToWaterHeatPump(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_condenser_pump_heat_to_water`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -49239,7 +50285,7 @@ class CoilWaterHeatingAirToWaterHeatPump(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `evaporator_air_inlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -49275,7 +50321,7 @@ class CoilWaterHeatingAirToWaterHeatPump(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `evaporator_air_outlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -49313,7 +50359,7 @@ class CoilWaterHeatingAirToWaterHeatPump(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `condenser_water_inlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -49351,7 +50397,7 @@ class CoilWaterHeatingAirToWaterHeatPump(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `condenser_water_outlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -49393,7 +50439,7 @@ class CoilWaterHeatingAirToWaterHeatPump(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `crankcase_heater_capacity`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -49432,7 +50478,7 @@ class CoilWaterHeatingAirToWaterHeatPump(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `maximum_ambient_temperature_for_crankcase_heater_operation`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -49471,7 +50517,7 @@ class CoilWaterHeatingAirToWaterHeatPump(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `evaporator_air_temperature_type_for_curve_objects`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -49485,16 +50531,26 @@ class CoilWaterHeatingAirToWaterHeatPump(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `evaporator_air_temperature_type_for_curve_objects`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `evaporator_air_temperature_type_for_curve_objects`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Evaporator Air Temperature Type for Curve Objects"] = value
 
@@ -49531,7 +50587,7 @@ class CoilWaterHeatingAirToWaterHeatPump(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `heating_capacity_function_of_temperature_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -49573,7 +50629,7 @@ class CoilWaterHeatingAirToWaterHeatPump(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `heating_capacity_function_of_air_flow_fraction_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -49615,7 +50671,7 @@ class CoilWaterHeatingAirToWaterHeatPump(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `heating_capacity_function_of_water_flow_fraction_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -49658,7 +50714,7 @@ class CoilWaterHeatingAirToWaterHeatPump(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `heating_cop_function_of_temperature_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -49700,7 +50756,7 @@ class CoilWaterHeatingAirToWaterHeatPump(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `heating_cop_function_of_air_flow_fraction_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -49742,7 +50798,7 @@ class CoilWaterHeatingAirToWaterHeatPump(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `heating_cop_function_of_water_flow_fraction_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -49784,7 +50840,7 @@ class CoilWaterHeatingAirToWaterHeatPump(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `part_load_fraction_correlation_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -49834,7 +50890,6 @@ class CoilWaterHeatingDesuperheater(object):
         from the superheated refrigerant gas leaving a compressor and does not impact the
         performance of the compressor. This coil must be used with a water heater tank, see
         Water Heater:Mixed.
-    
     """
     internal_name = "Coil:WaterHeating:Desuperheater"
     field_count = 20
@@ -49864,15 +50919,16 @@ class CoilWaterHeatingDesuperheater(object):
         self._data["Fraction of Pump Heat to Water"] = None
         self._data["On-Cycle Parasitic Electric Load"] = None
         self._data["Off-Cycle Parasitic Electric Load"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -50014,6 +51070,7 @@ class CoilWaterHeatingDesuperheater(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -50041,7 +51098,7 @@ class CoilWaterHeatingDesuperheater(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -50080,7 +51137,7 @@ class CoilWaterHeatingDesuperheater(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `availability_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -50119,7 +51176,7 @@ class CoilWaterHeatingDesuperheater(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `setpoint_temperature_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -50162,7 +51219,7 @@ class CoilWaterHeatingDesuperheater(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `dead_band_temperature_difference`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -50199,7 +51256,7 @@ class CoilWaterHeatingDesuperheater(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `rated_heat_reclaim_recovery_efficiency`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -50233,7 +51290,7 @@ class CoilWaterHeatingDesuperheater(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `rated_inlet_water_temperature`'.format(value))
         self._data["Rated Inlet Water Temperature"] = value
 
@@ -50265,7 +51322,7 @@ class CoilWaterHeatingDesuperheater(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `rated_outdoor_air_temperature`'.format(value))
         self._data["Rated Outdoor Air Temperature"] = value
 
@@ -50297,7 +51354,7 @@ class CoilWaterHeatingDesuperheater(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `maximum_inlet_water_temperature_for_heat_reclaim`'.format(value))
         self._data["Maximum Inlet Water Temperature for Heat Reclaim"] = value
 
@@ -50333,7 +51390,7 @@ class CoilWaterHeatingDesuperheater(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `heat_reclaim_efficiency_function_of_temperature_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -50371,7 +51428,7 @@ class CoilWaterHeatingDesuperheater(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `water_inlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -50409,7 +51466,7 @@ class CoilWaterHeatingDesuperheater(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `water_outlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -50448,7 +51505,7 @@ class CoilWaterHeatingDesuperheater(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `tank_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -50461,16 +51518,26 @@ class CoilWaterHeatingDesuperheater(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `tank_object_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `tank_object_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Tank Object Type"] = value
 
@@ -50501,7 +51568,7 @@ class CoilWaterHeatingDesuperheater(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `tank_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -50545,7 +51612,7 @@ class CoilWaterHeatingDesuperheater(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `heating_source_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -50564,16 +51631,26 @@ class CoilWaterHeatingDesuperheater(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `heating_source_object_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `heating_source_object_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Heating Source Object Type"] = value
 
@@ -50603,7 +51680,7 @@ class CoilWaterHeatingDesuperheater(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `heating_source_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -50641,7 +51718,7 @@ class CoilWaterHeatingDesuperheater(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `water_flow_rate`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -50677,7 +51754,7 @@ class CoilWaterHeatingDesuperheater(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `water_pump_power`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -50714,7 +51791,7 @@ class CoilWaterHeatingDesuperheater(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_pump_heat_to_water`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -50755,7 +51832,7 @@ class CoilWaterHeatingDesuperheater(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `oncycle_parasitic_electric_load`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -50794,7 +51871,7 @@ class CoilWaterHeatingDesuperheater(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `offcycle_parasitic_electric_load`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -50840,7 +51917,6 @@ class CoilSystemCoolingDx(object):
         Virtual container component that consists of a DX cooling coil and its associated
         controls. This control object supports several different types of DX cooling coils
         and may be placed directly in an air loop branch or outdoor air equipment list.
-    
     """
     internal_name = "CoilSystem:Cooling:DX"
     field_count = 12
@@ -50862,15 +51938,16 @@ class CoilSystemCoolingDx(object):
         self._data["Run on Latent Load"] = None
         self._data["Use Outdoor Air DX Cooling Coil"] = None
         self._data["Outdoor Air DX Cooling Coil Leaving Minimum Air Temperature"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -50956,6 +52033,7 @@ class CoilSystemCoolingDx(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -50982,7 +52060,7 @@ class CoilSystemCoolingDx(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -51019,7 +52097,7 @@ class CoilSystemCoolingDx(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `availability_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -51054,7 +52132,7 @@ class CoilSystemCoolingDx(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `dx_cooling_coil_system_inlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -51089,7 +52167,7 @@ class CoilSystemCoolingDx(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `dx_cooling_coil_system_outlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -51124,7 +52202,7 @@ class CoilSystemCoolingDx(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `dx_cooling_coil_system_sensor_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -51166,7 +52244,7 @@ class CoilSystemCoolingDx(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `cooling_coil_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -51184,16 +52262,26 @@ class CoilSystemCoolingDx(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `cooling_coil_object_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `cooling_coil_object_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Cooling Coil Object Type"] = value
 
@@ -51222,7 +52310,7 @@ class CoilSystemCoolingDx(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `cooling_coil_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -51278,7 +52366,7 @@ class CoilSystemCoolingDx(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `dehumidification_control_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -51293,16 +52381,26 @@ class CoilSystemCoolingDx(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `dehumidification_control_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `dehumidification_control_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Dehumidification Control Type"] = value
 
@@ -51338,7 +52436,7 @@ class CoilSystemCoolingDx(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `run_on_sensible_load`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -51352,16 +52450,26 @@ class CoilSystemCoolingDx(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `run_on_sensible_load`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `run_on_sensible_load`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Run on Sensible Load"] = value
 
@@ -51398,7 +52506,7 @@ class CoilSystemCoolingDx(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `run_on_latent_load`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -51412,16 +52520,26 @@ class CoilSystemCoolingDx(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `run_on_latent_load`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `run_on_latent_load`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Run on Latent Load"] = value
 
@@ -51461,7 +52579,7 @@ class CoilSystemCoolingDx(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `use_outdoor_air_dx_cooling_coil`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -51475,16 +52593,26 @@ class CoilSystemCoolingDx(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `use_outdoor_air_dx_cooling_coil`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `use_outdoor_air_dx_cooling_coil`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Use Outdoor Air DX Cooling Coil"] = value
 
@@ -51520,7 +52648,7 @@ class CoilSystemCoolingDx(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `outdoor_air_dx_cooling_coil_leaving_minimum_air_temperature`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -51569,7 +52697,6 @@ class CoilSystemHeatingDx(object):
         Virtual container component that consists of a DX heating coil (heat pump) and its
         associated controls. This control object supports two different types of DX heating
         coils and may be placed directly in an air loop branch or outdoor air equipment list.
-    
     """
     internal_name = "CoilSystem:Heating:DX"
     field_count = 4
@@ -51583,15 +52710,16 @@ class CoilSystemHeatingDx(object):
         self._data["Availability Schedule Name"] = None
         self._data["Heating Coil Object Type"] = None
         self._data["Heating Coil Name"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -51621,6 +52749,7 @@ class CoilSystemHeatingDx(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -51647,7 +52776,7 @@ class CoilSystemHeatingDx(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -51684,7 +52813,7 @@ class CoilSystemHeatingDx(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `availability_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -51722,7 +52851,7 @@ class CoilSystemHeatingDx(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `heating_coil_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -51736,16 +52865,26 @@ class CoilSystemHeatingDx(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `heating_coil_object_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `heating_coil_object_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Heating Coil Object Type"] = value
 
@@ -51774,7 +52913,7 @@ class CoilSystemHeatingDx(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `heating_coil_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -51825,7 +52964,6 @@ class CoilSystemCoolingWaterHeatExchangerAssisted(object):
         and reuses this energy to reheat the supply air leaving the cooling coil. This heat
         exchange process improves the latent removal performance of the cooling coil (lower
         sensible heat ratio).
-    
     """
     internal_name = "CoilSystem:Cooling:Water:HeatExchangerAssisted"
     field_count = 5
@@ -51840,15 +52978,16 @@ class CoilSystemCoolingWaterHeatExchangerAssisted(object):
         self._data["Heat Exchanger Name"] = None
         self._data["Cooling Coil Object Type"] = None
         self._data["Cooling Coil Name"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -51885,6 +53024,7 @@ class CoilSystemCoolingWaterHeatExchangerAssisted(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -51911,7 +53051,7 @@ class CoilSystemCoolingWaterHeatExchangerAssisted(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -51949,7 +53089,7 @@ class CoilSystemCoolingWaterHeatExchangerAssisted(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `heat_exchanger_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -51963,16 +53103,26 @@ class CoilSystemCoolingWaterHeatExchangerAssisted(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `heat_exchanger_object_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `heat_exchanger_object_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Heat Exchanger Object Type"] = value
 
@@ -52001,7 +53151,7 @@ class CoilSystemCoolingWaterHeatExchangerAssisted(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `heat_exchanger_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -52039,7 +53189,7 @@ class CoilSystemCoolingWaterHeatExchangerAssisted(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `cooling_coil_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -52053,16 +53203,26 @@ class CoilSystemCoolingWaterHeatExchangerAssisted(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `cooling_coil_object_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `cooling_coil_object_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Cooling Coil Object Type"] = value
 
@@ -52091,7 +53251,7 @@ class CoilSystemCoolingWaterHeatExchangerAssisted(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `cooling_coil_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -52142,7 +53302,6 @@ class CoilSystemCoolingDxHeatExchangerAssisted(object):
         cooling coil and reuses this energy to reheat the supply air leaving the cooling
         coil. This heat exchange process improves the latent removal performance of the
         cooling coil (lower sensible heat ratio).
-    
     """
     internal_name = "CoilSystem:Cooling:DX:HeatExchangerAssisted"
     field_count = 5
@@ -52157,15 +53316,16 @@ class CoilSystemCoolingDxHeatExchangerAssisted(object):
         self._data["Heat Exchanger Name"] = None
         self._data["Cooling Coil Object Type"] = None
         self._data["Cooling Coil Name"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -52202,6 +53362,7 @@ class CoilSystemCoolingDxHeatExchangerAssisted(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -52228,7 +53389,7 @@ class CoilSystemCoolingDxHeatExchangerAssisted(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -52267,7 +53428,7 @@ class CoilSystemCoolingDxHeatExchangerAssisted(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `heat_exchanger_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -52282,16 +53443,26 @@ class CoilSystemCoolingDxHeatExchangerAssisted(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `heat_exchanger_object_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `heat_exchanger_object_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Heat Exchanger Object Type"] = value
 
@@ -52320,7 +53491,7 @@ class CoilSystemCoolingDxHeatExchangerAssisted(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `heat_exchanger_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -52357,7 +53528,7 @@ class CoilSystemCoolingDxHeatExchangerAssisted(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `cooling_coil_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -52370,16 +53541,26 @@ class CoilSystemCoolingDxHeatExchangerAssisted(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `cooling_coil_object_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `cooling_coil_object_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Cooling Coil Object Type"] = value
 
@@ -52408,7 +53589,7 @@ class CoilSystemCoolingDxHeatExchangerAssisted(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `cooling_coil_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -52457,7 +53638,6 @@ class CoilCoolingDxSingleSpeedThermalStorage(object):
         Direct expansion (DX) cooling coil and condensing unit (includes electric compressor
         and condenser fan), single-speed with packaged integrated thermal storage for cooling.
         
-    
     """
     internal_name = "Coil:Cooling:DX:SingleSpeed:ThermalStorage"
     field_count = 106
@@ -52573,15 +53753,16 @@ class CoilCoolingDxSingleSpeedThermalStorage(object):
         self._data["Storage Tank Plant Connection Heat Transfer Effectiveness"] = None
         self._data["Storage Tank Minimum Operating Limit Fluid Temperature"] = None
         self._data["Storage Tank Maximum Operating Limit Fluid Temperature"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -53325,6 +54506,7 @@ class CoilCoolingDxSingleSpeedThermalStorage(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -53351,7 +54533,7 @@ class CoilCoolingDxSingleSpeedThermalStorage(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -53388,7 +54570,7 @@ class CoilCoolingDxSingleSpeedThermalStorage(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `availability_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -53426,7 +54608,7 @@ class CoilCoolingDxSingleSpeedThermalStorage(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `operating_mode_control_method`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -53440,16 +54622,26 @@ class CoilCoolingDxSingleSpeedThermalStorage(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `operating_mode_control_method`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `operating_mode_control_method`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Operating Mode Control Method"] = value
 
@@ -53481,7 +54673,7 @@ class CoilCoolingDxSingleSpeedThermalStorage(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `operation_mode_control_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -53520,7 +54712,7 @@ class CoilCoolingDxSingleSpeedThermalStorage(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `storage_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -53535,16 +54727,26 @@ class CoilCoolingDxSingleSpeedThermalStorage(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `storage_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `storage_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Storage Type"] = value
 
@@ -53574,7 +54776,7 @@ class CoilCoolingDxSingleSpeedThermalStorage(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `user_defined_fluid_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -53614,12 +54816,17 @@ class CoilCoolingDxSingleSpeedThermalStorage(object):
                 if value_lower == "autocalculate":
                     self._data["Fluid Storage Volume"] = "Autocalculate"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autocalculate" '
+                                 'for field `fluid_storage_volume`'.format(value))
+                    self._data["Fluid Storage Volume"] = "Autocalculate"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autocalculate"'
                                  'for field `fluid_storage_volume`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -53656,12 +54863,17 @@ class CoilCoolingDxSingleSpeedThermalStorage(object):
                 if value_lower == "autocalculate":
                     self._data["Ice Storage Capacity"] = "Autocalculate"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autocalculate" '
+                                 'for field `ice_storage_capacity`'.format(value))
+                    self._data["Ice Storage Capacity"] = "Autocalculate"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autocalculate"'
                                  'for field `ice_storage_capacity`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -53697,7 +54909,7 @@ class CoilCoolingDxSingleSpeedThermalStorage(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `storage_capacity_sizing_factor`'.format(value))
         self._data["Storage Capacity Sizing Factor"] = value
 
@@ -53726,7 +54938,7 @@ class CoilCoolingDxSingleSpeedThermalStorage(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `storage_tank_ambient_temperature_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -53763,7 +54975,7 @@ class CoilCoolingDxSingleSpeedThermalStorage(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `storage_tank_to_ambient_uvalue_times_area_heat_transfer_coefficient`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -53797,7 +55009,7 @@ class CoilCoolingDxSingleSpeedThermalStorage(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fluid_storage_tank_rating_temperature`'.format(value))
         self._data["Fluid Storage Tank Rating Temperature"] = value
 
@@ -53831,12 +55043,17 @@ class CoilCoolingDxSingleSpeedThermalStorage(object):
                 if value_lower == "autosize":
                     self._data["Rated Evaporator Air Flow Rate"] = "Autosize"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autosize" '
+                                 'for field `rated_evaporator_air_flow_rate`'.format(value))
+                    self._data["Rated Evaporator Air Flow Rate"] = "Autosize"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autosize"'
                                  'for field `rated_evaporator_air_flow_rate`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -53868,7 +55085,7 @@ class CoilCoolingDxSingleSpeedThermalStorage(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `evaporator_air_inlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -53903,7 +55120,7 @@ class CoilCoolingDxSingleSpeedThermalStorage(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `evaporator_air_outlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -53941,7 +55158,7 @@ class CoilCoolingDxSingleSpeedThermalStorage(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `cooling_only_mode_available`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -53955,16 +55172,26 @@ class CoilCoolingDxSingleSpeedThermalStorage(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `cooling_only_mode_available`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `cooling_only_mode_available`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Cooling Only Mode Available"] = value
 
@@ -54001,12 +55228,17 @@ class CoilCoolingDxSingleSpeedThermalStorage(object):
                 if value_lower == "autosize":
                     self._data["Cooling Only Mode Rated Total Evaporator Cooling Capacity"] = "Autosize"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autosize" '
+                                 'for field `cooling_only_mode_rated_total_evaporator_cooling_capacity`'.format(value))
+                    self._data["Cooling Only Mode Rated Total Evaporator Cooling Capacity"] = "Autosize"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autosize"'
                                  'for field `cooling_only_mode_rated_total_evaporator_cooling_capacity`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -54044,7 +55276,7 @@ class CoilCoolingDxSingleSpeedThermalStorage(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `cooling_only_mode_rated_sensible_heat_ratio`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -54085,7 +55317,7 @@ class CoilCoolingDxSingleSpeedThermalStorage(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `cooling_only_mode_rated_cop`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -54122,7 +55354,7 @@ class CoilCoolingDxSingleSpeedThermalStorage(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `cooling_only_mode_total_evaporator_cooling_capacity_function_of_temperature_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -54166,7 +55398,7 @@ class CoilCoolingDxSingleSpeedThermalStorage(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `cooling_only_mode_total_evaporator_cooling_capacity_function_of_flow_fraction_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -54206,7 +55438,7 @@ class CoilCoolingDxSingleSpeedThermalStorage(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `cooling_only_mode_energy_input_ratio_function_of_temperature_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -54250,7 +55482,7 @@ class CoilCoolingDxSingleSpeedThermalStorage(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `cooling_only_mode_energy_input_ratio_function_of_flow_fraction_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -54294,7 +55526,7 @@ class CoilCoolingDxSingleSpeedThermalStorage(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `cooling_only_mode_part_load_fraction_correlation_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -54334,7 +55566,7 @@ class CoilCoolingDxSingleSpeedThermalStorage(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `cooling_only_mode_sensible_heat_ratio_function_of_temperature_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -54378,7 +55610,7 @@ class CoilCoolingDxSingleSpeedThermalStorage(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `cooling_only_mode_sensible_heat_ratio_function_of_flow_fraction_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -54416,7 +55648,7 @@ class CoilCoolingDxSingleSpeedThermalStorage(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `cooling_and_charge_mode_available`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -54430,16 +55662,26 @@ class CoilCoolingDxSingleSpeedThermalStorage(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `cooling_and_charge_mode_available`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `cooling_and_charge_mode_available`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Cooling And Charge Mode Available"] = value
 
@@ -54477,12 +55719,17 @@ class CoilCoolingDxSingleSpeedThermalStorage(object):
                 if value_lower == "autocalculate":
                     self._data["Cooling And Charge Mode Rated Total Evaporator Cooling Capacity"] = "Autocalculate"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autocalculate" '
+                                 'for field `cooling_and_charge_mode_rated_total_evaporator_cooling_capacity`'.format(value))
+                    self._data["Cooling And Charge Mode Rated Total Evaporator Cooling Capacity"] = "Autocalculate"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autocalculate"'
                                  'for field `cooling_and_charge_mode_rated_total_evaporator_cooling_capacity`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -54517,7 +55764,7 @@ class CoilCoolingDxSingleSpeedThermalStorage(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `cooling_and_charge_mode_capacity_sizing_factor`'.format(value))
         self._data["Cooling And Charge Mode Capacity Sizing Factor"] = value
 
@@ -54555,12 +55802,17 @@ class CoilCoolingDxSingleSpeedThermalStorage(object):
                 if value_lower == "autocalculate":
                     self._data["Cooling And Charge Mode Rated Storage Charging Capacity"] = "Autocalculate"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autocalculate" '
+                                 'for field `cooling_and_charge_mode_rated_storage_charging_capacity`'.format(value))
+                    self._data["Cooling And Charge Mode Rated Storage Charging Capacity"] = "Autocalculate"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autocalculate"'
                                  'for field `cooling_and_charge_mode_rated_storage_charging_capacity`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -54595,7 +55847,7 @@ class CoilCoolingDxSingleSpeedThermalStorage(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `cooling_and_charge_mode_storage_capacity_sizing_factor`'.format(value))
         self._data["Cooling And Charge Mode Storage Capacity Sizing Factor"] = value
 
@@ -54630,7 +55882,7 @@ class CoilCoolingDxSingleSpeedThermalStorage(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `cooling_and_charge_mode_rated_sensible_heat_ratio`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -54671,7 +55923,7 @@ class CoilCoolingDxSingleSpeedThermalStorage(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `cooling_and_charge_mode_cooling_rated_cop`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -54709,7 +55961,7 @@ class CoilCoolingDxSingleSpeedThermalStorage(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `cooling_and_charge_mode_charging_rated_cop`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -54747,7 +55999,7 @@ class CoilCoolingDxSingleSpeedThermalStorage(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `cooling_and_charge_mode_total_evaporator_cooling_capacity_function_of_temperature_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -54791,7 +56043,7 @@ class CoilCoolingDxSingleSpeedThermalStorage(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `cooling_and_charge_mode_total_evaporator_cooling_capacity_function_of_flow_fraction_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -54832,7 +56084,7 @@ class CoilCoolingDxSingleSpeedThermalStorage(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `cooling_and_charge_mode_evaporator_energy_input_ratio_function_of_temperature_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -54876,7 +56128,7 @@ class CoilCoolingDxSingleSpeedThermalStorage(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `cooling_and_charge_mode_evaporator_energy_input_ratio_function_of_flow_fraction_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -54920,7 +56172,7 @@ class CoilCoolingDxSingleSpeedThermalStorage(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `cooling_and_charge_mode_evaporator_part_load_fraction_correlation_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -54961,7 +56213,7 @@ class CoilCoolingDxSingleSpeedThermalStorage(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `cooling_and_charge_mode_storage_charge_capacity_function_of_temperature_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -55005,7 +56257,7 @@ class CoilCoolingDxSingleSpeedThermalStorage(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `cooling_and_charge_mode_storage_charge_capacity_function_of_total_evaporator_plr_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -55046,7 +56298,7 @@ class CoilCoolingDxSingleSpeedThermalStorage(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `cooling_and_charge_mode_storage_energy_input_ratio_function_of_temperature_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -55090,7 +56342,7 @@ class CoilCoolingDxSingleSpeedThermalStorage(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `cooling_and_charge_mode_storage_energy_input_ratio_function_of_flow_fraction_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -55134,7 +56386,7 @@ class CoilCoolingDxSingleSpeedThermalStorage(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `cooling_and_charge_mode_storage_energy_part_load_fraction_correlation_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -55178,7 +56430,7 @@ class CoilCoolingDxSingleSpeedThermalStorage(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `cooling_and_charge_mode_sensible_heat_ratio_function_of_temperature_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -55222,7 +56474,7 @@ class CoilCoolingDxSingleSpeedThermalStorage(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `cooling_and_charge_mode_sensible_heat_ratio_function_of_flow_fraction_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -55260,7 +56512,7 @@ class CoilCoolingDxSingleSpeedThermalStorage(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `cooling_and_discharge_mode_available`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -55274,16 +56526,26 @@ class CoilCoolingDxSingleSpeedThermalStorage(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `cooling_and_discharge_mode_available`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `cooling_and_discharge_mode_available`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Cooling And Discharge Mode Available"] = value
 
@@ -55321,12 +56583,17 @@ class CoilCoolingDxSingleSpeedThermalStorage(object):
                 if value_lower == "autocalculate":
                     self._data["Cooling And Discharge Mode Rated Total Evaporator Cooling Capacity"] = "Autocalculate"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autocalculate" '
+                                 'for field `cooling_and_discharge_mode_rated_total_evaporator_cooling_capacity`'.format(value))
+                    self._data["Cooling And Discharge Mode Rated Total Evaporator Cooling Capacity"] = "Autocalculate"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autocalculate"'
                                  'for field `cooling_and_discharge_mode_rated_total_evaporator_cooling_capacity`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -55361,7 +56628,7 @@ class CoilCoolingDxSingleSpeedThermalStorage(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `cooling_and_discharge_mode_evaporator_capacity_sizing_factor`'.format(value))
         self._data["Cooling And Discharge Mode Evaporator Capacity Sizing Factor"] = value
 
@@ -55399,12 +56666,17 @@ class CoilCoolingDxSingleSpeedThermalStorage(object):
                 if value_lower == "autocalculate":
                     self._data["Cooling And Discharge Mode Rated Storage Discharging Capacity"] = "Autocalculate"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autocalculate" '
+                                 'for field `cooling_and_discharge_mode_rated_storage_discharging_capacity`'.format(value))
+                    self._data["Cooling And Discharge Mode Rated Storage Discharging Capacity"] = "Autocalculate"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autocalculate"'
                                  'for field `cooling_and_discharge_mode_rated_storage_discharging_capacity`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -55439,7 +56711,7 @@ class CoilCoolingDxSingleSpeedThermalStorage(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `cooling_and_discharge_mode_storage_discharge_capacity_sizing_factor`'.format(value))
         self._data["Cooling And Discharge Mode Storage Discharge Capacity Sizing Factor"] = value
 
@@ -55474,7 +56746,7 @@ class CoilCoolingDxSingleSpeedThermalStorage(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `cooling_and_discharge_mode_rated_sensible_heat_ratio`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -55515,7 +56787,7 @@ class CoilCoolingDxSingleSpeedThermalStorage(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `cooling_and_discharge_mode_cooling_rated_cop`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -55553,7 +56825,7 @@ class CoilCoolingDxSingleSpeedThermalStorage(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `cooling_and_discharge_mode_discharging_rated_cop`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -55591,7 +56863,7 @@ class CoilCoolingDxSingleSpeedThermalStorage(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `cooling_and_discharge_mode_total_evaporator_cooling_capacity_function_of_temperature_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -55635,7 +56907,7 @@ class CoilCoolingDxSingleSpeedThermalStorage(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `cooling_and_discharge_mode_total_evaporator_cooling_capacity_function_of_flow_fraction_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -55676,7 +56948,7 @@ class CoilCoolingDxSingleSpeedThermalStorage(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `cooling_and_discharge_mode_evaporator_energy_input_ratio_function_of_temperature_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -55720,7 +56992,7 @@ class CoilCoolingDxSingleSpeedThermalStorage(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `cooling_and_discharge_mode_evaporator_energy_input_ratio_function_of_flow_fraction_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -55764,7 +57036,7 @@ class CoilCoolingDxSingleSpeedThermalStorage(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `cooling_and_discharge_mode_evaporator_part_load_fraction_correlation_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -55805,7 +57077,7 @@ class CoilCoolingDxSingleSpeedThermalStorage(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `cooling_and_discharge_mode_storage_disharge_capacity_function_of_temperature_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -55849,7 +57121,7 @@ class CoilCoolingDxSingleSpeedThermalStorage(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `cooling_and_discharge_mode_storage_disharge_capacity_function_of_flow_fraction_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -55893,7 +57165,7 @@ class CoilCoolingDxSingleSpeedThermalStorage(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `cooling_and_discharge_mode_storage_discharge_capacity_function_of_total_evaporator_plr_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -55934,7 +57206,7 @@ class CoilCoolingDxSingleSpeedThermalStorage(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `cooling_and_discharge_mode_storage_energy_input_ratio_function_of_temperature_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -55978,7 +57250,7 @@ class CoilCoolingDxSingleSpeedThermalStorage(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `cooling_and_discharge_mode_storage_energy_input_ratio_function_of_flow_fraction_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -56022,7 +57294,7 @@ class CoilCoolingDxSingleSpeedThermalStorage(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `cooling_and_discharge_mode_storage_energy_part_load_fraction_correlation_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -56066,7 +57338,7 @@ class CoilCoolingDxSingleSpeedThermalStorage(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `cooling_and_discharge_mode_sensible_heat_ratio_function_of_temperature_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -56110,7 +57382,7 @@ class CoilCoolingDxSingleSpeedThermalStorage(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `cooling_and_discharge_mode_sensible_heat_ratio_function_of_flow_fraction_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -56148,7 +57420,7 @@ class CoilCoolingDxSingleSpeedThermalStorage(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `charge_only_mode_available`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -56162,16 +57434,26 @@ class CoilCoolingDxSingleSpeedThermalStorage(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `charge_only_mode_available`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `charge_only_mode_available`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Charge Only Mode Available"] = value
 
@@ -56208,12 +57490,17 @@ class CoilCoolingDxSingleSpeedThermalStorage(object):
                 if value_lower == "autocalculate":
                     self._data["Charge Only Mode Rated Storage Charging Capacity"] = "Autocalculate"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autocalculate" '
+                                 'for field `charge_only_mode_rated_storage_charging_capacity`'.format(value))
+                    self._data["Charge Only Mode Rated Storage Charging Capacity"] = "Autocalculate"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autocalculate"'
                                  'for field `charge_only_mode_rated_storage_charging_capacity`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -56248,7 +57535,7 @@ class CoilCoolingDxSingleSpeedThermalStorage(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `charge_only_mode_capacity_sizing_factor`'.format(value))
         self._data["Charge Only Mode Capacity Sizing Factor"] = value
 
@@ -56283,7 +57570,7 @@ class CoilCoolingDxSingleSpeedThermalStorage(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `charge_only_mode_charging_rated_cop`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -56320,7 +57607,7 @@ class CoilCoolingDxSingleSpeedThermalStorage(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `charge_only_mode_storage_charge_capacity_function_of_temperature_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -56360,7 +57647,7 @@ class CoilCoolingDxSingleSpeedThermalStorage(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `charge_only_mode_storage_energy_input_ratio_function_of_temperature_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -56398,7 +57685,7 @@ class CoilCoolingDxSingleSpeedThermalStorage(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `discharge_only_mode_available`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -56412,16 +57699,26 @@ class CoilCoolingDxSingleSpeedThermalStorage(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `discharge_only_mode_available`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `discharge_only_mode_available`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Discharge Only Mode Available"] = value
 
@@ -56458,12 +57755,17 @@ class CoilCoolingDxSingleSpeedThermalStorage(object):
                 if value_lower == "autocalculate":
                     self._data["Discharge Only Mode Rated Storage Discharging Capacity"] = "Autocalculate"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autocalculate" '
+                                 'for field `discharge_only_mode_rated_storage_discharging_capacity`'.format(value))
+                    self._data["Discharge Only Mode Rated Storage Discharging Capacity"] = "Autocalculate"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autocalculate"'
                                  'for field `discharge_only_mode_rated_storage_discharging_capacity`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -56498,7 +57800,7 @@ class CoilCoolingDxSingleSpeedThermalStorage(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `discharge_only_mode_capacity_sizing_factor`'.format(value))
         self._data["Discharge Only Mode Capacity Sizing Factor"] = value
 
@@ -56532,7 +57834,7 @@ class CoilCoolingDxSingleSpeedThermalStorage(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `discharge_only_mode_rated_sensible_heat_ratio`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -56573,7 +57875,7 @@ class CoilCoolingDxSingleSpeedThermalStorage(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `discharge_only_mode_rated_cop`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -56610,7 +57912,7 @@ class CoilCoolingDxSingleSpeedThermalStorage(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `discharge_only_mode_storage_discharge_capacity_function_of_temperature_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -56654,7 +57956,7 @@ class CoilCoolingDxSingleSpeedThermalStorage(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `discharge_only_mode_storage_discharge_capacity_function_of_flow_fraction_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -56694,7 +57996,7 @@ class CoilCoolingDxSingleSpeedThermalStorage(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `discharge_only_mode_energy_input_ratio_function_of_temperature_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -56738,7 +58040,7 @@ class CoilCoolingDxSingleSpeedThermalStorage(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `discharge_only_mode_energy_input_ratio_function_of_flow_fraction_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -56781,7 +58083,7 @@ class CoilCoolingDxSingleSpeedThermalStorage(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `discharge_only_mode_part_load_fraction_correlation_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -56825,7 +58127,7 @@ class CoilCoolingDxSingleSpeedThermalStorage(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `discharge_only_mode_sensible_heat_ratio_function_of_temperature_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -56869,7 +58171,7 @@ class CoilCoolingDxSingleSpeedThermalStorage(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `discharge_only_mode_sensible_heat_ratio_function_of_flow_fraction_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -56907,7 +58209,7 @@ class CoilCoolingDxSingleSpeedThermalStorage(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `ancillary_electric_power`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -56940,7 +58242,7 @@ class CoilCoolingDxSingleSpeedThermalStorage(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `cold_weather_operation_minimum_outdoor_air_temperature`'.format(value))
         self._data["Cold Weather Operation Minimum Outdoor Air Temperature"] = value
 
@@ -56971,7 +58273,7 @@ class CoilCoolingDxSingleSpeedThermalStorage(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `cold_weather_operation_ancillary_power`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -57005,7 +58307,7 @@ class CoilCoolingDxSingleSpeedThermalStorage(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `condenser_air_inlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -57040,7 +58342,7 @@ class CoilCoolingDxSingleSpeedThermalStorage(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `condenser_air_outlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -57080,12 +58382,17 @@ class CoilCoolingDxSingleSpeedThermalStorage(object):
                 if value_lower == "autocalculate":
                     self._data["Condenser Design Air Flow Rate"] = "Autocalculate"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autocalculate" '
+                                 'for field `condenser_design_air_flow_rate`'.format(value))
+                    self._data["Condenser Design Air Flow Rate"] = "Autocalculate"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autocalculate"'
                                  'for field `condenser_design_air_flow_rate`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -57120,7 +58427,7 @@ class CoilCoolingDxSingleSpeedThermalStorage(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `condenser_air_flow_sizing_factor`'.format(value))
         self._data["Condenser Air Flow Sizing Factor"] = value
 
@@ -57153,7 +58460,7 @@ class CoilCoolingDxSingleSpeedThermalStorage(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `condenser_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -57167,16 +58474,26 @@ class CoilCoolingDxSingleSpeedThermalStorage(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `condenser_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `condenser_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Condenser Type"] = value
 
@@ -57210,7 +58527,7 @@ class CoilCoolingDxSingleSpeedThermalStorage(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `evaporative_condenser_effectiveness`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -57251,12 +58568,17 @@ class CoilCoolingDxSingleSpeedThermalStorage(object):
                 if value_lower == "autosize":
                     self._data["Evaporative Condenser Pump Rated Power Consumption"] = "Autosize"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autosize" '
+                                 'for field `evaporative_condenser_pump_rated_power_consumption`'.format(value))
+                    self._data["Evaporative Condenser Pump Rated Power Consumption"] = "Autosize"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autosize"'
                                  'for field `evaporative_condenser_pump_rated_power_consumption`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -57297,7 +58619,7 @@ class CoilCoolingDxSingleSpeedThermalStorage(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `basin_heater_capacity`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -57334,7 +58656,7 @@ class CoilCoolingDxSingleSpeedThermalStorage(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `basin_heater_setpoint_temperature`'.format(value))
             if value < 2.0:
                 raise ValueError('value need to be greater or equal 2.0 '
@@ -57371,7 +58693,7 @@ class CoilCoolingDxSingleSpeedThermalStorage(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `basin_heater_availability_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -57406,7 +58728,7 @@ class CoilCoolingDxSingleSpeedThermalStorage(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `supply_water_storage_tank_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -57441,7 +58763,7 @@ class CoilCoolingDxSingleSpeedThermalStorage(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `condensate_collection_water_storage_tank_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -57476,7 +58798,7 @@ class CoilCoolingDxSingleSpeedThermalStorage(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `storage_tank_plant_connection_inlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -57511,7 +58833,7 @@ class CoilCoolingDxSingleSpeedThermalStorage(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `storage_tank_plant_connection_outlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -57548,7 +58870,7 @@ class CoilCoolingDxSingleSpeedThermalStorage(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `storage_tank_plant_connection_design_flow_rate`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -57583,7 +58905,7 @@ class CoilCoolingDxSingleSpeedThermalStorage(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `storage_tank_plant_connection_heat_transfer_effectiveness`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -57621,7 +58943,7 @@ class CoilCoolingDxSingleSpeedThermalStorage(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `storage_tank_minimum_operating_limit_fluid_temperature`'.format(value))
         self._data["Storage Tank Minimum Operating Limit Fluid Temperature"] = value
 
@@ -57653,7 +58975,7 @@ class CoilCoolingDxSingleSpeedThermalStorage(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `storage_tank_maximum_operating_limit_fluid_temperature`'.format(value))
         self._data["Storage Tank Maximum Operating Limit Fluid Temperature"] = value
 

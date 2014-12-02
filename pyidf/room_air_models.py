@@ -1,11 +1,12 @@
 from collections import OrderedDict
+import logging
+import re
 
 class RoomAirModelType(object):
     """ Corresponds to IDD object `RoomAirModelType`
         Selects the type of room air model to be used in a given zone. If no RoomAirModelType
         object is specified then the default Mixing model (all zone air at the same
         temperature) will be used.
-    
     """
     internal_name = "RoomAirModelType"
     field_count = 4
@@ -19,15 +20,16 @@ class RoomAirModelType(object):
         self._data["Zone Name"] = None
         self._data["Room-Air Modeling Type"] = None
         self._data["Air Temperature Coupling Strategy"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -57,6 +59,7 @@ class RoomAirModelType(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -83,7 +86,7 @@ class RoomAirModelType(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -118,7 +121,7 @@ class RoomAirModelType(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `zone_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -175,7 +178,7 @@ class RoomAirModelType(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `roomair_modeling_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -194,16 +197,26 @@ class RoomAirModelType(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `roomair_modeling_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `roomair_modeling_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Room-Air Modeling Type"] = value
 
@@ -236,7 +249,7 @@ class RoomAirModelType(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `air_temperature_coupling_strategy`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -250,16 +263,26 @@ class RoomAirModelType(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `air_temperature_coupling_strategy`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `air_temperature_coupling_strategy`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Air Temperature Coupling Strategy"] = value
 
@@ -301,7 +324,6 @@ class RoomAirTemperaturePatternUserDefined(object):
     """ Corresponds to IDD object `RoomAir:TemperaturePattern:UserDefined`
         Used to explicitly define temperature patterns that are to be applied to the mean air
         temperature within a thermal zone.  Used with RoomAirModelType = UserDefined.
-    
     """
     internal_name = "RoomAir:TemperaturePattern:UserDefined"
     field_count = 4
@@ -315,15 +337,16 @@ class RoomAirTemperaturePatternUserDefined(object):
         self._data["Zone Name"] = None
         self._data["Availability Schedule Name"] = None
         self._data["Pattern Control Schedule Name"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -353,6 +376,7 @@ class RoomAirTemperaturePatternUserDefined(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -379,7 +403,7 @@ class RoomAirTemperaturePatternUserDefined(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -414,7 +438,7 @@ class RoomAirTemperaturePatternUserDefined(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `zone_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -452,7 +476,7 @@ class RoomAirTemperaturePatternUserDefined(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `availability_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -490,7 +514,7 @@ class RoomAirTemperaturePatternUserDefined(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `pattern_control_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -538,7 +562,6 @@ class RoomAirTemperaturePatternConstantGradient(object):
     """ Corresponds to IDD object `RoomAir:TemperaturePattern:ConstantGradient`
         Used to model room air with a fixed temperature gradient in the vertical direction.
         Used in combination with RoomAir:TemperaturePattern:UserDefined.
-    
     """
     internal_name = "RoomAir:TemperaturePattern:ConstantGradient"
     field_count = 6
@@ -554,15 +577,16 @@ class RoomAirTemperaturePatternConstantGradient(object):
         self._data["Return Air Offset"] = None
         self._data["Exhaust Air Offset"] = None
         self._data["Temperature Gradient"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -606,6 +630,7 @@ class RoomAirTemperaturePatternConstantGradient(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -632,7 +657,7 @@ class RoomAirTemperaturePatternConstantGradient(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -668,8 +693,15 @@ class RoomAirTemperaturePatternConstantGradient(object):
             try:
                 value = int(value)
             except ValueError:
-                raise ValueError('value {} need to be of type int '
-                                 'for field `control_integer_for_pattern_control_schedule_name`'.format(value))
+                if not self.strict:
+                    try:
+                        conv_value = int(float(value))
+                        logging.warn('Cast float {} to int {}, precision may be lost '
+                                     'for field `control_integer_for_pattern_control_schedule_name`'.format(value, conv_value))
+                        value = conv_value
+                    except ValueError:
+                        raise ValueError('value {} need to be of type int '
+                                         'for field `control_integer_for_pattern_control_schedule_name`'.format(value))
         self._data["Control Integer for Pattern Control Schedule Name"] = value
 
     @property
@@ -699,7 +731,7 @@ class RoomAirTemperaturePatternConstantGradient(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `thermostat_offset`'.format(value))
         self._data["Thermostat Offset"] = value
 
@@ -730,7 +762,7 @@ class RoomAirTemperaturePatternConstantGradient(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `return_air_offset`'.format(value))
         self._data["Return Air Offset"] = value
 
@@ -761,7 +793,7 @@ class RoomAirTemperaturePatternConstantGradient(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `exhaust_air_offset`'.format(value))
         self._data["Exhaust Air Offset"] = value
 
@@ -792,7 +824,7 @@ class RoomAirTemperaturePatternConstantGradient(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_gradient`'.format(value))
         self._data["Temperature Gradient"] = value
 
@@ -834,7 +866,6 @@ class RoomAirTemperaturePatternTwoGradient(object):
     """ Corresponds to IDD object `RoomAir:TemperaturePattern:TwoGradient`
         Used to model room air with two temperature gradients in the vertical direction.
         Used in combination with RoomAir:TemperaturePattern:UserDefined.
-    
     """
     internal_name = "RoomAir:TemperaturePattern:TwoGradient"
     field_count = 12
@@ -856,15 +887,16 @@ class RoomAirTemperaturePatternTwoGradient(object):
         self._data["Lower Temperature Bound"] = None
         self._data["Upper Heat Rate Bound"] = None
         self._data["Lower Heat Rate Bound"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -950,6 +982,7 @@ class RoomAirTemperaturePatternTwoGradient(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -976,7 +1009,7 @@ class RoomAirTemperaturePatternTwoGradient(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1012,8 +1045,15 @@ class RoomAirTemperaturePatternTwoGradient(object):
             try:
                 value = int(value)
             except ValueError:
-                raise ValueError('value {} need to be of type int '
-                                 'for field `control_integer_for_pattern_control_schedule_name`'.format(value))
+                if not self.strict:
+                    try:
+                        conv_value = int(float(value))
+                        logging.warn('Cast float {} to int {}, precision may be lost '
+                                     'for field `control_integer_for_pattern_control_schedule_name`'.format(value, conv_value))
+                        value = conv_value
+                    except ValueError:
+                        raise ValueError('value {} need to be of type int '
+                                         'for field `control_integer_for_pattern_control_schedule_name`'.format(value))
         self._data["Control Integer for Pattern Control Schedule Name"] = value
 
     @property
@@ -1043,7 +1083,7 @@ class RoomAirTemperaturePatternTwoGradient(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `thermostat_height`'.format(value))
         self._data["Thermostat Height"] = value
 
@@ -1074,7 +1114,7 @@ class RoomAirTemperaturePatternTwoGradient(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `return_air_height`'.format(value))
         self._data["Return Air Height"] = value
 
@@ -1105,7 +1145,7 @@ class RoomAirTemperaturePatternTwoGradient(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `exhaust_air_height`'.format(value))
         self._data["Exhaust Air Height"] = value
 
@@ -1136,7 +1176,7 @@ class RoomAirTemperaturePatternTwoGradient(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_gradient_lower_bound`'.format(value))
         self._data["Temperature Gradient Lower Bound"] = value
 
@@ -1167,7 +1207,7 @@ class RoomAirTemperaturePatternTwoGradient(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_gradient_upper_bound`'.format(value))
         self._data["Temperature Gradient Upper  Bound"] = value
 
@@ -1202,7 +1242,7 @@ class RoomAirTemperaturePatternTwoGradient(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `gradient_interpolation_mode`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1219,16 +1259,26 @@ class RoomAirTemperaturePatternTwoGradient(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `gradient_interpolation_mode`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `gradient_interpolation_mode`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Gradient Interpolation Mode"] = value
 
@@ -1258,7 +1308,7 @@ class RoomAirTemperaturePatternTwoGradient(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `upper_temperature_bound`'.format(value))
         self._data["Upper Temperature Bound"] = value
 
@@ -1288,7 +1338,7 @@ class RoomAirTemperaturePatternTwoGradient(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `lower_temperature_bound`'.format(value))
         self._data["Lower Temperature Bound"] = value
 
@@ -1318,7 +1368,7 @@ class RoomAirTemperaturePatternTwoGradient(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `upper_heat_rate_bound`'.format(value))
         self._data["Upper Heat Rate Bound"] = value
 
@@ -1348,7 +1398,7 @@ class RoomAirTemperaturePatternTwoGradient(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `lower_heat_rate_bound`'.format(value))
         self._data["Lower Heat Rate Bound"] = value
 
@@ -1392,7 +1442,6 @@ class RoomAirTemperaturePatternNondimensionalHeight(object):
         temperature as a function of height. The height, referred to as Zeta, is non-dimensional
         by normalizing with the zone ceiling height.
         Used in combination with RoomAir:TemperaturePattern:UserDefined.
-    
     """
     internal_name = "RoomAir:TemperaturePattern:NondimensionalHeight"
     field_count = 43
@@ -1445,15 +1494,16 @@ class RoomAirTemperaturePatternNondimensionalHeight(object):
         self._data["Pair 18 Delta Adjacent Air Temperature"] = None
         self._data["Pair 19 Zeta Nondimensional Height"] = None
         self._data["Pair 19 Delta Adjacent Air Temperature"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -1756,6 +1806,7 @@ class RoomAirTemperaturePatternNondimensionalHeight(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -1782,7 +1833,7 @@ class RoomAirTemperaturePatternNondimensionalHeight(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1818,8 +1869,15 @@ class RoomAirTemperaturePatternNondimensionalHeight(object):
             try:
                 value = int(value)
             except ValueError:
-                raise ValueError('value {} need to be of type int '
-                                 'for field `control_integer_for_pattern_control_schedule_name`'.format(value))
+                if not self.strict:
+                    try:
+                        conv_value = int(float(value))
+                        logging.warn('Cast float {} to int {}, precision may be lost '
+                                     'for field `control_integer_for_pattern_control_schedule_name`'.format(value, conv_value))
+                        value = conv_value
+                    except ValueError:
+                        raise ValueError('value {} need to be of type int '
+                                         'for field `control_integer_for_pattern_control_schedule_name`'.format(value))
         self._data["Control Integer for Pattern Control Schedule Name"] = value
 
     @property
@@ -1849,7 +1907,7 @@ class RoomAirTemperaturePatternNondimensionalHeight(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `thermostat_offset`'.format(value))
         self._data["Thermostat Offset"] = value
 
@@ -1880,7 +1938,7 @@ class RoomAirTemperaturePatternNondimensionalHeight(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `return_air_offset`'.format(value))
         self._data["Return Air Offset"] = value
 
@@ -1916,7 +1974,7 @@ class RoomAirTemperaturePatternNondimensionalHeight(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `exhaust_air_offset`'.format(value))
         self._data["Exhaust Air Offset"] = value
 
@@ -1945,7 +2003,7 @@ class RoomAirTemperaturePatternNondimensionalHeight(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `pair_1_zeta_nondimensional_height`'.format(value))
         self._data["Pair 1 Zeta Nondimensional Height"] = value
 
@@ -1977,7 +2035,7 @@ class RoomAirTemperaturePatternNondimensionalHeight(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `pair_1_delta_adjacent_air_temperature`'.format(value))
             if value < -10.0:
                 raise ValueError('value need to be greater or equal -10.0 '
@@ -2012,7 +2070,7 @@ class RoomAirTemperaturePatternNondimensionalHeight(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `pair_2_zeta_nondimensional_height`'.format(value))
         self._data["Pair 2 Zeta Nondimensional Height"] = value
 
@@ -2044,7 +2102,7 @@ class RoomAirTemperaturePatternNondimensionalHeight(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `pair_2_delta_adjacent_air_temperature`'.format(value))
             if value < -10.0:
                 raise ValueError('value need to be greater or equal -10.0 '
@@ -2079,7 +2137,7 @@ class RoomAirTemperaturePatternNondimensionalHeight(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `pair_3_zeta_nondimensional_height`'.format(value))
         self._data["Pair 3 Zeta Nondimensional Height"] = value
 
@@ -2111,7 +2169,7 @@ class RoomAirTemperaturePatternNondimensionalHeight(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `pair_3_delta_adjacent_air_temperature`'.format(value))
             if value < -10.0:
                 raise ValueError('value need to be greater or equal -10.0 '
@@ -2146,7 +2204,7 @@ class RoomAirTemperaturePatternNondimensionalHeight(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `pair_4_zeta_nondimensional_height`'.format(value))
         self._data["Pair 4 Zeta Nondimensional Height"] = value
 
@@ -2178,7 +2236,7 @@ class RoomAirTemperaturePatternNondimensionalHeight(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `pair_4_delta_adjacent_air_temperature`'.format(value))
             if value < -10.0:
                 raise ValueError('value need to be greater or equal -10.0 '
@@ -2213,7 +2271,7 @@ class RoomAirTemperaturePatternNondimensionalHeight(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `pair_5_zeta_nondimensional_height`'.format(value))
         self._data["Pair 5 Zeta Nondimensional Height"] = value
 
@@ -2245,7 +2303,7 @@ class RoomAirTemperaturePatternNondimensionalHeight(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `pair_5_delta_adjacent_air_temperature`'.format(value))
             if value < -10.0:
                 raise ValueError('value need to be greater or equal -10.0 '
@@ -2280,7 +2338,7 @@ class RoomAirTemperaturePatternNondimensionalHeight(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `pair_6_zeta_nondimensional_height`'.format(value))
         self._data["Pair 6 Zeta Nondimensional Height"] = value
 
@@ -2312,7 +2370,7 @@ class RoomAirTemperaturePatternNondimensionalHeight(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `pair_6_delta_adjacent_air_temperature`'.format(value))
             if value < -10.0:
                 raise ValueError('value need to be greater or equal -10.0 '
@@ -2347,7 +2405,7 @@ class RoomAirTemperaturePatternNondimensionalHeight(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `pair_7_zeta_nondimensional_height`'.format(value))
         self._data["Pair 7 Zeta Nondimensional Height"] = value
 
@@ -2379,7 +2437,7 @@ class RoomAirTemperaturePatternNondimensionalHeight(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `pair_7_delta_adjacent_air_temperature`'.format(value))
             if value < -10.0:
                 raise ValueError('value need to be greater or equal -10.0 '
@@ -2414,7 +2472,7 @@ class RoomAirTemperaturePatternNondimensionalHeight(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `pair_8_zeta_nondimensional_height`'.format(value))
         self._data["Pair 8 Zeta Nondimensional Height"] = value
 
@@ -2446,7 +2504,7 @@ class RoomAirTemperaturePatternNondimensionalHeight(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `pair_8_delta_adjacent_air_temperature`'.format(value))
             if value < -10.0:
                 raise ValueError('value need to be greater or equal -10.0 '
@@ -2481,7 +2539,7 @@ class RoomAirTemperaturePatternNondimensionalHeight(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `pair_9_zeta_nondimensional_height`'.format(value))
         self._data["Pair 9 Zeta Nondimensional Height"] = value
 
@@ -2513,7 +2571,7 @@ class RoomAirTemperaturePatternNondimensionalHeight(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `pair_9_delta_adjacent_air_temperature`'.format(value))
             if value < -10.0:
                 raise ValueError('value need to be greater or equal -10.0 '
@@ -2548,7 +2606,7 @@ class RoomAirTemperaturePatternNondimensionalHeight(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `pair_10_zeta_nondimensional_height`'.format(value))
         self._data["Pair 10 Zeta Nondimensional Height"] = value
 
@@ -2580,7 +2638,7 @@ class RoomAirTemperaturePatternNondimensionalHeight(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `pair_10_delta_adjacent_air_temperature`'.format(value))
             if value < -10.0:
                 raise ValueError('value need to be greater or equal -10.0 '
@@ -2615,7 +2673,7 @@ class RoomAirTemperaturePatternNondimensionalHeight(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `pair_11_zeta_nondimensional_height`'.format(value))
         self._data["Pair 11 Zeta Nondimensional Height"] = value
 
@@ -2647,7 +2705,7 @@ class RoomAirTemperaturePatternNondimensionalHeight(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `pair_11_delta_adjacent_air_temperature`'.format(value))
             if value < -10.0:
                 raise ValueError('value need to be greater or equal -10.0 '
@@ -2682,7 +2740,7 @@ class RoomAirTemperaturePatternNondimensionalHeight(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `pair_12_zeta_nondimensional_height`'.format(value))
         self._data["Pair 12 Zeta Nondimensional Height"] = value
 
@@ -2714,7 +2772,7 @@ class RoomAirTemperaturePatternNondimensionalHeight(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `pair_12_delta_adjacent_air_temperature`'.format(value))
             if value < -10.0:
                 raise ValueError('value need to be greater or equal -10.0 '
@@ -2749,7 +2807,7 @@ class RoomAirTemperaturePatternNondimensionalHeight(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `pair_13_zeta_nondimensional_height`'.format(value))
         self._data["Pair 13 Zeta Nondimensional Height"] = value
 
@@ -2781,7 +2839,7 @@ class RoomAirTemperaturePatternNondimensionalHeight(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `pair_13_delta_adjacent_air_temperature`'.format(value))
             if value < -10.0:
                 raise ValueError('value need to be greater or equal -10.0 '
@@ -2816,7 +2874,7 @@ class RoomAirTemperaturePatternNondimensionalHeight(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `pair_14_zeta_nondimensional_height`'.format(value))
         self._data["Pair 14 Zeta Nondimensional Height"] = value
 
@@ -2848,7 +2906,7 @@ class RoomAirTemperaturePatternNondimensionalHeight(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `pair_14_delta_adjacent_air_temperature`'.format(value))
             if value < -10.0:
                 raise ValueError('value need to be greater or equal -10.0 '
@@ -2883,7 +2941,7 @@ class RoomAirTemperaturePatternNondimensionalHeight(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `pair_15_zeta_nondimensional_height`'.format(value))
         self._data["Pair 15 Zeta Nondimensional Height"] = value
 
@@ -2915,7 +2973,7 @@ class RoomAirTemperaturePatternNondimensionalHeight(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `pair_15_delta_adjacent_air_temperature`'.format(value))
             if value < -10.0:
                 raise ValueError('value need to be greater or equal -10.0 '
@@ -2950,7 +3008,7 @@ class RoomAirTemperaturePatternNondimensionalHeight(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `pair_16_zeta_nondimensional_height`'.format(value))
         self._data["Pair 16 Zeta Nondimensional Height"] = value
 
@@ -2982,7 +3040,7 @@ class RoomAirTemperaturePatternNondimensionalHeight(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `pair_16_delta_adjacent_air_temperature`'.format(value))
             if value < -10.0:
                 raise ValueError('value need to be greater or equal -10.0 '
@@ -3017,7 +3075,7 @@ class RoomAirTemperaturePatternNondimensionalHeight(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `pair_17_zeta_nondimensional_height`'.format(value))
         self._data["Pair 17 Zeta Nondimensional Height"] = value
 
@@ -3049,7 +3107,7 @@ class RoomAirTemperaturePatternNondimensionalHeight(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `pair_17_delta_adjacent_air_temperature`'.format(value))
             if value < -10.0:
                 raise ValueError('value need to be greater or equal -10.0 '
@@ -3084,7 +3142,7 @@ class RoomAirTemperaturePatternNondimensionalHeight(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `pair_18_zeta_nondimensional_height`'.format(value))
         self._data["Pair 18 Zeta Nondimensional Height"] = value
 
@@ -3116,7 +3174,7 @@ class RoomAirTemperaturePatternNondimensionalHeight(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `pair_18_delta_adjacent_air_temperature`'.format(value))
             if value < -10.0:
                 raise ValueError('value need to be greater or equal -10.0 '
@@ -3151,7 +3209,7 @@ class RoomAirTemperaturePatternNondimensionalHeight(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `pair_19_zeta_nondimensional_height`'.format(value))
         self._data["Pair 19 Zeta Nondimensional Height"] = value
 
@@ -3183,7 +3241,7 @@ class RoomAirTemperaturePatternNondimensionalHeight(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `pair_19_delta_adjacent_air_temperature`'.format(value))
             if value < -10.0:
                 raise ValueError('value need to be greater or equal -10.0 '
@@ -3234,7 +3292,6 @@ class RoomAirTemperaturePatternSurfaceMapping(object):
         rather than by height. This allows modeling different adjacent air temperatures on
         the opposite sides of the zone. Used in combination with
         RoomAir:TemperaturePattern:UserDefined.
-    
     """
     internal_name = "RoomAir:TemperaturePattern:SurfaceMapping"
     field_count = 47
@@ -3291,15 +3348,16 @@ class RoomAirTemperaturePatternSurfaceMapping(object):
         self._data["Delta Adjacent Air Temperature Pair 20"] = None
         self._data["Surface Name Pair 21"] = None
         self._data["Delta Adjacent Air Temperature Pair 21"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -3630,6 +3688,7 @@ class RoomAirTemperaturePatternSurfaceMapping(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -3656,7 +3715,7 @@ class RoomAirTemperaturePatternSurfaceMapping(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3692,8 +3751,15 @@ class RoomAirTemperaturePatternSurfaceMapping(object):
             try:
                 value = int(value)
             except ValueError:
-                raise ValueError('value {} need to be of type int '
-                                 'for field `control_integer_for_pattern_control_schedule_name`'.format(value))
+                if not self.strict:
+                    try:
+                        conv_value = int(float(value))
+                        logging.warn('Cast float {} to int {}, precision may be lost '
+                                     'for field `control_integer_for_pattern_control_schedule_name`'.format(value, conv_value))
+                        value = conv_value
+                    except ValueError:
+                        raise ValueError('value {} need to be of type int '
+                                         'for field `control_integer_for_pattern_control_schedule_name`'.format(value))
         self._data["Control Integer for Pattern Control Schedule Name"] = value
 
     @property
@@ -3723,7 +3789,7 @@ class RoomAirTemperaturePatternSurfaceMapping(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `thermostat_offset`'.format(value))
         self._data["Thermostat Offset"] = value
 
@@ -3754,7 +3820,7 @@ class RoomAirTemperaturePatternSurfaceMapping(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `return_air_offset`'.format(value))
         self._data["Return Air Offset"] = value
 
@@ -3785,7 +3851,7 @@ class RoomAirTemperaturePatternSurfaceMapping(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `exhaust_air_offset`'.format(value))
         self._data["Exhaust Air Offset"] = value
 
@@ -3814,7 +3880,7 @@ class RoomAirTemperaturePatternSurfaceMapping(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_name_pair_1`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3850,7 +3916,7 @@ class RoomAirTemperaturePatternSurfaceMapping(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `delta_adjacent_air_temperature_pair_1`'.format(value))
         self._data["Delta Adjacent Air Temperature Pair 1"] = value
 
@@ -3879,7 +3945,7 @@ class RoomAirTemperaturePatternSurfaceMapping(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_name_pair_2`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3915,7 +3981,7 @@ class RoomAirTemperaturePatternSurfaceMapping(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `delta_adjacent_air_temperature_pair_2`'.format(value))
         self._data["Delta Adjacent Air Temperature Pair 2"] = value
 
@@ -3944,7 +4010,7 @@ class RoomAirTemperaturePatternSurfaceMapping(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_name_pair_3`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3980,7 +4046,7 @@ class RoomAirTemperaturePatternSurfaceMapping(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `delta_adjacent_air_temperature_pair_3`'.format(value))
         self._data["Delta Adjacent Air Temperature Pair 3"] = value
 
@@ -4009,7 +4075,7 @@ class RoomAirTemperaturePatternSurfaceMapping(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_name_pair_4`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4045,7 +4111,7 @@ class RoomAirTemperaturePatternSurfaceMapping(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `delta_adjacent_air_temperature_pair_4`'.format(value))
         self._data["Delta Adjacent Air Temperature Pair 4"] = value
 
@@ -4074,7 +4140,7 @@ class RoomAirTemperaturePatternSurfaceMapping(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_name_pair_5`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4110,7 +4176,7 @@ class RoomAirTemperaturePatternSurfaceMapping(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `delta_adjacent_air_temperature_pair_5`'.format(value))
         self._data["Delta Adjacent Air Temperature Pair 5"] = value
 
@@ -4139,7 +4205,7 @@ class RoomAirTemperaturePatternSurfaceMapping(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_name_pair_6`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4175,7 +4241,7 @@ class RoomAirTemperaturePatternSurfaceMapping(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `delta_adjacent_air_temperature_pair_6`'.format(value))
         self._data["Delta Adjacent Air Temperature Pair 6"] = value
 
@@ -4204,7 +4270,7 @@ class RoomAirTemperaturePatternSurfaceMapping(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_name_pair_7`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4240,7 +4306,7 @@ class RoomAirTemperaturePatternSurfaceMapping(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `delta_adjacent_air_temperature_pair_7`'.format(value))
         self._data["Delta Adjacent Air Temperature Pair 7"] = value
 
@@ -4269,7 +4335,7 @@ class RoomAirTemperaturePatternSurfaceMapping(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_name_pair_8`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4305,7 +4371,7 @@ class RoomAirTemperaturePatternSurfaceMapping(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `delta_adjacent_air_temperature_pair_8`'.format(value))
         self._data["Delta Adjacent Air Temperature Pair 8"] = value
 
@@ -4334,7 +4400,7 @@ class RoomAirTemperaturePatternSurfaceMapping(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_name_pair_9`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4370,7 +4436,7 @@ class RoomAirTemperaturePatternSurfaceMapping(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `delta_adjacent_air_temperature_pair_9`'.format(value))
         self._data["Delta Adjacent Air Temperature Pair 9"] = value
 
@@ -4399,7 +4465,7 @@ class RoomAirTemperaturePatternSurfaceMapping(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_name_pair_10`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4435,7 +4501,7 @@ class RoomAirTemperaturePatternSurfaceMapping(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `delta_adjacent_air_temperature_pair_10`'.format(value))
         self._data["Delta Adjacent Air Temperature Pair 10"] = value
 
@@ -4464,7 +4530,7 @@ class RoomAirTemperaturePatternSurfaceMapping(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_name_pair_11`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4500,7 +4566,7 @@ class RoomAirTemperaturePatternSurfaceMapping(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `delta_adjacent_air_temperature_pair_11`'.format(value))
         self._data["Delta Adjacent Air Temperature Pair 11"] = value
 
@@ -4529,7 +4595,7 @@ class RoomAirTemperaturePatternSurfaceMapping(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_name_pair_12`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4565,7 +4631,7 @@ class RoomAirTemperaturePatternSurfaceMapping(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `delta_adjacent_air_temperature_pair_12`'.format(value))
         self._data["Delta Adjacent Air Temperature Pair 12"] = value
 
@@ -4594,7 +4660,7 @@ class RoomAirTemperaturePatternSurfaceMapping(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_name_pair_13`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4630,7 +4696,7 @@ class RoomAirTemperaturePatternSurfaceMapping(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `delta_adjacent_air_temperature_pair_13`'.format(value))
         self._data["Delta Adjacent Air Temperature Pair 13"] = value
 
@@ -4659,7 +4725,7 @@ class RoomAirTemperaturePatternSurfaceMapping(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_name_pair_14`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4695,7 +4761,7 @@ class RoomAirTemperaturePatternSurfaceMapping(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `delta_adjacent_air_temperature_pair_14`'.format(value))
         self._data["Delta Adjacent Air Temperature Pair 14"] = value
 
@@ -4724,7 +4790,7 @@ class RoomAirTemperaturePatternSurfaceMapping(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_name_pair_15`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4760,7 +4826,7 @@ class RoomAirTemperaturePatternSurfaceMapping(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `delta_adjacent_air_temperature_pair_15`'.format(value))
         self._data["Delta Adjacent Air Temperature Pair 15"] = value
 
@@ -4789,7 +4855,7 @@ class RoomAirTemperaturePatternSurfaceMapping(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_name_pair_16`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4825,7 +4891,7 @@ class RoomAirTemperaturePatternSurfaceMapping(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `delta_adjacent_air_temperature_pair_16`'.format(value))
         self._data["Delta Adjacent Air Temperature Pair 16"] = value
 
@@ -4854,7 +4920,7 @@ class RoomAirTemperaturePatternSurfaceMapping(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_name_pair_17`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4890,7 +4956,7 @@ class RoomAirTemperaturePatternSurfaceMapping(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `delta_adjacent_air_temperature_pair_17`'.format(value))
         self._data["Delta Adjacent Air Temperature Pair 17"] = value
 
@@ -4919,7 +4985,7 @@ class RoomAirTemperaturePatternSurfaceMapping(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_name_pair_18`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4955,7 +5021,7 @@ class RoomAirTemperaturePatternSurfaceMapping(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `delta_adjacent_air_temperature_pair_18`'.format(value))
         self._data["Delta Adjacent Air Temperature Pair 18"] = value
 
@@ -4984,7 +5050,7 @@ class RoomAirTemperaturePatternSurfaceMapping(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_name_pair_19`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -5020,7 +5086,7 @@ class RoomAirTemperaturePatternSurfaceMapping(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `delta_adjacent_air_temperature_pair_19`'.format(value))
         self._data["Delta Adjacent Air Temperature Pair 19"] = value
 
@@ -5049,7 +5115,7 @@ class RoomAirTemperaturePatternSurfaceMapping(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_name_pair_20`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -5085,7 +5151,7 @@ class RoomAirTemperaturePatternSurfaceMapping(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `delta_adjacent_air_temperature_pair_20`'.format(value))
         self._data["Delta Adjacent Air Temperature Pair 20"] = value
 
@@ -5114,7 +5180,7 @@ class RoomAirTemperaturePatternSurfaceMapping(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_name_pair_21`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -5150,7 +5216,7 @@ class RoomAirTemperaturePatternSurfaceMapping(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `delta_adjacent_air_temperature_pair_21`'.format(value))
         self._data["Delta Adjacent Air Temperature Pair 21"] = value
 
@@ -5191,7 +5257,6 @@ class RoomAirTemperaturePatternSurfaceMapping(object):
 class RoomAirNode(object):
     """ Corresponds to IDD object `RoomAir:Node`
         Define an air node for some types of nodal room air models
-    
     """
     internal_name = "RoomAir:Node"
     field_count = 25
@@ -5226,15 +5291,16 @@ class RoomAirNode(object):
         self._data["Surface 19 Name"] = None
         self._data["Surface 20 Name"] = None
         self._data["Surface 21 Name"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -5411,6 +5477,7 @@ class RoomAirNode(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -5437,7 +5504,7 @@ class RoomAirNode(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -5479,7 +5546,7 @@ class RoomAirNode(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `node_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -5497,16 +5564,26 @@ class RoomAirNode(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `node_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `node_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Node Type"] = value
 
@@ -5535,7 +5612,7 @@ class RoomAirNode(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `zone_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -5571,7 +5648,7 @@ class RoomAirNode(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `height_of_nodal_control_volume_center`'.format(value))
         self._data["Height of Nodal Control Volume Center"] = value
 
@@ -5600,7 +5677,7 @@ class RoomAirNode(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_1_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -5635,7 +5712,7 @@ class RoomAirNode(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_2_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -5670,7 +5747,7 @@ class RoomAirNode(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_3_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -5705,7 +5782,7 @@ class RoomAirNode(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_4_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -5740,7 +5817,7 @@ class RoomAirNode(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_5_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -5775,7 +5852,7 @@ class RoomAirNode(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_6_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -5810,7 +5887,7 @@ class RoomAirNode(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_7_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -5845,7 +5922,7 @@ class RoomAirNode(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_8_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -5880,7 +5957,7 @@ class RoomAirNode(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_9_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -5915,7 +5992,7 @@ class RoomAirNode(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_10_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -5950,7 +6027,7 @@ class RoomAirNode(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_11_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -5985,7 +6062,7 @@ class RoomAirNode(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_12_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -6020,7 +6097,7 @@ class RoomAirNode(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_13_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -6055,7 +6132,7 @@ class RoomAirNode(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_14_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -6090,7 +6167,7 @@ class RoomAirNode(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_15_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -6125,7 +6202,7 @@ class RoomAirNode(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_16_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -6160,7 +6237,7 @@ class RoomAirNode(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_17_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -6195,7 +6272,7 @@ class RoomAirNode(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_18_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -6230,7 +6307,7 @@ class RoomAirNode(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_19_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -6265,7 +6342,7 @@ class RoomAirNode(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_20_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -6300,7 +6377,7 @@ class RoomAirNode(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `surface_21_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -6347,7 +6424,6 @@ class RoomAirNode(object):
 class RoomAirSettingsOneNodeDisplacementVentilation(object):
     """ Corresponds to IDD object `RoomAirSettings:OneNodeDisplacementVentilation`
         The Mundt model for displacement ventilation
-    
     """
     internal_name = "RoomAirSettings:OneNodeDisplacementVentilation"
     field_count = 3
@@ -6360,15 +6436,16 @@ class RoomAirSettingsOneNodeDisplacementVentilation(object):
         self._data["Zone Name"] = None
         self._data["Fraction of Convective Internal Loads Added to Floor Air"] = None
         self._data["Fraction of Infiltration Internal Loads Added to Floor Air"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.zone_name = None
@@ -6391,6 +6468,7 @@ class RoomAirSettingsOneNodeDisplacementVentilation(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def zone_name(self):
@@ -6417,7 +6495,7 @@ class RoomAirSettingsOneNodeDisplacementVentilation(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `zone_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -6454,7 +6532,7 @@ class RoomAirSettingsOneNodeDisplacementVentilation(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_convective_internal_loads_added_to_floor_air`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -6491,7 +6569,7 @@ class RoomAirSettingsOneNodeDisplacementVentilation(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_infiltration_internal_loads_added_to_floor_air`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -6538,7 +6616,6 @@ class RoomAirSettingsOneNodeDisplacementVentilation(object):
 class RoomAirSettingsThreeNodeDisplacementVentilation(object):
     """ Corresponds to IDD object `RoomAirSettings:ThreeNodeDisplacementVentilation`
         The UCSD model for Displacement Ventilation
-    
     """
     internal_name = "RoomAirSettings:ThreeNodeDisplacementVentilation"
     field_count = 6
@@ -6554,15 +6631,16 @@ class RoomAirSettingsThreeNodeDisplacementVentilation(object):
         self._data["Thermostat Height"] = None
         self._data["Comfort Height"] = None
         self._data["Temperature Difference Threshold for Reporting"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.zone_name = None
@@ -6606,6 +6684,7 @@ class RoomAirSettingsThreeNodeDisplacementVentilation(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def zone_name(self):
@@ -6633,7 +6712,7 @@ class RoomAirSettingsThreeNodeDisplacementVentilation(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `zone_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -6671,7 +6750,7 @@ class RoomAirSettingsThreeNodeDisplacementVentilation(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `gain_distribution_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -6711,7 +6790,7 @@ class RoomAirSettingsThreeNodeDisplacementVentilation(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `number_of_plumes_per_occupant`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -6747,7 +6826,7 @@ class RoomAirSettingsThreeNodeDisplacementVentilation(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `thermostat_height`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -6783,7 +6862,7 @@ class RoomAirSettingsThreeNodeDisplacementVentilation(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `comfort_height`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -6824,7 +6903,7 @@ class RoomAirSettingsThreeNodeDisplacementVentilation(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_difference_threshold_for_reporting`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -6872,7 +6951,6 @@ class RoomAirSettingsCrossVentilation(object):
         distinguishes two regions in the room, the main jet region and the recirculations,
         and predicts characteristic airflow velocities and average air temperatures.
         Used with RoomAirModelType = CrossVentilation.
-    
     """
     internal_name = "RoomAirSettings:CrossVentilation"
     field_count = 3
@@ -6885,15 +6963,16 @@ class RoomAirSettingsCrossVentilation(object):
         self._data["Zone Name"] = None
         self._data["Gain Distribution Schedule Name"] = None
         self._data["Airflow Region Used for Thermal Comfort Evaluation"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.zone_name = None
@@ -6916,6 +6995,7 @@ class RoomAirSettingsCrossVentilation(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def zone_name(self):
@@ -6943,7 +7023,7 @@ class RoomAirSettingsCrossVentilation(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `zone_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -6981,7 +7061,7 @@ class RoomAirSettingsCrossVentilation(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `gain_distribution_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -7022,7 +7102,7 @@ class RoomAirSettingsCrossVentilation(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `airflow_region_used_for_thermal_comfort_evaluation`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -7036,16 +7116,26 @@ class RoomAirSettingsCrossVentilation(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `airflow_region_used_for_thermal_comfort_evaluation`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `airflow_region_used_for_thermal_comfort_evaluation`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Airflow Region Used for Thermal Comfort Evaluation"] = value
 
@@ -7091,7 +7181,6 @@ class RoomAirSettingsUnderFloorAirDistributionInterior(object):
         The model should be used with caution in zones which have large heat gains or losses
         through exterior walls or windows or which have considerable direct solar gain.
         Used with RoomAirModelType = UnderFloorAirDistributionInterior.
-    
     """
     internal_name = "RoomAirSettings:UnderFloorAirDistributionInterior"
     field_count = 15
@@ -7116,15 +7205,16 @@ class RoomAirSettingsUnderFloorAirDistributionInterior(object):
         self._data["Coefficient C"] = None
         self._data["Coefficient D"] = None
         self._data["Coefficient E"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.zone_name = None
@@ -7231,6 +7321,7 @@ class RoomAirSettingsUnderFloorAirDistributionInterior(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def zone_name(self):
@@ -7258,7 +7349,7 @@ class RoomAirSettingsUnderFloorAirDistributionInterior(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `zone_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -7298,12 +7389,17 @@ class RoomAirSettingsUnderFloorAirDistributionInterior(object):
                 if value_lower == "autocalculate":
                     self._data["Number of Diffusers"] = "Autocalculate"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autocalculate" '
+                                 'for field `number_of_diffusers`'.format(value))
+                    self._data["Number of Diffusers"] = "Autocalculate"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autocalculate"'
                                  'for field `number_of_diffusers`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -7340,12 +7436,17 @@ class RoomAirSettingsUnderFloorAirDistributionInterior(object):
                 if value_lower == "autocalculate":
                     self._data["Power per Plume"] = "Autocalculate"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autocalculate" '
+                                 'for field `power_per_plume`'.format(value))
+                    self._data["Power per Plume"] = "Autocalculate"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autocalculate"'
                                  'for field `power_per_plume`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -7382,12 +7483,17 @@ class RoomAirSettingsUnderFloorAirDistributionInterior(object):
                 if value_lower == "autocalculate":
                     self._data["Design Effective Area of Diffuser"] = "Autocalculate"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autocalculate" '
+                                 'for field `design_effective_area_of_diffuser`'.format(value))
+                    self._data["Design Effective Area of Diffuser"] = "Autocalculate"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autocalculate"'
                                  'for field `design_effective_area_of_diffuser`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -7425,12 +7531,17 @@ class RoomAirSettingsUnderFloorAirDistributionInterior(object):
                 if value_lower == "autocalculate":
                     self._data["Diffuser Slot Angle from Vertical"] = "Autocalculate"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autocalculate" '
+                                 'for field `diffuser_slot_angle_from_vertical`'.format(value))
+                    self._data["Diffuser Slot Angle from Vertical"] = "Autocalculate"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autocalculate"'
                                  'for field `diffuser_slot_angle_from_vertical`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -7469,7 +7580,7 @@ class RoomAirSettingsUnderFloorAirDistributionInterior(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `thermostat_height`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -7505,7 +7616,7 @@ class RoomAirSettingsUnderFloorAirDistributionInterior(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `comfort_height`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -7545,7 +7656,7 @@ class RoomAirSettingsUnderFloorAirDistributionInterior(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_difference_threshold_for_reporting`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -7584,7 +7695,7 @@ class RoomAirSettingsUnderFloorAirDistributionInterior(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `floor_diffuser_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -7601,16 +7712,26 @@ class RoomAirSettingsUnderFloorAirDistributionInterior(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `floor_diffuser_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `floor_diffuser_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Floor Diffuser Type"] = value
 
@@ -7645,12 +7766,17 @@ class RoomAirSettingsUnderFloorAirDistributionInterior(object):
                 if value_lower == "autocalculate":
                     self._data["Transition Height"] = "Autocalculate"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autocalculate" '
+                                 'for field `transition_height`'.format(value))
+                    self._data["Transition Height"] = "Autocalculate"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autocalculate"'
                                  'for field `transition_height`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -7687,12 +7813,17 @@ class RoomAirSettingsUnderFloorAirDistributionInterior(object):
                 if value_lower == "autocalculate":
                     self._data["Coefficient A"] = "Autocalculate"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autocalculate" '
+                                 'for field `coefficient_a`'.format(value))
+                    self._data["Coefficient A"] = "Autocalculate"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autocalculate"'
                                  'for field `coefficient_a`'.format(value))
         self._data["Coefficient A"] = value
 
@@ -7726,12 +7857,17 @@ class RoomAirSettingsUnderFloorAirDistributionInterior(object):
                 if value_lower == "autocalculate":
                     self._data["Coefficient B"] = "Autocalculate"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autocalculate" '
+                                 'for field `coefficient_b`'.format(value))
+                    self._data["Coefficient B"] = "Autocalculate"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autocalculate"'
                                  'for field `coefficient_b`'.format(value))
         self._data["Coefficient B"] = value
 
@@ -7765,12 +7901,17 @@ class RoomAirSettingsUnderFloorAirDistributionInterior(object):
                 if value_lower == "autocalculate":
                     self._data["Coefficient C"] = "Autocalculate"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autocalculate" '
+                                 'for field `coefficient_c`'.format(value))
+                    self._data["Coefficient C"] = "Autocalculate"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autocalculate"'
                                  'for field `coefficient_c`'.format(value))
         self._data["Coefficient C"] = value
 
@@ -7804,12 +7945,17 @@ class RoomAirSettingsUnderFloorAirDistributionInterior(object):
                 if value_lower == "autocalculate":
                     self._data["Coefficient D"] = "Autocalculate"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autocalculate" '
+                                 'for field `coefficient_d`'.format(value))
+                    self._data["Coefficient D"] = "Autocalculate"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autocalculate"'
                                  'for field `coefficient_d`'.format(value))
         self._data["Coefficient D"] = value
 
@@ -7843,12 +7989,17 @@ class RoomAirSettingsUnderFloorAirDistributionInterior(object):
                 if value_lower == "autocalculate":
                     self._data["Coefficient E"] = "Autocalculate"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autocalculate" '
+                                 'for field `coefficient_e`'.format(value))
+                    self._data["Coefficient E"] = "Autocalculate"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autocalculate"'
                                  'for field `coefficient_e`'.format(value))
         self._data["Coefficient E"] = value
 
@@ -7892,7 +8043,6 @@ class RoomAirSettingsUnderFloorAirDistributionExterior(object):
         The dominant sources of heat gain should be from people, equipment, and other
         localized sources located in the occupied part of the room, as well as convective gain
         coming from a warm window. Used with RoomAirModelType = CrossVentilation.
-    
     """
     internal_name = "RoomAirSettings:UnderFloorAirDistributionExterior"
     field_count = 15
@@ -7917,15 +8067,16 @@ class RoomAirSettingsUnderFloorAirDistributionExterior(object):
         self._data["Coefficient C in formula Kc = A*Gamma**B + C + D*Gamma + E*Gamma**2"] = None
         self._data["Coefficient D in formula Kc = A*Gamma**B + C + D*Gamma + E*Gamma**2"] = None
         self._data["Coefficient E in formula Kc = A*Gamma**B + C + D*Gamma + E*Gamma**2"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.zone_name = None
@@ -8032,6 +8183,7 @@ class RoomAirSettingsUnderFloorAirDistributionExterior(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def zone_name(self):
@@ -8059,7 +8211,7 @@ class RoomAirSettingsUnderFloorAirDistributionExterior(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `zone_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -8098,12 +8250,17 @@ class RoomAirSettingsUnderFloorAirDistributionExterior(object):
                 if value_lower == "autocalculate":
                     self._data["Number of Diffusers per Zone"] = "Autocalculate"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autocalculate" '
+                                 'for field `number_of_diffusers_per_zone`'.format(value))
+                    self._data["Number of Diffusers per Zone"] = "Autocalculate"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autocalculate"'
                                  'for field `number_of_diffusers_per_zone`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -8140,12 +8297,17 @@ class RoomAirSettingsUnderFloorAirDistributionExterior(object):
                 if value_lower == "autocalculate":
                     self._data["Power per Plume"] = "Autocalculate"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autocalculate" '
+                                 'for field `power_per_plume`'.format(value))
+                    self._data["Power per Plume"] = "Autocalculate"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autocalculate"'
                                  'for field `power_per_plume`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -8182,12 +8344,17 @@ class RoomAirSettingsUnderFloorAirDistributionExterior(object):
                 if value_lower == "autocalculate":
                     self._data["Design Effective Area of Diffuser"] = "Autocalculate"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autocalculate" '
+                                 'for field `design_effective_area_of_diffuser`'.format(value))
+                    self._data["Design Effective Area of Diffuser"] = "Autocalculate"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autocalculate"'
                                  'for field `design_effective_area_of_diffuser`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -8225,12 +8392,17 @@ class RoomAirSettingsUnderFloorAirDistributionExterior(object):
                 if value_lower == "autocalculate":
                     self._data["Diffuser Slot Angle from Vertical"] = "Autocalculate"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autocalculate" '
+                                 'for field `diffuser_slot_angle_from_vertical`'.format(value))
+                    self._data["Diffuser Slot Angle from Vertical"] = "Autocalculate"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autocalculate"'
                                  'for field `diffuser_slot_angle_from_vertical`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -8269,7 +8441,7 @@ class RoomAirSettingsUnderFloorAirDistributionExterior(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `thermostat_height`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -8305,7 +8477,7 @@ class RoomAirSettingsUnderFloorAirDistributionExterior(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `comfort_height`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -8345,7 +8517,7 @@ class RoomAirSettingsUnderFloorAirDistributionExterior(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `temperature_difference_threshold_for_reporting`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -8384,7 +8556,7 @@ class RoomAirSettingsUnderFloorAirDistributionExterior(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `floor_diffuser_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -8401,16 +8573,26 @@ class RoomAirSettingsUnderFloorAirDistributionExterior(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `floor_diffuser_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `floor_diffuser_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Floor Diffuser Type"] = value
 
@@ -8445,12 +8627,17 @@ class RoomAirSettingsUnderFloorAirDistributionExterior(object):
                 if value_lower == "autocalculate":
                     self._data["Transition Height"] = "Autocalculate"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autocalculate" '
+                                 'for field `transition_height`'.format(value))
+                    self._data["Transition Height"] = "Autocalculate"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autocalculate"'
                                  'for field `transition_height`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -8486,12 +8673,17 @@ class RoomAirSettingsUnderFloorAirDistributionExterior(object):
                 if value_lower == "autocalculate":
                     self._data["Coefficient A in formula Kc = A*Gamma**B + C + D*Gamma + E*Gamma**2"] = "Autocalculate"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autocalculate" '
+                                 'for field `coefficient_a_in_formula_kc_agammab_c_dgamma_egamma2`'.format(value))
+                    self._data["Coefficient A in formula Kc = A*Gamma**B + C + D*Gamma + E*Gamma**2"] = "Autocalculate"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autocalculate"'
                                  'for field `coefficient_a_in_formula_kc_agammab_c_dgamma_egamma2`'.format(value))
         self._data["Coefficient A in formula Kc = A*Gamma**B + C + D*Gamma + E*Gamma**2"] = value
 
@@ -8524,12 +8716,17 @@ class RoomAirSettingsUnderFloorAirDistributionExterior(object):
                 if value_lower == "autocalculate":
                     self._data["Coefficient B in formula Kc = A*Gamma**B + C + D*Gamma + E*Gamma**2"] = "Autocalculate"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autocalculate" '
+                                 'for field `coefficient_b_in_formula_kc_agammab_c_dgamma_egamma2`'.format(value))
+                    self._data["Coefficient B in formula Kc = A*Gamma**B + C + D*Gamma + E*Gamma**2"] = "Autocalculate"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autocalculate"'
                                  'for field `coefficient_b_in_formula_kc_agammab_c_dgamma_egamma2`'.format(value))
         self._data["Coefficient B in formula Kc = A*Gamma**B + C + D*Gamma + E*Gamma**2"] = value
 
@@ -8562,12 +8759,17 @@ class RoomAirSettingsUnderFloorAirDistributionExterior(object):
                 if value_lower == "autocalculate":
                     self._data["Coefficient C in formula Kc = A*Gamma**B + C + D*Gamma + E*Gamma**2"] = "Autocalculate"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autocalculate" '
+                                 'for field `coefficient_c_in_formula_kc_agammab_c_dgamma_egamma2`'.format(value))
+                    self._data["Coefficient C in formula Kc = A*Gamma**B + C + D*Gamma + E*Gamma**2"] = "Autocalculate"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autocalculate"'
                                  'for field `coefficient_c_in_formula_kc_agammab_c_dgamma_egamma2`'.format(value))
         self._data["Coefficient C in formula Kc = A*Gamma**B + C + D*Gamma + E*Gamma**2"] = value
 
@@ -8600,12 +8802,17 @@ class RoomAirSettingsUnderFloorAirDistributionExterior(object):
                 if value_lower == "autocalculate":
                     self._data["Coefficient D in formula Kc = A*Gamma**B + C + D*Gamma + E*Gamma**2"] = "Autocalculate"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autocalculate" '
+                                 'for field `coefficient_d_in_formula_kc_agammab_c_dgamma_egamma2`'.format(value))
+                    self._data["Coefficient D in formula Kc = A*Gamma**B + C + D*Gamma + E*Gamma**2"] = "Autocalculate"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autocalculate"'
                                  'for field `coefficient_d_in_formula_kc_agammab_c_dgamma_egamma2`'.format(value))
         self._data["Coefficient D in formula Kc = A*Gamma**B + C + D*Gamma + E*Gamma**2"] = value
 
@@ -8638,12 +8845,17 @@ class RoomAirSettingsUnderFloorAirDistributionExterior(object):
                 if value_lower == "autocalculate":
                     self._data["Coefficient E in formula Kc = A*Gamma**B + C + D*Gamma + E*Gamma**2"] = "Autocalculate"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autocalculate" '
+                                 'for field `coefficient_e_in_formula_kc_agammab_c_dgamma_egamma2`'.format(value))
+                    self._data["Coefficient E in formula Kc = A*Gamma**B + C + D*Gamma + E*Gamma**2"] = "Autocalculate"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autocalculate"'
                                  'for field `coefficient_e_in_formula_kc_agammab_c_dgamma_egamma2`'.format(value))
         self._data["Coefficient E in formula Kc = A*Gamma**B + C + D*Gamma + E*Gamma**2"] = value
 

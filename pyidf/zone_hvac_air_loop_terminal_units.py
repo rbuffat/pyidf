@@ -1,10 +1,11 @@
 from collections import OrderedDict
+import logging
+import re
 
 class AirTerminalSingleDuctUncontrolled(object):
     """ Corresponds to IDD object `AirTerminal:SingleDuct:Uncontrolled`
         Central air system terminal unit, single duct, constant volume, no controls other than
         on/off schedule.
-    
     """
     internal_name = "AirTerminal:SingleDuct:Uncontrolled"
     field_count = 4
@@ -18,15 +19,16 @@ class AirTerminalSingleDuctUncontrolled(object):
         self._data["Availability Schedule Name"] = None
         self._data["Zone Supply Air Node Name"] = None
         self._data["Maximum Air Flow Rate"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -56,6 +58,7 @@ class AirTerminalSingleDuctUncontrolled(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -82,7 +85,7 @@ class AirTerminalSingleDuctUncontrolled(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -119,7 +122,7 @@ class AirTerminalSingleDuctUncontrolled(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `availability_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -154,7 +157,7 @@ class AirTerminalSingleDuctUncontrolled(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `zone_supply_air_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -193,12 +196,17 @@ class AirTerminalSingleDuctUncontrolled(object):
                 if value_lower == "autosize":
                     self._data["Maximum Air Flow Rate"] = "Autosize"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autosize" '
+                                 'for field `maximum_air_flow_rate`'.format(value))
+                    self._data["Maximum Air Flow Rate"] = "Autosize"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autosize"'
                                  'for field `maximum_air_flow_rate`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -243,7 +251,6 @@ class AirTerminalSingleDuctConstantVolumeReheat(object):
     """ Corresponds to IDD object `AirTerminal:SingleDuct:ConstantVolume:Reheat`
         Central air system terminal unit, single duct, constant volume, with reheat coil (hot
         water, electric, gas, or steam).
-    
     """
     internal_name = "AirTerminal:SingleDuct:ConstantVolume:Reheat"
     field_count = 12
@@ -265,15 +272,16 @@ class AirTerminalSingleDuctConstantVolumeReheat(object):
         self._data["Minimum Hot Water or Steam Flow Rate"] = None
         self._data["Convergence Tolerance"] = None
         self._data["Maximum Reheat Air Temperature"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -359,6 +367,7 @@ class AirTerminalSingleDuctConstantVolumeReheat(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -385,7 +394,7 @@ class AirTerminalSingleDuctConstantVolumeReheat(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -422,7 +431,7 @@ class AirTerminalSingleDuctConstantVolumeReheat(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `availability_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -457,7 +466,7 @@ class AirTerminalSingleDuctConstantVolumeReheat(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `air_outlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -492,7 +501,7 @@ class AirTerminalSingleDuctConstantVolumeReheat(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `air_inlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -531,12 +540,17 @@ class AirTerminalSingleDuctConstantVolumeReheat(object):
                 if value_lower == "autosize":
                     self._data["Maximum Air Flow Rate"] = "Autosize"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autosize" '
+                                 'for field `maximum_air_flow_rate`'.format(value))
+                    self._data["Maximum Air Flow Rate"] = "Autosize"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autosize"'
                                  'for field `maximum_air_flow_rate`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -555,6 +569,9 @@ class AirTerminalSingleDuctConstantVolumeReheat(object):
     @hot_water_or_steam_inlet_node_name.setter
     def hot_water_or_steam_inlet_node_name(self, value=None):
         """  Corresponds to IDD Field `Hot Water or Steam Inlet Node Name`
+        This field is not really used and will be deleted from the object.
+        The required information is gotten internally or
+        not needed by the program.
 
         Args:
             value (str): value for IDD Field `Hot Water or Steam Inlet Node Name`
@@ -568,7 +585,7 @@ class AirTerminalSingleDuctConstantVolumeReheat(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `hot_water_or_steam_inlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -608,7 +625,7 @@ class AirTerminalSingleDuctConstantVolumeReheat(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `reheat_coil_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -624,16 +641,26 @@ class AirTerminalSingleDuctConstantVolumeReheat(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `reheat_coil_object_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `reheat_coil_object_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Reheat Coil Object Type"] = value
 
@@ -662,7 +689,7 @@ class AirTerminalSingleDuctConstantVolumeReheat(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `reheat_coil_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -703,12 +730,17 @@ class AirTerminalSingleDuctConstantVolumeReheat(object):
                 if value_lower == "autosize":
                     self._data["Maximum Hot Water or Steam Flow Rate"] = "Autosize"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autosize" '
+                                 'for field `maximum_hot_water_or_steam_flow_rate`'.format(value))
+                    self._data["Maximum Hot Water or Steam Flow Rate"] = "Autosize"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autosize"'
                                  'for field `maximum_hot_water_or_steam_flow_rate`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -745,7 +777,7 @@ class AirTerminalSingleDuctConstantVolumeReheat(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `minimum_hot_water_or_steam_flow_rate`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -779,7 +811,7 @@ class AirTerminalSingleDuctConstantVolumeReheat(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `convergence_tolerance`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -815,7 +847,7 @@ class AirTerminalSingleDuctConstantVolumeReheat(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `maximum_reheat_air_temperature`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -859,7 +891,6 @@ class AirTerminalSingleDuctConstantVolumeReheat(object):
 class AirTerminalSingleDuctVavNoReheat(object):
     """ Corresponds to IDD object `AirTerminal:SingleDuct:VAV:NoReheat`
         Central air system terminal unit, single duct, variable volume, with no reheat coil.
-    
     """
     internal_name = "AirTerminal:SingleDuct:VAV:NoReheat"
     field_count = 10
@@ -879,15 +910,16 @@ class AirTerminalSingleDuctVavNoReheat(object):
         self._data["Fixed Minimum Air Flow Rate"] = None
         self._data["Minimum Air Flow Fraction Schedule Name"] = None
         self._data["Design Specification Outdoor Air Object Name"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -959,6 +991,7 @@ class AirTerminalSingleDuctVavNoReheat(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -985,7 +1018,7 @@ class AirTerminalSingleDuctVavNoReheat(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1022,7 +1055,7 @@ class AirTerminalSingleDuctVavNoReheat(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `availability_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1057,7 +1090,7 @@ class AirTerminalSingleDuctVavNoReheat(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `air_outlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1092,7 +1125,7 @@ class AirTerminalSingleDuctVavNoReheat(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `air_inlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1131,12 +1164,17 @@ class AirTerminalSingleDuctVavNoReheat(object):
                 if value_lower == "autosize":
                     self._data["Maximum Air Flow Rate"] = "Autosize"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autosize" '
+                                 'for field `maximum_air_flow_rate`'.format(value))
+                    self._data["Maximum Air Flow Rate"] = "Autosize"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autosize"'
                                  'for field `maximum_air_flow_rate`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -1175,7 +1213,7 @@ class AirTerminalSingleDuctVavNoReheat(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `zone_minimum_air_flow_input_method`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1190,16 +1228,26 @@ class AirTerminalSingleDuctVavNoReheat(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `zone_minimum_air_flow_input_method`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `zone_minimum_air_flow_input_method`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Zone Minimum Air Flow Input Method"] = value
 
@@ -1232,7 +1280,7 @@ class AirTerminalSingleDuctVavNoReheat(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `constant_minimum_air_flow_fraction`'.format(value))
         self._data["Constant Minimum Air Flow Fraction"] = value
 
@@ -1266,7 +1314,7 @@ class AirTerminalSingleDuctVavNoReheat(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fixed_minimum_air_flow_rate`'.format(value))
         self._data["Fixed Minimum Air Flow Rate"] = value
 
@@ -1299,7 +1347,7 @@ class AirTerminalSingleDuctVavNoReheat(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `minimum_air_flow_fraction_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1340,7 +1388,7 @@ class AirTerminalSingleDuctVavNoReheat(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `design_specification_outdoor_air_object_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1388,7 +1436,6 @@ class AirTerminalSingleDuctVavReheat(object):
     """ Corresponds to IDD object `AirTerminal:SingleDuct:VAV:Reheat`
         Central air system terminal unit, single duct, variable volume, with reheat coil (hot
         water, electric, gas, or steam).
-    
     """
     internal_name = "AirTerminal:SingleDuct:VAV:Reheat"
     field_count = 20
@@ -1418,15 +1465,16 @@ class AirTerminalSingleDuctVavReheat(object):
         self._data["Maximum Flow Fraction During Reheat"] = None
         self._data["Maximum Reheat Air Temperature"] = None
         self._data["Design Specification Outdoor Air Object Name"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -1568,6 +1616,7 @@ class AirTerminalSingleDuctVavReheat(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -1594,7 +1643,7 @@ class AirTerminalSingleDuctVavReheat(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1631,7 +1680,7 @@ class AirTerminalSingleDuctVavReheat(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `availability_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1668,7 +1717,7 @@ class AirTerminalSingleDuctVavReheat(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `damper_air_outlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1704,7 +1753,7 @@ class AirTerminalSingleDuctVavReheat(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `air_inlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1743,12 +1792,17 @@ class AirTerminalSingleDuctVavReheat(object):
                 if value_lower == "autosize":
                     self._data["Maximum Air Flow Rate"] = "Autosize"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autosize" '
+                                 'for field `maximum_air_flow_rate`'.format(value))
+                    self._data["Maximum Air Flow Rate"] = "Autosize"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autosize"'
                                  'for field `maximum_air_flow_rate`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -1787,7 +1841,7 @@ class AirTerminalSingleDuctVavReheat(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `zone_minimum_air_flow_input_method`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1802,16 +1856,26 @@ class AirTerminalSingleDuctVavReheat(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `zone_minimum_air_flow_input_method`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `zone_minimum_air_flow_input_method`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Zone Minimum Air Flow Input Method"] = value
 
@@ -1844,7 +1908,7 @@ class AirTerminalSingleDuctVavReheat(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `constant_minimum_air_flow_fraction`'.format(value))
         self._data["Constant Minimum Air Flow Fraction"] = value
 
@@ -1878,7 +1942,7 @@ class AirTerminalSingleDuctVavReheat(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fixed_minimum_air_flow_rate`'.format(value))
         self._data["Fixed Minimum Air Flow Rate"] = value
 
@@ -1911,7 +1975,7 @@ class AirTerminalSingleDuctVavReheat(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `minimum_air_flow_fraction_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1951,7 +2015,7 @@ class AirTerminalSingleDuctVavReheat(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `reheat_coil_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1967,16 +2031,26 @@ class AirTerminalSingleDuctVavReheat(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `reheat_coil_object_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `reheat_coil_object_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Reheat Coil Object Type"] = value
 
@@ -2005,7 +2079,7 @@ class AirTerminalSingleDuctVavReheat(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `reheat_coil_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2046,12 +2120,17 @@ class AirTerminalSingleDuctVavReheat(object):
                 if value_lower == "autosize":
                     self._data["Maximum Hot Water or Steam Flow Rate"] = "Autosize"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autosize" '
+                                 'for field `maximum_hot_water_or_steam_flow_rate`'.format(value))
+                    self._data["Maximum Hot Water or Steam Flow Rate"] = "Autosize"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autosize"'
                                  'for field `maximum_hot_water_or_steam_flow_rate`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -2088,7 +2167,7 @@ class AirTerminalSingleDuctVavReheat(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `minimum_hot_water_or_steam_flow_rate`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -2122,7 +2201,7 @@ class AirTerminalSingleDuctVavReheat(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `air_outlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2159,7 +2238,7 @@ class AirTerminalSingleDuctVavReheat(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `convergence_tolerance`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -2195,7 +2274,7 @@ class AirTerminalSingleDuctVavReheat(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `damper_heating_action`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2209,16 +2288,26 @@ class AirTerminalSingleDuctVavReheat(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `damper_heating_action`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `damper_heating_action`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Damper Heating Action"] = value
 
@@ -2256,12 +2345,17 @@ class AirTerminalSingleDuctVavReheat(object):
                 if value_lower == "autocalculate":
                     self._data["Maximum Flow per Zone Floor Area During Reheat"] = "Autocalculate"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autocalculate" '
+                                 'for field `maximum_flow_per_zone_floor_area_during_reheat`'.format(value))
+                    self._data["Maximum Flow per Zone Floor Area During Reheat"] = "Autocalculate"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autocalculate"'
                                  'for field `maximum_flow_per_zone_floor_area_during_reheat`'.format(value))
         self._data["Maximum Flow per Zone Floor Area During Reheat"] = value
 
@@ -2300,12 +2394,17 @@ class AirTerminalSingleDuctVavReheat(object):
                 if value_lower == "autocalculate":
                     self._data["Maximum Flow Fraction During Reheat"] = "Autocalculate"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autocalculate" '
+                                 'for field `maximum_flow_fraction_during_reheat`'.format(value))
+                    self._data["Maximum Flow Fraction During Reheat"] = "Autocalculate"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autocalculate"'
                                  'for field `maximum_flow_fraction_during_reheat`'.format(value))
         self._data["Maximum Flow Fraction During Reheat"] = value
 
@@ -2338,7 +2437,7 @@ class AirTerminalSingleDuctVavReheat(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `maximum_reheat_air_temperature`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -2376,7 +2475,7 @@ class AirTerminalSingleDuctVavReheat(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `design_specification_outdoor_air_object_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2427,7 +2526,6 @@ class AirTerminalSingleDuctVavReheatVariableSpeedFan(object):
         employed in underfloor air distribution (UFAD) systems where the air is supplied at
         low static pressure through an underfloor plenum. The fan is used to control the flow
         of conditioned air that enters the space.
-    
     """
     internal_name = "AirTerminal:SingleDuct:VAV:Reheat:VariableSpeedFan"
     field_count = 16
@@ -2453,15 +2551,16 @@ class AirTerminalSingleDuctVavReheatVariableSpeedFan(object):
         self._data["Maximum Hot Water or Steam Flow Rate"] = None
         self._data["Minimum Hot Water or Steam Flow Rate"] = None
         self._data["Heating Convergence Tolerance"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -2575,6 +2674,7 @@ class AirTerminalSingleDuctVavReheatVariableSpeedFan(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -2601,7 +2701,7 @@ class AirTerminalSingleDuctVavReheatVariableSpeedFan(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2638,7 +2738,7 @@ class AirTerminalSingleDuctVavReheatVariableSpeedFan(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `availability_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2677,12 +2777,17 @@ class AirTerminalSingleDuctVavReheatVariableSpeedFan(object):
                 if value_lower == "autosize":
                     self._data["Maximum Cooling Air Flow Rate"] = "Autosize"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autosize" '
+                                 'for field `maximum_cooling_air_flow_rate`'.format(value))
+                    self._data["Maximum Cooling Air Flow Rate"] = "Autosize"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autosize"'
                                  'for field `maximum_cooling_air_flow_rate`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -2718,12 +2823,17 @@ class AirTerminalSingleDuctVavReheatVariableSpeedFan(object):
                 if value_lower == "autosize":
                     self._data["Maximum Heating Air Flow Rate"] = "Autosize"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autosize" '
+                                 'for field `maximum_heating_air_flow_rate`'.format(value))
+                    self._data["Maximum Heating Air Flow Rate"] = "Autosize"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autosize"'
                                  'for field `maximum_heating_air_flow_rate`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -2758,7 +2868,7 @@ class AirTerminalSingleDuctVavReheatVariableSpeedFan(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `zone_minimum_air_flow_fraction`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -2780,6 +2890,9 @@ class AirTerminalSingleDuctVavReheatVariableSpeedFan(object):
     @air_inlet_node_name.setter
     def air_inlet_node_name(self, value=None):
         """  Corresponds to IDD Field `Air Inlet Node Name`
+        This field is not really used and will be deleted from the object.
+        The required information is gotten internally or
+        not needed by the program.
 
         Args:
             value (str): value for IDD Field `Air Inlet Node Name`
@@ -2793,7 +2906,7 @@ class AirTerminalSingleDuctVavReheatVariableSpeedFan(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `air_inlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2815,6 +2928,9 @@ class AirTerminalSingleDuctVavReheatVariableSpeedFan(object):
     @air_outlet_node_name.setter
     def air_outlet_node_name(self, value=None):
         """  Corresponds to IDD Field `Air Outlet Node Name`
+        This field is not really used and will be deleted from the object.
+        The required information is gotten internally or
+        not needed by the program.
 
         Args:
             value (str): value for IDD Field `Air Outlet Node Name`
@@ -2828,7 +2944,7 @@ class AirTerminalSingleDuctVavReheatVariableSpeedFan(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `air_outlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2850,6 +2966,9 @@ class AirTerminalSingleDuctVavReheatVariableSpeedFan(object):
     @heating_coil_air_inlet_node_name.setter
     def heating_coil_air_inlet_node_name(self, value=None):
         """  Corresponds to IDD Field `Heating Coil Air Inlet Node Name`
+        This field is not really used and will be deleted from the object.
+        The required information is gotten internally or
+        not needed by the program.
 
         Args:
             value (str): value for IDD Field `Heating Coil Air Inlet Node Name`
@@ -2863,7 +2982,7 @@ class AirTerminalSingleDuctVavReheatVariableSpeedFan(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `heating_coil_air_inlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2885,6 +3004,9 @@ class AirTerminalSingleDuctVavReheatVariableSpeedFan(object):
     @hot_water_or_steam_inlet_node_name.setter
     def hot_water_or_steam_inlet_node_name(self, value=None):
         """  Corresponds to IDD Field `Hot Water or Steam Inlet Node Name`
+        This field is not really used and will be deleted from the object.
+        The required information is gotten internally or
+        not needed by the program.
 
         Args:
             value (str): value for IDD Field `Hot Water or Steam Inlet Node Name`
@@ -2898,7 +3020,7 @@ class AirTerminalSingleDuctVavReheatVariableSpeedFan(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `hot_water_or_steam_inlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2935,7 +3057,7 @@ class AirTerminalSingleDuctVavReheatVariableSpeedFan(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `fan_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2948,16 +3070,26 @@ class AirTerminalSingleDuctVavReheatVariableSpeedFan(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `fan_object_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `fan_object_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Fan Object Type"] = value
 
@@ -2986,7 +3118,7 @@ class AirTerminalSingleDuctVavReheatVariableSpeedFan(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `fan_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3026,7 +3158,7 @@ class AirTerminalSingleDuctVavReheatVariableSpeedFan(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `heating_coil_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3042,16 +3174,26 @@ class AirTerminalSingleDuctVavReheatVariableSpeedFan(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `heating_coil_object_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `heating_coil_object_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Heating Coil Object Type"] = value
 
@@ -3080,7 +3222,7 @@ class AirTerminalSingleDuctVavReheatVariableSpeedFan(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `heating_coil_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3120,12 +3262,17 @@ class AirTerminalSingleDuctVavReheatVariableSpeedFan(object):
                 if value_lower == "autosize":
                     self._data["Maximum Hot Water or Steam Flow Rate"] = "Autosize"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autosize" '
+                                 'for field `maximum_hot_water_or_steam_flow_rate`'.format(value))
+                    self._data["Maximum Hot Water or Steam Flow Rate"] = "Autosize"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autosize"'
                                  'for field `maximum_hot_water_or_steam_flow_rate`'.format(value))
         self._data["Maximum Hot Water or Steam Flow Rate"] = value
 
@@ -3159,7 +3306,7 @@ class AirTerminalSingleDuctVavReheatVariableSpeedFan(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `minimum_hot_water_or_steam_flow_rate`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -3193,7 +3340,7 @@ class AirTerminalSingleDuctVavReheatVariableSpeedFan(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `heating_convergence_tolerance`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -3238,7 +3385,6 @@ class AirTerminalSingleDuctVavHeatAndCoolNoReheat(object):
     """ Corresponds to IDD object `AirTerminal:SingleDuct:VAV:HeatAndCool:NoReheat`
         Central air system terminal unit, single duct, variable volume for both cooling and
         heating, with no reheat coil.
-    
     """
     internal_name = "AirTerminal:SingleDuct:VAV:HeatAndCool:NoReheat"
     field_count = 6
@@ -3254,15 +3400,16 @@ class AirTerminalSingleDuctVavHeatAndCoolNoReheat(object):
         self._data["Air Inlet Node Name"] = None
         self._data["Maximum Air Flow Rate"] = None
         self._data["Zone Minimum Air Flow Fraction"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -3306,6 +3453,7 @@ class AirTerminalSingleDuctVavHeatAndCoolNoReheat(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -3332,7 +3480,7 @@ class AirTerminalSingleDuctVavHeatAndCoolNoReheat(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3369,7 +3517,7 @@ class AirTerminalSingleDuctVavHeatAndCoolNoReheat(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `availability_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3406,7 +3554,7 @@ class AirTerminalSingleDuctVavHeatAndCoolNoReheat(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `air_outlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3441,7 +3589,7 @@ class AirTerminalSingleDuctVavHeatAndCoolNoReheat(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `air_inlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3480,12 +3628,17 @@ class AirTerminalSingleDuctVavHeatAndCoolNoReheat(object):
                 if value_lower == "autosize":
                     self._data["Maximum Air Flow Rate"] = "Autosize"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autosize" '
+                                 'for field `maximum_air_flow_rate`'.format(value))
+                    self._data["Maximum Air Flow Rate"] = "Autosize"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autosize"'
                                  'for field `maximum_air_flow_rate`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -3520,7 +3673,7 @@ class AirTerminalSingleDuctVavHeatAndCoolNoReheat(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `zone_minimum_air_flow_fraction`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -3568,7 +3721,6 @@ class AirTerminalSingleDuctVavHeatAndCoolReheat(object):
     """ Corresponds to IDD object `AirTerminal:SingleDuct:VAV:HeatAndCool:Reheat`
         Central air system terminal unit, single duct, variable volume for both cooling and
         heating, with reheat coil (hot water, electric, gas, or steam).
-    
     """
     internal_name = "AirTerminal:SingleDuct:VAV:HeatAndCool:Reheat"
     field_count = 14
@@ -3592,15 +3744,16 @@ class AirTerminalSingleDuctVavHeatAndCoolReheat(object):
         self._data["Air Outlet Node Name"] = None
         self._data["Convergence Tolerance"] = None
         self._data["Maximum Reheat Air Temperature"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -3700,6 +3853,7 @@ class AirTerminalSingleDuctVavHeatAndCoolReheat(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -3726,7 +3880,7 @@ class AirTerminalSingleDuctVavHeatAndCoolReheat(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3763,7 +3917,7 @@ class AirTerminalSingleDuctVavHeatAndCoolReheat(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `availability_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3800,7 +3954,7 @@ class AirTerminalSingleDuctVavHeatAndCoolReheat(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `damper_air_outlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3836,7 +3990,7 @@ class AirTerminalSingleDuctVavHeatAndCoolReheat(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `air_inlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3875,12 +4029,17 @@ class AirTerminalSingleDuctVavHeatAndCoolReheat(object):
                 if value_lower == "autosize":
                     self._data["Maximum Air Flow Rate"] = "Autosize"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autosize" '
+                                 'for field `maximum_air_flow_rate`'.format(value))
+                    self._data["Maximum Air Flow Rate"] = "Autosize"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autosize"'
                                  'for field `maximum_air_flow_rate`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -3915,7 +4074,7 @@ class AirTerminalSingleDuctVavHeatAndCoolReheat(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `zone_minimum_air_flow_fraction`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -3937,6 +4096,9 @@ class AirTerminalSingleDuctVavHeatAndCoolReheat(object):
     @hot_water_or_steam_inlet_node_name.setter
     def hot_water_or_steam_inlet_node_name(self, value=None):
         """  Corresponds to IDD Field `Hot Water or Steam Inlet Node Name`
+        This field is not really used and will be deleted from the object.
+        The required information is gotten internally or
+        not needed by the program.
 
         Args:
             value (str): value for IDD Field `Hot Water or Steam Inlet Node Name`
@@ -3950,7 +4112,7 @@ class AirTerminalSingleDuctVavHeatAndCoolReheat(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `hot_water_or_steam_inlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3990,7 +4152,7 @@ class AirTerminalSingleDuctVavHeatAndCoolReheat(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `reheat_coil_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4006,16 +4168,26 @@ class AirTerminalSingleDuctVavHeatAndCoolReheat(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `reheat_coil_object_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `reheat_coil_object_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Reheat Coil Object Type"] = value
 
@@ -4044,7 +4216,7 @@ class AirTerminalSingleDuctVavHeatAndCoolReheat(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `reheat_coil_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4085,12 +4257,17 @@ class AirTerminalSingleDuctVavHeatAndCoolReheat(object):
                 if value_lower == "autosize":
                     self._data["Maximum Hot Water or Steam Flow Rate"] = "Autosize"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autosize" '
+                                 'for field `maximum_hot_water_or_steam_flow_rate`'.format(value))
+                    self._data["Maximum Hot Water or Steam Flow Rate"] = "Autosize"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autosize"'
                                  'for field `maximum_hot_water_or_steam_flow_rate`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -4127,7 +4304,7 @@ class AirTerminalSingleDuctVavHeatAndCoolReheat(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `minimum_hot_water_or_steam_flow_rate`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -4161,7 +4338,7 @@ class AirTerminalSingleDuctVavHeatAndCoolReheat(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `air_outlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4198,7 +4375,7 @@ class AirTerminalSingleDuctVavHeatAndCoolReheat(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `convergence_tolerance`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -4234,7 +4411,7 @@ class AirTerminalSingleDuctVavHeatAndCoolReheat(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `maximum_reheat_air_temperature`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -4279,7 +4456,6 @@ class AirTerminalSingleDuctSeriesPiuReheat(object):
     """ Corresponds to IDD object `AirTerminal:SingleDuct:SeriesPIU:Reheat`
         Central air system terminal unit, single duct, variable volume, series powered
         induction unit (PIU), with reheat coil (hot water, electric, gas, or steam).
-    
     """
     internal_name = "AirTerminal:SingleDuct:SeriesPIU:Reheat"
     field_count = 17
@@ -4306,15 +4482,16 @@ class AirTerminalSingleDuctSeriesPiuReheat(object):
         self._data["Minimum Hot Water or Steam Flow Rate"] = None
         self._data["Hot Water or Steam Inlet Node Name"] = None
         self._data["Convergence Tolerance"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -4435,6 +4612,7 @@ class AirTerminalSingleDuctSeriesPiuReheat(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -4461,7 +4639,7 @@ class AirTerminalSingleDuctSeriesPiuReheat(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4498,7 +4676,7 @@ class AirTerminalSingleDuctSeriesPiuReheat(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `availability_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4537,12 +4715,17 @@ class AirTerminalSingleDuctSeriesPiuReheat(object):
                 if value_lower == "autosize":
                     self._data["Maximum Air Flow Rate"] = "Autosize"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autosize" '
+                                 'for field `maximum_air_flow_rate`'.format(value))
+                    self._data["Maximum Air Flow Rate"] = "Autosize"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autosize"'
                                  'for field `maximum_air_flow_rate`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -4578,12 +4761,17 @@ class AirTerminalSingleDuctSeriesPiuReheat(object):
                 if value_lower == "autosize":
                     self._data["Maximum Primary Air Flow Rate"] = "Autosize"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autosize" '
+                                 'for field `maximum_primary_air_flow_rate`'.format(value))
+                    self._data["Maximum Primary Air Flow Rate"] = "Autosize"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autosize"'
                                  'for field `maximum_primary_air_flow_rate`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -4619,12 +4807,17 @@ class AirTerminalSingleDuctSeriesPiuReheat(object):
                 if value_lower == "autosize":
                     self._data["Minimum Primary Air Flow Fraction"] = "Autosize"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autosize" '
+                                 'for field `minimum_primary_air_flow_fraction`'.format(value))
+                    self._data["Minimum Primary Air Flow Fraction"] = "Autosize"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autosize"'
                                  'for field `minimum_primary_air_flow_fraction`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -4659,7 +4852,7 @@ class AirTerminalSingleDuctSeriesPiuReheat(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `supply_air_inlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4694,7 +4887,7 @@ class AirTerminalSingleDuctSeriesPiuReheat(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `secondary_air_inlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4729,7 +4922,7 @@ class AirTerminalSingleDuctSeriesPiuReheat(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `outlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4764,7 +4957,7 @@ class AirTerminalSingleDuctSeriesPiuReheat(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `reheat_coil_air_inlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4799,7 +4992,7 @@ class AirTerminalSingleDuctSeriesPiuReheat(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `zone_mixer_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4835,7 +5028,7 @@ class AirTerminalSingleDuctSeriesPiuReheat(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `fan_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4875,7 +5068,7 @@ class AirTerminalSingleDuctSeriesPiuReheat(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `reheat_coil_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4891,16 +5084,26 @@ class AirTerminalSingleDuctSeriesPiuReheat(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `reheat_coil_object_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `reheat_coil_object_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Reheat Coil Object Type"] = value
 
@@ -4929,7 +5132,7 @@ class AirTerminalSingleDuctSeriesPiuReheat(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `reheat_coil_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4969,12 +5172,17 @@ class AirTerminalSingleDuctSeriesPiuReheat(object):
                 if value_lower == "autosize":
                     self._data["Maximum Hot Water or Steam Flow Rate"] = "Autosize"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autosize" '
+                                 'for field `maximum_hot_water_or_steam_flow_rate`'.format(value))
+                    self._data["Maximum Hot Water or Steam Flow Rate"] = "Autosize"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autosize"'
                                  'for field `maximum_hot_water_or_steam_flow_rate`'.format(value))
         self._data["Maximum Hot Water or Steam Flow Rate"] = value
 
@@ -5008,7 +5216,7 @@ class AirTerminalSingleDuctSeriesPiuReheat(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `minimum_hot_water_or_steam_flow_rate`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -5027,6 +5235,9 @@ class AirTerminalSingleDuctSeriesPiuReheat(object):
     @hot_water_or_steam_inlet_node_name.setter
     def hot_water_or_steam_inlet_node_name(self, value=None):
         """  Corresponds to IDD Field `Hot Water or Steam Inlet Node Name`
+        This field is not really used and will be deleted from the object.
+        The required information is gotten internally or
+        not needed by the program.
 
         Args:
             value (str): value for IDD Field `Hot Water or Steam Inlet Node Name`
@@ -5040,7 +5251,7 @@ class AirTerminalSingleDuctSeriesPiuReheat(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `hot_water_or_steam_inlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -5077,7 +5288,7 @@ class AirTerminalSingleDuctSeriesPiuReheat(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `convergence_tolerance`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -5122,7 +5333,6 @@ class AirTerminalSingleDuctParallelPiuReheat(object):
     """ Corresponds to IDD object `AirTerminal:SingleDuct:ParallelPIU:Reheat`
         Central air system terminal unit, single duct, variable volume, parallel powered
         induction unit (PIU), with reheat coil (hot water, electric, gas, or steam).
-    
     """
     internal_name = "AirTerminal:SingleDuct:ParallelPIU:Reheat"
     field_count = 18
@@ -5150,15 +5360,16 @@ class AirTerminalSingleDuctParallelPiuReheat(object):
         self._data["Minimum Hot Water or Steam Flow Rate"] = None
         self._data["Hot Water or Steam Inlet Node Name"] = None
         self._data["Convergence Tolerance"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -5286,6 +5497,7 @@ class AirTerminalSingleDuctParallelPiuReheat(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -5312,7 +5524,7 @@ class AirTerminalSingleDuctParallelPiuReheat(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -5349,7 +5561,7 @@ class AirTerminalSingleDuctParallelPiuReheat(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `availability_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -5388,12 +5600,17 @@ class AirTerminalSingleDuctParallelPiuReheat(object):
                 if value_lower == "autosize":
                     self._data["Maximum Primary Air Flow Rate"] = "Autosize"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autosize" '
+                                 'for field `maximum_primary_air_flow_rate`'.format(value))
+                    self._data["Maximum Primary Air Flow Rate"] = "Autosize"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autosize"'
                                  'for field `maximum_primary_air_flow_rate`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -5429,12 +5646,17 @@ class AirTerminalSingleDuctParallelPiuReheat(object):
                 if value_lower == "autosize":
                     self._data["Maximum Secondary Air Flow Rate"] = "Autosize"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autosize" '
+                                 'for field `maximum_secondary_air_flow_rate`'.format(value))
+                    self._data["Maximum Secondary Air Flow Rate"] = "Autosize"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autosize"'
                                  'for field `maximum_secondary_air_flow_rate`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -5470,12 +5692,17 @@ class AirTerminalSingleDuctParallelPiuReheat(object):
                 if value_lower == "autosize":
                     self._data["Minimum Primary Air Flow Fraction"] = "Autosize"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autosize" '
+                                 'for field `minimum_primary_air_flow_fraction`'.format(value))
+                    self._data["Minimum Primary Air Flow Fraction"] = "Autosize"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autosize"'
                                  'for field `minimum_primary_air_flow_fraction`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -5515,12 +5742,17 @@ class AirTerminalSingleDuctParallelPiuReheat(object):
                 if value_lower == "autosize":
                     self._data["Fan On Flow Fraction"] = "Autosize"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autosize" '
+                                 'for field `fan_on_flow_fraction`'.format(value))
+                    self._data["Fan On Flow Fraction"] = "Autosize"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autosize"'
                                  'for field `fan_on_flow_fraction`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -5555,7 +5787,7 @@ class AirTerminalSingleDuctParallelPiuReheat(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `supply_air_inlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -5590,7 +5822,7 @@ class AirTerminalSingleDuctParallelPiuReheat(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `secondary_air_inlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -5625,7 +5857,7 @@ class AirTerminalSingleDuctParallelPiuReheat(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `outlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -5661,7 +5893,7 @@ class AirTerminalSingleDuctParallelPiuReheat(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `reheat_coil_air_inlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -5696,7 +5928,7 @@ class AirTerminalSingleDuctParallelPiuReheat(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `zone_mixer_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -5732,7 +5964,7 @@ class AirTerminalSingleDuctParallelPiuReheat(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `fan_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -5772,7 +6004,7 @@ class AirTerminalSingleDuctParallelPiuReheat(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `reheat_coil_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -5788,16 +6020,26 @@ class AirTerminalSingleDuctParallelPiuReheat(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `reheat_coil_object_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `reheat_coil_object_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Reheat Coil Object Type"] = value
 
@@ -5826,7 +6068,7 @@ class AirTerminalSingleDuctParallelPiuReheat(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `reheat_coil_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -5866,12 +6108,17 @@ class AirTerminalSingleDuctParallelPiuReheat(object):
                 if value_lower == "autosize":
                     self._data["Maximum Hot Water or Steam Flow Rate"] = "Autosize"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autosize" '
+                                 'for field `maximum_hot_water_or_steam_flow_rate`'.format(value))
+                    self._data["Maximum Hot Water or Steam Flow Rate"] = "Autosize"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autosize"'
                                  'for field `maximum_hot_water_or_steam_flow_rate`'.format(value))
         self._data["Maximum Hot Water or Steam Flow Rate"] = value
 
@@ -5905,7 +6152,7 @@ class AirTerminalSingleDuctParallelPiuReheat(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `minimum_hot_water_or_steam_flow_rate`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -5924,6 +6171,9 @@ class AirTerminalSingleDuctParallelPiuReheat(object):
     @hot_water_or_steam_inlet_node_name.setter
     def hot_water_or_steam_inlet_node_name(self, value=None):
         """  Corresponds to IDD Field `Hot Water or Steam Inlet Node Name`
+        This field is not really used and will be deleted from the object.
+        The required information is gotten internally or
+        not needed by the program.
 
         Args:
             value (str): value for IDD Field `Hot Water or Steam Inlet Node Name`
@@ -5937,7 +6187,7 @@ class AirTerminalSingleDuctParallelPiuReheat(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `hot_water_or_steam_inlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -5974,7 +6224,7 @@ class AirTerminalSingleDuctParallelPiuReheat(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `convergence_tolerance`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -6019,7 +6269,6 @@ class AirTerminalSingleDuctConstantVolumeFourPipeInduction(object):
     """ Corresponds to IDD object `AirTerminal:SingleDuct:ConstantVolume:FourPipeInduction`
         Central air system terminal unit, single duct, variable volume, induction unit with
         hot water reheat coil and chilled water recool coil.
-    
     """
     internal_name = "AirTerminal:SingleDuct:ConstantVolume:FourPipeInduction"
     field_count = 20
@@ -6049,15 +6298,16 @@ class AirTerminalSingleDuctConstantVolumeFourPipeInduction(object):
         self._data["Minimum Cold Water Flow Rate"] = None
         self._data["Cooling Convergence Tolerance"] = None
         self._data["Zone Mixer Name"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -6199,6 +6449,7 @@ class AirTerminalSingleDuctConstantVolumeFourPipeInduction(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -6225,7 +6476,7 @@ class AirTerminalSingleDuctConstantVolumeFourPipeInduction(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -6262,7 +6513,7 @@ class AirTerminalSingleDuctConstantVolumeFourPipeInduction(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `availability_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -6301,12 +6552,17 @@ class AirTerminalSingleDuctConstantVolumeFourPipeInduction(object):
                 if value_lower == "autosize":
                     self._data["Maximum Total Air Flow Rate"] = "Autosize"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autosize" '
+                                 'for field `maximum_total_air_flow_rate`'.format(value))
+                    self._data["Maximum Total Air Flow Rate"] = "Autosize"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autosize"'
                                  'for field `maximum_total_air_flow_rate`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -6341,7 +6597,7 @@ class AirTerminalSingleDuctConstantVolumeFourPipeInduction(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `induction_ratio`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -6373,7 +6629,7 @@ class AirTerminalSingleDuctConstantVolumeFourPipeInduction(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `supply_air_inlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -6409,7 +6665,7 @@ class AirTerminalSingleDuctConstantVolumeFourPipeInduction(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `induced_air_inlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -6445,7 +6701,7 @@ class AirTerminalSingleDuctConstantVolumeFourPipeInduction(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `air_outlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -6467,6 +6723,9 @@ class AirTerminalSingleDuctConstantVolumeFourPipeInduction(object):
     @hot_water_inlet_node_name.setter
     def hot_water_inlet_node_name(self, value=None):
         """  Corresponds to IDD Field `Hot Water Inlet Node Name`
+        This field is not really used and will be deleted from the object.
+        The required information is gotten internally or
+        not needed by the program.
 
         Args:
             value (str): value for IDD Field `Hot Water Inlet Node Name`
@@ -6480,7 +6739,7 @@ class AirTerminalSingleDuctConstantVolumeFourPipeInduction(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `hot_water_inlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -6502,6 +6761,9 @@ class AirTerminalSingleDuctConstantVolumeFourPipeInduction(object):
     @cold_water_inlet_node_name.setter
     def cold_water_inlet_node_name(self, value=None):
         """  Corresponds to IDD Field `Cold Water Inlet Node Name`
+        This field is not really used and will be deleted from the object.
+        The required information is gotten internally or
+        not needed by the program.
 
         Args:
             value (str): value for IDD Field `Cold Water Inlet Node Name`
@@ -6515,7 +6777,7 @@ class AirTerminalSingleDuctConstantVolumeFourPipeInduction(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `cold_water_inlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -6552,7 +6814,7 @@ class AirTerminalSingleDuctConstantVolumeFourPipeInduction(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `heating_coil_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -6565,16 +6827,26 @@ class AirTerminalSingleDuctConstantVolumeFourPipeInduction(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `heating_coil_object_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `heating_coil_object_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Heating Coil Object Type"] = value
 
@@ -6603,7 +6875,7 @@ class AirTerminalSingleDuctConstantVolumeFourPipeInduction(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `heating_coil_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -6643,12 +6915,17 @@ class AirTerminalSingleDuctConstantVolumeFourPipeInduction(object):
                 if value_lower == "autosize":
                     self._data["Maximum Hot Water Flow Rate"] = "Autosize"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autosize" '
+                                 'for field `maximum_hot_water_flow_rate`'.format(value))
+                    self._data["Maximum Hot Water Flow Rate"] = "Autosize"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autosize"'
                                  'for field `maximum_hot_water_flow_rate`'.format(value))
         self._data["Maximum Hot Water Flow Rate"] = value
 
@@ -6682,7 +6959,7 @@ class AirTerminalSingleDuctConstantVolumeFourPipeInduction(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `minimum_hot_water_flow_rate`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -6716,7 +6993,7 @@ class AirTerminalSingleDuctConstantVolumeFourPipeInduction(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `heating_convergence_tolerance`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -6751,7 +7028,7 @@ class AirTerminalSingleDuctConstantVolumeFourPipeInduction(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `cooling_coil_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -6765,16 +7042,26 @@ class AirTerminalSingleDuctConstantVolumeFourPipeInduction(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `cooling_coil_object_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `cooling_coil_object_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Cooling Coil Object Type"] = value
 
@@ -6803,7 +7090,7 @@ class AirTerminalSingleDuctConstantVolumeFourPipeInduction(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `cooling_coil_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -6842,12 +7129,17 @@ class AirTerminalSingleDuctConstantVolumeFourPipeInduction(object):
                 if value_lower == "autosize":
                     self._data["Maximum Cold Water Flow Rate"] = "Autosize"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autosize" '
+                                 'for field `maximum_cold_water_flow_rate`'.format(value))
+                    self._data["Maximum Cold Water Flow Rate"] = "Autosize"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autosize"'
                                  'for field `maximum_cold_water_flow_rate`'.format(value))
         self._data["Maximum Cold Water Flow Rate"] = value
 
@@ -6880,7 +7172,7 @@ class AirTerminalSingleDuctConstantVolumeFourPipeInduction(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `minimum_cold_water_flow_rate`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -6914,7 +7206,7 @@ class AirTerminalSingleDuctConstantVolumeFourPipeInduction(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `cooling_convergence_tolerance`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -6946,7 +7238,7 @@ class AirTerminalSingleDuctConstantVolumeFourPipeInduction(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `zone_mixer_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -6994,7 +7286,6 @@ class AirTerminalSingleDuctConstantVolumeCooledBeam(object):
     """ Corresponds to IDD object `AirTerminal:SingleDuct:ConstantVolume:CooledBeam`
         Central air system terminal unit, single duct, constant volume, with cooled beam
         (active or passive).
-    
     """
     internal_name = "AirTerminal:SingleDuct:ConstantVolume:CooledBeam"
     field_count = 23
@@ -7027,15 +7318,16 @@ class AirTerminalSingleDuctConstantVolumeCooledBeam(object):
         self._data["Model Parameter n"] = None
         self._data["Coefficient of Induction Kin"] = None
         self._data["Leaving Pipe Inside Diameter"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -7198,6 +7490,7 @@ class AirTerminalSingleDuctConstantVolumeCooledBeam(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -7224,7 +7517,7 @@ class AirTerminalSingleDuctConstantVolumeCooledBeam(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -7261,7 +7554,7 @@ class AirTerminalSingleDuctConstantVolumeCooledBeam(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `availability_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -7299,7 +7592,7 @@ class AirTerminalSingleDuctConstantVolumeCooledBeam(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `cooled_beam_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -7313,16 +7606,26 @@ class AirTerminalSingleDuctConstantVolumeCooledBeam(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `cooled_beam_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `cooled_beam_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Cooled Beam Type"] = value
 
@@ -7351,7 +7654,7 @@ class AirTerminalSingleDuctConstantVolumeCooledBeam(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `supply_air_inlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -7386,7 +7689,7 @@ class AirTerminalSingleDuctConstantVolumeCooledBeam(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `supply_air_outlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -7421,7 +7724,7 @@ class AirTerminalSingleDuctConstantVolumeCooledBeam(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `chilled_water_inlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -7456,7 +7759,7 @@ class AirTerminalSingleDuctConstantVolumeCooledBeam(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `chilled_water_outlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -7496,12 +7799,17 @@ class AirTerminalSingleDuctConstantVolumeCooledBeam(object):
                 if value_lower == "autosize":
                     self._data["Supply Air Volumetric Flow Rate"] = "Autosize"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autosize" '
+                                 'for field `supply_air_volumetric_flow_rate`'.format(value))
+                    self._data["Supply Air Volumetric Flow Rate"] = "Autosize"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autosize"'
                                  'for field `supply_air_volumetric_flow_rate`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -7538,12 +7846,17 @@ class AirTerminalSingleDuctConstantVolumeCooledBeam(object):
                 if value_lower == "autosize":
                     self._data["Maximum Total Chilled Water Volumetric Flow Rate"] = "Autosize"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autosize" '
+                                 'for field `maximum_total_chilled_water_volumetric_flow_rate`'.format(value))
+                    self._data["Maximum Total Chilled Water Volumetric Flow Rate"] = "Autosize"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autosize"'
                                  'for field `maximum_total_chilled_water_volumetric_flow_rate`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -7580,13 +7893,25 @@ class AirTerminalSingleDuctConstantVolumeCooledBeam(object):
                 if value_lower == "autosize":
                     self._data["Number of Beams"] = "Autosize"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autosize" '
+                                 'for field `number_of_beams`'.format(value))
+                    self._data["Number of Beams"] = "Autosize"
+                    return
             except ValueError:
                 pass
             try:
                 value = int(value)
             except ValueError:
-                raise ValueError('value {} need to be of type int '
-                                 'for field `number_of_beams`'.format(value))
+                if not self.strict:
+                    try:
+                        conv_value = int(float(value))
+                        logging.warn('Cast float {} to int {}, precision may be lost '
+                                     'for field `number_of_beams`'.format(value, conv_value))
+                        value = conv_value
+                    except ValueError:
+                        raise ValueError('value {} need to be of type int '
+                                         'for field `number_of_beams`'.format(value))
             if value <= 0:
                 raise ValueError('value need to be greater 0 '
                                  'for field `number_of_beams`')
@@ -7623,12 +7948,17 @@ class AirTerminalSingleDuctConstantVolumeCooledBeam(object):
                 if value_lower == "autosize":
                     self._data["Beam Length"] = "Autosize"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autosize" '
+                                 'for field `beam_length`'.format(value))
+                    self._data["Beam Length"] = "Autosize"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autosize"'
                                  'for field `beam_length`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -7663,7 +7993,7 @@ class AirTerminalSingleDuctConstantVolumeCooledBeam(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `design_inlet_water_temperature`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -7698,7 +8028,7 @@ class AirTerminalSingleDuctConstantVolumeCooledBeam(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `design_outlet_water_temperature`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -7733,7 +8063,7 @@ class AirTerminalSingleDuctConstantVolumeCooledBeam(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `coil_surface_area_per_coil_length`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -7767,7 +8097,7 @@ class AirTerminalSingleDuctConstantVolumeCooledBeam(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `model_parameter_a`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -7801,7 +8131,7 @@ class AirTerminalSingleDuctConstantVolumeCooledBeam(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `model_parameter_n1`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -7835,7 +8165,7 @@ class AirTerminalSingleDuctConstantVolumeCooledBeam(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `model_parameter_n2`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -7869,7 +8199,7 @@ class AirTerminalSingleDuctConstantVolumeCooledBeam(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `model_parameter_n3`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -7905,7 +8235,7 @@ class AirTerminalSingleDuctConstantVolumeCooledBeam(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `model_parameter_a0`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -7939,7 +8269,7 @@ class AirTerminalSingleDuctConstantVolumeCooledBeam(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `model_parameter_k1`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -7973,7 +8303,7 @@ class AirTerminalSingleDuctConstantVolumeCooledBeam(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `model_parameter_n`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -8010,12 +8340,17 @@ class AirTerminalSingleDuctConstantVolumeCooledBeam(object):
                 if value_lower == "autocalculate":
                     self._data["Coefficient of Induction Kin"] = "Autocalculate"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autocalculate" '
+                                 'for field `coefficient_of_induction_kin`'.format(value))
+                    self._data["Coefficient of Induction Kin"] = "Autocalculate"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autocalculate"'
                                  'for field `coefficient_of_induction_kin`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -8053,7 +8388,7 @@ class AirTerminalSingleDuctConstantVolumeCooledBeam(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `leaving_pipe_inside_diameter`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -8097,7 +8432,6 @@ class AirTerminalSingleDuctConstantVolumeCooledBeam(object):
 class AirTerminalSingleDuctInletSideMixer(object):
     """ Corresponds to IDD object `AirTerminal:SingleDuct:InletSideMixer`
         Mix 2 inlet air streams into one outlet stream.
-    
     """
     internal_name = "AirTerminal:SingleDuct:InletSideMixer"
     field_count = 6
@@ -8113,15 +8447,16 @@ class AirTerminalSingleDuctInletSideMixer(object):
         self._data["Terminal Unit Outlet Node Name"] = None
         self._data["Terminal Unit Primary Air Inlet Node Name"] = None
         self._data["Terminal Unit Secondary Air Inlet Node Name"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -8165,6 +8500,7 @@ class AirTerminalSingleDuctInletSideMixer(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -8191,7 +8527,7 @@ class AirTerminalSingleDuctInletSideMixer(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -8226,7 +8562,7 @@ class AirTerminalSingleDuctInletSideMixer(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `zonehvac_terminal_unit_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -8261,7 +8597,7 @@ class AirTerminalSingleDuctInletSideMixer(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `zonehvac_terminal_unit_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -8296,7 +8632,7 @@ class AirTerminalSingleDuctInletSideMixer(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `terminal_unit_outlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -8331,7 +8667,7 @@ class AirTerminalSingleDuctInletSideMixer(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `terminal_unit_primary_air_inlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -8366,7 +8702,7 @@ class AirTerminalSingleDuctInletSideMixer(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `terminal_unit_secondary_air_inlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -8413,7 +8749,6 @@ class AirTerminalSingleDuctInletSideMixer(object):
 class AirTerminalSingleDuctSupplySideMixer(object):
     """ Corresponds to IDD object `AirTerminal:SingleDuct:SupplySideMixer`
         Mix 2 inlet air streams into one outlet stream.
-    
     """
     internal_name = "AirTerminal:SingleDuct:SupplySideMixer"
     field_count = 6
@@ -8429,15 +8764,16 @@ class AirTerminalSingleDuctSupplySideMixer(object):
         self._data["Terminal Unit Outlet Node Name"] = None
         self._data["Terminal Unit Primary Air Inlet Node Name"] = None
         self._data["Terminal Unit Secondary Air Inlet Node Name"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -8481,6 +8817,7 @@ class AirTerminalSingleDuctSupplySideMixer(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -8507,7 +8844,7 @@ class AirTerminalSingleDuctSupplySideMixer(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -8542,7 +8879,7 @@ class AirTerminalSingleDuctSupplySideMixer(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `zonehvac_terminal_unit_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -8577,7 +8914,7 @@ class AirTerminalSingleDuctSupplySideMixer(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `zonehvac_terminal_unit_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -8612,7 +8949,7 @@ class AirTerminalSingleDuctSupplySideMixer(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `terminal_unit_outlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -8647,7 +8984,7 @@ class AirTerminalSingleDuctSupplySideMixer(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `terminal_unit_primary_air_inlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -8682,7 +9019,7 @@ class AirTerminalSingleDuctSupplySideMixer(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `terminal_unit_secondary_air_inlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -8729,7 +9066,6 @@ class AirTerminalSingleDuctSupplySideMixer(object):
 class AirTerminalDualDuctConstantVolume(object):
     """ Corresponds to IDD object `AirTerminal:DualDuct:ConstantVolume`
         Central air system terminal unit, dual duct, constant volume.
-    
     """
     internal_name = "AirTerminal:DualDuct:ConstantVolume"
     field_count = 6
@@ -8745,15 +9081,16 @@ class AirTerminalDualDuctConstantVolume(object):
         self._data["Hot Air Inlet Node Name"] = None
         self._data["Cold Air Inlet Node Name"] = None
         self._data["Maximum Air Flow Rate"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -8797,6 +9134,7 @@ class AirTerminalDualDuctConstantVolume(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -8823,7 +9161,7 @@ class AirTerminalDualDuctConstantVolume(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -8860,7 +9198,7 @@ class AirTerminalDualDuctConstantVolume(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `availability_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -8897,7 +9235,7 @@ class AirTerminalDualDuctConstantVolume(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `air_outlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -8932,7 +9270,7 @@ class AirTerminalDualDuctConstantVolume(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `hot_air_inlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -8967,7 +9305,7 @@ class AirTerminalDualDuctConstantVolume(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `cold_air_inlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -9006,12 +9344,17 @@ class AirTerminalDualDuctConstantVolume(object):
                 if value_lower == "autosize":
                     self._data["Maximum Air Flow Rate"] = "Autosize"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autosize" '
+                                 'for field `maximum_air_flow_rate`'.format(value))
+                    self._data["Maximum Air Flow Rate"] = "Autosize"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autosize"'
                                  'for field `maximum_air_flow_rate`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -9055,7 +9398,6 @@ class AirTerminalDualDuctConstantVolume(object):
 class AirTerminalDualDuctVav(object):
     """ Corresponds to IDD object `AirTerminal:DualDuct:VAV`
         Central air system terminal unit, dual duct, variable volume.
-    
     """
     internal_name = "AirTerminal:DualDuct:VAV"
     field_count = 8
@@ -9073,15 +9415,16 @@ class AirTerminalDualDuctVav(object):
         self._data["Maximum Damper Air Flow Rate"] = None
         self._data["Zone Minimum Air Flow Fraction"] = None
         self._data["Design Specification Outdoor Air Object Name"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -9139,6 +9482,7 @@ class AirTerminalDualDuctVav(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -9165,7 +9509,7 @@ class AirTerminalDualDuctVav(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -9202,7 +9546,7 @@ class AirTerminalDualDuctVav(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `availability_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -9239,7 +9583,7 @@ class AirTerminalDualDuctVav(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `air_outlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -9274,7 +9618,7 @@ class AirTerminalDualDuctVav(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `hot_air_inlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -9309,7 +9653,7 @@ class AirTerminalDualDuctVav(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `cold_air_inlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -9348,12 +9692,17 @@ class AirTerminalDualDuctVav(object):
                 if value_lower == "autosize":
                     self._data["Maximum Damper Air Flow Rate"] = "Autosize"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autosize" '
+                                 'for field `maximum_damper_air_flow_rate`'.format(value))
+                    self._data["Maximum Damper Air Flow Rate"] = "Autosize"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autosize"'
                                  'for field `maximum_damper_air_flow_rate`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -9389,7 +9738,7 @@ class AirTerminalDualDuctVav(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `zone_minimum_air_flow_fraction`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -9430,7 +9779,7 @@ class AirTerminalDualDuctVav(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `design_specification_outdoor_air_object_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -9479,7 +9828,6 @@ class AirTerminalDualDuctVavOutdoorAir(object):
         Central air system terminal unit, dual duct, variable volume with special controls.
         One VAV duct is controlled to supply ventilation air and the other VAV duct is
         controlled to meet the zone cooling load.
-    
     """
     internal_name = "AirTerminal:DualDuct:VAV:OutdoorAir"
     field_count = 8
@@ -9497,15 +9845,16 @@ class AirTerminalDualDuctVavOutdoorAir(object):
         self._data["Maximum Terminal Air Flow Rate"] = None
         self._data["Design Specification Outdoor Air Object Name"] = None
         self._data["Per Person Ventilation Rate Mode"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -9563,6 +9912,7 @@ class AirTerminalDualDuctVavOutdoorAir(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -9589,7 +9939,7 @@ class AirTerminalDualDuctVavOutdoorAir(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -9626,7 +9976,7 @@ class AirTerminalDualDuctVavOutdoorAir(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `availability_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -9663,7 +10013,7 @@ class AirTerminalDualDuctVavOutdoorAir(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `air_outlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -9698,7 +10048,7 @@ class AirTerminalDualDuctVavOutdoorAir(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `outdoor_air_inlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -9733,7 +10083,7 @@ class AirTerminalDualDuctVavOutdoorAir(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `recirculated_air_inlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -9773,12 +10123,17 @@ class AirTerminalDualDuctVavOutdoorAir(object):
                 if value_lower == "autosize":
                     self._data["Maximum Terminal Air Flow Rate"] = "Autosize"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autosize" '
+                                 'for field `maximum_terminal_air_flow_rate`'.format(value))
+                    self._data["Maximum Terminal Air Flow Rate"] = "Autosize"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autosize"'
                                  'for field `maximum_terminal_air_flow_rate`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -9815,7 +10170,7 @@ class AirTerminalDualDuctVavOutdoorAir(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `design_specification_outdoor_air_object_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -9855,7 +10210,7 @@ class AirTerminalDualDuctVavOutdoorAir(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `per_person_ventilation_rate_mode`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -9869,16 +10224,26 @@ class AirTerminalDualDuctVavOutdoorAir(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `per_person_ventilation_rate_mode`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `per_person_ventilation_rate_mode`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Per Person Ventilation Rate Mode"] = value
 
@@ -9920,7 +10285,6 @@ class ZoneHvacAirDistributionUnit(object):
     """ Corresponds to IDD object `ZoneHVAC:AirDistributionUnit`
         Central air system air distribution unit, serves as a wrapper for a specific type of
         air terminal unit. This object is referenced in a ZoneHVAC:EquipmentList.
-    
     """
     internal_name = "ZoneHVAC:AirDistributionUnit"
     field_count = 6
@@ -9936,15 +10300,16 @@ class ZoneHvacAirDistributionUnit(object):
         self._data["Air Terminal Name"] = None
         self._data["Nominal Upstream Leakage Fraction"] = None
         self._data["Constant Downstream Leakage Fraction"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -9988,6 +10353,7 @@ class ZoneHvacAirDistributionUnit(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -10014,7 +10380,7 @@ class ZoneHvacAirDistributionUnit(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -10049,7 +10415,7 @@ class ZoneHvacAirDistributionUnit(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `air_distribution_unit_outlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -10099,7 +10465,7 @@ class ZoneHvacAirDistributionUnit(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `air_terminal_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -10125,16 +10491,26 @@ class ZoneHvacAirDistributionUnit(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `air_terminal_object_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `air_terminal_object_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Air Terminal Object Type"] = value
 
@@ -10163,7 +10539,7 @@ class ZoneHvacAirDistributionUnit(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `air_terminal_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -10203,7 +10579,7 @@ class ZoneHvacAirDistributionUnit(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `nominal_upstream_leakage_fraction`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -10241,7 +10617,7 @@ class ZoneHvacAirDistributionUnit(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `constant_downstream_leakage_fraction`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '

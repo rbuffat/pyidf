@@ -1,4 +1,6 @@
 from collections import OrderedDict
+import logging
+import re
 
 class CoolingTowerSingleSpeed(object):
     """ Corresponds to IDD object `CoolingTower:SingleSpeed`
@@ -8,7 +10,6 @@ class CoolingTowerSingleSpeed(object):
         through the tower (induced-draft configuration).
         Added fluid bypass as an additional capacity control. 8/2008.
         For a multi-cell tower, the capacity and air/water flow rate inputs are for the entire tower.
-    
     """
     internal_name = "CoolingTower:SingleSpeed"
     field_count = 33
@@ -51,15 +52,16 @@ class CoolingTowerSingleSpeed(object):
         self._data["Cell Minimum  Water Flow Rate Fraction"] = None
         self._data["Cell Maximum Water Flow Rate Fraction"] = None
         self._data["Sizing Factor"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -292,6 +294,7 @@ class CoolingTowerSingleSpeed(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -319,7 +322,7 @@ class CoolingTowerSingleSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -355,7 +358,7 @@ class CoolingTowerSingleSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `water_inlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -391,7 +394,7 @@ class CoolingTowerSingleSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `water_outlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -432,12 +435,17 @@ class CoolingTowerSingleSpeed(object):
                 if value_lower == "autosize":
                     self._data["Design Water Flow Rate"] = "Autosize"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autosize" '
+                                 'for field `design_water_flow_rate`'.format(value))
+                    self._data["Design Water Flow Rate"] = "Autosize"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autosize"'
                                  'for field `design_water_flow_rate`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -473,12 +481,17 @@ class CoolingTowerSingleSpeed(object):
                 if value_lower == "autosize":
                     self._data["Design Air Flow Rate"] = "Autosize"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autosize" '
+                                 'for field `design_air_flow_rate`'.format(value))
+                    self._data["Design Air Flow Rate"] = "Autosize"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autosize"'
                                  'for field `design_air_flow_rate`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -516,12 +529,17 @@ class CoolingTowerSingleSpeed(object):
                 if value_lower == "autosize":
                     self._data["Design Fan Power"] = "Autosize"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autosize" '
+                                 'for field `design_fan_power`'.format(value))
+                    self._data["Design Fan Power"] = "Autosize"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autosize"'
                                  'for field `design_fan_power`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -559,12 +577,17 @@ class CoolingTowerSingleSpeed(object):
                 if value_lower == "autosize":
                     self._data["Design U-Factor Times Area Value"] = "Autosize"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autosize" '
+                                 'for field `design_ufactor_times_area_value`'.format(value))
+                    self._data["Design U-Factor Times Area Value"] = "Autosize"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autosize"'
                                  'for field `design_ufactor_times_area_value`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -604,12 +627,17 @@ class CoolingTowerSingleSpeed(object):
                 if value_lower == "autocalculate":
                     self._data["Free Convection Air Flow Rate"] = "Autocalculate"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autocalculate" '
+                                 'for field `free_convection_air_flow_rate`'.format(value))
+                    self._data["Free Convection Air Flow Rate"] = "Autocalculate"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autocalculate"'
                                  'for field `free_convection_air_flow_rate`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -645,7 +673,7 @@ class CoolingTowerSingleSpeed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `free_convection_air_flow_rate_sizing_factor`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -686,12 +714,17 @@ class CoolingTowerSingleSpeed(object):
                 if value_lower == "autocalculate":
                     self._data["Free Convection U-Factor Times Area Value"] = "Autocalculate"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autocalculate" '
+                                 'for field `free_convection_ufactor_times_area_value`'.format(value))
+                    self._data["Free Convection U-Factor Times Area Value"] = "Autocalculate"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autocalculate"'
                                  'for field `free_convection_ufactor_times_area_value`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -731,7 +764,7 @@ class CoolingTowerSingleSpeed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `free_convection_ufactor_times_area_value_sizing_factor`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -770,7 +803,7 @@ class CoolingTowerSingleSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `performance_input_method`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -806,7 +839,7 @@ class CoolingTowerSingleSpeed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `heat_rejection_capacity_and_nominal_capacity_sizing_ratio`'.format(value))
         self._data["Heat Rejection Capacity and Nominal Capacity Sizing Ratio"] = value
 
@@ -842,7 +875,7 @@ class CoolingTowerSingleSpeed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `nominal_capacity`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -884,12 +917,17 @@ class CoolingTowerSingleSpeed(object):
                 if value_lower == "autocalculate":
                     self._data["Free Convection Capacity"] = "Autocalculate"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autocalculate" '
+                                 'for field `free_convection_capacity`'.format(value))
+                    self._data["Free Convection Capacity"] = "Autocalculate"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autocalculate"'
                                  'for field `free_convection_capacity`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -925,7 +963,7 @@ class CoolingTowerSingleSpeed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `free_convection_nominal_capacity_sizing_factor`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -966,7 +1004,7 @@ class CoolingTowerSingleSpeed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `basin_heater_capacity`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -1002,7 +1040,7 @@ class CoolingTowerSingleSpeed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `basin_heater_setpoint_temperature`'.format(value))
             if value < 2.0:
                 raise ValueError('value need to be greater or equal 2.0 '
@@ -1038,7 +1076,7 @@ class CoolingTowerSingleSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `basin_heater_operating_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1076,7 +1114,7 @@ class CoolingTowerSingleSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `evaporation_loss_mode`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1090,16 +1128,26 @@ class CoolingTowerSingleSpeed(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `evaporation_loss_mode`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `evaporation_loss_mode`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Evaporation Loss Mode"] = value
 
@@ -1134,7 +1182,7 @@ class CoolingTowerSingleSpeed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `evaporation_loss_factor`'.format(value))
         self._data["Evaporation Loss Factor"] = value
 
@@ -1167,7 +1215,7 @@ class CoolingTowerSingleSpeed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `drift_loss_percent`'.format(value))
         self._data["Drift Loss Percent"] = value
 
@@ -1199,7 +1247,7 @@ class CoolingTowerSingleSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `blowdown_calculation_mode`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1213,16 +1261,26 @@ class CoolingTowerSingleSpeed(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `blowdown_calculation_mode`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `blowdown_calculation_mode`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Blowdown Calculation Mode"] = value
 
@@ -1258,7 +1316,7 @@ class CoolingTowerSingleSpeed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `blowdown_concentration_ratio`'.format(value))
             if value < 2.0:
                 raise ValueError('value need to be greater or equal 2.0 '
@@ -1294,7 +1352,7 @@ class CoolingTowerSingleSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `blowdown_makeup_water_usage_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1329,7 +1387,7 @@ class CoolingTowerSingleSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `supply_water_storage_tank_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1365,7 +1423,7 @@ class CoolingTowerSingleSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `outdoor_air_inlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1404,7 +1462,7 @@ class CoolingTowerSingleSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `capacity_control`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1418,16 +1476,26 @@ class CoolingTowerSingleSpeed(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `capacity_control`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `capacity_control`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Capacity Control"] = value
 
@@ -1458,8 +1526,15 @@ class CoolingTowerSingleSpeed(object):
             try:
                 value = int(value)
             except ValueError:
-                raise ValueError('value {} need to be of type int '
-                                 'for field `number_of_cells`'.format(value))
+                if not self.strict:
+                    try:
+                        conv_value = int(float(value))
+                        logging.warn('Cast float {} to int {}, precision may be lost '
+                                     'for field `number_of_cells`'.format(value, conv_value))
+                        value = conv_value
+                    except ValueError:
+                        raise ValueError('value {} need to be of type int '
+                                         'for field `number_of_cells`'.format(value))
             if value < 1:
                 raise ValueError('value need to be greater or equal 1 '
                                  'for field `number_of_cells`')
@@ -1491,7 +1566,7 @@ class CoolingTowerSingleSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `cell_control`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1530,7 +1605,7 @@ class CoolingTowerSingleSpeed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `cell_minimum_water_flow_rate_fraction`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -1568,7 +1643,7 @@ class CoolingTowerSingleSpeed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `cell_maximum_water_flow_rate_fraction`'.format(value))
             if value < 1.0:
                 raise ValueError('value need to be greater or equal 1.0 '
@@ -1603,7 +1678,7 @@ class CoolingTowerSingleSpeed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `sizing_factor`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -1651,7 +1726,6 @@ class CoolingTowerTwoSpeed(object):
         is modeled as a counter flow heat exchanger with a two-speed fan drawing air
         through the tower (induced-draft configuration).
         For a multi-cell tower, the capacity and air/water flow rate inputs are for the entire tower.
-    
     """
     internal_name = "CoolingTower:TwoSpeed"
     field_count = 40
@@ -1701,15 +1775,16 @@ class CoolingTowerTwoSpeed(object):
         self._data["Cell Minimum  Water Flow Rate Fraction"] = None
         self._data["Cell Maximum Water Flow Rate Fraction"] = None
         self._data["Sizing Factor"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -1991,6 +2066,7 @@ class CoolingTowerTwoSpeed(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -2018,7 +2094,7 @@ class CoolingTowerTwoSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2054,7 +2130,7 @@ class CoolingTowerTwoSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `water_inlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2090,7 +2166,7 @@ class CoolingTowerTwoSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `water_outlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2131,12 +2207,17 @@ class CoolingTowerTwoSpeed(object):
                 if value_lower == "autosize":
                     self._data["Design Water Flow Rate"] = "Autosize"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autosize" '
+                                 'for field `design_water_flow_rate`'.format(value))
+                    self._data["Design Water Flow Rate"] = "Autosize"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autosize"'
                                  'for field `design_water_flow_rate`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -2172,12 +2253,17 @@ class CoolingTowerTwoSpeed(object):
                 if value_lower == "autosize":
                     self._data["High Fan Speed Air Flow Rate"] = "Autosize"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autosize" '
+                                 'for field `high_fan_speed_air_flow_rate`'.format(value))
+                    self._data["High Fan Speed Air Flow Rate"] = "Autosize"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autosize"'
                                  'for field `high_fan_speed_air_flow_rate`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -2215,12 +2301,17 @@ class CoolingTowerTwoSpeed(object):
                 if value_lower == "autosize":
                     self._data["High Fan Speed Fan Power"] = "Autosize"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autosize" '
+                                 'for field `high_fan_speed_fan_power`'.format(value))
+                    self._data["High Fan Speed Fan Power"] = "Autosize"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autosize"'
                                  'for field `high_fan_speed_fan_power`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -2258,12 +2349,17 @@ class CoolingTowerTwoSpeed(object):
                 if value_lower == "autosize":
                     self._data["High Fan Speed U-Factor Times Area Value"] = "Autosize"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autosize" '
+                                 'for field `high_fan_speed_ufactor_times_area_value`'.format(value))
+                    self._data["High Fan Speed U-Factor Times Area Value"] = "Autosize"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autosize"'
                                  'for field `high_fan_speed_ufactor_times_area_value`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -2304,12 +2400,17 @@ class CoolingTowerTwoSpeed(object):
                 if value_lower == "autocalculate":
                     self._data["Low Fan Speed Air Flow Rate"] = "Autocalculate"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autocalculate" '
+                                 'for field `low_fan_speed_air_flow_rate`'.format(value))
+                    self._data["Low Fan Speed Air Flow Rate"] = "Autocalculate"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autocalculate"'
                                  'for field `low_fan_speed_air_flow_rate`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -2345,7 +2446,7 @@ class CoolingTowerTwoSpeed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `low_fan_speed_air_flow_rate_sizing_factor`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -2386,12 +2487,17 @@ class CoolingTowerTwoSpeed(object):
                 if value_lower == "autocalculate":
                     self._data["Low Fan Speed Fan Power"] = "Autocalculate"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autocalculate" '
+                                 'for field `low_fan_speed_fan_power`'.format(value))
+                    self._data["Low Fan Speed Fan Power"] = "Autocalculate"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autocalculate"'
                                  'for field `low_fan_speed_fan_power`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -2427,7 +2533,7 @@ class CoolingTowerTwoSpeed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `low_fan_speed_fan_power_sizing_factor`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -2470,12 +2576,17 @@ class CoolingTowerTwoSpeed(object):
                 if value_lower == "autocalculate":
                     self._data["Low Fan Speed U-Factor Times Area Value"] = "Autocalculate"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autocalculate" '
+                                 'for field `low_fan_speed_ufactor_times_area_value`'.format(value))
+                    self._data["Low Fan Speed U-Factor Times Area Value"] = "Autocalculate"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autocalculate"'
                                  'for field `low_fan_speed_ufactor_times_area_value`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -2515,7 +2626,7 @@ class CoolingTowerTwoSpeed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `low_fan_speed_ufactor_times_area_sizing_factor`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -2555,12 +2666,17 @@ class CoolingTowerTwoSpeed(object):
                 if value_lower == "autocalculate":
                     self._data["Free Convection Regime Air Flow Rate"] = "Autocalculate"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autocalculate" '
+                                 'for field `free_convection_regime_air_flow_rate`'.format(value))
+                    self._data["Free Convection Regime Air Flow Rate"] = "Autocalculate"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autocalculate"'
                                  'for field `free_convection_regime_air_flow_rate`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -2596,7 +2712,7 @@ class CoolingTowerTwoSpeed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `free_convection_regime_air_flow_rate_sizing_factor`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -2638,12 +2754,17 @@ class CoolingTowerTwoSpeed(object):
                 if value_lower == "autocalculate":
                     self._data["Free Convection Regime U-Factor Times Area Value"] = "Autocalculate"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autocalculate" '
+                                 'for field `free_convection_regime_ufactor_times_area_value`'.format(value))
+                    self._data["Free Convection Regime U-Factor Times Area Value"] = "Autocalculate"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autocalculate"'
                                  'for field `free_convection_regime_ufactor_times_area_value`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -2683,7 +2804,7 @@ class CoolingTowerTwoSpeed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `free_convection_ufactor_times_area_value_sizing_factor`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -2722,7 +2843,7 @@ class CoolingTowerTwoSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `performance_input_method`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2758,7 +2879,7 @@ class CoolingTowerTwoSpeed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `heat_rejection_capacity_and_nominal_capacity_sizing_ratio`'.format(value))
         self._data["Heat Rejection Capacity and Nominal Capacity Sizing Ratio"] = value
 
@@ -2795,7 +2916,7 @@ class CoolingTowerTwoSpeed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `high_speed_nominal_capacity`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -2838,12 +2959,17 @@ class CoolingTowerTwoSpeed(object):
                 if value_lower == "autocalculate":
                     self._data["Low Speed Nominal Capacity"] = "Autocalculate"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autocalculate" '
+                                 'for field `low_speed_nominal_capacity`'.format(value))
+                    self._data["Low Speed Nominal Capacity"] = "Autocalculate"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autocalculate"'
                                  'for field `low_speed_nominal_capacity`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -2879,7 +3005,7 @@ class CoolingTowerTwoSpeed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `low_speed_nominal_capacity_sizing_factor`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -2924,12 +3050,17 @@ class CoolingTowerTwoSpeed(object):
                 if value_lower == "autocalculate":
                     self._data["Free Convection Nominal Capacity"] = "Autocalculate"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autocalculate" '
+                                 'for field `free_convection_nominal_capacity`'.format(value))
+                    self._data["Free Convection Nominal Capacity"] = "Autocalculate"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autocalculate"'
                                  'for field `free_convection_nominal_capacity`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -2965,7 +3096,7 @@ class CoolingTowerTwoSpeed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `free_convection_nominal_capacity_sizing_factor`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -3006,7 +3137,7 @@ class CoolingTowerTwoSpeed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `basin_heater_capacity`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -3042,7 +3173,7 @@ class CoolingTowerTwoSpeed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `basin_heater_setpoint_temperature`'.format(value))
             if value < 2.0:
                 raise ValueError('value need to be greater or equal 2.0 '
@@ -3078,7 +3209,7 @@ class CoolingTowerTwoSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `basin_heater_operating_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3116,7 +3247,7 @@ class CoolingTowerTwoSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `evaporation_loss_mode`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3130,16 +3261,26 @@ class CoolingTowerTwoSpeed(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `evaporation_loss_mode`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `evaporation_loss_mode`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Evaporation Loss Mode"] = value
 
@@ -3174,7 +3315,7 @@ class CoolingTowerTwoSpeed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `evaporation_loss_factor`'.format(value))
         self._data["Evaporation Loss Factor"] = value
 
@@ -3207,7 +3348,7 @@ class CoolingTowerTwoSpeed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `drift_loss_percent`'.format(value))
         self._data["Drift Loss Percent"] = value
 
@@ -3239,7 +3380,7 @@ class CoolingTowerTwoSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `blowdown_calculation_mode`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3253,16 +3394,26 @@ class CoolingTowerTwoSpeed(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `blowdown_calculation_mode`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `blowdown_calculation_mode`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Blowdown Calculation Mode"] = value
 
@@ -3298,7 +3449,7 @@ class CoolingTowerTwoSpeed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `blowdown_concentration_ratio`'.format(value))
             if value < 2.0:
                 raise ValueError('value need to be greater or equal 2.0 '
@@ -3334,7 +3485,7 @@ class CoolingTowerTwoSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `blowdown_makeup_water_usage_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3369,7 +3520,7 @@ class CoolingTowerTwoSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `supply_water_storage_tank_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3405,7 +3556,7 @@ class CoolingTowerTwoSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `outdoor_air_inlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3442,8 +3593,15 @@ class CoolingTowerTwoSpeed(object):
             try:
                 value = int(value)
             except ValueError:
-                raise ValueError('value {} need to be of type int '
-                                 'for field `number_of_cells`'.format(value))
+                if not self.strict:
+                    try:
+                        conv_value = int(float(value))
+                        logging.warn('Cast float {} to int {}, precision may be lost '
+                                     'for field `number_of_cells`'.format(value, conv_value))
+                        value = conv_value
+                    except ValueError:
+                        raise ValueError('value {} need to be of type int '
+                                         'for field `number_of_cells`'.format(value))
             if value < 1:
                 raise ValueError('value need to be greater or equal 1 '
                                  'for field `number_of_cells`')
@@ -3475,7 +3633,7 @@ class CoolingTowerTwoSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `cell_control`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3514,7 +3672,7 @@ class CoolingTowerTwoSpeed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `cell_minimum_water_flow_rate_fraction`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -3552,7 +3710,7 @@ class CoolingTowerTwoSpeed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `cell_maximum_water_flow_rate_fraction`'.format(value))
             if value < 1.0:
                 raise ValueError('value need to be greater or equal 1.0 '
@@ -3587,7 +3745,7 @@ class CoolingTowerTwoSpeed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `sizing_factor`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -3635,7 +3793,6 @@ class CoolingTowerVariableSpeedMerkel(object):
         is modeled as a counter flow heat exchanger with a variable-speed fan drawing air
         through the tower (induced-draft configuration).
         For a multi-cell tower, the capacity and air/water flow rate inputs are for the entire tower.
-    
     """
     internal_name = "CoolingTower:VariableSpeed:Merkel"
     field_count = 40
@@ -3685,15 +3842,16 @@ class CoolingTowerVariableSpeedMerkel(object):
         self._data["Cell Minimum  Water Flow Rate Fraction"] = None
         self._data["Cell Maximum Water Flow Rate Fraction"] = None
         self._data["Sizing Factor"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -3975,6 +4133,7 @@ class CoolingTowerVariableSpeedMerkel(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -4002,7 +4161,7 @@ class CoolingTowerVariableSpeedMerkel(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4038,7 +4197,7 @@ class CoolingTowerVariableSpeedMerkel(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `water_inlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4074,7 +4233,7 @@ class CoolingTowerVariableSpeedMerkel(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `water_outlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4113,7 +4272,7 @@ class CoolingTowerVariableSpeedMerkel(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `performance_input_method`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4149,7 +4308,7 @@ class CoolingTowerVariableSpeedMerkel(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `heat_rejection_capacity_and_nominal_capacity_sizing_ratio`'.format(value))
         self._data["Heat Rejection Capacity and Nominal Capacity Sizing Ratio"] = value
 
@@ -4188,12 +4347,17 @@ class CoolingTowerVariableSpeedMerkel(object):
                 if value_lower == "autosize":
                     self._data["Nominal Capacity"] = "Autosize"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autosize" '
+                                 'for field `nominal_capacity`'.format(value))
+                    self._data["Nominal Capacity"] = "Autosize"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autosize"'
                                  'for field `nominal_capacity`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -4236,12 +4400,17 @@ class CoolingTowerVariableSpeedMerkel(object):
                 if value_lower == "autocalculate":
                     self._data["Free Convection Nominal Capacity"] = "Autocalculate"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autocalculate" '
+                                 'for field `free_convection_nominal_capacity`'.format(value))
+                    self._data["Free Convection Nominal Capacity"] = "Autocalculate"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autocalculate"'
                                  'for field `free_convection_nominal_capacity`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -4277,7 +4446,7 @@ class CoolingTowerVariableSpeedMerkel(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `free_convection_nominal_capacity_sizing_factor`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -4317,12 +4486,17 @@ class CoolingTowerVariableSpeedMerkel(object):
                 if value_lower == "autosize":
                     self._data["Design Water Flow Rate"] = "Autosize"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autosize" '
+                                 'for field `design_water_flow_rate`'.format(value))
+                    self._data["Design Water Flow Rate"] = "Autosize"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autosize"'
                                  'for field `design_water_flow_rate`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -4357,7 +4531,7 @@ class CoolingTowerVariableSpeedMerkel(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `design_water_flow_rate_per_unit_of_nominal_capacity`'.format(value))
         self._data["Design Water Flow Rate per Unit of Nominal Capacity"] = value
 
@@ -4391,12 +4565,17 @@ class CoolingTowerVariableSpeedMerkel(object):
                 if value_lower == "autocalculate":
                     self._data["Design Air Flow Rate"] = "Autocalculate"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autocalculate" '
+                                 'for field `design_air_flow_rate`'.format(value))
+                    self._data["Design Air Flow Rate"] = "Autocalculate"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autocalculate"'
                                  'for field `design_air_flow_rate`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -4433,7 +4612,7 @@ class CoolingTowerVariableSpeedMerkel(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `design_air_flow_rate_per_unit_of_nominal_capacity`'.format(value))
         self._data["Design Air Flow Rate Per Unit of Nominal Capacity"] = value
 
@@ -4467,7 +4646,7 @@ class CoolingTowerVariableSpeedMerkel(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `minimum_air_flow_rate_ratio`'.format(value))
             if value < 0.1:
                 raise ValueError('value need to be greater or equal 0.1 '
@@ -4508,12 +4687,17 @@ class CoolingTowerVariableSpeedMerkel(object):
                 if value_lower == "autocalculate":
                     self._data["Design Fan Power"] = "Autocalculate"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autocalculate" '
+                                 'for field `design_fan_power`'.format(value))
+                    self._data["Design Fan Power"] = "Autocalculate"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autocalculate"'
                                  'for field `design_fan_power`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -4549,7 +4733,7 @@ class CoolingTowerVariableSpeedMerkel(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `design_fan_power_per_unit_of_nominal_capacity`'.format(value))
         self._data["Design Fan Power Per Unit of Nominal Capacity"] = value
 
@@ -4586,7 +4770,7 @@ class CoolingTowerVariableSpeedMerkel(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `fan_power_modifier_function_of_air_flow_rate_ratio_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4626,12 +4810,17 @@ class CoolingTowerVariableSpeedMerkel(object):
                 if value_lower == "autocalculate":
                     self._data["Free Convection Regime Air Flow Rate"] = "Autocalculate"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autocalculate" '
+                                 'for field `free_convection_regime_air_flow_rate`'.format(value))
+                    self._data["Free Convection Regime Air Flow Rate"] = "Autocalculate"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autocalculate"'
                                  'for field `free_convection_regime_air_flow_rate`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -4667,7 +4856,7 @@ class CoolingTowerVariableSpeedMerkel(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `free_convection_regime_air_flow_rate_sizing_factor`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -4707,12 +4896,17 @@ class CoolingTowerVariableSpeedMerkel(object):
                 if value_lower == "autosize":
                     self._data["Design Air Flow Rate U-Factor Times Area Value"] = "Autosize"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autosize" '
+                                 'for field `design_air_flow_rate_ufactor_times_area_value`'.format(value))
+                    self._data["Design Air Flow Rate U-Factor Times Area Value"] = "Autosize"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autosize"'
                                  'for field `design_air_flow_rate_ufactor_times_area_value`'.format(value))
         self._data["Design Air Flow Rate U-Factor Times Area Value"] = value
 
@@ -4749,12 +4943,17 @@ class CoolingTowerVariableSpeedMerkel(object):
                 if value_lower == "autocalculate":
                     self._data["Free Convection Regime U-Factor Times Area Value"] = "Autocalculate"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autocalculate" '
+                                 'for field `free_convection_regime_ufactor_times_area_value`'.format(value))
+                    self._data["Free Convection Regime U-Factor Times Area Value"] = "Autocalculate"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autocalculate"'
                                  'for field `free_convection_regime_ufactor_times_area_value`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -4795,7 +4994,7 @@ class CoolingTowerVariableSpeedMerkel(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `free_convection_ufactor_times_area_value_sizing_factor`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -4839,7 +5038,7 @@ class CoolingTowerVariableSpeedMerkel(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `ufactor_times_area_modifier_function_of_air_flow_ratio_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4884,7 +5083,7 @@ class CoolingTowerVariableSpeedMerkel(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `ufactor_times_area_modifier_function_of_wetbulb_temperature_difference_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4928,7 +5127,7 @@ class CoolingTowerVariableSpeedMerkel(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `ufactor_times_area_modifier_function_of_water_flow_ratio_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4969,7 +5168,7 @@ class CoolingTowerVariableSpeedMerkel(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `basin_heater_capacity`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -5005,7 +5204,7 @@ class CoolingTowerVariableSpeedMerkel(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `basin_heater_setpoint_temperature`'.format(value))
             if value < 2.0:
                 raise ValueError('value need to be greater or equal 2.0 '
@@ -5041,7 +5240,7 @@ class CoolingTowerVariableSpeedMerkel(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `basin_heater_operating_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -5079,7 +5278,7 @@ class CoolingTowerVariableSpeedMerkel(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `evaporation_loss_mode`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -5093,16 +5292,26 @@ class CoolingTowerVariableSpeedMerkel(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `evaporation_loss_mode`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `evaporation_loss_mode`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Evaporation Loss Mode"] = value
 
@@ -5137,7 +5346,7 @@ class CoolingTowerVariableSpeedMerkel(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `evaporation_loss_factor`'.format(value))
         self._data["Evaporation Loss Factor"] = value
 
@@ -5170,7 +5379,7 @@ class CoolingTowerVariableSpeedMerkel(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `drift_loss_percent`'.format(value))
         self._data["Drift Loss Percent"] = value
 
@@ -5202,7 +5411,7 @@ class CoolingTowerVariableSpeedMerkel(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `blowdown_calculation_mode`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -5216,16 +5425,26 @@ class CoolingTowerVariableSpeedMerkel(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `blowdown_calculation_mode`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `blowdown_calculation_mode`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Blowdown Calculation Mode"] = value
 
@@ -5261,7 +5480,7 @@ class CoolingTowerVariableSpeedMerkel(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `blowdown_concentration_ratio`'.format(value))
             if value < 2.0:
                 raise ValueError('value need to be greater or equal 2.0 '
@@ -5297,7 +5516,7 @@ class CoolingTowerVariableSpeedMerkel(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `blowdown_makeup_water_usage_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -5332,7 +5551,7 @@ class CoolingTowerVariableSpeedMerkel(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `supply_water_storage_tank_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -5368,7 +5587,7 @@ class CoolingTowerVariableSpeedMerkel(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `outdoor_air_inlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -5405,8 +5624,15 @@ class CoolingTowerVariableSpeedMerkel(object):
             try:
                 value = int(value)
             except ValueError:
-                raise ValueError('value {} need to be of type int '
-                                 'for field `number_of_cells`'.format(value))
+                if not self.strict:
+                    try:
+                        conv_value = int(float(value))
+                        logging.warn('Cast float {} to int {}, precision may be lost '
+                                     'for field `number_of_cells`'.format(value, conv_value))
+                        value = conv_value
+                    except ValueError:
+                        raise ValueError('value {} need to be of type int '
+                                         'for field `number_of_cells`'.format(value))
             if value < 1:
                 raise ValueError('value need to be greater or equal 1 '
                                  'for field `number_of_cells`')
@@ -5438,7 +5664,7 @@ class CoolingTowerVariableSpeedMerkel(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `cell_control`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -5477,7 +5703,7 @@ class CoolingTowerVariableSpeedMerkel(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `cell_minimum_water_flow_rate_fraction`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -5515,7 +5741,7 @@ class CoolingTowerVariableSpeedMerkel(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `cell_maximum_water_flow_rate_fraction`'.format(value))
             if value < 1.0:
                 raise ValueError('value need to be greater or equal 1.0 '
@@ -5550,7 +5776,7 @@ class CoolingTowerVariableSpeedMerkel(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `sizing_factor`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -5598,7 +5824,6 @@ class CoolingTowerVariableSpeed(object):
         algorithms (CoolTools or YorkCalc), or they can enter their own correlation for
         approach temperature by using a variable speed tower model coefficient object.
         For a multi-cell tower, the capacity and air/water flow rate inputs are for the entire tower.
-    
     """
     internal_name = "CoolingTower:VariableSpeed"
     field_count = 30
@@ -5638,15 +5863,16 @@ class CoolingTowerVariableSpeed(object):
         self._data["Cell Minimum  Water Flow Rate Fraction"] = None
         self._data["Cell Maximum Water Flow Rate Fraction"] = None
         self._data["Sizing Factor"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -5858,6 +6084,7 @@ class CoolingTowerVariableSpeed(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -5885,7 +6112,7 @@ class CoolingTowerVariableSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -5921,7 +6148,7 @@ class CoolingTowerVariableSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `water_inlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -5957,7 +6184,7 @@ class CoolingTowerVariableSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `water_outlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -6000,7 +6227,7 @@ class CoolingTowerVariableSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `model_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -6016,16 +6243,26 @@ class CoolingTowerVariableSpeed(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `model_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `model_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Model Type"] = value
 
@@ -6056,7 +6293,7 @@ class CoolingTowerVariableSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `model_coefficient_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -6095,7 +6332,7 @@ class CoolingTowerVariableSpeed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `design_inlet_air_wetbulb_temperature`'.format(value))
             if value < 20.0:
                 raise ValueError('value need to be greater or equal 20.0 '
@@ -6134,7 +6371,7 @@ class CoolingTowerVariableSpeed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `design_approach_temperature`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -6173,7 +6410,7 @@ class CoolingTowerVariableSpeed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `design_range_temperature`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -6211,12 +6448,17 @@ class CoolingTowerVariableSpeed(object):
                 if value_lower == "autosize":
                     self._data["Design Water Flow Rate"] = "Autosize"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autosize" '
+                                 'for field `design_water_flow_rate`'.format(value))
+                    self._data["Design Water Flow Rate"] = "Autosize"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autosize"'
                                  'for field `design_water_flow_rate`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -6253,12 +6495,17 @@ class CoolingTowerVariableSpeed(object):
                 if value_lower == "autosize":
                     self._data["Design Air Flow Rate"] = "Autosize"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autosize" '
+                                 'for field `design_air_flow_rate`'.format(value))
+                    self._data["Design Air Flow Rate"] = "Autosize"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autosize"'
                                  'for field `design_air_flow_rate`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -6297,12 +6544,17 @@ class CoolingTowerVariableSpeed(object):
                 if value_lower == "autosize":
                     self._data["Design Fan Power"] = "Autosize"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autosize" '
+                                 'for field `design_fan_power`'.format(value))
+                    self._data["Design Fan Power"] = "Autosize"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autosize"'
                                  'for field `design_fan_power`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -6340,7 +6592,7 @@ class CoolingTowerVariableSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `fan_power_ratio_function_of_air_flow_rate_ratio_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -6380,7 +6632,7 @@ class CoolingTowerVariableSpeed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `minimum_air_flow_rate_ratio`'.format(value))
             if value < 0.2:
                 raise ValueError('value need to be greater or equal 0.2 '
@@ -6423,7 +6675,7 @@ class CoolingTowerVariableSpeed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `fraction_of_tower_capacity_in_free_convection_regime`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -6464,7 +6716,7 @@ class CoolingTowerVariableSpeed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `basin_heater_capacity`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -6500,7 +6752,7 @@ class CoolingTowerVariableSpeed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `basin_heater_setpoint_temperature`'.format(value))
             if value < 2.0:
                 raise ValueError('value need to be greater or equal 2.0 '
@@ -6536,7 +6788,7 @@ class CoolingTowerVariableSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `basin_heater_operating_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -6574,7 +6826,7 @@ class CoolingTowerVariableSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `evaporation_loss_mode`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -6588,16 +6840,26 @@ class CoolingTowerVariableSpeed(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `evaporation_loss_mode`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `evaporation_loss_mode`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Evaporation Loss Mode"] = value
 
@@ -6632,7 +6894,7 @@ class CoolingTowerVariableSpeed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `evaporation_loss_factor`'.format(value))
         self._data["Evaporation Loss Factor"] = value
 
@@ -6664,7 +6926,7 @@ class CoolingTowerVariableSpeed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `drift_loss_percent`'.format(value))
         self._data["Drift Loss Percent"] = value
 
@@ -6696,7 +6958,7 @@ class CoolingTowerVariableSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `blowdown_calculation_mode`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -6710,16 +6972,26 @@ class CoolingTowerVariableSpeed(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `blowdown_calculation_mode`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `blowdown_calculation_mode`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Blowdown Calculation Mode"] = value
 
@@ -6755,7 +7027,7 @@ class CoolingTowerVariableSpeed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `blowdown_concentration_ratio`'.format(value))
             if value < 2.0:
                 raise ValueError('value need to be greater or equal 2.0 '
@@ -6791,7 +7063,7 @@ class CoolingTowerVariableSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `blowdown_makeup_water_usage_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -6826,7 +7098,7 @@ class CoolingTowerVariableSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `supply_water_storage_tank_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -6862,7 +7134,7 @@ class CoolingTowerVariableSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `outdoor_air_inlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -6899,8 +7171,15 @@ class CoolingTowerVariableSpeed(object):
             try:
                 value = int(value)
             except ValueError:
-                raise ValueError('value {} need to be of type int '
-                                 'for field `number_of_cells`'.format(value))
+                if not self.strict:
+                    try:
+                        conv_value = int(float(value))
+                        logging.warn('Cast float {} to int {}, precision may be lost '
+                                     'for field `number_of_cells`'.format(value, conv_value))
+                        value = conv_value
+                    except ValueError:
+                        raise ValueError('value {} need to be of type int '
+                                         'for field `number_of_cells`'.format(value))
             if value < 1:
                 raise ValueError('value need to be greater or equal 1 '
                                  'for field `number_of_cells`')
@@ -6932,7 +7211,7 @@ class CoolingTowerVariableSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `cell_control`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -6971,7 +7250,7 @@ class CoolingTowerVariableSpeed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `cell_minimum_water_flow_rate_fraction`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -7009,7 +7288,7 @@ class CoolingTowerVariableSpeed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `cell_maximum_water_flow_rate_fraction`'.format(value))
             if value < 1.0:
                 raise ValueError('value need to be greater or equal 1.0 '
@@ -7044,7 +7323,7 @@ class CoolingTowerVariableSpeed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `sizing_factor`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -7090,7 +7369,6 @@ class CoolingTowerPerformanceCoolTools(object):
         This object is used to define coefficients for the approach temperature
         correlation for a variable speed cooling tower when tower Model Type is
         specified as CoolToolsUserDefined in the object CoolingTower:VariableSpeed.
-    
     """
     internal_name = "CoolingTowerPerformance:CoolTools"
     field_count = 44
@@ -7144,15 +7422,16 @@ class CoolingTowerPerformanceCoolTools(object):
         self._data["Coefficient 33"] = None
         self._data["Coefficient 34"] = None
         self._data["Coefficient 35"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -7462,6 +7741,7 @@ class CoolingTowerPerformanceCoolTools(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -7488,7 +7768,7 @@ class CoolingTowerPerformanceCoolTools(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -7526,7 +7806,7 @@ class CoolingTowerPerformanceCoolTools(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `minimum_inlet_air_wetbulb_temperature`'.format(value))
         self._data["Minimum Inlet Air Wet-Bulb Temperature"] = value
 
@@ -7558,7 +7838,7 @@ class CoolingTowerPerformanceCoolTools(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `maximum_inlet_air_wetbulb_temperature`'.format(value))
         self._data["Maximum Inlet Air Wet-Bulb Temperature"] = value
 
@@ -7590,7 +7870,7 @@ class CoolingTowerPerformanceCoolTools(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `minimum_range_temperature`'.format(value))
         self._data["Minimum Range Temperature"] = value
 
@@ -7622,7 +7902,7 @@ class CoolingTowerPerformanceCoolTools(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `maximum_range_temperature`'.format(value))
         self._data["Maximum Range Temperature"] = value
 
@@ -7653,7 +7933,7 @@ class CoolingTowerPerformanceCoolTools(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `minimum_approach_temperature`'.format(value))
         self._data["Minimum Approach Temperature"] = value
 
@@ -7684,7 +7964,7 @@ class CoolingTowerPerformanceCoolTools(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `maximum_approach_temperature`'.format(value))
         self._data["Maximum Approach Temperature"] = value
 
@@ -7715,7 +7995,7 @@ class CoolingTowerPerformanceCoolTools(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `minimum_water_flow_rate_ratio`'.format(value))
         self._data["Minimum Water Flow Rate Ratio"] = value
 
@@ -7746,7 +8026,7 @@ class CoolingTowerPerformanceCoolTools(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `maximum_water_flow_rate_ratio`'.format(value))
         self._data["Maximum Water Flow Rate Ratio"] = value
 
@@ -7775,7 +8055,7 @@ class CoolingTowerPerformanceCoolTools(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `coefficient_1`'.format(value))
         self._data["Coefficient 1"] = value
 
@@ -7804,7 +8084,7 @@ class CoolingTowerPerformanceCoolTools(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `coefficient_2`'.format(value))
         self._data["Coefficient 2"] = value
 
@@ -7833,7 +8113,7 @@ class CoolingTowerPerformanceCoolTools(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `coefficient_3`'.format(value))
         self._data["Coefficient 3"] = value
 
@@ -7862,7 +8142,7 @@ class CoolingTowerPerformanceCoolTools(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `coefficient_4`'.format(value))
         self._data["Coefficient 4"] = value
 
@@ -7891,7 +8171,7 @@ class CoolingTowerPerformanceCoolTools(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `coefficient_5`'.format(value))
         self._data["Coefficient 5"] = value
 
@@ -7920,7 +8200,7 @@ class CoolingTowerPerformanceCoolTools(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `coefficient_6`'.format(value))
         self._data["Coefficient 6"] = value
 
@@ -7949,7 +8229,7 @@ class CoolingTowerPerformanceCoolTools(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `coefficient_7`'.format(value))
         self._data["Coefficient 7"] = value
 
@@ -7978,7 +8258,7 @@ class CoolingTowerPerformanceCoolTools(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `coefficient_8`'.format(value))
         self._data["Coefficient 8"] = value
 
@@ -8007,7 +8287,7 @@ class CoolingTowerPerformanceCoolTools(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `coefficient_9`'.format(value))
         self._data["Coefficient 9"] = value
 
@@ -8036,7 +8316,7 @@ class CoolingTowerPerformanceCoolTools(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `coefficient_10`'.format(value))
         self._data["Coefficient 10"] = value
 
@@ -8065,7 +8345,7 @@ class CoolingTowerPerformanceCoolTools(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `coefficient_11`'.format(value))
         self._data["Coefficient 11"] = value
 
@@ -8094,7 +8374,7 @@ class CoolingTowerPerformanceCoolTools(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `coefficient_12`'.format(value))
         self._data["Coefficient 12"] = value
 
@@ -8123,7 +8403,7 @@ class CoolingTowerPerformanceCoolTools(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `coefficient_13`'.format(value))
         self._data["Coefficient 13"] = value
 
@@ -8152,7 +8432,7 @@ class CoolingTowerPerformanceCoolTools(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `coefficient_14`'.format(value))
         self._data["Coefficient 14"] = value
 
@@ -8181,7 +8461,7 @@ class CoolingTowerPerformanceCoolTools(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `coefficient_15`'.format(value))
         self._data["Coefficient 15"] = value
 
@@ -8210,7 +8490,7 @@ class CoolingTowerPerformanceCoolTools(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `coefficient_16`'.format(value))
         self._data["Coefficient 16"] = value
 
@@ -8239,7 +8519,7 @@ class CoolingTowerPerformanceCoolTools(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `coefficient_17`'.format(value))
         self._data["Coefficient 17"] = value
 
@@ -8268,7 +8548,7 @@ class CoolingTowerPerformanceCoolTools(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `coefficient_18`'.format(value))
         self._data["Coefficient 18"] = value
 
@@ -8297,7 +8577,7 @@ class CoolingTowerPerformanceCoolTools(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `coefficient_19`'.format(value))
         self._data["Coefficient 19"] = value
 
@@ -8326,7 +8606,7 @@ class CoolingTowerPerformanceCoolTools(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `coefficient_20`'.format(value))
         self._data["Coefficient 20"] = value
 
@@ -8355,7 +8635,7 @@ class CoolingTowerPerformanceCoolTools(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `coefficient_21`'.format(value))
         self._data["Coefficient 21"] = value
 
@@ -8384,7 +8664,7 @@ class CoolingTowerPerformanceCoolTools(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `coefficient_22`'.format(value))
         self._data["Coefficient 22"] = value
 
@@ -8413,7 +8693,7 @@ class CoolingTowerPerformanceCoolTools(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `coefficient_23`'.format(value))
         self._data["Coefficient 23"] = value
 
@@ -8442,7 +8722,7 @@ class CoolingTowerPerformanceCoolTools(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `coefficient_24`'.format(value))
         self._data["Coefficient 24"] = value
 
@@ -8471,7 +8751,7 @@ class CoolingTowerPerformanceCoolTools(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `coefficient_25`'.format(value))
         self._data["Coefficient 25"] = value
 
@@ -8500,7 +8780,7 @@ class CoolingTowerPerformanceCoolTools(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `coefficient_26`'.format(value))
         self._data["Coefficient 26"] = value
 
@@ -8529,7 +8809,7 @@ class CoolingTowerPerformanceCoolTools(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `coefficient_27`'.format(value))
         self._data["Coefficient 27"] = value
 
@@ -8558,7 +8838,7 @@ class CoolingTowerPerformanceCoolTools(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `coefficient_28`'.format(value))
         self._data["Coefficient 28"] = value
 
@@ -8587,7 +8867,7 @@ class CoolingTowerPerformanceCoolTools(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `coefficient_29`'.format(value))
         self._data["Coefficient 29"] = value
 
@@ -8616,7 +8896,7 @@ class CoolingTowerPerformanceCoolTools(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `coefficient_30`'.format(value))
         self._data["Coefficient 30"] = value
 
@@ -8645,7 +8925,7 @@ class CoolingTowerPerformanceCoolTools(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `coefficient_31`'.format(value))
         self._data["Coefficient 31"] = value
 
@@ -8674,7 +8954,7 @@ class CoolingTowerPerformanceCoolTools(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `coefficient_32`'.format(value))
         self._data["Coefficient 32"] = value
 
@@ -8703,7 +8983,7 @@ class CoolingTowerPerformanceCoolTools(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `coefficient_33`'.format(value))
         self._data["Coefficient 33"] = value
 
@@ -8732,7 +9012,7 @@ class CoolingTowerPerformanceCoolTools(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `coefficient_34`'.format(value))
         self._data["Coefficient 34"] = value
 
@@ -8761,7 +9041,7 @@ class CoolingTowerPerformanceCoolTools(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `coefficient_35`'.format(value))
         self._data["Coefficient 35"] = value
 
@@ -8804,7 +9084,6 @@ class CoolingTowerPerformanceYorkCalc(object):
         This object is used to define coefficients for the approach temperature
         correlation for a variable speed cooling tower when tower Model Type is
         specified as YorkCalcUserDefined in the object CoolingTower:VariableSpeed.
-    
     """
     internal_name = "CoolingTowerPerformance:YorkCalc"
     field_count = 37
@@ -8851,15 +9130,16 @@ class CoolingTowerPerformanceYorkCalc(object):
         self._data["Coefficient 25"] = None
         self._data["Coefficient 26"] = None
         self._data["Coefficient 27"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -9120,6 +9400,7 @@ class CoolingTowerPerformanceYorkCalc(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -9146,7 +9427,7 @@ class CoolingTowerPerformanceYorkCalc(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -9184,7 +9465,7 @@ class CoolingTowerPerformanceYorkCalc(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `minimum_inlet_air_wetbulb_temperature`'.format(value))
         self._data["Minimum Inlet Air Wet-Bulb Temperature"] = value
 
@@ -9216,7 +9497,7 @@ class CoolingTowerPerformanceYorkCalc(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `maximum_inlet_air_wetbulb_temperature`'.format(value))
         self._data["Maximum Inlet Air Wet-Bulb Temperature"] = value
 
@@ -9248,7 +9529,7 @@ class CoolingTowerPerformanceYorkCalc(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `minimum_range_temperature`'.format(value))
         self._data["Minimum Range Temperature"] = value
 
@@ -9280,7 +9561,7 @@ class CoolingTowerPerformanceYorkCalc(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `maximum_range_temperature`'.format(value))
         self._data["Maximum Range Temperature"] = value
 
@@ -9311,7 +9592,7 @@ class CoolingTowerPerformanceYorkCalc(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `minimum_approach_temperature`'.format(value))
         self._data["Minimum Approach Temperature"] = value
 
@@ -9342,7 +9623,7 @@ class CoolingTowerPerformanceYorkCalc(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `maximum_approach_temperature`'.format(value))
         self._data["Maximum Approach Temperature"] = value
 
@@ -9373,7 +9654,7 @@ class CoolingTowerPerformanceYorkCalc(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `minimum_water_flow_rate_ratio`'.format(value))
         self._data["Minimum Water Flow Rate Ratio"] = value
 
@@ -9404,7 +9685,7 @@ class CoolingTowerPerformanceYorkCalc(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `maximum_water_flow_rate_ratio`'.format(value))
         self._data["Maximum Water Flow Rate Ratio"] = value
 
@@ -9435,7 +9716,7 @@ class CoolingTowerPerformanceYorkCalc(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `maximum_liquid_to_gas_ratio`'.format(value))
         self._data["Maximum Liquid to Gas Ratio"] = value
 
@@ -9464,7 +9745,7 @@ class CoolingTowerPerformanceYorkCalc(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `coefficient_1`'.format(value))
         self._data["Coefficient 1"] = value
 
@@ -9493,7 +9774,7 @@ class CoolingTowerPerformanceYorkCalc(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `coefficient_2`'.format(value))
         self._data["Coefficient 2"] = value
 
@@ -9522,7 +9803,7 @@ class CoolingTowerPerformanceYorkCalc(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `coefficient_3`'.format(value))
         self._data["Coefficient 3"] = value
 
@@ -9551,7 +9832,7 @@ class CoolingTowerPerformanceYorkCalc(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `coefficient_4`'.format(value))
         self._data["Coefficient 4"] = value
 
@@ -9580,7 +9861,7 @@ class CoolingTowerPerformanceYorkCalc(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `coefficient_5`'.format(value))
         self._data["Coefficient 5"] = value
 
@@ -9609,7 +9890,7 @@ class CoolingTowerPerformanceYorkCalc(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `coefficient_6`'.format(value))
         self._data["Coefficient 6"] = value
 
@@ -9638,7 +9919,7 @@ class CoolingTowerPerformanceYorkCalc(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `coefficient_7`'.format(value))
         self._data["Coefficient 7"] = value
 
@@ -9667,7 +9948,7 @@ class CoolingTowerPerformanceYorkCalc(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `coefficient_8`'.format(value))
         self._data["Coefficient 8"] = value
 
@@ -9696,7 +9977,7 @@ class CoolingTowerPerformanceYorkCalc(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `coefficient_9`'.format(value))
         self._data["Coefficient 9"] = value
 
@@ -9725,7 +10006,7 @@ class CoolingTowerPerformanceYorkCalc(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `coefficient_10`'.format(value))
         self._data["Coefficient 10"] = value
 
@@ -9754,7 +10035,7 @@ class CoolingTowerPerformanceYorkCalc(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `coefficient_11`'.format(value))
         self._data["Coefficient 11"] = value
 
@@ -9783,7 +10064,7 @@ class CoolingTowerPerformanceYorkCalc(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `coefficient_12`'.format(value))
         self._data["Coefficient 12"] = value
 
@@ -9812,7 +10093,7 @@ class CoolingTowerPerformanceYorkCalc(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `coefficient_13`'.format(value))
         self._data["Coefficient 13"] = value
 
@@ -9841,7 +10122,7 @@ class CoolingTowerPerformanceYorkCalc(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `coefficient_14`'.format(value))
         self._data["Coefficient 14"] = value
 
@@ -9870,7 +10151,7 @@ class CoolingTowerPerformanceYorkCalc(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `coefficient_15`'.format(value))
         self._data["Coefficient 15"] = value
 
@@ -9899,7 +10180,7 @@ class CoolingTowerPerformanceYorkCalc(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `coefficient_16`'.format(value))
         self._data["Coefficient 16"] = value
 
@@ -9928,7 +10209,7 @@ class CoolingTowerPerformanceYorkCalc(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `coefficient_17`'.format(value))
         self._data["Coefficient 17"] = value
 
@@ -9957,7 +10238,7 @@ class CoolingTowerPerformanceYorkCalc(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `coefficient_18`'.format(value))
         self._data["Coefficient 18"] = value
 
@@ -9986,7 +10267,7 @@ class CoolingTowerPerformanceYorkCalc(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `coefficient_19`'.format(value))
         self._data["Coefficient 19"] = value
 
@@ -10015,7 +10296,7 @@ class CoolingTowerPerformanceYorkCalc(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `coefficient_20`'.format(value))
         self._data["Coefficient 20"] = value
 
@@ -10044,7 +10325,7 @@ class CoolingTowerPerformanceYorkCalc(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `coefficient_21`'.format(value))
         self._data["Coefficient 21"] = value
 
@@ -10073,7 +10354,7 @@ class CoolingTowerPerformanceYorkCalc(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `coefficient_22`'.format(value))
         self._data["Coefficient 22"] = value
 
@@ -10102,7 +10383,7 @@ class CoolingTowerPerformanceYorkCalc(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `coefficient_23`'.format(value))
         self._data["Coefficient 23"] = value
 
@@ -10131,7 +10412,7 @@ class CoolingTowerPerformanceYorkCalc(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `coefficient_24`'.format(value))
         self._data["Coefficient 24"] = value
 
@@ -10160,7 +10441,7 @@ class CoolingTowerPerformanceYorkCalc(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `coefficient_25`'.format(value))
         self._data["Coefficient 25"] = value
 
@@ -10189,7 +10470,7 @@ class CoolingTowerPerformanceYorkCalc(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `coefficient_26`'.format(value))
         self._data["Coefficient 26"] = value
 
@@ -10218,7 +10499,7 @@ class CoolingTowerPerformanceYorkCalc(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `coefficient_27`'.format(value))
         self._data["Coefficient 27"] = value
 
@@ -10261,7 +10542,6 @@ class EvaporativeFluidCoolerSingleSpeed(object):
         This model is based on Merkel's theory, which is also the basis
         for the cooling tower model in EnergyPlus. The Evaporative fluid cooler
         is modeled as a counter flow heat exchanger.
-    
     """
     internal_name = "EvaporativeFluidCooler:SingleSpeed"
     field_count = 25
@@ -10296,15 +10576,16 @@ class EvaporativeFluidCoolerSingleSpeed(object):
         self._data["Blowdown Concentration Ratio"] = None
         self._data["Blowdown Makeup Water Usage Schedule Name"] = None
         self._data["Supply Water Storage Tank Name"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -10481,6 +10762,7 @@ class EvaporativeFluidCoolerSingleSpeed(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -10508,7 +10790,7 @@ class EvaporativeFluidCoolerSingleSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -10544,7 +10826,7 @@ class EvaporativeFluidCoolerSingleSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `water_inlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -10580,7 +10862,7 @@ class EvaporativeFluidCoolerSingleSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `water_outlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -10619,12 +10901,17 @@ class EvaporativeFluidCoolerSingleSpeed(object):
                 if value_lower == "autosize":
                     self._data["Design Air Flow Rate"] = "Autosize"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autosize" '
+                                 'for field `design_air_flow_rate`'.format(value))
+                    self._data["Design Air Flow Rate"] = "Autosize"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autosize"'
                                  'for field `design_air_flow_rate`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -10662,12 +10949,17 @@ class EvaporativeFluidCoolerSingleSpeed(object):
                 if value_lower == "autosize":
                     self._data["Design Air Flow Rate Fan Power"] = "Autosize"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autosize" '
+                                 'for field `design_air_flow_rate_fan_power`'.format(value))
+                    self._data["Design Air Flow Rate Fan Power"] = "Autosize"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autosize"'
                                  'for field `design_air_flow_rate_fan_power`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -10702,7 +10994,7 @@ class EvaporativeFluidCoolerSingleSpeed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `design_spray_water_flow_rate`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -10737,7 +11029,7 @@ class EvaporativeFluidCoolerSingleSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `performance_input_method`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -10773,7 +11065,7 @@ class EvaporativeFluidCoolerSingleSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `outdoor_air_inlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -10809,7 +11101,7 @@ class EvaporativeFluidCoolerSingleSpeed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `heat_rejection_capacity_and_nominal_capacity_sizing_ratio`'.format(value))
         self._data["Heat Rejection Capacity and Nominal Capacity Sizing Ratio"] = value
 
@@ -10854,7 +11146,7 @@ class EvaporativeFluidCoolerSingleSpeed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `standard_design_capacity`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -10893,12 +11185,17 @@ class EvaporativeFluidCoolerSingleSpeed(object):
                 if value_lower == "autosize":
                     self._data["Design Air Flow Rate U-factor Times Area Value"] = "Autosize"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autosize" '
+                                 'for field `design_air_flow_rate_ufactor_times_area_value`'.format(value))
+                    self._data["Design Air Flow Rate U-factor Times Area Value"] = "Autosize"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autosize"'
                                  'for field `design_air_flow_rate_ufactor_times_area_value`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -10939,12 +11236,17 @@ class EvaporativeFluidCoolerSingleSpeed(object):
                 if value_lower == "autosize":
                     self._data["Design Water Flow Rate"] = "Autosize"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autosize" '
+                                 'for field `design_water_flow_rate`'.format(value))
+                    self._data["Design Water Flow Rate"] = "Autosize"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autosize"'
                                  'for field `design_water_flow_rate`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -10980,7 +11282,7 @@ class EvaporativeFluidCoolerSingleSpeed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `user_specified_design_capacity`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -11018,7 +11320,7 @@ class EvaporativeFluidCoolerSingleSpeed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `design_entering_water_temperature`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -11057,7 +11359,7 @@ class EvaporativeFluidCoolerSingleSpeed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `design_entering_air_temperature`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -11096,7 +11398,7 @@ class EvaporativeFluidCoolerSingleSpeed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `design_entering_air_wetbulb_temperature`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -11132,7 +11434,7 @@ class EvaporativeFluidCoolerSingleSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `capacity_control`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -11146,16 +11448,26 @@ class EvaporativeFluidCoolerSingleSpeed(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `capacity_control`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `capacity_control`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Capacity Control"] = value
 
@@ -11187,7 +11499,7 @@ class EvaporativeFluidCoolerSingleSpeed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `sizing_factor`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -11223,7 +11535,7 @@ class EvaporativeFluidCoolerSingleSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `evaporation_loss_mode`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -11237,16 +11549,26 @@ class EvaporativeFluidCoolerSingleSpeed(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `evaporation_loss_mode`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `evaporation_loss_mode`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Evaporation Loss Mode"] = value
 
@@ -11278,7 +11600,7 @@ class EvaporativeFluidCoolerSingleSpeed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `evaporation_loss_factor`'.format(value))
         self._data["Evaporation Loss Factor"] = value
 
@@ -11312,7 +11634,7 @@ class EvaporativeFluidCoolerSingleSpeed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `drift_loss_percent`'.format(value))
         self._data["Drift Loss Percent"] = value
 
@@ -11345,7 +11667,7 @@ class EvaporativeFluidCoolerSingleSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `blowdown_calculation_mode`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -11359,16 +11681,26 @@ class EvaporativeFluidCoolerSingleSpeed(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `blowdown_calculation_mode`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `blowdown_calculation_mode`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Blowdown Calculation Mode"] = value
 
@@ -11405,7 +11737,7 @@ class EvaporativeFluidCoolerSingleSpeed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `blowdown_concentration_ratio`'.format(value))
             if value < 2.0:
                 raise ValueError('value need to be greater or equal 2.0 '
@@ -11441,7 +11773,7 @@ class EvaporativeFluidCoolerSingleSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `blowdown_makeup_water_usage_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -11476,7 +11808,7 @@ class EvaporativeFluidCoolerSingleSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `supply_water_storage_tank_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -11525,7 +11857,6 @@ class EvaporativeFluidCoolerTwoSpeed(object):
         This model is based on Merkel's theory, which is also the basis
         for the cooling tower model in EnergyPlus. The Evaporative fluid cooler
         is modeled as a counter flow heat exchanger.
-    
     """
     internal_name = "EvaporativeFluidCooler:TwoSpeed"
     field_count = 34
@@ -11569,15 +11900,16 @@ class EvaporativeFluidCoolerTwoSpeed(object):
         self._data["Blowdown Concentration Ratio"] = None
         self._data["Blowdown Makeup Water Usage Schedule Name"] = None
         self._data["Supply Water Storage Tank Name"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -11817,6 +12149,7 @@ class EvaporativeFluidCoolerTwoSpeed(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -11844,7 +12177,7 @@ class EvaporativeFluidCoolerTwoSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -11880,7 +12213,7 @@ class EvaporativeFluidCoolerTwoSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `water_inlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -11916,7 +12249,7 @@ class EvaporativeFluidCoolerTwoSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `water_outlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -11955,12 +12288,17 @@ class EvaporativeFluidCoolerTwoSpeed(object):
                 if value_lower == "autosize":
                     self._data["High Fan Speed Air Flow Rate"] = "Autosize"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autosize" '
+                                 'for field `high_fan_speed_air_flow_rate`'.format(value))
+                    self._data["High Fan Speed Air Flow Rate"] = "Autosize"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autosize"'
                                  'for field `high_fan_speed_air_flow_rate`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -11998,12 +12336,17 @@ class EvaporativeFluidCoolerTwoSpeed(object):
                 if value_lower == "autosize":
                     self._data["High Fan Speed Fan Power"] = "Autosize"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autosize" '
+                                 'for field `high_fan_speed_fan_power`'.format(value))
+                    self._data["High Fan Speed Fan Power"] = "Autosize"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autosize"'
                                  'for field `high_fan_speed_fan_power`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -12040,12 +12383,17 @@ class EvaporativeFluidCoolerTwoSpeed(object):
                 if value_lower == "autocalculate":
                     self._data["Low Fan Speed Air Flow Rate"] = "Autocalculate"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autocalculate" '
+                                 'for field `low_fan_speed_air_flow_rate`'.format(value))
+                    self._data["Low Fan Speed Air Flow Rate"] = "Autocalculate"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autocalculate"'
                                  'for field `low_fan_speed_air_flow_rate`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -12079,7 +12427,7 @@ class EvaporativeFluidCoolerTwoSpeed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `low_fan_speed_air_flow_rate_sizing_factor`'.format(value))
         self._data["Low Fan Speed Air Flow Rate Sizing Factor"] = value
 
@@ -12114,12 +12462,17 @@ class EvaporativeFluidCoolerTwoSpeed(object):
                 if value_lower == "autocalculate":
                     self._data["Low Fan Speed Fan Power"] = "Autocalculate"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autocalculate" '
+                                 'for field `low_fan_speed_fan_power`'.format(value))
+                    self._data["Low Fan Speed Fan Power"] = "Autocalculate"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autocalculate"'
                                  'for field `low_fan_speed_fan_power`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -12153,7 +12506,7 @@ class EvaporativeFluidCoolerTwoSpeed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `low_fan_speed_fan_power_sizing_factor`'.format(value))
         self._data["Low Fan Speed Fan Power Sizing Factor"] = value
 
@@ -12185,7 +12538,7 @@ class EvaporativeFluidCoolerTwoSpeed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `design_spray_water_flow_rate`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -12220,7 +12573,7 @@ class EvaporativeFluidCoolerTwoSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `performance_input_method`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -12256,7 +12609,7 @@ class EvaporativeFluidCoolerTwoSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `outdoor_air_inlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -12292,7 +12645,7 @@ class EvaporativeFluidCoolerTwoSpeed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `heat_rejection_capacity_and_nominal_capacity_sizing_ratio`'.format(value))
         self._data["Heat Rejection Capacity and Nominal Capacity Sizing Ratio"] = value
 
@@ -12337,7 +12690,7 @@ class EvaporativeFluidCoolerTwoSpeed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `high_speed_standard_design_capacity`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -12387,12 +12740,17 @@ class EvaporativeFluidCoolerTwoSpeed(object):
                 if value_lower == "autocalculate":
                     self._data["Low Speed Standard Design Capacity"] = "Autocalculate"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autocalculate" '
+                                 'for field `low_speed_standard_design_capacity`'.format(value))
+                    self._data["Low Speed Standard Design Capacity"] = "Autocalculate"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autocalculate"'
                                  'for field `low_speed_standard_design_capacity`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -12426,7 +12784,7 @@ class EvaporativeFluidCoolerTwoSpeed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `low_speed_standard_capacity_sizing_factor`'.format(value))
         self._data["Low Speed Standard Capacity Sizing Factor"] = value
 
@@ -12462,12 +12820,17 @@ class EvaporativeFluidCoolerTwoSpeed(object):
                 if value_lower == "autosize":
                     self._data["High Fan Speed U-factor Times Area Value"] = "Autosize"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autosize" '
+                                 'for field `high_fan_speed_ufactor_times_area_value`'.format(value))
+                    self._data["High Fan Speed U-factor Times Area Value"] = "Autosize"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autosize"'
                                  'for field `high_fan_speed_ufactor_times_area_value`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -12510,12 +12873,17 @@ class EvaporativeFluidCoolerTwoSpeed(object):
                 if value_lower == "autocalculate":
                     self._data["Low Fan Speed U-factor Times Area Value"] = "Autocalculate"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autocalculate" '
+                                 'for field `low_fan_speed_ufactor_times_area_value`'.format(value))
+                    self._data["Low Fan Speed U-factor Times Area Value"] = "Autocalculate"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autocalculate"'
                                  'for field `low_fan_speed_ufactor_times_area_value`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -12553,7 +12921,7 @@ class EvaporativeFluidCoolerTwoSpeed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `low_fan_speed_ufactor_times_area_sizing_factor`'.format(value))
         self._data["Low Fan Speed U-Factor Times Area Sizing Factor"] = value
 
@@ -12588,12 +12956,17 @@ class EvaporativeFluidCoolerTwoSpeed(object):
                 if value_lower == "autosize":
                     self._data["Design Water Flow Rate"] = "Autosize"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autosize" '
+                                 'for field `design_water_flow_rate`'.format(value))
+                    self._data["Design Water Flow Rate"] = "Autosize"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autosize"'
                                  'for field `design_water_flow_rate`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -12629,7 +13002,7 @@ class EvaporativeFluidCoolerTwoSpeed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `high_speed_user_specified_design_capacity`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -12667,12 +13040,17 @@ class EvaporativeFluidCoolerTwoSpeed(object):
                 if value_lower == "autocalculate":
                     self._data["Low Speed User Specified Design Capacity"] = "Autocalculate"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autocalculate" '
+                                 'for field `low_speed_user_specified_design_capacity`'.format(value))
+                    self._data["Low Speed User Specified Design Capacity"] = "Autocalculate"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autocalculate"'
                                  'for field `low_speed_user_specified_design_capacity`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -12706,7 +13084,7 @@ class EvaporativeFluidCoolerTwoSpeed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `low_speed_user_specified_design_capacity_sizing_factor`'.format(value))
         self._data["Low Speed User Specified Design Capacity Sizing Factor"] = value
 
@@ -12741,7 +13119,7 @@ class EvaporativeFluidCoolerTwoSpeed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `design_entering_water_temperature`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -12780,7 +13158,7 @@ class EvaporativeFluidCoolerTwoSpeed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `design_entering_air_temperature`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -12819,7 +13197,7 @@ class EvaporativeFluidCoolerTwoSpeed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `design_entering_air_wetbulb_temperature`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -12854,7 +13232,7 @@ class EvaporativeFluidCoolerTwoSpeed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `high_speed_sizing_factor`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -12890,7 +13268,7 @@ class EvaporativeFluidCoolerTwoSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `evaporation_loss_mode`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -12904,16 +13282,26 @@ class EvaporativeFluidCoolerTwoSpeed(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `evaporation_loss_mode`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `evaporation_loss_mode`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Evaporation Loss Mode"] = value
 
@@ -12945,7 +13333,7 @@ class EvaporativeFluidCoolerTwoSpeed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `evaporation_loss_factor`'.format(value))
         self._data["Evaporation Loss Factor"] = value
 
@@ -12977,7 +13365,7 @@ class EvaporativeFluidCoolerTwoSpeed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `drift_loss_percent`'.format(value))
         self._data["Drift Loss Percent"] = value
 
@@ -13010,7 +13398,7 @@ class EvaporativeFluidCoolerTwoSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `blowdown_calculation_mode`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -13024,16 +13412,26 @@ class EvaporativeFluidCoolerTwoSpeed(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `blowdown_calculation_mode`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `blowdown_calculation_mode`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Blowdown Calculation Mode"] = value
 
@@ -13069,7 +13467,7 @@ class EvaporativeFluidCoolerTwoSpeed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `blowdown_concentration_ratio`'.format(value))
             if value < 2.0:
                 raise ValueError('value need to be greater or equal 2.0 '
@@ -13105,7 +13503,7 @@ class EvaporativeFluidCoolerTwoSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `blowdown_makeup_water_usage_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -13140,7 +13538,7 @@ class EvaporativeFluidCoolerTwoSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `supply_water_storage_tank_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -13188,7 +13586,6 @@ class FluidCoolerSingleSpeed(object):
     """ Corresponds to IDD object `FluidCooler:SingleSpeed`
         The fluid cooler is modeled as a cross flow heat exchanger (both streams unmixed) with
         single-speed fans (induced draft configuration).
-    
     """
     internal_name = "FluidCooler:SingleSpeed"
     field_count = 13
@@ -13211,15 +13608,16 @@ class FluidCoolerSingleSpeed(object):
         self._data["Design Air Flow Rate"] = None
         self._data["Design Air Flow Rate Fan Power"] = None
         self._data["Outdoor Air Inlet Node Name"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -13312,6 +13710,7 @@ class FluidCoolerSingleSpeed(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -13339,7 +13738,7 @@ class FluidCoolerSingleSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -13375,7 +13774,7 @@ class FluidCoolerSingleSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `water_inlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -13411,7 +13810,7 @@ class FluidCoolerSingleSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `water_outlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -13449,7 +13848,7 @@ class FluidCoolerSingleSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `performance_input_method`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -13490,12 +13889,17 @@ class FluidCoolerSingleSpeed(object):
                 if value_lower == "autosize":
                     self._data["Design Air Flow Rate U-factor Times Area Value"] = "Autosize"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autosize" '
+                                 'for field `design_air_flow_rate_ufactor_times_area_value`'.format(value))
+                    self._data["Design Air Flow Rate U-factor Times Area Value"] = "Autosize"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autosize"'
                                  'for field `design_air_flow_rate_ufactor_times_area_value`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -13533,7 +13937,7 @@ class FluidCoolerSingleSpeed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `nominal_capacity`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -13570,7 +13974,7 @@ class FluidCoolerSingleSpeed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `design_entering_water_temperature`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -13607,7 +14011,7 @@ class FluidCoolerSingleSpeed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `design_entering_air_temperature`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -13644,7 +14048,7 @@ class FluidCoolerSingleSpeed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `design_entering_air_wetbulb_temperature`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -13681,12 +14085,17 @@ class FluidCoolerSingleSpeed(object):
                 if value_lower == "autosize":
                     self._data["Design Water Flow Rate"] = "Autosize"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autosize" '
+                                 'for field `design_water_flow_rate`'.format(value))
+                    self._data["Design Water Flow Rate"] = "Autosize"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autosize"'
                                  'for field `design_water_flow_rate`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -13722,12 +14131,17 @@ class FluidCoolerSingleSpeed(object):
                 if value_lower == "autosize":
                     self._data["Design Air Flow Rate"] = "Autosize"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autosize" '
+                                 'for field `design_air_flow_rate`'.format(value))
+                    self._data["Design Air Flow Rate"] = "Autosize"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autosize"'
                                  'for field `design_air_flow_rate`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -13765,12 +14179,17 @@ class FluidCoolerSingleSpeed(object):
                 if value_lower == "autosize":
                     self._data["Design Air Flow Rate Fan Power"] = "Autosize"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autosize" '
+                                 'for field `design_air_flow_rate_fan_power`'.format(value))
+                    self._data["Design Air Flow Rate Fan Power"] = "Autosize"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autosize"'
                                  'for field `design_air_flow_rate_fan_power`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -13803,7 +14222,7 @@ class FluidCoolerSingleSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `outdoor_air_inlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -13851,7 +14270,6 @@ class FluidCoolerTwoSpeed(object):
     """ Corresponds to IDD object `FluidCooler:TwoSpeed`
         The fluid cooler is modeled as a cross flow heat exchanger (both streams unmixed) with
         two-speed fans (induced draft configuration).
-    
     """
     internal_name = "FluidCooler:TwoSpeed"
     field_count = 21
@@ -13882,15 +14300,16 @@ class FluidCoolerTwoSpeed(object):
         self._data["Low Fan Speed Fan Power"] = None
         self._data["Low Fan Speed Fan Power Sizing Factor"] = None
         self._data["Outdoor Air Inlet Node Name"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -14039,6 +14458,7 @@ class FluidCoolerTwoSpeed(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -14066,7 +14486,7 @@ class FluidCoolerTwoSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -14102,7 +14522,7 @@ class FluidCoolerTwoSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `water_inlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -14138,7 +14558,7 @@ class FluidCoolerTwoSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `water_outlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -14176,7 +14596,7 @@ class FluidCoolerTwoSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `performance_input_method`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -14217,12 +14637,17 @@ class FluidCoolerTwoSpeed(object):
                 if value_lower == "autosize":
                     self._data["High Fan Speed U-factor Times Area Value"] = "Autosize"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autosize" '
+                                 'for field `high_fan_speed_ufactor_times_area_value`'.format(value))
+                    self._data["High Fan Speed U-factor Times Area Value"] = "Autosize"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autosize"'
                                  'for field `high_fan_speed_ufactor_times_area_value`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -14265,12 +14690,17 @@ class FluidCoolerTwoSpeed(object):
                 if value_lower == "autocalculate":
                     self._data["Low Fan Speed U-factor Times Area Value"] = "Autocalculate"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autocalculate" '
+                                 'for field `low_fan_speed_ufactor_times_area_value`'.format(value))
+                    self._data["Low Fan Speed U-factor Times Area Value"] = "Autocalculate"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autocalculate"'
                                  'for field `low_fan_speed_ufactor_times_area_value`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -14308,7 +14738,7 @@ class FluidCoolerTwoSpeed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `low_fan_speed_ufactor_times_area_sizing_factor`'.format(value))
         self._data["Low Fan Speed U-Factor Times Area Sizing Factor"] = value
 
@@ -14340,7 +14770,7 @@ class FluidCoolerTwoSpeed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `high_speed_nominal_capacity`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -14377,12 +14807,17 @@ class FluidCoolerTwoSpeed(object):
                 if value_lower == "autocalculate":
                     self._data["Low Speed Nominal Capacity"] = "Autocalculate"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autocalculate" '
+                                 'for field `low_speed_nominal_capacity`'.format(value))
+                    self._data["Low Speed Nominal Capacity"] = "Autocalculate"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autocalculate"'
                                  'for field `low_speed_nominal_capacity`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -14417,7 +14852,7 @@ class FluidCoolerTwoSpeed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `low_speed_nominal_capacity_sizing_factor`'.format(value))
         self._data["Low Speed Nominal Capacity Sizing Factor"] = value
 
@@ -14451,7 +14886,7 @@ class FluidCoolerTwoSpeed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `design_entering_water_temperature`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -14488,7 +14923,7 @@ class FluidCoolerTwoSpeed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `design_entering_air_temperature`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -14525,7 +14960,7 @@ class FluidCoolerTwoSpeed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `design_entering_air_wetbulb_temperature`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -14562,12 +14997,17 @@ class FluidCoolerTwoSpeed(object):
                 if value_lower == "autosize":
                     self._data["Design Water Flow Rate"] = "Autosize"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autosize" '
+                                 'for field `design_water_flow_rate`'.format(value))
+                    self._data["Design Water Flow Rate"] = "Autosize"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autosize"'
                                  'for field `design_water_flow_rate`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -14604,12 +15044,17 @@ class FluidCoolerTwoSpeed(object):
                 if value_lower == "autosize":
                     self._data["High Fan Speed Air Flow Rate"] = "Autosize"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autosize" '
+                                 'for field `high_fan_speed_air_flow_rate`'.format(value))
+                    self._data["High Fan Speed Air Flow Rate"] = "Autosize"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autosize"'
                                  'for field `high_fan_speed_air_flow_rate`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -14647,12 +15092,17 @@ class FluidCoolerTwoSpeed(object):
                 if value_lower == "autosize":
                     self._data["High Fan Speed Fan Power"] = "Autosize"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autosize" '
+                                 'for field `high_fan_speed_fan_power`'.format(value))
+                    self._data["High Fan Speed Fan Power"] = "Autosize"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autosize"'
                                  'for field `high_fan_speed_fan_power`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -14689,12 +15139,17 @@ class FluidCoolerTwoSpeed(object):
                 if value_lower == "autocalculate":
                     self._data["Low Fan Speed Air Flow Rate"] = "Autocalculate"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autocalculate" '
+                                 'for field `low_fan_speed_air_flow_rate`'.format(value))
+                    self._data["Low Fan Speed Air Flow Rate"] = "Autocalculate"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autocalculate"'
                                  'for field `low_fan_speed_air_flow_rate`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -14728,7 +15183,7 @@ class FluidCoolerTwoSpeed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `low_fan_speed_air_flow_rate_sizing_factor`'.format(value))
         self._data["Low Fan Speed Air Flow Rate Sizing Factor"] = value
 
@@ -14763,12 +15218,17 @@ class FluidCoolerTwoSpeed(object):
                 if value_lower == "autocalculate":
                     self._data["Low Fan Speed Fan Power"] = "Autocalculate"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autocalculate" '
+                                 'for field `low_fan_speed_fan_power`'.format(value))
+                    self._data["Low Fan Speed Fan Power"] = "Autocalculate"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autocalculate"'
                                  'for field `low_fan_speed_fan_power`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -14802,7 +15262,7 @@ class FluidCoolerTwoSpeed(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `low_fan_speed_fan_power_sizing_factor`'.format(value))
         self._data["Low Fan Speed Fan Power Sizing Factor"] = value
 
@@ -14831,7 +15291,7 @@ class FluidCoolerTwoSpeed(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `outdoor_air_inlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -14882,7 +15342,6 @@ class GroundHeatExchangerVertical(object):
         Vertical Ground Loop Heat Exchangers
         The Fluid Type in the associated condenser loop must be same for which the
         g-functions below are calculated.
-    
     """
     internal_name = "GroundHeatExchanger:Vertical"
     field_count = 219
@@ -15111,15 +15570,16 @@ class GroundHeatExchangerVertical(object):
         self._data["G-Function G Value 99"] = None
         self._data["G-Function Ln(T/Ts) Value 100"] = None
         self._data["G-Function G Value 100"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -16654,6 +17114,7 @@ class GroundHeatExchangerVertical(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -16680,7 +17141,7 @@ class GroundHeatExchangerVertical(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -16715,7 +17176,7 @@ class GroundHeatExchangerVertical(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `inlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -16750,7 +17211,7 @@ class GroundHeatExchangerVertical(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `outlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -16788,7 +17249,7 @@ class GroundHeatExchangerVertical(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `maximum_flow_rate`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -16821,7 +17282,7 @@ class GroundHeatExchangerVertical(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `number_of_bore_holes`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -16855,7 +17316,7 @@ class GroundHeatExchangerVertical(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `bore_hole_length`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -16889,7 +17350,7 @@ class GroundHeatExchangerVertical(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `bore_hole_radius`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -16923,7 +17384,7 @@ class GroundHeatExchangerVertical(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `ground_thermal_conductivity`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -16957,7 +17418,7 @@ class GroundHeatExchangerVertical(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `ground_thermal_heat_capacity`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -16991,7 +17452,7 @@ class GroundHeatExchangerVertical(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `ground_temperature`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -17026,7 +17487,7 @@ class GroundHeatExchangerVertical(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `design_flow_rate`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -17060,7 +17521,7 @@ class GroundHeatExchangerVertical(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `grout_thermal_conductivity`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -17094,7 +17555,7 @@ class GroundHeatExchangerVertical(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `pipe_thermal_conductivity`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -17129,7 +17590,7 @@ class GroundHeatExchangerVertical(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `pipe_out_diameter`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -17163,7 +17624,7 @@ class GroundHeatExchangerVertical(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `utube_distance`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -17198,7 +17659,7 @@ class GroundHeatExchangerVertical(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `pipe_thickness`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -17231,7 +17692,7 @@ class GroundHeatExchangerVertical(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `maximum_length_of_simulation`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -17266,7 +17727,7 @@ class GroundHeatExchangerVertical(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `gfunction_reference_ratio`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -17300,7 +17761,7 @@ class GroundHeatExchangerVertical(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `number_of_data_pairs_of_the_g_function`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -17335,7 +17796,7 @@ class GroundHeatExchangerVertical(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `gfunction_lnt_or_ts_value_1`'.format(value))
         self._data["G-Function Ln(T/Ts) Value 1"] = value
 
@@ -17364,7 +17825,7 @@ class GroundHeatExchangerVertical(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `gfunction_g_value_1`'.format(value))
         self._data["G-Function G Value 1"] = value
 
@@ -17393,7 +17854,7 @@ class GroundHeatExchangerVertical(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `gfunction_lnt_or_ts_value_2`'.format(value))
         self._data["G-Function Ln(T/Ts) Value 2"] = value
 
@@ -17422,7 +17883,7 @@ class GroundHeatExchangerVertical(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `gfunction_g_value_2`'.format(value))
         self._data["G-Function G Value 2"] = value
 
@@ -17451,7 +17912,7 @@ class GroundHeatExchangerVertical(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `gfunction_lnt_or_ts_value_3`'.format(value))
         self._data["G-Function Ln(T/Ts) Value 3"] = value
 
@@ -17480,7 +17941,7 @@ class GroundHeatExchangerVertical(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `gfunction_g_value_3`'.format(value))
         self._data["G-Function G Value 3"] = value
 
@@ -17509,7 +17970,7 @@ class GroundHeatExchangerVertical(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `gfunction_lnt_or_ts_value_4`'.format(value))
         self._data["G-Function Ln(T/Ts) Value 4"] = value
 
@@ -17538,7 +17999,7 @@ class GroundHeatExchangerVertical(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `gfunction_g_value_4`'.format(value))
         self._data["G-Function G Value 4"] = value
 
@@ -17567,7 +18028,7 @@ class GroundHeatExchangerVertical(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `gfunction_lnt_or_ts_value_5`'.format(value))
         self._data["G-Function Ln(T/Ts) Value 5"] = value
 
@@ -17596,7 +18057,7 @@ class GroundHeatExchangerVertical(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `gfunction_g_value_5`'.format(value))
         self._data["G-Function G Value 5"] = value
 
@@ -17625,7 +18086,7 @@ class GroundHeatExchangerVertical(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `gfunction_lnt_or_ts_value_6`'.format(value))
         self._data["G-Function Ln(T/Ts) Value 6"] = value
 
@@ -17654,7 +18115,7 @@ class GroundHeatExchangerVertical(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `gfunction_g_value_6`'.format(value))
         self._data["G-Function G Value 6"] = value
 
@@ -17683,7 +18144,7 @@ class GroundHeatExchangerVertical(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `gfunction_lnt_or_ts_value_7`'.format(value))
         self._data["G-Function Ln(T/Ts) Value 7"] = value
 
@@ -17712,7 +18173,7 @@ class GroundHeatExchangerVertical(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `gfunction_g_value_7`'.format(value))
         self._data["G-Function G Value 7"] = value
 
@@ -17741,7 +18202,7 @@ class GroundHeatExchangerVertical(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `gfunction_lnt_or_ts_value_8`'.format(value))
         self._data["G-Function Ln(T/Ts) Value 8"] = value
 
@@ -17770,7 +18231,7 @@ class GroundHeatExchangerVertical(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `gfunction_g_value_8`'.format(value))
         self._data["G-Function G Value 8"] = value
 
@@ -17799,7 +18260,7 @@ class GroundHeatExchangerVertical(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `gfunction_lnt_or_ts_value_9`'.format(value))
         self._data["G-Function Ln(T/Ts) Value 9"] = value
 
@@ -17828,7 +18289,7 @@ class GroundHeatExchangerVertical(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `gfunction_g_value_9`'.format(value))
         self._data["G-Function G Value 9"] = value
 
@@ -17857,7 +18318,7 @@ class GroundHeatExchangerVertical(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `gfunction_lnt_or_ts_value_10`'.format(value))
         self._data["G-Function Ln(T/Ts) Value 10"] = value
 
@@ -17886,7 +18347,7 @@ class GroundHeatExchangerVertical(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `gfunction_g_value_10`'.format(value))
         self._data["G-Function G Value 10"] = value
 
@@ -17915,7 +18376,7 @@ class GroundHeatExchangerVertical(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `gfunction_lnt_or_ts_value_11`'.format(value))
         self._data["G-Function Ln(T/Ts) Value 11"] = value
 
@@ -17944,7 +18405,7 @@ class GroundHeatExchangerVertical(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `gfunction_g_value_11`'.format(value))
         self._data["G-Function G Value 11"] = value
 
@@ -17973,7 +18434,7 @@ class GroundHeatExchangerVertical(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `gfunction_lnt_or_ts_value_12`'.format(value))
         self._data["G-Function Ln(T/Ts) Value 12"] = value
 
@@ -18002,7 +18463,7 @@ class GroundHeatExchangerVertical(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `gfunction_g_value_12`'.format(value))
         self._data["G-Function G Value 12"] = value
 
@@ -18031,7 +18492,7 @@ class GroundHeatExchangerVertical(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `gfunction_lnt_or_ts_value_13`'.format(value))
         self._data["G-Function Ln(T/Ts) Value 13"] = value
 
@@ -18060,7 +18521,7 @@ class GroundHeatExchangerVertical(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `gfunction_g_value_13`'.format(value))
         self._data["G-Function G Value 13"] = value
 
@@ -18089,7 +18550,7 @@ class GroundHeatExchangerVertical(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `gfunction_lnt_or_ts_value_14`'.format(value))
         self._data["G-Function Ln(T/Ts) Value 14"] = value
 
@@ -18118,7 +18579,7 @@ class GroundHeatExchangerVertical(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `gfunction_g_value_14`'.format(value))
         self._data["G-Function G Value 14"] = value
 
@@ -18147,7 +18608,7 @@ class GroundHeatExchangerVertical(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `gfunction_lnt_or_ts_value_15`'.format(value))
         self._data["G-Function Ln(T/Ts) Value 15"] = value
 
@@ -18176,7 +18637,7 @@ class GroundHeatExchangerVertical(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `gfunction_g_value_15`'.format(value))
         self._data["G-Function G Value 15"] = value
 
@@ -18205,7 +18666,7 @@ class GroundHeatExchangerVertical(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `gfunction_lnt_or_ts_value_16`'.format(value))
         self._data["G-Function Ln(T/Ts) Value 16"] = value
 
@@ -18234,7 +18695,7 @@ class GroundHeatExchangerVertical(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `gfunction_g_value_16`'.format(value))
         self._data["G-Function G Value 16"] = value
 
@@ -18263,7 +18724,7 @@ class GroundHeatExchangerVertical(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `gfunction_lnt_or_ts_value_17`'.format(value))
         self._data["G-Function Ln(T/Ts) Value 17"] = value
 
@@ -18292,7 +18753,7 @@ class GroundHeatExchangerVertical(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `gfunction_g_value_17`'.format(value))
         self._data["G-Function G Value 17"] = value
 
@@ -18321,7 +18782,7 @@ class GroundHeatExchangerVertical(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `gfunction_lnt_or_ts_value_18`'.format(value))
         self._data["G-Function Ln(T/Ts) Value 18"] = value
 
@@ -18350,7 +18811,7 @@ class GroundHeatExchangerVertical(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `gfunction_g_value_18`'.format(value))
         self._data["G-Function G Value 18"] = value
 
@@ -18379,7 +18840,7 @@ class GroundHeatExchangerVertical(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `gfunction_lnt_or_ts_value_19`'.format(value))
         self._data["G-Function Ln(T/Ts) Value 19"] = value
 
@@ -18408,7 +18869,7 @@ class GroundHeatExchangerVertical(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `gfunction_g_value_19`'.format(value))
         self._data["G-Function G Value 19"] = value
 
@@ -18437,7 +18898,7 @@ class GroundHeatExchangerVertical(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `gfunction_lnt_or_ts_value_20`'.format(value))
         self._data["G-Function Ln(T/Ts) Value 20"] = value
 
@@ -18466,7 +18927,7 @@ class GroundHeatExchangerVertical(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `gfunction_g_value_20`'.format(value))
         self._data["G-Function G Value 20"] = value
 
@@ -18495,7 +18956,7 @@ class GroundHeatExchangerVertical(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `gfunction_lnt_or_ts_value_21`'.format(value))
         self._data["G-Function Ln(T/Ts) Value 21"] = value
 
@@ -18524,7 +18985,7 @@ class GroundHeatExchangerVertical(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `gfunction_g_value_21`'.format(value))
         self._data["G-Function G Value 21"] = value
 
@@ -18553,7 +19014,7 @@ class GroundHeatExchangerVertical(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `gfunction_lnt_or_ts_value_22`'.format(value))
         self._data["G-Function Ln(T/Ts) Value 22"] = value
 
@@ -18582,7 +19043,7 @@ class GroundHeatExchangerVertical(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `gfunction_g_value_22`'.format(value))
         self._data["G-Function G Value 22"] = value
 
@@ -18611,7 +19072,7 @@ class GroundHeatExchangerVertical(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `gfunction_lnt_or_ts_value_23`'.format(value))
         self._data["G-Function Ln(T/Ts) Value 23"] = value
 
@@ -18640,7 +19101,7 @@ class GroundHeatExchangerVertical(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `gfunction_g_value_23`'.format(value))
         self._data["G-Function G Value 23"] = value
 
@@ -18669,7 +19130,7 @@ class GroundHeatExchangerVertical(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `gfunction_lnt_or_ts_value_24`'.format(value))
         self._data["G-Function Ln(T/Ts) Value 24"] = value
 
@@ -18698,7 +19159,7 @@ class GroundHeatExchangerVertical(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `gfunction_g_value_24`'.format(value))
         self._data["G-Function G Value 24"] = value
 
@@ -18727,7 +19188,7 @@ class GroundHeatExchangerVertical(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `gfunction_lnt_or_ts_value_25`'.format(value))
         self._data["G-Function Ln(T/Ts) Value 25"] = value
 
@@ -18756,7 +19217,7 @@ class GroundHeatExchangerVertical(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `gfunction_g_value_25`'.format(value))
         self._data["G-Function G Value 25"] = value
 
@@ -18785,7 +19246,7 @@ class GroundHeatExchangerVertical(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `gfunction_lnt_or_ts_value_26`'.format(value))
         self._data["G-Function Ln(T/Ts) Value 26"] = value
 
@@ -18814,7 +19275,7 @@ class GroundHeatExchangerVertical(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `gfunction_g_value_26`'.format(value))
         self._data["G-Function G Value 26"] = value
 
@@ -18843,7 +19304,7 @@ class GroundHeatExchangerVertical(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `gfunction_lnt_or_ts_value_27`'.format(value))
         self._data["G-Function Ln(T/Ts) Value 27"] = value
 
@@ -18872,7 +19333,7 @@ class GroundHeatExchangerVertical(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `gfunction_g_value_27`'.format(value))
         self._data["G-Function G Value 27"] = value
 
@@ -18901,7 +19362,7 @@ class GroundHeatExchangerVertical(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `gfunction_lnt_or_ts_value_28`'.format(value))
         self._data["G-Function Ln(T/Ts) Value 28"] = value
 
@@ -18930,7 +19391,7 @@ class GroundHeatExchangerVertical(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `gfunction_g_value_28`'.format(value))
         self._data["G-Function G Value 28"] = value
 
@@ -18959,7 +19420,7 @@ class GroundHeatExchangerVertical(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `gfunction_lnt_or_ts_value_29`'.format(value))
         self._data["G-Function Ln(T/Ts) Value 29"] = value
 
@@ -18988,7 +19449,7 @@ class GroundHeatExchangerVertical(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `gfunction_g_value_29`'.format(value))
         self._data["G-Function G Value 29"] = value
 
@@ -19017,7 +19478,7 @@ class GroundHeatExchangerVertical(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `gfunction_lnt_or_ts_value_30`'.format(value))
         self._data["G-Function Ln(T/Ts) Value 30"] = value
 
@@ -19046,7 +19507,7 @@ class GroundHeatExchangerVertical(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `gfunction_g_value_30`'.format(value))
         self._data["G-Function G Value 30"] = value
 
@@ -19075,7 +19536,7 @@ class GroundHeatExchangerVertical(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `gfunction_lnt_or_ts_value_31`'.format(value))
         self._data["G-Function Ln(T/Ts) Value 31"] = value
 
@@ -19104,7 +19565,7 @@ class GroundHeatExchangerVertical(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `gfunction_g_value_31`'.format(value))
         self._data["G-Function G Value 31"] = value
 
@@ -19133,7 +19594,7 @@ class GroundHeatExchangerVertical(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `gfunction_lnt_or_ts_value_32`'.format(value))
         self._data["G-Function Ln(T/Ts) Value 32"] = value
 
@@ -19162,7 +19623,7 @@ class GroundHeatExchangerVertical(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `gfunction_g_value_32`'.format(value))
         self._data["G-Function G Value 32"] = value
 
@@ -19191,7 +19652,7 @@ class GroundHeatExchangerVertical(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `gfunction_lnt_or_ts_value_33`'.format(value))
         self._data["G-Function Ln(T/Ts) Value 33"] = value
 
@@ -19220,7 +19681,7 @@ class GroundHeatExchangerVertical(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `gfunction_g_value_33`'.format(value))
         self._data["G-Function G Value 33"] = value
 
@@ -19249,7 +19710,7 @@ class GroundHeatExchangerVertical(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `gfunction_lnt_or_ts_value_34`'.format(value))
         self._data["G-Function Ln(T/Ts) Value 34"] = value
 
@@ -19278,7 +19739,7 @@ class GroundHeatExchangerVertical(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `gfunction_g_value_34`'.format(value))
         self._data["G-Function G Value 34"] = value
 
@@ -19307,7 +19768,7 @@ class GroundHeatExchangerVertical(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `gfunction_lnt_or_ts_value_35`'.format(value))
         self._data["G-Function Ln(T/Ts) Value 35"] = value
 
@@ -19336,7 +19797,7 @@ class GroundHeatExchangerVertical(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `gfunction_g_value_35`'.format(value))
         self._data["G-Function G Value 35"] = value
 
@@ -19365,7 +19826,7 @@ class GroundHeatExchangerVertical(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `gfunction_lnt_or_ts_value_36`'.format(value))
         self._data["G-Function Ln(T/Ts) Value 36"] = value
 
@@ -19394,7 +19855,7 @@ class GroundHeatExchangerVertical(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `gfunction_g_value_36`'.format(value))
         self._data["G-Function G Value 36"] = value
 
@@ -19423,7 +19884,7 @@ class GroundHeatExchangerVertical(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `gfunction_lnt_or_ts_value_37`'.format(value))
         self._data["G-Function Ln(T/Ts) Value 37"] = value
 
@@ -19452,7 +19913,7 @@ class GroundHeatExchangerVertical(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `gfunction_g_value_37`'.format(value))
         self._data["G-Function G Value 37"] = value
 
@@ -19481,7 +19942,7 @@ class GroundHeatExchangerVertical(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `gfunction_lnt_or_ts_value_38`'.format(value))
         self._data["G-Function Ln(T/Ts) Value 38"] = value
 
@@ -19510,7 +19971,7 @@ class GroundHeatExchangerVertical(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `gfunction_g_value_38`'.format(value))
         self._data["G-Function G Value 38"] = value
 
@@ -19539,7 +20000,7 @@ class GroundHeatExchangerVertical(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `gfunction_lnt_or_ts_value_39`'.format(value))
         self._data["G-Function Ln(T/Ts) Value 39"] = value
 
@@ -19568,7 +20029,7 @@ class GroundHeatExchangerVertical(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `gfunction_g_value_39`'.format(value))
         self._data["G-Function G Value 39"] = value
 
@@ -19597,7 +20058,7 @@ class GroundHeatExchangerVertical(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `gfunction_lnt_or_ts_value_40`'.format(value))
         self._data["G-Function Ln(T/Ts) Value 40"] = value
 
@@ -19626,7 +20087,7 @@ class GroundHeatExchangerVertical(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `gfunction_g_value_40`'.format(value))
         self._data["G-Function G Value 40"] = value
 
@@ -19655,7 +20116,7 @@ class GroundHeatExchangerVertical(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `gfunction_lnt_or_ts_value_41`'.format(value))
         self._data["G-Function Ln(T/Ts) Value 41"] = value
 
@@ -19684,7 +20145,7 @@ class GroundHeatExchangerVertical(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `gfunction_g_value_41`'.format(value))
         self._data["G-Function G Value 41"] = value
 
@@ -19713,7 +20174,7 @@ class GroundHeatExchangerVertical(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `gfunction_lnt_or_ts_value_42`'.format(value))
         self._data["G-Function Ln(T/Ts) Value 42"] = value
 
@@ -19742,7 +20203,7 @@ class GroundHeatExchangerVertical(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `gfunction_g_value_42`'.format(value))
         self._data["G-Function G Value 42"] = value
 
@@ -19771,7 +20232,7 @@ class GroundHeatExchangerVertical(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `gfunction_lnt_or_ts_value_43`'.format(value))
         self._data["G-Function Ln(T/Ts) Value 43"] = value
 
@@ -19800,7 +20261,7 @@ class GroundHeatExchangerVertical(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `gfunction_g_value_43`'.format(value))
         self._data["G-Function G Value 43"] = value
 
@@ -19829,7 +20290,7 @@ class GroundHeatExchangerVertical(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `gfunction_lnt_or_ts_value_44`'.format(value))
         self._data["G-Function Ln(T/Ts) Value 44"] = value
 
@@ -19858,7 +20319,7 @@ class GroundHeatExchangerVertical(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `gfunction_g_value_44`'.format(value))
         self._data["G-Function G Value 44"] = value
 
@@ -19887,7 +20348,7 @@ class GroundHeatExchangerVertical(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `gfunction_lnt_or_ts_value_45`'.format(value))
         self._data["G-Function Ln(T/Ts) Value 45"] = value
 
@@ -19916,7 +20377,7 @@ class GroundHeatExchangerVertical(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `gfunction_g_value_45`'.format(value))
         self._data["G-Function G Value 45"] = value
 
@@ -19945,7 +20406,7 @@ class GroundHeatExchangerVertical(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `gfunction_lnt_or_ts_value_46`'.format(value))
         self._data["G-Function Ln(T/Ts) Value 46"] = value
 
@@ -19974,7 +20435,7 @@ class GroundHeatExchangerVertical(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `gfunction_g_value_46`'.format(value))
         self._data["G-Function G Value 46"] = value
 
@@ -20003,7 +20464,7 @@ class GroundHeatExchangerVertical(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `gfunction_lnt_or_ts_value_47`'.format(value))
         self._data["G-Function Ln(T/Ts) Value 47"] = value
 
@@ -20032,7 +20493,7 @@ class GroundHeatExchangerVertical(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `gfunction_g_value_47`'.format(value))
         self._data["G-Function G Value 47"] = value
 
@@ -20061,7 +20522,7 @@ class GroundHeatExchangerVertical(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `gfunction_lnt_or_ts_value_48`'.format(value))
         self._data["G-Function Ln(T/Ts) Value 48"] = value
 
@@ -20090,7 +20551,7 @@ class GroundHeatExchangerVertical(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `gfunction_g_value_48`'.format(value))
         self._data["G-Function G Value 48"] = value
 
@@ -20119,7 +20580,7 @@ class GroundHeatExchangerVertical(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `gfunction_lnt_or_ts_value_49`'.format(value))
         self._data["G-Function Ln(T/Ts) Value 49"] = value
 
@@ -20148,7 +20609,7 @@ class GroundHeatExchangerVertical(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `gfunction_g_value_49`'.format(value))
         self._data["G-Function G Value 49"] = value
 
@@ -20177,7 +20638,7 @@ class GroundHeatExchangerVertical(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `gfunction_lnt_or_ts_value_50`'.format(value))
         self._data["G-Function Ln(T/Ts) Value 50"] = value
 
@@ -20206,7 +20667,7 @@ class GroundHeatExchangerVertical(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `gfunction_g_value_50`'.format(value))
         self._data["G-Function G Value 50"] = value
 
@@ -20235,7 +20696,7 @@ class GroundHeatExchangerVertical(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `gfunction_lnt_or_ts_value_51`'.format(value))
         self._data["G-Function Ln(T/Ts) Value 51"] = value
 
@@ -20264,7 +20725,7 @@ class GroundHeatExchangerVertical(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `gfunction_g_value_51`'.format(value))
         self._data["G-Function G Value 51"] = value
 
@@ -20293,7 +20754,7 @@ class GroundHeatExchangerVertical(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `gfunction_lnt_or_ts_value_52`'.format(value))
         self._data["G-Function Ln(T/Ts) Value 52"] = value
 
@@ -20322,7 +20783,7 @@ class GroundHeatExchangerVertical(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `gfunction_g_value_52`'.format(value))
         self._data["G-Function G Value 52"] = value
 
@@ -20351,7 +20812,7 @@ class GroundHeatExchangerVertical(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `gfunction_lnt_or_ts_value_53`'.format(value))
         self._data["G-Function Ln(T/Ts) Value 53"] = value
 
@@ -20380,7 +20841,7 @@ class GroundHeatExchangerVertical(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `gfunction_g_value_53`'.format(value))
         self._data["G-Function G Value 53"] = value
 
@@ -20409,7 +20870,7 @@ class GroundHeatExchangerVertical(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `gfunction_lnt_or_ts_value_54`'.format(value))
         self._data["G-Function Ln(T/Ts) Value 54"] = value
 
@@ -20438,7 +20899,7 @@ class GroundHeatExchangerVertical(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `gfunction_g_value_54`'.format(value))
         self._data["G-Function G Value 54"] = value
 
@@ -20467,7 +20928,7 @@ class GroundHeatExchangerVertical(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `gfunction_lnt_or_ts_value_55`'.format(value))
         self._data["G-Function Ln(T/Ts) Value 55"] = value
 
@@ -20496,7 +20957,7 @@ class GroundHeatExchangerVertical(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `gfunction_g_value_55`'.format(value))
         self._data["G-Function G Value 55"] = value
 
@@ -20525,7 +20986,7 @@ class GroundHeatExchangerVertical(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `gfunction_lnt_or_ts_value_56`'.format(value))
         self._data["G-Function Ln(T/Ts) Value 56"] = value
 
@@ -20554,7 +21015,7 @@ class GroundHeatExchangerVertical(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `gfunction_g_value_56`'.format(value))
         self._data["G-Function G Value 56"] = value
 
@@ -20583,7 +21044,7 @@ class GroundHeatExchangerVertical(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `gfunction_lnt_or_ts_value_57`'.format(value))
         self._data["G-Function Ln(T/Ts) Value 57"] = value
 
@@ -20612,7 +21073,7 @@ class GroundHeatExchangerVertical(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `gfunction_g_value_57`'.format(value))
         self._data["G-Function G Value 57"] = value
 
@@ -20641,7 +21102,7 @@ class GroundHeatExchangerVertical(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `gfunction_lnt_or_ts_value_58`'.format(value))
         self._data["G-Function Ln(T/Ts) Value 58"] = value
 
@@ -20670,7 +21131,7 @@ class GroundHeatExchangerVertical(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `gfunction_g_value_58`'.format(value))
         self._data["G-Function G Value 58"] = value
 
@@ -20699,7 +21160,7 @@ class GroundHeatExchangerVertical(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `gfunction_lnt_or_ts_value_59`'.format(value))
         self._data["G-Function Ln(T/Ts) Value 59"] = value
 
@@ -20728,7 +21189,7 @@ class GroundHeatExchangerVertical(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `gfunction_g_value_59`'.format(value))
         self._data["G-Function G Value 59"] = value
 
@@ -20757,7 +21218,7 @@ class GroundHeatExchangerVertical(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `gfunction_lnt_or_ts_value_60`'.format(value))
         self._data["G-Function Ln(T/Ts) Value 60"] = value
 
@@ -20786,7 +21247,7 @@ class GroundHeatExchangerVertical(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `gfunction_g_value_60`'.format(value))
         self._data["G-Function G Value 60"] = value
 
@@ -20815,7 +21276,7 @@ class GroundHeatExchangerVertical(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `gfunction_lnt_or_ts_value_61`'.format(value))
         self._data["G-Function Ln(T/Ts) Value 61"] = value
 
@@ -20844,7 +21305,7 @@ class GroundHeatExchangerVertical(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `gfunction_g_value_61`'.format(value))
         self._data["G-Function G Value 61"] = value
 
@@ -20873,7 +21334,7 @@ class GroundHeatExchangerVertical(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `gfunction_lnt_or_ts_value_62`'.format(value))
         self._data["G-Function Ln(T/Ts) Value 62"] = value
 
@@ -20902,7 +21363,7 @@ class GroundHeatExchangerVertical(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `gfunction_g_value_62`'.format(value))
         self._data["G-Function G Value 62"] = value
 
@@ -20931,7 +21392,7 @@ class GroundHeatExchangerVertical(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `gfunction_lnt_or_ts_value_63`'.format(value))
         self._data["G-Function Ln(T/Ts) Value 63"] = value
 
@@ -20960,7 +21421,7 @@ class GroundHeatExchangerVertical(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `gfunction_g_value_63`'.format(value))
         self._data["G-Function G Value 63"] = value
 
@@ -20989,7 +21450,7 @@ class GroundHeatExchangerVertical(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `gfunction_lnt_or_ts_value_64`'.format(value))
         self._data["G-Function Ln(T/Ts) Value 64"] = value
 
@@ -21018,7 +21479,7 @@ class GroundHeatExchangerVertical(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `gfunction_g_value_64`'.format(value))
         self._data["G-Function G Value 64"] = value
 
@@ -21047,7 +21508,7 @@ class GroundHeatExchangerVertical(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `gfunction_lnt_or_ts_value_65`'.format(value))
         self._data["G-Function Ln(T/Ts) Value 65"] = value
 
@@ -21076,7 +21537,7 @@ class GroundHeatExchangerVertical(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `gfunction_g_value_65`'.format(value))
         self._data["G-Function G Value 65"] = value
 
@@ -21105,7 +21566,7 @@ class GroundHeatExchangerVertical(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `gfunction_lnt_or_ts_value_66`'.format(value))
         self._data["G-Function Ln(T/Ts) Value 66"] = value
 
@@ -21134,7 +21595,7 @@ class GroundHeatExchangerVertical(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `gfunction_g_value_66`'.format(value))
         self._data["G-Function G Value 66"] = value
 
@@ -21163,7 +21624,7 @@ class GroundHeatExchangerVertical(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `gfunction_lnt_or_ts_value_67`'.format(value))
         self._data["G-Function Ln(T/Ts) Value 67"] = value
 
@@ -21192,7 +21653,7 @@ class GroundHeatExchangerVertical(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `gfunction_g_value_67`'.format(value))
         self._data["G-Function G Value 67"] = value
 
@@ -21221,7 +21682,7 @@ class GroundHeatExchangerVertical(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `gfunction_lnt_or_ts_value_68`'.format(value))
         self._data["G-Function Ln(T/Ts) Value 68"] = value
 
@@ -21250,7 +21711,7 @@ class GroundHeatExchangerVertical(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `gfunction_g_value_68`'.format(value))
         self._data["G-Function G Value 68"] = value
 
@@ -21279,7 +21740,7 @@ class GroundHeatExchangerVertical(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `gfunction_lnt_or_ts_value_69`'.format(value))
         self._data["G-Function Ln(T/Ts) Value 69"] = value
 
@@ -21308,7 +21769,7 @@ class GroundHeatExchangerVertical(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `gfunction_g_value_69`'.format(value))
         self._data["G-Function G Value 69"] = value
 
@@ -21337,7 +21798,7 @@ class GroundHeatExchangerVertical(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `gfunction_lnt_or_ts_value_70`'.format(value))
         self._data["G-Function Ln(T/Ts) Value 70"] = value
 
@@ -21366,7 +21827,7 @@ class GroundHeatExchangerVertical(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `gfunction_g_value_70`'.format(value))
         self._data["G-Function G Value 70"] = value
 
@@ -21395,7 +21856,7 @@ class GroundHeatExchangerVertical(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `gfunction_lnt_or_ts_value_71`'.format(value))
         self._data["G-Function Ln(T/Ts) Value 71"] = value
 
@@ -21424,7 +21885,7 @@ class GroundHeatExchangerVertical(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `gfunction_g_value_71`'.format(value))
         self._data["G-Function G Value 71"] = value
 
@@ -21453,7 +21914,7 @@ class GroundHeatExchangerVertical(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `gfunction_lnt_or_ts_value_72`'.format(value))
         self._data["G-Function Ln(T/Ts) Value 72"] = value
 
@@ -21482,7 +21943,7 @@ class GroundHeatExchangerVertical(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `gfunction_g_value_72`'.format(value))
         self._data["G-Function G Value 72"] = value
 
@@ -21511,7 +21972,7 @@ class GroundHeatExchangerVertical(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `gfunction_lnt_or_ts_value_73`'.format(value))
         self._data["G-Function Ln(T/Ts) Value 73"] = value
 
@@ -21540,7 +22001,7 @@ class GroundHeatExchangerVertical(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `gfunction_g_value_73`'.format(value))
         self._data["G-Function G Value 73"] = value
 
@@ -21569,7 +22030,7 @@ class GroundHeatExchangerVertical(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `gfunction_lnt_or_ts_value_74`'.format(value))
         self._data["G-Function Ln(T/Ts) Value 74"] = value
 
@@ -21598,7 +22059,7 @@ class GroundHeatExchangerVertical(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `gfunction_g_value_74`'.format(value))
         self._data["G-Function G Value 74"] = value
 
@@ -21627,7 +22088,7 @@ class GroundHeatExchangerVertical(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `gfunction_lnt_or_ts_value_75`'.format(value))
         self._data["G-Function Ln(T/Ts) Value 75"] = value
 
@@ -21656,7 +22117,7 @@ class GroundHeatExchangerVertical(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `gfunction_g_value_75`'.format(value))
         self._data["G-Function G Value 75"] = value
 
@@ -21685,7 +22146,7 @@ class GroundHeatExchangerVertical(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `gfunction_lnt_or_ts_value_76`'.format(value))
         self._data["G-Function Ln(T/Ts) Value 76"] = value
 
@@ -21714,7 +22175,7 @@ class GroundHeatExchangerVertical(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `gfunction_g_value_76`'.format(value))
         self._data["G-Function G Value 76"] = value
 
@@ -21743,7 +22204,7 @@ class GroundHeatExchangerVertical(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `gfunction_lnt_or_ts_value_77`'.format(value))
         self._data["G-Function Ln(T/Ts) Value 77"] = value
 
@@ -21772,7 +22233,7 @@ class GroundHeatExchangerVertical(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `gfunction_g_value_77`'.format(value))
         self._data["G-Function G Value 77"] = value
 
@@ -21801,7 +22262,7 @@ class GroundHeatExchangerVertical(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `gfunction_lnt_or_ts_value_78`'.format(value))
         self._data["G-Function Ln(T/Ts) Value 78"] = value
 
@@ -21830,7 +22291,7 @@ class GroundHeatExchangerVertical(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `gfunction_g_value_78`'.format(value))
         self._data["G-Function G Value 78"] = value
 
@@ -21859,7 +22320,7 @@ class GroundHeatExchangerVertical(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `gfunction_lnt_or_ts_value_79`'.format(value))
         self._data["G-Function Ln(T/Ts) Value 79"] = value
 
@@ -21888,7 +22349,7 @@ class GroundHeatExchangerVertical(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `gfunction_g_value_79`'.format(value))
         self._data["G-Function G Value 79"] = value
 
@@ -21917,7 +22378,7 @@ class GroundHeatExchangerVertical(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `gfunction_lnt_or_ts_value_80`'.format(value))
         self._data["G-Function Ln(T/Ts) Value 80"] = value
 
@@ -21946,7 +22407,7 @@ class GroundHeatExchangerVertical(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `gfunction_g_value_80`'.format(value))
         self._data["G-Function G Value 80"] = value
 
@@ -21975,7 +22436,7 @@ class GroundHeatExchangerVertical(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `gfunction_lnt_or_ts_value_81`'.format(value))
         self._data["G-Function Ln(T/Ts) Value 81"] = value
 
@@ -22004,7 +22465,7 @@ class GroundHeatExchangerVertical(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `gfunction_g_value_81`'.format(value))
         self._data["G-Function G Value 81"] = value
 
@@ -22033,7 +22494,7 @@ class GroundHeatExchangerVertical(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `gfunction_lnt_or_ts_value_82`'.format(value))
         self._data["G-Function Ln(T/Ts) Value 82"] = value
 
@@ -22062,7 +22523,7 @@ class GroundHeatExchangerVertical(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `gfunction_g_value_82`'.format(value))
         self._data["G-Function G Value 82"] = value
 
@@ -22091,7 +22552,7 @@ class GroundHeatExchangerVertical(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `gfunction_lnt_or_ts_value_83`'.format(value))
         self._data["G-Function Ln(T/Ts) Value 83"] = value
 
@@ -22120,7 +22581,7 @@ class GroundHeatExchangerVertical(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `gfunction_g_value_83`'.format(value))
         self._data["G-Function G Value 83"] = value
 
@@ -22149,7 +22610,7 @@ class GroundHeatExchangerVertical(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `gfunction_lnt_or_ts_value_84`'.format(value))
         self._data["G-Function Ln(T/Ts) Value 84"] = value
 
@@ -22178,7 +22639,7 @@ class GroundHeatExchangerVertical(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `gfunction_g_value_84`'.format(value))
         self._data["G-Function G Value 84"] = value
 
@@ -22207,7 +22668,7 @@ class GroundHeatExchangerVertical(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `gfunction_lnt_or_ts_value_85`'.format(value))
         self._data["G-Function Ln(T/Ts) Value 85"] = value
 
@@ -22236,7 +22697,7 @@ class GroundHeatExchangerVertical(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `gfunction_g_value_85`'.format(value))
         self._data["G-Function G Value 85"] = value
 
@@ -22265,7 +22726,7 @@ class GroundHeatExchangerVertical(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `gfunction_lnt_or_ts_value_86`'.format(value))
         self._data["G-Function Ln(T/Ts) Value 86"] = value
 
@@ -22294,7 +22755,7 @@ class GroundHeatExchangerVertical(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `gfunction_g_value_86`'.format(value))
         self._data["G-Function G Value 86"] = value
 
@@ -22323,7 +22784,7 @@ class GroundHeatExchangerVertical(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `gfunction_lnt_or_ts_value_87`'.format(value))
         self._data["G-Function Ln(T/Ts) Value 87"] = value
 
@@ -22352,7 +22813,7 @@ class GroundHeatExchangerVertical(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `gfunction_g_value_87`'.format(value))
         self._data["G-Function G Value 87"] = value
 
@@ -22381,7 +22842,7 @@ class GroundHeatExchangerVertical(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `gfunction_lnt_or_ts_value_88`'.format(value))
         self._data["G-Function Ln(T/Ts) Value 88"] = value
 
@@ -22410,7 +22871,7 @@ class GroundHeatExchangerVertical(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `gfunction_g_value_88`'.format(value))
         self._data["G-Function G Value 88"] = value
 
@@ -22439,7 +22900,7 @@ class GroundHeatExchangerVertical(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `gfunction_lnt_or_ts_value_89`'.format(value))
         self._data["G-Function Ln(T/Ts) Value 89"] = value
 
@@ -22468,7 +22929,7 @@ class GroundHeatExchangerVertical(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `gfunction_g_value_89`'.format(value))
         self._data["G-Function G Value 89"] = value
 
@@ -22497,7 +22958,7 @@ class GroundHeatExchangerVertical(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `gfunction_lnt_or_ts_value_90`'.format(value))
         self._data["G-Function Ln(T/Ts) Value 90"] = value
 
@@ -22526,7 +22987,7 @@ class GroundHeatExchangerVertical(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `gfunction_g_value_90`'.format(value))
         self._data["G-Function G Value 90"] = value
 
@@ -22555,7 +23016,7 @@ class GroundHeatExchangerVertical(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `gfunction_lnt_or_ts_value_91`'.format(value))
         self._data["G-Function Ln(T/Ts) Value 91"] = value
 
@@ -22584,7 +23045,7 @@ class GroundHeatExchangerVertical(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `gfunction_g_value_91`'.format(value))
         self._data["G-Function G Value 91"] = value
 
@@ -22613,7 +23074,7 @@ class GroundHeatExchangerVertical(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `gfunction_lnt_or_ts_value_92`'.format(value))
         self._data["G-Function Ln(T/Ts) Value 92"] = value
 
@@ -22642,7 +23103,7 @@ class GroundHeatExchangerVertical(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `gfunction_g_value_92`'.format(value))
         self._data["G-Function G Value 92"] = value
 
@@ -22671,7 +23132,7 @@ class GroundHeatExchangerVertical(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `gfunction_lnt_or_ts_value_93`'.format(value))
         self._data["G-Function Ln(T/Ts) Value 93"] = value
 
@@ -22700,7 +23161,7 @@ class GroundHeatExchangerVertical(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `gfunction_g_value_93`'.format(value))
         self._data["G-Function G Value 93"] = value
 
@@ -22729,7 +23190,7 @@ class GroundHeatExchangerVertical(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `gfunction_lnt_or_ts_value_94`'.format(value))
         self._data["G-Function Ln(T/Ts) Value 94"] = value
 
@@ -22758,7 +23219,7 @@ class GroundHeatExchangerVertical(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `gfunction_g_value_94`'.format(value))
         self._data["G-Function G Value 94"] = value
 
@@ -22787,7 +23248,7 @@ class GroundHeatExchangerVertical(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `gfunction_lnt_or_ts_value_95`'.format(value))
         self._data["G-Function Ln(T/Ts) Value 95"] = value
 
@@ -22816,7 +23277,7 @@ class GroundHeatExchangerVertical(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `gfunction_g_value_95`'.format(value))
         self._data["G-Function G Value 95"] = value
 
@@ -22845,7 +23306,7 @@ class GroundHeatExchangerVertical(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `gfunction_lnt_or_ts_value_96`'.format(value))
         self._data["G-Function Ln(T/Ts) Value 96"] = value
 
@@ -22874,7 +23335,7 @@ class GroundHeatExchangerVertical(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `gfunction_g_value_96`'.format(value))
         self._data["G-Function G Value 96"] = value
 
@@ -22903,7 +23364,7 @@ class GroundHeatExchangerVertical(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `gfunction_lnt_or_ts_value_97`'.format(value))
         self._data["G-Function Ln(T/Ts) Value 97"] = value
 
@@ -22932,7 +23393,7 @@ class GroundHeatExchangerVertical(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `gfunction_g_value_97`'.format(value))
         self._data["G-Function G Value 97"] = value
 
@@ -22961,7 +23422,7 @@ class GroundHeatExchangerVertical(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `gfunction_lnt_or_ts_value_98`'.format(value))
         self._data["G-Function Ln(T/Ts) Value 98"] = value
 
@@ -22990,7 +23451,7 @@ class GroundHeatExchangerVertical(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `gfunction_g_value_98`'.format(value))
         self._data["G-Function G Value 98"] = value
 
@@ -23019,7 +23480,7 @@ class GroundHeatExchangerVertical(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `gfunction_lnt_or_ts_value_99`'.format(value))
         self._data["G-Function Ln(T/Ts) Value 99"] = value
 
@@ -23048,7 +23509,7 @@ class GroundHeatExchangerVertical(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `gfunction_g_value_99`'.format(value))
         self._data["G-Function G Value 99"] = value
 
@@ -23077,7 +23538,7 @@ class GroundHeatExchangerVertical(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `gfunction_lnt_or_ts_value_100`'.format(value))
         self._data["G-Function Ln(T/Ts) Value 100"] = value
 
@@ -23106,7 +23567,7 @@ class GroundHeatExchangerVertical(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `gfunction_g_value_100`'.format(value))
         self._data["G-Function G Value 100"] = value
 
@@ -23149,7 +23610,6 @@ class GroundHeatExchangerPond(object):
         A model of a shallow pond with immersed pipe loops.
         Typically used in hybrid geothermal systems and included in the condenser loop.
         This component may also be used as a simple solar collector.
-    
     """
     internal_name = "GroundHeatExchanger:Pond"
     field_count = 11
@@ -23170,15 +23630,16 @@ class GroundHeatExchangerPond(object):
         self._data["Ground Thermal Conductivity"] = None
         self._data["Number of Tubing Circuits"] = None
         self._data["Length of Each Tubing Circuit"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -23257,6 +23718,7 @@ class GroundHeatExchangerPond(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -23283,7 +23745,7 @@ class GroundHeatExchangerPond(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -23318,7 +23780,7 @@ class GroundHeatExchangerPond(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `fluid_inlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -23353,7 +23815,7 @@ class GroundHeatExchangerPond(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `fluid_outlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -23390,7 +23852,7 @@ class GroundHeatExchangerPond(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `pond_depth`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -23424,7 +23886,7 @@ class GroundHeatExchangerPond(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `pond_area`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -23459,7 +23921,7 @@ class GroundHeatExchangerPond(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `hydronic_tubing_inside_diameter`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -23494,7 +23956,7 @@ class GroundHeatExchangerPond(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `hydronic_tubing_outside_diameter`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -23528,7 +23990,7 @@ class GroundHeatExchangerPond(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `hydronic_tubing_thermal_conductivity`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -23562,7 +24024,7 @@ class GroundHeatExchangerPond(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `ground_thermal_conductivity`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -23595,8 +24057,15 @@ class GroundHeatExchangerPond(object):
             try:
                 value = int(value)
             except ValueError:
-                raise ValueError('value {} need to be of type int '
-                                 'for field `number_of_tubing_circuits`'.format(value))
+                if not self.strict:
+                    try:
+                        conv_value = int(float(value))
+                        logging.warn('Cast float {} to int {}, precision may be lost '
+                                     'for field `number_of_tubing_circuits`'.format(value, conv_value))
+                        value = conv_value
+                    except ValueError:
+                        raise ValueError('value {} need to be of type int '
+                                         'for field `number_of_tubing_circuits`'.format(value))
             if value < 1:
                 raise ValueError('value need to be greater or equal 1 '
                                  'for field `number_of_tubing_circuits`')
@@ -23629,7 +24098,7 @@ class GroundHeatExchangerPond(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `length_of_each_tubing_circuit`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -23676,7 +24145,6 @@ class GroundHeatExchangerSurface(object):
         Typically used in hybrid geothermal systems and included in the condenser loop.
         This component may also be used as a simple solar collector.
         The bottom surface may be defined as ground-coupled or exposed to wind (eg. bridge deck).
-    
     """
     internal_name = "GroundHeatExchanger:Surface"
     field_count = 10
@@ -23696,15 +24164,16 @@ class GroundHeatExchangerSurface(object):
         self._data["Surface Length"] = None
         self._data["Surface Width"] = None
         self._data["Lower Surface Environment"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -23776,6 +24245,7 @@ class GroundHeatExchangerSurface(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -23802,7 +24272,7 @@ class GroundHeatExchangerSurface(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -23837,7 +24307,7 @@ class GroundHeatExchangerSurface(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `construction_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -23872,7 +24342,7 @@ class GroundHeatExchangerSurface(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `fluid_inlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -23907,7 +24377,7 @@ class GroundHeatExchangerSurface(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `fluid_outlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -23945,7 +24415,7 @@ class GroundHeatExchangerSurface(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `hydronic_tubing_inside_diameter`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -23978,8 +24448,15 @@ class GroundHeatExchangerSurface(object):
             try:
                 value = int(value)
             except ValueError:
-                raise ValueError('value {} need to be of type int '
-                                 'for field `number_of_tubing_circuits`'.format(value))
+                if not self.strict:
+                    try:
+                        conv_value = int(float(value))
+                        logging.warn('Cast float {} to int {}, precision may be lost '
+                                     'for field `number_of_tubing_circuits`'.format(value, conv_value))
+                        value = conv_value
+                    except ValueError:
+                        raise ValueError('value {} need to be of type int '
+                                         'for field `number_of_tubing_circuits`'.format(value))
             if value < 1:
                 raise ValueError('value need to be greater or equal 1 '
                                  'for field `number_of_tubing_circuits`')
@@ -24012,7 +24489,7 @@ class GroundHeatExchangerSurface(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `hydronic_tube_spacing`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -24046,7 +24523,7 @@ class GroundHeatExchangerSurface(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `surface_length`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -24080,7 +24557,7 @@ class GroundHeatExchangerSurface(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `surface_width`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -24116,7 +24593,7 @@ class GroundHeatExchangerSurface(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `lower_surface_environment`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -24130,16 +24607,26 @@ class GroundHeatExchangerSurface(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `lower_surface_environment`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `lower_surface_environment`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Lower Surface Environment"] = value
 
@@ -24182,7 +24669,6 @@ class GroundHeatExchangerHorizontalTrench(object):
         This models a horizontal heat exchanger placed in a series of trenches
         The model uses the PipingSystem:Underground underlying algorithms,
         but provides a more usable input interface.
-    
     """
     internal_name = "GroundHeatExchanger:HorizontalTrench"
     field_count = 22
@@ -24214,15 +24700,16 @@ class GroundHeatExchangerHorizontalTrench(object):
         self._data["Kusuda-Achenbach Average Amplitude of Surface Temperature"] = None
         self._data["Kusuda-Achenbach Phase Shift of Minimum Surface Temperature"] = None
         self._data["Evapotranspiration Ground Cover Parameter"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -24378,6 +24865,7 @@ class GroundHeatExchangerHorizontalTrench(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -24404,7 +24892,7 @@ class GroundHeatExchangerHorizontalTrench(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -24439,7 +24927,7 @@ class GroundHeatExchangerHorizontalTrench(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `inlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -24474,7 +24962,7 @@ class GroundHeatExchangerHorizontalTrench(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `outlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -24511,7 +24999,7 @@ class GroundHeatExchangerHorizontalTrench(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `design_flow_rate`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -24551,7 +25039,7 @@ class GroundHeatExchangerHorizontalTrench(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `trench_length_in_pipe_axial_direction`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -24587,8 +25075,15 @@ class GroundHeatExchangerHorizontalTrench(object):
             try:
                 value = int(value)
             except ValueError:
-                raise ValueError('value {} need to be of type int '
-                                 'for field `number_of_trenches`'.format(value))
+                if not self.strict:
+                    try:
+                        conv_value = int(float(value))
+                        logging.warn('Cast float {} to int {}, precision may be lost '
+                                     'for field `number_of_trenches`'.format(value, conv_value))
+                        value = conv_value
+                    except ValueError:
+                        raise ValueError('value {} need to be of type int '
+                                         'for field `number_of_trenches`'.format(value))
             if value < 1:
                 raise ValueError('value need to be greater or equal 1 '
                                  'for field `number_of_trenches`')
@@ -24624,7 +25119,7 @@ class GroundHeatExchangerHorizontalTrench(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `horizontal_spacing_between_pipes`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -24660,7 +25155,7 @@ class GroundHeatExchangerHorizontalTrench(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `pipe_inner_diameter`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -24696,7 +25191,7 @@ class GroundHeatExchangerHorizontalTrench(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `pipe_outer_diameter`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -24734,7 +25229,7 @@ class GroundHeatExchangerHorizontalTrench(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `burial_depth`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -24769,7 +25264,7 @@ class GroundHeatExchangerHorizontalTrench(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `soil_thermal_conductivity`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -24804,7 +25299,7 @@ class GroundHeatExchangerHorizontalTrench(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `soil_density`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -24839,7 +25334,7 @@ class GroundHeatExchangerHorizontalTrench(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `soil_specific_heat`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -24874,7 +25369,7 @@ class GroundHeatExchangerHorizontalTrench(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `pipe_thermal_conductivity`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -24909,7 +25404,7 @@ class GroundHeatExchangerHorizontalTrench(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `pipe_density`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -24944,7 +25439,7 @@ class GroundHeatExchangerHorizontalTrench(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `pipe_specific_heat`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -24980,7 +25475,7 @@ class GroundHeatExchangerHorizontalTrench(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `soil_moisture_content_percent`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -25019,7 +25514,7 @@ class GroundHeatExchangerHorizontalTrench(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `soil_moisture_content_percent_at_saturation`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -25059,7 +25554,7 @@ class GroundHeatExchangerHorizontalTrench(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `kusudaachenbach_average_surface_temperature`'.format(value))
         self._data["Kusuda-Achenbach Average Surface Temperature"] = value
 
@@ -25093,7 +25588,7 @@ class GroundHeatExchangerHorizontalTrench(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `kusudaachenbach_average_amplitude_of_surface_temperature`'.format(value))
         self._data["Kusuda-Achenbach Average Amplitude of Surface Temperature"] = value
 
@@ -25127,7 +25622,7 @@ class GroundHeatExchangerHorizontalTrench(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `kusudaachenbach_phase_shift_of_minimum_surface_temperature`'.format(value))
         self._data["Kusuda-Achenbach Phase Shift of Minimum Surface Temperature"] = value
 
@@ -25165,7 +25660,7 @@ class GroundHeatExchangerHorizontalTrench(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `evapotranspiration_ground_cover_parameter`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -25213,7 +25708,6 @@ class HeatExchangerFluidToFluid(object):
     """ Corresponds to IDD object `HeatExchanger:FluidToFluid`
         A fluid/fluid heat exchanger designed to couple the supply side of one loop to the demand side of another loop
         Loops can be either plant or condenser loops but no air side connections are allowed
-    
     """
     internal_name = "HeatExchanger:FluidToFluid"
     field_count = 20
@@ -25243,15 +25737,16 @@ class HeatExchangerFluidToFluid(object):
         self._data["Sizing Factor"] = None
         self._data["Operation Minimum Temperature Limit"] = None
         self._data["Operation Maximum Temperature Limit"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -25393,6 +25888,7 @@ class HeatExchangerFluidToFluid(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -25419,7 +25915,7 @@ class HeatExchangerFluidToFluid(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -25457,7 +25953,7 @@ class HeatExchangerFluidToFluid(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `availability_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -25493,7 +25989,7 @@ class HeatExchangerFluidToFluid(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `loop_demand_side_inlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -25529,7 +26025,7 @@ class HeatExchangerFluidToFluid(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `loop_demand_side_outlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -25569,12 +26065,17 @@ class HeatExchangerFluidToFluid(object):
                 if value_lower == "autosize":
                     self._data["Loop Demand Side Design Flow Rate"] = "Autosize"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autosize" '
+                                 'for field `loop_demand_side_design_flow_rate`'.format(value))
+                    self._data["Loop Demand Side Design Flow Rate"] = "Autosize"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autosize"'
                                  'for field `loop_demand_side_design_flow_rate`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -25606,7 +26107,7 @@ class HeatExchangerFluidToFluid(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `loop_supply_side_inlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -25641,7 +26142,7 @@ class HeatExchangerFluidToFluid(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `loop_supply_side_outlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -25681,12 +26182,17 @@ class HeatExchangerFluidToFluid(object):
                 if value_lower == "autosize":
                     self._data["Loop Supply Side Design Flow Rate"] = "Autosize"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autosize" '
+                                 'for field `loop_supply_side_design_flow_rate`'.format(value))
+                    self._data["Loop Supply Side Design Flow Rate"] = "Autosize"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autosize"'
                                  'for field `loop_supply_side_design_flow_rate`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -25727,7 +26233,7 @@ class HeatExchangerFluidToFluid(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `heat_exchange_model_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -25746,16 +26252,26 @@ class HeatExchangerFluidToFluid(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `heat_exchange_model_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `heat_exchange_model_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Heat Exchange Model Type"] = value
 
@@ -25788,12 +26304,17 @@ class HeatExchangerFluidToFluid(object):
                 if value_lower == "autosize":
                     self._data["Heat Exchanger U-Factor Times Area Value"] = "Autosize"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autosize" '
+                                 'for field `heat_exchanger_ufactor_times_area_value`'.format(value))
+                    self._data["Heat Exchanger U-Factor Times Area Value"] = "Autosize"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autosize"'
                                  'for field `heat_exchanger_ufactor_times_area_value`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -25838,7 +26359,7 @@ class HeatExchangerFluidToFluid(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `control_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -25861,16 +26382,26 @@ class HeatExchangerFluidToFluid(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `control_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `control_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Control Type"] = value
 
@@ -25900,7 +26431,7 @@ class HeatExchangerFluidToFluid(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `heat_exchanger_setpoint_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -25940,7 +26471,7 @@ class HeatExchangerFluidToFluid(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `minimum_temperature_difference_to_activate_heat_exchanger`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -25984,7 +26515,7 @@ class HeatExchangerFluidToFluid(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `heat_transfer_metering_end_use_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -26002,16 +26533,26 @@ class HeatExchangerFluidToFluid(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `heat_transfer_metering_end_use_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `heat_transfer_metering_end_use_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Heat Transfer Metering End Use Type"] = value
 
@@ -26041,7 +26582,7 @@ class HeatExchangerFluidToFluid(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `component_override_loop_supply_side_inlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -26077,7 +26618,7 @@ class HeatExchangerFluidToFluid(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `component_override_loop_demand_side_inlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -26118,7 +26659,7 @@ class HeatExchangerFluidToFluid(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `component_override_cooling_control_temperature_mode`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -26133,16 +26674,26 @@ class HeatExchangerFluidToFluid(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `component_override_cooling_control_temperature_mode`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `component_override_cooling_control_temperature_mode`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Component Override Cooling Control Temperature Mode"] = value
 
@@ -26174,7 +26725,7 @@ class HeatExchangerFluidToFluid(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `sizing_factor`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -26208,7 +26759,7 @@ class HeatExchangerFluidToFluid(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `operation_minimum_temperature_limit`'.format(value))
         self._data["Operation Minimum Temperature Limit"] = value
 
@@ -26239,7 +26790,7 @@ class HeatExchangerFluidToFluid(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `operation_maximum_temperature_limit`'.format(value))
         self._data["Operation Maximum Temperature Limit"] = value
 

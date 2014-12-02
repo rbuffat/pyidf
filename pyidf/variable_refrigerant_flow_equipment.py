@@ -1,11 +1,12 @@
 from collections import OrderedDict
+import logging
+import re
 
 class AirConditionerVariableRefrigerantFlow(object):
     """ Corresponds to IDD object `AirConditioner:VariableRefrigerantFlow`
         Variable refrigerant flow (VRF) air-to-air heat pump condensing unit (includes one
         or more electric compressors and outdoor fan). Serves one or more VRF zone terminal
         units. See ZoneHVAC:TerminalUnit:VariableRefrigerantFlow and ZoneTerminalUnitList.
-    
     """
     internal_name = "AirConditioner:VariableRefrigerantFlow"
     field_count = 81
@@ -96,15 +97,16 @@ class AirConditionerVariableRefrigerantFlow(object):
         self._data["Heat Recovery Heating Energy Modifier Curve Name"] = None
         self._data["Initial Heat Recovery Heating Energy Fraction"] = None
         self._data["Heat Recovery Heating Energy Time Constant"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.heat_pump_name = None
@@ -673,6 +675,7 @@ class AirConditionerVariableRefrigerantFlow(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def heat_pump_name(self):
@@ -700,7 +703,7 @@ class AirConditionerVariableRefrigerantFlow(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `heat_pump_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -740,7 +743,7 @@ class AirConditionerVariableRefrigerantFlow(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `availability_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -781,12 +784,17 @@ class AirConditionerVariableRefrigerantFlow(object):
                 if value_lower == "autosize":
                     self._data["Gross Rated Total Cooling Capacity"] = "Autosize"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autosize" '
+                                 'for field `gross_rated_total_cooling_capacity`'.format(value))
+                    self._data["Gross Rated Total Cooling Capacity"] = "Autosize"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autosize"'
                                  'for field `gross_rated_total_cooling_capacity`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -824,7 +832,7 @@ class AirConditionerVariableRefrigerantFlow(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `gross_rated_cooling_cop`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -860,7 +868,7 @@ class AirConditionerVariableRefrigerantFlow(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `minimum_outdoor_temperature_in_cooling_mode`'.format(value))
         self._data["Minimum Outdoor Temperature in Cooling Mode"] = value
 
@@ -893,7 +901,7 @@ class AirConditionerVariableRefrigerantFlow(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `maximum_outdoor_temperature_in_cooling_mode`'.format(value))
         self._data["Maximum Outdoor Temperature in Cooling Mode"] = value
 
@@ -927,7 +935,7 @@ class AirConditionerVariableRefrigerantFlow(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `cooling_capacity_ratio_modifier_function_of_low_temperature_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -968,7 +976,7 @@ class AirConditionerVariableRefrigerantFlow(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `cooling_capacity_ratio_boundary_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1009,7 +1017,7 @@ class AirConditionerVariableRefrigerantFlow(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `cooling_capacity_ratio_modifier_function_of_high_temperature_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1047,7 +1055,7 @@ class AirConditionerVariableRefrigerantFlow(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `cooling_energy_input_ratio_modifier_function_of_low_temperature_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1088,7 +1096,7 @@ class AirConditionerVariableRefrigerantFlow(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `cooling_energy_input_ratio_boundary_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1128,7 +1136,7 @@ class AirConditionerVariableRefrigerantFlow(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `cooling_energy_input_ratio_modifier_function_of_high_temperature_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1168,7 +1176,7 @@ class AirConditionerVariableRefrigerantFlow(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `cooling_energy_input_ratio_modifier_function_of_low_partload_ratio_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1209,7 +1217,7 @@ class AirConditionerVariableRefrigerantFlow(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `cooling_energy_input_ratio_modifier_function_of_high_partload_ratio_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1249,7 +1257,7 @@ class AirConditionerVariableRefrigerantFlow(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `cooling_combination_ratio_correction_factor_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1287,7 +1295,7 @@ class AirConditionerVariableRefrigerantFlow(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `cooling_partload_fraction_correlation_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1327,12 +1335,17 @@ class AirConditionerVariableRefrigerantFlow(object):
                 if value_lower == "autosize":
                     self._data["Gross Rated Heating Capacity"] = "Autosize"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autosize" '
+                                 'for field `gross_rated_heating_capacity`'.format(value))
+                    self._data["Gross Rated Heating Capacity"] = "Autosize"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autosize"'
                                  'for field `gross_rated_heating_capacity`'.format(value))
         self._data["Gross Rated Heating Capacity"] = value
 
@@ -1368,7 +1381,7 @@ class AirConditionerVariableRefrigerantFlow(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `rated_heating_capacity_sizing_ratio`'.format(value))
             if value < 1.0:
                 raise ValueError('value need to be greater or equal 1.0 '
@@ -1404,7 +1417,7 @@ class AirConditionerVariableRefrigerantFlow(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `gross_rated_heating_cop`'.format(value))
         self._data["Gross Rated Heating COP"] = value
 
@@ -1436,7 +1449,7 @@ class AirConditionerVariableRefrigerantFlow(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `minimum_outdoor_temperature_in_heating_mode`'.format(value))
         self._data["Minimum Outdoor Temperature in Heating Mode"] = value
 
@@ -1468,7 +1481,7 @@ class AirConditionerVariableRefrigerantFlow(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `maximum_outdoor_temperature_in_heating_mode`'.format(value))
         self._data["Maximum Outdoor Temperature in Heating Mode"] = value
 
@@ -1505,7 +1518,7 @@ class AirConditionerVariableRefrigerantFlow(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `heating_capacity_ratio_modifier_function_of_low_temperature_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1547,7 +1560,7 @@ class AirConditionerVariableRefrigerantFlow(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `heating_capacity_ratio_boundary_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1588,7 +1601,7 @@ class AirConditionerVariableRefrigerantFlow(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `heating_capacity_ratio_modifier_function_of_high_temperature_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1629,7 +1642,7 @@ class AirConditionerVariableRefrigerantFlow(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `heating_energy_input_ratio_modifier_function_of_low_temperature_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1671,7 +1684,7 @@ class AirConditionerVariableRefrigerantFlow(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `heating_energy_input_ratio_boundary_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1709,7 +1722,7 @@ class AirConditionerVariableRefrigerantFlow(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `heating_energy_input_ratio_modifier_function_of_high_temperature_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1751,7 +1764,7 @@ class AirConditionerVariableRefrigerantFlow(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `heating_performance_curve_outdoor_temperature_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1765,16 +1778,26 @@ class AirConditionerVariableRefrigerantFlow(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `heating_performance_curve_outdoor_temperature_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `heating_performance_curve_outdoor_temperature_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Heating Performance Curve Outdoor Temperature Type"] = value
 
@@ -1805,7 +1828,7 @@ class AirConditionerVariableRefrigerantFlow(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `heating_energy_input_ratio_modifier_function_of_low_partload_ratio_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1842,7 +1865,7 @@ class AirConditionerVariableRefrigerantFlow(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `heating_energy_input_ratio_modifier_function_of_high_partload_ratio_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1882,7 +1905,7 @@ class AirConditionerVariableRefrigerantFlow(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `heating_combination_ratio_correction_factor_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1920,7 +1943,7 @@ class AirConditionerVariableRefrigerantFlow(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `heating_partload_fraction_correlation_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1960,7 +1983,7 @@ class AirConditionerVariableRefrigerantFlow(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `minimum_heat_pump_partload_ratio`'.format(value))
         self._data["Minimum Heat Pump Part-Load Ratio"] = value
 
@@ -1990,7 +2013,7 @@ class AirConditionerVariableRefrigerantFlow(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `zone_name_for_master_thermostat_location`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2034,7 +2057,7 @@ class AirConditionerVariableRefrigerantFlow(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `master_thermostat_priority_control_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2051,16 +2074,26 @@ class AirConditionerVariableRefrigerantFlow(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `master_thermostat_priority_control_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `master_thermostat_priority_control_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Master Thermostat Priority Control Type"] = value
 
@@ -2091,7 +2124,7 @@ class AirConditionerVariableRefrigerantFlow(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `thermostat_priority_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2128,7 +2161,7 @@ class AirConditionerVariableRefrigerantFlow(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `zone_terminal_unit_list_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2168,7 +2201,7 @@ class AirConditionerVariableRefrigerantFlow(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `heat_pump_waste_heat_recovery`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2182,16 +2215,26 @@ class AirConditionerVariableRefrigerantFlow(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `heat_pump_waste_heat_recovery`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `heat_pump_waste_heat_recovery`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Heat Pump Waste Heat Recovery"] = value
 
@@ -2222,7 +2265,7 @@ class AirConditionerVariableRefrigerantFlow(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `equivalent_piping_length_used_for_piping_correction_factor_in_cooling_mode`'.format(value))
         self._data["Equivalent Piping Length used for Piping Correction Factor in Cooling Mode"] = value
 
@@ -2253,7 +2296,7 @@ class AirConditionerVariableRefrigerantFlow(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `vertical_height_used_for_piping_correction_factor`'.format(value))
         self._data["Vertical Height used for Piping Correction Factor"] = value
 
@@ -2288,7 +2331,7 @@ class AirConditionerVariableRefrigerantFlow(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `piping_correction_factor_for_length_in_cooling_mode_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2329,7 +2372,7 @@ class AirConditionerVariableRefrigerantFlow(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `piping_correction_factor_for_height_in_cooling_mode_coefficient`'.format(value))
         self._data["Piping Correction Factor for Height in Cooling Mode Coefficient"] = value
 
@@ -2360,7 +2403,7 @@ class AirConditionerVariableRefrigerantFlow(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `equivalent_piping_length_used_for_piping_correction_factor_in_heating_mode`'.format(value))
         self._data["Equivalent Piping Length used for Piping Correction Factor in Heating Mode"] = value
 
@@ -2395,7 +2438,7 @@ class AirConditionerVariableRefrigerantFlow(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `piping_correction_factor_for_length_in_heating_mode_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2436,7 +2479,7 @@ class AirConditionerVariableRefrigerantFlow(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `piping_correction_factor_for_height_in_heating_mode_coefficient`'.format(value))
         self._data["Piping Correction Factor for Height in Heating Mode Coefficient"] = value
 
@@ -2469,7 +2512,7 @@ class AirConditionerVariableRefrigerantFlow(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `crankcase_heater_power_per_compressor`'.format(value))
         self._data["Crankcase Heater Power per Compressor"] = value
 
@@ -2502,8 +2545,15 @@ class AirConditionerVariableRefrigerantFlow(object):
             try:
                 value = int(value)
             except ValueError:
-                raise ValueError('value {} need to be of type int '
-                                 'for field `number_of_compressors`'.format(value))
+                if not self.strict:
+                    try:
+                        conv_value = int(float(value))
+                        logging.warn('Cast float {} to int {}, precision may be lost '
+                                     'for field `number_of_compressors`'.format(value, conv_value))
+                        value = conv_value
+                    except ValueError:
+                        raise ValueError('value {} need to be of type int '
+                                         'for field `number_of_compressors`'.format(value))
         self._data["Number of Compressors"] = value
 
     @property
@@ -2536,7 +2586,7 @@ class AirConditionerVariableRefrigerantFlow(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `ratio_of_compressor_size_to_total_compressor_capacity`'.format(value))
         self._data["Ratio of Compressor Size to Total Compressor Capacity"] = value
 
@@ -2568,7 +2618,7 @@ class AirConditionerVariableRefrigerantFlow(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `maximum_outdoor_drybulb_temperature_for_crankcase_heater`'.format(value))
         self._data["Maximum Outdoor Dry-Bulb Temperature for Crankcase Heater"] = value
 
@@ -2604,7 +2654,7 @@ class AirConditionerVariableRefrigerantFlow(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `defrost_strategy`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2618,16 +2668,26 @@ class AirConditionerVariableRefrigerantFlow(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `defrost_strategy`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `defrost_strategy`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Defrost Strategy"] = value
 
@@ -2662,7 +2722,7 @@ class AirConditionerVariableRefrigerantFlow(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `defrost_control`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2676,16 +2736,26 @@ class AirConditionerVariableRefrigerantFlow(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `defrost_control`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `defrost_control`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Defrost Control"] = value
 
@@ -2716,7 +2786,7 @@ class AirConditionerVariableRefrigerantFlow(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `defrost_energy_input_ratio_modifier_function_of_temperature_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2756,7 +2826,7 @@ class AirConditionerVariableRefrigerantFlow(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `defrost_time_period_fraction`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -2796,12 +2866,17 @@ class AirConditionerVariableRefrigerantFlow(object):
                 if value_lower == "autosize":
                     self._data["Resistive Defrost Heater Capacity"] = "Autosize"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autosize" '
+                                 'for field `resistive_defrost_heater_capacity`'.format(value))
+                    self._data["Resistive Defrost Heater Capacity"] = "Autosize"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autosize"'
                                  'for field `resistive_defrost_heater_capacity`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -2836,7 +2911,7 @@ class AirConditionerVariableRefrigerantFlow(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `maximum_outdoor_drybulb_temperature_for_defrost_operation`'.format(value))
         self._data["Maximum Outdoor Dry-bulb Temperature for Defrost Operation"] = value
 
@@ -2871,7 +2946,7 @@ class AirConditionerVariableRefrigerantFlow(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `condenser_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2886,16 +2961,26 @@ class AirConditionerVariableRefrigerantFlow(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `condenser_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `condenser_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Condenser Type"] = value
 
@@ -2927,7 +3012,7 @@ class AirConditionerVariableRefrigerantFlow(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `condenser_inlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2964,7 +3049,7 @@ class AirConditionerVariableRefrigerantFlow(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `condenser_outlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3003,12 +3088,17 @@ class AirConditionerVariableRefrigerantFlow(object):
                 if value_lower == "autosize":
                     self._data["Water Condenser Volume Flow Rate"] = "Autosize"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autosize" '
+                                 'for field `water_condenser_volume_flow_rate`'.format(value))
+                    self._data["Water Condenser Volume Flow Rate"] = "Autosize"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autosize"'
                                  'for field `water_condenser_volume_flow_rate`'.format(value))
         self._data["Water Condenser Volume Flow Rate"] = value
 
@@ -3043,7 +3133,7 @@ class AirConditionerVariableRefrigerantFlow(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `evaporative_condenser_effectiveness`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -3084,12 +3174,17 @@ class AirConditionerVariableRefrigerantFlow(object):
                 if value_lower == "autosize":
                     self._data["Evaporative Condenser Air Flow Rate"] = "Autosize"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autosize" '
+                                 'for field `evaporative_condenser_air_flow_rate`'.format(value))
+                    self._data["Evaporative Condenser Air Flow Rate"] = "Autosize"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autosize"'
                                  'for field `evaporative_condenser_air_flow_rate`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -3128,12 +3223,17 @@ class AirConditionerVariableRefrigerantFlow(object):
                 if value_lower == "autosize":
                     self._data["Evaporative Condenser Pump Rated Power Consumption"] = "Autosize"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autosize" '
+                                 'for field `evaporative_condenser_pump_rated_power_consumption`'.format(value))
+                    self._data["Evaporative Condenser Pump Rated Power Consumption"] = "Autosize"
+                    return
             except ValueError:
                 pass
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float or "Autosize"'
                                  'for field `evaporative_condenser_pump_rated_power_consumption`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -3166,7 +3266,7 @@ class AirConditionerVariableRefrigerantFlow(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `supply_water_storage_tank_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3209,7 +3309,7 @@ class AirConditionerVariableRefrigerantFlow(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `basin_heater_capacity`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -3246,7 +3346,7 @@ class AirConditionerVariableRefrigerantFlow(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `basin_heater_setpoint_temperature`'.format(value))
             if value < 2.0:
                 raise ValueError('value need to be greater or equal 2.0 '
@@ -3283,7 +3383,7 @@ class AirConditionerVariableRefrigerantFlow(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `basin_heater_operating_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3329,7 +3429,7 @@ class AirConditionerVariableRefrigerantFlow(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `fuel_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3350,16 +3450,26 @@ class AirConditionerVariableRefrigerantFlow(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `fuel_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `fuel_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Fuel Type"] = value
 
@@ -3391,7 +3501,7 @@ class AirConditionerVariableRefrigerantFlow(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `minimum_outdoor_temperature_in_heat_recovery_mode`'.format(value))
         self._data["Minimum Outdoor Temperature in Heat Recovery Mode"] = value
 
@@ -3423,7 +3533,7 @@ class AirConditionerVariableRefrigerantFlow(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `maximum_outdoor_temperature_in_heat_recovery_mode`'.format(value))
         self._data["Maximum Outdoor Temperature in Heat Recovery Mode"] = value
 
@@ -3456,7 +3566,7 @@ class AirConditionerVariableRefrigerantFlow(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `heat_recovery_cooling_capacity_modifier_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3498,7 +3608,7 @@ class AirConditionerVariableRefrigerantFlow(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `initial_heat_recovery_cooling_capacity_fraction`'.format(value))
         self._data["Initial Heat Recovery Cooling Capacity Fraction"] = value
 
@@ -3531,7 +3641,7 @@ class AirConditionerVariableRefrigerantFlow(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `heat_recovery_cooling_capacity_time_constant`'.format(value))
         self._data["Heat Recovery Cooling Capacity Time Constant"] = value
 
@@ -3564,7 +3674,7 @@ class AirConditionerVariableRefrigerantFlow(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `heat_recovery_cooling_energy_modifier_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3606,7 +3716,7 @@ class AirConditionerVariableRefrigerantFlow(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `initial_heat_recovery_cooling_energy_fraction`'.format(value))
         self._data["Initial Heat Recovery Cooling Energy Fraction"] = value
 
@@ -3639,7 +3749,7 @@ class AirConditionerVariableRefrigerantFlow(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `heat_recovery_cooling_energy_time_constant`'.format(value))
         self._data["Heat Recovery Cooling Energy Time Constant"] = value
 
@@ -3672,7 +3782,7 @@ class AirConditionerVariableRefrigerantFlow(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `heat_recovery_heating_capacity_modifier_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3714,7 +3824,7 @@ class AirConditionerVariableRefrigerantFlow(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `initial_heat_recovery_heating_capacity_fraction`'.format(value))
         self._data["Initial Heat Recovery Heating Capacity Fraction"] = value
 
@@ -3747,7 +3857,7 @@ class AirConditionerVariableRefrigerantFlow(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `heat_recovery_heating_capacity_time_constant`'.format(value))
         self._data["Heat Recovery Heating Capacity Time Constant"] = value
 
@@ -3780,7 +3890,7 @@ class AirConditionerVariableRefrigerantFlow(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `heat_recovery_heating_energy_modifier_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3822,7 +3932,7 @@ class AirConditionerVariableRefrigerantFlow(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `initial_heat_recovery_heating_energy_fraction`'.format(value))
         self._data["Initial Heat Recovery Heating Energy Fraction"] = value
 
@@ -3855,7 +3965,7 @@ class AirConditionerVariableRefrigerantFlow(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `heat_recovery_heating_energy_time_constant`'.format(value))
         self._data["Heat Recovery Heating Energy Time Constant"] = value
 
@@ -3898,7 +4008,6 @@ class ZoneTerminalUnitList(object):
         List of variable refrigerant flow (VRF) terminal units served by a given VRF condensing
         unit. See ZoneHVAC:TerminalUnit:VariableRefrigerantFlow and
         AirConditioner:VariableRefrigerantFlow.
-    
     """
     internal_name = "ZoneTerminalUnitList"
     field_count = 21
@@ -3929,15 +4038,16 @@ class ZoneTerminalUnitList(object):
         self._data["Zone Terminal Unit Name 18"] = None
         self._data["Zone Terminal Unit Name 19"] = None
         self._data["Zone Terminal Unit Name 20"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.zone_terminal_unit_list_name = None
@@ -4086,6 +4196,7 @@ class ZoneTerminalUnitList(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def zone_terminal_unit_list_name(self):
@@ -4112,7 +4223,7 @@ class ZoneTerminalUnitList(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `zone_terminal_unit_list_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4147,7 +4258,7 @@ class ZoneTerminalUnitList(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `zone_terminal_unit_name_1`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4182,7 +4293,7 @@ class ZoneTerminalUnitList(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `zone_terminal_unit_name_2`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4217,7 +4328,7 @@ class ZoneTerminalUnitList(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `zone_terminal_unit_name_3`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4252,7 +4363,7 @@ class ZoneTerminalUnitList(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `zone_terminal_unit_name_4`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4287,7 +4398,7 @@ class ZoneTerminalUnitList(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `zone_terminal_unit_name_5`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4322,7 +4433,7 @@ class ZoneTerminalUnitList(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `zone_terminal_unit_name_6`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4357,7 +4468,7 @@ class ZoneTerminalUnitList(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `zone_terminal_unit_name_7`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4392,7 +4503,7 @@ class ZoneTerminalUnitList(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `zone_terminal_unit_name_8`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4427,7 +4538,7 @@ class ZoneTerminalUnitList(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `zone_terminal_unit_name_9`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4462,7 +4573,7 @@ class ZoneTerminalUnitList(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `zone_terminal_unit_name_10`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4497,7 +4608,7 @@ class ZoneTerminalUnitList(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `zone_terminal_unit_name_11`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4532,7 +4643,7 @@ class ZoneTerminalUnitList(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `zone_terminal_unit_name_12`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4567,7 +4678,7 @@ class ZoneTerminalUnitList(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `zone_terminal_unit_name_13`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4602,7 +4713,7 @@ class ZoneTerminalUnitList(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `zone_terminal_unit_name_14`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4637,7 +4748,7 @@ class ZoneTerminalUnitList(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `zone_terminal_unit_name_15`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4672,7 +4783,7 @@ class ZoneTerminalUnitList(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `zone_terminal_unit_name_16`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4707,7 +4818,7 @@ class ZoneTerminalUnitList(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `zone_terminal_unit_name_17`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4742,7 +4853,7 @@ class ZoneTerminalUnitList(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `zone_terminal_unit_name_18`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4777,7 +4888,7 @@ class ZoneTerminalUnitList(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `zone_terminal_unit_name_19`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4812,7 +4923,7 @@ class ZoneTerminalUnitList(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `zone_terminal_unit_name_20`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '

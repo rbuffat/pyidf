@@ -1,4 +1,6 @@
 from collections import OrderedDict
+import logging
+import re
 
 class OutputVariableDictionary(object):
     """ Corresponds to IDD object `Output:VariableDictionary`
@@ -7,7 +9,6 @@ class OutputVariableDictionary(object):
         on the types of objects present in the idf file.  For example, variables related to
         lights will only appear if a Lights object is present. The IDF option generates
         complete Output:Variable objects to simplify adding the desired output to the idf file.
-    
     """
     internal_name = "Output:VariableDictionary"
     field_count = 2
@@ -19,15 +20,16 @@ class OutputVariableDictionary(object):
         self._data = OrderedDict()
         self._data["Key Field"] = None
         self._data["Sort Option"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.key_field = None
@@ -43,6 +45,7 @@ class OutputVariableDictionary(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def key_field(self):
@@ -73,7 +76,7 @@ class OutputVariableDictionary(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `key_field`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -87,16 +90,26 @@ class OutputVariableDictionary(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `key_field`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `key_field`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Key Field"] = value
 
@@ -128,7 +141,7 @@ class OutputVariableDictionary(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `sort_option`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -142,16 +155,26 @@ class OutputVariableDictionary(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `sort_option`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `sort_option`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Sort Option"] = value
 
@@ -192,7 +215,6 @@ class OutputVariableDictionary(object):
 class OutputSurfacesList(object):
     """ Corresponds to IDD object `Output:Surfaces:List`
         Produces a report summarizing the details of surfaces in the eio output file.
-    
     """
     internal_name = "Output:Surfaces:List"
     field_count = 2
@@ -204,15 +226,16 @@ class OutputSurfacesList(object):
         self._data = OrderedDict()
         self._data["Report Type"] = None
         self._data["Report Specifications"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.report_type = None
@@ -228,6 +251,7 @@ class OutputSurfacesList(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def report_type(self):
@@ -262,7 +286,7 @@ class OutputSurfacesList(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `report_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -281,16 +305,26 @@ class OutputSurfacesList(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `report_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `report_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Report Type"] = value
 
@@ -323,7 +357,7 @@ class OutputSurfacesList(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `report_specifications`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -336,16 +370,26 @@ class OutputSurfacesList(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `report_specifications`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `report_specifications`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Report Specifications"] = value
 
@@ -388,7 +432,6 @@ class OutputSurfacesDrawing(object):
         Produces reports/files that are capable of rendering graphically or
         being imported into other programs. Rendering does not alter the
         actual inputs/surfaces.
-    
     """
     internal_name = "Output:Surfaces:Drawing"
     field_count = 3
@@ -401,15 +444,16 @@ class OutputSurfacesDrawing(object):
         self._data["Report Type"] = None
         self._data["Report Specifications 1"] = None
         self._data["Report Specifications 2"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.report_type = None
@@ -432,6 +476,7 @@ class OutputSurfacesDrawing(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def report_type(self):
@@ -462,7 +507,7 @@ class OutputSurfacesDrawing(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `report_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -477,16 +522,26 @@ class OutputSurfacesDrawing(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `report_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `report_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Report Type"] = value
 
@@ -522,7 +577,7 @@ class OutputSurfacesDrawing(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `report_specifications_1`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -537,16 +592,26 @@ class OutputSurfacesDrawing(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `report_specifications_1`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `report_specifications_1`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Report Specifications 1"] = value
 
@@ -576,7 +641,7 @@ class OutputSurfacesDrawing(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `report_specifications_2`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -625,7 +690,6 @@ class OutputSchedules(object):
         Produces a condensed reporting that illustrates the full range of schedule values in
         the eio output file. In the style of input: DaySchedule,  WeekSchedule, and
         Annual Schedule.
-    
     """
     internal_name = "Output:Schedules"
     field_count = 1
@@ -636,15 +700,16 @@ class OutputSchedules(object):
         """
         self._data = OrderedDict()
         self._data["Key Field"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.key_field = None
@@ -653,6 +718,7 @@ class OutputSchedules(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def key_field(self):
@@ -682,7 +748,7 @@ class OutputSchedules(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `key_field`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -696,16 +762,26 @@ class OutputSchedules(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `key_field`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `key_field`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Key Field"] = value
 
@@ -748,7 +824,6 @@ class OutputConstructions(object):
         Adds a report to the eio output file which shows details for each construction,
         including overall properties, a list of material layers, and calculated results
         related to conduction transfer functions.
-    
     """
     internal_name = "Output:Constructions"
     field_count = 2
@@ -760,15 +835,16 @@ class OutputConstructions(object):
         self._data = OrderedDict()
         self._data["Details Type 1"] = None
         self._data["Details Type 2"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.details_type_1 = None
@@ -784,6 +860,7 @@ class OutputConstructions(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def details_type_1(self):
@@ -813,7 +890,7 @@ class OutputConstructions(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `details_type_1`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -827,16 +904,26 @@ class OutputConstructions(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `details_type_1`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `details_type_1`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Details Type 1"] = value
 
@@ -868,7 +955,7 @@ class OutputConstructions(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `details_type_2`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -882,16 +969,26 @@ class OutputConstructions(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `details_type_2`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `details_type_2`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Details Type 2"] = value
 
@@ -932,7 +1029,6 @@ class OutputConstructions(object):
 class OutputEnergyManagementSystem(object):
     """ Corresponds to IDD object `Output:EnergyManagementSystem`
         This object is used to control the output produced by the Energy Management System
-    
     """
     internal_name = "Output:EnergyManagementSystem"
     field_count = 3
@@ -945,15 +1041,16 @@ class OutputEnergyManagementSystem(object):
         self._data["Actuator Availability Dictionary Reporting"] = None
         self._data["Internal Variable Availability Dictionary Reporting"] = None
         self._data["EMS Runtime Language Debug Output Level"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.actuator_availability_dictionary_reporting = None
@@ -976,6 +1073,7 @@ class OutputEnergyManagementSystem(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def actuator_availability_dictionary_reporting(self):
@@ -1007,7 +1105,7 @@ class OutputEnergyManagementSystem(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `actuator_availability_dictionary_reporting`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1022,16 +1120,26 @@ class OutputEnergyManagementSystem(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `actuator_availability_dictionary_reporting`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `actuator_availability_dictionary_reporting`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Actuator Availability Dictionary Reporting"] = value
 
@@ -1065,7 +1173,7 @@ class OutputEnergyManagementSystem(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `internal_variable_availability_dictionary_reporting`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1080,16 +1188,26 @@ class OutputEnergyManagementSystem(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `internal_variable_availability_dictionary_reporting`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `internal_variable_availability_dictionary_reporting`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Internal Variable Availability Dictionary Reporting"] = value
 
@@ -1123,7 +1241,7 @@ class OutputEnergyManagementSystem(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `ems_runtime_language_debug_output_level`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1138,16 +1256,26 @@ class OutputEnergyManagementSystem(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `ems_runtime_language_debug_output_level`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `ems_runtime_language_debug_output_level`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["EMS Runtime Language Debug Output Level"] = value
 
@@ -1192,7 +1320,6 @@ class OutputControlSurfaceColorScheme(object):
         Therefore, we are limiting the colors in that range.  You can
         extend by editing the IDD but you do so on your own.  Colors not changed in any scheme will
         remain as the default scheme uses.
-    
     """
     internal_name = "OutputControl:SurfaceColorScheme"
     field_count = 31
@@ -1233,15 +1360,16 @@ class OutputControlSurfaceColorScheme(object):
         self._data["Color for Drawing Element 14"] = None
         self._data["Drawing Element 15 Type"] = None
         self._data["Color for Drawing Element 15"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -1460,6 +1588,7 @@ class OutputControlSurfaceColorScheme(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -1487,7 +1616,7 @@ class OutputControlSurfaceColorScheme(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1538,7 +1667,7 @@ class OutputControlSurfaceColorScheme(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `drawing_element_1_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1565,16 +1694,26 @@ class OutputControlSurfaceColorScheme(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `drawing_element_1_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `drawing_element_1_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Drawing Element 1 Type"] = value
 
@@ -1606,8 +1745,15 @@ class OutputControlSurfaceColorScheme(object):
             try:
                 value = int(value)
             except ValueError:
-                raise ValueError('value {} need to be of type int '
-                                 'for field `color_for_drawing_element_1`'.format(value))
+                if not self.strict:
+                    try:
+                        conv_value = int(float(value))
+                        logging.warn('Cast float {} to int {}, precision may be lost '
+                                     'for field `color_for_drawing_element_1`'.format(value, conv_value))
+                        value = conv_value
+                    except ValueError:
+                        raise ValueError('value {} need to be of type int '
+                                         'for field `color_for_drawing_element_1`'.format(value))
             if value < 0:
                 raise ValueError('value need to be greater or equal 0 '
                                  'for field `color_for_drawing_element_1`')
@@ -1657,7 +1803,7 @@ class OutputControlSurfaceColorScheme(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `drawing_element_2_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1684,16 +1830,26 @@ class OutputControlSurfaceColorScheme(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `drawing_element_2_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `drawing_element_2_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Drawing Element 2 Type"] = value
 
@@ -1725,8 +1881,15 @@ class OutputControlSurfaceColorScheme(object):
             try:
                 value = int(value)
             except ValueError:
-                raise ValueError('value {} need to be of type int '
-                                 'for field `color_for_drawing_element_2`'.format(value))
+                if not self.strict:
+                    try:
+                        conv_value = int(float(value))
+                        logging.warn('Cast float {} to int {}, precision may be lost '
+                                     'for field `color_for_drawing_element_2`'.format(value, conv_value))
+                        value = conv_value
+                    except ValueError:
+                        raise ValueError('value {} need to be of type int '
+                                         'for field `color_for_drawing_element_2`'.format(value))
             if value < 0:
                 raise ValueError('value need to be greater or equal 0 '
                                  'for field `color_for_drawing_element_2`')
@@ -1776,7 +1939,7 @@ class OutputControlSurfaceColorScheme(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `drawing_element_3_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1803,16 +1966,26 @@ class OutputControlSurfaceColorScheme(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `drawing_element_3_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `drawing_element_3_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Drawing Element 3 Type"] = value
 
@@ -1844,8 +2017,15 @@ class OutputControlSurfaceColorScheme(object):
             try:
                 value = int(value)
             except ValueError:
-                raise ValueError('value {} need to be of type int '
-                                 'for field `color_for_drawing_element_3`'.format(value))
+                if not self.strict:
+                    try:
+                        conv_value = int(float(value))
+                        logging.warn('Cast float {} to int {}, precision may be lost '
+                                     'for field `color_for_drawing_element_3`'.format(value, conv_value))
+                        value = conv_value
+                    except ValueError:
+                        raise ValueError('value {} need to be of type int '
+                                         'for field `color_for_drawing_element_3`'.format(value))
             if value < 0:
                 raise ValueError('value need to be greater or equal 0 '
                                  'for field `color_for_drawing_element_3`')
@@ -1895,7 +2075,7 @@ class OutputControlSurfaceColorScheme(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `drawing_element_4_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -1922,16 +2102,26 @@ class OutputControlSurfaceColorScheme(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `drawing_element_4_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `drawing_element_4_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Drawing Element 4 Type"] = value
 
@@ -1963,8 +2153,15 @@ class OutputControlSurfaceColorScheme(object):
             try:
                 value = int(value)
             except ValueError:
-                raise ValueError('value {} need to be of type int '
-                                 'for field `color_for_drawing_element_4`'.format(value))
+                if not self.strict:
+                    try:
+                        conv_value = int(float(value))
+                        logging.warn('Cast float {} to int {}, precision may be lost '
+                                     'for field `color_for_drawing_element_4`'.format(value, conv_value))
+                        value = conv_value
+                    except ValueError:
+                        raise ValueError('value {} need to be of type int '
+                                         'for field `color_for_drawing_element_4`'.format(value))
             if value < 0:
                 raise ValueError('value need to be greater or equal 0 '
                                  'for field `color_for_drawing_element_4`')
@@ -2014,7 +2211,7 @@ class OutputControlSurfaceColorScheme(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `drawing_element_5_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2041,16 +2238,26 @@ class OutputControlSurfaceColorScheme(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `drawing_element_5_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `drawing_element_5_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Drawing Element 5 Type"] = value
 
@@ -2082,8 +2289,15 @@ class OutputControlSurfaceColorScheme(object):
             try:
                 value = int(value)
             except ValueError:
-                raise ValueError('value {} need to be of type int '
-                                 'for field `color_for_drawing_element_5`'.format(value))
+                if not self.strict:
+                    try:
+                        conv_value = int(float(value))
+                        logging.warn('Cast float {} to int {}, precision may be lost '
+                                     'for field `color_for_drawing_element_5`'.format(value, conv_value))
+                        value = conv_value
+                    except ValueError:
+                        raise ValueError('value {} need to be of type int '
+                                         'for field `color_for_drawing_element_5`'.format(value))
             if value < 0:
                 raise ValueError('value need to be greater or equal 0 '
                                  'for field `color_for_drawing_element_5`')
@@ -2133,7 +2347,7 @@ class OutputControlSurfaceColorScheme(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `drawing_element_6_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2160,16 +2374,26 @@ class OutputControlSurfaceColorScheme(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `drawing_element_6_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `drawing_element_6_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Drawing Element 6 Type"] = value
 
@@ -2201,8 +2425,15 @@ class OutputControlSurfaceColorScheme(object):
             try:
                 value = int(value)
             except ValueError:
-                raise ValueError('value {} need to be of type int '
-                                 'for field `color_for_drawing_element_6`'.format(value))
+                if not self.strict:
+                    try:
+                        conv_value = int(float(value))
+                        logging.warn('Cast float {} to int {}, precision may be lost '
+                                     'for field `color_for_drawing_element_6`'.format(value, conv_value))
+                        value = conv_value
+                    except ValueError:
+                        raise ValueError('value {} need to be of type int '
+                                         'for field `color_for_drawing_element_6`'.format(value))
             if value < 0:
                 raise ValueError('value need to be greater or equal 0 '
                                  'for field `color_for_drawing_element_6`')
@@ -2252,7 +2483,7 @@ class OutputControlSurfaceColorScheme(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `drawing_element_7_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2279,16 +2510,26 @@ class OutputControlSurfaceColorScheme(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `drawing_element_7_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `drawing_element_7_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Drawing Element 7 Type"] = value
 
@@ -2320,8 +2561,15 @@ class OutputControlSurfaceColorScheme(object):
             try:
                 value = int(value)
             except ValueError:
-                raise ValueError('value {} need to be of type int '
-                                 'for field `color_for_drawing_element_7`'.format(value))
+                if not self.strict:
+                    try:
+                        conv_value = int(float(value))
+                        logging.warn('Cast float {} to int {}, precision may be lost '
+                                     'for field `color_for_drawing_element_7`'.format(value, conv_value))
+                        value = conv_value
+                    except ValueError:
+                        raise ValueError('value {} need to be of type int '
+                                         'for field `color_for_drawing_element_7`'.format(value))
             if value < 0:
                 raise ValueError('value need to be greater or equal 0 '
                                  'for field `color_for_drawing_element_7`')
@@ -2371,7 +2619,7 @@ class OutputControlSurfaceColorScheme(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `drawing_element_8_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2398,16 +2646,26 @@ class OutputControlSurfaceColorScheme(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `drawing_element_8_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `drawing_element_8_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Drawing Element 8 Type"] = value
 
@@ -2439,8 +2697,15 @@ class OutputControlSurfaceColorScheme(object):
             try:
                 value = int(value)
             except ValueError:
-                raise ValueError('value {} need to be of type int '
-                                 'for field `color_for_drawing_element_8`'.format(value))
+                if not self.strict:
+                    try:
+                        conv_value = int(float(value))
+                        logging.warn('Cast float {} to int {}, precision may be lost '
+                                     'for field `color_for_drawing_element_8`'.format(value, conv_value))
+                        value = conv_value
+                    except ValueError:
+                        raise ValueError('value {} need to be of type int '
+                                         'for field `color_for_drawing_element_8`'.format(value))
             if value < 0:
                 raise ValueError('value need to be greater or equal 0 '
                                  'for field `color_for_drawing_element_8`')
@@ -2490,7 +2755,7 @@ class OutputControlSurfaceColorScheme(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `drawing_element_9_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2517,16 +2782,26 @@ class OutputControlSurfaceColorScheme(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `drawing_element_9_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `drawing_element_9_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Drawing Element 9 Type"] = value
 
@@ -2558,8 +2833,15 @@ class OutputControlSurfaceColorScheme(object):
             try:
                 value = int(value)
             except ValueError:
-                raise ValueError('value {} need to be of type int '
-                                 'for field `color_for_drawing_element_9`'.format(value))
+                if not self.strict:
+                    try:
+                        conv_value = int(float(value))
+                        logging.warn('Cast float {} to int {}, precision may be lost '
+                                     'for field `color_for_drawing_element_9`'.format(value, conv_value))
+                        value = conv_value
+                    except ValueError:
+                        raise ValueError('value {} need to be of type int '
+                                         'for field `color_for_drawing_element_9`'.format(value))
             if value < 0:
                 raise ValueError('value need to be greater or equal 0 '
                                  'for field `color_for_drawing_element_9`')
@@ -2609,7 +2891,7 @@ class OutputControlSurfaceColorScheme(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `drawing_element_10_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2636,16 +2918,26 @@ class OutputControlSurfaceColorScheme(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `drawing_element_10_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `drawing_element_10_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Drawing Element 10 Type"] = value
 
@@ -2677,8 +2969,15 @@ class OutputControlSurfaceColorScheme(object):
             try:
                 value = int(value)
             except ValueError:
-                raise ValueError('value {} need to be of type int '
-                                 'for field `color_for_drawing_element_10`'.format(value))
+                if not self.strict:
+                    try:
+                        conv_value = int(float(value))
+                        logging.warn('Cast float {} to int {}, precision may be lost '
+                                     'for field `color_for_drawing_element_10`'.format(value, conv_value))
+                        value = conv_value
+                    except ValueError:
+                        raise ValueError('value {} need to be of type int '
+                                         'for field `color_for_drawing_element_10`'.format(value))
             if value < 0:
                 raise ValueError('value need to be greater or equal 0 '
                                  'for field `color_for_drawing_element_10`')
@@ -2728,7 +3027,7 @@ class OutputControlSurfaceColorScheme(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `drawing_element_11_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2755,16 +3054,26 @@ class OutputControlSurfaceColorScheme(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `drawing_element_11_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `drawing_element_11_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Drawing Element 11 Type"] = value
 
@@ -2796,8 +3105,15 @@ class OutputControlSurfaceColorScheme(object):
             try:
                 value = int(value)
             except ValueError:
-                raise ValueError('value {} need to be of type int '
-                                 'for field `color_for_drawing_element_11`'.format(value))
+                if not self.strict:
+                    try:
+                        conv_value = int(float(value))
+                        logging.warn('Cast float {} to int {}, precision may be lost '
+                                     'for field `color_for_drawing_element_11`'.format(value, conv_value))
+                        value = conv_value
+                    except ValueError:
+                        raise ValueError('value {} need to be of type int '
+                                         'for field `color_for_drawing_element_11`'.format(value))
             if value < 0:
                 raise ValueError('value need to be greater or equal 0 '
                                  'for field `color_for_drawing_element_11`')
@@ -2847,7 +3163,7 @@ class OutputControlSurfaceColorScheme(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `drawing_element_12_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2874,16 +3190,26 @@ class OutputControlSurfaceColorScheme(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `drawing_element_12_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `drawing_element_12_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Drawing Element 12 Type"] = value
 
@@ -2915,8 +3241,15 @@ class OutputControlSurfaceColorScheme(object):
             try:
                 value = int(value)
             except ValueError:
-                raise ValueError('value {} need to be of type int '
-                                 'for field `color_for_drawing_element_12`'.format(value))
+                if not self.strict:
+                    try:
+                        conv_value = int(float(value))
+                        logging.warn('Cast float {} to int {}, precision may be lost '
+                                     'for field `color_for_drawing_element_12`'.format(value, conv_value))
+                        value = conv_value
+                    except ValueError:
+                        raise ValueError('value {} need to be of type int '
+                                         'for field `color_for_drawing_element_12`'.format(value))
             if value < 0:
                 raise ValueError('value need to be greater or equal 0 '
                                  'for field `color_for_drawing_element_12`')
@@ -2966,7 +3299,7 @@ class OutputControlSurfaceColorScheme(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `drawing_element_13_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -2993,16 +3326,26 @@ class OutputControlSurfaceColorScheme(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `drawing_element_13_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `drawing_element_13_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Drawing Element 13 Type"] = value
 
@@ -3034,8 +3377,15 @@ class OutputControlSurfaceColorScheme(object):
             try:
                 value = int(value)
             except ValueError:
-                raise ValueError('value {} need to be of type int '
-                                 'for field `color_for_drawing_element_13`'.format(value))
+                if not self.strict:
+                    try:
+                        conv_value = int(float(value))
+                        logging.warn('Cast float {} to int {}, precision may be lost '
+                                     'for field `color_for_drawing_element_13`'.format(value, conv_value))
+                        value = conv_value
+                    except ValueError:
+                        raise ValueError('value {} need to be of type int '
+                                         'for field `color_for_drawing_element_13`'.format(value))
             if value < 0:
                 raise ValueError('value need to be greater or equal 0 '
                                  'for field `color_for_drawing_element_13`')
@@ -3085,7 +3435,7 @@ class OutputControlSurfaceColorScheme(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `drawing_element_14_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3112,16 +3462,26 @@ class OutputControlSurfaceColorScheme(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `drawing_element_14_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `drawing_element_14_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Drawing Element 14 Type"] = value
 
@@ -3153,8 +3513,15 @@ class OutputControlSurfaceColorScheme(object):
             try:
                 value = int(value)
             except ValueError:
-                raise ValueError('value {} need to be of type int '
-                                 'for field `color_for_drawing_element_14`'.format(value))
+                if not self.strict:
+                    try:
+                        conv_value = int(float(value))
+                        logging.warn('Cast float {} to int {}, precision may be lost '
+                                     'for field `color_for_drawing_element_14`'.format(value, conv_value))
+                        value = conv_value
+                    except ValueError:
+                        raise ValueError('value {} need to be of type int '
+                                         'for field `color_for_drawing_element_14`'.format(value))
             if value < 0:
                 raise ValueError('value need to be greater or equal 0 '
                                  'for field `color_for_drawing_element_14`')
@@ -3204,7 +3571,7 @@ class OutputControlSurfaceColorScheme(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `drawing_element_15_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -3231,16 +3598,26 @@ class OutputControlSurfaceColorScheme(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `drawing_element_15_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `drawing_element_15_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Drawing Element 15 Type"] = value
 
@@ -3272,8 +3649,15 @@ class OutputControlSurfaceColorScheme(object):
             try:
                 value = int(value)
             except ValueError:
-                raise ValueError('value {} need to be of type int '
-                                 'for field `color_for_drawing_element_15`'.format(value))
+                if not self.strict:
+                    try:
+                        conv_value = int(float(value))
+                        logging.warn('Cast float {} to int {}, precision may be lost '
+                                     'for field `color_for_drawing_element_15`'.format(value, conv_value))
+                        value = conv_value
+                    except ValueError:
+                        raise ValueError('value {} need to be of type int '
+                                         'for field `color_for_drawing_element_15`'.format(value))
             if value < 0:
                 raise ValueError('value need to be greater or equal 0 '
                                  'for field `color_for_drawing_element_15`')
@@ -3324,7 +3708,6 @@ class OutputTableSummaryReports(object):
         of the predefined reports that should appear in the tabular report output file.
         There should be as many fields (A) in this object as there are keys in the following (minus
         AllSummary+AllMonthly+AllSummaryAndMonthly)
-    
     """
     internal_name = "Output:Table:SummaryReports"
     field_count = 83
@@ -3417,15 +3800,16 @@ class OutputTableSummaryReports(object):
         self._data["Report 81 Name"] = None
         self._data["Report 82 Name"] = None
         self._data["Report 83 Name"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.report_1_name = None
@@ -4008,6 +4392,7 @@ class OutputTableSummaryReports(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def report_1_name(self):
@@ -4124,7 +4509,7 @@ class OutputTableSummaryReports(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `report_1_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4225,16 +4610,26 @@ class OutputTableSummaryReports(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `report_1_name`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `report_1_name`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Report 1 Name"] = value
 
@@ -4353,7 +4748,7 @@ class OutputTableSummaryReports(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `report_2_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4454,16 +4849,26 @@ class OutputTableSummaryReports(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `report_2_name`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `report_2_name`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Report 2 Name"] = value
 
@@ -4582,7 +4987,7 @@ class OutputTableSummaryReports(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `report_3_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4683,16 +5088,26 @@ class OutputTableSummaryReports(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `report_3_name`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `report_3_name`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Report 3 Name"] = value
 
@@ -4811,7 +5226,7 @@ class OutputTableSummaryReports(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `report_4_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -4912,16 +5327,26 @@ class OutputTableSummaryReports(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `report_4_name`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `report_4_name`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Report 4 Name"] = value
 
@@ -5040,7 +5465,7 @@ class OutputTableSummaryReports(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `report_5_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -5141,16 +5566,26 @@ class OutputTableSummaryReports(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `report_5_name`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `report_5_name`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Report 5 Name"] = value
 
@@ -5269,7 +5704,7 @@ class OutputTableSummaryReports(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `report_6_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -5370,16 +5805,26 @@ class OutputTableSummaryReports(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `report_6_name`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `report_6_name`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Report 6 Name"] = value
 
@@ -5498,7 +5943,7 @@ class OutputTableSummaryReports(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `report_7_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -5599,16 +6044,26 @@ class OutputTableSummaryReports(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `report_7_name`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `report_7_name`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Report 7 Name"] = value
 
@@ -5727,7 +6182,7 @@ class OutputTableSummaryReports(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `report_8_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -5828,16 +6283,26 @@ class OutputTableSummaryReports(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `report_8_name`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `report_8_name`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Report 8 Name"] = value
 
@@ -5956,7 +6421,7 @@ class OutputTableSummaryReports(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `report_9_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -6057,16 +6522,26 @@ class OutputTableSummaryReports(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `report_9_name`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `report_9_name`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Report 9 Name"] = value
 
@@ -6185,7 +6660,7 @@ class OutputTableSummaryReports(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `report_10_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -6286,16 +6761,26 @@ class OutputTableSummaryReports(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `report_10_name`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `report_10_name`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Report 10 Name"] = value
 
@@ -6414,7 +6899,7 @@ class OutputTableSummaryReports(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `report_11_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -6515,16 +7000,26 @@ class OutputTableSummaryReports(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `report_11_name`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `report_11_name`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Report 11 Name"] = value
 
@@ -6643,7 +7138,7 @@ class OutputTableSummaryReports(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `report_12_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -6744,16 +7239,26 @@ class OutputTableSummaryReports(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `report_12_name`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `report_12_name`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Report 12 Name"] = value
 
@@ -6872,7 +7377,7 @@ class OutputTableSummaryReports(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `report_13_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -6973,16 +7478,26 @@ class OutputTableSummaryReports(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `report_13_name`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `report_13_name`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Report 13 Name"] = value
 
@@ -7101,7 +7616,7 @@ class OutputTableSummaryReports(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `report_14_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -7202,16 +7717,26 @@ class OutputTableSummaryReports(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `report_14_name`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `report_14_name`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Report 14 Name"] = value
 
@@ -7330,7 +7855,7 @@ class OutputTableSummaryReports(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `report_15_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -7431,16 +7956,26 @@ class OutputTableSummaryReports(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `report_15_name`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `report_15_name`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Report 15 Name"] = value
 
@@ -7559,7 +8094,7 @@ class OutputTableSummaryReports(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `report_16_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -7660,16 +8195,26 @@ class OutputTableSummaryReports(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `report_16_name`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `report_16_name`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Report 16 Name"] = value
 
@@ -7788,7 +8333,7 @@ class OutputTableSummaryReports(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `report_17_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -7889,16 +8434,26 @@ class OutputTableSummaryReports(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `report_17_name`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `report_17_name`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Report 17 Name"] = value
 
@@ -8017,7 +8572,7 @@ class OutputTableSummaryReports(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `report_18_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -8118,16 +8673,26 @@ class OutputTableSummaryReports(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `report_18_name`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `report_18_name`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Report 18 Name"] = value
 
@@ -8246,7 +8811,7 @@ class OutputTableSummaryReports(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `report_19_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -8347,16 +8912,26 @@ class OutputTableSummaryReports(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `report_19_name`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `report_19_name`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Report 19 Name"] = value
 
@@ -8475,7 +9050,7 @@ class OutputTableSummaryReports(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `report_20_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -8576,16 +9151,26 @@ class OutputTableSummaryReports(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `report_20_name`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `report_20_name`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Report 20 Name"] = value
 
@@ -8704,7 +9289,7 @@ class OutputTableSummaryReports(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `report_21_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -8805,16 +9390,26 @@ class OutputTableSummaryReports(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `report_21_name`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `report_21_name`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Report 21 Name"] = value
 
@@ -8933,7 +9528,7 @@ class OutputTableSummaryReports(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `report_22_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -9034,16 +9629,26 @@ class OutputTableSummaryReports(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `report_22_name`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `report_22_name`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Report 22 Name"] = value
 
@@ -9162,7 +9767,7 @@ class OutputTableSummaryReports(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `report_23_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -9263,16 +9868,26 @@ class OutputTableSummaryReports(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `report_23_name`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `report_23_name`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Report 23 Name"] = value
 
@@ -9391,7 +10006,7 @@ class OutputTableSummaryReports(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `report_24_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -9492,16 +10107,26 @@ class OutputTableSummaryReports(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `report_24_name`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `report_24_name`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Report 24 Name"] = value
 
@@ -9620,7 +10245,7 @@ class OutputTableSummaryReports(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `report_25_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -9721,16 +10346,26 @@ class OutputTableSummaryReports(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `report_25_name`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `report_25_name`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Report 25 Name"] = value
 
@@ -9849,7 +10484,7 @@ class OutputTableSummaryReports(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `report_26_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -9950,16 +10585,26 @@ class OutputTableSummaryReports(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `report_26_name`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `report_26_name`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Report 26 Name"] = value
 
@@ -10078,7 +10723,7 @@ class OutputTableSummaryReports(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `report_27_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -10179,16 +10824,26 @@ class OutputTableSummaryReports(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `report_27_name`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `report_27_name`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Report 27 Name"] = value
 
@@ -10307,7 +10962,7 @@ class OutputTableSummaryReports(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `report_28_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -10408,16 +11063,26 @@ class OutputTableSummaryReports(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `report_28_name`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `report_28_name`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Report 28 Name"] = value
 
@@ -10536,7 +11201,7 @@ class OutputTableSummaryReports(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `report_29_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -10637,16 +11302,26 @@ class OutputTableSummaryReports(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `report_29_name`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `report_29_name`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Report 29 Name"] = value
 
@@ -10765,7 +11440,7 @@ class OutputTableSummaryReports(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `report_30_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -10866,16 +11541,26 @@ class OutputTableSummaryReports(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `report_30_name`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `report_30_name`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Report 30 Name"] = value
 
@@ -10994,7 +11679,7 @@ class OutputTableSummaryReports(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `report_31_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -11095,16 +11780,26 @@ class OutputTableSummaryReports(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `report_31_name`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `report_31_name`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Report 31 Name"] = value
 
@@ -11223,7 +11918,7 @@ class OutputTableSummaryReports(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `report_32_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -11324,16 +12019,26 @@ class OutputTableSummaryReports(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `report_32_name`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `report_32_name`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Report 32 Name"] = value
 
@@ -11452,7 +12157,7 @@ class OutputTableSummaryReports(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `report_33_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -11553,16 +12258,26 @@ class OutputTableSummaryReports(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `report_33_name`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `report_33_name`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Report 33 Name"] = value
 
@@ -11681,7 +12396,7 @@ class OutputTableSummaryReports(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `report_34_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -11782,16 +12497,26 @@ class OutputTableSummaryReports(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `report_34_name`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `report_34_name`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Report 34 Name"] = value
 
@@ -11910,7 +12635,7 @@ class OutputTableSummaryReports(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `report_35_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -12011,16 +12736,26 @@ class OutputTableSummaryReports(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `report_35_name`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `report_35_name`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Report 35 Name"] = value
 
@@ -12139,7 +12874,7 @@ class OutputTableSummaryReports(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `report_36_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -12240,16 +12975,26 @@ class OutputTableSummaryReports(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `report_36_name`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `report_36_name`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Report 36 Name"] = value
 
@@ -12368,7 +13113,7 @@ class OutputTableSummaryReports(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `report_37_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -12469,16 +13214,26 @@ class OutputTableSummaryReports(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `report_37_name`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `report_37_name`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Report 37 Name"] = value
 
@@ -12597,7 +13352,7 @@ class OutputTableSummaryReports(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `report_38_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -12698,16 +13453,26 @@ class OutputTableSummaryReports(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `report_38_name`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `report_38_name`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Report 38 Name"] = value
 
@@ -12826,7 +13591,7 @@ class OutputTableSummaryReports(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `report_39_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -12927,16 +13692,26 @@ class OutputTableSummaryReports(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `report_39_name`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `report_39_name`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Report 39 Name"] = value
 
@@ -13055,7 +13830,7 @@ class OutputTableSummaryReports(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `report_40_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -13156,16 +13931,26 @@ class OutputTableSummaryReports(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `report_40_name`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `report_40_name`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Report 40 Name"] = value
 
@@ -13284,7 +14069,7 @@ class OutputTableSummaryReports(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `report_41_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -13385,16 +14170,26 @@ class OutputTableSummaryReports(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `report_41_name`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `report_41_name`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Report 41 Name"] = value
 
@@ -13513,7 +14308,7 @@ class OutputTableSummaryReports(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `report_42_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -13614,16 +14409,26 @@ class OutputTableSummaryReports(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `report_42_name`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `report_42_name`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Report 42 Name"] = value
 
@@ -13742,7 +14547,7 @@ class OutputTableSummaryReports(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `report_43_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -13843,16 +14648,26 @@ class OutputTableSummaryReports(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `report_43_name`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `report_43_name`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Report 43 Name"] = value
 
@@ -13971,7 +14786,7 @@ class OutputTableSummaryReports(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `report_44_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -14072,16 +14887,26 @@ class OutputTableSummaryReports(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `report_44_name`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `report_44_name`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Report 44 Name"] = value
 
@@ -14200,7 +15025,7 @@ class OutputTableSummaryReports(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `report_45_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -14301,16 +15126,26 @@ class OutputTableSummaryReports(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `report_45_name`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `report_45_name`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Report 45 Name"] = value
 
@@ -14429,7 +15264,7 @@ class OutputTableSummaryReports(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `report_46_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -14530,16 +15365,26 @@ class OutputTableSummaryReports(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `report_46_name`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `report_46_name`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Report 46 Name"] = value
 
@@ -14658,7 +15503,7 @@ class OutputTableSummaryReports(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `report_47_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -14759,16 +15604,26 @@ class OutputTableSummaryReports(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `report_47_name`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `report_47_name`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Report 47 Name"] = value
 
@@ -14887,7 +15742,7 @@ class OutputTableSummaryReports(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `report_48_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -14988,16 +15843,26 @@ class OutputTableSummaryReports(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `report_48_name`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `report_48_name`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Report 48 Name"] = value
 
@@ -15116,7 +15981,7 @@ class OutputTableSummaryReports(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `report_49_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -15217,16 +16082,26 @@ class OutputTableSummaryReports(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `report_49_name`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `report_49_name`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Report 49 Name"] = value
 
@@ -15345,7 +16220,7 @@ class OutputTableSummaryReports(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `report_50_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -15446,16 +16321,26 @@ class OutputTableSummaryReports(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `report_50_name`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `report_50_name`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Report 50 Name"] = value
 
@@ -15574,7 +16459,7 @@ class OutputTableSummaryReports(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `report_51_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -15675,16 +16560,26 @@ class OutputTableSummaryReports(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `report_51_name`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `report_51_name`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Report 51 Name"] = value
 
@@ -15803,7 +16698,7 @@ class OutputTableSummaryReports(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `report_52_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -15904,16 +16799,26 @@ class OutputTableSummaryReports(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `report_52_name`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `report_52_name`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Report 52 Name"] = value
 
@@ -16032,7 +16937,7 @@ class OutputTableSummaryReports(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `report_53_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -16133,16 +17038,26 @@ class OutputTableSummaryReports(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `report_53_name`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `report_53_name`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Report 53 Name"] = value
 
@@ -16261,7 +17176,7 @@ class OutputTableSummaryReports(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `report_54_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -16362,16 +17277,26 @@ class OutputTableSummaryReports(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `report_54_name`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `report_54_name`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Report 54 Name"] = value
 
@@ -16490,7 +17415,7 @@ class OutputTableSummaryReports(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `report_55_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -16591,16 +17516,26 @@ class OutputTableSummaryReports(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `report_55_name`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `report_55_name`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Report 55 Name"] = value
 
@@ -16719,7 +17654,7 @@ class OutputTableSummaryReports(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `report_56_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -16820,16 +17755,26 @@ class OutputTableSummaryReports(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `report_56_name`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `report_56_name`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Report 56 Name"] = value
 
@@ -16948,7 +17893,7 @@ class OutputTableSummaryReports(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `report_57_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -17049,16 +17994,26 @@ class OutputTableSummaryReports(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `report_57_name`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `report_57_name`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Report 57 Name"] = value
 
@@ -17177,7 +18132,7 @@ class OutputTableSummaryReports(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `report_58_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -17278,16 +18233,26 @@ class OutputTableSummaryReports(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `report_58_name`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `report_58_name`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Report 58 Name"] = value
 
@@ -17406,7 +18371,7 @@ class OutputTableSummaryReports(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `report_59_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -17507,16 +18472,26 @@ class OutputTableSummaryReports(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `report_59_name`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `report_59_name`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Report 59 Name"] = value
 
@@ -17635,7 +18610,7 @@ class OutputTableSummaryReports(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `report_60_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -17736,16 +18711,26 @@ class OutputTableSummaryReports(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `report_60_name`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `report_60_name`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Report 60 Name"] = value
 
@@ -17864,7 +18849,7 @@ class OutputTableSummaryReports(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `report_61_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -17965,16 +18950,26 @@ class OutputTableSummaryReports(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `report_61_name`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `report_61_name`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Report 61 Name"] = value
 
@@ -18093,7 +19088,7 @@ class OutputTableSummaryReports(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `report_62_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -18194,16 +19189,26 @@ class OutputTableSummaryReports(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `report_62_name`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `report_62_name`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Report 62 Name"] = value
 
@@ -18322,7 +19327,7 @@ class OutputTableSummaryReports(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `report_63_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -18423,16 +19428,26 @@ class OutputTableSummaryReports(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `report_63_name`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `report_63_name`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Report 63 Name"] = value
 
@@ -18551,7 +19566,7 @@ class OutputTableSummaryReports(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `report_64_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -18652,16 +19667,26 @@ class OutputTableSummaryReports(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `report_64_name`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `report_64_name`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Report 64 Name"] = value
 
@@ -18780,7 +19805,7 @@ class OutputTableSummaryReports(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `report_65_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -18881,16 +19906,26 @@ class OutputTableSummaryReports(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `report_65_name`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `report_65_name`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Report 65 Name"] = value
 
@@ -19009,7 +20044,7 @@ class OutputTableSummaryReports(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `report_66_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -19110,16 +20145,26 @@ class OutputTableSummaryReports(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `report_66_name`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `report_66_name`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Report 66 Name"] = value
 
@@ -19238,7 +20283,7 @@ class OutputTableSummaryReports(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `report_67_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -19339,16 +20384,26 @@ class OutputTableSummaryReports(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `report_67_name`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `report_67_name`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Report 67 Name"] = value
 
@@ -19467,7 +20522,7 @@ class OutputTableSummaryReports(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `report_68_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -19568,16 +20623,26 @@ class OutputTableSummaryReports(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `report_68_name`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `report_68_name`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Report 68 Name"] = value
 
@@ -19696,7 +20761,7 @@ class OutputTableSummaryReports(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `report_69_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -19797,16 +20862,26 @@ class OutputTableSummaryReports(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `report_69_name`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `report_69_name`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Report 69 Name"] = value
 
@@ -19925,7 +21000,7 @@ class OutputTableSummaryReports(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `report_70_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -20026,16 +21101,26 @@ class OutputTableSummaryReports(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `report_70_name`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `report_70_name`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Report 70 Name"] = value
 
@@ -20154,7 +21239,7 @@ class OutputTableSummaryReports(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `report_71_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -20255,16 +21340,26 @@ class OutputTableSummaryReports(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `report_71_name`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `report_71_name`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Report 71 Name"] = value
 
@@ -20383,7 +21478,7 @@ class OutputTableSummaryReports(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `report_72_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -20484,16 +21579,26 @@ class OutputTableSummaryReports(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `report_72_name`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `report_72_name`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Report 72 Name"] = value
 
@@ -20612,7 +21717,7 @@ class OutputTableSummaryReports(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `report_73_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -20713,16 +21818,26 @@ class OutputTableSummaryReports(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `report_73_name`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `report_73_name`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Report 73 Name"] = value
 
@@ -20841,7 +21956,7 @@ class OutputTableSummaryReports(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `report_74_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -20942,16 +22057,26 @@ class OutputTableSummaryReports(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `report_74_name`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `report_74_name`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Report 74 Name"] = value
 
@@ -21070,7 +22195,7 @@ class OutputTableSummaryReports(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `report_75_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -21171,16 +22296,26 @@ class OutputTableSummaryReports(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `report_75_name`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `report_75_name`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Report 75 Name"] = value
 
@@ -21299,7 +22434,7 @@ class OutputTableSummaryReports(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `report_76_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -21400,16 +22535,26 @@ class OutputTableSummaryReports(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `report_76_name`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `report_76_name`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Report 76 Name"] = value
 
@@ -21528,7 +22673,7 @@ class OutputTableSummaryReports(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `report_77_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -21629,16 +22774,26 @@ class OutputTableSummaryReports(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `report_77_name`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `report_77_name`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Report 77 Name"] = value
 
@@ -21757,7 +22912,7 @@ class OutputTableSummaryReports(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `report_78_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -21858,16 +23013,26 @@ class OutputTableSummaryReports(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `report_78_name`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `report_78_name`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Report 78 Name"] = value
 
@@ -21986,7 +23151,7 @@ class OutputTableSummaryReports(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `report_79_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -22087,16 +23252,26 @@ class OutputTableSummaryReports(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `report_79_name`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `report_79_name`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Report 79 Name"] = value
 
@@ -22215,7 +23390,7 @@ class OutputTableSummaryReports(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `report_80_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -22316,16 +23491,26 @@ class OutputTableSummaryReports(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `report_80_name`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `report_80_name`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Report 80 Name"] = value
 
@@ -22444,7 +23629,7 @@ class OutputTableSummaryReports(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `report_81_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -22545,16 +23730,26 @@ class OutputTableSummaryReports(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `report_81_name`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `report_81_name`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Report 81 Name"] = value
 
@@ -22673,7 +23868,7 @@ class OutputTableSummaryReports(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `report_82_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -22774,16 +23969,26 @@ class OutputTableSummaryReports(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `report_82_name`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `report_82_name`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Report 82 Name"] = value
 
@@ -22902,7 +24107,7 @@ class OutputTableSummaryReports(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `report_83_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -23003,16 +24208,26 @@ class OutputTableSummaryReports(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `report_83_name`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `report_83_name`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Report 83 Name"] = value
 
@@ -23055,7 +24270,6 @@ class OutputTableTimeBins(object):
         Produces a bin report in the table output file which shows the amount of time in hours
         that occurs in different bins for a single specific output variable or meter.
         Two different types of binning are reported: by month and by hour of the day.
-    
     """
     internal_name = "Output:Table:TimeBins"
     field_count = 7
@@ -23072,15 +24286,16 @@ class OutputTableTimeBins(object):
         self._data["Interval Count"] = None
         self._data["Schedule Name"] = None
         self._data["Variable Type"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.key_value = None
@@ -23131,6 +24346,7 @@ class OutputTableTimeBins(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def key_value(self):
@@ -23159,7 +24375,7 @@ class OutputTableTimeBins(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `key_value`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -23194,7 +24410,7 @@ class OutputTableTimeBins(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `variable_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -23220,6 +24436,7 @@ class OutputTableTimeBins(object):
 
         Args:
             value (float): value for IDD Field `Interval Start`
+                Units are based on field `A4`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -23230,7 +24447,7 @@ class OutputTableTimeBins(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `interval_start`'.format(value))
         self._data["Interval Start"] = value
 
@@ -23250,6 +24467,7 @@ class OutputTableTimeBins(object):
 
         Args:
             value (float): value for IDD Field `Interval Size`
+                Units are based on field `A4`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -23260,7 +24478,7 @@ class OutputTableTimeBins(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `interval_size`'.format(value))
         self._data["Interval Size"] = value
 
@@ -23293,8 +24511,15 @@ class OutputTableTimeBins(object):
             try:
                 value = int(value)
             except ValueError:
-                raise ValueError('value {} need to be of type int '
-                                 'for field `interval_count`'.format(value))
+                if not self.strict:
+                    try:
+                        conv_value = int(float(value))
+                        logging.warn('Cast float {} to int {}, precision may be lost '
+                                     'for field `interval_count`'.format(value, conv_value))
+                        value = conv_value
+                    except ValueError:
+                        raise ValueError('value {} need to be of type int '
+                                         'for field `interval_count`'.format(value))
             if value < 1:
                 raise ValueError('value need to be greater or equal 1 '
                                  'for field `interval_count`')
@@ -23330,7 +24555,7 @@ class OutputTableTimeBins(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -23371,7 +24596,7 @@ class OutputTableTimeBins(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `variable_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -23387,16 +24612,26 @@ class OutputTableTimeBins(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `variable_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `variable_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Variable Type"] = value
 
@@ -23436,12 +24671,12 @@ class OutputTableTimeBins(object):
 
 class OutputTableMonthly(object):
     """ Corresponds to IDD object `Output:Table:Monthly`
+        Provides a generic method of setting up tables of monthly results. The report
         has multiple columns that are each defined using a repeated group of fields for any
         number of columns. A single Output:Table:Monthly object often produces multiple
         tables in the output. A table is produced for every instance of a particular output
         variable. For example, a table defined with zone variables will be produced once for
         every zone.
-    
     """
     internal_name = "Output:Table:Monthly"
     field_count = 52
@@ -23503,15 +24738,16 @@ class OutputTableMonthly(object):
         self._data["Aggregation Type for Variable or Meter 24"] = None
         self._data["Variable or Meter 25 Name"] = None
         self._data["Aggregation Type for Variable or Meter 25"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -23877,6 +25113,7 @@ class OutputTableMonthly(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -23903,7 +25140,7 @@ class OutputTableMonthly(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -23941,8 +25178,15 @@ class OutputTableMonthly(object):
             try:
                 value = int(value)
             except ValueError:
-                raise ValueError('value {} need to be of type int '
-                                 'for field `digits_after_decimal`'.format(value))
+                if not self.strict:
+                    try:
+                        conv_value = int(float(value))
+                        logging.warn('Cast float {} to int {}, precision may be lost '
+                                     'for field `digits_after_decimal`'.format(value, conv_value))
+                        value = conv_value
+                    except ValueError:
+                        raise ValueError('value {} need to be of type int '
+                                         'for field `digits_after_decimal`'.format(value))
             if value < 0:
                 raise ValueError('value need to be greater or equal 0 '
                                  'for field `digits_after_decimal`')
@@ -23977,7 +25221,7 @@ class OutputTableMonthly(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `variable_or_meter_1_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -24072,7 +25316,7 @@ class OutputTableMonthly(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `aggregation_type_for_variable_or_meter_1`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -24097,16 +25341,26 @@ class OutputTableMonthly(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `aggregation_type_for_variable_or_meter_1`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `aggregation_type_for_variable_or_meter_1`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Aggregation Type for Variable or Meter 1"] = value
 
@@ -24135,7 +25389,7 @@ class OutputTableMonthly(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `variable_or_meter_2_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -24185,7 +25439,7 @@ class OutputTableMonthly(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `aggregation_type_for_variable_or_meter_2`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -24210,16 +25464,26 @@ class OutputTableMonthly(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `aggregation_type_for_variable_or_meter_2`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `aggregation_type_for_variable_or_meter_2`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Aggregation Type for Variable or Meter 2"] = value
 
@@ -24248,7 +25512,7 @@ class OutputTableMonthly(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `variable_or_meter_3_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -24298,7 +25562,7 @@ class OutputTableMonthly(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `aggregation_type_for_variable_or_meter_3`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -24323,16 +25587,26 @@ class OutputTableMonthly(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `aggregation_type_for_variable_or_meter_3`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `aggregation_type_for_variable_or_meter_3`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Aggregation Type for Variable or Meter 3"] = value
 
@@ -24361,7 +25635,7 @@ class OutputTableMonthly(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `variable_or_meter_4_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -24411,7 +25685,7 @@ class OutputTableMonthly(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `aggregation_type_for_variable_or_meter_4`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -24436,16 +25710,26 @@ class OutputTableMonthly(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `aggregation_type_for_variable_or_meter_4`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `aggregation_type_for_variable_or_meter_4`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Aggregation Type for Variable or Meter 4"] = value
 
@@ -24474,7 +25758,7 @@ class OutputTableMonthly(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `variable_or_meter_5_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -24524,7 +25808,7 @@ class OutputTableMonthly(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `aggregation_type_for_variable_or_meter_5`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -24549,16 +25833,26 @@ class OutputTableMonthly(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `aggregation_type_for_variable_or_meter_5`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `aggregation_type_for_variable_or_meter_5`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Aggregation Type for Variable or Meter 5"] = value
 
@@ -24587,7 +25881,7 @@ class OutputTableMonthly(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `variable_or_meter_6_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -24637,7 +25931,7 @@ class OutputTableMonthly(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `aggregation_type_for_variable_or_meter_6`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -24662,16 +25956,26 @@ class OutputTableMonthly(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `aggregation_type_for_variable_or_meter_6`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `aggregation_type_for_variable_or_meter_6`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Aggregation Type for Variable or Meter 6"] = value
 
@@ -24700,7 +26004,7 @@ class OutputTableMonthly(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `variable_or_meter_7_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -24750,7 +26054,7 @@ class OutputTableMonthly(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `aggregation_type_for_variable_or_meter_7`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -24775,16 +26079,26 @@ class OutputTableMonthly(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `aggregation_type_for_variable_or_meter_7`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `aggregation_type_for_variable_or_meter_7`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Aggregation Type for Variable or Meter 7"] = value
 
@@ -24813,7 +26127,7 @@ class OutputTableMonthly(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `variable_or_meter_8_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -24863,7 +26177,7 @@ class OutputTableMonthly(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `aggregation_type_for_variable_or_meter_8`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -24888,16 +26202,26 @@ class OutputTableMonthly(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `aggregation_type_for_variable_or_meter_8`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `aggregation_type_for_variable_or_meter_8`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Aggregation Type for Variable or Meter 8"] = value
 
@@ -24926,7 +26250,7 @@ class OutputTableMonthly(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `variable_or_meter_9_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -24976,7 +26300,7 @@ class OutputTableMonthly(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `aggregation_type_for_variable_or_meter_9`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -25001,16 +26325,26 @@ class OutputTableMonthly(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `aggregation_type_for_variable_or_meter_9`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `aggregation_type_for_variable_or_meter_9`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Aggregation Type for Variable or Meter 9"] = value
 
@@ -25039,7 +26373,7 @@ class OutputTableMonthly(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `variable_or_meter_10_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -25089,7 +26423,7 @@ class OutputTableMonthly(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `aggregation_type_for_variable_or_meter_10`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -25114,16 +26448,26 @@ class OutputTableMonthly(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `aggregation_type_for_variable_or_meter_10`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `aggregation_type_for_variable_or_meter_10`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Aggregation Type for Variable or Meter 10"] = value
 
@@ -25152,7 +26496,7 @@ class OutputTableMonthly(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `variable_or_meter_11_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -25202,7 +26546,7 @@ class OutputTableMonthly(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `aggregation_type_for_variable_or_meter_11`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -25227,16 +26571,26 @@ class OutputTableMonthly(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `aggregation_type_for_variable_or_meter_11`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `aggregation_type_for_variable_or_meter_11`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Aggregation Type for Variable or Meter 11"] = value
 
@@ -25265,7 +26619,7 @@ class OutputTableMonthly(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `variable_or_meter_12_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -25315,7 +26669,7 @@ class OutputTableMonthly(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `aggregation_type_for_variable_or_meter_12`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -25340,16 +26694,26 @@ class OutputTableMonthly(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `aggregation_type_for_variable_or_meter_12`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `aggregation_type_for_variable_or_meter_12`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Aggregation Type for Variable or Meter 12"] = value
 
@@ -25378,7 +26742,7 @@ class OutputTableMonthly(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `variable_or_meter_13_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -25428,7 +26792,7 @@ class OutputTableMonthly(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `aggregation_type_for_variable_or_meter_13`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -25453,16 +26817,26 @@ class OutputTableMonthly(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `aggregation_type_for_variable_or_meter_13`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `aggregation_type_for_variable_or_meter_13`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Aggregation Type for Variable or Meter 13"] = value
 
@@ -25491,7 +26865,7 @@ class OutputTableMonthly(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `variable_or_meter_14_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -25541,7 +26915,7 @@ class OutputTableMonthly(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `aggregation_type_for_variable_or_meter_14`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -25566,16 +26940,26 @@ class OutputTableMonthly(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `aggregation_type_for_variable_or_meter_14`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `aggregation_type_for_variable_or_meter_14`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Aggregation Type for Variable or Meter 14"] = value
 
@@ -25604,7 +26988,7 @@ class OutputTableMonthly(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `variable_or_meter_15_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -25654,7 +27038,7 @@ class OutputTableMonthly(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `aggregation_type_for_variable_or_meter_15`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -25679,16 +27063,26 @@ class OutputTableMonthly(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `aggregation_type_for_variable_or_meter_15`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `aggregation_type_for_variable_or_meter_15`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Aggregation Type for Variable or Meter 15"] = value
 
@@ -25717,7 +27111,7 @@ class OutputTableMonthly(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `variable_or_meter_16_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -25767,7 +27161,7 @@ class OutputTableMonthly(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `aggregation_type_for_variable_or_meter_16`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -25792,16 +27186,26 @@ class OutputTableMonthly(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `aggregation_type_for_variable_or_meter_16`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `aggregation_type_for_variable_or_meter_16`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Aggregation Type for Variable or Meter 16"] = value
 
@@ -25830,7 +27234,7 @@ class OutputTableMonthly(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `variable_or_meter_17_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -25880,7 +27284,7 @@ class OutputTableMonthly(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `aggregation_type_for_variable_or_meter_17`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -25905,16 +27309,26 @@ class OutputTableMonthly(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `aggregation_type_for_variable_or_meter_17`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `aggregation_type_for_variable_or_meter_17`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Aggregation Type for Variable or Meter 17"] = value
 
@@ -25943,7 +27357,7 @@ class OutputTableMonthly(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `variable_or_meter_18_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -25993,7 +27407,7 @@ class OutputTableMonthly(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `aggregation_type_for_variable_or_meter_18`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -26018,16 +27432,26 @@ class OutputTableMonthly(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `aggregation_type_for_variable_or_meter_18`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `aggregation_type_for_variable_or_meter_18`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Aggregation Type for Variable or Meter 18"] = value
 
@@ -26056,7 +27480,7 @@ class OutputTableMonthly(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `variable_or_meter_19_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -26106,7 +27530,7 @@ class OutputTableMonthly(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `aggregation_type_for_variable_or_meter_19`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -26131,16 +27555,26 @@ class OutputTableMonthly(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `aggregation_type_for_variable_or_meter_19`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `aggregation_type_for_variable_or_meter_19`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Aggregation Type for Variable or Meter 19"] = value
 
@@ -26169,7 +27603,7 @@ class OutputTableMonthly(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `variable_or_meter_20_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -26219,7 +27653,7 @@ class OutputTableMonthly(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `aggregation_type_for_variable_or_meter_20`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -26244,16 +27678,26 @@ class OutputTableMonthly(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `aggregation_type_for_variable_or_meter_20`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `aggregation_type_for_variable_or_meter_20`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Aggregation Type for Variable or Meter 20"] = value
 
@@ -26282,7 +27726,7 @@ class OutputTableMonthly(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `variable_or_meter_21_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -26332,7 +27776,7 @@ class OutputTableMonthly(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `aggregation_type_for_variable_or_meter_21`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -26357,16 +27801,26 @@ class OutputTableMonthly(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `aggregation_type_for_variable_or_meter_21`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `aggregation_type_for_variable_or_meter_21`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Aggregation Type for Variable or Meter 21"] = value
 
@@ -26395,7 +27849,7 @@ class OutputTableMonthly(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `variable_or_meter_22_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -26445,7 +27899,7 @@ class OutputTableMonthly(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `aggregation_type_for_variable_or_meter_22`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -26470,16 +27924,26 @@ class OutputTableMonthly(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `aggregation_type_for_variable_or_meter_22`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `aggregation_type_for_variable_or_meter_22`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Aggregation Type for Variable or Meter 22"] = value
 
@@ -26508,7 +27972,7 @@ class OutputTableMonthly(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `variable_or_meter_23_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -26558,7 +28022,7 @@ class OutputTableMonthly(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `aggregation_type_for_variable_or_meter_23`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -26583,16 +28047,26 @@ class OutputTableMonthly(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `aggregation_type_for_variable_or_meter_23`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `aggregation_type_for_variable_or_meter_23`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Aggregation Type for Variable or Meter 23"] = value
 
@@ -26621,7 +28095,7 @@ class OutputTableMonthly(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `variable_or_meter_24_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -26671,7 +28145,7 @@ class OutputTableMonthly(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `aggregation_type_for_variable_or_meter_24`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -26696,16 +28170,26 @@ class OutputTableMonthly(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `aggregation_type_for_variable_or_meter_24`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `aggregation_type_for_variable_or_meter_24`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Aggregation Type for Variable or Meter 24"] = value
 
@@ -26734,7 +28218,7 @@ class OutputTableMonthly(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `variable_or_meter_25_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -26784,7 +28268,7 @@ class OutputTableMonthly(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `aggregation_type_for_variable_or_meter_25`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -26809,16 +28293,26 @@ class OutputTableMonthly(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `aggregation_type_for_variable_or_meter_25`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `aggregation_type_for_variable_or_meter_25`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Aggregation Type for Variable or Meter 25"] = value
 
@@ -26863,7 +28357,6 @@ class OutputControlTableStyle(object):
         processing progams -- there tab may be a better choice.  fixed puts spaces between
         the "columns".  HTML produces tables in HTML. XML produces an XML file.
         note - if no OutputControl:Table:Style is included, the defaults are comma and None.
-    
     """
     internal_name = "OutputControl:Table:Style"
     field_count = 2
@@ -26875,15 +28368,16 @@ class OutputControlTableStyle(object):
         self._data = OrderedDict()
         self._data["Column Separator"] = None
         self._data["Unit Conversion"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.column_separator = None
@@ -26899,6 +28393,7 @@ class OutputControlTableStyle(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def column_separator(self):
@@ -26937,7 +28432,7 @@ class OutputControlTableStyle(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `column_separator`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -26959,16 +28454,26 @@ class OutputControlTableStyle(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `column_separator`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `column_separator`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Column Separator"] = value
 
@@ -27004,7 +28509,7 @@ class OutputControlTableStyle(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `unit_conversion`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -27021,16 +28526,26 @@ class OutputControlTableStyle(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `unit_conversion`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `unit_conversion`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Unit Conversion"] = value
 
@@ -27072,7 +28587,6 @@ class OutputControlReportingTolerances(object):
     """ Corresponds to IDD object `OutputControl:ReportingTolerances`
         Calculations of the time that setpoints are not met use a tolerance of 0.2C.
         This object allows changing the tolerance used to determine when setpoints are being met.
-    
     """
     internal_name = "OutputControl:ReportingTolerances"
     field_count = 2
@@ -27084,15 +28598,16 @@ class OutputControlReportingTolerances(object):
         self._data = OrderedDict()
         self._data["Tolerance for Time Heating Setpoint Not Met"] = None
         self._data["Tolerance for Time Cooling Setpoint Not Met"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.tolerance_for_time_heating_setpoint_not_met = None
@@ -27108,6 +28623,7 @@ class OutputControlReportingTolerances(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def tolerance_for_time_heating_setpoint_not_met(self):
@@ -27144,7 +28660,7 @@ class OutputControlReportingTolerances(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `tolerance_for_time_heating_setpoint_not_met`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -27189,7 +28705,7 @@ class OutputControlReportingTolerances(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `tolerance_for_time_cooling_setpoint_not_met`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
@@ -27239,7 +28755,6 @@ class OutputVariable(object):
         some variables may not be reported for every simulation.
         a list of variables that can be reported are available after a run on
         the report dictionary file (.rdd) if the Output:VariableDictionary has been requested.
-    
     """
     internal_name = "Output:Variable"
     field_count = 4
@@ -27253,15 +28768,16 @@ class OutputVariable(object):
         self._data["Variable Name"] = None
         self._data["Reporting Frequency"] = None
         self._data["Schedule Name"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.key_value = None
@@ -27291,6 +28807,7 @@ class OutputVariable(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def key_value(self):
@@ -27319,7 +28836,7 @@ class OutputVariable(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `key_value`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -27354,7 +28871,7 @@ class OutputVariable(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `variable_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -27403,7 +28920,7 @@ class OutputVariable(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `reporting_frequency`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -27423,16 +28940,26 @@ class OutputVariable(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `reporting_frequency`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `reporting_frequency`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Reporting Frequency"] = value
 
@@ -27461,7 +28988,7 @@ class OutputVariable(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -27511,7 +29038,6 @@ class OutputMeter(object):
         meter file (.mtr). Not all meters are reported in every simulation. A list of
         a list of meters that can be reported are available after a run on
         the meter dictionary file (.mdd) if the Output:VariableDictionary has been requested.
-    
     """
     internal_name = "Output:Meter"
     field_count = 2
@@ -27523,15 +29049,16 @@ class OutputMeter(object):
         self._data = OrderedDict()
         self._data["Name"] = None
         self._data["Reporting Frequency"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -27547,6 +29074,7 @@ class OutputMeter(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -27576,7 +29104,7 @@ class OutputMeter(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -27623,7 +29151,7 @@ class OutputMeter(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `reporting_frequency`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -27642,16 +29170,26 @@ class OutputMeter(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `reporting_frequency`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `reporting_frequency`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Reporting Frequency"] = value
 
@@ -27695,7 +29233,6 @@ class OutputMeterMeterFileOnly(object):
         Not all meters are reported in every simulation. A list of meters that can be reported
         a list of meters that can be reported are available after a run on
         the meter dictionary file (.mdd) if the Output:VariableDictionary has been requested.
-    
     """
     internal_name = "Output:Meter:MeterFileOnly"
     field_count = 2
@@ -27707,15 +29244,16 @@ class OutputMeterMeterFileOnly(object):
         self._data = OrderedDict()
         self._data["Name"] = None
         self._data["Reporting Frequency"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -27731,6 +29269,7 @@ class OutputMeterMeterFileOnly(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -27760,7 +29299,7 @@ class OutputMeterMeterFileOnly(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -27807,7 +29346,7 @@ class OutputMeterMeterFileOnly(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `reporting_frequency`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -27826,16 +29365,26 @@ class OutputMeterMeterFileOnly(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `reporting_frequency`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `reporting_frequency`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Reporting Frequency"] = value
 
@@ -27880,7 +29429,6 @@ class OutputMeterCumulative(object):
         simulation.
         a list of meters that can be reported are available after a run on
         the meter dictionary file (.mdd) if the Output:VariableDictionary has been requested.
-    
     """
     internal_name = "Output:Meter:Cumulative"
     field_count = 2
@@ -27892,15 +29440,16 @@ class OutputMeterCumulative(object):
         self._data = OrderedDict()
         self._data["Name"] = None
         self._data["Reporting Frequency"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -27916,6 +29465,7 @@ class OutputMeterCumulative(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -27945,7 +29495,7 @@ class OutputMeterCumulative(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -27992,7 +29542,7 @@ class OutputMeterCumulative(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `reporting_frequency`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -28011,16 +29561,26 @@ class OutputMeterCumulative(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `reporting_frequency`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `reporting_frequency`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Reporting Frequency"] = value
 
@@ -28065,7 +29625,6 @@ class OutputMeterCumulativeMeterFileOnly(object):
         every simulation.
         a list of meters that can be reported are available after a run on
         the meter dictionary file (.mdd) if the Output:VariableDictionary has been requested.
-    
     """
     internal_name = "Output:Meter:Cumulative:MeterFileOnly"
     field_count = 2
@@ -28077,15 +29636,16 @@ class OutputMeterCumulativeMeterFileOnly(object):
         self._data = OrderedDict()
         self._data["Name"] = None
         self._data["Reporting Frequency"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -28101,6 +29661,7 @@ class OutputMeterCumulativeMeterFileOnly(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -28130,7 +29691,7 @@ class OutputMeterCumulativeMeterFileOnly(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -28177,7 +29738,7 @@ class OutputMeterCumulativeMeterFileOnly(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `reporting_frequency`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -28196,16 +29757,26 @@ class OutputMeterCumulativeMeterFileOnly(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `reporting_frequency`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `reporting_frequency`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Reporting Frequency"] = value
 
@@ -28248,7 +29819,6 @@ class MeterCustom(object):
         Used to allow users to combine specific variables and/or meters into
         "custom" meter configurations. To access these meters by name, one must
         first run a simulation to generate the RDD/MDD files and names.
-    
     """
     internal_name = "Meter:Custom"
     field_count = 46
@@ -28304,15 +29874,16 @@ class MeterCustom(object):
         self._data["Output Variable or Meter Name 21"] = None
         self._data["Key Name 22"] = None
         self._data["Output Variable or Meter Name 22"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -28636,6 +30207,7 @@ class MeterCustom(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -28662,7 +30234,7 @@ class MeterCustom(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -28710,7 +30282,7 @@ class MeterCustom(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `fuel_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -28734,16 +30306,26 @@ class MeterCustom(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `fuel_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `fuel_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Fuel Type"] = value
 
@@ -28772,7 +30354,7 @@ class MeterCustom(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `key_name_1`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -28807,7 +30389,7 @@ class MeterCustom(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `output_variable_or_meter_name_1`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -28842,7 +30424,7 @@ class MeterCustom(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `key_name_2`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -28877,7 +30459,7 @@ class MeterCustom(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `output_variable_or_meter_name_2`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -28912,7 +30494,7 @@ class MeterCustom(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `key_name_3`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -28947,7 +30529,7 @@ class MeterCustom(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `output_variable_or_meter_name_3`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -28982,7 +30564,7 @@ class MeterCustom(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `key_name_4`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -29017,7 +30599,7 @@ class MeterCustom(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `output_variable_or_meter_name_4`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -29052,7 +30634,7 @@ class MeterCustom(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `key_name_5`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -29087,7 +30669,7 @@ class MeterCustom(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `output_variable_or_meter_name_5`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -29122,7 +30704,7 @@ class MeterCustom(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `key_name_6`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -29157,7 +30739,7 @@ class MeterCustom(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `output_variable_or_meter_name_6`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -29192,7 +30774,7 @@ class MeterCustom(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `key_name_7`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -29227,7 +30809,7 @@ class MeterCustom(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `output_variable_or_meter_name_7`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -29262,7 +30844,7 @@ class MeterCustom(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `key_name_8`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -29297,7 +30879,7 @@ class MeterCustom(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `output_variable_or_meter_name_8`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -29332,7 +30914,7 @@ class MeterCustom(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `key_name_9`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -29367,7 +30949,7 @@ class MeterCustom(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `output_variable_or_meter_name_9`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -29402,7 +30984,7 @@ class MeterCustom(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `key_name_10`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -29437,7 +31019,7 @@ class MeterCustom(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `output_variable_or_meter_name_10`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -29472,7 +31054,7 @@ class MeterCustom(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `key_name_11`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -29507,7 +31089,7 @@ class MeterCustom(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `output_variable_or_meter_name_11`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -29542,7 +31124,7 @@ class MeterCustom(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `key_name_12`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -29577,7 +31159,7 @@ class MeterCustom(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `output_variable_or_meter_name_12`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -29612,7 +31194,7 @@ class MeterCustom(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `key_name_13`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -29647,7 +31229,7 @@ class MeterCustom(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `output_variable_or_meter_name_13`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -29682,7 +31264,7 @@ class MeterCustom(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `key_name_14`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -29717,7 +31299,7 @@ class MeterCustom(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `output_variable_or_meter_name_14`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -29752,7 +31334,7 @@ class MeterCustom(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `key_name_15`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -29787,7 +31369,7 @@ class MeterCustom(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `output_variable_or_meter_name_15`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -29822,7 +31404,7 @@ class MeterCustom(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `key_name_16`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -29857,7 +31439,7 @@ class MeterCustom(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `output_variable_or_meter_name_16`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -29892,7 +31474,7 @@ class MeterCustom(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `key_name_17`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -29927,7 +31509,7 @@ class MeterCustom(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `output_variable_or_meter_name_17`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -29962,7 +31544,7 @@ class MeterCustom(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `key_name_18`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -29997,7 +31579,7 @@ class MeterCustom(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `output_variable_or_meter_name_18`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -30032,7 +31614,7 @@ class MeterCustom(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `key_name_19`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -30067,7 +31649,7 @@ class MeterCustom(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `output_variable_or_meter_name_19`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -30102,7 +31684,7 @@ class MeterCustom(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `key_name_20`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -30137,7 +31719,7 @@ class MeterCustom(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `output_variable_or_meter_name_20`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -30172,7 +31754,7 @@ class MeterCustom(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `key_name_21`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -30207,7 +31789,7 @@ class MeterCustom(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `output_variable_or_meter_name_21`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -30242,7 +31824,7 @@ class MeterCustom(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `key_name_22`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -30277,7 +31859,7 @@ class MeterCustom(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `output_variable_or_meter_name_22`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -30326,7 +31908,6 @@ class MeterCustomDecrement(object):
         Used to allow users to combine specific variables and/or meters into
         "custom" meter configurations. To access these meters by name, one must
         first run a simulation to generate the RDD/MDD files and names.
-    
     """
     internal_name = "Meter:CustomDecrement"
     field_count = 47
@@ -30383,15 +31964,16 @@ class MeterCustomDecrement(object):
         self._data["Output Variable or Meter Name 21"] = None
         self._data["Key Name 22"] = None
         self._data["Output Variable or Meter Name 22"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.name = None
@@ -30722,6 +32304,7 @@ class MeterCustomDecrement(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def name(self):
@@ -30748,7 +32331,7 @@ class MeterCustomDecrement(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -30796,7 +32379,7 @@ class MeterCustomDecrement(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `fuel_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -30820,16 +32403,26 @@ class MeterCustomDecrement(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `fuel_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `fuel_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Fuel Type"] = value
 
@@ -30858,7 +32451,7 @@ class MeterCustomDecrement(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `source_meter_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -30893,7 +32486,7 @@ class MeterCustomDecrement(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `key_name_1`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -30928,7 +32521,7 @@ class MeterCustomDecrement(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `output_variable_or_meter_name_1`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -30963,7 +32556,7 @@ class MeterCustomDecrement(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `key_name_2`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -30998,7 +32591,7 @@ class MeterCustomDecrement(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `output_variable_or_meter_name_2`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -31033,7 +32626,7 @@ class MeterCustomDecrement(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `key_name_3`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -31068,7 +32661,7 @@ class MeterCustomDecrement(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `output_variable_or_meter_name_3`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -31103,7 +32696,7 @@ class MeterCustomDecrement(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `key_name_4`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -31138,7 +32731,7 @@ class MeterCustomDecrement(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `output_variable_or_meter_name_4`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -31173,7 +32766,7 @@ class MeterCustomDecrement(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `key_name_5`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -31208,7 +32801,7 @@ class MeterCustomDecrement(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `output_variable_or_meter_name_5`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -31243,7 +32836,7 @@ class MeterCustomDecrement(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `key_name_6`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -31278,7 +32871,7 @@ class MeterCustomDecrement(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `output_variable_or_meter_name_6`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -31313,7 +32906,7 @@ class MeterCustomDecrement(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `key_name_7`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -31348,7 +32941,7 @@ class MeterCustomDecrement(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `output_variable_or_meter_name_7`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -31383,7 +32976,7 @@ class MeterCustomDecrement(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `key_name_8`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -31418,7 +33011,7 @@ class MeterCustomDecrement(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `output_variable_or_meter_name_8`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -31453,7 +33046,7 @@ class MeterCustomDecrement(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `key_name_9`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -31488,7 +33081,7 @@ class MeterCustomDecrement(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `output_variable_or_meter_name_9`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -31523,7 +33116,7 @@ class MeterCustomDecrement(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `key_name_10`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -31558,7 +33151,7 @@ class MeterCustomDecrement(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `output_variable_or_meter_name_10`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -31593,7 +33186,7 @@ class MeterCustomDecrement(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `key_name_11`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -31628,7 +33221,7 @@ class MeterCustomDecrement(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `output_variable_or_meter_name_11`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -31663,7 +33256,7 @@ class MeterCustomDecrement(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `key_name_12`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -31698,7 +33291,7 @@ class MeterCustomDecrement(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `output_variable_or_meter_name_12`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -31733,7 +33326,7 @@ class MeterCustomDecrement(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `key_name_13`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -31768,7 +33361,7 @@ class MeterCustomDecrement(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `output_variable_or_meter_name_13`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -31803,7 +33396,7 @@ class MeterCustomDecrement(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `key_name_14`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -31838,7 +33431,7 @@ class MeterCustomDecrement(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `output_variable_or_meter_name_14`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -31873,7 +33466,7 @@ class MeterCustomDecrement(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `key_name_15`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -31908,7 +33501,7 @@ class MeterCustomDecrement(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `output_variable_or_meter_name_15`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -31943,7 +33536,7 @@ class MeterCustomDecrement(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `key_name_16`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -31978,7 +33571,7 @@ class MeterCustomDecrement(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `output_variable_or_meter_name_16`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -32013,7 +33606,7 @@ class MeterCustomDecrement(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `key_name_17`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -32048,7 +33641,7 @@ class MeterCustomDecrement(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `output_variable_or_meter_name_17`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -32083,7 +33676,7 @@ class MeterCustomDecrement(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `key_name_18`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -32118,7 +33711,7 @@ class MeterCustomDecrement(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `output_variable_or_meter_name_18`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -32153,7 +33746,7 @@ class MeterCustomDecrement(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `key_name_19`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -32188,7 +33781,7 @@ class MeterCustomDecrement(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `output_variable_or_meter_name_19`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -32223,7 +33816,7 @@ class MeterCustomDecrement(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `key_name_20`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -32258,7 +33851,7 @@ class MeterCustomDecrement(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `output_variable_or_meter_name_20`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -32293,7 +33886,7 @@ class MeterCustomDecrement(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `key_name_21`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -32328,7 +33921,7 @@ class MeterCustomDecrement(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `output_variable_or_meter_name_21`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -32363,7 +33956,7 @@ class MeterCustomDecrement(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `key_name_22`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -32398,7 +33991,7 @@ class MeterCustomDecrement(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `output_variable_or_meter_name_22`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -32445,7 +34038,6 @@ class MeterCustomDecrement(object):
 class OutputSqlite(object):
     """ Corresponds to IDD object `Output:SQLite`
         Output from EnergyPlus can be written to an SQLite format file.
-    
     """
     internal_name = "Output:SQLite"
     field_count = 1
@@ -32456,15 +34048,16 @@ class OutputSqlite(object):
         """
         self._data = OrderedDict()
         self._data["Option Type"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.option_type = None
@@ -32473,6 +34066,7 @@ class OutputSqlite(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def option_type(self):
@@ -32502,7 +34096,7 @@ class OutputSqlite(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `option_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -32516,16 +34110,26 @@ class OutputSqlite(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `option_type`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `option_type`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Option Type"] = value
 
@@ -32567,7 +34171,6 @@ class OutputEnvironmentalImpactFactors(object):
     """ Corresponds to IDD object `Output:EnvironmentalImpactFactors`
         This is used to Automatically report the facility meters and turn on the Environmental Impact Report calculations
         for all of the Environmental Factors.
-    
     """
     internal_name = "Output:EnvironmentalImpactFactors"
     field_count = 1
@@ -32578,15 +34181,16 @@ class OutputEnvironmentalImpactFactors(object):
         """
         self._data = OrderedDict()
         self._data["Reporting Frequency"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.reporting_frequency = None
@@ -32595,6 +34199,7 @@ class OutputEnvironmentalImpactFactors(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def reporting_frequency(self):
@@ -32627,7 +34232,7 @@ class OutputEnvironmentalImpactFactors(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `reporting_frequency`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -32644,16 +34249,26 @@ class OutputEnvironmentalImpactFactors(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `reporting_frequency`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `reporting_frequency`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Reporting Frequency"] = value
 
@@ -32695,7 +34310,6 @@ class EnvironmentalImpactFactors(object):
     """ Corresponds to IDD object `EnvironmentalImpactFactors`
         Used to help convert district and ideal energy use to a fuel type and provide total carbon equivalent with coefficients
         Also used in Source=>Site conversions.
-    
     """
     internal_name = "EnvironmentalImpactFactors"
     field_count = 6
@@ -32711,15 +34325,16 @@ class EnvironmentalImpactFactors(object):
         self._data["Total Carbon Equivalent Emission Factor From N2O"] = None
         self._data["Total Carbon Equivalent Emission Factor From CH4"] = None
         self._data["Total Carbon Equivalent Emission Factor From CO2"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.district_heating_efficiency = None
@@ -32763,6 +34378,7 @@ class EnvironmentalImpactFactors(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def district_heating_efficiency(self):
@@ -32792,7 +34408,7 @@ class EnvironmentalImpactFactors(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `district_heating_efficiency`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -32828,7 +34444,7 @@ class EnvironmentalImpactFactors(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `district_cooling_cop`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -32863,7 +34479,7 @@ class EnvironmentalImpactFactors(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `steam_conversion_efficiency`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
@@ -32897,7 +34513,7 @@ class EnvironmentalImpactFactors(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `total_carbon_equivalent_emission_factor_from_n2o`'.format(value))
         self._data["Total Carbon Equivalent Emission Factor From N2O"] = value
 
@@ -32928,7 +34544,7 @@ class EnvironmentalImpactFactors(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `total_carbon_equivalent_emission_factor_from_ch4`'.format(value))
         self._data["Total Carbon Equivalent Emission Factor From CH4"] = value
 
@@ -32959,7 +34575,7 @@ class EnvironmentalImpactFactors(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `total_carbon_equivalent_emission_factor_from_co2`'.format(value))
         self._data["Total Carbon Equivalent Emission Factor From CO2"] = value
 
@@ -33002,7 +34618,6 @@ class FuelFactors(object):
         Provides Fuel Factors for Emissions as well as Source=>Site conversions.
         OtherFuel1, OtherFuel2 provide options for users who want to create and use
         fuels that may not be mainstream (biomass, wood, pellets).
-    
     """
     internal_name = "FuelFactors"
     field_count = 37
@@ -33049,15 +34664,16 @@ class FuelFactors(object):
         self._data["Nuclear High Level Emission Factor Schedule Name"] = None
         self._data["Nuclear Low Level Emission Factor"] = None
         self._data["Nuclear Low Level Emission Factor Schedule Name"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.existing_fuel_resource_name = None
@@ -33318,6 +34934,7 @@ class FuelFactors(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def existing_fuel_resource_name(self):
@@ -33355,7 +34972,7 @@ class FuelFactors(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `existing_fuel_resource_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -33377,16 +34994,26 @@ class FuelFactors(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `existing_fuel_resource_name`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `existing_fuel_resource_name`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Existing Fuel Resource Name"] = value
 
@@ -33415,7 +35042,7 @@ class FuelFactors(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `units_of_measure`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -33450,7 +35077,7 @@ class FuelFactors(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `energy_per_unit_factor`'.format(value))
         self._data["Energy per Unit Factor"] = value
 
@@ -33480,7 +35107,7 @@ class FuelFactors(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `source_energy_factor`'.format(value))
         self._data["Source Energy Factor"] = value
 
@@ -33509,7 +35136,7 @@ class FuelFactors(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `source_energy_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -33545,7 +35172,7 @@ class FuelFactors(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `co2_emission_factor`'.format(value))
         self._data["CO2 Emission Factor"] = value
 
@@ -33574,7 +35201,7 @@ class FuelFactors(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `co2_emission_factor_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -33610,7 +35237,7 @@ class FuelFactors(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `co_emission_factor`'.format(value))
         self._data["CO Emission Factor"] = value
 
@@ -33639,7 +35266,7 @@ class FuelFactors(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `co_emission_factor_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -33675,7 +35302,7 @@ class FuelFactors(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `ch4_emission_factor`'.format(value))
         self._data["CH4 Emission Factor"] = value
 
@@ -33704,7 +35331,7 @@ class FuelFactors(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `ch4_emission_factor_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -33740,7 +35367,7 @@ class FuelFactors(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `nox_emission_factor`'.format(value))
         self._data["NOx Emission Factor"] = value
 
@@ -33769,7 +35396,7 @@ class FuelFactors(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `nox_emission_factor_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -33805,7 +35432,7 @@ class FuelFactors(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `n2o_emission_factor`'.format(value))
         self._data["N2O Emission Factor"] = value
 
@@ -33834,7 +35461,7 @@ class FuelFactors(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `n2o_emission_factor_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -33870,7 +35497,7 @@ class FuelFactors(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `so2_emission_factor`'.format(value))
         self._data["SO2 Emission Factor"] = value
 
@@ -33899,7 +35526,7 @@ class FuelFactors(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `so2_emission_factor_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -33935,7 +35562,7 @@ class FuelFactors(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `pm_emission_factor`'.format(value))
         self._data["PM Emission Factor"] = value
 
@@ -33964,7 +35591,7 @@ class FuelFactors(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `pm_emission_factor_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -34000,7 +35627,7 @@ class FuelFactors(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `pm10_emission_factor`'.format(value))
         self._data["PM10 Emission Factor"] = value
 
@@ -34029,7 +35656,7 @@ class FuelFactors(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `pm10_emission_factor_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -34065,7 +35692,7 @@ class FuelFactors(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `pm2_5_emission_factor`'.format(value))
         self._data["PM2.5 Emission Factor"] = value
 
@@ -34094,7 +35721,7 @@ class FuelFactors(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `pm2_5_emission_factor_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -34130,7 +35757,7 @@ class FuelFactors(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `nh3_emission_factor`'.format(value))
         self._data["NH3 Emission Factor"] = value
 
@@ -34159,7 +35786,7 @@ class FuelFactors(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `nh3_emission_factor_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -34195,7 +35822,7 @@ class FuelFactors(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `nmvoc_emission_factor`'.format(value))
         self._data["NMVOC Emission Factor"] = value
 
@@ -34224,7 +35851,7 @@ class FuelFactors(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `nmvoc_emission_factor_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -34260,7 +35887,7 @@ class FuelFactors(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `hg_emission_factor`'.format(value))
         self._data["Hg Emission Factor"] = value
 
@@ -34289,7 +35916,7 @@ class FuelFactors(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `hg_emission_factor_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -34325,7 +35952,7 @@ class FuelFactors(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `pb_emission_factor`'.format(value))
         self._data["Pb Emission Factor"] = value
 
@@ -34354,7 +35981,7 @@ class FuelFactors(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `pb_emission_factor_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -34390,7 +36017,7 @@ class FuelFactors(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `water_emission_factor`'.format(value))
         self._data["Water Emission Factor"] = value
 
@@ -34419,7 +36046,7 @@ class FuelFactors(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `water_emission_factor_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -34455,7 +36082,7 @@ class FuelFactors(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `nuclear_high_level_emission_factor`'.format(value))
         self._data["Nuclear High Level Emission Factor"] = value
 
@@ -34484,7 +36111,7 @@ class FuelFactors(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `nuclear_high_level_emission_factor_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -34520,7 +36147,7 @@ class FuelFactors(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `nuclear_low_level_emission_factor`'.format(value))
         self._data["Nuclear Low Level Emission Factor"] = value
 
@@ -34549,7 +36176,7 @@ class FuelFactors(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `nuclear_low_level_emission_factor_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -34596,7 +36223,6 @@ class FuelFactors(object):
 class OutputDiagnostics(object):
     """ Corresponds to IDD object `Output:Diagnostics`
         Special keys to produce certain warning messages or effect certain simulation characteristics.
-    
     """
     internal_name = "Output:Diagnostics"
     field_count = 2
@@ -34608,15 +36234,16 @@ class OutputDiagnostics(object):
         self._data = OrderedDict()
         self._data["Key 1"] = None
         self._data["Key 2"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.key_1 = None
@@ -34632,6 +36259,7 @@ class OutputDiagnostics(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def key_1(self):
@@ -34669,7 +36297,7 @@ class OutputDiagnostics(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `key_1`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -34691,16 +36319,26 @@ class OutputDiagnostics(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `key_1`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `key_1`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Key 1"] = value
 
@@ -34740,7 +36378,7 @@ class OutputDiagnostics(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `key_2`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -34762,16 +36400,26 @@ class OutputDiagnostics(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `key_2`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `key_2`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Key 2"] = value
 
@@ -34812,7 +36460,6 @@ class OutputDiagnostics(object):
 class OutputDebuggingData(object):
     """ Corresponds to IDD object `Output:DebuggingData`
         switch eplusout.dbg file on or off
-    
     """
     internal_name = "Output:DebuggingData"
     field_count = 2
@@ -34824,15 +36471,16 @@ class OutputDebuggingData(object):
         self._data = OrderedDict()
         self._data["Report Debugging Data"] = None
         self._data["Report During Warmup"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.report_debugging_data = None
@@ -34848,6 +36496,7 @@ class OutputDebuggingData(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def report_debugging_data(self):
@@ -34875,7 +36524,7 @@ class OutputDebuggingData(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `report_debugging_data`'.format(value))
         self._data["Report Debugging Data"] = value
 
@@ -34905,7 +36554,7 @@ class OutputDebuggingData(object):
             try:
                 value = float(value)
             except ValueError:
-                raise ValueError('value {} need to be of type float '
+                raise ValueError('value {} need to be of type float'
                                  'for field `report_during_warmup`'.format(value))
         self._data["Report During Warmup"] = value
 
@@ -34947,7 +36596,6 @@ class OutputPreprocessorMessage(object):
     """ Corresponds to IDD object `Output:PreprocessorMessage`
         This object does not come from a user input.  This is generated by a pre-processor
         so that various conditions can be gracefully passed on by the InputProcessor.
-    
     """
     internal_name = "Output:PreprocessorMessage"
     field_count = 12
@@ -34969,15 +36617,16 @@ class OutputPreprocessorMessage(object):
         self._data["Message Line 8"] = None
         self._data["Message Line 9"] = None
         self._data["Message Line 10"] = None
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         if len(vals[i]) == 0:
             self.preprocessor_name = None
@@ -35063,6 +36712,7 @@ class OutputPreprocessorMessage(object):
         i += 1
         if i >= len(vals):
             return
+        self.strict = old_strict
 
     @property
     def preprocessor_name(self):
@@ -35089,7 +36739,7 @@ class OutputPreprocessorMessage(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `preprocessor_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -35130,7 +36780,7 @@ class OutputPreprocessorMessage(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `error_severity`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -35146,16 +36796,26 @@ class OutputPreprocessorMessage(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `error_severity`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `error_severity`'.format(value, vals[value_lower]))
             value = vals[value_lower]
         self._data["Error Severity"] = value
 
@@ -35184,7 +36844,7 @@ class OutputPreprocessorMessage(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `message_line_1`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -35219,7 +36879,7 @@ class OutputPreprocessorMessage(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `message_line_2`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -35254,7 +36914,7 @@ class OutputPreprocessorMessage(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `message_line_3`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -35289,7 +36949,7 @@ class OutputPreprocessorMessage(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `message_line_4`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -35324,7 +36984,7 @@ class OutputPreprocessorMessage(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `message_line_5`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -35359,7 +37019,7 @@ class OutputPreprocessorMessage(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `message_line_6`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -35394,7 +37054,7 @@ class OutputPreprocessorMessage(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `message_line_7`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -35429,7 +37089,7 @@ class OutputPreprocessorMessage(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `message_line_8`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -35464,7 +37124,7 @@ class OutputPreprocessorMessage(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `message_line_9`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -35499,7 +37159,7 @@ class OutputPreprocessorMessage(object):
             try:
                 value = str(value)
             except ValueError:
-                raise ValueError('value {} need to be of type str '
+                raise ValueError('value {} need to be of type str'
                                  'for field `message_line_10`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
