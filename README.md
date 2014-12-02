@@ -7,8 +7,6 @@ Python library to read, modify and create EnergyPlus idf files
 
 ##Todos:
 
-
-* write support
 * unit tests
 * field comments not implemented:
   * type: object-list, external-list, node
@@ -18,5 +16,5 @@ Python library to read, modify and create EnergyPlus idf files
   * reference
 * object level comments not yet implemented
   * obsolete
-  * format
+  * format: FluidProperties, ViewFactors, and Spectral
   * reference-class-name

@@ -63,23 +63,7 @@ class IDF(object):
             for key in self._data:
                 if len(self._data[key]) > 0:
                     for dobj in self._data[key]:
-                        if dobj.format is None:
-                            f.write("\n  {},\n".format(dobj.internal_name))
-                            vals = dobj.export()
-                            cval = len(vals)
-                            for i, val in enumerate(vals):
-
-                                sep = ','
-                                if i == (cval - 1):
-                                    sep = ';'
-                                blanks = ' ' * max(30 - 4 - len(val[1]) - 2, 2)
-                                comment = val[0]
-
-                                f.write("    {val}{sep}{blanks}! {comment}\n".format(val=val[1],
-                                                                                   sep=sep,
-                                                                                   blanks=blanks,
-                                                                                   comment=comment))
-                        elif dobj.format == "singleline":
+                        if dobj.format == "singleline":
                             vals = [dobj.internal_name]
                             vals += [v[1] for v in dobj.export()]
                             f.write("\n  {};\n".format(",".join(vals)))
@@ -87,6 +71,57 @@ class IDF(object):
                             f.write("\n  {},\n".format(dobj.internal_name))
                             vals = dobj.export()
                             cval = len(vals)
+                            i = 0
+                            while i < cval:
+
+                                if ((i + 2) < cval and "x" in vals[i][0].lower() and 
+                                    "y" in vals[i + 1][0].lower() and "z" in vals[i + 2][0].lower()):
+                                    val = ",".join([vals[i][1], vals[i + 1][1], vals[i + 2][1]])
+                                    comment = ",".join([vals[i][0], vals[i + 1][0], vals[i + 2][0]])
+                                    i += 3
+                                else: 
+                                    val = vals[i][1]
+                                    comment = vals[i][0]
+                                    i += 1
+
+                                sep = ','
+                                if i >= cval:
+                                    sep = ';'
+                                blanks = ' ' * max(30 - 4 - len(val) - 2, 2)
+
+                                f.write("    {val}{sep}{blanks}!- {comment}\n".format(val=val,
+                                                                                   sep=sep,
+                                                                                   blanks=blanks,
+                                                                                   comment=comment))
+                        elif dobj.format == "compactschedule":
+                            f.write("\n  {},\n".format(dobj.internal_name))
+                            vals = dobj.export()
+                            cval = len(vals)
+                            i = 0
+                            while i < cval:
+
+                                if ((i + 1) < cval and "until" in vals[i][0].lower()):
+                                    val = ",".join([vals[i][1], vals[i + 1][1]])
+                                    comment = ",".join([vals[i][0], vals[i + 1][0]])
+                                    i += 2
+                                else: 
+                                    val = vals[i][1]
+                                    comment = vals[i][0]
+                                    i += 1
+
+                                sep = ','
+                                if i >= cval:
+                                    sep = ';'
+                                blanks = ' ' * max(30 - 4 - len(val) - 2, 2)
+
+                                f.write("    {val}{sep}{blanks}!- {comment}\n".format(val=val,
+                                                                                   sep=sep,
+                                                                                   blanks=blanks,
+                                                                                   comment=comment))
+                        else:
+                            f.write("\n  {},\n".format(dobj.internal_name))
+                            vals = dobj.export()
+                            cval = len(vals)
                             for i, val in enumerate(vals):
 
                                 sep = ','
@@ -95,7 +130,7 @@ class IDF(object):
                                 blanks = ' ' * max(30 - 4 - len(val[1]) - 2, 2)
                                 comment = val[0]
 
-                                f.write("    {val}{sep}{blanks}! {comment}\n".format(val=val[1],
+                                f.write("    {val}{sep}{blanks}!- {comment}\n".format(val=val[1],
                                                                                    sep=sep,
                                                                                    blanks=blanks,
                                                                                    comment=comment))
