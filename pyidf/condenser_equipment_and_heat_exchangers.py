@@ -1742,19 +1742,25 @@ class CoolingTowerSingleSpeed(object):
         """ Export values of data object as list of strings"""
         out = []
 
+        # Calculate max elements to export
         has_extensibles = False
         for vals in self._data["extensibles"]:
             for i, value in enumerate(vals):
                 if value is not None:
                     has_extensibles = True
+                    break
+            if has_extensibles:
+                break
 
         if has_extensibles:
             maxel = len(self._data) - 1
+        else:
+            for i, key in reversed(list(enumerate(self._data.keys()[:-1]))):
+                maxel = i + 1
+                if self._data[key] is not None:
+                    break
 
-        for i, key in reversed(list(enumerate(self._data))):
-            maxel = i
-            if self._data[key] is not None:
-                break
+        maxel = max(maxel, self.min_fields)
 
         for key in self._data.keys()[0:maxel]:
             if not key == "extensibles":
@@ -3856,19 +3862,25 @@ class CoolingTowerTwoSpeed(object):
         """ Export values of data object as list of strings"""
         out = []
 
+        # Calculate max elements to export
         has_extensibles = False
         for vals in self._data["extensibles"]:
             for i, value in enumerate(vals):
                 if value is not None:
                     has_extensibles = True
+                    break
+            if has_extensibles:
+                break
 
         if has_extensibles:
             maxel = len(self._data) - 1
+        else:
+            for i, key in reversed(list(enumerate(self._data.keys()[:-1]))):
+                maxel = i + 1
+                if self._data[key] is not None:
+                    break
 
-        for i, key in reversed(list(enumerate(self._data))):
-            maxel = i
-            if self._data[key] is not None:
-                break
+        maxel = max(maxel, self.min_fields)
 
         for key in self._data.keys()[0:maxel]:
             if not key == "extensibles":
@@ -5934,19 +5946,25 @@ class CoolingTowerVariableSpeedMerkel(object):
         """ Export values of data object as list of strings"""
         out = []
 
+        # Calculate max elements to export
         has_extensibles = False
         for vals in self._data["extensibles"]:
             for i, value in enumerate(vals):
                 if value is not None:
                     has_extensibles = True
+                    break
+            if has_extensibles:
+                break
 
         if has_extensibles:
             maxel = len(self._data) - 1
+        else:
+            for i, key in reversed(list(enumerate(self._data.keys()[:-1]))):
+                maxel = i + 1
+                if self._data[key] is not None:
+                    break
 
-        for i, key in reversed(list(enumerate(self._data))):
-            maxel = i
-            if self._data[key] is not None:
-                break
+        maxel = max(maxel, self.min_fields)
 
         for key in self._data.keys()[0:maxel]:
             if not key == "extensibles":
@@ -7528,19 +7546,25 @@ class CoolingTowerVariableSpeed(object):
         """ Export values of data object as list of strings"""
         out = []
 
+        # Calculate max elements to export
         has_extensibles = False
         for vals in self._data["extensibles"]:
             for i, value in enumerate(vals):
                 if value is not None:
                     has_extensibles = True
+                    break
+            if has_extensibles:
+                break
 
         if has_extensibles:
             maxel = len(self._data) - 1
+        else:
+            for i, key in reversed(list(enumerate(self._data.keys()[:-1]))):
+                maxel = i + 1
+                if self._data[key] is not None:
+                    break
 
-        for i, key in reversed(list(enumerate(self._data))):
-            maxel = i
-            if self._data[key] is not None:
-                break
+        maxel = max(maxel, self.min_fields)
 
         for key in self._data.keys()[0:maxel]:
             if not key == "extensibles":
@@ -9290,19 +9314,25 @@ class CoolingTowerPerformanceCoolTools(object):
         """ Export values of data object as list of strings"""
         out = []
 
+        # Calculate max elements to export
         has_extensibles = False
         for vals in self._data["extensibles"]:
             for i, value in enumerate(vals):
                 if value is not None:
                     has_extensibles = True
+                    break
+            if has_extensibles:
+                break
 
         if has_extensibles:
             maxel = len(self._data) - 1
+        else:
+            for i, key in reversed(list(enumerate(self._data.keys()[:-1]))):
+                maxel = i + 1
+                if self._data[key] is not None:
+                    break
 
-        for i, key in reversed(list(enumerate(self._data))):
-            maxel = i
-            if self._data[key] is not None:
-                break
+        maxel = max(maxel, self.min_fields)
 
         for key in self._data.keys()[0:maxel]:
             if not key == "extensibles":
@@ -10795,19 +10825,25 @@ class CoolingTowerPerformanceYorkCalc(object):
         """ Export values of data object as list of strings"""
         out = []
 
+        # Calculate max elements to export
         has_extensibles = False
         for vals in self._data["extensibles"]:
             for i, value in enumerate(vals):
                 if value is not None:
                     has_extensibles = True
+                    break
+            if has_extensibles:
+                break
 
         if has_extensibles:
             maxel = len(self._data) - 1
+        else:
+            for i, key in reversed(list(enumerate(self._data.keys()[:-1]))):
+                maxel = i + 1
+                if self._data[key] is not None:
+                    break
 
-        for i, key in reversed(list(enumerate(self._data))):
-            maxel = i
-            if self._data[key] is not None:
-                break
+        maxel = max(maxel, self.min_fields)
 
         for key in self._data.keys()[0:maxel]:
             if not key == "extensibles":
@@ -12157,19 +12193,25 @@ class EvaporativeFluidCoolerSingleSpeed(object):
         """ Export values of data object as list of strings"""
         out = []
 
+        # Calculate max elements to export
         has_extensibles = False
         for vals in self._data["extensibles"]:
             for i, value in enumerate(vals):
                 if value is not None:
                     has_extensibles = True
+                    break
+            if has_extensibles:
+                break
 
         if has_extensibles:
             maxel = len(self._data) - 1
+        else:
+            for i, key in reversed(list(enumerate(self._data.keys()[:-1]))):
+                maxel = i + 1
+                if self._data[key] is not None:
+                    break
 
-        for i, key in reversed(list(enumerate(self._data))):
-            maxel = i
-            if self._data[key] is not None:
-                break
+        maxel = max(maxel, self.min_fields)
 
         for key in self._data.keys()[0:maxel]:
             if not key == "extensibles":
@@ -13934,19 +13976,25 @@ class EvaporativeFluidCoolerTwoSpeed(object):
         """ Export values of data object as list of strings"""
         out = []
 
+        # Calculate max elements to export
         has_extensibles = False
         for vals in self._data["extensibles"]:
             for i, value in enumerate(vals):
                 if value is not None:
                     has_extensibles = True
+                    break
+            if has_extensibles:
+                break
 
         if has_extensibles:
             maxel = len(self._data) - 1
+        else:
+            for i, key in reversed(list(enumerate(self._data.keys()[:-1]))):
+                maxel = i + 1
+                if self._data[key] is not None:
+                    break
 
-        for i, key in reversed(list(enumerate(self._data))):
-            maxel = i
-            if self._data[key] is not None:
-                break
+        maxel = max(maxel, self.min_fields)
 
         for key in self._data.keys()[0:maxel]:
             if not key == "extensibles":
@@ -14665,19 +14713,25 @@ class FluidCoolerSingleSpeed(object):
         """ Export values of data object as list of strings"""
         out = []
 
+        # Calculate max elements to export
         has_extensibles = False
         for vals in self._data["extensibles"]:
             for i, value in enumerate(vals):
                 if value is not None:
                     has_extensibles = True
+                    break
+            if has_extensibles:
+                break
 
         if has_extensibles:
             maxel = len(self._data) - 1
+        else:
+            for i, key in reversed(list(enumerate(self._data.keys()[:-1]))):
+                maxel = i + 1
+                if self._data[key] is not None:
+                    break
 
-        for i, key in reversed(list(enumerate(self._data))):
-            maxel = i
-            if self._data[key] is not None:
-                break
+        maxel = max(maxel, self.min_fields)
 
         for key in self._data.keys()[0:maxel]:
             if not key == "extensibles":
@@ -15781,19 +15835,25 @@ class FluidCoolerTwoSpeed(object):
         """ Export values of data object as list of strings"""
         out = []
 
+        # Calculate max elements to export
         has_extensibles = False
         for vals in self._data["extensibles"]:
             for i, value in enumerate(vals):
                 if value is not None:
                     has_extensibles = True
+                    break
+            if has_extensibles:
+                break
 
         if has_extensibles:
             maxel = len(self._data) - 1
+        else:
+            for i, key in reversed(list(enumerate(self._data.keys()[:-1]))):
+                maxel = i + 1
+                if self._data[key] is not None:
+                    break
 
-        for i, key in reversed(list(enumerate(self._data))):
-            maxel = i
-            if self._data[key] is not None:
-                break
+        maxel = max(maxel, self.min_fields)
 
         for key in self._data.keys()[0:maxel]:
             if not key == "extensibles":
@@ -24098,19 +24158,25 @@ class GroundHeatExchangerVertical(object):
         """ Export values of data object as list of strings"""
         out = []
 
+        # Calculate max elements to export
         has_extensibles = False
         for vals in self._data["extensibles"]:
             for i, value in enumerate(vals):
                 if value is not None:
                     has_extensibles = True
+                    break
+            if has_extensibles:
+                break
 
         if has_extensibles:
             maxel = len(self._data) - 1
+        else:
+            for i, key in reversed(list(enumerate(self._data.keys()[:-1]))):
+                maxel = i + 1
+                if self._data[key] is not None:
+                    break
 
-        for i, key in reversed(list(enumerate(self._data))):
-            maxel = i
-            if self._data[key] is not None:
-                break
+        maxel = max(maxel, self.min_fields)
 
         for key in self._data.keys()[0:maxel]:
             if not key == "extensibles":
@@ -24679,19 +24745,25 @@ class GroundHeatExchangerPond(object):
         """ Export values of data object as list of strings"""
         out = []
 
+        # Calculate max elements to export
         has_extensibles = False
         for vals in self._data["extensibles"]:
             for i, value in enumerate(vals):
                 if value is not None:
                     has_extensibles = True
+                    break
+            if has_extensibles:
+                break
 
         if has_extensibles:
             maxel = len(self._data) - 1
+        else:
+            for i, key in reversed(list(enumerate(self._data.keys()[:-1]))):
+                maxel = i + 1
+                if self._data[key] is not None:
+                    break
 
-        for i, key in reversed(list(enumerate(self._data))):
-            maxel = i
-            if self._data[key] is not None:
-                break
+        maxel = max(maxel, self.min_fields)
 
         for key in self._data.keys()[0:maxel]:
             if not key == "extensibles":
@@ -25251,19 +25323,25 @@ class GroundHeatExchangerSurface(object):
         """ Export values of data object as list of strings"""
         out = []
 
+        # Calculate max elements to export
         has_extensibles = False
         for vals in self._data["extensibles"]:
             for i, value in enumerate(vals):
                 if value is not None:
                     has_extensibles = True
+                    break
+            if has_extensibles:
+                break
 
         if has_extensibles:
             maxel = len(self._data) - 1
+        else:
+            for i, key in reversed(list(enumerate(self._data.keys()[:-1]))):
+                maxel = i + 1
+                if self._data[key] is not None:
+                    break
 
-        for i, key in reversed(list(enumerate(self._data))):
-            maxel = i
-            if self._data[key] is not None:
-                break
+        maxel = max(maxel, self.min_fields)
 
         for key in self._data.keys()[0:maxel]:
             if not key == "extensibles":
@@ -26338,19 +26416,25 @@ class GroundHeatExchangerHorizontalTrench(object):
         """ Export values of data object as list of strings"""
         out = []
 
+        # Calculate max elements to export
         has_extensibles = False
         for vals in self._data["extensibles"]:
             for i, value in enumerate(vals):
                 if value is not None:
                     has_extensibles = True
+                    break
+            if has_extensibles:
+                break
 
         if has_extensibles:
             maxel = len(self._data) - 1
+        else:
+            for i, key in reversed(list(enumerate(self._data.keys()[:-1]))):
+                maxel = i + 1
+                if self._data[key] is not None:
+                    break
 
-        for i, key in reversed(list(enumerate(self._data))):
-            maxel = i
-            if self._data[key] is not None:
-                break
+        maxel = max(maxel, self.min_fields)
 
         for key in self._data.keys()[0:maxel]:
             if not key == "extensibles":
@@ -27509,19 +27593,25 @@ class HeatExchangerFluidToFluid(object):
         """ Export values of data object as list of strings"""
         out = []
 
+        # Calculate max elements to export
         has_extensibles = False
         for vals in self._data["extensibles"]:
             for i, value in enumerate(vals):
                 if value is not None:
                     has_extensibles = True
+                    break
+            if has_extensibles:
+                break
 
         if has_extensibles:
             maxel = len(self._data) - 1
+        else:
+            for i, key in reversed(list(enumerate(self._data.keys()[:-1]))):
+                maxel = i + 1
+                if self._data[key] is not None:
+                    break
 
-        for i, key in reversed(list(enumerate(self._data))):
-            maxel = i
-            if self._data[key] is not None:
-                break
+        maxel = max(maxel, self.min_fields)
 
         for key in self._data.keys()[0:maxel]:
             if not key == "extensibles":
