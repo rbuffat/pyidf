@@ -9,11 +9,15 @@ Generation date: {{ generation_date}}
 
 """
 import re
+import logging
 from collections import OrderedDict
 {%- for file_name in file_names %}
 from {{ file_name }} import *
 {%- endfor %}
 
+
+logger = logging.getLogger(__name__)
+logger.addHandler(logging.NullHandler())
 
 class IDF(object):
     """ Represens an EnergyPlus IDF input file
@@ -28,6 +32,7 @@ class IDF(object):
         {%- for obj in objs %}
         self._data["{% filter lower %}{{obj.internal_name}}{% endfilter %}"] = []
         {%- endfor %}
+        self.comment_headers = []
    
    
     def set(self, data):
@@ -49,13 +54,52 @@ class IDF(object):
                 for key in self._data:
                     if len(self._data[key]) == 0 and key in self.required_objects:
                         raise ValueError('{} is not valid.'.format(key))
-                    if key in self.unique_objects and len(self._data[key]) > 0:
+                    if key in self.unique_objects and len(self._data[key]) > 1:
                         raise ValueError('{} is not unique: {}'.format(key,
                                                                        len(self._data[key])))
+                    for obj in self._data[key]:
+                        obj.check(strict=True)
+
             for key in self._data:
                 if len(self._data[key]) > 0:
-                    for data_object in self._data[key]:
-                        f.write(self._data[key].export() + "\n")
+                    for dobj in self._data[key]:
+                        if dobj.format is None:
+                            f.write("\n  {},\n".format(dobj.internal_name))
+                            vals = dobj.export()
+                            cval = len(vals)
+                            for i, val in enumerate(vals):
+
+                                sep = ','
+                                if i == (cval - 1):
+                                    sep = ';'
+                                blanks = ' ' * max(30 - 4 - len(val[1]) - 2, 2)
+                                comment = val[0]
+
+                                f.write("    {val}{sep}{blanks}! {comment}\n".format(val=val[1],
+                                                                                   sep=sep,
+                                                                                   blanks=blanks,
+                                                                                   comment=comment))
+                        elif dobj.format == "singleline":
+                            vals = [dobj.internal_name]
+                            vals += [v[1] for v in dobj.export()]
+                            f.write("\n  {};\n".format(",".join(vals)))
+                        elif dobj.format == "vertices":
+                            f.write("\n  {},\n".format(dobj.internal_name))
+                            vals = dobj.export()
+                            cval = len(vals)
+                            for i, val in enumerate(vals):
+
+                                sep = ','
+                                if i == (cval - 1):
+                                    sep = ';'
+                                blanks = ' ' * max(30 - 4 - len(val[1]) - 2, 2)
+                                comment = val[0]
+
+                                f.write("    {val}{sep}{blanks}! {comment}\n".format(val=val[1],
+                                                                                   sep=sep,
+                                                                                   blanks=blanks,
+                                                                                   comment=comment))
+                            
 
     @classmethod
     def _create_datadict(cls, internal_name):
@@ -83,13 +127,20 @@ class IDF(object):
             current_object = None
             current_vals = []
 
+            # First lines are header comments
+            header = True
+
             for line in f:
 
                 line = line.strip()
                 if re.search(r"^\s*!", line) is not None:
+                    if header:
+                        self.comment_headers.append(line)
                     continue
                 if len(line) == 0:
                     continue
+
+                header = False
 
                 line_comments = line.split("!")
                 line_match = re.search(r"\s*([\S ]*[,;])\s*", line_comments[0])
@@ -130,7 +181,7 @@ class IDF(object):
                     if len(splits) > 1 and current_object is not None:
     
                         if current_object not in self._data:
-                            print "{} is not a valid data dictionary name".format(current_object)
+                            logging.error("{} is not a valid data dictionary name".format(current_object))
 #                             raise ValueError("{} is not a valid data dictionary name".format(current_object))
                         else:
                             data_object = self._create_datadict(current_object)

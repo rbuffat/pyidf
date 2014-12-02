@@ -19,6 +19,7 @@ def generate_class(obj):
     context = {}
     context["obj"] = obj
     context["required_fields"] = ", ".join(required_fields)
+    context["extensible_keys"] = ", ".join(['"{}"'.format(field.internal_name) for field in obj.extensible_fields])
 
     return template.render(context)
 

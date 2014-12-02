@@ -9,6 +9,7 @@ import re
 import unicodedata
 from helper import DataObject, DataField
 from helper import normalize_field_name
+from collections import OrderedDict
 
 
 class IDDParser():
@@ -88,7 +89,14 @@ class IDDParser():
             if match_value is not None:
                 attribute_value = match_value.group(1).split('!')[0].strip() #TODO
 
-        return attribute_name.lower(), attribute_value
+                if attribute_name.startswith("extensible"):
+                    count_match = re.search(r"\s*\\extensible:([0-9]+)", line, re.IGNORECASE)
+                    count = count_match.group(1)
+
+                    attribute_name = "extensible"
+                    attribute_value = int(count)
+
+        return attribute_name, attribute_value
 
     def __init__(self):
         self.current_object = None
@@ -132,8 +140,8 @@ class IDDParser():
                         ftype, internal_name, fid = self._parse_field_name(line)
                         self.current_field = DataField(internal_name, ftype, fid, self.current_object)
                     except Exception as e:
+                        logging.error("{}, {}".format(self.current_object.internal_name, line))
                         self.current_object.ignored = True
-#                         print self.current_object.internal_name, line
 
                 elif self._is_attribute(line):
 
@@ -172,11 +180,13 @@ class IDDParser():
         if self.current_object is not None:
             self.objects.append(self.current_object)
 
-        good_objs = []
+        good_objs = OrderedDict()
+        bad_objs = []
         for obj in self.objects:
-            if not obj.ignored:
+            obj.make_extensibles()
+            if not obj.ignored or True:
                 fields = defaultdict(list)
-                for field in obj.fields:
+                for field in obj.fields + obj.extensible_fields:
 
                     if field.internal_name in fields:
                         fields[field.internal_name].append(field)
@@ -188,10 +198,15 @@ class IDDParser():
 
                     fields[field.internal_name].append(field)
                     field.conv_vals()
-                good_objs.append(obj)
+                good_objs[obj.internal_name] = obj
             else:
+                bad_objs.append(obj)
                 pass
 #                 logging.warn("ignore object: {}".format(obj.internal_name))
+
+        logging.warn("Bad objects:")
+        for o in bad_objs:
+            logging.warn("Bad objects: {}".format(o.internal_name))
 
         return good_objs
 

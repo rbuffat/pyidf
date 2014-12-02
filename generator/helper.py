@@ -52,8 +52,18 @@ class DataObject:
         self.var_name = normalize_object_var_name(internal_name)
         self.file_name = file_name
         self.fields = []
+        self.extensible_fields = []
         self.attributes = {}
         self.ignored = False
+
+    def make_extensibles(self):
+        if "extensible" in self.attributes:
+            count = self.attributes["extensible"]
+
+            for i, field in enumerate(self.fields):
+                if "begin-extensible" in field.attributes:
+                    self.extensible_fields = self.fields[i:i + count]
+                    self.fields = self.fields[0:i]
 
 
 class DataField(object):

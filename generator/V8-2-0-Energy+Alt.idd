@@ -1,0 +1,784 @@
+\group Schedules
+
+Schedule:Day:List,
+	   \extensible:1
+       \memo Schedule:Day:List will allow the user to list 24 hours worth of values, which can be sub-hourly in nature.
+       \min-fields 5
+  A1 , \field Name
+       \required-field
+       \type alpha
+       \reference DayScheduleNames
+       \reference ScheduleAndDayScheduleNames
+  A2 , \field Schedule Type Limits Name
+       \type object-list
+       \object-list ScheduleTypeLimitsNames
+  A3 , \field Interpolate to Timestep
+       \note when the interval does not match the user specified timestep a "Yes" choice will average between the intervals request (to
+       \note timestep resolution.  a "No" choice will use the interval value at the simulation timestep without regard to if it matches
+       \note the boundary or not.
+       \type choice
+       \key Yes
+       \key No
+       \default No
+  N1 , \field Minutes per Item
+       \note Must be evenly divisible into 60
+       \type integer
+       \minimum 1
+       \maximum 60
+  N2;  \field Value
+	   \begin-extensible
+       \default 0.0
+
+
+
+Schedule:Year,
+       \extensible:5
+       \min-fields 7
+       \memo A Schedule:Year contains from 1 to 52 week schedules
+  A1 , \field Name
+       \required-field
+       \type alpha
+       \reference ScheduleNames
+  A2 , \field Schedule Type Limits Name
+       \type object-list
+       \object-list ScheduleTypeLimitsNames
+  A3 , \field Schedule:Week
+  	   \begin-extensible
+       \type object-list
+       \object-list WeekScheduleNames
+  N1 , \field Start Month
+       \type integer
+       \minimum 1
+       \maximum 12
+  N2 , \field Start Day
+       \type integer
+       \minimum 1
+       \maximum 31
+  N3 , \field End Month
+       \type integer
+       \minimum 1
+       \maximum 12
+  N4 ; \field End Day
+       \type integer
+       \minimum 1
+       \maximum 31
+       
+Schedule:Compact,
+   \extensible:1 - repeat last field, remembering to remove ; from "inner" fields.
+   \min-fields 5
+   \memo Irregular object.  Does not follow the usual definition for fields.  Fields A3... are:
+   \memo Through: Date
+   \memo For: Applicable days (ref: Schedule:Week:Compact)
+   \memo Interpolate: Yes/No (ref: Schedule:Day:Interval) -- optional, if not used will be "No"
+   \memo Until: <Time> (ref: Schedule:Day:Interval)
+   \memo <numeric value>
+   \memo words "Through","For","Interpolate","Until" must be included.
+   \format compactSchedule
+  A1 , \field Name
+       \required-field
+       \type alpha
+       \reference ScheduleNames
+  A2 , \field Schedule Type Limits Name
+       \type object-list
+       \object-list ScheduleTypeLimitsNames
+  A3 ; \field Field
+       \begin-extensible
+
+\group Surface Construction Elements
+
+MaterialProperty:GlazingSpectralData,
+       \extensible:4
+       \memo Name is followed by up to 800 sets of normal-incidence measured values of
+       \memo [wavelength, transmittance, front reflectance, back reflectance] for wavelengths
+       \memo covering the solar spectrum (from about 0.25 to 2.5 microns)
+       \format Spectral
+  A1,  \field Name
+       \required-field
+       \reference SpectralDataSets
+  N1,  \field Wavelength
+       \begin-extensible
+       \type real
+       \units micron
+  N2,  \field Transmittance
+  N3,  \field Front Reflectance
+  N4;  \field Back Reflectance
+ 
+\group Thermal Zones and Surfaces
+  
+ZoneList,
+       \memo Defines a list of thermal zones which can be referenced as a group. The ZoneList name
+       \memo may be used elsewhere in the input to apply a parameter to all zones in the list.
+       \memo ZoneLists can be used effectively with the following objects: People, Lights,
+       \memo ElectricEquipment, GasEquipment, HotWaterEquipment, ZoneInfiltration:DesignFlowRate,
+       \memo ZoneVentilation:DesignFlowRate, Sizing:Zone, ZoneControl:Thermostat, and others.
+       \min-fields 2
+       \extensible:1 - repeat last field, remembering to remove ; from "inner" fields.
+  A1 , \field Name
+       \note Name of the Zone List
+       \required-field
+       \type alpha
+       \reference ZoneListNames
+       \reference ZoneAndZoneListNames
+  A2 ; \field Zone 1 Name
+       \begin-extensible
+       \type object-list
+       \object-list ZoneNames
+ 
+\group Room Air Models
+ 
+GroundHeatTransfer:Slab:XFACE,
+       \extensible:1
+       \memo This is only needed when using manual gridding (not recommended)
+       \memo XFACE: X Direction cell face coordinates: m
+       N1; X Direction
+       \begin-extensible
+
+GroundHeatTransfer:Slab:YFACE,
+         \memo This is only needed when using manual gridding (not recommended)
+         \memo YFACE: Y Direction cell face coordinates: m,
+         \extensible:1
+         N1; Y Direction
+         \begin-extensible
+ 
+GroundHeatTransfer:Slab:ZFACE,
+         \memo This is only needed when usuing manual gridding (not recommended)
+         \memo ZFACE: Z Direction cell face coordinates: m
+         \extensible:1
+         N1; Z Direction
+         \begin-extensible
+
+GroundHeatTransfer:Basement:XFACE,
+         \memo This is only needed when using manual gridding (not recommended)
+         \memo XFACE: X Direction cell face coordinates: m
+         \extensible:1
+         N1; X Direction
+         \begin-extensible
+
+GroundHeatTransfer:Basement:YFACE,
+		\memo This is only needed when using manual gridding (not recommended)
+		\memo YFACE: Y Direction cell face coordinates: m
+        \extensible:1
+        N1; Y Direction
+        \begin-extensible
+
+GroundHeatTransfer:Basement:ZFACE,
+		\memo This is only needed when using manual gridding (not recommended)
+		\memo ZFACE: Z Direction cell face coordinates: m
+        \extensible:1
+        N1; Z Direction
+        \begin-extensible
+
+\group Air Distribution
+
+
+AirLoopHVAC:ZoneSplitter,
+       \extensible:1 Just duplicate last field and comments (changing numbering, please)
+       \memo Split one air stream into N outlet streams (currently 500 per air loop, but extensible).  Node names
+       \memo cannot be duplicated within a single zone splitter (AirLoopHVAC:ZoneSplitter) list.
+   A1, \field Name
+       \required-field
+       \reference ZoneSplitters
+       \reference SupplyPathComponentNames
+   A2, \field Inlet Node Name
+       \required-field
+       \type node
+   A3; \field Outlet  Node Name
+       \begin-extensible
+       \type node
+
+AirLoopHVAC:SupplyPlenum,
+       \extensible:1 Just duplicate last field and comments (changing numbering, please)
+       \memo Connects 1 zone inlet air stream, through zone supply plenum, to one or more outlets.
+       \memo Node names cannot be duplicated within a single supply plenum list.
+       \min-fields 5
+   A1, \field Name
+       \required-field
+       \reference ZonePlenums
+       \reference SupplyPathComponentNames
+   A2, \field Zone Name
+       \required-field
+       \type object-list
+       \object-list ZoneNames
+   A3, \field Zone Node Name
+       \required-field
+       \type node
+   A4, \field Inlet Node Name
+       \required-field
+       \type node
+   A5; \field Outlet Node Name
+       \begin-extensible
+       \type node
+
+AirLoopHVAC:ZoneMixer,
+       \extensible:1 Just duplicate last field and comments (changing numbering, please)
+       \memo Mix N inlet air streams into one (currently 500 per air loop, but extensible).  Node names cannot
+       \memo be duplicated within a single zone mixer (AirLoopHVAC:ZoneMixer) list.
+       \min-fields 3
+   A1, \field Name
+       \required-field
+       \reference ZoneMixers
+       \reference ReturnPathComponentNames
+   A2, \field Outlet Node Name
+       \required-field
+       \type node
+   A3; \field Inlet 1 Node Name
+       \begin-extensible
+       \type node
+
+AirLoopHVAC:ReturnPlenum,
+       \extensible:1 Just duplicate last field and comments (changing numbering, please)
+       \memo Connects N zone inlet air streams, through zone return plenum, to outlet
+       \memo (currently 500 per air loop)
+       \memo Node names cannot be duplicated within a single plenum list.
+       \min-fields 6
+   A1, \field Name
+       \required-field
+       \reference ReturnPathComponentNames
+   A2, \field Zone Name
+       \required-field
+       \type object-list
+       \object-list ZoneNames
+   A3, \field Zone Node Name
+       \required-field
+       \type node
+   A4, \field Outlet Node Name
+       \required-field
+       \type node
+   A5, \field Induced Air Outlet Node or NodeList Name
+       \type node
+   A6; \field Inlet Node Name
+       \begin-extensible
+       \type node
+
+\group Pumps
+
+BranchList,
+       \extensible:1 Just duplicate last field and comments (changing numbering, please)
+       \memo Branches MUST be listed in Flow order: Inlet branch, then parallel branches, then Outlet branch.
+       \memo Branches are simulated in the order listed.  Branch names cannot be duplicated within a single branch list.
+       \min-fields 2
+   A1, \field Name
+       \required-field
+       \reference BranchLists
+   A2; \field Branch Name
+       \begin-extensible
+       \type object-list
+       \object-list Branches
+
+\group Node-Branch Management
+
+Connector:Mixer,
+        \min-fields 3
+        \extensible:1 Just duplicate last field and comments (changing numbering, please)
+        \memo Mix N inlet air/water streams into one.  Branch names cannot be duplicated within
+        \memo a single mixer list.
+   A1 , \field Name
+        \required-field
+   A2 , \field Outlet Branch Name
+        \required-field
+        \type object-list
+        \object-list Branches
+   A3 ; \field Inlet Branch Name
+        \begin-extensible
+        \type object-list
+        \object-list Branches
+
+NodeList,
+       \min-fields 2
+       \extensible:1 Just duplicate last field and comments (changing numbering, please)
+       \memo This object is used in places where lists of nodes may be
+       \memo needed, e.g. ZoneHVAC:EquipmentConnections field Zone Air Inlet Node or NodeList Name
+  A1 , \field Name
+       \required-field
+       \type node
+       \reference NodeLists
+  A2 ; \field Node Name
+       \begin-extensible
+       \type node
+
+OutdoorAir:NodeList,
+       \extensible:1 Just duplicate last field and comments (changing numbering, please)
+       \memo This object sets the temperature and humidity conditions
+       \memo for an outdoor air node using the weather data values.
+       \memo to vary outdoor air node conditions with height above ground
+       \memo use OutdoorAir:Node instead of this object.
+       \memo This object may be used more than once.
+       \memo The same node name may not appear in both an OutdoorAir:Node object and
+       \memo an OutdoorAir:NodeList object.
+       \min-fields 1
+  A1 ; \field Node or NodeList Name 1
+       \type node
+       \begin-extensible
+
+\group Energy Management System (EMS)
+
+EnergyManagementSystem:Program,
+       \extensible:1 - repeat last field, remembering to remove ; from "inner" fields.
+       \memo This input defines an Erl program
+       \memo Each field after the name is a line of EMS Runtime Language
+       \min-fields 2
+  A1 , \field Name
+       \required-field
+       \type alpha
+       \reference ErlProgramNames
+       \note no spaces allowed in name
+  A2 ; \field Program Line 1
+       \begin-extensible
+       \type alpha
+
+EnergyManagementSystem:Subroutine,
+       \extensible:1 - repeat last field, remembering to remove ; from "inner" fields.
+       \memo This input defines an Erl program subroutine
+       \memo Each field after the name is a line of EMS Runtime Language
+       \min-fields 2
+  A1 , \field Name
+       \required-field
+       \type alpha
+       \reference ErlSubProgramNames
+       \note no spaces allowed in name
+  A2 ; \field Program Line
+       \begin-extensible
+       \type alpha
+
+EnergyManagementSystem:GlobalVariable,
+       \extensible:1 - repeat last field, remembering to remove ; from "inner" fields.
+       \memo Declares Erl variable as having global scope
+       \memo No spaces allowed in names used for Erl variables
+       \min-fields 1
+  A1 ; \field Erl Variable 1 Name
+       \begin-extensible
+       \type alpha
+       \note no spaces allowed in name
+
+\group Refrigeration
+
+ZoneHVAC:RefrigerationChillerSet,
+        \memo Works in conjunction with one or multiple air chillers, compressor racks,
+        \memo refrigeration systems, or refrigeration secondary system objects to simulate the
+        \memo performance of a group of air chillers cooling a single zone. The chiller set
+        \memo model passes information about the zone conditions to determine the performance of
+        \memo individual chiller coils within the set, thus providing the sensible and latent heat
+        \memo exchange with the zone environment.
+        \extensible:1 -- duplicate last field, remembering to remove ; from "inner" fields.
+        \min-fields 6
+  A1 ,  \field Name
+        \required-field
+        \type alpha
+  A2 ,  \field Availability Schedule Name
+        \note Availability schedule name for this system. Schedule value > 0 means the system is available.
+        \note If this field is blank, the system is always available.
+        \type object-list
+        \object-list ScheduleNames
+  A3  , \field Zone Name
+        \note This must be a controlled zone and appear in a ZoneHVAC:EquipmentConnections object.
+        \type object-list
+        \object-list ZoneNames
+  A4 ,  \field Air Inlet Node Name
+        \type node
+        \note Not used - reserved for future use
+        \note Name of the zone exhaust node (see Node) from which the refrigeration chiller
+        \note draws its indoor air.
+        \note This should be one of the zone exhaust nodes for the zone cooled by the chiller set.
+  A5 ,  \field Air Outlet Node Name
+        \type node
+        \note Not used - reserved for future use
+        \note The name of the node where the chiller coil sends its outlet air,
+        \note which must be one of the inlet air nodes for the zone which is being cooled.
+  A6 ;  \field Air Chiller  Name
+        \begin-extensible
+        \type alpha
+        \note This is the first chiller turned on to meet the zone load
+        \object-list RefrigerationAirChillerNames
+
+Matrix:TwoDimension,
+       \extensible:1
+       \memo matrix data in row-major order
+       \memo list each row keeping the columns in order
+       \memo number of values must equal N1 x N2
+  A1 , \field Name
+       \required-field
+       \type alpha
+       \reference DataMatrices
+  N1 , \field Number of Rows
+       \required-field
+       \type integer
+  N2 , \field Number of Columns
+       \required-field
+       \type integer
+  N3 ; \field Value
+       \begin-extensible
+       \type real
+
+\group Performance Tables
+
+Table:OneIndependentVariable,
+       \extensible:2 repeat last two fields
+       \min-fields 14
+       \memo Allows entry of tabular data pairs as alternate input
+       \memo for performance curve objects.
+       \memo Performance curve objects can be created using these inputs.
+       \memo Linear Table Equation: Output = a + bX
+       \memo Linear solution requires a minimum of 2 data pairs
+       \memo Quadratic Table Equation: Output = a + b*X + c*X**2
+       \memo Quadratic solution requires a minimum of 3 data pairs
+       \memo Cubic Table Equation: Output = a + b*X + c* X**2 + d*X**3
+       \memo Cubic solution requires a minimum of 4 data pairs
+       \memo Quartic Table Equation: Output = a + b*X + c* X**2 + d*X**3 + e*X**4
+       \memo Quartic solution requires a minimum of 5 data pairs
+       \memo Exponent Table Equation: Output = a + b*X**c
+       \memo Exponent solution requires a minimum of 4 data pairs
+  A1 , \field Name
+       \required-field
+       \type alpha
+       \reference AllCurves
+  A2 , \field Curve Type
+       \required-field
+       \type choice
+       \key Linear
+       \key Quadratic
+       \key Cubic
+       \key Quartic
+       \key Exponent
+  A3 , \field Interpolation Method
+       \type choice
+       \key LinearInterpolationOfTable
+       \key EvaluateCurveToLimits
+       \key LagrangeInterpolationLinearExtrapolation
+  N1 , \field Minimum Value of X
+       \type real
+       \unitsBasedOnField A4
+       \note used only when Interpolation Type is Evaluate Curve
+       \note to Limits
+  N2 , \field Maximum Value of X
+       \type real
+       \unitsBasedOnField A4
+       \note used only when Interpolation Type is Evaluate Curve
+       \note to Limits
+  N3 , \field Minimum Table Output
+       \type real
+       \note Specify the minimum value calculated by this table
+       \note lookup object
+       \unitsBasedOnField A5
+       \note used only when Interpolation Type is Evaluate Curve
+       \note to Limits
+  N4 , \field Maximum Table Output
+       \type real
+       \note Specify the maximum value calculated by this table
+       \note lookup object
+       \unitsBasedOnField A5
+       \note used only when Interpolation Type is Evaluate Curve
+       \note to Limits
+  A4,  \field Input Unit Type for X
+       \type choice
+       \key Dimensionless
+       \key Temperature
+       \key VolumetricFlow
+       \key MassFlow
+       \key Power
+       \key Distance
+       \default Dimensionless
+  A5,  \field Output Unit Type
+       \type choice
+       \key Dimensionless
+       \key Capacity
+       \key Power
+       \default Dimensionless
+  N5 , \field Normalization Reference
+       \type real
+       \note This field is used to normalize the following ouput data.
+       \note The minimum and maximum table output fields are also normalized.
+       \note If this field is blank or 1, the table data presented
+       \note in the following fields will be used with normalization
+       \note reference set to 1.
+  N6 , \field X Value
+       \type real
+       \begin-extensible
+  N7 ; \field Output Value
+       \type real
+
+Table:TwoIndependentVariables,
+       \extensible:3 repeat last three fields
+       \min-fields 22
+       \memo Allows entry of tabular data pairs as alternate input
+       \memo for performance curve objects.
+       \memo Performance curve objects can be created using these inputs.
+       \memo BiQuadratic Table Equation: Output = a + bX + cX**2 + dY + eY**2 + fXY
+       \memo BiQuadratic solution requires a minimum of 6 data pairs
+       \memo QuadraticLinear Table Equation: Output = a + bX + cX**2 + dY + eXY + fX**2Y
+       \memo QuadraticLinear solution requires a minimum of 6 data pairs
+  A1 , \field Name
+       \required-field
+       \type alpha
+       \reference AllCurves
+  A2 , \field Curve Type
+       \required-field
+       \type choice
+       \key BiQuadratic
+       \key QuadraticLinear
+  A3 , \field Interpolation Method
+       \type choice
+       \key LinearInterpolationOfTable
+       \key EvaluateCurveToLimits
+       \key LagrangeInterpolationLinearExtrapolation
+       \default LagrangeInterpolationLinearExtrapolation
+  N1 , \field Minimum Value of X
+       \type real
+       \unitsBasedOnField A4
+  N2 , \field Maximum Value of X
+       \type real
+       \unitsBasedOnField A4
+  N3 , \field Minimum Value of Y
+       \type real
+       \unitsBasedOnField A5
+  N4 , \field Maximum Value of Y
+       \type real
+       \unitsBasedOnField A5
+  N5 , \field Minimum Table Output
+       \type real
+       \note Specify the minimum value calculated by this table lookup object
+       \unitsBasedOnField A6
+  N6 , \field Maximum Table Output
+       \type real
+       \note Specify the maximum value calculated by this table lookup object
+       \unitsBasedOnField A6
+  A4,  \field Input Unit Type for X
+       \type choice
+       \key Dimensionless
+       \key Temperature
+       \key VolumetricFlow
+       \key MassFlow
+       \key Power
+       \key Distance
+       \default Dimensionless
+  A5,  \field Input Unit Type for Y
+       \type choice
+       \key Dimensionless
+       \key Temperature
+       \key VolumetricFlow
+       \key MassFlow
+       \key Power
+       \key Distance
+       \default Dimensionless
+  A6,  \field Output Unit Type
+       \type choice
+       \key Dimensionless
+       \key Capacity
+       \key Power
+       \default Dimensionless
+  N7 , \field Normalization Reference
+       \type real
+       \note This field is used to normalize the following output data.
+       \note The minimum and maximum table output fields are also normalized.
+       \note If this field is blank or 1, the table data presented below will be used.
+  N8 , \field X Value
+       \required-field
+       \type real
+       \begin-extensible
+  N9 , \field Y Value
+       \required-field
+       \type real
+  N10; \field Output Value
+       \required-field
+       \type real
+       
+Table:MultiVariableLookup,
+       \memo The multi-variable lookup table can represent from 1 to 5 independent variables and
+       \memo can interpolate these independent variables up to a 4th order polynomial. The
+       \memo polynomial order is assumed to be the number of interpolation points (n) minus 1.
+       \memo When any independent variable value is outside the table limits, linear extrapolation
+       \memo is used to predict the table result and is based on the two nearest data points in the
+       \memo table for that particularindependent variable.
+       \extensible:20 repeat last twenty fields remembering to move the semi-colon to the last value
+       \min-fields 27
+  A1 , \field Name
+       \required-field
+       \type alpha
+  A2 , \field Interpolation Method
+       \type choice
+       \key LinearInterpolationOfTable
+       \key EvaluateCurveToLimits
+       \key LagrangeInterpolationLinearExtrapolation
+       \default LagrangeInterpolationLinearExtrapolation
+  N1 , \field Number of Interpolation Points
+       \type integer
+       \minimum> 1
+       \maximum 4
+       \default 3
+  A3 , \field Curve Type
+       \type choice
+       \key Linear
+       \key Quadratic
+       \key Cubic
+       \key Quartic
+       \key Exponent
+       \key BiQuadratic
+       \key QuadraticLinear
+       \key BiCubic
+       \key TriQuadratic
+       \key Other
+       \note The curve types BiCubic and TriQuadratic may not
+       \note be used with Interpolation Method = EvaluateCurveToLimits
+  A4 , \field Table Data Format
+       \type choice
+       \key SingleLineIndependentVariableWithMatrix
+       \default SingleLineIndependentVariableWithMatrix
+  A5 , \field External File Name
+       \type alpha
+       \retaincase
+  A6 , \field X1 Sort Order
+       \type choice
+       \key Ascending
+       \key Descending
+       \default Ascending
+  A7 , \field X2 Sort Order
+       \type choice
+       \key Ascending
+       \key Descending
+       \default Ascending
+  N2 , \field Normalization Reference
+       \type real
+       \note This field is used to normalize the table output data.
+       \note The minimum and maximum table output fields are also normalized.
+       \note If this field is blank or 1, the table data will be directly used.
+       \note This field is not allowed to be set equal to 0.
+  N3 , \field Minimum Value of X1
+       \type real
+       \unitsBasedOnField A8
+  N4 , \field Maximum Value of X1
+       \type real
+       \unitsBasedOnField A8
+  N5 , \field Minimum Value of X2
+       \type real
+       \unitsBasedOnField A9
+  N6 , \field Maximum Value of X2
+       \type real
+       \unitsBasedOnField A9
+  N7 , \field Minimum Value of X3
+       \type real
+       \unitsBasedOnField A10
+  N8 , \field Maximum Value of X3
+       \type real
+       \unitsBasedOnField A10
+  N9 , \field Minimum Value of X4
+       \type real
+       \unitsBasedOnField A11
+  N10, \field Maximum Value of X4
+       \type real
+       \unitsBasedOnField A11
+  N11, \field Minimum Value of X5
+       \type real
+       \unitsBasedOnField A12
+  N12, \field Maximum Value of X5
+       \type real
+       \unitsBasedOnField A12
+  N13, \field Minimum Table Output
+       \type real
+       \note Specify the minimum value calculated by this curve object
+       \unitsBasedOnField A13
+  N14, \field Maximum Table Output
+       \type real
+       \note Specify the maximum value calculated by this curve object
+       \unitsBasedOnField A13
+  A8 , \field Input Unit Type for X1
+       \type choice
+       \key Dimensionless
+       \key Temperature
+       \key VolumetricFlow
+       \key MassFlow
+       \key Power
+       \key Distance
+       \default Dimensionless
+  A9 , \field Input Unit Type for X2
+       \type choice
+       \key Dimensionless
+       \key Temperature
+       \key VolumetricFlow
+       \key MassFlow
+       \key Power
+       \key Distance
+       \default Dimensionless
+  A10, \field Input Unit Type for X3
+       \type choice
+       \key Dimensionless
+       \key Temperature
+       \key VolumetricFlow
+       \key MassFlow
+       \key Power
+       \key Distance
+       \default Dimensionless
+  A11, \field Input Unit Type for X4
+       \type choice
+       \key Dimensionless
+       \key Temperature
+       \key VolumetricFlow
+       \key MassFlow
+       \key Power
+       \key Distance
+       \default Dimensionless
+  A12, \field Input Unit Type for X5
+       \type choice
+       \key Dimensionless
+       \key Temperature
+       \key VolumetricFlow
+       \key MassFlow
+       \key Power
+       \key Distance
+       \default Dimensionless
+  A13, \field Output Unit Type
+       \type choice
+       \key Dimensionless
+       \key Capacity
+       \key Power
+       \default Dimensionless
+  N15, \field Number of Independent Variables
+       \type integer
+       \minimum> 0
+       \maximum 5
+  N16, \field Number of Values for Independent Variable X1
+       \type integer
+  N17, \field Field 1 Determined by the Number of Independent Variables
+       \type real
+  N18, \field Field 2 Determined by the Number of Independent Variables
+  N19, \field Field 3 Determined by the Number of Independent Variables
+       \begin-extensible
+  N20, \field V1
+  N21, \field V2
+  N22, \field V3
+  N23, \field V4
+  N24, \field V5
+  N25, \field V6
+  N26, \field V7
+  N27, \field V8
+  N28, \field V9
+  N29, \field V10
+  N30, \field V11
+  N31, \field V12
+  N32, \field V13
+  N33, \field V14
+  N34, \field V15
+  N35, \field V16
+  N36, \field V17
+  N37, \field V18
+  N38, \field V19
+  N39; \field V20
+
+\group Node-Branch Management
+
+Connector:Splitter,
+  	   \min-fields 3
+       \extensible:1 Just duplicate last field and comments (changing numbering, please)
+       \memo Split one air/water stream into N outlet streams.  Branch names cannot be duplicated
+       \memo within a single Splitter list.
+   A1, \field Name
+        \required-field
+   A2, \field Inlet Branch Name
+        \required-field
+        \type object-list
+        \object-list Branches
+   A3; \field Outlet Branch Name
+        \begin-extensible
+        \type object-list
+        \object-list Branches
+
+  
+  
